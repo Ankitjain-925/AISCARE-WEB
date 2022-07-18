@@ -1,0 +1,98 @@
+.doctor_pic{
+    height: 22px;
+    width: 22px;
+    border-radius: 50px;
+    margin-right: 12px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+
+@font-face {
+    font-family: 'mulibold';
+    src: url('../../assets/fonts/muli-bold-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextrabold';
+    src: url('../../assets/fonts/muli-extrabold-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-extrabold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextralight';
+    src: url('../../assets/fonts/muli-extralight-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-extralight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulilight';
+    src: url('../../assets/fonts/muli-light-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Muli';
+    src: url('../../assets/fonts/muli-regular-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulisemibold';
+    src: url('../../assets/fonts/muli-semibold-webfont.woff2') format('woff2'),
+         url('../../assets/fonts/muli-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{ margin: 0; padding: 0; font-family: Muli; color: #000808; font-weight:400; }
+h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: inherit; }
+.mt-10{ margin-top: 10px !important; }
+.mt-20{ margin-top: 20px !important; }
+.mt-30{ margin-top: 30px !important; }
+.mt-40{ margin-top: 40px !important; }
+.mt-50{ margin-top: 50px !important; }
+.mt-100{ margin-top: 100px !important; }
+.pt-40{ padding-top: 40px !important; }
+.mb-20{ margin-bottom: 20px !important; }
+.mb-40{ margin-bottom: 40px !important; }
+.height-100{ height: 100px !important; }
+.height-200{ height: 200px !important; }
+.clear{ clear: both }
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    background: #7A7A7A;
+}
+::-webkit-scrollbar-thumb{
+    background: #00ABAF;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #BFEAEB;
+}
+@media (min-width: 641px){
+     a.academy_ul{
+       text-align: left !important;
+     }
+   }
+@media screen and (min-width: 641px) and (max-width: 768px){
+    .archvOpinionIner td.pivoted{
+       font-size: 11px !important;
+     }
+  }
+.archvOpinionIner tbody tr {
+    border-bottom: 1px solid #F2F2F2;
+}
+@media (max-width: 640px){ 
+    .archvOpinionIner tbody tr {
+       border-bottom: 1px solid #252525 !important;
+       margin-bottom: 14px;
+    }
+}
