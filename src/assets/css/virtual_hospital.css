@@ -15478,3 +15478,13 @@ a.joinmeetingtab {
 .customservicetitle label{
   margin-top: 10px;
 }
+
+.darkTheme .cstmSelect2 div {
+  background-color: #192020 !important;
+  color: #bfc1c1;
+  box-shadow: initial !important;
+  outline: none !important;
+}
+.fixedEuroSec input{
+  border:1px solid red;
+}

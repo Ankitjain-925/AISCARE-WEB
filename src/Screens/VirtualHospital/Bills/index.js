@@ -187,10 +187,10 @@ class Index extends Component {
     });
   };
 
-  setStatusButton = (e) => {
-    e.stopPropagation();
-    this.setState({ setStatus: !this.state.setStatus });
-  };
+  // setStatusButton = (e) => {
+  //   e.stopPropagation();
+  //   this.setState({ setStatus: !this.state.setStatus });
+  // };
 
   //for PopUp Opening and Closing
   handleOpenPopUp = () => {
@@ -1123,7 +1123,7 @@ class Index extends Component {
                                         </a>
                                       </ul>
 
-                                      {data?.status?.value != 'paid' && (
+                                      {/* {data?.status?.value != 'paid' && (
                                         <div className="setStatus">
                                           <a
                                             onClick={(e) => {
@@ -1193,7 +1193,7 @@ class Index extends Component {
                                             </Grid>
                                           )}
                                         </div>
-                                      )}
+                                      )} */}
                                       <a
                                         onClick={() => {
                                           this.removeBills(data._id);
