@@ -1880,7 +1880,8 @@
     "not_supported":"Pdf file not supported",
     "CreateCertificate":"Create a Sick Certificate",
     "Not_attended":"Not attended",
-    "Payment_pending":"Payment pending"
+    "Payment_pending":"Payment pending",
+    "assignService":"+ Assign Service"
 
   }
 }
