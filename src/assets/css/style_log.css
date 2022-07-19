@@ -290,10 +290,13 @@ img.passArow {
     padding: 7px 20px!important;
 }
 .dropdown-menu button {
-    color: #7f8383;
+    color: #7f8383 !important;
     font-weight: 500;
     font-size: 13px;
     outline: none!important;
+}
+.dropdown-menu button a{
+    color: #7f8383 !important;
 }
 .MuiGrid-root.changeLang {
     float: right;
