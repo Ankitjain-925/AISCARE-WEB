@@ -654,7 +654,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          <Grid item xs={12} md={3}>
+                          {/* <Grid item xs={12} md={3}>
                             <label>{Status}</label>
                             <Select
                               name="status"
@@ -671,7 +671,7 @@ class Index extends Component {
                               isSearchable={false}
                               styles={customStyles}
                             />
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
 

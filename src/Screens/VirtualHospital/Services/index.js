@@ -84,6 +84,7 @@ class Index extends Component {
     getAmount(this);
     this.getAssignService();
     this.getPatientData();
+    
 
   }
 
@@ -169,8 +170,8 @@ class Index extends Component {
   };
 
   EditAmount = () => {
-    if (this.state.sickamount1.amount >= 100 ||
-      this.state.sickamount1.amount <= 0) {
+    if (this.state.sickamount1.amount >= 21 ||
+      this.state.sickamount1.amount <= 9) {
 
     } else {
       let translate = getLanguage(this.props.stateLanguageType);
@@ -212,27 +213,14 @@ class Index extends Component {
     } else {
       state[name] = e;
     }
-
-    this.setState({ service: state });
+   this.setState({ service: state });
     console.log('servivc', state)
   };
-  patientField = (e, name) => {
-    const state = this.state.addinvoice;
-    if (name === 'patient') {
-      var checkCase = this.state.users.filter(
-        (item) => item.profile_id === e.profile_id
-      );
-      if (checkCase && checkCase.length > 0) {
-        state[name] = checkCase[0];
 
-        state['case_id'] = checkCase[0].case_id;
-        this.setState({ selectedPat: e });
-      }
-    } else {
-      state[name] = e;
-    }
-    this.setState({ addinvoice: state });
-  };
+  patientField = (e) => {
+    this.setState({ selectedPat: e });
+ };
+
 
   //get services list
   getAssignService = () => {
@@ -485,8 +473,8 @@ class Index extends Component {
                                       <Grid item xs={12} md={12}>
                                         <label>{Patient}</label>
                                         <Grid>
-                                          <Select
-                                            name="patient"
+                                       <Select
+                                         name="patient"
                                             options={this.state.users1}
                                             placeholder={Search_Select}
                                             onChange={(e) =>
@@ -659,8 +647,8 @@ class Index extends Component {
 
                             <Grid
                               className={
-                                this.state.sickamount1.amount >= 100 ||
-                                  this.state.sickamount1.amount <= 0
+                                this.state.sickamount1.amount >= 21 ||
+                                  this.state.sickamount1.amount <= 9
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
                               }
@@ -673,8 +661,8 @@ class Index extends Component {
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
-                                min="1"
-                                max="100"
+                                min="10"
+                                max="20"
                               />
                             </Grid>
 
