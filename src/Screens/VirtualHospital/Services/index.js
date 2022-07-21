@@ -37,11 +37,15 @@ import {
   searchFilter,
   getAmount,
   handleOpenAss,
-  handleCloseAss
+  handleCloseAss,
+  specialityID
 } from "./api";
 import { getLanguage } from "translations/index";
 import TextField from '@material-ui/core/TextField';
 import { getPatientData } from 'Screens/Components/CommonApi/index';
+import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data';
+import DateFormat from 'Screens/Components/DateFormat/index';
+import TimeFormat from 'Screens/Components/TimeFormat/index';
 
 const customStyles = {
   control: (base) => ({
@@ -75,6 +79,14 @@ class Index extends Component {
       serviceList1: [],
       users1: {},
       selectedPat: {},
+      professional_id_list1: [],
+      assignedTo: [],
+      specilaityList: [],
+      selectSpec2: '',
+      date_format: this.props.date_format,
+      time_format: this.props.time_format,
+      openDate: true,
+
     };
   }
 
@@ -84,7 +96,10 @@ class Index extends Component {
     getAmount(this);
     this.getAssignService();
     this.getPatientData();
-    
+    this.getProfessionalData();
+    this.specailityList();
+
+
 
   }
 
@@ -200,6 +215,11 @@ class Index extends Component {
     }
   };
 
+  specialityField = (e) => {
+    const state = this.state.service;
+    state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
+    this.setState({ service: state });
+  }
   onFieldChange1 = (e, name) => {
     const state = this.state.service;
     if (name === 'service') {
@@ -213,13 +233,60 @@ class Index extends Component {
     } else {
       state[name] = e;
     }
-   this.setState({ service: state });
-    console.log('servivc', state)
+    this.setState({ service: state });
+
+    // console.log('servivc', state)
+  };
+  updateEntry = (value, name) => {
+    var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
+    const state = this.state.service;
+    if (name === 'date' || name === 'time') {
+      due_on[name] = value;
+      state['due_on'] = due_on;
+    } else {
+      state[name] = value;
+    }
+    this.setState({ service: state });
+  };
+  openTaskTime = () => {
+    this.setState({ openDate: !this.state.openDate });
   };
 
   patientField = (e) => {
     this.setState({ selectedPat: e });
- };
+  };
+  assignedTo = (e) => {
+    this.setState({ assignedTo: e });
+  }
+  //to get the speciality list
+  specailityList = () => {
+    var spec =
+      this.props.speciality?.SPECIALITY &&
+      this.props?.speciality?.SPECIALITY.length > 0 &&
+      this.props?.speciality?.SPECIALITY.map((data) => {
+        return { label: data.specialty_name, value: data._id };
+      });
+    this.setState({ specilaityList: spec });
+  };
+
+  // Get the Professional data
+  getProfessionalData = async () => {
+    this.setState({ loaderImage: true });
+    var data = await getProfessionalData(
+      this.props?.House?.value,
+      this.props.stateLoginValueAim.token
+    );
+    if (data) {
+      this.setState({
+        loaderImage: false,
+        professionalArray: data.professionalArray,
+        professional_id_list: data.professionalList,
+        professional_id_list1: data.professionalList,
+      });
+    } else {
+      this.setState({ loaderImage: false });
+    }
+  };
 
 
   //get services list
@@ -250,24 +317,24 @@ class Index extends Component {
         });
       });
   };
- //Get patient list
- getPatientData = async () => {
-  this.setState({ loaderImage: true });
-  let response = await getPatientData(
-    this.props.stateLoginValueAim.token,
-    this.props?.House?.value,
-    'invoice'
-  );
-  if (response.isdata) {
-    this.setState({
-      users1: response.PatientList1,
-      users: response.patientArray,
-      loaderImage: false,
-    });
-  } else {
-    this.setState({ loaderImage: false });
-  }
-};
+  //Get patient list
+  getPatientData = async () => {
+    this.setState({ loaderImage: true });
+    let response = await getPatientData(
+      this.props.stateLoginValueAim.token,
+      this.props?.House?.value,
+      'invoice'
+    );
+    if (response.isdata) {
+      this.setState({
+        users1: response.PatientList1,
+        users: response.patientArray,
+        loaderImage: false,
+      });
+    } else {
+      this.setState({ loaderImage: false });
+    }
+  };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -295,8 +362,15 @@ class Index extends Component {
       Addservice,
       Customservicedescription,
       Customservicetitle,
-      Patient,
-      Search_Select
+      ForPatient,
+      Search_Select,
+      Entertitle,
+      Assignedtitle,
+      Assignedto,
+      FilterbySpeciality,
+      Dueon,
+      Addtime,
+      remove_time
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -373,12 +447,13 @@ class Index extends Component {
                                     this.props.settings.setting &&
                                     this.props.settings.setting.mode &&
                                     this.props.settings.setting.mode === "dark"
-                                    ? "darkTheme addSpeclContnt"
+                                    ? "darkTheme addSpeclContnt2"
                                     : "addServContnt"
                                 }
                               // className="addServContnt"
                               >
-                                <Grid className="addSpeclContntIner">
+                                <Grid className="addSpeclContntIner2">
+
                                   <Grid className="addSpeclLbl">
                                     <Grid className="addSpeclClose">
                                       <a onClick={() => handleCloseAss(this)}>
@@ -394,8 +469,20 @@ class Index extends Component {
                                     </Grid>
                                   </Grid>
 
+
                                   <Grid className="enterServMain">
                                     <Grid className="enterSpcl">
+                                      <Grid>
+                                        <VHfield
+                                          label={Assignedtitle}
+                                          name="title"
+                                          placeholder={Entertitle}
+                                          onChange={(e) =>
+                                            this.onFieldChange1(e.target.value, 'title')
+                                          }
+                                          value={this.state.service.title}
+                                        />
+                                      </Grid>
                                       <Grid>
                                         <label>{Addservice}</label>
                                         <Select
@@ -471,10 +558,10 @@ class Index extends Component {
                                         <p className="enterPricePart3">€</p>
                                       </Grid>
                                       <Grid item xs={12} md={12}>
-                                        <label>{Patient}</label>
+                                        <label>{ForPatient}</label>
                                         <Grid>
-                                       <Select
-                                         name="patient"
+                                          <Select
+                                            name="patient"
                                             options={this.state.users1}
                                             placeholder={Search_Select}
                                             onChange={(e) =>
@@ -487,6 +574,130 @@ class Index extends Component {
                                           />
                                         </Grid>
                                       </Grid>
+                                      <Grid item xs={12} md={12} className="customservicetitle">
+                                        <label>{Assignedto}</label>
+                                        <Grid>
+                                          <Select
+                                            name="professional"
+                                            onChange={(e) => this.assignedTo(e, 'professional')}
+                                            value={this.state.assignedTo}
+                                            options={this.state.professional_id_list1}
+                                            placeholder={Search_Select}
+                                            className="addStafSelect"
+                                            isMulti={true}
+                                            isSearchable={true}
+
+                                          />
+                                        </Grid>
+                                      </Grid>
+                                      <Grid className="enterSpcl">
+                                        <Grid className="customservicetitle">
+                                          <label>{speciality}</label>
+                                        </Grid>
+                                        <Grid className="sevicessection serviceallSec">
+                                          <Select
+                                            onChange={(e) => this.specialityField(e)}
+                                            options={this.state.AllSpeciality}
+                                            name="specialty_name"
+                                            isSearchable={true}
+                                            className="min_section minall_sec"
+                                            isMulti={true}
+                                            value={selectedID(
+                                              this.state.service.specialty_id,
+                                              this
+                                            )}
+                                          />
+                                        </Grid>
+                                      </Grid>
+                                      <Grid container direction="row" alignItems="center">
+                                        <Grid item xs={12} md={12} className="dueOn creatInfoIner">
+                                          <label>{Dueon}</label>
+                                          <Grid
+                                            container
+                                            direction="row"
+                                            alignItems="center"
+                                            className="timeTask"
+                                          >
+                                            <Grid item xs={8} md={8}>
+                                              {/* {this.state.openDate ? ( */}
+                                              <DateFormat
+                                                name="date"
+                                                value={
+                                                  this.state.service?.due_on?.date
+                                                    ? new Date(
+                                                      this.state.service?.due_on?.date
+                                                    )
+                                                    : new Date()
+                                                }
+                                                notFullBorder
+                                                date_format={this.state.date_format}
+                                                onChange={(e) =>
+                                                  this.updateEntry(e, 'date')
+                                                }
+
+                                              // disabled={
+                                              //   this.props.comesFrom === 'Professional'
+                                              //     ? true
+                                              //     : false
+                                              // }
+                                              />
+                                              {/* { console.log("date_format",this.state.date_format)} */}
+                                            </Grid>
+                                            <Grid
+                                              item
+                                              xs={4}
+                                              md={4}
+                                              className={
+                                                this.state.openDate
+                                                  ? 'addTimeTask'
+                                                  : 'addTimeTask1'
+                                              }
+                                            >
+                                              {this.state.openDate ? (
+                                                <Button
+                                                  onClick={() => {
+                                                    this.openTaskTime();
+                                                  }}
+                                                >
+                                                  {Addtime}
+                                                </Button>
+                                              ) : (
+                                                <>
+                                                  <TimeFormat
+                                                    className="timeFormatTask"
+                                                    name="time"
+                                                    value={
+                                                      this.state.service?.due_on?.time
+                                                        ? new Date(
+                                                          this.state.service?.due_on?.time
+                                                        )
+                                                        : new Date()
+                                                    }
+                                                    time_format={this.state.time_format}
+                                                    onChange={(e) =>
+                                                      this.updateEntry(e, 'time')
+                                                    }
+                                                  // disabled={
+                                                  //   this.props.comesFrom ===
+                                                  //     'Professional'
+                                                  //     ? true
+                                                  //     : false
+                                                  // }
+                                                  />
+                                                  <span
+                                                    className="addTimeTask1span"
+                                                    onClick={() => {
+                                                      this.setState({ openDate: true });
+                                                    }}
+                                                  >
+                                                    {remove_time}
+                                                  </span>
+                                                </>
+                                              )}
+                                            </Grid>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
                                     </Grid>
 
                                     <div className="err_message">
@@ -495,11 +706,12 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
-                                      <Button >
+                                      <Button>
                                         {save_and_close}
                                       </Button>
                                     </a>
                                   </Grid>
+
                                 </Grid>
                               </Grid>
                             </Modal>
