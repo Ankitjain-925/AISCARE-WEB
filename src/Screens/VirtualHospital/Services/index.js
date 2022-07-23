@@ -286,10 +286,7 @@ class Index extends Component {
       this.setState({ loaderImage: false });
     }
   };
-   this.setState({ service: state });
-    console.log('servivc', state)
-  };
-
+  
   patientField = (e) => {
     this.setState({ selectedPat: e });
  };
