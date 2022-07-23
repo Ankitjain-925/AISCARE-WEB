@@ -84,6 +84,12 @@ class Index extends Component {
   Spaces = () => {
     this.props.history.push('/virtualHospital/space');
   };
+
+  //For external Spaces
+  externalSpaces = () => {
+    this.props.history.push('/virtualHospital/external-space');
+  };
+
   //For Services
   Services = () => {
     this.props.history.push('/virtualHospital/services');
@@ -139,6 +145,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      external_space_management,
       my_profile,
       profile_setting,
       Language,
@@ -176,9 +183,9 @@ class Index extends Component {
                 >
                   <a onClick={this.PatientFlow}>
                     {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                       <img
                         src={require('assets/virtual_images/Patientbar2.png')}
                         alt=""
@@ -205,9 +212,9 @@ class Index extends Component {
                 >
                   <a onClick={this.Calendar}>
                     {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                       <img
                         src={require('assets/virtual_images/calenderIcon2.png')}
                         alt=""
@@ -234,9 +241,9 @@ class Index extends Component {
                 >
                   <a onClick={this.Tasks}>
                     {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                       <img
                         src={require('assets/virtual_images/rightIcon2.png')}
                         alt=""
@@ -263,9 +270,9 @@ class Index extends Component {
                 >
                   <a onClick={this.Spaces}>
                     {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                       <img
                         src={require('assets/virtual_images/PatientBed.png')}
                         alt=""
@@ -285,6 +292,35 @@ class Index extends Component {
                     <span>{SpaceManagement}</span>
                   </a>
                 </li>
+                <li
+                  className={
+                    this.props.currentPage === 'externalspace' ? 'menuActv' : ''
+                  }
+                >
+                  <a onClick={this.externalSpaces}>
+                    {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
+                      <img
+                        src={require('assets/virtual_images/PatientBed.png')}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          this.props.currentPage === 'externalspace'
+                            ? require('assets/virtual_images/PatientBed.png')
+                            : require('assets/virtual_images/bed.png')
+                        }
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>{external_space_management}</span>
+                  </a>
+                </li>
               </>
             )}
             <li
@@ -294,9 +330,9 @@ class Index extends Component {
             >
               <a onClick={this.MoveInstitute}>
                 {this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark' ? (
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === 'dark' ? (
                   <img
                     src={require('assets/virtual_images/hospitalIcon2.png')}
                     alt=""
@@ -325,9 +361,9 @@ class Index extends Component {
                 >
                   <a className="moreMenu">
                     {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                       <img
                         src={require('assets/images/nav-more-white.svg')}
                         alt=""
@@ -352,9 +388,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.Services}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -373,9 +409,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.Statistics}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -395,9 +431,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.Billing}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -417,9 +453,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.Invoice}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -439,9 +475,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.InvoicePattern}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -461,9 +497,9 @@ class Index extends Component {
                         <li>
                           <a onClick={this.Questionaires}>
                             {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                               <img
                                 src={require('assets/images/menudocs-white.jpg')}
                                 alt=""
@@ -502,9 +538,9 @@ class Index extends Component {
                     <li>
                       <a onClick={this.ProfileLink}>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                           <img
                             src={require('assets/images/menudocs-white.jpg')}
                             alt=""
@@ -527,9 +563,9 @@ class Index extends Component {
                         }}
                       >
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                           <img
                             src={require('assets/images/menudocs-white.jpg')}
                             alt=""
@@ -548,9 +584,9 @@ class Index extends Component {
                     <li>
                       <a>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                           <img
                             src={require('assets/images/menudocs-white.jpg')}
                             alt=""
@@ -578,9 +614,9 @@ class Index extends Component {
                     <li onClick={this.logOutClick}>
                       <a>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                           <img
                             src={require('assets/images/menudocs-white.jpg')}
                             alt=""

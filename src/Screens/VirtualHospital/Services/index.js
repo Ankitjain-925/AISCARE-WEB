@@ -96,10 +96,9 @@ class Index extends Component {
     getAmount(this);
     this.getAssignService();
     this.getPatientData();
+
     this.getProfessionalData();
     this.specailityList();
-
-
 
   }
 
@@ -287,6 +286,14 @@ class Index extends Component {
       this.setState({ loaderImage: false });
     }
   };
+   this.setState({ service: state });
+    console.log('servivc', state)
+  };
+
+  patientField = (e) => {
+    this.setState({ selectedPat: e });
+ };
+
 
 
   //get services list
@@ -560,8 +567,8 @@ class Index extends Component {
                                       <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
-                                          <Select
-                                            name="patient"
+                                       <Select
+                                         name="patient"
                                             options={this.state.users1}
                                             placeholder={Search_Select}
                                             onChange={(e) =>

@@ -2613,7 +2613,7 @@ a.lineSort {
 }
 .yearOpen a {
   color: #00abaf !important;
-  font-family: Muli;
+  font-family: Muli;                                                                                        
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0;
@@ -3997,7 +3997,7 @@ li.neuroRoomActv {
 .wardsGrupUpr {
   border-radius: 12px;
   background-color: #f2f2f2;
-  padding: 32px 32px;
+  /* padding: 32px 32px; */
 }
 .spcMgntRght {
   text-align: right;
@@ -15446,6 +15446,30 @@ a.joinmeetingtab {
    margin-bottom: 0px;
  }
 
+ .wardsGrupUpr1{
+  padding:0px 10px;
+ }
+
+ .dtlCountRm1{
+  font-weight: 600;
+ }
+
+ .darkTheme{
+  color:white
+ }
+
+ .MuiRadio-colorSecondary.Mui-checked.radioPat{
+  color: #00ABAF;
+  
+}
+
+.radioPat1 .label{
+  color: #404646;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: 600s
+}
+
  .openAssser{
   display:flex;
   align-items:center;
@@ -15517,5 +15541,4 @@ a.joinmeetingtab {
   .addSpeclContnt2 {
     width: 96% !important;
   }
- 
 }

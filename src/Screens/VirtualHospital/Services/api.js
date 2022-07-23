@@ -230,5 +230,6 @@ export const handleOpenAss = (current) => {
   };
   export const handleCloseAss = (current) => {
     current.setState({openAss: false, service:{},selectedPat:{},viewCutom:false,errorMsg:false});
+    current.setState({openAss: false, service:{},selectedPat:{}, viewCutom:false,errorMsg:false});
   };
 
