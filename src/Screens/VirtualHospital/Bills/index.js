@@ -229,9 +229,9 @@ class Index extends Component {
   };
 
   //Status list
-  onStatusChange = (e) => {
-    this.setState({ statusFilter: e });
-  };
+  // onStatusChange = (e) => {
+  //   this.setState({ statusFilter: e });
+  // };
 
   // Clear Filter
   clearFilter = () => {
@@ -709,10 +709,10 @@ class Index extends Component {
                         <Grid item xs={12} sm={7} md={7}>
                           <AppBar position="static" className="billTabs">
                             <Tabs value={value} onChange={this.handleChangeTab}>
-                              <Tab label={All} className="billtabIner" />
+                              {/* <Tab label={All} className="billtabIner" />
                               <Tab label={Issued} className="billtabIner" />
                               <Tab label={Overdue} className="billtabIner" />
-                              <Tab label={Paid} className="billtabIner" />
+                              <Tab label={Paid} className="billtabIner" /> */}
                             </Tabs>
                           </AppBar>
                         </Grid>
@@ -876,7 +876,7 @@ class Index extends Component {
                                           />
                                         </Grid>
                                       </Grid>
-                                      {value === 0 && (
+                                      {/* {value === 0 && (
                                         <Grid className="fltrInput">
                                           <label>{Status}</label>
                                           <Grid className="addInput">
@@ -898,7 +898,7 @@ class Index extends Component {
                                             />
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      )} */}
                                     </Grid>
                                     <Grid className="aplyFltr">
                                       <Grid className="aplyLft">

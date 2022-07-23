@@ -15512,3 +15512,33 @@ a.joinmeetingtab {
 .fixedEuroSec input{
   border:1px solid red;
 }
+
+.addSpeclContntIner2 {
+  height: 537px;
+  overflow-y: scroll;
+  padding: 20px 0px;
+}
+
+.addSpeclContnt2 {
+  width: 580px;
+  background: #fff;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+  margin-top: 35px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-right: 3px;
+}
+
+.darkTheme .addSpeclContnt2 {
+  background: #404646;
+}
+@media (max-width: 599px) {
+  .addSpeclContnt2 {
+    width: 96% !important;
+  }
+}
