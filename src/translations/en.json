@@ -1881,7 +1881,7 @@
     "CreateCertificate":"Create a Sick Certificate",
     "Not_attended":"Not attended",
     "Payment_pending":"Payment pending",
-    "assignService":"+ Service"
-
+    "external_space_management":"External Space Management"
+    "assignService":"+ Assign Services"
   }
 }

@@ -1806,7 +1806,10 @@
    "Sick_Certificate_Amount":"Betrag der Krankenscheine",
    "Birthday": "Geburtstag",
    "Mobile_number": "Handynummer",
-   "Speciality_color":"Spezialität Farbe"
+   "Speciality_color":"Spezialität Farbe",
+
+   
+   "external_space_management":"Externe Speicherplatzverwaltung"
     
       }
 }
