@@ -81,6 +81,7 @@ import H_Staff from "Screens/hospital_Admin/h_staffs";
 import VHStatistics from "Screens/VirtualHospital/Statistics/index";
 import VHPatientFlow from "Screens/VirtualHospital/PatientFlow/index";
 import VHSpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js";
+import VHExterSpaceManagement from "Screens/VirtualHospital/ExternalSpaceManage/index.js";
 import VHSpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index";
 import VHBills from "Screens/VirtualHospital/Bills/index";
 import VHTasks from "Screens/VirtualHospital/Tasks/index";
@@ -160,7 +161,7 @@ class Routermain extends Component {
               path="/patient/documents"
               render={(props) => <PatientDocument {...props} />}
             />
-             <Route
+            <Route
               exact
               path="/patient/patient-journey"
               render={(props) => <Patientjourney {...props} />}
@@ -383,12 +384,12 @@ class Routermain extends Component {
               path="/doctor/journal"
               render={(props) => <DoctorJournal {...props} />}
             />
-             <Route
+            <Route
               exact
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-            
+
             {/* Doctor Router End*/}
             <Route
               exact
@@ -436,7 +437,7 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
-            
+
             <Route
               exact={true}
               path="/h-groups"
@@ -478,9 +479,9 @@ class Routermain extends Component {
               render={(props) => <VHInvoices {...props} />}
             />
             <Route
-              path="/virtualhospital/space"
+              path="/virtualhospital/external-space"
               exact={true}
-              render={(props) => <VHSpaceManagement {...props} />}
+              render={(props) => <VHExterSpaceManagement {...props} />}
             />
             <Route
               path="/virtualhospital/services"
@@ -509,6 +510,12 @@ class Routermain extends Component {
             />
 
             {/* Adding by Ankit */}
+
+            <Route
+              path="/virtualhospital/space"
+              exact={true}
+              render={(props) => <VHSpaceManagement {...props} />}
+            />
             <Route
               path="/virtualhospital/room-flow"
               exact={true}
@@ -529,13 +536,13 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <AddPatient {...props} />}
             />
-              {/* Add By tanya*/}
-              <Route
+            {/* Add By tanya*/}
+            <Route
               path="/virtualHospital/invoice_pattern"
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
             />
- 
+
             <Route
               path="/virtualHospital/print_approval"
               exact={true}
@@ -546,19 +553,19 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <UploadApproval {...props} />}
             />
-            
+
             <Route
               path="/doctor/institutes"
               exact={true}
               render={(props) => <DoctorInstitute {...props} />}
             />
 
-          <Route
+            <Route
               path="/nurse/institutes"
               exact={true}
               render={(props) => <NurseInstitute {...props} />}
             />
-               <Route
+            <Route
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
@@ -576,14 +583,14 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <AssignModelTask {...props} />}
             /> */}
-           <Route
+            <Route
               path="*"
               exact={true}
               render={(props) => <NotFound {...props} />}
             />
 
-             {/* End By Ankita */}
-             
+            {/* End By Ankita */}
+
           </Switch>
         </Grid>
       </Router>

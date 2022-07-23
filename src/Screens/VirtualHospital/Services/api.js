@@ -225,5 +225,15 @@ export const  getAmount = (current) => {
 
 
 
+<<<<<<< HEAD
 
+=======
+export const handleOpenAss = (current) => {
+   current.setState({ openAss: true });
+  };
+  export const handleCloseAss = (current) => {
+    current.setState({openAss: false, service:{},selectedPat:{},viewCutom:false,errorMsg:false});
+    current.setState({openAss: false, service:{},selectedPat:{}, viewCutom:false,errorMsg:false});
+  };
+>>>>>>> f49fa73fb79342192d8c9672b1b374b4cf1a1503
 

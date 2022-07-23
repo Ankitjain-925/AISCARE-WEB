@@ -236,8 +236,8 @@ class Index extends Component {
                   onClose={this.handleClosePopUp}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme paraBoxModel"
                       : "paraBoxModel"
                   }
@@ -263,7 +263,7 @@ class Index extends Component {
                           {currentList2 &&
                             currentList2.map((item) => (
                               <Grid container direction="row" justify="center">
-                                <Grid item xs={12}  md={12}>
+                                <Grid item xs={12} md={12}>
                                   <Grid
                                     container
                                     direction="row"
@@ -272,7 +272,7 @@ class Index extends Component {
                                     <Grid item xs={7} sm={8} md={8}>
                                       <Grid className="allCreInfSec">
                                         {this.state.showRename ===
-                                        item.value ? (
+                                          item.value ? (
                                           <div className="creatInfoIner creatInfoTwo">
                                             <input
                                               type="text"
@@ -296,7 +296,7 @@ class Index extends Component {
                                     <Grid item xs={5} sm={4} md={4}>
                                       <Grid className="allCreInfSec2">
                                         {this.state.showRename ===
-                                        item.value ? (
+                                          item.value ? (
                                           <Button
                                             onClick={() =>
                                               this.renamePopup2(item)
