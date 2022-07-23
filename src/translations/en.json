@@ -1882,8 +1882,8 @@
     "Not_attended":"Not attended",
     "Payment_pending":"Payment pending",
     "assignService":"+ Assign Service",
-    "Assignedtitle":"Assigned Title"
+    "Assignedtitle":"Assigned Title",
     "external_space_management":"External Space Management"
-    "assignService":"+ Assign Services"
+
   }
 }
