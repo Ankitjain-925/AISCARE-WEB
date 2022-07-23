@@ -222,3 +222,13 @@ export const  getAmount = (current) => {
       current.setState({ loaderImage: false });
     });
 };
+
+
+
+export const handleOpenAss = (current) => {
+   current.setState({ openAss: true });
+  };
+  export const handleCloseAss = (current) => {
+    current.setState({openAss: false, service:{},selectedPat:{}, viewCutom:false,errorMsg:false});
+  };
+

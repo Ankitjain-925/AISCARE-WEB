@@ -15469,3 +15469,46 @@ a.joinmeetingtab {
   font-size: 12px;
   font-weight: 600s
 }
+
+ .openAssser{
+  display:flex;
+  align-items:center;
+  justify-content: flex-end;
+ }
+
+ .openAssser button:first-child{
+  margin-right: 20px;
+ }
+ .cstmSelect2 {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.enterSpcl .cstmSelect2 div{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  min-height: initial !important;
+  border-radius: 4px; 
+}
+.customservicetitle label{
+  margin-top: 10px;
+}
+
+.darkTheme .cstmSelect2 div {
+  background-color: #192020 !important;
+  color: #bfc1c1;
+  box-shadow: initial !important;
+  outline: none !important;
+}
+.fixedEuroSec input{
+  border:1px solid red;
+}
