@@ -369,6 +369,7 @@ class Index extends Component {
       Room,
       personal_info,
       Appointments,
+      Task_services,
     } = translate;
     return (
       <Grid
@@ -455,7 +456,7 @@ class Index extends Component {
                       <AppBar position="static" className="tskTabs">
                         <Tabs value={value} onChange={this.handleChangeTab}>
                           <Tab label={journal} className="tsktabIner" />
-                          <Tab label={Tasks} className="tsktabIner" />
+                          <Tab label={Task_services} className="tsktabIner" />
                           <Tab label={DocumentsFiles} className="tsktabIner" />
                           <Tab label={personal_info} className="tsktabIner" />
                           <Tab label={Appointments} className="tsktabIner" />

@@ -1806,7 +1806,12 @@
    "Sick_Certificate_Amount":"Betrag der Krankenscheine",
    "Birthday": "Geburtstag",
    "Mobile_number": "Handynummer",
-   "Speciality_color":"Spezialität Farbe"
-    
+   "Speciality_color":"Spezialität Farbe",
+   "Assigned_services_overview":"Übersicht über zugewiesene Dienste",
+   "Show_archived_services":"Archivierte Dienste anzeigen",
+   "Create_assigned_services":"Erstellen Sie einen zugewiesenen Dienst",
+   "Services_assigned_title":"Zugewiesener Titel der Dienste",
+   "Save_services_close":"Dienste speichern & schließen",
+   "Task_services":"Aufgabe / Dienste"
       }
 }

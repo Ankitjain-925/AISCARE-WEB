@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux';
-import { LoginReducerAim } from 'Screens/Login/actions';
-import { Settings } from 'Screens/Login/setting';
-import { withRouter } from 'react-router-dom';
-import { LanguageFetchReducer } from 'Screens/actions';
-import LogOut from 'Screens/Components/LogOut/index';
-import Timer from 'Screens/Components/TimeLogOut/index';
-import { Fitbit } from 'Screens/Patient/Tracker/fitbit';
-import { Withings } from 'Screens/Patient/Tracker/withing.js';
-import { update_CometUser } from 'Screens/Components/CommonApi/index';
-import Mode from 'Screens/Components/ThemeMode/index.js';
-import SetLanguage from 'Screens/Components/SetLanguage/index.js';
-import { getLanguage } from 'translations/index';
-import { houseSelect } from 'Screens/VirtualHospital/Institutes/selecthouseaction';
-import { getSetting } from '../api';
-import { Speciality } from 'Screens/Login/speciality.js';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { withRouter } from "react-router-dom";
+import { LanguageFetchReducer } from "Screens/actions";
+import LogOut from "Screens/Components/LogOut/index";
+import Timer from "Screens/Components/TimeLogOut/index";
+import { Fitbit } from "Screens/Patient/Tracker/fitbit";
+import { Withings } from "Screens/Patient/Tracker/withing.js";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
+import Mode from "Screens/Components/ThemeMode/index.js";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
+import { getLanguage } from "translations/index";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { getSetting } from "../api";
+import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ class Index extends Component {
       loaderImage: false,
       openFancyLanguage: false,
       PassDone: false,
-      mode: 'normal',
+      mode: "normal",
     };
     new Timer(this.logOutClick.bind(this));
   }
@@ -60,10 +60,10 @@ class Index extends Component {
       { lastActiveAt: Date.now() }
     );
     if (data) {
-      let email = '';
-      let password = '';
+      let email = "";
+      let password = "";
       this.props.LoginReducerAim(email, password);
-      let languageType = 'en';
+      let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
       this.props.houseSelect({ value: null });
       this.props.Speciality(false);
@@ -77,63 +77,72 @@ class Index extends Component {
       });
       this.props.Withings([]);
     }
-    this.props.history.push('/');
+    this.props.history.push("/");
+  };
+
+  //For ExternalSpace
+  ExternalSpaces = () => {
+    this.props.history.push("/virtualHospital/externalspace");
   };
 
   //For Spaces
   Spaces = () => {
-    this.props.history.push('/virtualHospital/space');
+    this.props.history.push("/virtualHospital/space");
   };
   //For Services
   Services = () => {
-    this.props.history.push('/virtualHospital/services');
+    this.props.history.push("/virtualHospital/services");
   };
   //For Tasks
   Tasks = () => {
-    this.props.history.push('/virtualHospital/tasks');
+    this.props.history.push("/virtualHospital/tasks");
+  };
+  //Assigned Services
+  AssignedServices = () => {
+    this.props.history.push("/virtualHospital/assignedservices");
   };
   //For calendar
   Calendar = () => {
-    this.props.history.push('/virtualHospital/calendar');
+    this.props.history.push("/virtualHospital/calendar");
   };
 
   //For calendar
   ProfileLink = () => {
-    this.props.history.push('/virtualHospital/profile');
+    this.props.history.push("/virtualHospital/profile");
   };
 
   //For change Institutes
   MoveInstitute = () => {
     this.props.houseSelect({ value: null });
-    this.props.history.push('/virtualHospital/institutes');
+    this.props.history.push("/virtualHospital/institutes");
   };
 
   PatientFlow = () => {
-    this.props.history.push('/virtualHospital/patient-flow');
+    this.props.history.push("/virtualHospital/patient-flow");
   };
 
   Statistics = () => {
-    this.props.history.push('/virtualHospital/statistics');
+    this.props.history.push("/virtualHospital/statistics");
   };
 
   Billing = () => {
-    this.props.history.push('/virtualHospital/bills');
+    this.props.history.push("/virtualHospital/bills");
   };
 
   Invoice = () => {
-    this.props.history.push('/virtualHospital/invoices');
+    this.props.history.push("/virtualHospital/invoices");
   };
 
   InvoicePattern = () => {
-    this.props.history.push('/virtualHospital/invoice_pattern');
+    this.props.history.push("/virtualHospital/invoice_pattern");
   };
 
   PatientDetail = () => {
-    this.props.history.push('/virtualHospital/patient-detail');
+    this.props.history.push("/virtualHospital/patient-detail");
   };
 
   Questionaires = () => {
-    this.props.history.push('/virtualHospital/questionnaire');
+    this.props.history.push("/virtualHospital/questionnaire");
   };
 
   render() {
@@ -162,7 +171,7 @@ class Index extends Component {
         <Grid className="webLogo">
           {/* {this.state.loaderImage && <Loader />} */}
           <a>
-            <img src={require('assets/images/LogoPNG.png')} alt="" title="" />
+            <img src={require("assets/images/LogoPNG.png")} alt="" title="" />
           </a>
         </Grid>
         <Grid className="menuItems">
@@ -171,25 +180,25 @@ class Index extends Component {
               <>
                 <li
                   className={
-                    this.props.currentPage === 'flow' ? 'menuActv' : ''
+                    this.props.currentPage === "flow" ? "menuActv" : ""
                   }
                 >
                   <a onClick={this.PatientFlow}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/virtual_images/Patientbar2.png')}
+                        src={require("assets/virtual_images/Patientbar2.png")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'flow'
-                            ? require('assets/virtual_images/Patientbar2.png')
-                            : require('assets/virtual_images/barMenu.png')
+                          this.props.currentPage === "flow"
+                            ? require("assets/virtual_images/Patientbar2.png")
+                            : require("assets/virtual_images/barMenu.png")
                         }
                         alt=""
                         title=""
@@ -200,25 +209,25 @@ class Index extends Component {
                 </li>
                 <li
                   className={
-                    this.props.currentPage === 'calendar' ? 'menuActv' : ''
+                    this.props.currentPage === "calendar" ? "menuActv" : ""
                   }
                 >
                   <a onClick={this.Calendar}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/virtual_images/calenderIcon2.png')}
+                        src={require("assets/virtual_images/calenderIcon2.png")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'calendar'
-                            ? require('assets/virtual_images/calenderIcon2.png')
-                            : require('assets/virtual_images/calender.png')
+                          this.props.currentPage === "calendar"
+                            ? require("assets/virtual_images/calenderIcon2.png")
+                            : require("assets/virtual_images/calender.png")
                         }
                         alt=""
                         title=""
@@ -229,25 +238,25 @@ class Index extends Component {
                 </li>
                 <li
                   className={
-                    this.props.currentPage === 'task' ? 'menuActv' : ''
+                    this.props.currentPage === "task" ? "menuActv" : ""
                   }
                 >
                   <a onClick={this.Tasks}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/virtual_images/rightIcon2.png')}
+                        src={require("assets/virtual_images/rightIcon2.png")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'task'
-                            ? require('assets/virtual_images/rightIcon2.png')
-                            : require('assets/virtual_images/rightpng.png')
+                          this.props.currentPage === "task"
+                            ? require("assets/virtual_images/rightIcon2.png")
+                            : require("assets/virtual_images/rightpng.png")
                         }
                         alt=""
                         title=""
@@ -256,27 +265,60 @@ class Index extends Component {
                     <span>{Tasks}</span>
                   </a>
                 </li>
+
                 <li
                   className={
-                    this.props.currentPage === 'space' ? 'menuActv' : ''
+                    this.props.currentPage === "assignedservices"
+                      ? "menuActv"
+                      : ""
                   }
                 >
-                  <a onClick={this.Spaces}>
+                  <a onClick={this.AssignedServices}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/virtual_images/PatientBed.png')}
+                        src={require("assets/virtual_images/rightIcon2.png")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'space'
-                            ? require('assets/virtual_images/PatientBed.png')
-                            : require('assets/virtual_images/bed.png')
+                          this.props.currentPage === "assignedservices"
+                            ? require("assets/virtual_images/rightIcon2.png")
+                            : require("assets/virtual_images/rightpng.png")
+                        }
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>Assigned Services</span>
+                  </a>
+                </li>
+
+                <li
+                  className={
+                    this.props.currentPage === "space" ? "menuActv" : ""
+                  }
+                >
+                  <a onClick={this.Spaces}>
+                    {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                      <img
+                        src={require("assets/virtual_images/PatientBed.png")}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          this.props.currentPage === "space"
+                            ? require("assets/virtual_images/PatientBed.png")
+                            : require("assets/virtual_images/bed.png")
                         }
                         alt=""
                         title=""
@@ -289,25 +331,25 @@ class Index extends Component {
             )}
             <li
               className={
-                this.props.currentPage === 'institute' ? 'menuActv' : ''
+                this.props.currentPage === "institute" ? "menuActv" : ""
               }
             >
               <a onClick={this.MoveInstitute}>
                 {this.props.settings &&
                 this.props.settings.setting &&
                 this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark' ? (
+                this.props.settings.setting.mode === "dark" ? (
                   <img
-                    src={require('assets/virtual_images/hospitalIcon2.png')}
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
                     alt=""
                     title=""
                   />
                 ) : (
                   <img
                     src={
-                      this.props.currentPage === 'institute'
-                        ? require('assets/virtual_images/hospitalIcon2.png')
-                        : require('assets/virtual_images/hospitalIcon.png')
+                      this.props.currentPage === "institute"
+                        ? require("assets/virtual_images/hospitalIcon2.png")
+                        : require("assets/virtual_images/hospitalIcon.png")
                     }
                     alt=""
                     title=""
@@ -320,16 +362,16 @@ class Index extends Component {
               <>
                 <li
                   className={
-                    this.props.currentPage === 'more' ? 'menuActv' : ''
+                    this.props.currentPage === "more" ? "menuActv" : ""
                   }
                 >
                   <a className="moreMenu">
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/images/nav-more-white.svg')}
+                        src={require("assets/images/nav-more-white.svg")}
                         alt=""
                         title=""
                         className="manage-dark-back"
@@ -337,9 +379,9 @@ class Index extends Component {
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'more'
-                            ? require('assets/images/nav-more-white.svg')
-                            : require('assets/images/nav-more.svg')
+                          this.props.currentPage === "more"
+                            ? require("assets/images/nav-more-white.svg")
+                            : require("assets/images/nav-more.svg")
                         }
                         alt=""
                         title=""
@@ -354,15 +396,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -375,15 +417,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -397,15 +439,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -419,15 +461,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -441,15 +483,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -463,15 +505,15 @@ class Index extends Component {
                             {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                            this.props.settings.setting.mode === "dark" ? (
                               <img
-                                src={require('assets/images/menudocs-white.jpg')}
+                                src={require("assets/images/menudocs-white.jpg")}
                                 alt=""
                                 title=""
                               />
                             ) : (
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -487,11 +529,11 @@ class Index extends Component {
               </>
             )}
             <li
-              className={this.props.currentPage === 'profile' ? 'menuActv' : ''}
+              className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
               <a className="profilMenu">
                 <img
-                  src={require('assets/images/nav-my-profile.svg')}
+                  src={require("assets/images/nav-my-profile.svg")}
                   alt=""
                   title=""
                 />
@@ -504,15 +546,15 @@ class Index extends Component {
                         {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
-                            src={require('assets/images/menudocs-white.jpg')}
+                            src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require('assets/images/menudocs.jpg')}
+                            src={require("assets/images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -529,15 +571,15 @@ class Index extends Component {
                         {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
-                            src={require('assets/images/menudocs-white.jpg')}
+                            src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require('assets/virtual_images/menudocs.jpg')}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -550,25 +592,25 @@ class Index extends Component {
                         {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
-                            src={require('assets/images/menudocs-white.jpg')}
+                            src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require('assets/images/menudocs.jpg')}
+                            src={require("assets/images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
                         )}
-                        {DarkMode}{' '}
+                        {DarkMode}{" "}
                         <Mode
                           mode={
                             this.props.settings?.setting?.mode
                               ? this.props.settings?.setting?.mode
-                              : 'normal'
+                              : "normal"
                           }
                           name="mode"
                           getSetting={() => getSetting(this)}
@@ -580,15 +622,15 @@ class Index extends Component {
                         {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
-                            src={require('assets/images/menudocs-white.jpg')}
+                            src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require('assets/images/menudocs.jpg')}
+                            src={require("assets/images/menudocs.jpg")}
                             alt=""
                             title=""
                           />

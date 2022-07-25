@@ -48,6 +48,7 @@ import {
 import { OptionList } from 'Screens/Login/metadataaction';
 import PainPoint from 'Screens/Components/PointPain/index';
 import Certificate from './certificate';
+import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -1537,11 +1538,14 @@ class Index extends Component {
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
-          <Grid item xs={12} md={6}></Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}></Grid> */}
+          <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
-            <Grid className="addTaskBtn">
+            <Grid className="addTaskBtn addAssignBtn1">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
+              {this.props.comesFrom == 'detailTask' && (
+                <AssignedService />
+              )}
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}

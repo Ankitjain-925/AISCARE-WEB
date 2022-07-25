@@ -74,7 +74,7 @@ import H_archive from "Screens/hospital_Admin/hadmin_archivechoose";
 import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
-import H_Group from "Screens/hospital_Admin/h_add_group"
+import H_Group from "Screens/hospital_Admin/h_add_group";
 import H_Staff from "Screens/hospital_Admin/h_staffs";
 
 //virtualhospital
@@ -87,28 +87,27 @@ import VHTasks from "Screens/VirtualHospital/Tasks/index";
 import VHInvoices from "Screens/VirtualHospital/Invoices/index";
 import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
-import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow"
-import Questionnaire from "Screens/VirtualHospital/Questionnaire"
+import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow";
+import Questionnaire from "Screens/VirtualHospital/Questionnaire";
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
-import UploadApproval from "Screens/VirtualHospital/UploadApproval/index"
+import UploadApproval from "Screens/VirtualHospital/UploadApproval/index";
 // import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
-import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js"
-import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js"
+import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js";
+import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
-
-import ApproveHospital from "Screens/Components/ApprovalHospital/index"
+import ApproveHospital from "Screens/Components/ApprovalHospital/index";
+import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 
 class Routermain extends Component {
   render() {
     return (
       <Router basename={"/"}>
-
         <CallatAllPages />
 
         <Grid>
@@ -160,7 +159,7 @@ class Routermain extends Component {
               path="/patient/documents"
               render={(props) => <PatientDocument {...props} />}
             />
-             <Route
+            <Route
               exact
               path="/patient/patient-journey"
               render={(props) => <Patientjourney {...props} />}
@@ -383,12 +382,12 @@ class Routermain extends Component {
               path="/doctor/journal"
               render={(props) => <DoctorJournal {...props} />}
             />
-             <Route
+            <Route
               exact
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-            
+
             {/* Doctor Router End*/}
             <Route
               exact
@@ -436,7 +435,7 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
-            
+
             <Route
               exact={true}
               path="/h-groups"
@@ -444,7 +443,6 @@ class Routermain extends Component {
             />
 
             {/*   Virtualhospital page */}
-
 
             <Route
               path="/virtualhospital/statistics"
@@ -470,6 +468,12 @@ class Routermain extends Component {
               path="/virtualhospital/tasks"
               exact={true}
               render={(props) => <VHTasks {...props} />}
+            />
+
+            <Route
+              path="/virtualhospital/assignedservices"
+              exact={true}
+              render={(props) => <VHAssignedServices {...props} />}
             />
 
             <Route
@@ -529,13 +533,13 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <AddPatient {...props} />}
             />
-              {/* Add By tanya*/}
-              <Route
+            {/* Add By tanya*/}
+            <Route
               path="/virtualHospital/invoice_pattern"
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
             />
- 
+
             <Route
               path="/virtualHospital/print_approval"
               exact={true}
@@ -546,19 +550,19 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <UploadApproval {...props} />}
             />
-            
+
             <Route
               path="/doctor/institutes"
               exact={true}
               render={(props) => <DoctorInstitute {...props} />}
             />
 
-          <Route
+            <Route
               path="/nurse/institutes"
               exact={true}
               render={(props) => <NurseInstitute {...props} />}
             />
-               <Route
+            <Route
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
@@ -570,20 +574,18 @@ class Routermain extends Component {
               render={(props) => <ApproveHospital {...props} />}
             />
 
-
             {/* <Route
               path="/virtualhospital/assign"
               exact={true}
               render={(props) => <AssignModelTask {...props} />}
             /> */}
-           <Route
+            <Route
               path="*"
               exact={true}
               render={(props) => <NotFound {...props} />}
             />
 
-             {/* End By Ankita */}
-             
+            {/* End By Ankita */}
           </Switch>
         </Grid>
       </Router>

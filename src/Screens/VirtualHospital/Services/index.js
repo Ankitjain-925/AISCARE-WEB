@@ -20,6 +20,7 @@ import Loader from "Screens/Components/Loader/index";
 import sitedata from "sitedata";
 import axios from "axios";
 import { commonHeader } from "component/CommonHeader/index";
+import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
 import Select from "react-select";
 import {
   getSpecialty,
@@ -248,6 +249,8 @@ class Index extends Component {
                         {/* End of Back common button */}
                       </Grid>
                       <Grid item xs={6} md={6}>
+                      <Grid className="openAssser">
+                          <AssignedService/>
                         <Grid className="newServc">
                           <Button onClick={() => handleOpenServ(this)}>
                             {newService}
@@ -374,6 +377,7 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           </Modal>
+                        </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
