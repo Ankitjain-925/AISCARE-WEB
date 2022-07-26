@@ -1888,7 +1888,9 @@
     "Create_assigned_services":"Create a Assigned Services",
     "Services_assigned_title":"Services Assigned Title",
     "Save_services_close":"Save Services & Close",
-    "Task_services":"Task / services"
+    "Task_services":"Task / services",
+    "external_space_management":"External Space Management",
+   "Home_visit":"Home visit"
 
-  }
+
 }

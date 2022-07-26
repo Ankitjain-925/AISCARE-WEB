@@ -1626,7 +1626,7 @@ a.moreMenu {
     display: block;
 }
 .profilMenuList li a {
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -17503,4 +17503,10 @@ ul.duringCovid li:last-child {
    a.openScndhrf {
      text-align: left;
    }
+}
+a{
+    color: #000;
+}
+a:hover{
+    color: #000;
 }

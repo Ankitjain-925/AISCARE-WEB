@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -280,18 +281,24 @@ class Index extends Component {
                             >
                               <Grid className="addSpeclContntIner">
                                 <Grid className="addSpeclLbl">
-                                  <Grid className="addSpeclClose">
-                                    <a onClick={() => handleCloseServ(this)}>
-                                      <img
-                                        src={require("assets/images/close-search.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                    </a>
+                                <Grid container direction="row" justify="center">
+                                  <Grid item xs={8} md={8} lg={8}>
+                                      <label>{Addnewservice}</label>
                                   </Grid>
-                                  <Grid>
-                                    <label>{Addnewservice}</label>
+                                  <Grid item xs={4} md={4} lg={4}>
+                                      <Grid>
+                                      <Grid className="entryCloseBtn">
+                                      <a onClick={() => handleCloseAss(this)}>
+                                        <img
+                                          src={require("assets/images/close-search.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                      </a>
+                                      </Grid>
+                                      </Grid>
                                   </Grid>
+                              </Grid>
                                 </Grid>
 
                                 <Grid className="enterServMain">
