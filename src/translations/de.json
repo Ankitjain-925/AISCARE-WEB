@@ -1812,6 +1812,7 @@
    "Create_assigned_services":"Erstellen Sie einen zugewiesenen Dienst",
    "Services_assigned_title":"Zugewiesener Titel der Dienste",
    "Save_services_close":"Dienste speichern & schließen",
-   "Task_services":"Aufgabe / Dienste"
+   "Task_services":"Aufgabe / Dienste",
+   "external_space_management":"Externe Speicherplatzverwaltung"
       }
 }

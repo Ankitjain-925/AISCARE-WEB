@@ -79,6 +79,11 @@ class Index extends Component {
     this.props.history.push("/");
   };
 
+  //For external Spaces
+  externalSpaces = () => {
+    this.props.history.push('/virtualHospital/external-space');
+  };
+
   //For Spaces
   Spaces = () => {
     this.props.history.push("/virtualHospital/space");
@@ -139,6 +144,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      external_space_management,
       my_profile,
       profile_setting,
       Language,
@@ -333,6 +339,35 @@ class Index extends Component {
                           <span>{SpaceManagement}</span>
                         </a>
                       </li>
+                      <li
+                        className={
+                          this.props.currentPage === 'externalspace' ? 'menuActv' : ''
+                        }
+                      >
+                        <a onClick={this.externalSpaces}>
+                          {this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === 'dark' ? (
+                            <img
+                              src={require('assets/virtual_images/PatientBed.png')}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              src={
+                                this.props.currentPage === 'externalspace'
+                                  ? require('assets/virtual_images/PatientBed.png')
+                                  : require('assets/virtual_images/bed.png')
+                              }
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          <span>{external_space_management}</span>
+                        </a>
+                      </li>
                     </>
                   )}
                   <li
@@ -445,6 +480,7 @@ class Index extends Component {
                               <li>
                                 <a onClick={this.Billing}>
                                   {this.props.settings &&
+
                                   this.props.settings.setting &&
                                   this.props.settings.setting.mode &&
                                   this.props.settings.setting.mode ===
@@ -472,7 +508,7 @@ class Index extends Component {
                                   this.props.settings.setting.mode &&
                                   this.props.settings.setting.mode ===
                                     "dark" ? (
-                                    <img
+                                   <img
                                       src={require("assets/images/menudocs-white.jpg")}
                                       alt=""
                                       title=""

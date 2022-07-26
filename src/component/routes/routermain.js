@@ -81,6 +81,7 @@ import H_Staff from "Screens/hospital_Admin/h_staffs";
 import VHStatistics from "Screens/VirtualHospital/Statistics/index";
 import VHPatientFlow from "Screens/VirtualHospital/PatientFlow/index";
 import VHSpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js";
+import VHExterSpaceManagement from "Screens/VirtualHospital/ExternalSpaceManage/index.js";
 import VHSpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index";
 import VHBills from "Screens/VirtualHospital/Bills/index";
 import VHTasks from "Screens/VirtualHospital/Tasks/index";
@@ -482,9 +483,9 @@ class Routermain extends Component {
               render={(props) => <VHInvoices {...props} />}
             />
             <Route
-              path="/virtualhospital/space"
+              path="/virtualhospital/external-space"
               exact={true}
-              render={(props) => <VHSpaceManagement {...props} />}
+              render={(props) => <VHExterSpaceManagement {...props} />}
             />
             <Route
               path="/virtualhospital/services"
@@ -513,6 +514,12 @@ class Routermain extends Component {
             />
 
             {/* Adding by Ankit */}
+
+            <Route
+              path="/virtualhospital/space"
+              exact={true}
+              render={(props) => <VHSpaceManagement {...props} />}
+            />
             <Route
               path="/virtualhospital/room-flow"
               exact={true}

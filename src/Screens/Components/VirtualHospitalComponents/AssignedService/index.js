@@ -217,6 +217,7 @@ class Index extends Component {
             assignService,
             Addnewservice } = translate;
         return (
+
             <Grid className="newServc newServicAllSec">
                 <Button onClick={() => this.handleOpenAss()} >
                     {assignService}
