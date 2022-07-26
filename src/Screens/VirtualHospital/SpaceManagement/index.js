@@ -232,7 +232,7 @@ class Index extends Component {
                           <h1>{SpaceManagement}</h1>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12} sm={6} md={6} className="addFlowRght">
+                      <Grid item xs={12} sm={6} md={6} className="">
                         <a onClick={this.handleOpenSpecl}>{addNewSpeciality}</a>
                       </Grid>
                     </Grid>
@@ -315,7 +315,25 @@ class Index extends Component {
                     >
                       <Grid className="addWrnContnt">
                         <Grid className="addWrnIner">
-                          <Grid className="addWrnLbl">
+                        <Grid container direction="row" justify="center" className="addWrnLbl">
+                        <Grid item xs={8} md={8} lg={8}>
+                            <label>{DeleteSpeciality}</label>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                            <Grid>
+                            <Grid className="entryCloseBtn">
+                                <a onClick={() => handleCloseWarn(this)}>
+                                <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                />
+                                </a>
+                            </Grid>
+                            </Grid>
+                        </Grid>
+                        </Grid>
+                          {/* <Grid className="addWrnLbl">
                             <Grid className="addWrnClose">
                               <a onClick={() => handleCloseWarn(this)}>
                                 <img
@@ -332,7 +350,7 @@ class Index extends Component {
                                 {select_all_conditions_to_delete_speciality}
                               </div>
                             )}
-                          </Grid>
+                          </Grid> */}
                           <Grid className="enterWrnUpr">
                             <Grid className="enterWrnMain">
                               <Grid className="wrnUndr">
@@ -513,31 +531,37 @@ class Index extends Component {
           <Grid className="addSpeclContnt">
             <Grid className="addSpeclContntIner">
               <Grid className="addSpeclLbl">
-                <Grid className="addSpeclClose">
-                  <a onClick={this.handleCloseSpecl}>
-                    <img
-                      src={require('assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
+              <Grid container direction="row" justify="center">
+                <Grid item xs={8} md={8} lg={8}>
+                {this.state.speciality._id ? (
+                  <label>
+                    {edit}{' '}
+                    <span
+                      className="spacemanageDel"
+                      onClick={() =>
+                        handleOpenWarn(this.state.speciality._id, this)
+                      }
+                    >
+                      <span className="deleteimg"></span> {DeleteSpeciality}
+                    </span>
+                  </label>
+                ) : (
+                  <label>{AddSpeciality}</label>
+                )}
                 </Grid>
-                <Grid>
-                  {this.state.speciality._id ? (
-                    <label>
-                      {edit}{' '}
-                      <span
-                        className="spacemanageDel"
-                        onClick={() =>
-                          handleOpenWarn(this.state.speciality._id, this)
-                        }
-                      >
-                        <span className="deleteimg"></span> {DeleteSpeciality}
-                      </span>
-                    </label>
-                  ) : (
-                    <label>{AddSpeciality}</label>
-                  )}
+                <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                    <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseSpecl}>
+                        <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                        />
+                        </a>
+                    </Grid>
+                    </Grid>
+                </Grid>
                 </Grid>
               </Grid>
               {/* <Grid className="enterSpclUpr"> */}
