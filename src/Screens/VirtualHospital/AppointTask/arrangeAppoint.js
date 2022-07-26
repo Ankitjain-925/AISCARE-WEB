@@ -286,7 +286,7 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {} ,selectPatDoc:{}});
     this.props.handleCloseAllowAccess();
   };
 
@@ -704,7 +704,7 @@ class Index extends Component {
       find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access, FilterbySpeciality, plz_select_patient } =
+      allow_location_access, FilterbySpeciality, plz_select_patient,Home_visit } =
       translate;
 
     const { tabvalue, patNotSelected,
@@ -918,7 +918,8 @@ class Index extends Component {
                 style={{ textAlign: "center" }}
                 className="arng_addEntrynw">
                 <a onClick={this.handleAllowLoc}>
-                  {find_apointment}</a>
+                  {find_apointment}
+                  </a>
               </div>
             </div>
           </div>
@@ -1255,6 +1256,26 @@ class Index extends Component {
                                   doc.appointments[0].custom_text
                                   ? doc.appointments[0].custom_text
                                   : office_visit}
+                              </a>
+                              <a
+                                onClick={() =>
+                                  this.handleOpenFancyVdo(
+                                    i,
+                                    "appointments",
+                                    doc.appointments[0]
+                                  )
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/ShapeCopy2.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {doc.appointments &&
+                                  doc.appointments.length > 0 &&
+                                  doc.appointments[0].custom_text
+                                  ? doc.appointments[0].custom_text
+                                  : Home_visit}
                               </a>
                               {/* )}
                                     <a

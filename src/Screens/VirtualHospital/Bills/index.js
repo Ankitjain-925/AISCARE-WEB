@@ -829,7 +829,7 @@ class Index extends Component {
                               }
                             >
                               <Grid className="fltrClear">
-                                <Grid className="fltrClearIner">
+                                <Grid className="fltrClearIner2">
                                   <Grid className="fltrLbl">
                                     <Grid className="fltrLblClose">
                                       <a onClick={this.handleClosePopUp}>
