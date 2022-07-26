@@ -187,10 +187,10 @@ class Index extends Component {
     });
   };
 
-  // setStatusButton = (e) => {
-  //   e.stopPropagation();
-  //   this.setState({ setStatus: !this.state.setStatus });
-  // };
+  setStatusButton = (e) => {
+    e.stopPropagation();
+    this.setState({ setStatus: !this.state.setStatus });
+  };
 
   //for PopUp Opening and Closing
   handleOpenPopUp = () => {
@@ -707,14 +707,14 @@ class Index extends Component {
                     <Grid className="bilingTabUpr">
                       <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} sm={7} md={7}>
-                          <AppBar position="static" className="billTabs">
+                          {/* <AppBar position="static" className="billTabs">
                             <Tabs value={value} onChange={this.handleChangeTab}>
-                              {/* <Tab label={All} className="billtabIner" />
+                              <Tab label={All} className="billtabIner" />
                               <Tab label={Issued} className="billtabIner" />
                               <Tab label={Overdue} className="billtabIner" />
-                              <Tab label={Paid} className="billtabIner" /> */}
+                              <Tab label={Paid} className="billtabIner" />
                             </Tabs>
-                          </AppBar>
+                          </AppBar> */}
                         </Grid>
                         <Grid item xs={12} sm={5} md={5}>
                           <Grid className="billSeting">
@@ -755,7 +755,7 @@ class Index extends Component {
                               )}
                             </a>
 
-                            {value === 0 && (
+                            {/* {value === 0 && (
                               <a className={allBillsCSS}>
                                 <img
                                   src={
@@ -813,7 +813,7 @@ class Index extends Component {
                                   onClick={this.handleOpenPopUp}
                                 />{' '}
                               </a>
-                            )}
+                            )} */}
                             {/* <a className='filterApply' onClick={this.handleOpenPopUp}>
                                                             <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
                                                         </a> */}
@@ -831,7 +831,25 @@ class Index extends Component {
                               <Grid className="fltrClear">
                                 <Grid className="fltrClearIner2">
                                   <Grid className="fltrLbl">
-                                    <Grid className="fltrLblClose">
+                                  <Grid container direction="row" justify="center">
+                                        <Grid item xs={8} md={8} lg={8}>
+                                            <label>{filters}</label>
+                                        </Grid>
+                                        <Grid item xs={4} md={4} lg={4}>
+                                            <Grid>
+                                            <Grid className="entryCloseBtn">
+                                                <a onClick={this.handleClosePopUp}>
+                                                <img
+                                                    src={require("assets/images/close-search.svg")}
+                                                    alt=""
+                                                    title=""
+                                                />
+                                                </a>
+                                            </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                  <Grid className="fltrLblClose">
                                       <a onClick={this.handleClosePopUp}>
                                         <img
                                           src={require('assets/images/close-search.svg')}
@@ -1123,7 +1141,7 @@ class Index extends Component {
                                         </a>
                                       </ul>
 
-                                      {/* {data?.status?.value != 'paid' && (
+                                      {data?.status?.value != 'paid' && (
                                         <div className="setStatus">
                                           <a
                                             onClick={(e) => {
@@ -1193,7 +1211,7 @@ class Index extends Component {
                                             </Grid>
                                           )}
                                         </div>
-                                      )} */}
+                                      )}
                                       <a
                                         onClick={() => {
                                           this.removeBills(data._id);

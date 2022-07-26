@@ -17504,3 +17504,9 @@ ul.duringCovid li:last-child {
      text-align: left;
    }
 }
+a{
+    color: #000;
+}
+a:hover{
+    color: #000;
+}

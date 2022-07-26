@@ -2613,7 +2613,7 @@ a.lineSort {
 }
 .yearOpen a {
   color: #00abaf !important;
-  font-family: Muli;                                                                                        
+  font-family: Muli;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0;
@@ -3997,7 +3997,7 @@ li.neuroRoomActv {
 .wardsGrupUpr {
   border-radius: 12px;
   background-color: #f2f2f2;
-  /* padding: 32px 32px; */
+  padding: 32px 32px;
 }
 .spcMgntRght {
   text-align: right;
@@ -13137,7 +13137,7 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme a.academy_ul ul li a {
-  color: #c3c3c3;
+  color: #c3c3c3 !important;
 }
 .darkTheme .profilMenuList ul li:last-child {
   border-top: 1px solid #6f6f6f;
@@ -13168,10 +13168,10 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme .scndOptionIner ul li a {
-  color: #c3c3c3;
+  color: #c3c3c3 !important;
 }
 .darkTheme .scndOptionIner ul li a:hover {
-  background-color: #404646;
+  background-color: #404646 !important;
 }
 .darkTheme .presOpinionIner tbody tr {
   border-bottom: 1px solid #888888;
@@ -15120,9 +15120,8 @@ a.joinmeetingtab {
   font-family: Mulish, sans-serif;
   border-radius: 6px;
   border: 1px solid grey;
-  width:160px
+  width:100%;
 }
-
 .certificatePrice label {
   font-family: Mulish, sans-serif;
   color: #7f8383;
@@ -15170,7 +15169,7 @@ a.joinmeetingtab {
 .euroamount {
   position: absolute;
   top: 8px;
-  /* left: 307px; */
+  /* left: 186px; */
   color: grey;
   font-weight: 600;
   right: -10px;
@@ -15317,12 +15316,15 @@ a.joinmeetingtab {
   }
 }
 
-
 .allDrList3 {
   height: 680px;
   overflow-y: scroll;
   padding: 10px 0px;
 }
+
+
+
+
 
 
 .nwDiaCntnt2 {
@@ -15359,6 +15361,15 @@ a.joinmeetingtab {
   padding:8px 8px;
 }
 
+.allCertSec{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.certificatePrice label{
+  margin-bottom: 0px;
+}
+
 @media screen and (max-width:399px) {
   .euroamount {
     position: absolute;
@@ -15367,13 +15378,8 @@ a.joinmeetingtab {
   }
 }
 
-@media screen and (min-width:400px) and (max-width:430px){
-  .euroamount {
-    position: absolute;
-    top: 7px;
-    left: 315px;
-  }
-}
+
+
 
 .InfoOutLinees {
   color: red;
@@ -15446,79 +15452,38 @@ a.joinmeetingtab {
    margin-bottom: 0px;
  }
 
- .wardsGrupUpr1{
-  padding:0px 10px;
- }
-
- .dtlCountRm1{
-  font-weight: 600;
- }
-
- .darkTheme{
-  color:white
- }
-
- .MuiRadio-colorSecondary.Mui-checked.radioPat{
-  color: #00ABAF;
-  
+.addAssignedBtn button{
+  min-width: 215px;
 }
 
-.radioPat1 .label{
-  color: #404646;
-  font-family: Muli;
-  font-size: 12px;
-  font-weight: 600s
+.addAssignBtn1 button:last-child{
+  /* min-width: 215px; */
+  margin-left: 10px;
 }
-
- .openAssser{
-  display:flex;
-  align-items:center;
+.addAssignBtn1{
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
- }
-
- .openAssser button:first-child{
-  margin-right: 20px;
- }
- .cstmSelect2 {
-  width: 100%;
-  border-radius: 4px;
-  background-color: #ffffff;
-  font-family: Muli;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 15px;
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
-.enterSpcl .cstmSelect2 div{
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 0px;
+.newServicAllSec{
   margin-bottom: 0px;
-  min-height: initial !important;
-  border-radius: 4px; 
 }
+
+
 .customservicetitle label{
   margin-top: 10px;
 }
-
 .darkTheme .cstmSelect2 div {
   background-color: #192020 !important;
   color: #bfc1c1;
   box-shadow: initial !important;
   outline: none !important;
 }
-.fixedEuroSec input{
-  border:1px solid red;
-}
-
 .addSpeclContntIner2 {
   height: 537px;
   overflow-y: scroll;
   padding: 20px 0px;
 }
-
 .addSpeclContnt2 {
   width: 580px;
   background: #fff;
@@ -15533,13 +15498,31 @@ a.joinmeetingtab {
   padding-bottom: 7px;
   padding-right: 3px;
 }
-
 .darkTheme .addSpeclContnt2 {
   background: #404646;
 }
 @media (max-width: 599px) {
   .addSpeclContnt2 {
     width: 96% !important;
+  }
+}
+.openAssser{
+  display:flex;
+  /* align-items:center; */
+  justify-content: flex-end;
+ }
+
+ .openAssser button:first-child{
+  margin-right: 20px;
+ }
+
+ .fixedEuroSec input{
+  border:1px solid red;
+}
+
+@media screen and (min-width: 960px) and (max-width: 1012px){
+  .addFlowBtnSec a{
+    margin:5px 10px!important;
   }
  
 }

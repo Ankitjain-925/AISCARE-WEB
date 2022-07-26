@@ -30,8 +30,6 @@ import { subspeciality } from "subspeciality.js";
 import { Button } from "@material-ui/core";
 import { getProfessionalData } from '../PatientFlow/data'
 import { getSpec } from "Screens/Components/BasicMethod/index";
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -83,14 +81,13 @@ class Index extends Component {
       TasksCss: '',
       selectDocData: {},
       selectedPatient: {},
-      patNotSelected: false,
+      patNotSelected:false,
       doctorsData: [],
       plistfilter: false,
       dlistfilter: false,
       filterUser: [],
       filterDocs: [],
-      selectSpec3: '',
-      selectPatDoc: ''
+      selectSpec3: ''
     };
   }
 
@@ -102,25 +99,25 @@ class Index extends Component {
     this.onChange(new Date())
   }
 
-  getDoctorData = async () => {
-    const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token, 'appoint')
+  getDoctorData = async ()=> {
+   const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token, 'appoint')
     const doctorsData = [], doctorsData1 = [];
-    // eslint-disable-next-line no-unused-expressions
+     // eslint-disable-next-line no-unused-expressions
     professionals?.professionalArray?.length > 0 && professionals?.professionalArray.map(function (data) {
       if (data.type === 'doctor') {
         doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
         doctorsData1.push(data);
       }
     })
-    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData });
+    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData});
   }
   //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.openAllowAccess !== this.props.openAllowAccess) {
+componentDidUpdate = (prevProps) => {
+    if (prevProps.openAllowAccess !== this.props.openAllowAccess ) {
       this.getPatientData();
       this.setState({ selectDocData: {}, selectedPatient: {}, openAllowAccess: this.props.openAllowAccess });
     }
-  };
+};
 
   GetTime = (start_time) => {
     let da1 = new Date();
@@ -160,7 +157,7 @@ class Index extends Component {
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'arrangeappoint')
     if (response.isdata) {
 
-      this.setState({ users1: response.PatientList1, filterUser: response.PatientList1, users: response.patientArray }, () => {
+      this.setState({ users1: response.PatientList1, filterUser :response.PatientList1, users: response.patientArray }, () => {
         if (this.props?.match?.params?.id) {
           let user =
             this.state.users1.length > 0 &&
@@ -218,24 +215,24 @@ class Index extends Component {
     this.setState({ selectSpec3: e })
   }
 
-  UpdateDocList = () => {
-    if (this.state.selectSpec3?.value) {
-      var filterDocs = this.state.doctorsData1.map((item) => {
-        var exstingOrnot = item?.speciality.some((iy) => iy.value === this.state.selectSpec3.value)
-        if (exstingOrnot) {
+  UpdateDocList = ()=>{
+    if(this.state.selectSpec3?.value){
+      var filterDocs = this.state.doctorsData1.map((item) =>{ 
+        var exstingOrnot =item?.speciality.some((iy)=> iy.value === this.state.selectSpec3.value)
+        if(exstingOrnot){
           return item._id;
         }
       });
-      var doctorsData = this.state.doctorsData.filter((item) => filterDocs.includes(item.value))
-      this.setState({ filterDocs: doctorsData, dlistfilter: false })
+      var doctorsData = this.state.doctorsData.filter((item)=>filterDocs.includes(item.value)) 
+      this.setState({filterDocs: doctorsData, dlistfilter: false })
     }
-    else {
+    else{
       this.setState({ dlistfilter: false, filterDocs: this.state.doctorsData })
     }
   }
 
-  ClearDocList = () => {
-    this.setState({ selectSpec3: '', dlistfilter: false, filterDocs: this.state.doctorsData })
+  ClearDocList = ()=>{
+    this.setState({selectSpec3: '', dlistfilter: false, filterDocs: this.state.doctorsData})
   }
 
 
@@ -253,23 +250,23 @@ class Index extends Component {
     this.setState({ selectWard: e })
   }
 
-  UpdatePatientList = () => {
-    if (this.state.selectSpec2?.value && this.state.selectWard?.value) {
+  UpdatePatientList = ()=>{
+    if(this.state.selectSpec2?.value && this.state.selectWard?.value ){
       var filterUser1 = this.state.users.map((item) => {
-        if (item.speciality?._id === this.state.selectSpec2.value && item.wards?._id === this.state.selectWard.value) {
+        if(item.speciality?._id === this.state.selectSpec2.value && item.wards?._id === this.state.selectWard.value){
           return item.patient_id;
         }
-      }).filter((item) => item !== 'undefined')
+      }).filter((item)=> item !== 'undefined')
       var filterUser = this.state.users1.filter((item) => filterUser1.includes(item?.value))
-      this.setState({ filterUser: filterUser, plistfilter: false })
+      this.setState({filterUser: filterUser, plistfilter: false })
     }
-    else {
-      this.setState({ filterUser: this.state.users1, plistfilter: false })
+    else{
+      this.setState({filterUser: this.state.users1, plistfilter: false })
     }
   }
 
-  ClearPatientList = () => {
-    this.setState({ filterUser: this.state.users1, plistfilter: false, wardList: [], selectSpec2: '', selectWard: '' })
+  ClearPatientList = ()=>{
+    this.setState({filterUser: this.state.users1, plistfilter: false, wardList: [], selectSpec2: '', selectWard: ''})
   }
 
   //room cahnge
@@ -356,7 +353,7 @@ class Index extends Component {
       doc_select: i,
       appointType: type,
     });
-    setTimeout(() => this.onChange(new Date()), 200)
+    setTimeout(()=>this.onChange(new Date()), 200)
     // this.onChange()
   };
 
@@ -661,11 +658,6 @@ class Index extends Component {
     this.setState({ selectedPatient: e })
   }
 
-  //Set the Radio button value
-  handleChange(changeEvent) {
-    this.setState({ selectPatDoc: changeEvent.target.value });
-  }
-
   render() {
 
     let translate = getLanguage(this.props.stateLanguageType);
@@ -721,268 +713,116 @@ class Index extends Component {
       selectDocData, selectedPatient } = this.state;
 
     return (
-      <>
-        {this.state.loaderImage && <Loader />}
-        {/* Allow Location Access */}
-
-        <Modal
-          open={this.state.openAllowAccess}
-          onClose={this.handleCloseAllowAccess}
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
-              ? "darkTheme editBoxModel"
-              : "editBoxModel"
-          }
-        >
-          <div className="alowLocAces1">
-            <div className="alowLocAces1Inner">
-              <div className="accessCourse">
-                <div className="handleAccessBtn">
-                  <a onClick={this.handleCloseAllowAccess}>
-                    <img src={require("assets/images/close-search.svg")} alt="" title="" />
-                  </a>
-                </div>
-                <Grid container direction="row" spacing={2} className="srchAccessLoc">
-                  <Grid item xs={12} md={4} className="filterPatlist">
-
-                    {this.state.plistfilter && (
-                      <div className="filterPatlistInner">
-                        <Grid>
-                          <label>{speciality}</label>
-                          <Grid className="addInput">
-                            <Select
-                              onChange={(e) => this.onFieldChange2(e)}
-                              options={this.state.specilaityList}
-                              name="specialty_name"
-                              value={this.state.selectSpec2}
-                              placeholder={FilterbySpeciality}
-                              className="addStafSelect"
-                              isMulti={false}
-                              isSearchable={true} />
-                          </Grid>
-                        </Grid>
-                        {this.state.wardList && this.state.wardList.length > 0 &&
-                          <Grid>
-                            <label>{Ward}</label>
-                            <Grid className="addInput">
-                              <Select
-                                onChange={(e) => this.onWardChange(e)}
-                                options={this.state.wardList}
-                                name="ward_name"
-                                value={this.state.selectWard}
-                                placeholder={FilterbyWard}
-                                isMulti={false}
-                                className="addStafSelect"
-                                isSearchable={true} />
-                            </Grid>
-                          </Grid>
-                        }
-                        <Button onClick={this.UpdatePatientList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearPatientList}>{"Cancel"}</Button>
-                      </div>)}
-                    <label>{Patient}
-                      <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ plistfilter: true }) }} />
-                    </label>
-                    <Grid>
-                      <Select
-                        name="patient"
-                        options={this.state.filterUser}
-                        placeholder={Search_Select}
-                        onChange={(e) => this.selectPatient(e)}
-                        value={selectedPatient || ''}
-                        className="addStafSelect"
-                        isMulti={false}
-                        isSearchable={true} />
-
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} md={3} className="filterPatlist">
-                    <Grid className="radioPat1">
-                      <FormControlLabel
-                        value="yes"
-                        name="selectPatDoc"
-                        checked={this.state.selectPatDoc === 'yes'}
-                        onChange={(e) => this.handleChange(e)}
-                        control={
-                          <Radio className="radioPat" />
-                        }
-                        label="Doctor" />
-                      <FormControlLabel
-                        value="no"
-                        name="selectPatDoc"
-                        checked={this.state.selectPatDoc === 'no'}
-                        onChange={(e) => this.handleChange(e)}
-                        control={
-                          <Radio className="radioPat" />
-                        }
-                        label="Nurse" />
-                    </Grid>
-                    {this.state.dlistfilter && (
-                      <div className="filterPatlistInner">
-                        <Grid>
-                          <label>{speciality}</label>
-                          <Grid className="addInput">
-                            <Select
-                              onChange={(e) => this.onFieldChange3(e)}
-                              options={this.state.specialityData}
-                              name="specialty_name"
-                              value={this.state.selectSpec3}
-                              placeholder={FilterbySpeciality}
-                              className="addStafSelect"
-                              isMulti={false}
-                              isSearchable={true} />
-                          </Grid>
-                        </Grid>
-                        <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
-                      </div>)}
-
-
-                    {this.state.selectPatDoc === 'yes' && <>
-                      <label>{capab_Doctors}
-                        <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
-                      </label>
-                      <Grid>
-                        <Select
-                          value={selectDocData || ''}
-                          onChange={this.handleDocSelect}
-                          options={this.state.filterDocs}
-                          placeholder={`${select} ${capab_Doctors}`}
-                          className="sel_specialty"
-                        />
-                      </Grid>
-                    </>}
-                    {this.state.selectPatDoc === 'no' && <>
-                      <label>Nurse
-                        <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
-                      </label>
-                      <Grid>
-                        <Select
-                          value={selectDocData || ''}
-                          onChange={this.handleDocSelect}
-                          options={this.state.filterDocs}
-                          placeholder={`${select} ${capab_Doctors}`}
-                          className="sel_specialty"
-                        />
-                      </Grid>
-                    </>}
-                  </Grid>
-                  {/* <Grid item xs={12} md={3} className="apointType">
-                          <Grid>
-                            <label>
-                              {appointment} {type}
-                            </label>
-                          </Grid>
-                          <FormControlLabel
-                            control={
-                              this.state.video_call ? (
-                                <Checkbox
-                                  checked
-                                  onClick={this.apointmentType}
-                                  name="Video"
-                                />
-                              ) : (
-                                <Checkbox
-                                  onClick={this.apointmentType}
-                                  name="Video"
-                                />
-                              )
-                            }
-                            label={Video}
-                          />
-                          <FormControlLabel
-                            control={
-                              this.state.office_visit ? (
-                                <Checkbox
-                                  checked
-                                  name="Office"
-                                  onClick={this.apointmentType}
-                                />
-                              ) : (
-                                <Checkbox
-                                  name="Office"
-                                  onClick={this.apointmentType}
-                                />
-                              )
-                            }
-                            label={Office}
-                          />
-                        </Grid> */}
-                </Grid>
-              </div>
-
-
-              <div
-                style={{ textAlign: "center" }}
-                className="arng_addEntrynw">
-                <a onClick={this.handleAllowLoc}>
-                  {find_apointment}
-                  </a>
-              </div>
-            </div>
-          </div>
-        </Modal>
-        {/* End of Allow Location Access */}
-
-        {/* Allow Location Access */}
-        <Modal
-          open={this.state.openAllowLoc}
-          onClose={this.handleCloseAllowLoc}
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
-              ? "darkTheme editBoxModel"
-              : "editBoxModel"
-          }
-        >
-          <div className="alowLocAces1">
-            <div className="alowLocAces1Inner">
-              <div className="accessCourse">
-                <div className="handleAccessBtn">
-                  <a onClick={this.handleCloseAllowLoc}>
-                    <img
-                      src={require("assets/images/close-search.svg")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </div>
-                <Grid
-                  container
-                  direction="row"
-                  spacing={2}
-                  className="srchAccessLoc"
+        <>
+    {this.state.loaderImage && <Loader />}
+                {/* Allow Location Access */}
+             
+                <Modal
+                  open={this.state.openAllowAccess}
+                  onClose={this.handleCloseAllowAccess}
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "darkTheme editBoxModel"
+                      : "editBoxModel"
+                  }
                 >
-                  <Grid item xs={12} md={4}>
-                    <label>{Patient}</label>
-                    <Grid>
-                      <Select
-                        name="patient"
-                        options={this.state.users1}
-                        placeholder=""
-                        onChange={(e) => this.onFieldChange1(e, "patient")}
-                        value={selectedPatient || ''}
-                        className="addStafSelect"
-                        isMulti={false}
-                        isSearchable={true} />
-
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <Grid><label>{capab_Doctors}</label></Grid>
-                    <Select
-                      value={selectDocData || ''}
-                      onChange={this.handleDocSelect}
-                      options={doctorsData}
-                      placeholder={`${select} ${capab_Doctors}`}
-                      className="sel_specialty"
-                    />
-                  </Grid>
-
-                  {/* <Grid item xs={12} md={4} className="apointType">
+                  <div className="alowLocAces1">
+                  <div className="alowLocAces1Inner">
+                    <div className="accessCourse">
+                      <div className="handleAccessBtn">
+                        <a onClick={this.handleCloseAllowAccess}>
+                          <img src={require("assets/images/close-search.svg")} alt="" title="" />
+                        </a>
+                      </div>
+                      <Grid container direction="row" spacing={2}  className="srchAccessLoc">
+                        <Grid item xs={12} md={4}  className="filterPatlist">
+                        {this.state.plistfilter && (
+                          <div className="filterPatlistInner">
+                            <Grid>
+                                  <label>{speciality}</label>
+                                  <Grid className="addInput">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange2(e)}
+                                      options={this.state.specilaityList}
+                                      name="specialty_name"
+                                      value={this.state.selectSpec2}
+                                      placeholder={FilterbySpeciality}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                  </Grid>
+                            </Grid>
+                            {this.state.wardList && this.state.wardList.length > 0 &&
+                              <Grid>
+                                <label>{Ward}</label>
+                                <Grid className="addInput">
+                                  <Select
+                                    onChange={(e) => this.onWardChange(e)}
+                                    options={this.state.wardList}
+                                    name="ward_name"
+                                    value={this.state.selectWard}
+                                    placeholder={FilterbyWard}
+                                    isMulti={false}
+                                    className="addStafSelect"
+                                    isSearchable={true} />
+                                </Grid>
+                              </Grid>
+                            }
+                            <Button onClick={this.UpdatePatientList}>{"Ok"}</Button>
+                            <Button onClick={this.ClearPatientList}>{"Cancel"}</Button>
+                          </div>)}
+                          <label>{Patient}
+                              <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") :require("assets/virtual_images/sort.png")} alt="" title="" onClick={()=>{this.setState({plistfilter: true})}} />
+                          </label>
+                          <Grid>
+                            <Select
+                              name="patient"
+                              options={this.state.filterUser}
+                              placeholder={Search_Select}
+                              onChange={(e) => this.selectPatient(e)}
+                              value={selectedPatient || ''}
+                              className="addStafSelect"
+                              isMulti={false}
+                              isSearchable={true} />
+                              
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} md={3} className="filterPatlist">
+                        {this.state.dlistfilter && (
+                          <div className="filterPatlistInner">
+                            <Grid>
+                                  <label>{speciality}</label>
+                                  <Grid className="addInput">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange3(e)}
+                                      options={this.state.specialityData}
+                                      name="specialty_name"
+                                      value={this.state.selectSpec3}
+                                      placeholder={FilterbySpeciality}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                  </Grid>
+                            </Grid>
+                            <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
+                            <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
+                          </div>)}
+                          <label>{capab_Doctors}
+                          <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") :require("assets/virtual_images/sort.png")} alt="" title="" onClick={()=>{this.setState({dlistfilter: true})}} />
+                          </label>
+                          <Grid>
+                          <Select
+                            value={selectDocData || ''}
+                            onChange={this.handleDocSelect}
+                            options={this.state.filterDocs}
+                            placeholder={`${select} ${capab_Doctors}`}
+                            className="sel_specialty"
+                          />
+                          </Grid>
+                        </Grid>
+                        {/* <Grid item xs={12} md={3} className="apointType">
                           <Grid>
                             <label>
                               {appointment} {type}
@@ -1023,203 +863,315 @@ class Index extends Component {
                             label={Office}
                           />
                         </Grid> */}
-                </Grid>
-                <div className="showSpcial">
-                  <p>
-                    <img
-                      src={require("assets/images/location.png")}
-                      alt=""
-                      title=""
-                    />
-                    {we_r_showing_speciality} “
-                    {this.state.MycurrentLocationName}” in{" "}
-                    {this.state.searchDetails.radius
-                      ? this.state.searchDetails.radius
-                      : "10"}{" "}
-                    {km_range}
-                  </p>
-                </div>
-              </div>
-              <div
-                style={{ textAlign: "center" }}
-                className="arng_addEntrynw"
-              >
-                <a onClick={this.handleAllowLoc}>{find_apointment}</a>
-              </div>
-              {/* New Design */}
-              <div className="allowAvailList">
-                {allDocData &&
-                  allDocData.length > 0 &&
-                  allDocData.map((doc, i) => (
-                    <div key={i} className="allowAvailListIner">
-                      <Grid container direction="row" spacing={1}>
-                        <Grid item xs={12} md={3}>
-                          <Grid className="spclistDr">
-                            {doc.data.new_image ? (
-                              <img
-                                className="doctor_pic"
-                                src={doc.data.new_image}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                className="doctor_pic"
-                                src={require("assets/images/avatar.png")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            <a>
-                              {/* <img src={doc.data.image} alt="" title="" /> */}
-                              {doc.data &&
-                                doc.data.first_name &&
-                                doc.data.first_name}{" "}
-                              {doc.data &&
-                                doc.data.last_name &&
-                                doc.data.last_name}{" "}
-                              (
-                              {doc.data &&
-                                doc.data.title &&
-                                doc.data.title}
-                              )
-                            </a>
-                          </Grid>
-                          <Grid className="nuroDr">
-                            <label>
-                              {doc.data &&
-                                doc.data.speciality &&
-                                doc.data.speciality.length > 0 &&
-                                getSpec(
-                                  doc.data.speciality,
-                                  this.props.stateLanguageType
-                                )}
-                            </label>
-                            <p>
-                              {doc.data &&
-                                doc.data.subspeciality &&
-                                doc.data.subspeciality.length > 0 &&
-                                getSpec(
-                                  doc.data.subspeciality,
-                                  this.props.stateLanguageType
-                                )}
-                            </p>
+                      </Grid>
+                    </div>
+                 
+                   
+                    <div
+                      style={{ textAlign: "center" }}
+                      className="arng_addEntrynw">
+                      <a onClick={this.handleAllowLoc}>
+                        {find_apointment}</a>
+                    </div>
+                    </div>
+                  </div>
+                </Modal>
+                {/* End of Allow Location Access */}
+
+                {/* Allow Location Access */}
+                <Modal
+                  open={this.state.openAllowLoc}
+                  onClose={this.handleCloseAllowLoc}
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "darkTheme editBoxModel"
+                      : "editBoxModel"
+                  }
+                >
+                  <div className="alowLocAces1">
+                  <div className="alowLocAces1Inner">
+                    <div className="accessCourse">
+                      <div className="handleAccessBtn">
+                        <a onClick={this.handleCloseAllowLoc}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </div>
+                      <Grid
+                        container
+                        direction="row"
+                        spacing={2}
+                        className="srchAccessLoc"
+                      >
+                        <Grid item xs={12} md={4}>
+                          <label>{Patient}</label>
+                          <Grid>
+                            <Select
+                              name="patient"
+                              options={this.state.users1}
+                              placeholder=""
+                              onChange={(e) => this.onFieldChange1(e, "patient")}
+                              value={selectedPatient || ''}
+                              className="addStafSelect"
+                              isMulti={false}
+                              isSearchable={true} />
+                              
                           </Grid>
                         </Grid>
-                        <Grid item xs={12} md={5}>
-                          <Grid className="srvcTagsCntnt">
-                            <Grid className="srvcTags">
-                              <a
-                                className={
-                                  this.state.show_type === "contact" &&
-                                  "currentTab"
-                                }
-                                onClick={() => {
-                                  this.setState({ show_type: "contact" });
-                                }}
-                              >
-                                {Contact}
-                              </a>
-                              <a
-                                className={
-                                  this.state.show_type === "service" &&
-                                  "currentTab"
-                                }
-                                onClick={() => {
-                                  this.setState({ show_type: "service" });
-                                }}
-                              >
-                                {Services}
-                              </a>
-                              <a
-                                className={
-                                  this.state.show_type ===
-                                  "information" && "currentTab"
-                                }
-                                onClick={() => {
-                                  this.setState({
-                                    show_type: "information",
-                                  });
-                                }}
-                              >
-                                {latest_info}
-                              </a>
-                            </Grid>
-                            {this.state.show_type === "contact" && (
-                              <Grid className="srvcTagsLoc">
-                                <a>
-                                  <img
-                                    src={require("assets/images/location-pin.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {doc.data &&
-                                    doc.data.city &&
-                                    doc.data.city}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/phone.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {doc.data &&
-                                    doc.data.mobile &&
-                                    doc.data.mobile}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/email.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {doc.data &&
-                                    doc.data.email &&
-                                    doc.data.email}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/language.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {doc.data &&
-                                    doc.data.language &&
-                                    doc.data.language.length > 0 &&
-                                    doc.data.language.join(", ")}
-                                </a>
-                              </Grid>
-                            )}
-                            {this.state.show_type === "service" && (
-                              <Grid className="srvcTagsLoc">
-                                <a>
-                                  {doc.data &&
-                                    doc.data.weoffer_text &&
-                                    doc.data.weoffer_text}
-                                </a>
-                              </Grid>
-                            )}
-                            {this.state.show_type === "information" && (
-                              <Grid className="srvcTagsLoc">
-                                <a>
-                                  {doc.data && doc.data.latest_info && (
-                                    <span
-                                      dangerouslySetInnerHTML={{
-                                        __html: doc.data.latest_info,
-                                      }}
+                        <Grid item xs={12} md={3}>
+                          <Grid><label>{capab_Doctors}</label></Grid>
+                          <Select
+                            value={selectDocData || ''}
+                            onChange={this.handleDocSelect}
+                            options={doctorsData}
+                            placeholder={`${select} ${capab_Doctors}`}
+                            className="sel_specialty"
+                          />
+                        </Grid>
+
+                        {/* <Grid item xs={12} md={4} className="apointType">
+                          <Grid>
+                            <label>
+                              {appointment} {type}
+                            </label>
+                          </Grid>
+                          <FormControlLabel
+                            control={
+                              this.state.video_call ? (
+                                <Checkbox
+                                  checked
+                                  onClick={this.apointmentType}
+                                  name="Video"
+                                />
+                              ) : (
+                                <Checkbox
+                                  onClick={this.apointmentType}
+                                  name="Video"
+                                />
+                              )
+                            }
+                            label={Video}
+                          />
+                          <FormControlLabel
+                            control={
+                              this.state.office_visit ? (
+                                <Checkbox
+                                  checked
+                                  name="Office"
+                                  onClick={this.apointmentType}
+                                />
+                              ) : (
+                                <Checkbox
+                                  name="Office"
+                                  onClick={this.apointmentType}
+                                />
+                              )
+                            }
+                            label={Office}
+                          />
+                        </Grid> */}
+                      </Grid>
+                      <div className="showSpcial">
+                        <p>
+                          <img
+                            src={require("assets/images/location.png")}
+                            alt=""
+                            title=""
+                          />
+                          {we_r_showing_speciality} “
+                          {this.state.MycurrentLocationName}” in{" "}
+                          {this.state.searchDetails.radius
+                            ? this.state.searchDetails.radius
+                            : "10"}{" "}
+                          {km_range}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      style={{ textAlign: "center" }}
+                      className="arng_addEntrynw"
+                    >
+                      <a onClick={this.handleAllowLoc}>{find_apointment}</a>
+                    </div>
+                    {/* New Design */}
+                    <div className="allowAvailList">
+                      {allDocData &&
+                        allDocData.length > 0 &&
+                        allDocData.map((doc, i) => (
+                          <div key = {i} className="allowAvailListIner">
+                            <Grid container direction="row" spacing={1}>
+                              <Grid item xs={12} md={3}>
+                                <Grid className="spclistDr">
+                                  {doc.data.new_image ? (
+                                    <img
+                                      className="doctor_pic"
+                                      src={doc.data.new_image}
+                                      alt=""
+                                      title=""
+                                    />
+                                  ) : (
+                                    <img
+                                      className="doctor_pic"
+                                      src={require("assets/images/avatar.png")}
+                                      alt=""
+                                      title=""
                                     />
                                   )}
-                                </a>
+                                  <a>
+                                    {/* <img src={doc.data.image} alt="" title="" /> */}
+                                    {doc.data &&
+                                      doc.data.first_name &&
+                                      doc.data.first_name}{" "}
+                                    {doc.data &&
+                                      doc.data.last_name &&
+                                      doc.data.last_name}{" "}
+                                    (
+                                    {doc.data &&
+                                      doc.data.title &&
+                                      doc.data.title}
+                                    )
+                                  </a>
+                                </Grid>
+                                <Grid className="nuroDr">
+                                  <label>
+                                    {doc.data &&
+                                      doc.data.speciality &&
+                                      doc.data.speciality.length > 0 &&
+                                      getSpec(
+                                        doc.data.speciality,
+                                        this.props.stateLanguageType
+                                      )}
+                                  </label>
+                                  <p>
+                                    {doc.data &&
+                                      doc.data.subspeciality &&
+                                      doc.data.subspeciality.length > 0 &&
+                                      getSpec(
+                                        doc.data.subspeciality,
+                                        this.props.stateLanguageType
+                                      )}
+                                  </p>
+                                </Grid>
                               </Grid>
-                            )}
-                          </Grid>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Grid className="avlablDates">
-                            <h3>{see_avlbl_date}:</h3>
-                            <Grid>
-                              {/* {this.state.video_call && ( */}
-                              {/* <a
+                              <Grid item xs={12} md={5}>
+                                <Grid className="srvcTagsCntnt">
+                                  <Grid className="srvcTags">
+                                    <a
+                                      className={
+                                        this.state.show_type === "contact" &&
+                                        "currentTab"
+                                      }
+                                      onClick={() => {
+                                        this.setState({ show_type: "contact" });
+                                      }}
+                                    >
+                                      {Contact}
+                                    </a>
+                                    <a
+                                      className={
+                                        this.state.show_type === "service" &&
+                                        "currentTab"
+                                      }
+                                      onClick={() => {
+                                        this.setState({ show_type: "service" });
+                                      }}
+                                    >
+                                      {Services}
+                                    </a>
+                                    <a
+                                      className={
+                                        this.state.show_type ===
+                                        "information" && "currentTab"
+                                      }
+                                      onClick={() => {
+                                        this.setState({
+                                          show_type: "information",
+                                        });
+                                      }}
+                                    >
+                                      {latest_info}
+                                    </a>
+                                  </Grid>
+                                  {this.state.show_type === "contact" && (
+                                    <Grid className="srvcTagsLoc">
+                                      <a>
+                                        <img
+                                          src={require("assets/images/location-pin.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {doc.data &&
+                                          doc.data.city &&
+                                          doc.data.city}
+                                      </a>
+                                      <a>
+                                        <img
+                                          src={require("assets/images/phone.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {doc.data &&
+                                          doc.data.mobile &&
+                                          doc.data.mobile}
+                                      </a>
+                                      <a>
+                                        <img
+                                          src={require("assets/images/email.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {doc.data &&
+                                          doc.data.email &&
+                                          doc.data.email}
+                                      </a>
+                                      <a>
+                                        <img
+                                          src={require("assets/images/language.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {doc.data &&
+                                          doc.data.language &&
+                                          doc.data.language.length > 0 &&
+                                          doc.data.language.join(", ")}
+                                      </a>
+                                    </Grid>
+                                  )}
+                                  {this.state.show_type === "service" && (
+                                    <Grid className="srvcTagsLoc">
+                                      <a>
+                                        {doc.data &&
+                                          doc.data.weoffer_text &&
+                                          doc.data.weoffer_text}
+                                      </a>
+                                    </Grid>
+                                  )}
+                                  {this.state.show_type === "information" && (
+                                    <Grid className="srvcTagsLoc">
+                                      <a>
+                                        {doc.data && doc.data.latest_info && (
+                                          <span
+                                            dangerouslySetInnerHTML={{
+                                              __html: doc.data.latest_info,
+                                            }}
+                                          />
+                                        )}
+                                      </a>
+                                    </Grid>
+                                  )}
+                                </Grid>
+                              </Grid>
+                              <Grid item xs={12} md={4}>
+                                <Grid className="avlablDates">
+                                  <h3>{see_avlbl_date}:</h3>
+                                  <Grid>
+                                    {/* {this.state.video_call && ( */}
+                                      {/* <a
                                         onClick={() =>
                                           this.handleOpenFancyVdo(
                                             i,
@@ -1235,49 +1187,29 @@ class Index extends Component {
                                         />
                                         {vdo_call}
                                       </a> */}
-                              {/* )} */}
-                              {/* {this.state.office_visit && ( */}
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "appointments",
-                                    doc.appointments[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {doc.appointments &&
-                                  doc.appointments.length > 0 &&
-                                  doc.appointments[0].custom_text
-                                  ? doc.appointments[0].custom_text
-                                  : office_visit}
-                              </a>
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "appointments",
-                                    doc.appointments[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {doc.appointments &&
-                                  doc.appointments.length > 0 &&
-                                  doc.appointments[0].custom_text
-                                  ? doc.appointments[0].custom_text
-                                  : Home_visit}
-                              </a>
-                              {/* )}
+                                    {/* )} */}
+                                    {/* {this.state.office_visit && ( */}
+                                      <a
+                                        onClick={() =>
+                                          this.handleOpenFancyVdo(
+                                            i,
+                                            "appointments",
+                                            doc.appointments[0]
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          src={require("assets/images/ShapeCopy2.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {doc.appointments &&
+                                          doc.appointments.length > 0 &&
+                                          doc.appointments[0].custom_text
+                                          ? doc.appointments[0].custom_text
+                                          : office_visit}
+                                      </a>
+                                    {/* )}
                                     <a
                                       onClick={() =>
                                         this.handleOpenFancyVdo(
@@ -1295,182 +1227,182 @@ class Index extends Component {
                                       />
                                       {consultancy_cstm_calnder}
                                     </a> */}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
                             </Grid>
+                          </div>
+                        ))}
+                    </div>
+                    </div>
+                    {/* End of New Design */}
+                  </div>
+                </Modal>
+                {/* End of Allow Location Access */}
+
+                <Modal
+                  open={this.state.openFancyVdo}
+                  onClose={this.handleCloseFancyVdo}
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "darkTheme editBoxModel"
+                      : "editBoxModel"
+                  }
+                >
+                  <Grid className="slotBoxMain">
+                    <Grid className="slotBoxCourse">
+                      {patNotSelected && <p className="err_message">{plz_select_patient}</p>}
+                      <a
+                        onClick={this.handleCloseFancyVdo}
+                        className="timSlotClose"
+                      >
+                        <img
+                          src={require("assets/images/close-search.svg")}
+                          alt=""
+                          title=""
+                        />
+                      </a>
+                      <Grid className="selCalenderUpr">
+                        <Grid className="selCalender">
+                          <Calendar2
+                            onChange={(e) => this.onChange(e)}
+                            value={this.state.date}
+                          />
+                        </Grid>
+                        <Grid className="selTimeSlot">
+                          <Grid>
+                            <label>{slct_time_slot}</label>
+                          </Grid>
+
+                          <Grid className="selTimeAM">
+                            {this.state.appointDate &&
+                              this.state.appointDate.length > 0 ?
+                              (
+                                this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
+                                  ?
+                                  <Grid>
+                                    <span>{NotAvailable}!</span>
+                                  </Grid>
+
+                                  : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
+                                    this.state.appointmentData.holidays_end)
+                                    ?
+                                    <Grid>
+                                      <span>{holiday}!</span>
+                                    </Grid> :
+
+                                    (this.state.appointDate.map((data, iA) => {
+                                      if (
+                                        this.Isintime(
+                                          this.state.appointDate[iA],
+                                          this.state.appointmentData.breakslot_start,
+                                          this.state.appointmentData.breakslot_end,
+                                          this.state.appointmentData.holidays_start,
+                                          this.state.appointmentData.holidays_end,
+                                        )
+                                      )
+                                        return;
+
+                                      return (
+                                        <Grid>
+                                          {this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" &&
+                                            iA === 0 ? (
+                                            <a
+                                              className={
+                                                this.state.currentSelected === 0 &&
+                                                "current_selected"
+                                              }
+                                              onClick={() => {
+                                                this.findAppointment(
+                                                  "tab3",
+                                                  doc_select,
+                                                  appointType,
+                                                  apointDay,
+                                                  iA
+                                                );
+                                              }}
+                                            >
+                                              {this.state.appointDate[iA] +
+                                                " - " +
+                                                this.state.appointDate[iA + 1]}
+                                            </a>
+                                          ) : (
+                                            this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" && (
+                                              <a
+                                                className={
+                                                  this.state.currentSelected &&
+                                                    this.state.currentSelected === iA
+                                                    ? "current_selected"
+                                                    : ""
+                                                }
+                                                onClick={() => {
+                                                  this.findAppointment(
+                                                    "tab3",
+                                                    doc_select,
+                                                    appointType,
+                                                    apointDay,
+                                                    iA
+                                                  );
+                                                }}
+                                              >
+                                                {this.state.appointDate[iA] +
+                                                  " - " +
+                                                  this.state.appointDate[iA + 1]}
+                                              </a>
+                                            )
+                                          )}
+                                        </Grid>
+                                      );
+                                    })
+                                    )
+
+
+                              )
+                              :
+                              this.state.appointDate !== undefined ? (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
+                                </Grid>
+                              ) : (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
+                                </Grid>
+                              )}
+                          </Grid>
+                        </Grid>
+                        <Grid className="delQues">
+                          <Grid>
+                            <label>
+                              {Details} / {Questions}
+                            </label>
+                          </Grid>
+                          <Grid>
+                            <textarea
+                              name="annotations"
+                              onChange={(e) => {
+                                this.questionDetails(e);
+                              }}
+                            ></textarea>
+                          </Grid>
+                          <Grid className="delQuesBook">
+                            <a onClick={this.bookAppointment}>{book}</a>
+                            <a
+                              onClick={this.handleCloseFancyVdo}>
+                              {cancel}
+                            </a>
                           </Grid>
                         </Grid>
                       </Grid>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {/* End of New Design */}
-          </div>
-        </Modal>
-        {/* End of Allow Location Access */}
-
-        <Modal
-          open={this.state.openFancyVdo}
-          onClose={this.handleCloseFancyVdo}
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
-              ? "darkTheme editBoxModel"
-              : "editBoxModel"
-          }
-        >
-          <Grid className="slotBoxMain">
-            <Grid className="slotBoxCourse">
-              {patNotSelected && <p className="err_message">{plz_select_patient}</p>}
-              <a
-                onClick={this.handleCloseFancyVdo}
-                className="timSlotClose"
-              >
-                <img
-                  src={require("assets/images/close-search.svg")}
-                  alt=""
-                  title=""
-                />
-              </a>
-              <Grid className="selCalenderUpr">
-                <Grid className="selCalender">
-                  <Calendar2
-                    onChange={(e) => this.onChange(e)}
-                    value={this.state.date}
-                  />
-                </Grid>
-                <Grid className="selTimeSlot">
-                  <Grid>
-                    <label>{slct_time_slot}</label>
+                    </Grid>
                   </Grid>
-
-                  <Grid className="selTimeAM">
-                    {this.state.appointDate &&
-                      this.state.appointDate.length > 0 ?
-                      (
-                        this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
-                          ?
-                          <Grid>
-                            <span>{NotAvailable}!</span>
-                          </Grid>
-
-                          : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
-                            this.state.appointmentData.holidays_end)
-                            ?
-                            <Grid>
-                              <span>{holiday}!</span>
-                            </Grid> :
-
-                            (this.state.appointDate.map((data, iA) => {
-                              if (
-                                this.Isintime(
-                                  this.state.appointDate[iA],
-                                  this.state.appointmentData.breakslot_start,
-                                  this.state.appointmentData.breakslot_end,
-                                  this.state.appointmentData.holidays_start,
-                                  this.state.appointmentData.holidays_end,
-                                )
-                              )
-                                return;
-
-                              return (
-                                <Grid>
-                                  {this.state.appointDate[iA + 1] &&
-                                    this.state.appointDate[iA + 1] !==
-                                    "undefined" &&
-                                    iA === 0 ? (
-                                    <a
-                                      className={
-                                        this.state.currentSelected === 0 &&
-                                        "current_selected"
-                                      }
-                                      onClick={() => {
-                                        this.findAppointment(
-                                          "tab3",
-                                          doc_select,
-                                          appointType,
-                                          apointDay,
-                                          iA
-                                        );
-                                      }}
-                                    >
-                                      {this.state.appointDate[iA] +
-                                        " - " +
-                                        this.state.appointDate[iA + 1]}
-                                    </a>
-                                  ) : (
-                                    this.state.appointDate[iA + 1] &&
-                                    this.state.appointDate[iA + 1] !==
-                                    "undefined" && (
-                                      <a
-                                        className={
-                                          this.state.currentSelected &&
-                                            this.state.currentSelected === iA
-                                            ? "current_selected"
-                                            : ""
-                                        }
-                                        onClick={() => {
-                                          this.findAppointment(
-                                            "tab3",
-                                            doc_select,
-                                            appointType,
-                                            apointDay,
-                                            iA
-                                          );
-                                        }}
-                                      >
-                                        {this.state.appointDate[iA] +
-                                          " - " +
-                                          this.state.appointDate[iA + 1]}
-                                      </a>
-                                    )
-                                  )}
-                                </Grid>
-                              );
-                            })
-                            )
-
-
-                      )
-                      :
-                      this.state.appointDate !== undefined ? (
-                        <Grid>
-                          <span>{NotAvailable}!</span>
-                        </Grid>
-                      ) : (
-                        <Grid>
-                          <span>{NotAvailable}!</span>
-                        </Grid>
-                      )}
-                  </Grid>
-                </Grid>
-                <Grid className="delQues">
-                  <Grid>
-                    <label>
-                      {Details} / {Questions}
-                    </label>
-                  </Grid>
-                  <Grid>
-                    <textarea
-                      name="annotations"
-                      onChange={(e) => {
-                        this.questionDetails(e);
-                      }}
-                    ></textarea>
-                  </Grid>
-                  <Grid className="delQuesBook">
-                    <a onClick={this.bookAppointment}>{book}</a>
-                    <a
-                      onClick={this.handleCloseFancyVdo}>
-                      {cancel}
-                    </a>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Modal>
-        {/* End of Video Model */}
+                </Modal>
+                {/* End of Video Model */}
       </>
     );
   }

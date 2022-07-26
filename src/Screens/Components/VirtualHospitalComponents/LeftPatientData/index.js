@@ -2180,6 +2180,7 @@ class Index extends Component {
       Download,
       respiration,
       Bed,
+      
     } = translate;
     var item = this.state.item;
     let {
@@ -2206,6 +2207,7 @@ class Index extends Component {
       Upcomingappointment,
       LastDocuments,
       Prescription,
+      Task_services,
     } = translate;
     return (
       <Grid className="asignStaf">
@@ -2299,7 +2301,7 @@ class Index extends Component {
                       alt=""
                       title=""
                     />
-                    <label>{NewTask}</label>
+                    <label>{Task_services}</label>
                   </li>
                   <li
                     onClick={() => {
