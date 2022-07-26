@@ -25,6 +25,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import { getLanguage } from "translations/index"
 import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 import {GetLanguageMetadata, getUserData } from "Screens/Components/CommonProfileSec/api";
+import ServicesAppointment from "./Components/serviceAppointments.js";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -102,7 +103,7 @@ class Index extends Component {
       }
     }
     let translate = getLanguage(this.props.stateLanguageType)
-    let { my_profile, kyc, Security, date_time , delete_account } = translate;
+    let { my_profile, kyc, Security, date_time , delete_account,srvcs_appointment } = translate;
     return (
       <Grid
         className={
@@ -135,6 +136,10 @@ class Index extends Component {
                         >
                           <Tab label={my_profile} className="aboutTabsIner" />
                           <Tab label={Security} className="aboutTabsIner" />
+                          <Tab
+                            label={srvcs_appointment}
+                            className="aboutTabsIner"
+                          />
                           <Tab label={kyc} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
                           <Tab label={delete_account} className="aboutTabsIner" />
@@ -161,8 +166,15 @@ class Index extends Component {
                         </TabContainer>
                       )}
                       {/* End of Security */}
+                       {/* Services & Appointments */}
+                       {value === 2 && (
+                        <TabContainer>
+                          <ServicesAppointment />
+                        </TabContainer>
+                      )}
+                      {/* End of Services & Appointments */}
                       {/* Start of KYC */}
-                      {value === 2 && (
+                      {value === 3 && (
                         <TabContainer>
                           <KycSection comesFrom="nurse"/>
                         </TabContainer>
@@ -170,7 +182,7 @@ class Index extends Component {
                       {/* End of KYC */}
 
                       {/* Start of DateTime */}
-                      {value === 3 && (
+                      {value === 4 && (
                         <TabContainer>
                           <DateTimeSection
                             timezones={this.state.timezones}
@@ -184,7 +196,7 @@ class Index extends Component {
                       )}
                       {/* End of DateTime */}
                        {/* Start of Delete */}
-                       {value === 4 && (
+                       {value === 5 && (
                         <TabContainer>
                           <DeleteAccountSection
                             user_token={this.props.stateLoginValueAim.token}
