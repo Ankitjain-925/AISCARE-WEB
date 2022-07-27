@@ -419,6 +419,10 @@ class Index extends React.Component {
     });
   };
 
+  MoveExternalSpace = () => {
+    
+  }
+
   moveEntry = () => {
     this.props.history.push({
       pathname: `/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`,
@@ -607,6 +611,16 @@ class Index extends React.Component {
                         />
                       </p>
                     </p>{" "}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => {
+                      this.MoveExternalSpace();
+                    }}
+                  >
+                    <span className="more-assign-room"></span>
+                    Move to External Space
                   </a>
                 </li>
                 {this.props.quote?.status !== 1 && (
