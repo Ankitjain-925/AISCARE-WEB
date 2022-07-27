@@ -222,3 +222,7 @@ export const  getAmount = (current) => {
       current.setState({ loaderImage: false });
     });
 };
+
+
+
+
