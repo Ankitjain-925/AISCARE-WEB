@@ -82,6 +82,7 @@ class Index extends Component {
       UpDataDetails: [],
       TasksCss: '',
       selectDocData: {},
+      selectNurData: {},
       selectedPatient: {},
       patNotSelected: false,
       doctorsData: [],
@@ -102,23 +103,31 @@ class Index extends Component {
     this.onChange(new Date())
   }
 
+  //Set the Radio button value
+  handleChange(changeEvent) {
+    this.setState({ selectPatDoc: changeEvent.target.value, selectDocData: {}, selectNurData: {} });
+  }
+
   getDoctorData = async () => {
     const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token, 'appoint')
-    const doctorsData = [], doctorsData1 = [];
+    const doctorsData = [], doctorsData1 = [], nurseData = [], nurseData1 = [];
     // eslint-disable-next-line no-unused-expressions
     professionals?.professionalArray?.length > 0 && professionals?.professionalArray.map(function (data) {
       if (data.type === 'doctor') {
         doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
         doctorsData1.push(data);
+      } if (data.type === 'nurse') {
+        nurseData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
+        nurseData1.push(data);
       }
     })
-    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData });
+    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData, nurseData: nurseData1, filterNurse: nurseData });
   }
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.openAllowAccess !== this.props.openAllowAccess) {
       this.getPatientData();
-      this.setState({ selectDocData: {}, selectedPatient: {}, openAllowAccess: this.props.openAllowAccess });
+      this.setState({ openAllowAccess: this.props.openAllowAccess });
     }
   };
 
@@ -286,7 +295,7 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} });
     this.props.handleCloseAllowAccess();
   };
 
@@ -382,6 +391,10 @@ class Index extends Component {
     this.setState({ selectDocData: data })
   }
 
+  handleNurSelect = (data) => {
+    this.setState({ selectNurData: data })
+  }
+
   handleChangeSelect = (selectedOption) => {
     let searchDetails = this.state.searchDetails;
     searchDetails["specialty"] = selectedOption.value;
@@ -405,7 +418,7 @@ class Index extends Component {
   };
 
   handleCloseAllowLoc = () => {
-    this.setState({ openAllowLoc: false });
+    this.setState({ openAllowLoc: false, selectPatDoc: '', selectedPatient: {} });
   };
 
   onChange = (date) => {
@@ -661,11 +674,6 @@ class Index extends Component {
     this.setState({ selectedPatient: e })
   }
 
-  //Set the Radio button value
-  handleChange(changeEvent) {
-    this.setState({ selectPatDoc: changeEvent.target.value });
-  }
-
   render() {
 
     let translate = getLanguage(this.props.stateLanguageType);
@@ -718,7 +726,7 @@ class Index extends Component {
       doc_select,
       appointType,
       apointDay, doctorsData,
-      selectDocData, selectedPatient } = this.state;
+      selectDocData, selectedPatient, selectNurData } = this.state;
 
     return (
       <>
@@ -746,7 +754,6 @@ class Index extends Component {
                 </div>
                 <Grid container direction="row" spacing={2} className="srchAccessLoc">
                   <Grid item xs={12} md={4} className="filterPatlist">
-
                     {this.state.plistfilter && (
                       <div className="filterPatlistInner">
                         <Grid>
@@ -799,6 +806,38 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist">
+                    {this.state.dlistfilter && (
+                      <div className="filterPatlistInner">
+                        <Grid>
+                          <label>{speciality}</label>
+                          <Grid className="addInput">
+                            <Select
+                              onChange={(e) => this.onFieldChange3(e)}
+                              options={this.state.specialityData}
+                              name="specialty_name"
+                              value={this.state.selectSpec3}
+                              placeholder={FilterbySpeciality}
+                              className="addStafSelect"
+                              isMulti={false}
+                              isSearchable={true} />
+                          </Grid>
+                        </Grid>
+                        <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
+                        <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
+                      </div>)}
+                    {/* <label>{capab_Doctors}
+                      <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
+                    </label>
+                    <Grid>
+                      <Select
+                        value={selectDocData || ''}
+                        onChange={this.handleDocSelect}
+                        options={this.state.filterDocs}
+                        placeholder={`${select} ${capab_Doctors}`}
+                        className="sel_specialty"
+                      />
+                    </Grid> */}
+
                     <Grid className="radioPat1">
                       <FormControlLabel
                         value="yes"
@@ -819,27 +858,8 @@ class Index extends Component {
                         }
                         label="Nurse" />
                     </Grid>
-                    {this.state.dlistfilter && (
-                      <div className="filterPatlistInner">
-                        <Grid>
-                          <label>{speciality}</label>
-                          <Grid className="addInput">
-                            <Select
-                              onChange={(e) => this.onFieldChange3(e)}
-                              options={this.state.specialityData}
-                              name="specialty_name"
-                              value={this.state.selectSpec3}
-                              placeholder={FilterbySpeciality}
-                              className="addStafSelect"
-                              isMulti={false}
-                              isSearchable={true} />
-                          </Grid>
-                        </Grid>
-                        <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
-                      </div>)}
-
-
+                  </Grid>
+                  <Grid item xs={12} md={3} className="filterPatlist radioPat2">
                     {this.state.selectPatDoc === 'yes' && <>
                       <label>{capab_Doctors}
                         <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
@@ -852,22 +872,20 @@ class Index extends Component {
                           placeholder={`${select} ${capab_Doctors}`}
                           className="sel_specialty"
                         />
-                      </Grid>
-                    </>}
+                      </Grid></>}
                     {this.state.selectPatDoc === 'no' && <>
                       <label>Nurse
                         <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
                       </label>
                       <Grid>
                         <Select
-                          value={selectDocData || ''}
-                          onChange={this.handleDocSelect}
-                          options={this.state.filterDocs}
-                          placeholder={`${select} ${capab_Doctors}`}
+                          value={selectNurData || ''}
+                          onChange={this.handleNurSelect}
+                          options={this.state.filterNurse}
+                          placeholder={`${select} Nurse`}
                           className="sel_specialty"
                         />
-                      </Grid>
-                    </>}
+                      </Grid></>}
                   </Grid>
                   {/* <Grid item xs={12} md={3} className="apointType">
                           <Grid>
@@ -966,20 +984,37 @@ class Index extends Component {
                         value={selectedPatient || ''}
                         className="addStafSelect"
                         isMulti={false}
-                        isSearchable={true} />
+                        // isSearchable={true}
+                        isDisabled={true}
+                      />
 
                     </Grid>
                   </Grid>
+
                   <Grid item xs={12} md={3}>
-                    <Grid><label>{capab_Doctors}</label></Grid>
-                    <Select
-                      value={selectDocData || ''}
-                      onChange={this.handleDocSelect}
-                      options={doctorsData}
-                      placeholder={`${select} ${capab_Doctors}`}
-                      className="sel_specialty"
-                    />
+                    {this.state.selectPatDoc === 'yes' && <>
+                      <Grid><label>{capab_Doctors}</label></Grid>
+                      <Select
+                        value={selectDocData || ''}
+                        onChange={this.handleDocSelect}
+                        options={doctorsData}
+                        placeholder={`${select} ${capab_Doctors}`}
+                        className="sel_specialty"
+                        isDisabled={true}
+                      />
+                    </>}
+                    {this.state.selectPatDoc === 'no' && <>
+                      <Grid><label>Nurse</label></Grid>
+                      <Select
+                        value={selectNurData || ''}
+                        onChange={this.handleNurSelect}
+                        options={this.state.filterNurse}
+                        placeholder={`${select} Nurse`}
+                        className="sel_specialty"
+                      />
+                    </>}
                   </Grid>
+
 
                   {/* <Grid item xs={12} md={4} className="apointType">
                           <Grid>
@@ -1256,6 +1291,26 @@ class Index extends Component {
                                   ? doc.appointments[0].custom_text
                                   : office_visit}
                               </a>
+                              {/* <a
+                                onClick={() =>
+                                  this.handleOpenFancyVdo(
+                                    i,
+                                    "appointments",
+                                    doc.appointments[0]
+                                  )
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/ShapeCopy2.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {doc.appointments &&
+                                  doc.appointments.length > 0 &&
+                                  doc.appointments[0].custom_text
+                                  ? "Home visit"
+                                  : "Home visit"}
+                              </a> */}
                               {/* )}
                                     <a
                                       onClick={() =>

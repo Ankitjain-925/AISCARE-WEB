@@ -15459,13 +15459,18 @@ a.joinmeetingtab {
  }
 
  .MuiRadio-colorSecondary.Mui-checked.radioPat{
-  color: #00ABAF;
-  
+  color: #00ABAF;  
 }
-
-.radioPat1 .label{
+.MuiTypography-body1.radioPat2 .label{
   color: #404646;
   font-family: Muli;
-  font-size: 12px;
-  font-weight: 600s
+  font-size: 12px!important;
+  font-weight: 600!important;
+  letter-spacing: 0;
+  line-height: 12px;
+  margin-bottom: 8px;
+}
+
+.radioPat1{
+     margin-top: 27px
 }
