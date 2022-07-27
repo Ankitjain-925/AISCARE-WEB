@@ -7,7 +7,6 @@ import TimeFormat from 'Screens/Components/TimeFormat/index';
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
 import TextField from '@material-ui/core/TextField';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -22,8 +21,8 @@ import { commonHeader } from "component/CommonHeader/index";
 import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data';
 import { getPatientData } from 'Screens/Components/CommonApi/index';
 import { Speciality } from 'Screens/Login/speciality.js';
-import { confirmAlert } from 'react-confirm-alert';
-import _ from 'lodash';
+
+
 
 
 
@@ -53,7 +52,7 @@ class Index extends Component {
             AllSpeciality: [],
             specilaityList: [],
             newspeciality: [],
-            items: [],
+        
         };
     }
 
