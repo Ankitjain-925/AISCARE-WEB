@@ -59,7 +59,7 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
-   };
+    };
   }
 
   componentDidMount() {
@@ -79,9 +79,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -116,9 +116,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -145,13 +145,13 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
-    state[event.target.name] = event.target.value>=0 && event.target.value<=100 ? event.target.value:'';
+    state[event.target.name] = event.target.value >= 0 && event.target.value <= 100 ? event.target.value : '';
     this.setState({ sickamount1: state });
-    
+
   };
 
   EditAmount = () => {
-   let translate = getLanguage(this.props.stateLanguageType);
+    let translate = getLanguage(this.props.stateLanguageType);
     let { Something_went_wrong } = translate;
     var a = this.state.sickamount1.amount;
     axios
@@ -170,8 +170,8 @@ class Index extends Component {
       });
   };
   onSickamount = (e) => {
-   if (e.key === 'Enter') {
-     this.EditAmount();
+    if (e.key === 'Enter') {
+      this.EditAmount();
       // this.setState({ sickamount: true });
     }
   };
@@ -217,9 +217,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -250,141 +250,141 @@ class Index extends Component {
                         {/* End of Back common button */}
                       </Grid>
                       <Grid item xs={6} md={6}>
-                      <Grid className="openAssser">
-                          <AssignedService/>
-                        <Grid className="newServc">
-                          <Button onClick={() => handleOpenServ(this)}>
-                            {newService}
-                          </Button>
-                          <Modal
-                            open={this.state.openServ}
-                            onClose={() => handleCloseServ(this)}
-                            className={
-                              this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === "dark"
-                                ? "darkTheme addSpeclModel"
-                                : "addSpeclModel"
-                            }
-                          >
-                            <Grid
+                        <Grid className="openAssser">
+                          <AssignedService />
+                          <Grid className="newServc">
+                            <Button onClick={() => handleOpenServ(this)}>
+                              {newService}
+                            </Button>
+                            <Modal
+                              open={this.state.openServ}
+                              onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                  ? "darkTheme addSpeclContnt"
-                                  : "addServContnt"
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
+                                  ? "darkTheme addSpeclModel"
+                                  : "addSpeclModel"
                               }
-                              // className="addServContnt"
                             >
-                              <Grid className="addSpeclContntIner">
-                                <Grid className="addSpeclLbl">
-                                <Grid container direction="row" justify="center">
-                                  <Grid item xs={8} md={8} lg={8}>
-                                      <label>{Addnewservice}</label>
+                              <Grid
+                                className={
+                                  this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
+                                    ? "darkTheme addSpeclContnt"
+                                    : "addServContnt"
+                                }
+                              // className="addServContnt"
+                              >
+                                <Grid className="addSpeclContntIner">
+                                  <Grid className="addSpeclLbl">
+                                    <Grid container direction="row" justify="center">
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{Addnewservice}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                            <a onClick={() => handleCloseServ(this)}>
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
                                   </Grid>
-                                  <Grid item xs={4} md={4} lg={4}>
+
+                                  <Grid className="enterServMain">
+                                    <Grid className="enterSpcl">
                                       <Grid>
-                                      <Grid className="entryCloseBtn">
-                                      <a onClick={() =>handleCloseServ(this)}>
-                                        <img
-                                          src={require("assets/images/close-search.svg")}
-                                          alt=""
-                                          title=""
+                                        <VHfield
+                                          label={Servicename}
+                                          name="title"
+                                          placeholder={EnterServicename}
+                                          onChange={(e) =>
+                                            updateEntryState1(e, this)
+                                          }
+                                          value={this.state.updateTrack.title}
                                         />
-                                      </a>
                                       </Grid>
+
+                                      <Grid>
+                                        <VHfield
+                                          label={Serviceshortdescription}
+                                          name="description"
+                                          placeholder={
+                                            Enterserviceshortdescription
+                                          }
+                                          onChange={(e) =>
+                                            updateEntryState1(e, this)
+                                          }
+                                          value={
+                                            this.state.updateTrack.description
+                                          }
+                                        />
                                       </Grid>
+
+                                      <label className="specbutton1">
+                                        {speciality}
+                                      </label>
+                                      <Grid className="sevicessection serviceallSec">
+                                        <Select
+                                          onChange={(e) => onFieldChange(e, this)}
+                                          options={this.state.AllSpeciality}
+                                          name="specialty_name"
+                                          isSearchable={true}
+                                          className="min_section minall_sec"
+                                          isMulti={true}
+                                          value={selectedID(
+                                            this.state.updateTrack.specialty_id,
+                                            this
+                                          )}
+                                        />
+                                      </Grid>
+
+                                      <Grid
+                                        item
+                                        xs={12}
+                                        md={12}
+                                        className="enterPricePart1"
+                                      >
+                                        <VHfield
+                                          label={Price}
+                                          name="price"
+                                          placeholder={Enterserviceprice}
+                                          onChange={(e) =>
+                                            updateEntryState1(e, this)
+                                          }
+                                          value={
+                                            this.state.updateTrack.price || 0
+                                          }
+                                        />
+                                        <p className="enterPricePart3">€</p>
+                                      </Grid>
+                                    </Grid>
+
+                                    <div className="err_message">
+                                      {this.state.errorMsg}
+                                    </div>
                                   </Grid>
-                              </Grid>
-                                </Grid>
-
-                                <Grid className="enterServMain">
-                                  <Grid className="enterSpcl">
-                                    <Grid>
-                                      <VHfield
-                                        label={Servicename}
-                                        name="title"
-                                        placeholder={EnterServicename}
-                                        onChange={(e) =>
-                                          updateEntryState1(e, this)
-                                        }
-                                        value={this.state.updateTrack.title}
-                                      />
-                                    </Grid>
-
-                                    <Grid>
-                                      <VHfield
-                                        label={Serviceshortdescription}
-                                        name="description"
-                                        placeholder={
-                                          Enterserviceshortdescription
-                                        }
-                                        onChange={(e) =>
-                                          updateEntryState1(e, this)
-                                        }
-                                        value={
-                                          this.state.updateTrack.description
-                                        }
-                                      />
-                                    </Grid>
-
-                                    <label className="specbutton1">
-                                      {speciality}
-                                    </label>
-                                    <Grid className="sevicessection serviceallSec">
-                                      <Select
-                                        onChange={(e) => onFieldChange(e, this)}
-                                        options={this.state.AllSpeciality}
-                                        name="specialty_name"
-                                        isSearchable={true}
-                                        className="min_section minall_sec"
-                                        isMulti={true}
-                                        value={selectedID(
-                                          this.state.updateTrack.specialty_id,
-                                          this
-                                        )}
-                                      />
-                                    </Grid>
-
-                                    <Grid
-                                      item
-                                      xs={12}
-                                      md={12}
-                                      className="enterPricePart1"
-                                    >
-                                      <VHfield
-                                        label={Price}
-                                        name="price"
-                                        placeholder={Enterserviceprice}
-                                        onChange={(e) =>
-                                          updateEntryState1(e, this)
-                                        }
-                                        value={
-                                          this.state.updateTrack.price || 0
-                                        }
-                                      />
-                                      <p className="enterPricePart3">€</p>
-                                    </Grid>
+                                  <Grid className="servSaveBtn">
+                                    <a>
+                                      <Button onClick={() => handleSubmit(this)}>
+                                        {save_and_close}
+                                      </Button>
+                                    </a>
                                   </Grid>
-
-                                  <div className="err_message">
-                                    {this.state.errorMsg}
-                                  </div>
-                                </Grid>
-                                <Grid className="servSaveBtn">
-                                  <a>
-                                    <Button onClick={() => handleSubmit(this)}>
-                                      {save_and_close}
-                                    </Button>
-                                  </a>
                                 </Grid>
                               </Grid>
-                            </Grid>
-                          </Modal>
-                        </Grid>
+                            </Modal>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -409,8 +409,8 @@ class Index extends Component {
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
-                                 min="1"
-                                 max="100"
+                                min="1"
+                                max="100"
                               />
                               <p className="euroamount">€</p>
                             </Grid>

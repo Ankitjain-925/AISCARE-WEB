@@ -15516,15 +15516,20 @@ a.joinmeetingtab {
   margin-right: 20px;
  }
 
- .fixedEuroSec input{
-  border:1px solid red;
+ .MuiRadio-colorSecondary.Mui-checked.radioPat{
+  color: #00ABAF;  
 }
-
-@media screen and (min-width: 960px) and (max-width: 1012px){
-  .addFlowBtnSec a{
-    margin:5px 10px!important;
-  }
- 
+.MuiTypography-body1.radioPat2 .label{
+  color: #404646;
+  font-family: Muli;
+  font-size: 12px!important;
+  font-weight: 600!important;
+  letter-spacing: 0;
+  line-height: 12px;
+  margin-bottom: 8px;
+}
+.radioPat1{
+     margin-top: 27px
 }
 .fltrClearIner2 {
  overflow-y: auto;
