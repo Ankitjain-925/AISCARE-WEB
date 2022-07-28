@@ -78,9 +78,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -115,9 +115,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -144,6 +144,7 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
+
     state[event.target.name] =
       event.target.value >= 0 && event.target.value <= 100
         ? event.target.value
@@ -218,9 +219,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -263,10 +264,11 @@ class Index extends Component {
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
-                                this.props.settings &&
+
                                 this.props.settings.setting &&
                                 this.props.settings.setting.mode &&
                                 this.props.settings.setting.mode === "dark"
+
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -347,9 +349,8 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          onChange={(e) =>
-                                            onFieldChange(e, this)
-                                          }
+                   onChange={(e) => onFieldChange(e, this)}
+
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
@@ -389,6 +390,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
+
                                       <Button
                                         onClick={() => handleSubmit(this)}
                                       >

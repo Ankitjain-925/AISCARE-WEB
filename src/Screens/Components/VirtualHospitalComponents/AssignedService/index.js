@@ -22,6 +22,8 @@ import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Speciality } from "Screens/Login/speciality.js";
 
+
+
 const customStyles = {
   control: (base) => ({
     ...base,
@@ -58,9 +60,11 @@ class Index extends Component {
     this.specailityList();
   }
 
+
   handleOpenAss = () => {
     this.setState({ openAss: true });
   };
+
 
   handleCloseAss = () => {
     this.setState({
@@ -87,9 +91,11 @@ class Index extends Component {
       state[name] = e;
     } else {
       state[name] = e;
-    }
+      }
     this.setState({ service: state });
   };
+
+    
 
   patientField = (e) => {
     this.setState({ selectedPat: e });
@@ -181,6 +187,7 @@ class Index extends Component {
             label: this.state.allServData[i]?.title,
           });
         }
+
         var addCustom = <div className="addCustom">+ add custom service</div>;
         serviceList = [{ value: "custom", label: addCustom }, ...serviceList];
         this.setState({
@@ -365,6 +372,7 @@ class Index extends Component {
                         onChange={(e) =>
                           this.specialityField(e, "specialty_name")
                         }
+
                         options={this.state.specilaityList}
                         name="specialty_name"
                         isSearchable={true}
