@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -21,7 +20,7 @@ import Loader from "Screens/Components/Loader/index";
 import sitedata from "sitedata";
 import axios from "axios";
 import { commonHeader } from "component/CommonHeader/index";
-import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
+import AssignedService from "Screens/Components/VirtualHospitalComponents/AssignedService";
 import Select from "react-select";
 import {
   getSpecialty,
@@ -145,9 +144,12 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
-    state[event.target.name] = event.target.value >= 0 && event.target.value <= 100 ? event.target.value : '';
-    this.setState({ sickamount1: state });
 
+    state[event.target.name] =
+      event.target.value >= 0 && event.target.value <= 100
+        ? event.target.value
+        : "";
+    this.setState({ sickamount1: state });
   };
 
   EditAmount = () => {
@@ -170,7 +172,7 @@ class Index extends Component {
       });
   };
   onSickamount = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.EditAmount();
       // this.setState({ sickamount: true });
     }
@@ -249,9 +251,11 @@ class Index extends Component {
                             </Grid> */}
                         {/* End of Back common button */}
                       </Grid>
-                      <Grid item xs={6} md={6}>
+                      <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
+                          <Grid className="allOpenAsser">
                           <AssignedService />
+                          </Grid>
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}
@@ -260,10 +264,11 @@ class Index extends Component {
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
-                                this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -271,24 +276,32 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                              // className="addServContnt"
+                                // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
-                                    <Grid container direction="row" justify="center">
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
                                       <Grid item xs={8} md={8} lg={8}>
                                         <label>{Addnewservice}</label>
                                       </Grid>
                                       <Grid item xs={4} md={4} lg={4}>
                                         <Grid>
                                           <Grid className="entryCloseBtn">
-                                            <a onClick={() => handleCloseServ(this)}>
+                                            <a
+                                              onClick={() =>
+                                                handleCloseServ(this)
+                                              }
+                                            >
                                               <img
                                                 src={require("assets/images/close-search.svg")}
                                                 alt=""
@@ -336,7 +349,8 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          onChange={(e) => onFieldChange(e, this)}
+                   onChange={(e) => onFieldChange(e, this)}
+
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
@@ -376,7 +390,10 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
-                                      <Button onClick={() => handleSubmit(this)}>
+
+                                      <Button
+                                        onClick={() => handleSubmit(this)}
+                                      >
                                         {save_and_close}
                                       </Button>
                                     </a>
@@ -402,7 +419,6 @@ class Index extends Component {
                             <Grid className="fixedEuro">
                               <input
                                 type="number"
-
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
                                 name="amount"
@@ -431,7 +447,6 @@ class Index extends Component {
 
                             {/* </a> */}
                           </Grid>
-
                         </Grid>
                       </Grid>
                     </Grid>
