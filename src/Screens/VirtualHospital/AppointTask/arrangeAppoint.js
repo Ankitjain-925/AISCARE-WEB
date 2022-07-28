@@ -283,7 +283,7 @@ componentDidUpdate = (prevProps) => {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {} ,selectPatDoc:{}});
     this.props.handleCloseAllowAccess();
   };
 
@@ -696,7 +696,7 @@ componentDidUpdate = (prevProps) => {
       find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access, FilterbySpeciality, plz_select_patient } =
+      allow_location_access, FilterbySpeciality, plz_select_patient,Home_visit } =
       translate;
 
     const { tabvalue, patNotSelected,

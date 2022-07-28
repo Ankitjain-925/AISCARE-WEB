@@ -15526,5 +15526,7 @@ a.joinmeetingtab {
   }
  
 }
-
-
+.fltrClearIner2 {
+ overflow-y: auto;
+  padding: 20px 0px;
+}

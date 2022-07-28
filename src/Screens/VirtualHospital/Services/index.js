@@ -288,7 +288,7 @@ class Index extends Component {
                                   <Grid item xs={4} md={4} lg={4}>
                                       <Grid>
                                       <Grid className="entryCloseBtn">
-                                      <a onClick={() => handleCloseAss(this)}>
+                                      <a onClick={() =>handleCloseServ(this)}>
                                         <img
                                           src={require("assets/images/close-search.svg")}
                                           alt=""

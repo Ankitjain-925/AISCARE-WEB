@@ -24,6 +24,8 @@ import { Speciality } from 'Screens/Login/speciality.js';
 
 
 
+
+
 const customStyles = {
     control: (base) => ({
         ...base,
@@ -44,12 +46,13 @@ class Index extends Component {
             selectedPat: {},
             professional_id_list1: [],
             assignedTo: [],
-           date_format: this.props.date_format,
+            date_format: this.props.date_format,
             time_format: this.props.time_format,
             openDate: true,
             AllSpeciality: [],
             specilaityList: [],
-             newspeciality: []
+            newspeciality: [],
+        
         };
     }
 
@@ -60,7 +63,7 @@ class Index extends Component {
         this.specailityList();
     }
 
-  
+
 
     handleOpenAss = () => {
         this.setState({ openAss: true });
@@ -71,7 +74,7 @@ class Index extends Component {
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
-      };
+    };
 
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
@@ -88,12 +91,12 @@ class Index extends Component {
         }
         this.setState({ service: state });
 
-       
+
     };
 
     patientField = (e) => {
         this.setState({ selectedPat: e });
-       
+
     };
     assignedTo = (e) => {
         this.setState({ assignedTo: e });
@@ -165,7 +168,7 @@ class Index extends Component {
             state[name] = value;
         }
         this.setState({ service: state });
-       
+
     };
     //get services list
     getAssignService = () => {
@@ -187,14 +190,17 @@ class Index extends Component {
                         label: this.state.allServData[i]?.title,
                     });
                 }
-                var addCustom = <div className="addCustom">+ add custom service</div>;
-                serviceList = [{ value: 'custom', label: addCustom }, ...serviceList];
+                // var addCustom = <div className="addCustom">+ add custom service</div>;
+                // serviceList = [{ value: 'custom', label: addCustom }, ...serviceList];
                 this.setState({
                     service_id_list: serviceList,
                     serviceList1: serviceList1,
                 });
             });
     };
+
+    // For edit service
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Searchserviceoraddcustominput,
@@ -215,7 +221,12 @@ class Index extends Component {
             save_and_close,
             remove_time,
             assignService,
-            Addnewservice } = translate;
+            Addnewservice,
+            Services,
+            srvc,
+            qty,
+            Add
+        } = translate;
         return (
 
             <Grid className="newServc newServicAllSec">
@@ -279,55 +290,19 @@ class Index extends Component {
                                     <Grid>
                                         <label>{Addservice}</label>
                                         <Select
-                                            value={this.state.service?.service || ''}
                                             name="service"
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
+                                            value={this.state.service?.service || ''}
+                                            className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
-                                            className="cstmSelect2"
                                             isSearchable={true}
-                                            styles={customStyles}
+                                        // styles={customStyles}
                                         />
                                     </Grid>
-                                    {this.state.viewCutom && (
-                                        <Grid
-                                            className='customservicetitle'
 
-                                        >
-                                            <Grid item xs={12} md={12}>
-                                                <label>{Customservicetitle}</label>
-                                                <TextField
-                                                    placeholder={Customservicetitle}
-                                                    name="custom_title"
-                                                    onChange={(e) =>
-                                                        this.onFieldChange1(
-                                                            e.target.value,
-                                                            'custom_title'
-                                                        )
-                                                    }
-                                                    value={this.state.service?.custom_title || ''}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <label>{Customservicedescription}</label>
-                                                <TextField
-                                                    placeholder={Customservicedescription}
-                                                    name="custom_description"
-                                                    onChange={(e) =>
-                                                        this.onFieldChange1(
-                                                            e.target.value,
-                                                            'custom_description'
-                                                        )
-                                                    }
-                                                    value={
-                                                        this.state.service?.custom_description || ''
-                                                    }
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    )}
                                     <Grid
                                         item
                                         xs={12}
@@ -350,7 +325,7 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
-                                    <Grid item xs={12} md={12}>
+                                   <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
                                             <Select
