@@ -52,7 +52,8 @@ class Index extends Component {
             AllSpeciality: [],
             specilaityList: [],
             newspeciality: [],
-        
+            items: [],
+
         };
     }
 
@@ -70,7 +71,7 @@ class Index extends Component {
     };
 
     handleCloseAss = () => {
-        this.setState({ openAss: false, service: {}, selectedPat: {}, viewCutom: false, errorMsg: false });
+        this.setState({ openAss: false, service: {}, selectedPat: {}, assignedTo: false, viewCutom: false, errorMsg: false });
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
@@ -198,8 +199,76 @@ class Index extends Component {
                 });
             });
     };
+ //Add the services
+ handleAddSubmit = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {
+      Ser_already_exists,
+      Please_enter_valid_price,
+      Custom_service_title_cant_be_empty,
+    } = translate;
+    this.setState({ error: '' });
+    var newService = this.state.service;
+    var a =
+      this.state.items &&
+      this.state.items?.length > 0 &&
+      this.state.items.map((element) => {
+        return element?.service;
+      });
+    var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+    if (b == true) {
+      this.setState({ error: Ser_already_exists });
+    } else {
+      if (newService?.service?.value == 'custom') {
+        if (
+          newService?.price_per_quantity < 1 ||
+          !newService?.price_per_quantity
+        ) {
+          this.setState({ error: Please_enter_valid_price });
+        } else {
+          if (newService && !newService?.custom_title) {
+            this.setState({ error: Custom_service_title_cant_be_empty });
+          } else {
+            newService.price =
+              newService?.price_per_quantity * newService?.quantity;
+            newService.service = newService?.custom_title;
+            let items = [...this.state.items];
+            items.push(newService);
+            let data = {};
+            data['house_id'] = this.props?.House?.value;
+            data['description'] = newService?.custom_description;
+            data['price'] = newService?.price_per_quantity;
+            data['title'] = newService?.custom_title;
+            axios
+              .post(
+                sitedata.data.path + '/vh/AddService',
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+              )
+              .then((responce) => {
+                this.getAllServices();
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
 
-    // For edit service
+            this.setState({ items, service: {} }, () => {
+              this.updateTotalPrize();
+            });
+          }
+        }
+      } else {
+        newService.price =
+          newService?.price;
+        newService.service = this.state.service?.service?.label;
+        let items = [...this.state.items];
+        items.push(newService);
+        this.setState({ items, service: {} }, () => {
+          this.updateTotalPrize();
+        });
+      }
+    }
+  };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -325,7 +394,12 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
-                                   <Grid item xs={12} md={12}>
+                                    <Grid item xs={12} md={2} className="addSrvcBtn">
+                                        <Button onClick={this.handleAddSubmit}>
+                                            {Add}
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
                                             <Select
