@@ -829,7 +829,7 @@ class Index extends Component {
                               }
                             >
                               <Grid className="fltrClear">
-                                <Grid className="fltrClearIner">
+                                <Grid className="fltrClearIner2">
                                   <Grid className="fltrLbl">
                                   <Grid container direction="row" justify="center">
                                         <Grid item xs={8} md={8} lg={8}>
@@ -950,7 +950,7 @@ class Index extends Component {
                             <Th>{ID}</Th>
                             <Th>{Patient}</Th>
                             <Th>{date}</Th>
-                            <Th>{Status}</Th>
+                            {/* <Th>{Status}</Th> */}
                             <Th>{total}</Th>
                             <Th></Th>
                           </Tr>
@@ -975,7 +975,7 @@ class Index extends Component {
                                     : not_mentioned}
                                 </Td>
                                 {/* <Td>{data.}</Td> */}
-                                <Td className="">
+                                {/* <Td className="">
                                   <span
                                     className={
                                       data?.status?.value === 'paid'
@@ -996,7 +996,7 @@ class Index extends Component {
                                       true,
                                       'anamnesis'
                                     )}
-                                </Td>
+                                </Td> */}
                                 <Td>{data?.total_amount} €</Td>
                                 <Td className="billDots">
                                   <Button className="downloadDots">
@@ -1141,7 +1141,7 @@ class Index extends Component {
                                         </a>
                                       </ul>
 
-                                      {data?.status?.value != 'paid' && (
+                                      {/* {data?.status?.value != 'paid' && (
                                         <div className="setStatus">
                                           <a
                                             onClick={(e) => {
@@ -1211,7 +1211,7 @@ class Index extends Component {
                                             </Grid>
                                           )}
                                         </div>
-                                      )}
+                                      )} */}
                                       <a
                                         onClick={() => {
                                           this.removeBills(data._id);

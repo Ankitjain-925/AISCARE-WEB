@@ -15528,7 +15528,10 @@ a.joinmeetingtab {
   line-height: 12px;
   margin-bottom: 8px;
 }
-
 .radioPat1{
      margin-top: 27px
+}
+.fltrClearIner2 {
+ overflow-y: auto;
+  padding: 20px 0px;
 }
