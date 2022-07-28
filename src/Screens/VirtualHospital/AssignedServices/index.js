@@ -166,7 +166,7 @@ class Index extends Component {
                 <Grid item xs={12} md={11}>
                   <Grid container direction="row">
                     <Grid item xs={12} md={2} className="tskOverWeb">
-                      <Grid className="tskOverView">
+                      <Grid className="tskOverView allTaskView">
                         <h1>{Assigned_services_overview}</h1>
                         <Grid className="taskNum taskYelow">
                           <label>

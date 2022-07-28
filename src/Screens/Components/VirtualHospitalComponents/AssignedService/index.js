@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { getLanguage } from "translations/index";
 import Modal from "@material-ui/core/Modal";
-import DateFormat from 'Screens/Components/DateFormat/index';
-import TimeFormat from 'Screens/Components/TimeFormat/index';
+import DateFormat from "Screens/Components/DateFormat/index";
+import TimeFormat from "Screens/Components/TimeFormat/index";
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -18,23 +18,22 @@ import sitedata from "sitedata";
 import axios from "axios";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { commonHeader } from "component/CommonHeader/index";
-import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data';
-import { getPatientData } from 'Screens/Components/CommonApi/index';
-import { Speciality } from 'Screens/Login/speciality.js';
-
-
+import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
+import { getPatientData } from "Screens/Components/CommonApi/index";
+import { Speciality } from "Screens/Login/speciality.js";
 
 
 
 const customStyles = {
-    control: (base) => ({
-        ...base,
-        height: 48,
-        minHeight: 48,
-    }),
+  control: (base) => ({
+    ...base,
+    height: 48,
+    minHeight: 48,
+  }),
 };
 
 class Index extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,16 +54,38 @@ class Index extends Component {
             items: [],
 
         };
+
     }
+  };
 
-    componentDidMount() {
-        this.getAssignService();
-        this.getPatientData();
-        this.getProfessionalData();
-        this.specailityList();
+  //to get the speciality list
+  specailityList = () => {
+    var spec =
+      this.props.speciality?.SPECIALITY &&
+      this.props?.speciality?.SPECIALITY.length > 0 &&
+      this.props?.speciality?.SPECIALITY.map((data) => {
+        return { label: data.specialty_name, value: data._id };
+      });
+    this.setState({ specilaityList: spec });
+  };
+
+  // Get the Professional data
+  getProfessionalData = async () => {
+    this.setState({ loaderImage: true });
+    var data = await getProfessionalData(
+      this.props?.House?.value,
+      this.props.stateLoginValueAim.token
+    );
+    if (data) {
+      this.setState({
+        loaderImage: false,
+        professionalArray: data.professionalArray,
+        professional_id_list: data.professionalList,
+        professional_id_list1: data.professionalList,
+      });
+    } else {
+      this.setState({ loaderImage: false });
     }
-
-
 
     handleOpenAss = () => {
         this.setState({ openAss: true });
@@ -101,72 +122,44 @@ class Index extends Component {
     };
     assignedTo = (e) => {
         this.setState({ assignedTo: e });
+
+  };
+
+  specialityField = (e) => {
+    this.setState({ newspeciality: e });
+  };
+
+  updateEntry = (value, name) => {
+    var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
+    const state = this.state.service;
+    if (name === "date" || name === "time") {
+      due_on[name] = value;
+      state["due_on"] = due_on;
+    } else {
+      state[name] = value;
+
     }
-    //Get patient list
-    getPatientData = async () => {
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(
-            this.props.stateLoginValueAim.token,
-            this.props?.House?.value,
-            'invoice'
-        );
-        if (response.isdata) {
-            this.setState({
-                users1: response.PatientList1,
-                users: response.patientArray,
-                loaderImage: false,
-            });
-        } else {
-            this.setState({ loaderImage: false });
-        }
-    };
-
-    //to get the speciality list
-    specailityList = () => {
-        var spec =
-            this.props.speciality?.SPECIALITY &&
-            this.props?.speciality?.SPECIALITY.length > 0 &&
-            this.props?.speciality?.SPECIALITY.map((data) => {
-                return { label: data.specialty_name, value: data._id };
-            });
-        this.setState({ specilaityList: spec });
-    };
-
-    // Get the Professional data
-    getProfessionalData = async () => {
-        this.setState({ loaderImage: true });
-        var data = await getProfessionalData(
-            this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-        );
-        if (data) {
-            this.setState({
-                loaderImage: false,
-                professionalArray: data.professionalArray,
-                professional_id_list: data.professionalList,
-                professional_id_list1: data.professionalList,
-            });
-        } else {
-            this.setState({ loaderImage: false });
-        }
-    };
-
-
-    specialityField = (e) => {
-        this.setState({ newspeciality: e });
-    };
-
-
-
-
-    updateEntry = (value, name) => {
-        var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
-        const state = this.state.service;
-        if (name === 'date' || name === 'time') {
-            due_on[name] = value;
-            state['due_on'] = due_on;
-        } else {
-            state[name] = value;
+    this.setState({ service: state });
+  };
+  //get services list
+  getAssignService = () => {
+    var serviceList = [],
+      serviceList1 = [];
+    axios
+      .get(
+        sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        this.setState({ allServData: response.data.data });
+        for (let i = 0; i < this.state.allServData.length; i++) {
+          serviceList1.push(this.state.allServData[i]);
+          serviceList.push({
+            price: this.state.allServData[i].price,
+            // description: this.state.allServData[i].description,
+            value: this.state.allServData[i]._id,
+            label: this.state.allServData[i]?.title,
+          });
         }
         this.setState({ service: state });
 
@@ -559,38 +552,142 @@ class Index extends Component {
                                 </a>
                             </Grid>
 
-                        </Grid>
+
+                        options={this.state.specilaityList}
+                        name="specialty_name"
+                        isSearchable={true}
+                        className="addStafSelect"
+                        isMulti={true}
+                        value={this.state.newspeciality}
+
+                        // isDisabled={
+                        //     this.props.comesFrom === 'Professional'
+                        //         ? true
+                        //         : false
+                        // }
+                      />
                     </Grid>
-                </Modal>
+                  </Grid>
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item xs={12} md={12} className="dueOn creatInfoIner">
+                      <label>{Dueon}</label>
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        className="timeTask"
+                      >
+                        <Grid item xs={8} md={8}>
+                          {/* {this.state.openDate ? ( */}
+                          <DateFormat
+                            name="date"
+                            value={
+                              this.state.service?.due_on?.date
+                                ? new Date(this.state.service?.due_on?.date)
+                                : new Date()
+                            }
+                            notFullBorder
+                            date_format={this.state.date_format}
+                            onChange={(e) => this.updateEntry(e, "date")}
+
+                            // disabled={
+                            //   this.props.comesFrom === 'Professional'
+                            //     ? true
+                            //     : false
+                            // }
+                          />
+                          {/* { console.log("date_format",this.state.date_format)} */}
+                        </Grid>
+                        <Grid
+                          item
+                          xs={4}
+                          md={4}
+                          className={
+                            this.state.openDate ? "addTimeTask" : "addTimeTask1"
+                          }
+                        >
+                          {this.state.openDate ? (
+                            <Button
+                              onClick={() => {
+                                this.openTaskTime();
+                              }}
+                            >
+                              {Addtime}
+                            </Button>
+                          ) : (
+                            <>
+                              <TimeFormat
+                                className="timeFormatTask"
+                                name="time"
+                                value={
+                                  this.state.service?.due_on?.time
+                                    ? new Date(this.state.service?.due_on?.time)
+                                    : new Date()
+                                }
+                                time_format={this.state.time_format}
+                                onChange={(e) => this.updateEntry(e, "time")}
+                                // disabled={
+                                //   this.props.comesFrom ===
+                                //     'Professional'
+                                //     ? true
+                                //     : false
+                                // }
+                              />
+                              <span
+                                className="addTimeTask1span"
+                                onClick={() => {
+                                  this.setState({ openDate: true });
+                                }}
+                              >
+                                {remove_time}
+                              </span>
+                            </>
+                          )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <div className="err_message">{this.state.errorMsg}</div>
+              </Grid>
+              <Grid className="servSaveBtn">
+                <a>
+                  <Button>{save_and_close}</Button>
+                </a>
+              </Grid>
             </Grid>
-        );
-    }
+          </Grid>
+        </Modal>
+      </Grid>
+    );
+  }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
-    const { stateLanguageType } = state.LanguageReducer;
-    const { House } = state.houseSelect;
-    const { settings } = state.Settings;
-    const { verifyCode } = state.authy;
-    const { speciality } = state.Speciality;
-    return {
-        stateLanguageType,
-        stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
-        settings,
-        verifyCode,
-        House,
-        speciality,
-    };
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
+  const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
+    verifyCode,
+    House,
+    speciality,
+  };
 };
 export default withRouter(
-    connect(mapStateToProps, {
-        LoginReducerAim,
-        LanguageFetchReducer,
-        Settings,
-        authy,
-        houseSelect,
-        Speciality,
-    })(Index)
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    authy,
+    houseSelect,
+    Speciality,
+  })(Index)
 );

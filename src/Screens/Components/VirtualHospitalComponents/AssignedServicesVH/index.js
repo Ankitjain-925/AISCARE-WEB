@@ -3688,9 +3688,9 @@ class Index extends Component {
                     <Tab label={ALL} className="billtabIner" />
                     <Tab label={Done} className="billtabIner" />
                     <Tab label={Open} className="billtabIner" />
-                    {this.props.comesFrom !== 'Professional' && (
+                    {/* {this.props.comesFrom !== 'Professional' && (
                       <Tab label={Declined} className="billtabIner" />
-                    )}
+                    )} */}
                     {this.props.comesFrom !== 'detailTask' && (
                       <Tab label={Archived} className="billtabIner" />
                     )}
