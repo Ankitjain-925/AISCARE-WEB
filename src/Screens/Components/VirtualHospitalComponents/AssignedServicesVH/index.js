@@ -49,6 +49,7 @@ import { OptionList } from 'Screens/Login/metadataaction';
 import PainPoint from 'Screens/Components/PointPain/index';
 import Certificate from './certificate';
 import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
+import AssignedView from '../AssignedView/index';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -1063,6 +1064,11 @@ class Index extends Component {
       },
     });
   };
+
+
+
+
+
 
   cretficateTask = (id, patient_id, data) => {
     this.setState({
@@ -3820,7 +3826,7 @@ class Index extends Component {
                 {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
-                      <TaskView
+                      <AssignedView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3846,7 +3852,7 @@ class Index extends Component {
                 {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
-                      <TaskView
+                      <AssignedView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3872,7 +3878,7 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                      <TaskView
+                      <AssignedView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3898,7 +3904,7 @@ class Index extends Component {
                 {this.state.DeclinedTask?.length > 0 &&
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
-                      <TaskView
+                      <AssignedView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3924,7 +3930,7 @@ class Index extends Component {
                 {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
-                      <TaskView
+                      <AssignedView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}

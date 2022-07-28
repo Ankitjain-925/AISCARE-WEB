@@ -48,7 +48,7 @@ class PointPain extends Component {
       Create_Certificate,
       Join_Meeting,
       Not_attended,
-      Payment_pending
+      Payment_pending,
     } = translate;
     var data = this.state.data;
     return (
