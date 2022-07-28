@@ -744,12 +744,14 @@ class Index extends Component {
   updateEntryState2 = (user) => {
     var user1 =
       this.state.users?.length > 0 &&
-      this.state.users.filter((data) => data.patient_id === user.value);
+      this.state.users.filter((data) => data.user_id=== user.value);
     if (user1 && user1?.length > 0) {
       const state = this.state.newTask;
-      state["patient"] = user1[0];
-      state["patient_id"] = user1[0].patient_id;
-      state["case_id"] = user1[0].case_id;
+
+      state['patient'] = user1[0];
+      state['patient_id'] = user1[0].user_id;
+      state['case_id'] = user1[0].case_id;
+
       if (!user.label) {
         user["label"] =
           user1[0].first_name && user1[0].last_name
@@ -800,7 +802,7 @@ class Index extends Component {
       state["assinged_to"] = data;
       this.setState({ newTask: state }, () => {
         this.selectProf(
-          this.state.newTask?.assinged_to,
+          this.state.newTask?.assignedTo,
           this.state.professional_id_list
         );
       });
