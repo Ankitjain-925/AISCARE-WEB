@@ -7,6 +7,7 @@ import _ from 'lodash';
 //to save and edit the speciality
 
 export const externalSpaceApi = (current) => {
+  current.setState({ loaderImage: true })
   var house_id = current.props?.House?.value;
   axios
     .get(
@@ -15,7 +16,7 @@ export const externalSpaceApi = (current) => {
     )
     .then((response) => {
       if (response.data.hassuccessed) {
-        current.setState({ externalData: response.data.data })
+        current.setState({ externalData: response.data.data, loaderImage: false })
         console.log("response", response.data.data)
       }
     })

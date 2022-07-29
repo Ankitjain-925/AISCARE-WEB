@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -21,7 +20,7 @@ import Loader from "Screens/Components/Loader/index";
 import sitedata from "sitedata";
 import axios from "axios";
 import { commonHeader } from "component/CommonHeader/index";
-import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
+import AssignedService from "Screens/Components/VirtualHospitalComponents/AssignedService";
 import Select from "react-select";
 import {
   getSpecialty,
@@ -152,32 +151,37 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
-    state[event.target.name] = event.target.value >= 0 && event.target.value <= 100 ? event.target.value : '';
+    state[event.target.name] = event.target.value;
     this.setState({ sickamount1: state });
-
   };
 
   EditAmount = () => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { Something_went_wrong } = translate;
-    var a = this.state.sickamount1.amount;
-    axios
-      .put(
-        sitedata.data.path + "/vactive/AddAmount/" + this.props.House.value,
-        { sickleave_certificate_amount: a },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed) {
-          this.setState({ sickamount: true });
-        } else {
-          this.setState({ errorMsg: Something_went_wrong });
-        }
-      });
+
+    if (this.state.sickamount1.amount >= 21 ||
+      this.state.sickamount1.amount <= 9) {
+
+    } else {
+      let translate = getLanguage(this.props.stateLanguageType);
+      let { Something_went_wrong } = translate;
+      var a = this.state.sickamount1.amount;
+      axios
+        .put(
+          sitedata.data.path + "/vactive/AddAmount/" + this.props.House.value,
+          { sickleave_certificate_amount: a },
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.setState({ sickamount: true });
+          } else {
+            this.setState({ errorMsg: Something_went_wrong });
+          }
+        });
+    }
   };
   onSickamount = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.EditAmount();
       // this.setState({ sickamount: true });
     }
@@ -256,7 +260,7 @@ class Index extends Component {
                             </Grid> */}
                         {/* End of Back common button */}
                       </Grid>
-                      <Grid item xs={6} md={6}>
+                      <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
                           <AssignedService
                             openAss={this.state.openAss}
@@ -269,10 +273,11 @@ class Index extends Component {
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
-                                this.props.settings &&
-                                  this.props.settings.setting &&
+
+                                this.props.settings.setting &&
                                   this.props.settings.setting.mode &&
                                   this.props.settings.setting.mode === "dark"
+
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -290,14 +295,22 @@ class Index extends Component {
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
-                                    <Grid container direction="row" justify="center">
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
                                       <Grid item xs={8} md={8} lg={8}>
                                         <label>{Addnewservice}</label>
                                       </Grid>
                                       <Grid item xs={4} md={4} lg={4}>
                                         <Grid>
                                           <Grid className="entryCloseBtn">
-                                            <a onClick={() => handleCloseServ(this)}>
+                                            <a
+                                              onClick={() =>
+                                                handleCloseServ(this)
+                                              }
+                                            >
                                               <img
                                                 src={require("assets/images/close-search.svg")}
                                                 alt=""
@@ -346,6 +359,7 @@ class Index extends Component {
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
                                           onChange={(e) => onFieldChange(e, this)}
+
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
@@ -385,7 +399,10 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
-                                      <Button onClick={() => handleSubmit(this)}>
+
+                                      <Button
+                                        onClick={() => handleSubmit(this)}
+                                      >
                                         {save_and_close}
                                       </Button>
                                     </a>
@@ -408,18 +425,27 @@ class Index extends Component {
                               <label>{Sick_Certificate_Amount}</label>
                             </Grid>
 
-                            <Grid className="fixedEuro">
+                            <Grid
+                              className={
+
+                                this.state.sickamount1.amount >= 21 ||
+                                  this.state.sickamount1.amount <= 9
+
+                                  ? "fixedEuroSec"
+                                  : "fixedEuro"
+                              }
+                            >
                               <input
                                 type="number"
-
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
                                 name="amount"
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
-                                min="1"
-                                max="100"
+                                min="10"
+                                max="20"
+
                               />
                               <p className="euroamount">€</p>
                             </Grid>
@@ -440,7 +466,6 @@ class Index extends Component {
 
                             {/* </a> */}
                           </Grid>
-
                         </Grid>
                       </Grid>
                     </Grid>

@@ -186,7 +186,8 @@ class Index extends Component {
       patient_access_data,
       ProfessionalTask,
       Nurse_view,
-      VHS_view
+      VHS_view,
+      ProfessionalActivity
     } = translate;
     return (
       <Grid
@@ -409,7 +410,7 @@ class Index extends Component {
                               title=""
                             />
                           )}
-                        <span>{ProfessionalTask}</span>
+                        <span>{ProfessionalActivity}</span>
                       </a>
                     </li>
                   </>}

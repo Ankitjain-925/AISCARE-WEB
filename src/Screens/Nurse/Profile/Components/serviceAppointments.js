@@ -56,7 +56,7 @@ class Index extends Component {
       loaderImage: false,
       fillall: false,
       onlineAppointments: {},
-      sickleaveappointment:{},
+      homevisitappointment:{},
       UpDataDetails: {},
       DaysforPractices: {},
       firstServiceData: {},
@@ -184,44 +184,44 @@ class Index extends Component {
             PracticesSetting: daysForPractices,
           });
         }
-        let sickleaveappointment = null;
-        sickleaveappointment  = response.data.data.sickleave_appointment[0];
-        if (sickleaveappointment) {
-          if (sickleaveappointment.holidays) {
+        let homevisitappointment = null;
+        homevisitappointment  = response.data.data.homevisit_appointment[0];
+        if (homevisitappointment) {
+          if (homevisitappointment.holidays) {
             this.setState({
               holidayAppointment: {
                 holidays_start:
-                sickleaveappointment.holidays_start !== ""
-                    ? sickleaveappointment.holidays_start
+                homevisitappointment.holidays_start !== ""
+                    ? homevisitappointment.holidays_start
                     : new Date(),
                 holidays_end:
-                sickleaveappointment.holidays_end !== ""
-                    ? sickleaveappointment.holidays_end
+                homevisitappointment.holidays_end !== ""
+                    ? homevisitappointment.holidays_end
                     : new Date(),
-                holidays: sickleaveappointment.holidays,
+                holidays: homevisitappointment.holidays,
               },
             });
           }
 
           keysArray.map((key) => {
-            if (sickleaveappointment[key] == undefined) {
-              sickleaveappointment[key] = apoinmentdata[key];
+            if (homevisitappointment[key] == undefined) {
+              homevisitappointment[key] = apoinmentdata[key];
             }
           });
           this.setState({
-            sickleaveappointment: sickleaveappointment,
-            Sickleavesetting: sickleaveappointment,
+            homevisitappointment: homevisitappointment,
+            homevisitsetting: homevisitappointment,
           });
         } else {
-          sickleaveappointment = {};
+          homevisitappointment = {};
           keysArray.map((key) => {
-            if (sickleaveappointment[key] == undefined) {
-              sickleaveappointment[key] = apoinmentdata[key];
+            if (homevisitappointment[key] == undefined) {
+              homevisitappointment[key] = apoinmentdata[key];
             }
           });
           this.setState({
-            sickleaveappointment: sickleaveappointment,
-            Sickleavesetting: sickleaveappointment,
+            homevisitappointment: homevisitappointment,
+            homevisitsetting: homevisitappointment,
           });
         }
 
@@ -284,8 +284,8 @@ class Index extends Component {
           if (weOffer.Offre_online_appointments == undefined) {
             weOffer.Offre_online_appointments = false;
           }
-          if (weOffer.offer_sickleave == undefined) {
-            weOffer.offer_sickleave = false;
+          if (weOffer.offer_home_visit == undefined) {
+            weOffer.offer_home_visit = false;
           }
           this.setState({ weoffer: weOffer });
         } else {
@@ -296,7 +296,7 @@ class Index extends Component {
               Offer_online_sick_certificates: false,
               Offer_practice_appointment: false,
               Offre_online_appointments: false,
-              offer_sickleave: false,
+              offer_home_visit: false,
             },
           });
         }
@@ -343,7 +343,7 @@ class Index extends Component {
 
   saveAllData = () => {
     const user_token = this.props.stateLoginValueAim.token;
-    let doctor_id = this.props.stateLoginValueAim.user._id;
+    let nurse_id = this.props.stateLoginValueAim.user._id;
     let {
       firstServiceData,
       sencondSeviceData,
@@ -353,7 +353,7 @@ class Index extends Component {
       DaysforPractices,
       onlineAppointments,
       holidayAppointment,
-      sickleaveappointment,
+      homevisitappointment,
     } = this.state;
     let dataSave = {};
 
@@ -384,9 +384,9 @@ class Index extends Component {
       this.setState({ appoinmentError: true });
     } else if (
       weoffer &&
-      weoffer.offer_sickleave &&
-      (!sickleaveappointment.duration_of_timeslots ||
-        sickleaveappointment.duration_of_timeslots === 0)
+      weoffer.offer_home_visit &&
+      (!homevisitappointment.duration_of_timeslots ||
+        homevisitappointment.duration_of_timeslots === 0)
      
     ) {
       this.setState({ appoinmentError: true });
@@ -405,7 +405,7 @@ class Index extends Component {
       dataSave["days_for_practices"] = DaysforPractices;
       dataSave["online_appointment"] = onlineAppointments;
       dataSave["private_appointments"] = UpDataDetails;
-      dataSave["sickleave_appointment"] = sickleaveappointment ;
+      dataSave["homevisit_appointment"] = homevisitappointment ;
    
 
       if (holidayAppointment["holidays"]) {
@@ -450,7 +450,7 @@ class Index extends Component {
       dataSave["days_for_practices"] = [dataSave["days_for_practices"]];
       dataSave["online_appointment"] = [dataSave["online_appointment"]];
       dataSave["private_appointments"] = [dataSave["private_appointments"]];
-      dataSave["sickleave_appointment"] = [ dataSave["sickleave_appointment"]];
+      dataSave["homevisit_appointment"] = [ dataSave["homevisit_appointment"]];
     
       this.setState({ loaderImage: true, PrivateErr: false });
   
@@ -605,10 +605,148 @@ class Index extends Component {
     }
     this.setState({ DaysforPractices: state });
   };
-  saveDaysforPractices() {
+  // saveDaysforPractices() {
+  //   if (
+  //     this.state.DaysforPractices.duration_of_timeslots &&
+  //     this.state.DaysforPractices.duration_of_timeslots !== 0
+  //   ) {
+  //     this.setState({ loaderImage: true, PracticeErr: false });
+  //     let monday_start,
+  //       monday_end,
+  //       tuesday_start,
+  //       tuesday_end,
+  //       wednesday_start,
+  //       wednesday_end,
+  //       thursday_end,
+  //       thursday_start,
+  //       friday_start,
+  //       friday_end,
+  //       saturday_start,
+  //       saturday_end,
+  //       sunday_start,
+  //       sunday_end,
+  //       breakslot_start,
+  //       breakslot_end,
+  //       holidays_start,
+  //       holidays_end;
+  //     const user_token = this.props.stateLoginValueAim.token;
+  //     let doctor_id = this.props.stateLoginValueAim.user._id;
+  //     if (this.state.PracticesSetting.monday == true) {
+  //       monday_start = this.state.DaysforPractices.monday_start;
+  //       monday_end = this.state.DaysforPractices.monday_end;
+  //     } else {
+  //       monday_start = "";
+  //       monday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.tuesday == true) {
+  //       tuesday_start = this.state.DaysforPractices.tuesday_start;
+  //       tuesday_end = this.state.DaysforPractices.tuesday_end;
+  //     } else {
+  //       tuesday_start = "";
+  //       tuesday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.wednesday == true) {
+  //       wednesday_start = this.state.DaysforPractices.wednesday_start;
+  //       wednesday_end = this.state.DaysforPractices.wednesday_end;
+  //     } else {
+  //       wednesday_start = "";
+  //       wednesday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.thursday == true) {
+  //       thursday_end = this.state.DaysforPractices.thursday_end;
+  //       thursday_start = this.state.DaysforPractices.thursday_start;
+  //     } else {
+  //       thursday_end = "";
+  //       thursday_start = "";
+  //     }
+  //     if (this.state.PracticesSetting.friday == true) {
+  //       friday_start = this.state.DaysforPractices.friday_start;
+  //       friday_end = this.state.DaysforPractices.friday_end;
+  //     } else {
+  //       friday_start = "";
+  //       friday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.saturday == true) {
+  //       saturday_start = this.state.DaysforPractices.saturday_start;
+  //       saturday_end = this.state.DaysforPractices.saturday_end;
+  //     } else {
+  //       saturday_start = "";
+  //       saturday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.sunday == true) {
+  //       sunday_start = this.state.DaysforPractices.sunday_start;
+  //       sunday_end = this.state.DaysforPractices.sunday_end;
+  //     } else {
+  //       sunday_start = "";
+  //       sunday_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.breakslot == true) {
+  //       breakslot_start = this.state.DaysforPractices.breakslot_start;
+  //       breakslot_end = this.state.DaysforPractices.breakslot_end;
+  //     } else {
+  //       breakslot_start = "";
+  //       breakslot_end = "";
+  //     }
+  //     if (this.state.PracticesSetting.holidays == true) {
+  //       holidays_start = this.state.DaysforPractices.holidays_start;
+  //       holidays_end = this.state.DaysforPractices.holidays_end;
+  //     } else {
+  //       holidays_start = "";
+  //       holidays_end = "";
+  //     }
+
+  //     axios
+  //       .put(
+  //         sitedata.data.path + "/UserProfile/DaysforPractices/" + doctor_id,
+  //         {
+  //           type: "private",
+  //           doctor_id: this.state.DaysforPractices.doctor_id,
+  //           monday_start: monday_start,
+  //           monday_end: monday_end,
+  //           tuesday_start: tuesday_start,
+  //           tuesday_end: tuesday_end,
+  //           wednesday_start: wednesday_start,
+  //           wednesday_end: wednesday_end,
+  //           thursday_start: thursday_start,
+  //           thursday_end: thursday_end,
+  //           friday_start: friday_start,
+  //           friday_end: friday_end,
+  //           saturday_start: saturday_start,
+  //           saturday_end: saturday_end,
+  //           sunday_start: sunday_start,
+  //           sunday_end: sunday_end,
+  //           breakslot_start: breakslot_start,
+  //           breakslot_end: breakslot_end,
+  //           appointment_days: this.state.DaysforPractices.appointment_days,
+  //           appointment_hours: this.state.DaysforPractices.appointment_hours,
+  //           duration_of_timeslots: this.state.DaysforPractices
+  //             .duration_of_timeslots,
+  //           holidays_start: holidays_start,
+  //           holidays_end: holidays_end,
+  //           monday: this.state.PracticesSetting.monday,
+  //           tuesday: this.state.PracticesSetting.tuesday,
+  //           wednesday: this.state.PracticesSetting.wednesday,
+  //           thursday: this.state.PracticesSetting.thursday,
+  //           friday: this.state.PracticesSetting.friday,
+  //           saturday: this.state.PracticesSetting.saturday,
+  //           sunday: this.state.PracticesSetting.sunday,
+  //           breakslot: this.state.PracticesSetting.breakslot,
+  //           holidays: this.state.PracticesSetting.holidays,
+  //           custom_text: "offline",
+  //         },
+  //         commonHeader(user_token)
+  //       )
+  //       .then((responce) => {
+  //         this.setState({ loaderImage: false });
+  //       });
+  //   } else {
+  //     this.setState({ PracticeErr: true });
+  //   }
+  // }
+  savehomevisitappointment() {
     if (
-      this.state.DaysforPractices.duration_of_timeslots &&
-      this.state.DaysforPractices.duration_of_timeslots !== 0
+      this.state.homevisitappointment.duration_of_timeslots &&
+      this.state.homevisitappointment.duration_of_timeslots !== 0
     ) {
       this.setState({ loaderImage: true, PracticeErr: false });
       let monday_start,
@@ -630,66 +768,66 @@ class Index extends Component {
         holidays_start,
         holidays_end;
       const user_token = this.props.stateLoginValueAim.token;
-      let doctor_id = this.props.stateLoginValueAim.user._id;
-      if (this.state.PracticesSetting.monday == true) {
-        monday_start = this.state.DaysforPractices.monday_start;
-        monday_end = this.state.DaysforPractices.monday_end;
+      let nurse_id = this.props.stateLoginValueAim.user._id;
+      if (this.state.homevisitsetting.monday == true) {
+        monday_start = this.state.homevisitappointment.monday_start;
+        monday_end = this.state.homevisitappointment.monday_end;
       } else {
         monday_start = "";
         monday_end = "";
       }
-      if (this.state.PracticesSetting.tuesday == true) {
-        tuesday_start = this.state.DaysforPractices.tuesday_start;
-        tuesday_end = this.state.DaysforPractices.tuesday_end;
+      if (this.state.homevisitsetting.tuesday == true) {
+        tuesday_start = this.state.homevisitappointment.tuesday_start;
+        tuesday_end = this.state.homevisitappointment.tuesday_end;
       } else {
         tuesday_start = "";
         tuesday_end = "";
       }
-      if (this.state.PracticesSetting.wednesday == true) {
-        wednesday_start = this.state.DaysforPractices.wednesday_start;
-        wednesday_end = this.state.DaysforPractices.wednesday_end;
+      if (this.state.homevisitsetting.wednesday == true) {
+        wednesday_start = this.state.homevisitappointment.wednesday_start;
+        wednesday_end = this.state.homevisitappointment.wednesday_end;
       } else {
         wednesday_start = "";
         wednesday_end = "";
       }
-      if (this.state.PracticesSetting.thursday == true) {
-        thursday_end = this.state.DaysforPractices.thursday_end;
-        thursday_start = this.state.DaysforPractices.thursday_start;
+      if (this.state.homevisitsetting.thursday == true) {
+        thursday_end = this.state.homevisitappointment.thursday_end;
+        thursday_start = this.state.homevisitappointment.thursday_start;
       } else {
         thursday_end = "";
         thursday_start = "";
       }
-      if (this.state.PracticesSetting.friday == true) {
-        friday_start = this.state.DaysforPractices.friday_start;
-        friday_end = this.state.DaysforPractices.friday_end;
+      if (this.state.homevisitsetting.friday == true) {
+        friday_start = this.state.homevisitappointment.friday_start;
+        friday_end = this.state.homevisitappointment.friday_end;
       } else {
         friday_start = "";
         friday_end = "";
       }
-      if (this.state.PracticesSetting.saturday == true) {
-        saturday_start = this.state.DaysforPractices.saturday_start;
-        saturday_end = this.state.DaysforPractices.saturday_end;
+      if (this.state.homevisitsetting.saturday == true) {
+        saturday_start = this.state.homevisitappointment.saturday_start;
+        saturday_end = this.state.homevisitappointment.saturday_end;
       } else {
         saturday_start = "";
         saturday_end = "";
       }
-      if (this.state.PracticesSetting.sunday == true) {
-        sunday_start = this.state.DaysforPractices.sunday_start;
-        sunday_end = this.state.DaysforPractices.sunday_end;
+      if (this.state.homevisitsetting.sunday == true) {
+        sunday_start = this.state.homevisitappointment.sunday_start;
+        sunday_end = this.state.homevisitappointment.sunday_end;
       } else {
         sunday_start = "";
         sunday_end = "";
       }
-      if (this.state.PracticesSetting.breakslot == true) {
-        breakslot_start = this.state.DaysforPractices.breakslot_start;
-        breakslot_end = this.state.DaysforPractices.breakslot_end;
+      if (this.state.homevisitsetting.breakslot == true) {
+        breakslot_start = this.state.homevisitappointment.breakslot_start;
+        breakslot_end = this.state.homevisitappointment.breakslot_end;
       } else {
         breakslot_start = "";
         breakslot_end = "";
       }
-      if (this.state.PracticesSetting.holidays == true) {
-        holidays_start = this.state.DaysforPractices.holidays_start;
-        holidays_end = this.state.DaysforPractices.holidays_end;
+      if (this.state.homevisitsetting.holidays == true) {
+        holidays_start = this.state.homevisitappointment.holidays_start;
+        holidays_end = this.state.homevisitappointment.holidays_end;
       } else {
         holidays_start = "";
         holidays_end = "";
@@ -697,10 +835,10 @@ class Index extends Component {
 
       axios
         .put(
-          sitedata.data.path + "/UserProfile/DaysforPractices/" + doctor_id,
+          sitedata.data.path + "/UserProfile/homevisitappointment/" + nurse_id,
           {
             type: "private",
-            doctor_id: this.state.DaysforPractices.doctor_id,
+            nurse_id: this.state.homevisitappointment.nurse_id,
             monday_start: monday_start,
             monday_end: monday_end,
             tuesday_start: tuesday_start,
@@ -717,159 +855,21 @@ class Index extends Component {
             sunday_end: sunday_end,
             breakslot_start: breakslot_start,
             breakslot_end: breakslot_end,
-            appointment_days: this.state.DaysforPractices.appointment_days,
-            appointment_hours: this.state.DaysforPractices.appointment_hours,
-            duration_of_timeslots: this.state.DaysforPractices
+            appointment_days: this.state.homevisitappointment.appointment_days,
+            appointment_hours: this.state.homevisitappointment.appointment_hours,
+            duration_of_timeslots: this.state.homevisitappointment
               .duration_of_timeslots,
             holidays_start: holidays_start,
             holidays_end: holidays_end,
-            monday: this.state.PracticesSetting.monday,
-            tuesday: this.state.PracticesSetting.tuesday,
-            wednesday: this.state.PracticesSetting.wednesday,
-            thursday: this.state.PracticesSetting.thursday,
-            friday: this.state.PracticesSetting.friday,
-            saturday: this.state.PracticesSetting.saturday,
-            sunday: this.state.PracticesSetting.sunday,
-            breakslot: this.state.PracticesSetting.breakslot,
-            holidays: this.state.PracticesSetting.holidays,
-            custom_text: "offline",
-          },
-          commonHeader(user_token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({ PracticeErr: true });
-    }
-  }
-  savesickleaveappointment() {
-    if (
-      this.state.sickleaveappointment.duration_of_timeslots &&
-      this.state.sickleaveappointment.duration_of_timeslots !== 0
-    ) {
-      this.setState({ loaderImage: true, PracticeErr: false });
-      let monday_start,
-        monday_end,
-        tuesday_start,
-        tuesday_end,
-        wednesday_start,
-        wednesday_end,
-        thursday_end,
-        thursday_start,
-        friday_start,
-        friday_end,
-        saturday_start,
-        saturday_end,
-        sunday_start,
-        sunday_end,
-        breakslot_start,
-        breakslot_end,
-        holidays_start,
-        holidays_end;
-      const user_token = this.props.stateLoginValueAim.token;
-      let doctor_id = this.props.stateLoginValueAim.user._id;
-      if (this.state.Sickleavesetting.monday == true) {
-        monday_start = this.state.sickleaveappointment.monday_start;
-        monday_end = this.state.sickleaveappointment.monday_end;
-      } else {
-        monday_start = "";
-        monday_end = "";
-      }
-      if (this.state.Sickleavesetting.tuesday == true) {
-        tuesday_start = this.state.sickleaveappointment.tuesday_start;
-        tuesday_end = this.state.sickleaveappointment.tuesday_end;
-      } else {
-        tuesday_start = "";
-        tuesday_end = "";
-      }
-      if (this.state.Sickleavesetting.wednesday == true) {
-        wednesday_start = this.state.sickleaveappointment.wednesday_start;
-        wednesday_end = this.state.sickleaveappointment.wednesday_end;
-      } else {
-        wednesday_start = "";
-        wednesday_end = "";
-      }
-      if (this.state.Sickleavesetting.thursday == true) {
-        thursday_end = this.state.sickleaveappointment.thursday_end;
-        thursday_start = this.state.sickleaveappointment.thursday_start;
-      } else {
-        thursday_end = "";
-        thursday_start = "";
-      }
-      if (this.state.Sickleavesetting.friday == true) {
-        friday_start = this.state.sickleaveappointment.friday_start;
-        friday_end = this.state.sickleaveappointment.friday_end;
-      } else {
-        friday_start = "";
-        friday_end = "";
-      }
-      if (this.state.Sickleavesetting.saturday == true) {
-        saturday_start = this.state.sickleaveappointment.saturday_start;
-        saturday_end = this.state.sickleaveappointment.saturday_end;
-      } else {
-        saturday_start = "";
-        saturday_end = "";
-      }
-      if (this.state.Sickleavesetting.sunday == true) {
-        sunday_start = this.state.sickleaveappointment.sunday_start;
-        sunday_end = this.state.sickleaveappointment.sunday_end;
-      } else {
-        sunday_start = "";
-        sunday_end = "";
-      }
-      if (this.state.Sickleavesetting.breakslot == true) {
-        breakslot_start = this.state.sickleaveappointment.breakslot_start;
-        breakslot_end = this.state.sickleaveappointment.breakslot_end;
-      } else {
-        breakslot_start = "";
-        breakslot_end = "";
-      }
-      if (this.state.Sickleavesetting.holidays == true) {
-        holidays_start = this.state.sickleaveappointment.holidays_start;
-        holidays_end = this.state.sickleaveappointment.holidays_end;
-      } else {
-        holidays_start = "";
-        holidays_end = "";
-      }
-
-      axios
-        .put(
-          sitedata.data.path + "/UserProfile/sickleaveappointment/" + doctor_id,
-          {
-            type: "private",
-            doctor_id: this.state.sickleaveappointment.doctor_id,
-            monday_start: monday_start,
-            monday_end: monday_end,
-            tuesday_start: tuesday_start,
-            tuesday_end: tuesday_end,
-            wednesday_start: wednesday_start,
-            wednesday_end: wednesday_end,
-            thursday_start: thursday_start,
-            thursday_end: thursday_end,
-            friday_start: friday_start,
-            friday_end: friday_end,
-            saturday_start: saturday_start,
-            saturday_end: saturday_end,
-            sunday_start: sunday_start,
-            sunday_end: sunday_end,
-            breakslot_start: breakslot_start,
-            breakslot_end: breakslot_end,
-            appointment_days: this.state.sickleaveappointment.appointment_days,
-            appointment_hours: this.state.sickleaveappointment.appointment_hours,
-            duration_of_timeslots: this.state.sickleaveappointment
-              .duration_of_timeslots,
-            holidays_start: holidays_start,
-            holidays_end: holidays_end,
-            monday: this.state.Sickleavesetting.monday,
-            tuesday: this.state.Sickleavesetting.tuesday,
-            wednesday: this.state.Sickleavesetting.wednesday,
-            thursday: this.state.Sickleavesetting.thursday,
-            friday: this.state.Sickleavesetting.friday,
-            saturday: this.state.Sickleavesetting.saturday,
-            sunday: this.state.Sickleavesetting.sunday,
-            breakslot: this.state.Sickleavesetting.breakslot,
-            holidays: this.state.Sickleavesetting.holidays,
+            monday: this.state.homevisitsetting.monday,
+            tuesday: this.state.homevisitsetting.tuesday,
+            wednesday: this.state.homevisitsetting.wednesday,
+            thursday: this.state.homevisitsetting.thursday,
+            friday: this.state.homevisitsetting.friday,
+            saturday: this.state.homevisitsetting.saturday,
+            sunday: this.state.homevisitsetting.sunday,
+            breakslot: this.state.homevisitsetting.breakslot,
+            holidays: this.state.homevisitsetting.holidays,
             custom_text: "offline",
           },
           commonHeader(user_token)
@@ -924,7 +924,7 @@ class Index extends Component {
         holidays_start,
         holidays_end;
       const user_token = this.props.stateLoginValueAim.token;
-      let doctor_id = this.props.stateLoginValueAim.user._id;
+      let nurse_id = this.props.stateLoginValueAim.user._id;
       if (this.state.OnlineSetting.monday == true) {
         monday_start = this.state.onlineAppointments.monday_start;
         monday_end = this.state.onlineAppointments.monday_end;
@@ -990,10 +990,10 @@ class Index extends Component {
       }
       axios
         .put(
-          sitedata.data.path + "/UserProfile/onlineAppointments/" + doctor_id,
+          sitedata.data.path + "/UserProfile/onlineAppointments/" + nurse_id,
           {
             type: "private",
-            doctor_id: this.state.DaysforPractices.doctor_id,
+            nurse_id: this.state.DaysforPractices.nurse_id,
             monday_start: monday_start,
             monday_end: monday_end,
             tuesday_start: tuesday_start,
@@ -1202,7 +1202,7 @@ class Index extends Component {
       thirdServiceData,
       holidayAppointment,
       changeText,
-      sickleaveappointment,
+      homevisitappointment,
       appoinmentError,
     } = this.state;
 
@@ -3838,12 +3838,12 @@ class Index extends Component {
                         value="checkedB"
                         color="#00ABAF"
                         checked={
-                          weoffer && weoffer.offer_sickleave
+                          weoffer && weoffer.offer_home_visit
                             ? true
                             : false
                         }
                         onChange={() =>
-                          this.handleweoffer("offer_sickleave")
+                          this.handleweoffer("offer_home_visit")
                         }
                       />
                     }
@@ -3867,31 +3867,31 @@ class Index extends Component {
                     <Grid>
                       <a
                         className={
-                         sickleaveappointment.monday_end !== "" && "seleted-days"
+                         homevisitappointment.monday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "monday")
+                          this.selectWeek("homevisitappointment", "monday")
                         }
                       >
                         M
                       </a>
                       <a
                         className={
-                         sickleaveappointment.tuesday_end !== "" && "seleted-days"
+                         homevisitappointment.tuesday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "tuesday")
+                          this.selectWeek("homevisitappointment", "tuesday")
                         }
                       >
                         T
                       </a>
                       <a
                         className={
-                         sickleaveappointment.wednesday_end !== "" &&
+                         homevisitappointment.wednesday_end !== "" &&
                           "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "wednesday")
+                          this.selectWeek("homevisitappointment", "wednesday")
                         }
                       >
                         {" "}
@@ -3899,40 +3899,40 @@ class Index extends Component {
                       </a>
                       <a
                         className={
-                         sickleaveappointment.thursday_end !== "" && "seleted-days"
+                         homevisitappointment.thursday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "thursday")
+                          this.selectWeek("homevisitappointment", "thursday")
                         }
                       >
                         T
                       </a>
                       <a
                         className={
-                         sickleaveappointment.friday_end !== "" && "seleted-days"
+                         homevisitappointment.friday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "friday")
+                          this.selectWeek("homevisitappointment", "friday")
                         }
                       >
                         F
                       </a>
                       <a
                         className={
-                         sickleaveappointment.saturday_end !== "" && "seleted-days"
+                         homevisitappointment.saturday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "saturday")
+                          this.selectWeek("homevisitappointment", "saturday")
                         }
                       >
                         S
                       </a>
                       <a
                         className={
-                         sickleaveappointment.sunday_end !== "" && "seleted-days"
+                         homevisitappointment.sunday_end !== "" && "seleted-days"
                         }
                         onClick={() =>
-                          this.selectWeek("sickleaveappointment", "sunday")
+                          this.selectWeek("homevisitappointment", "sunday")
                         }
                       >
                         S
@@ -3940,8 +3940,8 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid className="dayScheduleUpr appointment">
-                    {sickleaveappointment.monday_end &&
-                     sickleaveappointment.monday_end !== "" && (
+                    {homevisitappointment.monday_end &&
+                     homevisitappointment.monday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{monday}</label>
@@ -3950,8 +3950,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.monday_start
-                                  ? this.getTime(sickleaveappointment.monday_start)
+                               homevisitappointment.monday_start
+                                  ? this.getTime(homevisitappointment.monday_start)
                                   : new Date()
                               }
                               time_format={
@@ -3963,7 +3963,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "monday"
                                 )
                               }
@@ -3972,8 +3972,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.monday_end
-                                  ? this.getTime(sickleaveappointment.monday_end)
+                               homevisitappointment.monday_end
+                                  ? this.getTime(homevisitappointment.monday_end)
                                   : new Date()
                               }
                               time_format={
@@ -3985,7 +3985,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "monday"
                                 )
                               }
@@ -3994,7 +3994,7 @@ class Index extends Component {
                           <Grid>
                             <p
                               onClick={() =>
-                                this.copytoall("sickleaveappointment", "monday")
+                                this.copytoall("homevisitappointment", "monday")
                               }
                             >
                               <img
@@ -4007,8 +4007,8 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       )}
-                    {sickleaveappointment.tuesday_end &&
-                     sickleaveappointment.tuesday_end !== "" && (
+                    {homevisitappointment.tuesday_end &&
+                     homevisitappointment.tuesday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{tuseday}</label>
@@ -4017,8 +4017,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.tuesday_start
-                                  ? this.getTime(sickleaveappointment.tuesday_start)
+                               homevisitappointment.tuesday_start
+                                  ? this.getTime(homevisitappointment.tuesday_start)
                                   : new Date()
                               }
                               time_format={
@@ -4030,7 +4030,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "tuesday"
                                 )
                               }
@@ -4039,8 +4039,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.tuesday_end
-                                  ? this.getTime(sickleaveappointment.tuesday_end)
+                               homevisitappointment.tuesday_end
+                                  ? this.getTime(homevisitappointment.tuesday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4052,17 +4052,17 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "tuesday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" && (
+                          {homevisitappointment.monday_end == "" && (
                             <Grid>
                               <p
                                 onClick={() =>
-                                  this.copytoall("sickleaveappointment", "tuesday")
+                                  this.copytoall("homevisitappointment", "tuesday")
                                 }
                               >
                                 <img
@@ -4076,8 +4076,8 @@ class Index extends Component {
                           )}
                         </Grid>
                       )}
-                    {sickleaveappointment.wednesday_end &&
-                     sickleaveappointment.wednesday_end !== "" && (
+                    {homevisitappointment.wednesday_end &&
+                     homevisitappointment.wednesday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{wednesday}</label>
@@ -4086,9 +4086,9 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.wednesday_start
+                               homevisitappointment.wednesday_start
                                   ? this.getTime(
-                                   sickleaveappointment.wednesday_start
+                                   homevisitappointment.wednesday_start
                                   )
                                   : new Date()
                               }
@@ -4101,7 +4101,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "wednesday"
                                 )
                               }
@@ -4110,8 +4110,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.wednesday_end
-                                  ? this.getTime(sickleaveappointment.wednesday_end)
+                               homevisitappointment.wednesday_end
+                                  ? this.getTime(homevisitappointment.wednesday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4123,19 +4123,19 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "wednesday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" &&
-                           sickleaveappointment.tuesday_end == "" && (
+                          {homevisitappointment.monday_end == "" &&
+                           homevisitappointment.tuesday_end == "" && (
                               <Grid>
                                 <p
                                   onClick={() =>
                                     this.copytoall(
-                                      "sickleaveappointment",
+                                      "homevisitappointment",
                                       "wednesday"
                                     )
                                   }
@@ -4151,8 +4151,8 @@ class Index extends Component {
                             )}
                         </Grid>
                       )}
-                    {sickleaveappointment.thursday_end &&
-                     sickleaveappointment.thursday_end !== "" && (
+                    {homevisitappointment.thursday_end &&
+                     homevisitappointment.thursday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{thursday}</label>
@@ -4161,9 +4161,9 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                               sickleaveappointment.thursday_start
+                               homevisitappointment.thursday_start
                                   ? this.getTime(
-                                   sickleaveappointment.thursday_start
+                                   homevisitappointment.thursday_start
                                   )
                                   : new Date()
                               }
@@ -4176,7 +4176,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "thursday"
                                 )
                               }
@@ -4185,8 +4185,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.thursday_end
-                                  ? this.getTime(sickleaveappointment.thursday_end)
+                                homevisitappointment.thursday_end
+                                  ? this.getTime(homevisitappointment.thursday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4198,20 +4198,20 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "thursday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" &&
-                            sickleaveappointment.tuesday_end == "" &&
-                            sickleaveappointment.wednesday_end == "" && (
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" && (
                               <Grid>
                                 <p
                                   onClick={() =>
                                     this.copytoall(
-                                      "sickleaveappointment",
+                                      "homevisitappointment",
                                       "thursday"
                                     )
                                   }
@@ -4227,8 +4227,8 @@ class Index extends Component {
                             )}
                         </Grid>
                       )}
-                    {sickleaveappointment.friday_end &&
-                      sickleaveappointment.friday_end !== "" && (
+                    {homevisitappointment.friday_end &&
+                      homevisitappointment.friday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{friday}</label>
@@ -4237,8 +4237,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.friday_start
-                                  ? this.getTime(sickleaveappointment.friday_start)
+                                homevisitappointment.friday_start
+                                  ? this.getTime(homevisitappointment.friday_start)
                                   : new Date()
                               }
                               time_format={
@@ -4250,7 +4250,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "friday"
                                 )
                               }
@@ -4259,8 +4259,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.friday_end
-                                  ? this.getTime(sickleaveappointment.friday_end)
+                                homevisitappointment.friday_end
+                                  ? this.getTime(homevisitappointment.friday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4272,20 +4272,20 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "friday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" &&
-                            sickleaveappointment.tuesday_end == "" &&
-                            sickleaveappointment.wednesday_end == "" &&
-                            sickleaveappointment.thursday_end == "" && (
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" && (
                               <Grid>
                                 <p
                                   onClick={() =>
-                                    this.copytoall("sickleaveappointment", "friday")
+                                    this.copytoall("homevisitappointment", "friday")
                                   }
                                 >
                                   <img
@@ -4299,8 +4299,8 @@ class Index extends Component {
                             )}
                         </Grid>
                       )}
-                    {sickleaveappointment.saturday_end &&
-                      sickleaveappointment.saturday_end !== "" && (
+                    {homevisitappointment.saturday_end &&
+                      homevisitappointment.saturday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{saturday}</label>
@@ -4309,9 +4309,9 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.saturday_start
+                                homevisitappointment.saturday_start
                                   ? this.getTime(
-                                    sickleaveappointment.saturday_start
+                                    homevisitappointment.saturday_start
                                   )
                                   : new Date()
                               }
@@ -4324,7 +4324,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "saturday"
                                 )
                               }
@@ -4333,8 +4333,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.saturday_end
-                                  ? this.getTime(sickleaveappointment.saturday_end)
+                                homevisitappointment.saturday_end
+                                  ? this.getTime(homevisitappointment.saturday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4346,22 +4346,22 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "saturday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" &&
-                            sickleaveappointment.tuesday_end == "" &&
-                            sickleaveappointment.wednesday_end == "" &&
-                            sickleaveappointment.thursday_end == "" &&
-                            sickleaveappointment.friday_end == "" && (
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" &&
+                            homevisitappointment.friday_end == "" && (
                               <Grid>
                                 <p
                                   onClick={() =>
                                     this.copytoall(
-                                      "sickleaveappointment",
+                                      "homevisitappointment",
                                       "saturday"
                                     )
                                   }
@@ -4377,8 +4377,8 @@ class Index extends Component {
                             )}
                         </Grid>
                       )}
-                    {sickleaveappointment.sunday_end &&
-                      sickleaveappointment.sunday_end !== "" && (
+                    {homevisitappointment.sunday_end &&
+                      homevisitappointment.sunday_end !== "" && (
                         <Grid className="daySchedule">
                           <Grid>
                             <label>{sunday}</label>
@@ -4387,8 +4387,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.sunday_start
-                                  ? this.getTime(sickleaveappointment.sunday_start)
+                                homevisitappointment.sunday_start
+                                  ? this.getTime(homevisitappointment.sunday_start)
                                   : new Date()
                               }
                               time_format={
@@ -4400,7 +4400,7 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "start",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "sunday"
                                 )
                               }
@@ -4409,8 +4409,8 @@ class Index extends Component {
                             <TimeFormat
                               name="time"
                               value={
-                                sickleaveappointment.sunday_end
-                                  ? this.getTime(sickleaveappointment.sunday_end)
+                                homevisitappointment.sunday_end
+                                  ? this.getTime(homevisitappointment.sunday_end)
                                   : new Date()
                               }
                               time_format={
@@ -4422,22 +4422,22 @@ class Index extends Component {
                                 this.onChange(
                                   e,
                                   "end",
-                                  "sickleaveappointment",
+                                  "homevisitappointment",
                                   "sunday"
                                 )
                               }
                             />
                           </Grid>
-                          {sickleaveappointment.monday_end == "" &&
-                            sickleaveappointment.tuesday_end == "" &&
-                            sickleaveappointment.wednesday_end == "" &&
-                            sickleaveappointment.thursday_end == "" &&
-                            sickleaveappointment.friday_end == "" &&
-                            sickleaveappointment.saturday_end == "" && (
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" &&
+                            homevisitappointment.friday_end == "" &&
+                            homevisitappointment.saturday_end == "" && (
                               <Grid>
                                 <p
                                   onClick={() =>
-                                    this.copytoall("sickleaveappointment", "sunday")
+                                    this.copytoall("homevisitappointment", "sunday")
                                   }
                                 >
                                   <img
@@ -4463,9 +4463,9 @@ class Index extends Component {
                         <input
                           type="text"
                           name="duration_of_timeslots"
-                          value={sickleaveappointment.duration_of_timeslots}
+                          value={homevisitappointment.duration_of_timeslots}
                           onChange={(e) =>
-                            this.changeDuration(e, "sickleaveappointment")
+                            this.changeDuration(e, "homevisitappointment")
                           }
                         />{" "}
                         {minutes}
@@ -4482,9 +4482,9 @@ class Index extends Component {
                         <TimeFormat
                           name="time"
                           value={
-                            sickleaveappointment.breakslot_start ||
-                              sickleaveappointment.breakslot_start === ""
-                              ? this.getTime(sickleaveappointment.breakslot_start)
+                            homevisitappointment.breakslot_start ||
+                              homevisitappointment.breakslot_start === ""
+                              ? this.getTime(homevisitappointment.breakslot_start)
                               : new Date()
                           }
                           time_format={
@@ -4496,7 +4496,7 @@ class Index extends Component {
                             this.onChange(
                               e,
                               "start",
-                              "sickleaveappointment",
+                              "homevisitappointment",
                               "breakslot"
                             )
                           }
@@ -4505,9 +4505,9 @@ class Index extends Component {
                         <TimeFormat
                           name="time"
                           value={
-                            sickleaveappointment.breakslot_end ||
-                            sickleaveappointment.breakslot_end === ""
-                              ? this.getTime(sickleaveappointment.breakslot_end)
+                            homevisitappointment.breakslot_end ||
+                            homevisitappointment.breakslot_end === ""
+                              ? this.getTime(homevisitappointment.breakslot_end)
                               : new Date()
                           }
                           time_format={
@@ -4519,7 +4519,7 @@ class Index extends Component {
                             this.onChange(
                               e,
                               "end",
-                              "sickleaveappointment",
+                              "homevisitappointment",
                               "breakslot"
                             )
                           }
@@ -4540,10 +4540,10 @@ class Index extends Component {
                             this.onChangebook(
                               e,
                               "appointment_days",
-                              "sickleaveappointment"
+                              "homevisitappointment"
                             )
                           }
-                          value={sickleaveappointment.appointment_days}
+                          value={homevisitappointment.appointment_days}
                         />
                         {before_day_of_appointment}
                       </p>
@@ -4556,12 +4556,12 @@ class Index extends Component {
                         <span>{Max},</span>{" "}
                         <input
                           type="text"
-                          value={sickleaveappointment.appointment_hours}
+                          value={homevisitappointment.appointment_hours}
                           onChange={(e) =>
                             this.onChangebook(
                               e,
                               "appointment_hours",
-                              "sickleaveappointment"
+                              "homevisitappointment"
                             )
                           }
                         />{" "}

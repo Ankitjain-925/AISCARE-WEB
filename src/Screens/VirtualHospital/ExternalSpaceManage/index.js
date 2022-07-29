@@ -33,8 +33,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        this.setState({ action: 'loading' });
-        getSpeciality(this);
+        // this.setState({ action: 'loading' });
+        // getSpeciality(this);
         externalSpaceApi(this);
     }
 
