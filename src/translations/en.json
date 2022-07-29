@@ -1892,7 +1892,8 @@
     "external_space_management":"External Space Management",
     "Home_visit":"Home visit",
     "ProfessionalActivity":"Professional Activity",
-    "ServiceAmount":"Service Amount"
+    "ServiceAmount":"Service Amount",
+    "Add_assigned_services":"Add Assigned Service"
 
   }
 }
