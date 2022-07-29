@@ -36,7 +36,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openAss: false,
+            openAss: this.props.openAss ? this.props.openAss : false,
             service: {},
             viewCutom: false,
             serviceList1: [],
@@ -44,12 +44,12 @@ class Index extends Component {
             selectedPat: {},
             professional_id_list1: [],
             assignedTo: [],
-           date_format: this.props.date_format,
+            date_format: this.props.date_format,
             time_format: this.props.time_format,
             openDate: true,
             AllSpeciality: [],
             specilaityList: [],
-             newspeciality: []
+            newspeciality: []
         };
     }
 
@@ -60,7 +60,11 @@ class Index extends Component {
         this.specailityList();
     }
 
-  
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.openAss !== this.props.openAss) {
+            this.setState({ openAss: this.props.openAss });
+        }
+    };
 
     handleOpenAss = () => {
         this.setState({ openAss: true });
@@ -71,7 +75,7 @@ class Index extends Component {
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
-      };
+    };
 
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
@@ -88,12 +92,12 @@ class Index extends Component {
         }
         this.setState({ service: state });
 
-       
+
     };
 
     patientField = (e) => {
         this.setState({ selectedPat: e });
-       
+
     };
     assignedTo = (e) => {
         this.setState({ assignedTo: e });
@@ -165,7 +169,7 @@ class Index extends Component {
             state[name] = value;
         }
         this.setState({ service: state });
-       
+
     };
     //get services list
     getAssignService = () => {
@@ -195,6 +199,8 @@ class Index extends Component {
                 });
             });
     };
+
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Searchserviceoraddcustominput,

@@ -59,6 +59,8 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
+      openAss: false
+
     };
   }
 
@@ -66,6 +68,11 @@ class Index extends Component {
     getSpecialty(this);
     getAllServices(this);
     getAmount(this);
+    if (
+      this.props.history.location?.state?.openAssign
+    ) {
+      this.setState({ openAss: true });
+    }
   }
 
   //Delete the perticular service confirmation box
@@ -251,7 +258,9 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="openAssser">
-                          <AssignedService />
+                          <AssignedService
+                            openAss={this.state.openAss}
+                          />
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}

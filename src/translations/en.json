@@ -1890,7 +1890,8 @@
     "Save_services_close":"Save Services & Close",
     "Task_services":"Task / services",
     "external_space_management":"External Space Management",
-   "Home_visit":"Home visit"
+   "Home_visit":"Home visit",
+   "add_assign_service":"Add Assign Service"
   }
 
 }

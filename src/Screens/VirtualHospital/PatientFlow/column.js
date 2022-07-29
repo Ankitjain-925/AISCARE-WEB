@@ -615,6 +615,9 @@ export default class Column extends Component {
                 MovetoTask={(speciality, patient_id) => {
                   this.props.MovetoTask(speciality, patient_id);
                 }}
+                MovetoService={() => {
+                  this.props.MovetoService();
+                }}
                 mode={this.props?.mode}
                 socket={this.props.socket}
                 stateLanguageType={this.props.stateLanguageType}

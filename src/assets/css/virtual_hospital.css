@@ -15532,3 +15532,12 @@ a.joinmeetingtab {
 .radioPat1{
      margin-top: 27px
 }
+
+a.hoverTopCss span{
+top: -37px!important;
+width: 90px!important;
+}
+
+.taskHover1{
+  margin-right: 0 !important;
+}
