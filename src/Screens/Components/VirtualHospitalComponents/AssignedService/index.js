@@ -73,53 +73,6 @@ class Index extends Component {
 
     }
 
-    FinalServiceSubmit = () => {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong } = translate;
-        this.setState({ errorMsg: "" })
-        this.setState({ loaderImage: true });
-
-        var data = {
-            house_id: this.props?.House.value,
-            assign_service: this.state.items,
-            assinged_to: this.state.assignedTo,
-            speciality: this.state.newspeciality,
-            status: "open",
-            added_at: new Date(),
-            due_on: {
-                date: this.state.service?.due_on?.date,
-                time: this.state.service?.due_on?.time,
-            }
-
-        };
-        let value = {}
-        value = this.state.service
-        if (!value.title) {
-            this.setState({ errorMsg: "please enter title " })
-        }
-       else if (!value.service) {
-            this.setState({ errorMsg: "please select atleast one service" })
-        }
-
-        else {
-            this.setState({ loaderImage: true })
-            axios
-                .post(
-                    sitedata.data.path + "/assignservice/Addassignservice",
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ loaderImage: false });
-                    this.handleCloseAss();
-                }).catch(function (error) {
-                    console.log(error);
-                    this.setState({ errorMsg: Something_went_wrong })
-
-                });
-        }
-
-    };
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.openAss !== this.props.openAss) {
@@ -146,6 +99,24 @@ class Index extends Component {
         this.setState({ openDate: !this.state.openDate });
     };
 
+    onFieldChange = (e) => {
+        const state = this.state.service;
+        this.setState({ selectSpec: e });
+        var speciality =
+          this.props.speciality?.SPECIALITY &&
+          this.props?.speciality?.SPECIALITY.length > 0 &&
+          this.props?.speciality?.SPECIALITY.filter((data) => data._id === e.value);
+        if (speciality && speciality.length > 0) {
+          state["speciality"] = {
+            background_color: speciality[0]?.background_color,
+            color: speciality[0]?.color,
+            specialty_name: speciality[0]?.specialty_name,
+            _id: speciality[0]?._id,
+          };
+          this.setState({ service: state });
+        }
+      };
+
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
         if (name === 'service') {
@@ -164,31 +135,52 @@ class Index extends Component {
 
     };
 
-    patientField = (e) => {
-        this.setState({ selectedPat: e });
-
-    };
     assignedTo = (e) => {
-        this.setState({ assignedTo: e });
-    }
-    //Get patient list
-    getPatientData = async () => {
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(
-            this.props.stateLoginValueAim.token,
-            this.props?.House?.value,
-            'invoice'
-        );
-        if (response.isdata) {
-            this.setState({
-                users1: response.PatientList1,
-                users: response.patientArray,
-                loaderImage: false,
+        this.setState({ assignedTo: e }, () => {
+            var data =
+              e?.length > 0 &&
+              e.reduce((last, current, index) => {
+                let isProf =
+                  this.state.professionalArray?.length > 0 &&
+                  this.state.professionalArray.filter(
+                    (data, index) => data.user_id === current.value
+                  );
+                if (isProf && isProf.length > 0) {
+                  last.push(isProf[0]);
+                }
+                return last;
+              }, []);
+            const state = this.state.service;
+            state["assinged_to"] = data;
+            this.setState({ service: state }, () => {
+              this.selectProf(
+                this.state.service?.assinged_to,
+                this.state.professional_id_list
+              );
             });
-        } else {
-            this.setState({ loaderImage: false });
-        }
-    };
+          });
+    }
+
+     // manage assign to list
+  selectProf = (listing, data) => {
+    var showdata = data;
+    var alredyAssigned =
+      listing &&
+      listing?.length > 0 &&
+      listing.map((item) => {
+        return item.user_id;
+      });
+    if (alredyAssigned && alredyAssigned.length > 0) {
+      showdata =
+        data?.length > 0 &&
+        data.filter((item) => !alredyAssigned.includes(item.value));
+      var assignedto =
+        data?.length > 0 &&
+        data.filter((item) => alredyAssigned.includes(item.value));
+      this.setState({ assignedTo: assignedto });
+    }
+    this.setState({ professional_id_list1: showdata });
+  };
 
     //to get the speciality list
     specailityList = () => {
@@ -220,10 +212,66 @@ class Index extends Component {
         }
     };
 
+      // Get the Patient data
+  getPatientData = async () => {
+    this.setState({ loaderImage: true });
+    let response = await getPatientData(
+      this.props.stateLoginValueAim.token,
+      this.props?.House?.value,
+      "taskpage"
+    );
+    if (response?.isdata) {
+      this.setState(
+        { users1: response.PatientList1, users: response.patientArray },
+        () => {
+          if (this.props.location?.state?.user) {
+            let user =
+              this.state.users1.length > 0 &&
+              this.state.users1.filter(
+                (user) => user.value === this.props.location?.state?.user.value
+              );
+            // if (user?.length > 0) {
+            //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
+            // }
+            this.updateEntryState2(this.props.location?.state?.user);
+          }
+        }
+      );
+    } else {
+      this.setState({ loaderImage: false });
+    }
+  };
 
-    specialityField = (e) => {
-        this.setState({ newspeciality: e });
-    };
+    updateEntryState2 = (user) => {
+        var user1 =
+          this.state.users?.length > 0 &&
+          this.state.users.filter((data) => data.user_id=== user.value);
+        if (user1 && user1?.length > 0) {
+          const state = this.state.service;
+    
+          state['patient'] = user1[0];
+          state['patient_id'] = user1[0].user_id;
+          state['case_id'] = user1[0].case_id;
+    
+          if (!user.label) {
+            user["label"] =
+              user1[0].first_name && user1[0].last_name
+                ? user1[0].first_name + " " + user1[0].last_name
+                : user1[0].first_name;
+          }
+          if (!state?.speciality) {
+            state["speciality"] = user1[0].speciality;
+            this.setState({
+              selectSpec: {
+                label: user1[0]?.speciality?.specialty_name,
+                value: user1[0]?.speciality?._id,
+              },
+            });
+          }
+          this.setState({ service: state, selectedPat: user });
+        }
+      };
+    
     updateEntry = (value, name) => {
         var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
         const state = this.state.service;
@@ -236,51 +284,45 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
+    
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Something_went_wrong } = translate;
         this.setState({ errorMsg: "" })
         this.setState({ loaderImage: true });
-
-        var data = {
-            house_id: this.props?.House.value,
-            assign_service: this.state.items,
-            assinged_to: this.state.assignedTo,
-            speciality: this.state.newspeciality,
-            status: "open",
-            added_at: new Date(),
-            due_on: {
-                date: this.state.service?.due_on?.date,
-                time: this.state.service?.due_on?.time,
-            }
-
-        };
+        var data = this.state.service;
+        data.house_id =  this.props?.House.value;
+        data.assign_service = this.state.items;
+        data.status = "open";
+        data.created_at =  new Date();
         let value = {}
         value = this.state.service
-        if (!value.title) {
-            this.setState({ errorMsg: "please enter title " })
-        }
-       else if (!value.service) {
-            this.setState({ errorMsg: "please select atleast one service" })
-        }
+    //     if (!value.title) {
+    //         this.setState({ errorMsg: "please enter title " })
+    //     }
+    //    else if (!value.service) {
+    //         this.setState({ errorMsg: "please select atleast one service" })
+    //     }
 
-        else {
-            this.setState({ loaderImage: true })
-            axios
-                .post(
-                    sitedata.data.path + "/assignservice/Addassignservice",
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ loaderImage: false });
-                    this.handleCloseAss();
-                }).catch(function (error) {
-                    console.log(error);
-                    this.setState({ errorMsg: Something_went_wrong })
+    //     else {
+            // this.setState({ loaderImage: true })
+            // axios
+            //     .post(
+            //         sitedata.data.path + "/assignservice/Addassignservice",
+            //         data,
+            //         commonHeader(this.props.stateLoginValueAim.token)
+            //     )
+            //     .then((responce) => {
+            //         this.setState({ loaderImage: false });
+            //         this.props.getAddTaskData();
+            //         this.handleCloseAss();
 
-                });
-        }
+            //     }).catch(function (error) {
+            //         console.log(error);
+            //         this.setState({ errorMsg: Something_went_wrong })
+
+            //     });
+        // }
 
     };
 
@@ -359,7 +401,7 @@ class Index extends Component {
                         newService.price =
                             newService?.price_per_quantity;
                         newService.service = newService?.custom_title;
-                        let items = [...this.state.items];
+                        let items = this.state.items ? [...this.state.items] : [];
                         items.push(newService);
                         let data = {};
                         data['house_id'] = this.props?.House?.value;
@@ -388,7 +430,7 @@ class Index extends Component {
                 newService.price =
                     newService?.price_per_quantity;
                 newService.service = this.state.service?.service?.label;
-                let items = [...this.state.items];
+                let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
                 this.setState({ items, service: {} }, () => {
                     this.updateTotalPrize();
@@ -677,18 +719,17 @@ class Index extends Component {
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
-                                            <Select
-                                                name="patient"
-                                                options={this.state.users1}
-                                                placeholder={Search_Select}
-                                                onChange={(e) =>
-                                                    this.patientField(e, 'patient')
-                                                }
-                                                value={this.state.selectedPat || ''}
-                                                className="addStafSelect"
-                                                isMulti={false}
-                                                isSearchable={true}
-                                            />
+                                             <Select
+                                  name="patient"
+                                  options={this.state.users1}
+                                  placeholder={Search_Select}
+                                  onChange={(e) => this.updateEntryState2(e)}
+                                  value={this.state.selectedPat || ""}
+                                  className="addStafSelect"
+                                  isMulti={false}
+                                  isSearchable={true}
+                                />
+
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={12} className="customservicetitle">
@@ -712,23 +753,19 @@ class Index extends Component {
                                             <label>{speciality}</label>
                                         </Grid>
                                         <Grid className="sevicessection serviceallSec">
-                                            <Select
-                                                onChange={(e) => this.specialityField(e, 'specialty_name')}
-                                                options={this.state.specilaityList}
-                                                name="specialty_name"
-                                                isSearchable={true}
-                                                className="addStafSelect"
-                                                isMulti={true}
-                                                value={this.state.newspeciality}
-
-
-
-                                            // isDisabled={
-                                            //     this.props.comesFrom === 'Professional'
-                                            //         ? true
-                                            //         : false
-                                            // }
-                                            />
+                                        <Select
+                                    onChange={(e) => this.onFieldChange(e)}
+                                    options={this.state.specilaityList}
+                                    name="specialty_name"
+                                    isSearchable={true}
+                                    className="addStafSelect"
+                                    value={this.state.selectSpec}
+                                    isDisabled={
+                                      this.props.comesFrom === "Professional"
+                                        ? true
+                                        : false
+                                    }
+                                  />
                                         </Grid>
                                     </Grid>
                                     <Grid container direction="row" alignItems="center">
@@ -824,13 +861,11 @@ class Index extends Component {
 
 
                             </Grid>
-                            <Grid className="servSaveBtn">
-                                <a>
-                                    <Button onClick={() =>
-                                        this.FinalServiceSubmit(
-
-                                        )
+                            <Grid className="servSaveBtn" onClick={() =>
+                                        this.FinalServiceSubmit()
                                     }>
+                                <a> 
+                                    <Button>
                                         {save_and_close}
                                     </Button>
                                 </a>

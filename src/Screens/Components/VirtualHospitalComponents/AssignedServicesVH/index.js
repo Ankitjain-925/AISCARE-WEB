@@ -49,7 +49,6 @@ import { OptionList } from 'Screens/Login/metadataaction';
 import PainPoint from 'Screens/Components/PointPain/index';
 import Certificate from './certificate';
 import AssignedService from 'Screens/Components/VirtualHospitalComponents/AssignedService';
-import AssignedView from '../AssignedView/index';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -1020,17 +1019,7 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
-    // var assignedTo =
-    //   data?.assinged_to?.length > 0 &&
-    //   data?.assinged_to.map((data) => {
-    //     var name = "";
-    //     if (data?.first_name && data?.last_name) {
-    //       name = data?.first_name + " " + data?.last_name;
-    //     } else if (data?.first_name) {
-    //       name = data?.first_name;
-    //     }
-    //     return { label: name, value: data._id };
-    //   });
+
     this.selectProf(data?.assinged_to, this.state.professional_id_list);
     var pat1name = '';
     if (data?.patient?.first_name && data?.patient?.last_name) {
@@ -1550,7 +1539,9 @@ class Index extends Component {
         <Grid container direction="row">
           <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            <AssignedService openAss={this.state.openAss} editTask={this.editTask}/>
+            <AssignedService openAss={this.state.openAss} editTask={this.editTask}  getAddTaskData={(tabvalue2) => {
+                          this.props.getAddTaskData(tabvalue2);
+                        }}/>
           </Grid>
 
 
@@ -3842,7 +3833,7 @@ class Index extends Component {
                 {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
-                      <AssignedView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3868,7 +3859,7 @@ class Index extends Component {
                 {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
-                      <AssignedView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3894,7 +3885,7 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                      <AssignedView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3920,7 +3911,7 @@ class Index extends Component {
                 {this.state.DeclinedTask?.length > 0 &&
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
-                      <AssignedView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -3946,7 +3937,7 @@ class Index extends Component {
                 {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
-                      <AssignedView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
