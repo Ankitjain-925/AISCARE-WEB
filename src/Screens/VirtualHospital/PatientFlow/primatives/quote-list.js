@@ -97,6 +97,9 @@ class InnerQuoteList extends React.Component {
             MovetoTask={(speciality, patient_id) => {
               this.props.MovetoTask(speciality, patient_id);
             }}
+            MovetoService={() => {
+              this.props.MovetoService();
+            }}
             socket={this.props.socket}
             stateLanguageType={this.props.stateLanguageType}
           />
@@ -116,6 +119,9 @@ class InnerList extends React.Component {
             socket={this.props.socket}
             MovetoTask={(speciality, patient_id) => {
               this.props.MovetoTask(speciality, patient_id);
+            }}
+            MovetoService={() => {
+              this.props.MovetoService();
             }}
             updateEntryState3={(e, case_id) => {
               this.props.updateEntryState3(e, case_id);
@@ -198,6 +204,9 @@ export default class QuoteList extends React.Component {
                   MovetoTask={(speciality, patient_id) => {
                     this.props.MovetoTask(speciality, patient_id);
                   }}
+                  MovetoService={() => {
+                    this.props.MovetoService();
+                  }}
                   socket={this.props.socket}
                   stateLanguageType={this.props.stateLanguageType}
                 />
@@ -221,6 +230,9 @@ export default class QuoteList extends React.Component {
                 }}
                 MovetoTask={(speciality, patient_id) => {
                   this.props.MovetoTask(speciality, patient_id);
+                }}
+                MovetoService={() => {
+                  this.props.MovetoService();
                 }}
                 socket={this.props.socket}
                 stateLanguageType={this.props.stateLanguageType}

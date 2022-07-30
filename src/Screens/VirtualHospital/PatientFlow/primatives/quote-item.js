@@ -119,7 +119,8 @@ export default class QuoteItem extends React.Component {
       update: false,
     };
   }
-  setSpeciality = () => {};
+
+  setSpeciality = () => { };
 
   // shouldComponentUpdate(nextProps, nexState) {
   //   return (
@@ -140,7 +141,7 @@ export default class QuoteItem extends React.Component {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
       this.props;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice } =
+    let { Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice, add_assign_service } =
       translate;
     return (
       <div
@@ -273,7 +274,7 @@ export default class QuoteItem extends React.Component {
                       {quote.total_task ? quote.total_task : 0}
                     </a>
                     <a
-                      className="addSec taskHover"
+                      className="addSec taskHover taskHover1"
                       onClick={() => {
                         quote?.verifiedbyPatient &&
                           this.props.MovetoTask(
@@ -283,6 +284,20 @@ export default class QuoteItem extends React.Component {
                       }}
                     >
                       <span>{AddTask}</span>
+                      <img
+                        src={require('assets/virtual_images/plusIcon.png')}
+                        alt=""
+                        title=""
+                      />
+                    </a>
+                    <a
+                      className="taskHover hoverTopCss"
+                      onClick={() => {
+                        quote?.verifiedbyPatient &&
+                          this.props.MovetoService();
+                      }}
+                    >
+                      <span>{add_assign_service}</span>
                       <img
                         src={require('assets/virtual_images/plusIcon.png')}
                         alt=""
