@@ -1813,6 +1813,7 @@
    "Services_assigned_title":"Zugewiesener Titel der Dienste",
    "Save_services_close":"Dienste speichern & schließen",
    "Task_services":"Aufgabe / Dienste",
-   "external_space_management":"Externe Speicherplatzverwaltung"
+   "external_space_management":"Externe Speicherplatzverwaltung",
+   "add_assign_service":"Zuweisungsdienst hinzufügen"
       }
 }
