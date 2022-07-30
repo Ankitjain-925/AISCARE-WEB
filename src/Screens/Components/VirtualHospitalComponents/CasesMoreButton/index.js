@@ -419,9 +419,25 @@ class Index extends React.Component {
     });
   };
 
-  MoveExternalSpace = () => {
-
-  }
+ 
+  MoveExternalSpace = (data) => {
+    this.setState({ loaderImage: true });
+    axios
+      .put(
+        sitedata.data.path + "/vc/UpdateAddress" + this.props.quote._id,
+        {
+         
+        },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce1) => {
+        if (responce1.data.hassuccessed) {
+         
+        } else {
+          this.setState({ loaderImage: false });
+        }
+      });
+  };
 
   MovetoService = () => {
     this.props.history.push({
@@ -429,6 +445,7 @@ class Index extends React.Component {
       state: { openAssign: true }
     })
   }
+
 
   moveEntry = () => {
     this.props.history.push({

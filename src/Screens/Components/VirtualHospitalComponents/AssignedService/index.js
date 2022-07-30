@@ -24,6 +24,7 @@ import { getPatientData } from 'Screens/Components/CommonApi/index';
 import { Speciality } from 'Screens/Login/speciality.js';
 import { confirmAlert } from 'react-confirm-alert';
 import _ from 'lodash';
+import moment from "moment";
 
 
 
@@ -43,7 +44,6 @@ class Index extends Component {
         this.state = {
             openAss: this.props.openAss ? this.props.openAss : false,
             service: {},
-            viewCutom: false,
             serviceList1: [],
             users1: {},
             selectedPat: {},
@@ -58,6 +58,9 @@ class Index extends Component {
             items: [],
             editServ: false,
             newServiceIndex: false,
+            error: '',
+            addinvoice: {},
+            errorMsg: ''
 
 
         };
@@ -77,12 +80,20 @@ class Index extends Component {
         }
     };
 
+
     handleOpenAss = () => {
         this.setState({ openAss: true });
     };
 
     handleCloseAss = () => {
-        this.setState({ openAss: false, service: {}, selectedPat: {}, items: false, assignedTo: false, viewCutom: false, errorMsg: false });
+        this.setState({
+            openAss: false,
+            service: {},
+            selectedPat: {},
+            assignedTo: false, newspeciality: false, errorMsg: false, error: false,
+            items: false, assignedTo: false, viewCutom: false,
+        });
+
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
@@ -178,6 +189,54 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
+    FinalServiceSubmit = () => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Something_went_wrong } = translate;
+        this.setState({ errorMsg: "" })
+        this.setState({ loaderImage: true });
+
+        var data = {
+            house_id: this.props?.House.value,
+            assign_service: this.state.items,
+            assinged_to: this.state.assignedTo,
+            speciality: this.state.newspeciality,
+            status: "open",
+            added_at: new Date(),
+            due_on: {
+                date: this.state.service?.due_on?.date,
+                time: this.state.service?.due_on?.time,
+            }
+
+        };
+        let value = {}
+        value = this.state.service
+        if (!value.title) {
+            this.setState({ errorMsg: "please enter title " })
+        }
+       else if (!value.service) {
+            this.setState({ errorMsg: "please select atleast one service" })
+        }
+
+        else {
+            this.setState({ loaderImage: true })
+            axios
+                .post(
+                    sitedata.data.path + "/assignservice/Addassignservice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    this.handleCloseAss();
+                }).catch(function (error) {
+                    console.log(error);
+                    this.setState({ errorMsg: Something_went_wrong })
+
+                });
+        }
+
+    };
+
     //get services list
     getAssignService = () => {
         var serviceList = [],
@@ -291,16 +350,16 @@ class Index extends Component {
         }
     };
     updateTotalPrize = () => {
-        var newService = this.state.service;
+        var newService = this.state.addinvoice;
         var total = 0;
         this.state.items?.length > 0 &&
             this.state.items.map((data) => {
                 if (data && data?.price) {
-                    total = total + data?.price;
+                    total = total + parseInt(data?.price);
                 }
             });
         newService.total_amount = total;
-        this.setState({ service: newService });
+        this.setState({ addinvoice: newService });
     };
 
     //Update the services
@@ -318,6 +377,7 @@ class Index extends Component {
     //Delete the perticular service confirmation box
     removeServices = (id) => {
         this.setState({ message: null });
+        this.handleCloseAss();
         let translate = getLanguage(this.props.stateLanguageType);
         let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
             translate;
@@ -398,7 +458,8 @@ class Index extends Component {
             ServiceAmount,
             Editservice,
             Servicename,
-            EnterTitlename
+            EnterTitlename,
+            Add_assigned_services
         } = translate;
         return (
 
@@ -430,23 +491,27 @@ class Index extends Component {
                     // className="addServContnt"
                     >
                         <Grid className="addSpeclContntIner2">
-
-                            <Grid className="addSpeclLbl">
-                                <Grid className="addSpeclClose">
-                                    <a onClick={() => this.handleCloseAss()}>
-                                        <img
-                                            src={require("assets/images/close-search.svg")}
-                                            alt=""
-                                            title=""
-                                        />
-                                    </a>
+                            <Grid container direction="row" justify="center" className="addSpeclLbl">
+                                <Grid item xs={8} md={8} lg={8}>
+                                    <label>{Add_assigned_services}</label>
                                 </Grid>
-                                <Grid>
-                                    <label>{Addnewservice}</label>
+                                <Grid item xs={4} md={4} lg={4}>
+                                    <Grid>
+                                        <Grid className="entryCloseBtn">
+                                            <a onClick={() => this.handleCloseAss()}>
+                                                <img
+                                                    src={require("assets/images/close-search.svg")}
+                                                    alt=""
+                                                    title=""
+                                                />
+                                            </a>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-
-
+                            <div className="err_message">
+                                {this.state.errorMsg}
+                            </div>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
                                     <Grid>
@@ -460,6 +525,7 @@ class Index extends Component {
                                             value={this.state.service.title}
                                         />
                                     </Grid>
+                                    <p className="err_message">{this.state.error}</p>
                                     <Grid>
                                         <label>{Addservice}</label>
                                         <Select
@@ -467,7 +533,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
-                                            value={this.state.service?.service || ''}
+                                            value={this.state.service?.service }
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
@@ -558,7 +624,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid>
                                         <p>{ServiceAmount}</p>
-                                        <label>{this.state.service.total_amount} €</label>
+                                        <label>{this.state.addinvoice.total_amount} €</label>
+
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
@@ -708,13 +775,15 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
 
-                                <div className="err_message">
-                                    {this.state.errorMsg}
-                                </div>
+
                             </Grid>
                             <Grid className="servSaveBtn">
                                 <a>
-                                    <Button>
+                                    <Button onClick={() =>
+                                        this.FinalServiceSubmit(
+
+                                        )
+                                    }>
                                         {save_and_close}
                                     </Button>
                                 </a>
