@@ -37,6 +37,7 @@ import {
   onFieldChange,
   searchFilter,
   getAmount,
+  EditAssignedService,
 } from "./api";
 import { getLanguage } from "translations/index";
 
@@ -85,9 +86,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -122,9 +123,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -156,10 +157,10 @@ class Index extends Component {
   };
 
   EditAmount = () => {
-
-    if (this.state.sickamount1.amount >= 21 ||
-      this.state.sickamount1.amount <= 9) {
-
+    if (
+      this.state.sickamount1.amount >= 21 ||
+      this.state.sickamount1.amount <= 9
+    ) {
     } else {
       let translate = getLanguage(this.props.stateLanguageType);
       let { Something_went_wrong } = translate;
@@ -208,6 +209,8 @@ class Index extends Component {
       Serviceshortdescription,
       Servicename,
       Sick_Certificate_Amount,
+      edit_assigned_services,
+      delete_assigned_services,
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -228,9 +231,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -262,9 +265,10 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                          <AssignedService
-                            openAss={this.state.openAss}
-                          />
+                          <Grid className="allOpenAsser">
+                            <AssignedService openAss={this.state.openAss} />
+                          </Grid>
+
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}
@@ -273,11 +277,9 @@ class Index extends Component {
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
-
                                 this.props.settings.setting &&
                                   this.props.settings.setting.mode &&
                                   this.props.settings.setting.mode === "dark"
-
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -358,8 +360,9 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          onChange={(e) => onFieldChange(e, this)}
-
+                                          onChange={(e) =>
+                                            onFieldChange(e, this)
+                                          }
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
@@ -399,7 +402,6 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
-
                                       <Button
                                         onClick={() => handleSubmit(this)}
                                       >
@@ -427,10 +429,8 @@ class Index extends Component {
 
                             <Grid
                               className={
-
                                 this.state.sickamount1.amount >= 21 ||
-                                  this.state.sickamount1.amount <= 9
-
+                                this.state.sickamount1.amount <= 9
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
                               }
@@ -445,7 +445,6 @@ class Index extends Component {
                                 value={this.state.sickamount1.amount}
                                 min="10"
                                 max="20"
-
                               />
                               <p className="euroamount">€</p>
                             </Grid>
@@ -603,7 +602,7 @@ class Index extends Component {
                                       item
                                       xs={6}
                                       md={6}
-                                      className="spcMgntRght7 presEditDot scndOptionIner"
+                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
                                     >
                                       <a className="openScndhrf">
                                         <img
@@ -642,6 +641,36 @@ class Index extends Component {
                                               {deleteService}
                                             </a>
                                           </li>
+                                        {/* 
+                                          <li
+                                            onClick={() => {
+                                              EditAssignedService(data, this);
+                                            }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/virtual_images/pencil-1.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {edit_assigned_services}
+                                            </a>
+                                          </li> */}
+
+                                          {/* <li
+                                            onClick={() => {
+                                              this.removeServices(data._id);
+                                            }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/images/cancel-request.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {delete_assigned_services}
+                                            </a>
+                                          </li> */}
                                         </ul>
                                       </a>
                                     </Grid>
