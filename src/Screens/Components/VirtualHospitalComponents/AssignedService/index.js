@@ -41,7 +41,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openAss: this.props.openAss,
+            openAss: this.props.openAss ? this.props.openAss : false,
             service: {},
             viewCutom: false,
             serviceList1: [],
@@ -59,6 +59,7 @@ class Index extends Component {
             editServ: false,
             newServiceIndex: false,
 
+
         };
     }
 
@@ -75,8 +76,6 @@ class Index extends Component {
             this.setState({ openAss: this.props.openAss });
         }
     };
-    
-
 
 
     handleOpenAss = () => {
@@ -84,7 +83,7 @@ class Index extends Component {
     };
 
     handleCloseAss = () => {
-        this.setState({ openAss: false, service: {}, selectedPat: {},items:false, assignedTo: false, viewCutom: false, errorMsg: false });
+        this.setState({ openAss: false, service: {}, selectedPat: {}, items: false, assignedTo: false, viewCutom: false, errorMsg: false });
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
@@ -210,18 +209,18 @@ class Index extends Component {
     };
     handleCloseServ = () => {
         this.setState({ editServ: false, service: {} });
-      };
- // Set the state of quantity and price_per_quantity
-  updateEntryState1 = (e, name) => {
-    const state = this.state.service;
-    state[name] = e.target.value;
-    this.setState({ service: state });
-  };
-   // For edit service
-   editService = (data, index) => {
-    var deep = _.cloneDeep(data);
-    this.setState({ service: deep, newServiceIndex: index, editServ: true });
-  };
+    };
+    // Set the state of quantity and price_per_quantity
+    updateEntryState1 = (e, name) => {
+        const state = this.state.service;
+        state[name] = e.target.value;
+        this.setState({ service: state });
+    };
+    // For edit service
+    editService = (data, index) => {
+        var deep = _.cloneDeep(data);
+        this.setState({ service: deep, newServiceIndex: index, editServ: true });
+    };
     //Add the services
     handleAddSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -282,12 +281,12 @@ class Index extends Component {
                 }
             } else {
                 newService.price =
-                    newService?.price_per_quantity ;
+                    newService?.price_per_quantity;
                 newService.service = this.state.service?.service?.label;
                 let items = [...this.state.items];
                 items.push(newService);
                 this.setState({ items, service: {} }, () => {
-                     this.updateTotalPrize();
+                    this.updateTotalPrize();
                 });
             }
         }
@@ -296,80 +295,80 @@ class Index extends Component {
         var newService = this.state.service;
         var total = 0;
         this.state.items?.length > 0 &&
-          this.state.items.map((data) => {
-            if (data && data?.price) {
-              total = total + data?.price;
-            }
-          });
+            this.state.items.map((data) => {
+                if (data && data?.price) {
+                    total = total + data?.price;
+                }
+            });
         newService.total_amount = total;
         this.setState({ service: newService });
-      };
+    };
 
-      //Update the services
-  handleAddUpdate = () => {
-    var newService = this.state.service;
-    newService.price = newService?.price_per_quantity;
-    var index = this.state.newServiceIndex;
-    var array = this.state.items;
-    array[index].price = newService?.price;
-     this.updateTotalPrize();
-    this.setState({ service: {}, newServiceIndex: false, editServ: false });
-  };
+    //Update the services
+    handleAddUpdate = () => {
+        var newService = this.state.service;
+        newService.price = newService?.price_per_quantity;
+        var index = this.state.newServiceIndex;
+        var array = this.state.items;
+        array[index].price = newService?.price;
+        this.updateTotalPrize();
+        this.setState({ service: {}, newServiceIndex: false, editServ: false });
+    };
 
-  
-  //Delete the perticular service confirmation box
-  removeServices = (id) => {
-    this.setState({ message: null });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
-      translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1>{RemoveService}</h1>
 
-            <p>{sure_remove_service_from_invoice}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.deleteClickService(id);
-                  onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
+    //Delete the perticular service confirmation box
+    removeServices = (id) => {
+        this.setState({ message: null });
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
+            translate;
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === 'dark'
+                                ? 'dark-confirm react-confirm-alert-body'
+                                : 'react-confirm-alert-body'
+                        }
+                    >
+                        <h1>{RemoveService}</h1>
 
-  deleteClickService(id) {
-    // delete this.state.items[id]
-    this.state.items.splice(id, 1);
-    this.setState({ items: this.state.items });
-    var newService = this.state.service;
-    newService.price = newService?.price_per_quantity ;
-    newService.service = this.state.service?.service?.label;
-    let items = [...this.state.items];
-    this.setState({ items, service: {} }, () => {
-      this.updateTotalPrize();
-    });
+                        <p>{sure_remove_service_from_invoice}</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>{No}</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickService(id);
+                                    onClose();
+                                }}
+                            >
+                                {Yes}
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
 
-    // this.finishInvoice();
-  }
+    deleteClickService(id) {
+        // delete this.state.items[id]
+        this.state.items.splice(id, 1);
+        this.setState({ items: this.state.items });
+        var newService = this.state.service;
+        newService.price = newService?.price_per_quantity;
+        newService.service = this.state.service?.service?.label;
+        let items = [...this.state.items];
+        this.setState({ items, service: {} }, () => {
+            this.updateTotalPrize();
+        });
+
+        // this.finishInvoice();
+    }
 
 
     render() {
@@ -433,21 +432,32 @@ class Index extends Component {
                     >
                         <Grid className="addSpeclContntIner2">
 
-                            <Grid className="addSpeclLbl">
-                                <Grid className="addSpeclClose">
-                                    <a onClick={() => this.handleCloseAss()}>
-                                        <img
-                                            src={require("assets/images/close-search.svg")}
-                                            alt=""
-                                            title=""
-                                        />
-                                    </a>
-                                </Grid>
-                                <Grid>
-                                    <label>{Addnewservice}</label>
-                                </Grid>
-                            </Grid>
-
+                        <Grid className="addSpeclLbl">
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{Addnewservice}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                            <a
+                                              onClick={this.handleCloseServ}
+                                            >
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
 
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
@@ -526,7 +536,7 @@ class Index extends Component {
                                                                 <label>
                                                                     {data?.service}
                                                                 </label>
-                                                             </Td>
+                                                            </Td>
                                                             <Td>{data?.price} €</Td>
                                                             <Td className="xRay-edit">
                                                                 <Button
@@ -559,9 +569,9 @@ class Index extends Component {
                                         </Table>
                                     </Grid>
                                     <Grid>
-                                    <p>{ServiceAmount}</p>
-                                <label>{this.state.service.total_amount} €</label>
-                                </Grid>
+                                        <p>{ServiceAmount}</p>
+                                        <label>{this.state.service.total_amount} €</label>
+                                    </Grid>
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
@@ -722,75 +732,75 @@ class Index extends Component {
                                 </a>
                             </Grid>
                             <Modal
-                      open={this.state.editServ}
-                      onClose={this.handleCloseServ}
-                      className={
-                        this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === 'dark'
-                          ? 'darkTheme addSpeclModel'
-                          : 'addSpeclModel'
-                      }
-                    >
-                      <Grid className="addServContnt">
-                        <Grid className="addSpeclLbl">
-                          <Grid container direction="row" justify="center">
-                            <Grid item xs={8} md={8} lg={8}>
-                              <label>{Editservice}</label>
-                            </Grid>
-                            <Grid item xs={4} md={4} lg={4}>
-                              <Grid>
-                                <Grid className="entryCloseBtn">
-                                  <a onClick={this.handleCloseServ}>
-                                    <img
-                                      src={require("assets/images/close-search.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  </a>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-
-                        <Grid className="enterServMain">
-                          <Grid className="enterSpcl">
-                            <Grid>
-                              <VHfield
-                                label={Servicename}
-                                name="label"
-                                placeholder={EnterTitlename}
-                                disabled={true}
-                                value={this.state.service?.service}
-                              />
-                            </Grid>
-                          <Grid>
-                              <VHfield
-                                label={Price}
-                                name="price"
-                                placeholder={Enterserviceprice}
-                                onChange={(e) =>
-                                  this.updateEntryState1(
-                                    e,
-                                    'price_per_quantity'
-                                  )
+                                open={this.state.editServ}
+                                onClose={this.handleCloseServ}
+                                className={
+                                    this.props.settings &&
+                                        this.props.settings.setting &&
+                                        this.props.settings.setting.mode &&
+                                        this.props.settings.setting.mode === 'dark'
+                                        ? 'darkTheme addSpeclModel'
+                                        : 'addSpeclModel'
                                 }
-                                value={this.state.service?.price_per_quantity}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                        <Grid className="servSaveBtn">
-                          <a onClick={this.handleCloseServ}>
-                            <Button onClick={() => this.handleAddUpdate()}>
-                              {save_and_close}
-                            </Button>
-                          </a>
-                        </Grid>
-                      </Grid>
-                    </Modal>
+                            >
+                                <Grid className="addServContnt">
+                                    <Grid className="addSpeclLbl">
+                                        <Grid container direction="row" justify="center">
+                                            <Grid item xs={8} md={8} lg={8}>
+                                                <label>{Editservice}</label>
+                                            </Grid>
+                                            <Grid item xs={4} md={4} lg={4}>
+                                                <Grid>
+                                                    <Grid className="entryCloseBtn">
+                                                        <a onClick={this.handleCloseServ}>
+                                                            <img
+                                                                src={require("assets/images/close-search.svg")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                        </a>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid className="enterServMain">
+                                        <Grid className="enterSpcl">
+                                            <Grid>
+                                                <VHfield
+                                                    label={Servicename}
+                                                    name="label"
+                                                    placeholder={EnterTitlename}
+                                                    disabled={true}
+                                                    value={this.state.service?.service}
+                                                />
+                                            </Grid>
+                                            <Grid>
+                                                <VHfield
+                                                    label={Price}
+                                                    name="price"
+                                                    placeholder={Enterserviceprice}
+                                                    onChange={(e) =>
+                                                        this.updateEntryState1(
+                                                            e,
+                                                            'price_per_quantity'
+                                                        )
+                                                    }
+                                                    value={this.state.service?.price_per_quantity}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="servSaveBtn">
+                                        <a onClick={this.handleCloseServ}>
+                                            <Button onClick={() => this.handleAddUpdate()}>
+                                                {save_and_close}
+                                            </Button>
+                                        </a>
+                                    </Grid>
+                                </Grid>
+                            </Modal>
 
                         </Grid>
                     </Grid>

@@ -808,19 +808,6 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                  {/* <Grid className="nwDiaCloseBtn">
-                                    
-                                    <a onClick={this.handleEditCloseQues}>
-                                      <img
-                                        src={require('assets/images/close-search.svg')}
-                                        alt=""
-                                        title=""
-                                      />
-                                    </a>
-                                  </Grid>
-                                  <Grid>
-                                    <label>{EditQuestionnaire}</label>
-                                  </Grid> */}
                                 </Grid>
                                 {this.state.myQuestions && (
                                   <Grid>

@@ -59,6 +59,8 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
+      openAss: false
+
     };
   }
 
@@ -66,6 +68,11 @@ class Index extends Component {
     getSpecialty(this);
     getAllServices(this);
     getAmount(this);
+    if (
+      this.props.history.location?.state?.openAssign
+    ) {
+      this.setState({ openAss: true });
+    }
   }
 
   //Delete the perticular service confirmation box
@@ -261,6 +268,7 @@ class Index extends Component {
                           <Grid className="allOpenAsser">
                             <AssignedService openAss={this.state.openAss} />
                           </Grid>
+
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}
@@ -270,8 +278,8 @@ class Index extends Component {
                               onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -279,13 +287,13 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                                // className="addServContnt"
+                              // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
