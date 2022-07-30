@@ -1891,7 +1891,11 @@
     "Task_services":"Task / services",
     "external_space_management":"External Space Management",
    "Home_visit":"Home visit",
-   "edit_assigned_service":"Edit Assigned Service"
+   "edit_assigned_service":"Edit Assigned Service",
+    "ProfessionalActivity":"Professional Activity",
+    "ServiceAmount":"Service Amount",
+    "edit_assigned_services":"Edit Assigned Services",
+    "delete_assigned_services":"Delete Assigned Services"
 
   }
 }

@@ -466,58 +466,58 @@ class Index extends Component {
   };
 
   //Delete the perticular service confirmation box
-  removeServices = (id) => {
-    this.setState({ message: null });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
-      translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1>{RemoveService}</h1>
+  // removeServices = (id) => {
+  //   this.setState({ message: null });
+  //   let translate = getLanguage(this.props.stateLanguageType);
+  //   let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
+  //     translate;
+  //   confirmAlert({
+  //     customUI: ({ onClose }) => {
+  //       return (
+  //         <div
+  //           className={
+  //             this.props.settings &&
+  //             this.props.settings.setting &&
+  //             this.props.settings.setting.mode &&
+  //             this.props.settings.setting.mode === 'dark'
+  //               ? 'dark-confirm react-confirm-alert-body'
+  //               : 'react-confirm-alert-body'
+  //           }
+  //         >
+  //           <h1>{RemoveService}</h1>
 
-            <p>{sure_remove_service_from_invoice}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.deleteClickService(id);
-                  onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
+  //           <p>{sure_remove_service_from_invoice}</p>
+  //           <div className="react-confirm-alert-button-group">
+  //             <button onClick={onClose}>{No}</button>
+  //             <button
+  //               onClick={() => {
+  //                 this.deleteClickService(id);
+  //                 onClose();
+  //               }}
+  //             >
+  //               {Yes}
+  //             </button>
+  //           </div>
+  //         </div>
+  //       );
+  //     },
+  //   });
+  // };
 
-  deleteClickService(id) {
-    // delete this.state.items[id]
-    this.state.items.splice(id, 1);
-    this.setState({ items: this.state.items });
-    var newService = this.state.service;
-    newService.price = newService?.price_per_quantity * newService?.quantity;
-    newService.service = this.state.service?.service?.label;
-    let items = [...this.state.items];
-    this.setState({ items, service: {} }, () => {
-      this.updateTotalPrize();
-    });
+  // deleteClickService(id) {
+  //   // delete this.state.items[id]
+  //   this.state.items.splice(id, 1);
+  //   this.setState({ items: this.state.items });
+  //   var newService = this.state.service;
+  //   newService.price = newService?.price_per_quantity * newService?.quantity;
+  //   newService.service = this.state.service?.service?.label;
+  //   let items = [...this.state.items];
+  //   this.setState({ items, service: {} }, () => {
+  //     this.updateTotalPrize();
+  //   });
 
-    // this.finishInvoice();
-  }
+  //   // this.finishInvoice();
+  // }
 
   render() {
     const { stateLoginValueAim, House } = this.props;

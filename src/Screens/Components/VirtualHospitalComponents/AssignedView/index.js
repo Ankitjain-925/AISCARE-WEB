@@ -29,6 +29,12 @@ class PointPain extends Component {
     }
   };
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.openAss !== this.props.openAss) {
+        this.setState({ openAss: this.props.openAss });
+    }
+};
+
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);

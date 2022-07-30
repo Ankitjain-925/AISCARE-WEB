@@ -130,6 +130,7 @@ class Index extends Component {
       certificateId: false,
       PatientID: false,
       taskData: {},
+      openAss: false,
     };
   }
 
@@ -1049,7 +1050,7 @@ class Index extends Component {
     this.setState({
       newTask: deep,
       fileattach: data.attachments,
-      openTask: true,
+      openAss: true,
       Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
       calculate_Length: {
         attach_Length: data?.attachments?.length,
@@ -1549,13 +1550,14 @@ class Index extends Component {
         <Grid container direction="row">
           <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            <AssignedService />
+            <AssignedService openAss={this.state.openAss} editTask={this.editTask}/>
           </Grid>
 
 
 
           {/* Model setup */}
-          <Modal
+          {/* <AssignedService /> */}
+          {/* <Modal
             className={
               this.props.settings &&
               this.props.settings.setting &&
@@ -3622,7 +3624,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
             </Grid>
-          </Modal>
+          </Modal> */}
           <Modal
             className={
               this.props.settings &&

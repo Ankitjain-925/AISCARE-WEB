@@ -37,6 +37,7 @@ import {
   onFieldChange,
   searchFilter,
   getAmount,
+  EditAssignedService,
 } from "./api";
 import { getLanguage } from "translations/index";
 
@@ -144,31 +145,34 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
-    state[event.target.name] =
-      event.target.value >= 0 && event.target.value <= 100
-        ? event.target.value
-        : "";
+    state[event.target.name] = event.target.value;
     this.setState({ sickamount1: state });
   };
 
   EditAmount = () => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { Something_went_wrong } = translate;
-    var a = this.state.sickamount1.amount;
-    axios
-      .put(
-        sitedata.data.path + "/vactive/AddAmount/" + this.props.House.value,
-        { sickleave_certificate_amount: a },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed) {
-          this.setState({ sickamount: true });
-        } else {
-          this.setState({ errorMsg: Something_went_wrong });
-        }
-      });
+    if (
+      this.state.sickamount1.amount >= 21 ||
+      this.state.sickamount1.amount <= 9
+    ) {
+    } else {
+      let translate = getLanguage(this.props.stateLanguageType);
+      let { Something_went_wrong } = translate;
+      var a = this.state.sickamount1.amount;
+      axios
+        .put(
+          sitedata.data.path + "/vactive/AddAmount/" + this.props.House.value,
+          { sickleave_certificate_amount: a },
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.setState({ sickamount: true });
+          } else {
+            this.setState({ errorMsg: Something_went_wrong });
+          }
+        });
+    }
   };
   onSickamount = (e) => {
     if (e.key === "Enter") {
@@ -198,6 +202,8 @@ class Index extends Component {
       Serviceshortdescription,
       Servicename,
       Sick_Certificate_Amount,
+      edit_assigned_services,
+      delete_assigned_services,
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -253,7 +259,7 @@ class Index extends Component {
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
                           <Grid className="allOpenAsser">
-                          <AssignedService />
+                            <AssignedService openAss={this.state.openAss} />
                           </Grid>
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
@@ -263,7 +269,6 @@ class Index extends Component {
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
-                                this.props.settings &&
                                 this.props.settings.setting &&
                                 this.props.settings.setting.mode &&
                                 this.props.settings.setting.mode === "dark"
@@ -414,7 +419,14 @@ class Index extends Component {
                               <label>{Sick_Certificate_Amount}</label>
                             </Grid>
 
-                            <Grid className="fixedEuro">
+                            <Grid
+                              className={
+                                this.state.sickamount1.amount >= 21 ||
+                                this.state.sickamount1.amount <= 9
+                                  ? "fixedEuroSec"
+                                  : "fixedEuro"
+                              }
+                            >
                               <input
                                 type="number"
                                 onKeyDown={this.onSickamount}
@@ -423,8 +435,8 @@ class Index extends Component {
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
-                                min="1"
-                                max="100"
+                                min="10"
+                                max="20"
                               />
                               <p className="euroamount">€</p>
                             </Grid>
@@ -582,7 +594,7 @@ class Index extends Component {
                                       item
                                       xs={6}
                                       md={6}
-                                      className="spcMgntRght7 presEditDot scndOptionIner"
+                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
                                     >
                                       <a className="openScndhrf">
                                         <img
@@ -621,6 +633,36 @@ class Index extends Component {
                                               {deleteService}
                                             </a>
                                           </li>
+                                        {/* 
+                                          <li
+                                            onClick={() => {
+                                              EditAssignedService(data, this);
+                                            }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/virtual_images/pencil-1.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {edit_assigned_services}
+                                            </a>
+                                          </li> */}
+
+                                          {/* <li
+                                            onClick={() => {
+                                              this.removeServices(data._id);
+                                            }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/images/cancel-request.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {delete_assigned_services}
+                                            </a>
+                                          </li> */}
                                         </ul>
                                       </a>
                                     </Grid>
