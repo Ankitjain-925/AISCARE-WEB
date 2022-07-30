@@ -24,6 +24,7 @@ import { getPatientData } from 'Screens/Components/CommonApi/index';
 import { Speciality } from 'Screens/Login/speciality.js';
 import { confirmAlert } from 'react-confirm-alert';
 import _ from 'lodash';
+import moment from "moment";
 
 
 
@@ -58,7 +59,9 @@ class Index extends Component {
             items: [],
             editServ: false,
             newServiceIndex: false,
-
+            error: '',
+            addinvoice: {},
+            errorMsg: ''
 
         };
     }
@@ -70,6 +73,54 @@ class Index extends Component {
         this.specailityList();
 
     }
+
+    FinalServiceSubmit = () => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Something_went_wrong } = translate;
+        this.setState({ errorMsg: "" })
+        this.setState({ loaderImage: true });
+
+        var data = {
+            house_id: this.props?.House.value,
+            assign_service: this.state.items,
+            assinged_to: this.state.assignedTo,
+            speciality: this.state.newspeciality,
+            status: "open",
+            added_at: new Date(),
+            due_on: {
+                date: this.state.service?.due_on?.date,
+                time: this.state.service?.due_on?.time,
+            }
+
+        };
+        let value = {}
+        value = this.state.service
+        if (!value.title) {
+            this.setState({ errorMsg: "please enter title " })
+        }
+       else if (!value.service) {
+            this.setState({ errorMsg: "please select atleast one service" })
+        }
+
+        else {
+            this.setState({ loaderImage: true })
+            axios
+                .post(
+                    sitedata.data.path + "/assignservice/Addassignservice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    this.handleCloseAss();
+                }).catch(function (error) {
+                    console.log(error);
+                    this.setState({ errorMsg: Something_went_wrong })
+
+                });
+        }
+
+    };
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.openAss !== this.props.openAss) {
@@ -291,16 +342,16 @@ class Index extends Component {
         }
     };
     updateTotalPrize = () => {
-        var newService = this.state.service;
+        var newService = this.state.addinvoice;
         var total = 0;
         this.state.items?.length > 0 &&
             this.state.items.map((data) => {
                 if (data && data?.price) {
-                    total = total + data?.price;
+                    total = total + parseInt(data?.price);
                 }
             });
         newService.total_amount = total;
-        this.setState({ service: newService });
+        this.setState({ addinvoice: newService });
     };
 
     //Update the services
