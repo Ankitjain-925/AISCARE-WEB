@@ -427,21 +427,32 @@ class Index extends Component {
                     >
                         <Grid className="addSpeclContntIner2">
 
-                            <Grid className="addSpeclLbl">
-                                <Grid className="addSpeclClose">
-                                    <a onClick={() => this.handleCloseAss()}>
-                                        <img
-                                            src={require("assets/images/close-search.svg")}
-                                            alt=""
-                                            title=""
-                                        />
-                                    </a>
-                                </Grid>
-                                <Grid>
-                                    <label>{Addnewservice}</label>
-                                </Grid>
-                            </Grid>
-
+                        <Grid className="addSpeclLbl">
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{Addnewservice}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                            <a
+                                              onClick={this.handleCloseServ}
+                                            >
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
 
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
