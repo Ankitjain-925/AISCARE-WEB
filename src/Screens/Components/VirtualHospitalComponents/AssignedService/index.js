@@ -42,7 +42,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openAss: false,
+            openAss: this.props.openAss ? this.props.openAss : false,
             service: {},
             serviceList1: [],
             users1: {},
@@ -74,6 +74,11 @@ class Index extends Component {
 
     }
 
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.openAss !== this.props.openAss) {
+            this.setState({ openAss: this.props.openAss });
+        }
+    };
 
 
     handleOpenAss = () => {
@@ -85,8 +90,10 @@ class Index extends Component {
             openAss: false,
             service: {},
             selectedPat: {},
-            assignedTo: false, newspeciality: false, errorMsg: false, error: false
+            assignedTo: false, newspeciality: false, errorMsg: false, error: false,
+            items: false, assignedTo: false, viewCutom: false,
         });
+
     };
     openTaskTime = () => {
         this.setState({ openDate: !this.state.openDate });
@@ -484,7 +491,6 @@ class Index extends Component {
                     // className="addServContnt"
                     >
                         <Grid className="addSpeclContntIner2">
-
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
                                     <label>{Add_assigned_services}</label>
@@ -619,6 +625,7 @@ class Index extends Component {
                                     <Grid>
                                         <p>{ServiceAmount}</p>
                                         <label>{this.state.addinvoice.total_amount} €</label>
+
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>

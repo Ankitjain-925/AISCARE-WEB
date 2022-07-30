@@ -204,6 +204,12 @@ export const EditService = (data, current) => {
   current.setState({ updateTrack: deep, openServ: true });
 };  
 
+// Open Edit Assign Model
+export const EditAssignedService = (data, current) => {
+  var deep = _.cloneDeep(data);
+  current.setState({ updateTrack: deep, openAss: true });
+};  
+
 
 
 export const  getAmount = (current) => {
