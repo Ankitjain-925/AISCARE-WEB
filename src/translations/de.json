@@ -1817,6 +1817,7 @@
 
    "edit_assigned_services":"Zugewiesene Dienste bearbeiten",
    "delete_assigned_services":"Zugewiesene Dienste löschen",
-   "add_assign_service":"Zuweisungsdienst hinzufügen"
+   "add_assign_service":"Zuweisungsdienst hinzufügen",
+   "EarlierActivity":"Frühere Aktivität"
   }
 }

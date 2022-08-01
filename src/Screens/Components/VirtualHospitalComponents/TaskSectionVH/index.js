@@ -197,6 +197,7 @@ class Index extends Component {
   };
 
   componentDidMount() {
+    this.allHouses();
     this.getMetadata();
     this.getPatientData();
     this.getProfessionalData();
@@ -469,7 +470,7 @@ class Index extends Component {
       if (data.archived === true) {
         isGOingArchive = true;
       }
-      data.house_id = this.props?.House?.value;
+      data.house_id = this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value;
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
         axios
@@ -817,11 +818,10 @@ class Index extends Component {
 
   // Get the Patient data
   getPatientData = async () => {
-    console.log("check")
     this.setState({ loaderImage: true });
     let response = await getPatientData(
       this.props.stateLoginValueAim.token,
-      this.props?.House?.value,
+      this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value,
       "taskpage"
     );
     if (response?.isdata) {
@@ -838,7 +838,6 @@ class Index extends Component {
             //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
             // }
             this.updateEntryState2(this.props.location?.state?.user);
-            console.log("this.state.user1", this.state.users1)
           }
         }
       );
@@ -1081,7 +1080,7 @@ class Index extends Component {
   getProfessionalData = async () => {
     this.setState({ loaderImage: true });
     var data = await getProfessionalData(
-      this.props?.House?.value,
+      this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value,
       this.props.stateLoginValueAim.token
     );
     if (data) {
@@ -1343,8 +1342,34 @@ class Index extends Component {
     return "-";
   };
 
+  allHouses = () => {
+    this.setState({ loaderImage: true });
+    let user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
+    axios
+      .get(
+        sitedata.data.path + "/UserProfile/Users/" + user_id,
+        commonHeader(user_token)
+      )
+      .then((response) => {
+        this.setState({ loaderImage: false });
+        this.setState({
+          currentList: response.data.data.houses,
+        });
+      })
+      .catch((error) => {
+        this.setState({ loaderImage: false });
+      });
+  };
+
+  updateEntryState5 = (e) => {
+    this.setState({ selectedHouse: e }, () => {
+      this.getProfessionalData();
+      this.getPatientData();
+    });
+  }
+
   render() {
-    console.log("this.props?.House?.value", this.props?.House?.value)
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateCertificate,
@@ -1614,6 +1639,24 @@ class Index extends Component {
                           alignItems="center"
                           spacing={2}
                         >
+
+                          <Grid item xs={12} md={12}>
+                            <label>For Hospital</label>
+                            {this.props.comesFrom === "Professional" &&
+                              <Grid>
+                                <Select
+                                  name="for_hospital"
+                                  options={this.state.currentList}
+                                  placeholder={Search_Select}
+                                  onChange={(e) => this.updateEntryState5(e)}
+                                  value={this.state.selectedHouse || ""}
+                                  className="addStafSelect"
+                                  isMulti={false}
+                                  isSearchable={true}
+                                />
+                              </Grid>
+                            }
+                          </Grid>
                           <Grid item xs={12} md={12}>
                             <VHfield
                               label={Tasktitle}
@@ -3705,28 +3748,28 @@ class Index extends Component {
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="creatLbl">
-                    <Grid
-                                      container
-                                      direction="row"
-                                      justify="center"
-                                    >
-                                      <Grid item xs={8} md={8} lg={8}>
-                                        <label>{CreateCertificate}</label>
-                                      </Grid>
-                                      <Grid item xs={4} md={4} lg={4}>
-                                        <Grid>
-                                          <Grid className="entryCloseBtn">
-                                          <a onClick={this.handleCloseTask}>
-                                              <img
-                                                src={require("assets/images/close-search.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                            </a>
-                                          </Grid>
-                                        </Grid>
-                                      </Grid>
-                                    </Grid>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                      >
+                        <Grid item xs={8} md={8} lg={8}>
+                          <label>{CreateCertificate}</label>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                          <Grid>
+                            <Grid className="entryCloseBtn">
+                              <a onClick={this.handleCloseTask}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                       {/* <Grid className="creatLblClose">
                         <a onClick={this.handleCloseTask}>
                           <img
@@ -4077,28 +4120,28 @@ class Index extends Component {
           >
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
-              <Grid
-                container
-                direction="row"
-                justify="center"
-              >
-                <Grid item xs={8} md={8} lg={8}>
-                  <label>{filters}</label>
-                </Grid>
-                <Grid item xs={4} md={4} lg={4}>
-                  <Grid>
-                    <Grid className="entryCloseBtn">
-                    <a onClick={this.handleCloseRvw}>
-                        <img
-                          src={require("assets/images/close-search.svg")}
-                          alt=""
-                          title=""
-                        />
-                      </a>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                >
+                  <Grid item xs={8} md={8} lg={8}>
+                    <label>{filters}</label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseRvw}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
                 {/* <Grid className="fltrLblClose">
 
                   <a onClick={this.handleCloseRvw}>

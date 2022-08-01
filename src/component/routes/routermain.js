@@ -102,6 +102,7 @@ import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
+import NurseET from "Screens/Nurse/Earlier_Activity/index";
 import ApproveHospital from "Screens/Components/ApprovalHospital/index";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 
@@ -573,6 +574,11 @@ class Routermain extends Component {
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
+            />
+            <Route
+              path="/nurse/earlier-task"
+              exact={true}
+              render={(props) => <NurseET {...props} />}
             />
 
             <Route
