@@ -569,6 +569,8 @@ class Index extends Component {
       this.props.patient?.first_name || this.state.newTask?.patient?.last_name;
     let patient_id =
       this.props.patient?._id || this.state.newTask?.patient?.profile_id;
+      let type ={}
+    if (type === "picture_evaluation") {
     axios
       .post(
         sitedata.data.path + "/UserProfile/MailSendToDr",
@@ -592,6 +594,7 @@ class Index extends Component {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   updateCommemtState = (e) => {
