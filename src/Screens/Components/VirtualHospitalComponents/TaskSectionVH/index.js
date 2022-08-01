@@ -1047,8 +1047,10 @@ class Index extends Component {
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
+    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
     var deep = _.cloneDeep(data);
     this.setState({
+      selectedHouse: findHouse,
       newTask: deep,
       fileattach: data.attachments,
       openTask: true,
@@ -1064,7 +1066,7 @@ class Index extends Component {
         label: data?.speciality?.specialty_name,
         value: data?.speciality?._id,
       },
-    });
+    }, () => { this.getProfessionalData(); });
   };
 
   cretficateTask = (id, patient_id, data) => {
@@ -1572,7 +1574,7 @@ class Index extends Component {
           <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
-              <Button onClick={this.handleOpenTask}>{add_task}</Button>
+              {this.props.comesFrom !== "Earliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" && <AssignedService />}
               {/* <label>{filterbedge}</label> */}
             </Grid>
@@ -1721,6 +1723,7 @@ class Index extends Component {
                               </Grid>
                             )}
                           </Grid>
+
                           {!this.state.newTask._id && (
                             <Grid item xs={12} md={12}>
                               <Grid className="hideTask">

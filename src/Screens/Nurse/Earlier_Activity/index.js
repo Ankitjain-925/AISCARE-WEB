@@ -90,7 +90,7 @@ class Index extends Component {
         axios
             .get(
                 sitedata.data.path +
-                "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?._id,
+                "/vc/PastTask/" + this.props.stateLoginValueAim?.user?.profile_id,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -180,7 +180,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={[]}
-                                                comesFrom={"Professional"}
+                                                comesFrom={"Earliertask"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

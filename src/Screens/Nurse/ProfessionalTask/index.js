@@ -72,6 +72,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
+    this.getAddTaskData1();
   }
 
   handleChangeTab = (event, tabvalue) => {
@@ -90,7 +91,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?._id,
+        "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -122,6 +123,48 @@ class Index extends Component {
         this.setState({ loaderImage: false });
       });
   };
+
+  //get Add task data
+  getAddTaskData1 = (tabvalue2, goArchive) => {
+    var nurse_id = this.props.stateLoginValueAim?.user?._id
+    this.setState({ loaderImage: true });
+    axios
+      .post(
+        sitedata.data.path +
+        "/vc/nurseafter",
+        { nurse_id: nurse_id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        console.log("responsedfgdfgdfg", response)
+        this.setState({ AllTasks: response.data.data });
+        if (response.data.hassuccessed) {
+          if (response?.data?.data) {
+            var patientForFilterArr = filterPatient(response.data.data);
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
+          var Done =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "done");
+          var Open =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "open");
+          this.setState({
+            AllTasks: response.data.data,
+            DoneTask: Done,
+            OpenTask: Open,
+          });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          }
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+          }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
