@@ -91,7 +91,7 @@ class Index extends Component {
             service: {},
             selectedPat: {},
             assignedTo: false, newspeciality: false, errorMsg: false, error: false,
-            items: false, assignedTo: false, viewCutom: false,
+            items: [], addinvoice: {}, assignedTo: false, viewCutom: false,
         });
 
     };
@@ -288,43 +288,35 @@ class Index extends Component {
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Something_went_wrong } = translate;
-        this.setState({ errorMsg: "" })
         this.setState({ loaderImage: true });
         var data = this.state.service;
         data.house_id = this.props?.House.value;
         data.assign_service = this.state.items;
         data.status = "open";
         data.created_at = new Date();
-        let value = {}
-        value = this.state.service
-        //     if (!value.title) {
-        //         this.setState({ errorMsg: "please enter title " })
-        //     }
-        //    else if (!value.service) {
-        //         this.setState({ errorMsg: "please select atleast one service" })
-        //     }
+       this.setState({errorMsg: ''  })
+      axios
+            .post(
+                sitedata.data.path + "/assignservice/Addassignservice",
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                this.setState({ loaderImage: false });
+                this.props.getAddTaskData();
+                this.handleCloseAss();
 
-        //     else {
-        // this.setState({ loaderImage: true })
-        // axios
-        //     .post(
-        //         sitedata.data.path + "/assignservice/Addassignservice",
-        //         data,
-        //         commonHeader(this.props.stateLoginValueAim.token)
-        //     )
-        //     .then((responce) => {
-        //         this.setState({ loaderImage: false });
-        //         this.props.getAddTaskData();
-        //         this.handleCloseAss();
+            }).catch(function (error) {
+                console.log(error);
+                this.setState({ errorMsg: Something_went_wrong })
 
-        //     }).catch(function (error) {
-        //         console.log(error);
-        //         this.setState({ errorMsg: Something_went_wrong })
+            });
+        
+        
+    
+    }
 
-        //     });
-        // }
-
-    };
+    
 
     //get services list
     getAssignService = () => {
@@ -370,63 +362,29 @@ class Index extends Component {
     };
     //Add the services
     handleAddSubmit = () => {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let {
-            Ser_already_exists,
-            Please_enter_valid_price,
-            Custom_service_title_cant_be_empty,
-        } = translate;
-        this.setState({ error: '' });
-        var newService = this.state.service;
-        var a =
-            this.state.items &&
-            this.state.items?.length > 0 &&
-            this.state.items.map((element) => {
-                return element?.service;
-            });
-        var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
-        if (b == true) {
-            this.setState({ error: Ser_already_exists });
-        } else {
-            if (newService?.service?.value == 'custom') {
-                if (
-                    newService?.price_per_quantity < 1 ||
-                    !newService?.price_per_quantity
-                ) {
-                    this.setState({ error: Please_enter_valid_price });
-                } else {
-                    if (newService && !newService?.custom_title) {
-                        this.setState({ error: Custom_service_title_cant_be_empty });
-                    } else {
-                        newService.price =
-                            newService?.price_per_quantity;
-                        newService.service = newService?.custom_title;
-                        let items = this.state.items ? [...this.state.items] : [];
-                        items.push(newService);
-                        let data = {};
-                        data['house_id'] = this.props?.House?.value;
-                        data['description'] = newService?.custom_description;
-                        data['price'] = newService?.price_per_quantity;
-                        data['title'] = newService?.custom_title;
-                        axios
-                            .post(
-                                sitedata.data.path + '/vh/AddService',
-                                data,
-                                commonHeader(this.props.stateLoginValueAim.token)
-                            )
-                            .then((responce) => {
-                                this.getAssignService();
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-
-                        this.setState({ items, service: {} }, () => {
-                            this.updateTotalPrize();
-                        });
-                    }
-                }
-            } else {
+        if (
+            this.state.service?.service &&
+            this.state?.service?.price_per_quantity
+        ) {
+            let translate = getLanguage(this.props.stateLanguageType);
+            let {
+                Ser_already_exists,
+                Please_enter_valid_price,
+                Custom_service_title_cant_be_empty,
+            } = translate;
+            this.setState({ error: '', showError: '' });
+            var newService = this.state.service;
+            var a =
+                this.state.items &&
+                this.state.items?.length > 0 &&
+                this.state.items.map((element) => {
+                    return element?.service;
+                });
+            var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+            if (b == true) {
+                this.setState({ error: Ser_already_exists });
+            }
+            else {
                 newService.price =
                     newService?.price_per_quantity;
                 newService.service = this.state.service?.service?.label;
@@ -436,7 +394,10 @@ class Index extends Component {
                     this.updateTotalPrize();
                 });
             }
+        } else {
+            this.setState({ showError: true });
         }
+
     };
     updateTotalPrize = () => {
         var newService = this.state.addinvoice;
@@ -465,10 +426,10 @@ class Index extends Component {
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
-        this.setState({ message: null });
         this.handleCloseAss();
+        this.setState({ message: null });
         let translate = getLanguage(this.props.stateLanguageType);
-        let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
+        let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
             translate;
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -485,13 +446,15 @@ class Index extends Component {
                     >
                         <h1>{RemoveService}</h1>
 
-                        <p>{sure_remove_service_from_invoice}</p>
+                        <p>{sure_remove_service_from_assigned}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>{No}</button>
+                            <button onClick={() => onClose()}>{No}</button>
                             <button
                                 onClick={() => {
-                                    this.deleteClickService(id);
                                     onClose();
+                                    this.deleteClickService(id);
+
+
                                 }}
                             >
                                 {Yes}
@@ -504,7 +467,9 @@ class Index extends Component {
     };
 
     deleteClickService(id) {
+        this.handleOpenAss();
         // delete this.state.items[id]
+        console.log('hiiii', this.state.items)
         this.state.items.splice(id, 1);
         this.setState({ items: this.state.items });
         var newService = this.state.service;
@@ -513,6 +478,7 @@ class Index extends Component {
         let items = [...this.state.items];
         this.setState({ items, service: {} }, () => {
             this.updateTotalPrize();
+
         });
 
         // this.finishInvoice();
@@ -548,7 +514,8 @@ class Index extends Component {
             Editservice,
             Servicename,
             EnterTitlename,
-            Add_assigned_services
+            Add_assigned_services,
+            Please_select_atlest
         } = translate;
         return (
 
@@ -615,6 +582,11 @@ class Index extends Component {
                                         />
                                     </Grid>
                                     <p className="err_message">{this.state.error}</p>
+                                    {this.state.showError && (
+                                        <div className="err_message">
+                                            {Please_select_atlest}
+                                        </div>
+                                    )}
                                     <Grid>
                                         <label>{Addservice}</label>
                                         <Select
@@ -861,11 +833,11 @@ class Index extends Component {
 
 
                             </Grid>
-                            <Grid className="servSaveBtn" onClick={() =>
+                            <Grid className="servSaveBtn" >
+                                <a>
+                                    <Button onClick={() =>
                                 this.FinalServiceSubmit()
                             }>
-                                <a>
-                                    <Button>
                                         {save_and_close}
                                     </Button>
                                 </a>
