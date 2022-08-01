@@ -16,17 +16,9 @@ import { Speciality } from 'Screens/Login/speciality.js';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import { getLanguage } from 'translations/index';
 import {
-    handleOpenWarn,
-
-    onEditspec,
-    MoveInstitute,
     searchFilter,
-    handleOpenRoom,
-    selectedID,
-    bednumbers,
-    deleteClick,
     getSpeciality,
-    SaveSpeciality,
+    externalSpaceApi
 } from '../../VirtualHospital/SpaceManagement/api'
 import { S3Image } from 'Screens/Components/GetS3Images/index';
 import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
@@ -36,13 +28,19 @@ class Index extends Component {
         super(props);
         this.state = {
             loaderImage: false,
+            // externalData: {}
         };
     }
 
     componentDidMount() {
-        this.setState({ action: 'loading' });
-        getSpeciality(this);
+        // this.setState({ action: 'loading' });
+        // getSpeciality(this);
+        externalSpaceApi(this);
     }
+
+    MovetoTask = () => {
+        this.props.history.push('/virtualhospital/tasks');
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -50,8 +48,10 @@ class Index extends Component {
             external_space_management,
             Search,
             Institution,
+            Tasks, AddTask, Comments
         } = translate;
         const { stateLoginValueAim, House } = this.props;
+        const { externalData } = this.state;
         if (
             stateLoginValueAim.user === 'undefined' ||
             stateLoginValueAim.token === 450 ||
@@ -91,16 +91,6 @@ class Index extends Component {
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
-                                        {/* <Grid className="extSetting">
-                                            <a onClick={() => MoveInstitute(this)}>
-                                                <img
-                                                    src={require('assets/virtual_images/rightArrow.png')}
-                                                    alt=""
-                                                    title=""
-                                                />
-                                                {BacktoChangeHospital}
-                                            </a>
-                                        </Grid> */}
                                         <Grid container direction="row" alignItems="center">
                                             <Grid item xs={12} sm={6} md={6}>
                                                 <Grid className="spcMgntH1">
@@ -179,22 +169,23 @@ class Index extends Component {
                                         {/* End of Bread Crumb */}
                                         <Grid className="wardsGrupUpr wardsGrupUpr1">
                                             <Grid container direction="row" spacing={2}>
-                                                {this.state.specialityData?.length > 0 &&
-                                                    this.state.specialityData.map((data) => (
+                                                {externalData && externalData?.length > 0 &&
+                                                    externalData.map((data) => (
+                                                        // console.log("data", data),
                                                         <Grid item xs={12} md={4}>
                                                             <Grid className="wardsGrup3">
                                                                 <Grid className="flowInfoInr">
                                                                     <SpecialityButton
                                                                         // viewImage={true}
-                                                                        deleteClick={() =>
-                                                                            handleOpenWarn(data._id, this)
-                                                                        }
+                                                                        // deleteClick={() =>
+                                                                        //     handleOpenWarn(data._id, this)
+                                                                        // }
                                                                         label={data.specialty_name}
                                                                         backgroundColor={data.background_color}
                                                                         color={data.color}
-                                                                        onClick={() => {
-                                                                            onEditspec(data, this);
-                                                                        }}
+                                                                        // onClick={() => {
+                                                                        //     onEditspec(data, this);
+                                                                        // }}
                                                                         stateLanguageType={
                                                                             this.props.stateLanguageType
                                                                         }
@@ -203,7 +194,7 @@ class Index extends Component {
                                                                     <Grid className="flowProfil">
                                                                         <Grid>
                                                                             <Grid className="tasklistName">
-                                                                                <S3Image imgUrl={this.props.quote?.patient?.image} />
+                                                                                <S3Image imgUrl={data?.image} />
                                                                             </Grid>
 
                                                                         </Grid>
@@ -218,9 +209,9 @@ class Index extends Component {
                                                                         // }}
                                                                         >
                                                                             <label>
-                                                                                Rupali gupta
+                                                                                {data?.first_name} {' '} {data?.last_name}
                                                                             </label>
-                                                                            <p>alies_id</p>
+                                                                            <p>{data?.alies_id}</p>
                                                                         </Grid>
                                                                         <Grid className="checkDotsRght">
                                                                             <CasesMoreButton
@@ -247,7 +238,7 @@ class Index extends Component {
                                                                     <Grid className="dtlCntUpr">
                                                                         <Grid className="dtlCntLft">
                                                                             <Grid className="dtlCount dtlCountRm dtlCountRm1">
-                                                                                Patient Address
+                                                                                {data?.address} {','} {data?.city}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -255,25 +246,22 @@ class Index extends Component {
                                                                         <Grid className="dtlCntLft">
                                                                             <Grid className="dtlCount">
                                                                                 <a className="taskHover">
-                                                                                    <span>Tasks</span>
+                                                                                    <span>{Tasks}</span>
                                                                                     <img
                                                                                         src={require('assets/virtual_images/rightIcon.png')}
                                                                                         alt=""
                                                                                         title=""
                                                                                     />
-                                                                                    0/0
+                                                                                    {data?.done_task ? data?.done_task : 0}/
+                                                                                    {data?.total_task ? data?.total_task : 0}
                                                                                 </a>
                                                                                 <a
                                                                                     className="addSec taskHover"
-                                                                                // onClick={() => {
-                                                                                //     quote?.verifiedbyPatient &&
-                                                                                //         this.props.MovetoTask(
-                                                                                //             quote.speciality,
-                                                                                //             quote?.patient_id
-                                                                                //         );
-                                                                                // }}
+                                                                                    onClick={() => {
+                                                                                        this.MovetoTask();
+                                                                                    }}
                                                                                 >
-                                                                                    <span>AddTask</span>
+                                                                                    <span>{AddTask}</span>
                                                                                     <img
                                                                                         src={require('assets/virtual_images/plusIcon.png')}
                                                                                         alt=""
@@ -281,19 +269,17 @@ class Index extends Component {
                                                                                     />
                                                                                 </a>
                                                                                 <a className="taskHover">
-                                                                                    <span>Comments</span>
+                                                                                    <span>{Comments}</span>
                                                                                     <img
                                                                                         src={require('assets/virtual_images/note1.png')}
                                                                                         alt=""
                                                                                         title=""
                                                                                     />
-                                                                                    0
+                                                                                    {data?.total_comments ? data?.total_comments : 0}
                                                                                 </a>
                                                                             </Grid>
                                                                         </Grid>
-                                                                        {/* <Grid className="dtlCntRght">
-                                                                        <Assigned assigned_to=uote.assinged_to />
-                                                                    </Grid> */}
+
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>

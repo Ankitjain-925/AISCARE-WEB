@@ -91,7 +91,7 @@ class Index extends Component {
       {
         columns: data.quoteMap,
       },
-      () => {}
+      () => { }
     );
   };
 
@@ -169,6 +169,9 @@ class Index extends Component {
                   }}
                   MovetoTask={(speciality, patient_id) => {
                     this.props.MovetoTask(speciality, patient_id);
+                  }}
+                  MovetoService={() => {
+                    this.props.MovetoService();
                   }}
                   mode={this.props?.mode}
                   socket={this.props.socket}

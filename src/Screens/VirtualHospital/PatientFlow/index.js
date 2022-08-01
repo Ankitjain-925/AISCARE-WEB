@@ -97,7 +97,7 @@ class Index extends Component {
   };
   boardRef;
 
-  handleError = (err) => {};
+  handleError = (err) => { };
 
   handleEnableEmail = (value) => {
     this.setState({
@@ -117,7 +117,7 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    socket.on('connection', () => {});
+    socket.on('connection', () => { });
     this.getPatientData();
     this.getProfessionalData();
     var steps = getSteps(
@@ -163,6 +163,13 @@ class Index extends Component {
       state: { speciality: speciality, user: { value: patient_id } },
     });
   };
+
+  MovetoService = () => {
+    this.props.history.push({
+      pathname: '/virtualhospital/services',
+      state: { openAssign: true },
+    });
+  }
 
   moveDetial = (id, case_id) => {
     this.props.history.push(`/virtualhospital/patient-detail/${id}/${case_id}`);
@@ -369,8 +376,8 @@ class Index extends Component {
     state[name] =
       e && e.length > 0
         ? e.map((item) => {
-            return item.value;
-          })
+          return item.value;
+        })
         : [];
     this.setState({ selectedPat: e });
     this.setState({ search: state });
@@ -400,8 +407,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'dark-confirm deleteStep'
                   : 'deleteStep'
               }
@@ -464,9 +471,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -670,8 +677,8 @@ class Index extends Component {
                     senddata.patient = responce.data.data._id;
                     senddata.patient_name = responce.data.data?.last_name
                       ? responce.data.data?.first_name +
-                        ' ' +
-                        responce.data.data?.last_name
+                      ' ' +
+                      responce.data.data?.last_name
                       : responce.data.data?.first_name;
                     axios
                       .post(
@@ -679,7 +686,7 @@ class Index extends Component {
                         senddata,
                         commonHeader(this.props.stateLoginValueAim.token)
                       )
-                      .then((responce1) => {});
+                      .then((responce1) => { });
                     this.setState({
                       updateState: {},
                       idpinerror: false,
@@ -1197,9 +1204,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -1291,32 +1298,32 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === 'dark'
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === 'dark'
                                     ? 'nwEntrCntnt fltrClear darkTheme'
                                     : 'nwEntrCntnt fltrClear'
                                 }
                               >
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
-                                  <Grid container direction="row" justify="center">
-                                        <Grid item xs={8} md={8} lg={8}>
-                                            <label>{filters}</label>
+                                    <Grid container direction="row" justify="center">
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{filters}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                            <a onClick={this.handleCloseFil}>
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
                                         </Grid>
-                                        <Grid item xs={4} md={4} lg={4}>
-                                            <Grid>
-                                            <Grid className="entryCloseBtn">
-                                                <a onClick={this.handleCloseFil}>
-                                                <img
-                                                    src={require("assets/images/close-search.svg")}
-                                                    alt=""
-                                                    title=""
-                                                />
-                                                </a>
-                                            </Grid>
-                                            </Grid>
-                                        </Grid>
+                                      </Grid>
                                     </Grid>
                                   </Grid>
 
@@ -1518,6 +1525,9 @@ class Index extends Component {
                         MovetoTask={(speciality, patient_id) => {
                           this.MovetoTask(speciality, patient_id);
                         }}
+                        MovetoService={() => {
+                          this.MovetoService();
+                        }}
                         mode={this.props?.settings?.setting?.mode}
                         socket={socket}
                         stateLanguageType={this.props.stateLanguageType}
@@ -1541,33 +1551,33 @@ class Index extends Component {
           <Grid
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'addFlowContnt darkTheme'
                 : 'addFlowContnt'
             }
           >
             <Grid className="addFlowIner">
               <Grid className="addFlowLbl">
-              <Grid container direction="row" justify="center">
+                <Grid container direction="row" justify="center">
                   <Grid item xs={8} md={8} lg={8}>
-                      <label>{AddPatienttoFlow}</label>
+                    <label>{AddPatienttoFlow}</label>
                   </Grid>
                   <Grid item xs={4} md={4} lg={4}>
-                      <Grid>
+                    <Grid>
                       <Grid className="entryCloseBtn">
-                          <a onClick={this.closeAddP}>
+                        <a onClick={this.closeAddP}>
                           <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
                           />
-                          </a>
+                        </a>
                       </Grid>
-                      </Grid>
+                    </Grid>
                   </Grid>
-              </Grid>
+                </Grid>
               </Grid>
               <Grid className="patentInfo">
                 {this.state.enableEmail == 'email' && (
@@ -1649,7 +1659,7 @@ class Index extends Component {
                           name="birthday"
                           value={
                             this.state.updateState &&
-                            this.state.updateState?.birthday
+                              this.state.updateState?.birthday
                               ? new Date(this.state.updateState?.birthday)
                               : new Date()
                           }
@@ -1698,7 +1708,7 @@ class Index extends Component {
                           <Grid className="setPositionMob">
                             {this.updateFLAG(this.state.updateState.mobile) &&
                               this.updateFLAG(this.state.updateState.mobile) !==
-                                '' && (
+                              '' && (
                                 <ReactFlagsSelect
                                   searchable={true}
                                   onSelect={(e) => {
@@ -1794,9 +1804,9 @@ class Index extends Component {
           onClose={this.handleClosePopup}
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === 'dark'
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
               ? 'darkTheme addWrnModel'
               : 'addWrnModel'
           }
@@ -1805,24 +1815,24 @@ class Index extends Component {
             <Grid className="addWrnIner">
               <Grid className="addWrnLbl">
                 <Grid className="headingFormat">
-                <Grid container direction="row" justify="center">
-                  <Grid item xs={8} md={8} lg={8}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
                       <label>{add_step}</label>
-                  </Grid>
-                  <Grid item xs={4} md={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
                       <Grid>
-                      <Grid className="entryCloseBtn">
+                        <Grid className="entryCloseBtn">
                           <a onClick={this.handleClosePopup}>
-                          <img
+                            <img
                               src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
-                          />
+                            />
                           </a>
+                        </Grid>
                       </Grid>
-                      </Grid>
+                    </Grid>
                   </Grid>
-              </Grid>
                 </Grid>
               </Grid>
               <Grid className="enterWrnUpr">

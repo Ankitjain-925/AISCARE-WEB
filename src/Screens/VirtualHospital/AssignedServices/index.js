@@ -76,7 +76,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + '/vh/GetAllTask/' + this.props?.House?.value,
+        sitedata.data.path + '/assignservice/getAssignedServices/' + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {

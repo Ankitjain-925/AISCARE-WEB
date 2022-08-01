@@ -569,6 +569,8 @@ class Index extends Component {
       this.props.patient?.first_name || this.state.newTask?.patient?.last_name;
     let patient_id =
       this.props.patient?._id || this.state.newTask?.patient?.profile_id;
+      let type ={}
+    if (type === "picture_evaluation") {
     axios
       .post(
         sitedata.data.path + "/UserProfile/MailSendToDr",
@@ -592,6 +594,7 @@ class Index extends Component {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   updateCommemtState = (e) => {
@@ -802,7 +805,7 @@ class Index extends Component {
       state["assinged_to"] = data;
       this.setState({ newTask: state }, () => {
         this.selectProf(
-          this.state.newTask?.assignedTo,
+          this.state.newTask?.assinged_to,
           this.state.professional_id_list
         );
       });
@@ -1569,7 +1572,7 @@ class Index extends Component {
                   <Grid item xs={12} md={12}>
                     <Grid className="addSpeclLbl allAddSpeclLbl">
                       <Grid item xs={12} md={12} lg={12}>
-                        <Grid container direction="row" justify="center">
+                        <Grid container direction="row" justify="center" className="creatLbl">
                           <Grid item xs={8} md={8} lg={8}>
                             <label>{CreateaTask}</label>
                           </Grid>
@@ -3702,7 +3705,29 @@ class Index extends Component {
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="creatLbl">
-                      <Grid className="creatLblClose">
+                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{CreateCertificate}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                          <a onClick={this.handleCloseTask}>
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                      {/* <Grid className="creatLblClose">
                         <a onClick={this.handleCloseTask}>
                           <img
                             src={require("assets/images/close-search.svg")}
@@ -3711,7 +3736,7 @@ class Index extends Component {
                           />
                         </a>
                       </Grid>
-                      <label>{CreateCertificate}</label>
+                      <label>{CreateCertificate}</label> */}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -4052,7 +4077,30 @@ class Index extends Component {
           >
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
-                <Grid className="fltrLblClose">
+              <Grid
+                container
+                direction="row"
+                justify="center"
+              >
+                <Grid item xs={8} md={8} lg={8}>
+                  <label>{filters}</label>
+                </Grid>
+                <Grid item xs={4} md={4} lg={4}>
+                  <Grid>
+                    <Grid className="entryCloseBtn">
+                    <a onClick={this.handleCloseRvw}>
+                        <img
+                          src={require("assets/images/close-search.svg")}
+                          alt=""
+                          title=""
+                        />
+                      </a>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+                {/* <Grid className="fltrLblClose">
+
                   <a onClick={this.handleCloseRvw}>
                     <img
                       src={require("../../../../assets/images/close-search.svg")}
@@ -4061,7 +4109,7 @@ class Index extends Component {
                     />
                   </a>
                 </Grid>
-                <label>{filters}</label>
+                <label>{filters}</label> */}
               </Grid>
 
               <TabContainer>
