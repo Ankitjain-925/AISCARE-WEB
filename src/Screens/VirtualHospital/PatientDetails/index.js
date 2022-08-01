@@ -395,7 +395,7 @@ class Index extends Component {
                         className="tsktabIner tsktabInerMob"
                       />
                       <Tab label={journal} className="tsktabIner" />
-                      <Tab label={Tasks} className="tsktabIner" />
+                      <Tab label={Task_services} className="tsktabIner" />
                       <Tab label={DocumentsFiles} className="tsktabIner" />
                       {/* <Tab label={Room} className="tsktabIner" /> */}
                       <Tab label={personal_info} className="tsktabIner" />

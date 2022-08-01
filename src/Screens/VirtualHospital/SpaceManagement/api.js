@@ -11,8 +11,8 @@ export const externalSpaceApi = (current) => {
   var house_id = current.props?.House?.value;
   axios
     .get(
-      sitedata.data.path + '/vc/infoOfPatients/',
-      // commonHeader(current.props.stateLoginValueAim.token)
+      sitedata.data.path + '/vc/infoOfPatients/'+house_id,
+      commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((response) => {
       if (response.data.hassuccessed) {

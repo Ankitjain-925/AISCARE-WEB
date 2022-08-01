@@ -65,6 +65,7 @@ import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
+import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
 
 //for hospital admin user
 import H_patient from "Screens/hospital_Admin/h_patient";
@@ -104,6 +105,7 @@ import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import NurseET from "Screens/Nurse/Earlier_Activity/index";
 import ApproveHospital from "Screens/Components/ApprovalHospital/index";
+import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 
 class Routermain extends Component {
@@ -389,6 +391,11 @@ class Routermain extends Component {
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
+            <Route
+              exact
+              path="/doctor/professional-activity"
+              render={(props) => <DoctorProfessionalActivity {...props} />}
+            />
 
             {/* Doctor Router End*/}
             <Route
@@ -564,7 +571,12 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <DoctorInstitute {...props} />}
             />
-
+            {/* NEW ADDED AT NURSE End */}
+            <Route
+              path="/nurse/care-questionary"
+              exact={true}
+              render={(props) => <CareQuestionary {...props} />}
+            />
             <Route
               path="/nurse/institutes"
               exact={true}

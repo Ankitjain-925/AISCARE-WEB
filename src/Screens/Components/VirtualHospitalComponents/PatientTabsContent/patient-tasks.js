@@ -94,7 +94,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + "/vh/PatientsTask/" + this.props.match.params.id,
+        sitedata.data.path + "/vc/patientTaskandService/" + this.props.match.params.id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
