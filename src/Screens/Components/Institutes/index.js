@@ -235,40 +235,40 @@ class Index extends Component {
                   open={this.state.showPopup}
                   onClose={this.handleClosePopUp}
                 >
-                   <Grid
-            className={
-              this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'nwEntrCntnt HospitalAdd darkTheme'
-                : 'nwEntrCntnt HospitalAdd'
-            }
-          >
-            <Grid className="nwEntrCntntIner ">
-            <Grid container direction="row" justify="center" className="nwEntrCourse">
-                          <Grid item xs={12} md={12} lg={12}>
-                            <Grid container direction="row" justify="center">
-                              <Grid item xs={8} md={8} lg={8}>
-                                <label>{Hospitals}</label>
-                              </Grid>
-                              <Grid item xs={4} md={4} lg={4}>
-                                <Grid>
-                                  <Grid className="entryCloseBtn">
+                  <Grid
+                    className={
+                      this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === 'dark'
+                        ? 'nwEntrCntnt HospitalAdd darkTheme'
+                        : 'nwEntrCntnt HospitalAdd'
+                    }
+                  >
+                    <Grid className="nwEntrCntntIner ">
+                      <Grid container direction="row" justify="center" className="nwEntrCourse">
+                        <Grid item xs={12} md={12} lg={12}>
+                          <Grid container direction="row" justify="center">
+                            <Grid item xs={8} md={8} lg={8}>
+                              <label>{Hospitals}</label>
+                            </Grid>
+                            <Grid item xs={4} md={4} lg={4}>
+                              <Grid>
+                                <Grid className="entryCloseBtn">
                                   <a onClick={this.handleClosePopUp}>
-                                      <img
-                                        src={require("assets/images/close-search.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                    </a>
-                                  </Grid>
+                                    <img
+                                      src={require("assets/images/close-search.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                  </a>
                                 </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
+                        </Grid>
                       </Grid>
-                        {/* <Grid className="nwDiaCloseBtn">
+                      {/* <Grid className="nwDiaCloseBtn">
                           <a onClick={this.handleClosePopUp}>
                             <img
                               src={require("assets/images/close-search.svg")}
@@ -277,13 +277,13 @@ class Index extends Component {
                             />
                           </a>
                         </Grid> */}
-                      
+
                       <Grid className="RenameInstitute">
                         <Grid container direction="row" justify="center">
                           {currentList2 &&
                             currentList2.map((item) => (
                               <Grid container direction="row" justify="center">
-                                <Grid item xs={12}  md={12}>
+                                <Grid item xs={12} md={12}>
                                   <Grid
                                     container
                                     direction="row"
@@ -292,7 +292,7 @@ class Index extends Component {
                                     <Grid item xs={7} sm={8} md={8}>
                                       <Grid className="allCreInfSec">
                                         {this.state.showRename ===
-                                        item.value ? (
+                                          item.value ? (
                                           <div className="creatInfoIner creatInfoTwo">
                                             <input
                                               type="text"
@@ -316,7 +316,7 @@ class Index extends Component {
                                     <Grid item xs={5} sm={4} md={4}>
                                       <Grid className="allCreInfSec2">
                                         {this.state.showRename ===
-                                        item.value ? (
+                                          item.value ? (
                                           <Button
                                             onClick={() =>
                                               this.renamePopup2(item)
