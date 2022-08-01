@@ -527,7 +527,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
-                                            value={this.state.service?.service }
+                                            value={this.state.service?.service ||'' }
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}

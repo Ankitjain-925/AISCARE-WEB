@@ -5801,7 +5801,7 @@ button.downloadPDF:hover {
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-  padding: 0px 20px;
+  padding: 10px 20px;
   margin: 34px 0px 30px;
 }
 .billSeting {
@@ -15545,3 +15545,6 @@ a.joinmeetingtab {
   padding: 20px 0px;
 }
 
+.darkTheme .grpah{
+  color:white
+}
