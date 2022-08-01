@@ -1569,7 +1569,7 @@ class Index extends Component {
                   <Grid item xs={12} md={12}>
                     <Grid className="addSpeclLbl allAddSpeclLbl">
                       <Grid item xs={12} md={12} lg={12}>
-                        <Grid container direction="row" justify="center" className="creatLbl">
+                        <Grid container direction="row" justify="center">
                           <Grid item xs={8} md={8} lg={8}>
                             <label>{CreateaTask}</label>
                           </Grid>
