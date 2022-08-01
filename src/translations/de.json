@@ -1814,9 +1814,9 @@
    "Save_services_close":"Dienste speichern & schließen",
    "Task_services":"Aufgabe / Dienste",
    "external_space_management":"Externe Speicherplatzverwaltung",
-
    "edit_assigned_services":"Zugewiesene Dienste bearbeiten",
    "delete_assigned_services":"Zugewiesene Dienste löschen",
-   "add_assign_service":"Zuweisungsdienst hinzufügen"
+   "add_assign_service":"Zuweisungsdienst hinzufügen",
+   "professional_activity":"Professionelle Aktivität"
   }
 }

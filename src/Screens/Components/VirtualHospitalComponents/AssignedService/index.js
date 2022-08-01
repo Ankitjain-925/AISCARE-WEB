@@ -294,17 +294,36 @@ class Index extends Component {
         data.assign_service = this.state.items;
         data.status = "open";
         data.created_at = new Date();
-       this.setState({errorMsg: ''  })
-      axios
+
+        let value = {}
+        value = this.state.service
+        //     if (!value.title) {
+        //         this.setState({ errorMsg: "please enter title " })
+        //     }
+        //    else if (!value.service) {
+        //         this.setState({ errorMsg: "please select atleast one service" })
+        //     }
+
+        //     else {
+        // this.setState({ loaderImage: true })
+        axios
             .post(
                 sitedata.data.path + "/assignservice/Addassignservice",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
+                 data,
+            commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-                this.setState({ loaderImage: false });
-                this.props.getAddTaskData();
-                this.handleCloseAss();
+                 this.setState({ loaderImage: false });
+                 this.props.getAddTaskData();
+              this.handleCloseAss();
+
+            }).catch(function (error) {
+                console.log(error);
+                this.setState({ errorMsg: Something_went_wrong })
+
+             });
+        }
+
 
             }).catch(function (error) {
                 console.log(error);
@@ -595,6 +614,7 @@ class Index extends Component {
                                                 this.onFieldChange1(e, 'service')
                                             }
                                             value={this.state.service?.service || ''}
+
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
@@ -625,63 +645,54 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="addSrvcBtn">
-                                        <Button onClick={this.handleAddSubmit}>
+                                    <Grid className="addSrvcBtn3">
+                                        <a onClick={this.handleAddSubmit}>
                                             {Add}
-                                        </Button>
+                                        </a>
                                     </Grid>
-                                    <Grid className="srvcTable">
-                                        <h3>{Services}</h3>
-                                        <Table>
-                                            <Thead>
-                                                <Tr>
-                                                    <Th>{srvc}</Th>
-                                                    {/* <Th>{qty}</Th> */}
-                                                    <Th>{Price}</Th>
-                                                    <Th></Th>
-                                                </Tr>
-                                            </Thead>
+                                    <Grid item
+                                        xs={12}
+                                        md={12}>
+                                        <h3 className="service-head">{Services}</h3>
 
-                                            {this.state.items?.length > 0 &&
-                                                this.state.items.map((data, id) => (
-                                                    <Tbody>
+                                        <Grid container direction="row" spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid className="wardsGrup3">
+                                                    {this.state.items?.length > 0 &&
+                                                        this.state.items.map((data, id) => (
+                                                            <Grid className="roomsNum3">
+                                                                <Grid container direction="row">
+                                                                    <Grid item xs={6} md={6}>
+                                                                        <h3>{data?.service}</h3>
+                                                                        <p>{data?.price} €</p>
+                                                                    </Grid>
+                                                                    <Grid item xs={6} md={6} className="wrdEdtDelBtn edtdelservice">
 
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>
-                                                                    {data?.service}
-                                                                </label>
-                                                            </Td>
-                                                            <Td>{data?.price} €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.editService(data, id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.removeServices(id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/bin.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                            </Td>
-                                                        </Tr>
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.editService(data, id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/pencil-1.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.removeServices(id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/bin.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
 
-                                                    </Tbody>
-                                                ))}
-                                        </Table>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        ))}
+                                                </Grid>
+                                            </Grid>
+
+                                        </Grid>
                                     </Grid>
                                     <Grid>
                                         <p>{ServiceAmount}</p>
@@ -833,12 +844,13 @@ class Index extends Component {
 
 
                             </Grid>
-                            <Grid className="servSaveBtn" >
-                                <a>
-                                    <Button onClick={() =>
+
+                            <Grid className="servSaveBtn" onClick={() =>
                                 this.FinalServiceSubmit()
                             }>
-                                        {save_and_close}
+                                <a>
+                                    <Button>
+                      {save_and_close}
                                     </Button>
                                 </a>
                             </Grid>

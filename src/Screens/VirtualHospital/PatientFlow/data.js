@@ -256,6 +256,22 @@ export const setBed = async (value, case_id, user_token) => {
   }
 };
 
+export const MoveInternalSpace = async (case_id, user_token) => {
+    let response = await axios.put(
+      sitedata.data.path + '/cases/AddCase/' + case_id,
+      { external_space: false},
+      commonHeader(user_token)
+    );
+    if (response) {
+      if(response.data.hassuccessed){
+        return true;
+      }
+      return false;
+    } else {
+      return false;
+    }
+};
+
 export const setAssignedTo = async (value, case_id, user_token) => {
   if (value) {
     let response = await axios.put(
