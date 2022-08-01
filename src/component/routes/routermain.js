@@ -103,6 +103,7 @@ import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import ApproveHospital from "Screens/Components/ApprovalHospital/index";
+import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 
 class Routermain extends Component {
@@ -563,7 +564,12 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <DoctorInstitute {...props} />}
             />
-
+            {/* NEW ADDED AT NURSE End */}
+            <Route
+              path="/nurse/care-questionary"
+              exact={true}
+              render={(props) => <CareQuestionary {...props} />}
+            />
             <Route
               path="/nurse/institutes"
               exact={true}
