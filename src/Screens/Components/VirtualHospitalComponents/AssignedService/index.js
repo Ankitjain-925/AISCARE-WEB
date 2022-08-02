@@ -88,10 +88,10 @@ class Index extends Component {
     handleCloseAss = () => {
         this.setState({
             openAss: false,
-            service: {},
-            selectedPat: {},
-            assignedTo: false, newspeciality: false, errorMsg: '', error: false,
-            items: [], addinvoice: {}, assignedTo: false, viewCutom: false,
+            service: '',
+            selectedPat: '',
+            assignedTo: '', newspeciality: '', errorMsg: '', error: '',
+            items: [], addinvoice: {},showError:''
         });
 
     };
@@ -125,7 +125,9 @@ class Index extends Component {
             } else {
                 this.setState({ viewCutom: false });
             }
+            state['title'] = e.title;
             state['price_per_quantity'] = e.price;
+            state['quantity'] = 1;
             state[name] = e;
         } else {
             state[name] = e;
@@ -287,37 +289,54 @@ class Index extends Component {
 
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong } = translate;
+        let { Something_went_wrong, Plz_select_a_Patient, Plz_select_a_staff } = translate;
         this.setState({ loaderImage: true });
         var data = this.state.service;
         data.house_id = this.props?.House.value;
         data.assign_service = this.state.items;
         data.status = "open";
         data.created_at = new Date();
-       this.setState({errorMsg: ''  })
-      axios
-            .post(
-                sitedata.data.path + "/assignservice/Addassignservice",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({ loaderImage: false });
-                this.props.getAddTaskData();
-                this.handleCloseAss();
+        this.setState({ loaderImage: true })
+        if (
+            !data.patient ||
+            (data && data.patient && data.patient.length < 1)
+        ) {
+            this.setState({ errorMsg: Plz_select_a_Patient });
+        }
+       else if (
+           !data.assinged_to
+        ) {
+            this.setState({ errorMsg:Plz_select_a_staff });
+        }
+        else {
+            axios
+                .post(
+                    sitedata.data.path + "/assignservice/Addassignservice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    this.props.getAddTaskData();
+                    this.handleCloseAss();
 
-            }).catch(function (error) {
-                console.log(error);
-                this.setState({ errorMsg: Something_went_wrong })
+                }).catch(function (error) {
+                    console.log(error);
+                    this.setState({ errorMsg: Something_went_wrong })
 
-            });
-        
-        
-        
-    
+                });
+        }
     }
 
-    
+
+
+
+
+
+
+
+
+
 
     //get services list
     getAssignService = () => {
@@ -334,8 +353,8 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({
                         price: this.state.allServData[i].price,
-                        description: this.state.allServData[i].description,
-                        value: this.state.allServData[i]._id,
+                        // description: this.state.allServData[i].description,
+                        // value: this.state.allServData[i]._id,
                         label: this.state.allServData[i]?.title,
                     });
                 }
@@ -365,6 +384,7 @@ class Index extends Component {
     handleAddSubmit = () => {
         if (
             this.state.service?.service &&
+            this.state.service?.quantity &&
             this.state?.service?.price_per_quantity
         ) {
             let translate = getLanguage(this.props.stateLanguageType);
@@ -387,18 +407,18 @@ class Index extends Component {
             }
             else {
                 newService.price =
-                    newService?.price_per_quantity;
+                    newService?.price_per_quantity * newService?.quantity;
                 newService.service = this.state.service?.service?.label;
+                // newService.service = this.state.service?.title;
                 let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
-                this.setState({ items, service: {} }, () => {
+                this.setState({ items ,service:{}}, () => {
                     this.updateTotalPrize();
                 });
             }
         } else {
             this.setState({ showError: true });
         }
-
     };
     updateTotalPrize = () => {
         var newService = this.state.addinvoice;
@@ -416,10 +436,11 @@ class Index extends Component {
     //Update the services
     handleAddUpdate = () => {
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         var index = this.state.newServiceIndex;
         var array = this.state.items;
         array[index].price = newService?.price;
+        array[index].quantity = newService?.quantity;
         this.updateTotalPrize();
         this.setState({ service: {}, newServiceIndex: false, editServ: false });
     };
@@ -470,11 +491,10 @@ class Index extends Component {
     deleteClickService(id) {
         this.handleOpenAss();
         // delete this.state.items[id]
-        console.log('hiiii', this.state.items)
-        this.state.items.splice(id, 1);
+      this.state.items.splice(id, 1);
         this.setState({ items: this.state.items });
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.service?.service?.label;
         let items = [...this.state.items];
         this.setState({ items, service: {} }, () => {
@@ -516,7 +536,9 @@ class Index extends Component {
             Servicename,
             EnterTitlename,
             Add_assigned_services,
-            Please_select_atlest
+            Please_select_atlest,
+            Quantity,
+            Enterquantity
         } = translate;
         return (
 
@@ -571,7 +593,7 @@ class Index extends Component {
                             </div>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
-                                    <Grid>
+                            <Grid>
                                         <VHfield
                                             label={Assignedtitle}
                                             name="title"
@@ -596,11 +618,23 @@ class Index extends Component {
                                                 this.onFieldChange1(e, 'service')
                                             }
                                             value={this.state.service?.service || ''}
+
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
                                             isSearchable={true}
                                         // styles={customStyles}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={12} className="customservicetitle">
+                                        <VHfield
+                                            label={Quantity}
+                                            name="quantity"
+                                            placeholder={Enterquantity}
+                                            onChange={(e) =>
+                                                this.onFieldChange1(e.target.value, 'quantity')
+                                            }
+                                            value={this.state.service?.quantity || 0}
                                         />
                                     </Grid>
 
@@ -626,63 +660,56 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="addSrvcBtn">
-                                        <Button onClick={this.handleAddSubmit}>
+                                    <Grid className="addSrvcBtn3">
+                                        <a onClick={this.handleAddSubmit}>
                                             {Add}
-                                        </Button>
+                                        </a>
                                     </Grid>
-                                    <Grid className="srvcTable">
-                                        <h3>{Services}</h3>
-                                        <Table>
-                                            <Thead>
-                                                <Tr>
-                                                    <Th>{srvc}</Th>
-                                                    {/* <Th>{qty}</Th> */}
-                                                    <Th>{Price}</Th>
-                                                    <Th></Th>
-                                                </Tr>
-                                            </Thead>
+                                    <Grid item
+                                        xs={12}
+                                        md={12}>
+                                        <h3 className="service-head">{Services}</h3>
 
-                                            {this.state.items?.length > 0 &&
-                                                this.state.items.map((data, id) => (
-                                                    <Tbody>
+                                        <Grid container direction="row" spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid className="wardsGrup3">
+                                                    {this.state.items?.length > 0 &&
+                                                        this.state.items.map((data, id) => (
+                                                            <Grid className="roomsNum3">
+                                                                <Grid container direction="row">
+                                                                    <Grid item xs={6} md={6}>
+                                                                        <h3>{data?.service}</h3>
+                                                                        <p>{data?.quantity}</p>
+                                                                        <p>{data?.price} €</p>
+                                                                      
+                                                                    </Grid>
+                                                                    <Grid item xs={6} md={6} className="wrdEdtDelBtn edtdelservice">
 
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>
-                                                                    {data?.service}
-                                                                </label>
-                                                            </Td>
-                                                            <Td>{data?.price} €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.editService(data, id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.removeServices(id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/bin.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                            </Td>
-                                                        </Tr>
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.editService(data, id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/pencil-1.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.removeServices(id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/bin.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
 
-                                                    </Tbody>
-                                                ))}
-                                        </Table>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        ))}
+                                                </Grid>
+                                            </Grid>
+
+                                        </Grid>
                                     </Grid>
                                     <Grid>
                                         <p>{ServiceAmount}</p>
@@ -773,7 +800,7 @@ class Index extends Component {
                                                     //     : false
                                                     // }
                                                     />
-                                                    {/* { console.log("date_format",this.state.date_format)} */}
+                                            
                                                 </Grid>
                                                 <Grid
                                                     item
@@ -835,13 +862,12 @@ class Index extends Component {
 
                             </Grid>
                             <Grid className="servSaveBtn" >
-                                
-                                    <Button onClick={() =>
-                                this.FinalServiceSubmit()
-                            }>
-                                        {save_and_close}
-                                    </Button>
-                                
+                                <Button onClick={() =>
+                                    this.FinalServiceSubmit()
+                                }>
+                                    {save_and_close}
+                                </Button>
+
                             </Grid>
                             <Modal
                                 open={this.state.editServ}
@@ -882,10 +908,21 @@ class Index extends Component {
                                             <Grid>
                                                 <VHfield
                                                     label={Servicename}
-                                                    name="label"
+                                                    name="service"
                                                     placeholder={EnterTitlename}
                                                     disabled={true}
                                                     value={this.state.service?.service}
+                                                />
+                                            </Grid>
+                                            <Grid>
+                                                <VHfield
+                                                    label={Quantity}
+                                                    name="quantity"
+                                                    placeholder={Enterquantity}
+                                                    onChange={(e) =>
+                                                        this.updateEntryState1(e, 'quantity')
+                                                    }
+                                                    value={this.state.service?.quantity}
                                                 />
                                             </Grid>
                                             <Grid>
