@@ -90,7 +90,7 @@ class Index extends Component {
             openAss: false,
             service: {},
             selectedPat: {},
-            assignedTo: false, newspeciality: false, errorMsg: false, error: false,
+            assignedTo: false, newspeciality: false, errorMsg: '', error: false,
             items: [], addinvoice: {}, assignedTo: false, viewCutom: false,
         });
 
@@ -311,6 +311,7 @@ class Index extends Component {
                 this.setState({ errorMsg: Something_went_wrong })
 
             });
+        
         
         
     
@@ -834,13 +835,13 @@ class Index extends Component {
 
                             </Grid>
                             <Grid className="servSaveBtn" >
-                                <a>
+                                
                                     <Button onClick={() =>
                                 this.FinalServiceSubmit()
                             }>
                                         {save_and_close}
                                     </Button>
-                                </a>
+                                
                             </Grid>
                             <Modal
                                 open={this.state.editServ}
