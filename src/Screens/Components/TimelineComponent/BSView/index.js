@@ -402,7 +402,7 @@ class Index extends Component {
                         </Grid>
                         <Grid className="bp_graph">
                           {/* <Grid><img src={require('assets/images/gp.png')} alt="" title="" /></Grid> */}
-                          <Grid>
+                          <Grid className='grpah'>
                             <a onClick={() => this.props.OpenGraph("blood_sugar")}>
                               {VeiwGraph}
                             </a>

@@ -570,6 +570,8 @@ class Index extends Component {
       this.props.patient?.first_name || this.state.newTask?.patient?.last_name;
     let patient_id =
       this.props.patient?._id || this.state.newTask?.patient?.profile_id;
+      let type ={}
+    if (type === "picture_evaluation") {
     axios
       .post(
         sitedata.data.path + "/UserProfile/MailSendToDr",
@@ -593,6 +595,7 @@ class Index extends Component {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   updateCommemtState = (e) => {
@@ -1600,7 +1603,7 @@ class Index extends Component {
                   <Grid item xs={12} md={12}>
                     <Grid className="addSpeclLbl allAddSpeclLbl">
                       <Grid item xs={12} md={12} lg={12}>
-                        <Grid container direction="row" justify="center" className="creatLbl">
+                        <Grid container direction="row" justify="center">
                           <Grid item xs={8} md={8} lg={8}>
                             <label>{CreateaTask}</label>
                           </Grid>
