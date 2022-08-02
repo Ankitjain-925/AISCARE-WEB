@@ -27,6 +27,7 @@ import CovidSymptomsView from "../CovidSymptomsView/index";
 import { overView } from "Screens/Login/journalviewaction";
 import { pure } from "recompose";
 import PromotionView from "../PromotionView/index";
+import Questionnaire from "../Questionnaire/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -65,6 +66,13 @@ class Index extends Component {
     var item = this.state.Track;
     return (
       <div className="timelineGap">
+
+      
+        <Questionnaire 
+          AllOpenGraph={(current_graphPart) => this.props.AllOpenGraph(current_graphPart)}
+        />
+        {console.log("this.props.AllOpenGraph",this.props)}
+
         {item.type === "blood_pressure" && (
           <BPView
             onlyOverview={this.props.Overview}
