@@ -33,8 +33,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        // this.setState({ action: 'loading' });
-        // getSpeciality(this);
         externalSpaceApi(this);
     }
 
@@ -171,7 +169,7 @@ class Index extends Component {
                                             <Grid container direction="row" spacing={2}>
                                                 {externalData && externalData?.length > 0 &&
                                                     externalData.map((data) => (
-                                                        // console.log("data", data),
+                                                        console.log("data", data),
                                                         <Grid item xs={12} md={4}>
                                                             <Grid className="wardsGrup3">
                                                                 <Grid className="flowInfoInr">
@@ -180,9 +178,9 @@ class Index extends Component {
                                                                         // deleteClick={() =>
                                                                         //     handleOpenWarn(data._id, this)
                                                                         // }
-                                                                        label={data.specialty_name}
-                                                                        backgroundColor={data.background_color}
-                                                                        color={data.color}
+                                                                        label={data?.speciality?.specialty_name}
+                                                                        backgroundColor={data?.speciality?.background_color}
+                                                                        color={data?.speciality?.color}
                                                                         // onClick={() => {
                                                                         //     onEditspec(data, this);
                                                                         // }}
@@ -194,7 +192,7 @@ class Index extends Component {
                                                                     <Grid className="flowProfil">
                                                                         <Grid>
                                                                             <Grid className="tasklistName">
-                                                                                <S3Image imgUrl={data?.image} />
+                                                                                <S3Image imgUrl={data?.patient?.image} />
                                                                             </Grid>
 
                                                                         </Grid>
@@ -209,12 +207,13 @@ class Index extends Component {
                                                                         // }}
                                                                         >
                                                                             <label>
-                                                                                {data?.first_name} {' '} {data?.last_name}
+                                                                                {data?.patient?.first_name} {' '} {data?.patient?.last_name}
                                                                             </label>
-                                                                            <p>{data?.alies_id}</p>
+                                                                            <p>{data?.patient?.alies_id}</p>
                                                                         </Grid>
                                                                         <Grid className="checkDotsRght">
                                                                             <CasesMoreButton
+                                                                                comesFrom="ExternalSpace"
                                                                             // setDta={(item) => this.props.setDta(item)}
                                                                             // currentStep={quote?.author?.step_name}
                                                                             // currentIndex={checkTheIndex(
@@ -238,7 +237,7 @@ class Index extends Component {
                                                                     <Grid className="dtlCntUpr">
                                                                         <Grid className="dtlCntLft">
                                                                             <Grid className="dtlCount dtlCountRm dtlCountRm1">
-                                                                                {data?.address} {','} {data?.city}
+                                                                                {data?.full_address?.address} {','} {data?.full_address?.city}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>

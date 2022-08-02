@@ -1032,7 +1032,7 @@ class Index extends Component {
     //     }
     //     return { label: name, value: data._id };
     //   });
-    this.selectProf(data?.assinged_to, this.state.professional_id_list);
+
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
@@ -1040,6 +1040,7 @@ class Index extends Component {
       pat1name = data?.patient?.first_name;
     }
     // var cal_Length = data?.attachments?.length;
+    this.selectProf(data?.assinged_to, this.state.professional_id_list);
     var Assigned_Aready =
       data &&
       data?.assinged_to &&
@@ -1066,7 +1067,7 @@ class Index extends Component {
         label: data?.speciality?.specialty_name,
         value: data?.speciality?._id,
       },
-    }, () => { this.getProfessionalData(); });
+    });
   };
 
   cretficateTask = (id, patient_id, data) => {
