@@ -125,7 +125,7 @@ class Index extends Component {
             } else {
                 this.setState({ viewCutom: false });
             }
-            state['title'] = e.title;
+
             state['price_per_quantity'] = e.price;
             state['quantity'] = 1;
             state[name] = e;
@@ -327,15 +327,6 @@ class Index extends Component {
                 });
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     //get services list
