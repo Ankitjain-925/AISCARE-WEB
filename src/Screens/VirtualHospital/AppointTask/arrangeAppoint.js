@@ -91,7 +91,8 @@ class Index extends Component {
       filterUser: [],
       filterDocs: [],
       selectSpec3: '',
-      selectPatDoc: ''
+      selectPatDoc: '',
+      errorMsg: ''
     };
   }
 
@@ -322,7 +323,8 @@ class Index extends Component {
           // speciality: this.state.searchDetails.specialty,
           // longitude: longitude,
           // Latitude: Latitude,
-          doctor_id: this.state.selectDocData && this.state.selectDocData.value
+          doctor_id: this.state.selectDocData && this.state.selectDocData?.value
+            || this.state.selectNurData && this.state.selectNurData?.value
         },
       })
       .then((responce) => {
@@ -404,17 +406,53 @@ class Index extends Component {
     });
   };
 
+  getNurseAppoint = () => {
+    axios
+      .post(sitedata.data.path + "vc/nurseapp",
+        { nurse_id: this.props.stateLoginValueAim?.user?._id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      ).then((response) => {
+        console.log("response", response)
+      })
+  }
+
   handleAllowLoc = () => {
-    this.getlocation();
-    this.setState(
-      { openAllowAccess: false, openAllowLoc: true, selectedOption: {} },
-      () => {
-        setTimeout(() => {
-          this.setState({ show_type: "contact" });
-        }, 2000);
+    this.setState({ errorMsg: "" });
+    const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
+    if (Object.keys(selectedPatient).length !== 0) {
+      if (selectPatDoc === "yes" || selectPatDoc === "no") {
+        if (selectPatDoc === "yes" && Object.keys(selectDocData).length !== 0) {
+          this.getlocation();
+          this.setState(
+            { openAllowAccess: false, openAllowLoc: true, selectedOption: {} },
+            () => {
+              setTimeout(() => {
+                this.setState({ show_type: "contact" });
+              }, 2000);
+            }
+          );
+          this.props.handleCloseAllowAccess();
+        } else if (selectPatDoc === "no" && Object.keys(selectNurData).length !== 0) {
+          this.getlocation();
+          this.getNurseAppoint();
+          this.setState(
+            { openAllowAccess: false, openAllowLoc: true, selectedOption: {} },
+            () => {
+              setTimeout(() => {
+                this.setState({ show_type: "contact" });
+              }, 2000);
+            }
+          );
+          this.props.handleCloseAllowAccess();
+        } else {
+          var item = selectPatDoc === "yes" ? "Doctor" : "Nurse";
+          this.setState({ errorMsg: "Please select" + " " + item + " " + "first" });
+        }
+      } else {
+        this.setState({ errorMsg: "Please select either dotor or nurse" });
       }
-    );
-    this.props.handleCloseAllowAccess();
+    } else
+      this.setState({ errorMsg: "Please select patient first" });
   };
 
   handleCloseAllowLoc = () => {
@@ -675,7 +713,6 @@ class Index extends Component {
   }
 
   render() {
-
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled, add_task, AddAppointment,
       select_spec, Taskstatus, clear_all_filters, applyFilters, capab_Doctors, select,
@@ -712,7 +749,7 @@ class Index extends Component {
       find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access, FilterbySpeciality, plz_select_patient,Home_visit } =
+      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit } =
       translate;
 
     const { tabvalue, patNotSelected,
@@ -752,6 +789,7 @@ class Index extends Component {
                     <img src={require("assets/images/close-search.svg")} alt="" title="" />
                   </a>
                 </div>
+                <Grid className="err_message">{this.state.errorMsg}</Grid>
                 <Grid container direction="row" spacing={2} className="srchAccessLoc">
                   <Grid item xs={12} md={4} className="filterPatlist">
                     {this.state.plistfilter && (
@@ -802,7 +840,6 @@ class Index extends Component {
                         className="addStafSelect"
                         isMulti={false}
                         isSearchable={true} />
-
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist">
@@ -969,6 +1006,21 @@ class Index extends Component {
                   </a>
                 </div>
                 <Grid
+                  className="backFlow backFlow34"
+                  onClick={() => {
+                    this.setState({ openAllowLoc: false, openAllowAccess: true });
+                  }}
+                >
+                  <a>
+                    <img
+                      src={require('assets/virtual_images/rightArrow.png')}
+                      alt=""
+                      title=""
+                    />
+                    Back
+                  </a>
+                </Grid>
+                <Grid
                   container
                   direction="row"
                   spacing={2}
@@ -1012,10 +1064,10 @@ class Index extends Component {
                         options={this.state.filterNurse}
                         placeholder={`${select} Nurse`}
                         className="sel_specialty"
+                        isDisabled={true}
                       />
                     </>}
                   </Grid>
-
 
                   {/* <Grid item xs={12} md={4} className="apointType">
                           <Grid>

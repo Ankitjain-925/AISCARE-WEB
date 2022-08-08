@@ -11,14 +11,17 @@ export const externalSpaceApi = (current) => {
   var house_id = current.props?.House?.value;
   axios
     .get(
-      sitedata.data.path + '/vc/infoOfPatients/'+house_id,
+      sitedata.data.path + '/vc/infoOfPatients/' + house_id,
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((response) => {
       if (response.data.hassuccessed) {
         current.setState({ externalData: response.data.data, loaderImage: false })
-        console.log("response", response.data.data)
+      } else {
+        current.setState({ loaderImage: false })
       }
+    }).catch((err) => {
+      current.setState({ loaderImage: false })
     })
 }
 

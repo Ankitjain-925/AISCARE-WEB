@@ -127,6 +127,7 @@ class Index extends Component {
   //get Add task data
   getAddTaskData1 = (tabvalue2, goArchive) => {
     var nurse_id = this.props.stateLoginValueAim?.user?._id
+    console.log("this.props.stateLoginValueAim?.user", this.props.stateLoginValueAim?.user)
     this.setState({ loaderImage: true });
     axios
       .post(

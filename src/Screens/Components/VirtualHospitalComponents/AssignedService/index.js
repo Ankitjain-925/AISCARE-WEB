@@ -296,6 +296,7 @@ class Index extends Component {
         data.assign_service = this.state.items;
         data.status = "open";
         data.created_at = new Date();
+
         this.setState({ loaderImage: true })
         if (
             !data.patient ||
@@ -327,6 +328,7 @@ class Index extends Component {
                 });
         }
     }
+
 
     //get services list
     getAssignService = () => {
@@ -850,13 +852,15 @@ class Index extends Component {
 
 
                             </Grid>
-                            <Grid className="servSaveBtn" >
-                                <Button onClick={() =>
-                                    this.FinalServiceSubmit()
-                                }>
-                                    {save_and_close}
-                                </Button>
-
+                     
+                            <Grid className="servSaveBtn" onClick={() =>
+                                this.FinalServiceSubmit()
+                            }>
+                                <a>
+                                    <Button>
+                                        {save_and_close}
+                                    </Button>
+                                </a>
                             </Grid>
                             <Modal
                                 open={this.state.editServ}
