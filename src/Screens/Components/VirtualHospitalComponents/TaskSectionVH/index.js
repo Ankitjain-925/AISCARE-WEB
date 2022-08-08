@@ -570,31 +570,31 @@ class Index extends Component {
       this.props.patient?.first_name || this.state.newTask?.patient?.last_name;
     let patient_id =
       this.props.patient?._id || this.state.newTask?.patient?.profile_id;
-      let type ={}
+    let type = {}
     if (type === "picture_evaluation") {
-    axios
-      .post(
-        sitedata.data.path + "/UserProfile/MailSendToDr",
-        {
-          email: email,
-          patient_infos: {
-            first_name: first_name,
-            last_name: last_name,
-            patient_id: patient_id,
+      axios
+        .post(
+          sitedata.data.path + "/UserProfile/MailSendToDr",
+          {
+            email: email,
+            patient_infos: {
+              first_name: first_name,
+              last_name: last_name,
+              patient_id: patient_id,
+            },
           },
-        },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          // this.setState({
-          //   updateEvaluate: responce.data.data,
-          // });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            // this.setState({
+            //   updateEvaluate: responce.data.data,
+            // });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -1024,6 +1024,11 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
+    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+    this.setState({
+      selectedHouse: findHouse
+    }, () => { this.getProfessionalData(); })
+
     // var assignedTo =
     //   data?.assinged_to?.length > 0 &&
     //   data?.assinged_to.map((data) => {

@@ -72,7 +72,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
-    this.getAddTaskData1();
+    // this.getAddTaskData1();
   }
 
   handleChangeTab = (event, tabvalue) => {
@@ -95,7 +95,6 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
-        console.log("response", response)
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
           if (response?.data?.data) {
@@ -127,17 +126,14 @@ class Index extends Component {
   //get Add task data
   getAddTaskData1 = (tabvalue2, goArchive) => {
     var nurse_id = this.props.stateLoginValueAim?.user?._id
-    console.log("this.props.stateLoginValueAim?.user", this.props.stateLoginValueAim?.user)
     this.setState({ loaderImage: true });
     axios
       .post(
-        sitedata.data.path +
-        "/vc/nurseafter",
+        sitedata.data.path + "/vc/nurseafter",
         { nurse_id: nurse_id },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
-        console.log("responsedfgdfgdfg", response)
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
           if (response?.data?.data) {
@@ -163,7 +159,7 @@ class Index extends Component {
           }
         }
         this.setState({ loaderImage: false });
-      });
+      }).catch((err) => { console.log("err", err) })
   };
 
 
@@ -207,8 +203,8 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="task" />
-                <LeftMenuMobile isNotShow={true} currentPage="task" />
+                <LeftMenu isNotShow={true} currentPage="profActivity" />
+                <LeftMenuMobile isNotShow={true} currentPage="profActivity" />
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>

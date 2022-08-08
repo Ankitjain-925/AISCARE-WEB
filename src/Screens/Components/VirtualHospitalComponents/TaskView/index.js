@@ -359,13 +359,13 @@ class PointPain extends Component {
                       </Grid>
                     ) : (
                       data.archived === true && (
-                    <Grid>
-                        <InfoOutlinedIcon className="InfoOutLinees" />
-                        <label className="assignHoses appointmentTime">
-                          {Payment_pending}
+                        <Grid>
+                          <InfoOutlinedIcon className="InfoOutLinees" />
+                          <label className="assignHoses appointmentTime">
+                            {Payment_pending}
 
-                        </label>
-                      </Grid>
+                          </label>
+                        </Grid>
                       )
                     )}
                     {/* </a>

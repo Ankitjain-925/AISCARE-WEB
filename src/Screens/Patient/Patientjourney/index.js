@@ -233,7 +233,10 @@ class Index extends Component {
       )
       .then((response) => {
         if (response.data.hassuccessed) {
-          this.setState({ view: response.data.data });
+          var taskArray = response && response.data && response.data.data.filter((item) => {
+            return item?.task_type !== "sick_leave" && item?.task_type !== "picture_evaluation";
+          });
+          this.setState({ view: taskArray });
         }
         this.setState({ loaderImage: false });
       });
