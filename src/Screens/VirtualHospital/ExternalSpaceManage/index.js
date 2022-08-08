@@ -46,7 +46,7 @@ class Index extends Component {
             external_space_management,
             Search,
             Institution,
-            Tasks, AddTask, Comments
+            Tasks, AddTask, Comments, to
         } = translate;
         const { stateLoginValueAim, House } = this.props;
         const { externalData } = this.state;
@@ -237,7 +237,7 @@ class Index extends Component {
                                                                     <Grid className="dtlCntUpr">
                                                                         <Grid className="dtlCntLft">
                                                                             <Grid className="dtlCount dtlCountRm dtlCountRm1">
-                                                                                {data?.full_address?.address} {','} {data?.full_address?.city} / {data?.full_address?.pastal_code}
+                                                                                {data?.full_address?.address} {','} {data?.full_address?.city} / {to} {'-'} {data?.full_address?.pastal_code}
                                                                                 <p>{data?.full_address?.email}</p>
                                                                                 <p>{data?.full_address?.mobile}</p>
                                                                             </Grid>
