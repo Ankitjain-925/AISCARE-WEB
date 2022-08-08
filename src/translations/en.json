@@ -1909,7 +1909,8 @@
     "full_information":"Full Information",
     "sure_remove_service_from_assigned":"Are you sure to remove this Service from Assigned?",
     "Please_select_atlest":"Please select atleast one service",
-    "Plz_select_a_staff":"please select a staff"
+    "Plz_select_a_staff":"please select a staff",
+    "to":"to"
 
   }
 }

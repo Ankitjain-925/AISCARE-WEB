@@ -583,7 +583,7 @@ class Routermain extends Component {
               render={(props) => <NurseInstitute {...props} />}
             />
             <Route
-              path="/nurse/professional-task"
+              path="/nurse/professional-activity"
               exact={true}
               render={(props) => <NursePT {...props} />}
             />
