@@ -324,19 +324,6 @@ class Index extends Component {
              });
         }
 
-
-            }).catch(function (error) {
-                console.log(error);
-                this.setState({ errorMsg: Something_went_wrong })
-
-            });
-        
-        
-    
-    }
-
-    
-
     //get services list
     getAssignService = () => {
         var serviceList = [],
@@ -365,6 +352,7 @@ class Index extends Component {
                 });
             });
     };
+    
     handleCloseServ = () => {
         this.setState({ editServ: false, service: {} });
     };

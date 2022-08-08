@@ -182,8 +182,6 @@ class Index extends React.Component {
     });
   };
 
-
-
   setSpeciality = (data) => {
     this.setState({ loaderImage: true });
     axios
@@ -419,7 +417,6 @@ class Index extends React.Component {
       },
     });
   };
-
  
   MoveExternalSpace = () => {
     this.setState({ loaderImage: true });
@@ -435,6 +432,14 @@ class Index extends React.Component {
       .then((responce1) => {
         if (responce1.data.hassuccessed) {
           this.setState({ loaderImage: false });
+          var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+          });
         } else {
           let translate = getLanguage(this.props.stateLanguageType);
           let {
@@ -502,7 +507,6 @@ class Index extends React.Component {
       state: { openAssign: true }
     })
   }
-
 
   moveEntry = () => {
     this.props.history.push({
@@ -815,8 +819,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
