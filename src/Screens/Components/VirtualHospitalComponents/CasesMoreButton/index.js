@@ -417,15 +417,15 @@ class Index extends React.Component {
       },
     });
   };
- 
+
   MoveExternalSpace = () => {
     this.setState({ loaderImage: true });
     axios
       .post(
         sitedata.data.path + "/vc/UpdateAddress",
         {
-         case_id: this.props.quote._id,
-         house_id: this.props.quote?.house_id
+          case_id: this.props.quote._id,
+          house_id: this.props.quote?.house_id
         },
         commonHeader(this.props.stateLoginValueAim.token)
       )
@@ -480,7 +480,7 @@ class Index extends React.Component {
                   </Grid>
                   <Grid className="dischargeInfo">
                     <p>{"Patient need to fill their address / contact information completely. Before that hospital are not able to move patient as external space"}</p>
-                    
+
                     <Grid>
                       <Button
                         className="creatInvoic"
@@ -535,8 +535,8 @@ class Index extends React.Component {
               <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: true, assignroom: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-new-speciality"></span><p className="more-change-staff-img2">{assign_to_speciality}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               {!this.props.quote?.external_space && <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false, setSec: true }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>}
-              {!this.props.quote?.external_space && <li><a onClick={() => { this.MoveExternalSpace()}}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to external space"}</p></p> </a></li>}
-              {this.props.quote?.external_space && <li><a onClick={() => {MoveInternalSpace( this.props.quote._id, this.props.stateLoginValueAim.token)}}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to internal space"}</p></p> </a></li>}
+              {!this.props.quote?.external_space && <li><a onClick={() => { this.MoveExternalSpace() }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to external space"}</p></p> </a></li>}
+              {this.props.quote?.external_space && <li><a onClick={() => { MoveInternalSpace(this.props.quote._id, this.props.stateLoginValueAim.token) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to internal space"}</p></p> </a></li>}
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.Discharge() }}><span className="more-discharge-patient"></span>{DischargePatient}</a></li>}
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.RemoveDirectPatient() }}><span className="more-remove-entry"></span>{remove_patient}</a></li>}
             </>}
