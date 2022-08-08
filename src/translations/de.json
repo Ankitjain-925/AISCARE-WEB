@@ -1817,7 +1817,14 @@
    "edit_assigned_services":"Zugewiesene Dienste bearbeiten",
    "delete_assigned_services":"Zugewiesene Dienste löschen",
    "add_assign_service":"Zuweisungsdienst hinzufügen",
-   "EarlierActivity":"Frühere Aktivität",
-   "professional_activity":"Professionelle Aktivität"
+   "professional_activity":"Professionelle Aktivität",
+   "nurse_questionnaire":"Fragebogen der Krankenschwester",
+    "daily":"Täglich",
+    "Daily":"Täglich",
+    "every_2_week":"alle 2 woche",
+    "all_2_days":"2 Tage",
+    "quarter":"Quartal",
+    "full_information":"Volle Information",
+   "EarlierActivity":"Frühere Aktivität"
   }
 }

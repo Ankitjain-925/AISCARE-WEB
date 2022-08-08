@@ -157,12 +157,22 @@ class Index extends Component {
     this.setState({ isGraph: false });
   };
 
+  //For Close the Graphs
+  AllCloseGraph = () => {
+    this.rightInfo();
+    this.getTrack();
+    this.setState({ addInqryNwSec: false });
+  };
+
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
 
   AllOpenGraph = (current_GraphPart) => {
-    this.setState({ current_GraphPart: current_GraphPart, addInqryNwSec: true});
+    this.setState({
+      current_GraphPart: current_GraphPart,
+      addInqryNwSec: true,
+    });
   };
 
   //For clear the filter
@@ -2023,8 +2033,6 @@ class Index extends Component {
                     </Modal>
                     {/* End of Model setup */}
 
-
-
                     {/* New Modal setup */}
 
                     <Modal
@@ -2048,18 +2056,25 @@ class Index extends Component {
                               : "nwDiaCntntIner"
                           }
                         >
-                          {/* <Grid className="addSpeclContntIner"></Grid> */}
                           <Grid className="nwDiaCourse ">
                             <Grid container direction="row" justify="center">
                               <Grid item xs={8} md={8} lg={8}>
                                 <div>
-                                  <p>{new_entry}</p>
-                                  <Grid className="nwDiaSel "></Grid>
+                                  <p>nurse questionnaire</p>
+                                  <Grid className="nwDiaSel"></Grid>
                                 </div>
                               </Grid>
                               <Grid item xs={4} md={4} lg={4}>
                                 <Grid>
-                                  <Grid className="entryCloseBtn"></Grid>
+                                  <Grid className="entryCloseBtn">
+                                    <a onClick={this.handleCloseInqryNwSec}>
+                                      <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    </a>
+                                  </Grid>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -2070,8 +2085,6 @@ class Index extends Component {
                     </Modal>
 
                     {/* End New Modal setup */}
-
-                    
 
                     {/* Model setup */}
                     <AddEntry
