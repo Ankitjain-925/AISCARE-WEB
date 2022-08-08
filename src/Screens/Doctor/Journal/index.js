@@ -54,7 +54,7 @@ import moment from "moment";
 import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
-import { getLanguage } from "translations/index"
+import { getLanguage } from "translations/index";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
@@ -62,10 +62,18 @@ import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
 import VideoDemo from "Screens/Components/VideoDemo/index";
-import { commonHeader } from "component/CommonHeader/index"
+import { commonHeader } from "component/CommonHeader/index";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import { get_gender, get_cur_one, get_personalized, get_track, update_entry_state, delete_click_track, download_track } from "Screens/Components/CommonApi/index";
+import {
+  get_gender,
+  get_cur_one,
+  get_personalized,
+  get_track,
+  update_entry_state,
+  delete_click_track,
+  download_track,
+} from "Screens/Components/CommonApi/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -111,7 +119,7 @@ class Index extends Component {
       current_Graph: "",
       upcoming_appointment: [],
       SARS: [],
-      
+
       itive_SARS: [],
       vaccinations: [],
       defaultValue: 20,
@@ -120,17 +128,21 @@ class Index extends Component {
   }
 
   LoadMore = (allTrack) => {
-    this.setState({ loading: true, defaultValue: this.state.defaultValue + 20 },
+    this.setState(
+      { loading: true, defaultValue: this.state.defaultValue + 20 },
       () => {
-        this.Showdefaults(allTrack, this.state.defaultValue)
-        setTimeout(() => { this.setState({ loading: false }) }, 2000)
-      })
-  }
-  //For render 10 entries at one time 
+        this.Showdefaults(allTrack, this.state.defaultValue);
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 2000);
+      }
+    );
+  };
+  //For render 10 entries at one time
   Showdefaults = (allTrack, defaultValue) => {
     allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
-    this.setState({ allTrack: allTrack })
-  }
+    this.setState({ allTrack: allTrack });
+  };
   //For Close the Graph
   CloseGraph = () => {
     this.rightInfo();
@@ -145,10 +157,15 @@ class Index extends Component {
   //For clear the filter
   ClearData = () => {
     this.setState(
-      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue: 20 },
+      {
+        Sort: "diagnosed_time",
+        allTrack2: this.state.allTrack1,
+        allTrack: this.state.allTrack1,
+        defaultValue: 20,
+      },
       () => {
-        this.SortData()
-        this.Showdefaults(this.state.allTrack2, this.state.defaultValue)
+        this.SortData();
+        this.Showdefaults(this.state.allTrack2, this.state.defaultValue);
       }
     );
   };
@@ -181,8 +198,9 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-    this.setState({ allTrack2: FilterFromSearch, defaultValue: 20 },
-      () => { this.Showdefaults(FilterFromSearch, this.state.defaultValue) });
+    this.setState({ allTrack2: FilterFromSearch, defaultValue: 20 }, () => {
+      this.Showdefaults(FilterFromSearch, this.state.defaultValue);
+    });
   };
 
   //For filter the Data
@@ -204,10 +222,10 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack2: FilterFromUserType, defaultValue: 20 },
-      () => { this.Showdefaults(FilterFromUserType, this.state.defaultValue) });
+    this.setState({ allTrack2: FilterFromUserType, defaultValue: 20 }, () => {
+      this.Showdefaults(FilterFromUserType, this.state.defaultValue);
+    });
   };
-
 
   //Filter according to date range
   FilterFromTime = (Datas, time_range) => {
@@ -278,13 +296,8 @@ class Index extends Component {
 
   //Modal Open on Archive the Journal
   ArchiveTrack = (data) => {
-    let translate = getLanguage(this.props.stateLanguageType)
-    let {
-      archive_item,
-      do_u_really_want_archive_item,
-      yes,
-      no,
-    } = translate;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { archive_item, do_u_really_want_archive_item, yes, no } = translate;
 
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -292,8 +305,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -324,7 +337,7 @@ class Index extends Component {
   };
   //Delete the perticular track confirmation box
   DeleteTrack = (deletekey) => {
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let { delete_item, do_u_really_want_delete_item, yes, no } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -332,8 +345,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -375,7 +388,7 @@ class Index extends Component {
     var user_id = this.props.Doctorsetget.p_id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    let response = await delete_click_track(user_token, user_id, deletekey)
+    let response = await delete_click_track(user_token, user_id, deletekey);
     if (response) {
       this.setState({ loaderImage: false });
       this.getTrack();
@@ -489,7 +502,7 @@ class Index extends Component {
       this.setState({ SARS: Fileadd, fileupods: true });
     } else {
       this.setState({ Positive_SARS: Fileadd, fileupods: true });
-    }           
+    }
   };
 
   //For getting full data of hide Show
@@ -516,7 +529,11 @@ class Index extends Component {
   //For update the Track state
   updateEntryState = async (e) => {
     const state = this.state.updateTrack;
-    const retState = await update_entry_state(e, state, this.props.stateLoginValueAim)
+    const retState = await update_entry_state(
+      e,
+      state,
+      this.props.stateLoginValueAim
+    );
     this.setState({ updateTrack: retState });
   };
 
@@ -632,26 +649,34 @@ class Index extends Component {
     var user_id = this.props.Doctorsetget.p_id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    let response = await get_track(user_token, user_id)
+    let response = await get_track(user_token, user_id);
 
     if (response.data.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
       this.rightInfo();
       var images = [];
       response.data.data = response.data.data.filter((e) => e != null);
-    
-      this.rightInfo();
-      this.setState({
-        allTrack1: response.data.data,
-        allTrack2: response.data.data,
-        loaderImage: false,
-        // defaultValue : 10,
-      },
-        () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
-    } else {
-      this.setState({ allTrack1: [], allTrack: [], allTrack2: [], loaderImage: false });
-    }
 
+      this.rightInfo();
+      this.setState(
+        {
+          allTrack1: response.data.data,
+          allTrack2: response.data.data,
+          loaderImage: false,
+          // defaultValue : 10,
+        },
+        () => {
+          this.Showdefaults(this.state.allTrack2, this.state.defaultValue);
+        }
+      );
+    } else {
+      this.setState({
+        allTrack1: [],
+        allTrack: [],
+        allTrack2: [],
+        loaderImage: false,
+      });
+    }
   };
 
   //Get All information Related to Metadata
@@ -659,7 +684,6 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       this.GetLanguageMetadata();
     });
-   
   }
 
   GetLanguageMetadata = () => {
@@ -675,76 +699,76 @@ class Index extends Component {
         this.state.allMetadata.Temprature;
       var Allgender = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.gender &&
-        this.state.allMetadata.gender,
+          this.state.allMetadata.gender &&
+          this.state.allMetadata.gender,
         this.props.stateLanguageType
       );
       var Allpain_type = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.pain_type &&
-        this.state.allMetadata.pain_type,
+          this.state.allMetadata.pain_type &&
+          this.state.allMetadata.pain_type,
         this.props.stateLanguageType
       );
       var Pressuresituation = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.situation_pressure &&
-        this.state.allMetadata.situation_pressure,
+          this.state.allMetadata.situation_pressure &&
+          this.state.allMetadata.situation_pressure,
         this.props.stateLanguageType
       );
       var Allpain_quality = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.pain_quality &&
-        this.state.allMetadata.pain_quality &&
-        this.state.allMetadata.pain_quality,
+          this.state.allMetadata.pain_quality &&
+          this.state.allMetadata.pain_quality &&
+          this.state.allMetadata.pain_quality,
         this.props.stateLanguageType
       );
       var Allsituation = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.situation &&
-        this.state.allMetadata.situation,
+          this.state.allMetadata.situation &&
+          this.state.allMetadata.situation,
         this.props.stateLanguageType
       );
       var Allsmoking_status = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.smoking_status &&
-        this.state.allMetadata.smoking_status,
+          this.state.allMetadata.smoking_status &&
+          this.state.allMetadata.smoking_status,
         this.props.stateLanguageType
       );
 
       var Allreminder = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.reminder &&
-        this.state.allMetadata.reminder,
+          this.state.allMetadata.reminder &&
+          this.state.allMetadata.reminder,
         this.props.stateLanguageType
       );
       var Allrelation = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.relation &&
-        this.state.allMetadata.relation,
+          this.state.allMetadata.relation &&
+          this.state.allMetadata.relation,
         this.props.stateLanguageType
       );
       var Allsubstance = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.substance &&
-        this.state.allMetadata.substance,
+          this.state.allMetadata.substance &&
+          this.state.allMetadata.substance,
         this.props.stateLanguageType
       );
       var Anamnesis = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.anamnesis &&
-        this.state.allMetadata.anamnesis,
+          this.state.allMetadata.anamnesis &&
+          this.state.allMetadata.anamnesis,
         this.props.stateLanguageType
       );
       var vaccinations = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.vaccination &&
-        this.state.allMetadata.vaccination,
+          this.state.allMetadata.vaccination &&
+          this.state.allMetadata.vaccination,
         this.props.stateLanguageType
       );
       var personalised_card = GetLanguageDropdown(
         this.state.allMetadata &&
-        this.state.allMetadata.personalised_card &&
-        this.state.allMetadata.personalised_card,
+          this.state.allMetadata.personalised_card &&
+          this.state.allMetadata.personalised_card,
         this.props.stateLanguageType,
         "personalised_card"
       );
@@ -787,8 +811,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/rightinfo/patient/" +
-        this.props.Doctorsetget.p_id,
+          "/rightinfo/patient/" +
+          this.props.Doctorsetget.p_id,
         commonHeader(user_token)
       )
       .then((response) => {
@@ -800,7 +824,7 @@ class Index extends Component {
   cur_one2 = async () => {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.Doctorsetget.p_id;
-    let response = await get_cur_one(user_token, user_id)
+    let response = await get_cur_one(user_token, user_id);
     this.setState({ cur_one2: response.data.data });
   };
 
@@ -808,7 +832,7 @@ class Index extends Component {
   cur_one = async () => {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
-    let response = await get_cur_one(user_token, user_id)
+    let response = await get_cur_one(user_token, user_id);
     this.setState({ cur_one: response.data.data });
   };
   //To access the data of another Patient
@@ -837,11 +861,11 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-          "/User/getUser/" +
-          user_id +
-          "?pin=" +
-          pin +
-          "&&comefrom=healthdata",
+            "/User/getUser/" +
+            user_id +
+            "?pin=" +
+            pin +
+            "&&comefrom=healthdata",
           commonHeader(user_token)
         )
         .then((response) => {
@@ -890,8 +914,8 @@ class Index extends Component {
   getPesonalized = async () => {
     this.setState({ loaderImage: true });
     var user_id = this.props.Doctorsetget.p_id;
-    let user_token = this.props.stateLoginValueAim.token
-    let responce = await get_personalized(user_token, user_id)
+    let user_token = this.props.stateLoginValueAim.token;
+    let responce = await get_personalized(user_token, user_id);
     if (
       responce.data.hassuccessed &&
       responce.data.data &&
@@ -917,23 +941,26 @@ class Index extends Component {
   };
   //For getting the information of the Patient Gender
   getGender = async () => {
-    const { stateLoginValueAim, Doctorsetget } = this.props
-    let response = await get_gender(stateLoginValueAim.token, Doctorsetget.p_id)
-    this.setState({ patient_gender: response })
-  }
+    const { stateLoginValueAim, Doctorsetget } = this.props;
+    let response = await get_gender(
+      stateLoginValueAim.token,
+      Doctorsetget.p_id
+    );
+    this.setState({ patient_gender: response });
+  };
 
   //This is for the Download the Track
   //This is for the Download the Track
   downloadTrack = async (data) => {
     this.setState({ loaderImage: true });
-    let response = await download_track(data, this.props.stateLoginValueAim)
+    let response = await download_track(data, this.props.stateLoginValueAim);
     setTimeout(() => {
       this.setState({ loaderImage: false });
-    }, 5000)
+    }, 5000);
   };
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       long_covid,
       respiration,
@@ -995,9 +1022,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -1028,7 +1055,7 @@ class Index extends Component {
                               <Grid item xs={6} md={6}>
                                 <Grid className="AddEntrynw">
                                   {this.props.Doctorsetget &&
-                                    this.props.Doctorsetget.p_id !== null ? (
+                                  this.props.Doctorsetget.p_id !== null ? (
                                     <a onClick={this.AnotherPatient}>
                                       {another_patient_data}
                                     </a>
@@ -1074,7 +1101,7 @@ class Index extends Component {
                       {this.props.Doctorsetget.p_id !== null && (
                         <div>
                           {this.state.allTrack &&
-                            this.state.allTrack.length > 0 ? (
+                          this.state.allTrack.length > 0 ? (
                             <div>
                               {this.state.allTrack.map((item, index) => (
                                 <ViewTimeline
@@ -1082,12 +1109,16 @@ class Index extends Component {
                                   Allrelation={this.state.Allrelation}
                                   Allreminder={this.state.Allreminder}
                                   Allpain_type={this.state.Allpain_type}
-                                  Allsmoking_status={this.state.Allsmoking_status}
+                                  Allsmoking_status={
+                                    this.state.Allsmoking_status
+                                  }
                                   Allgender={this.state.Allgender}
                                   AllSpecialty={this.state.AllSpecialty}
                                   Allpain_quality={this.state.Allpain_quality}
                                   Allsituation={this.state.Allsituation}
-                                  Pressuresituation={this.state.Pressuresituation}
+                                  Pressuresituation={
+                                    this.state.Pressuresituation
+                                  }
                                   Anamnesis={this.state.Anamnesis}
                                   downloadTrack={(data) =>
                                     this.downloadTrack(data)
@@ -1098,8 +1129,14 @@ class Index extends Component {
                                   DeleteTrack={(deleteKey) =>
                                     this.DeleteTrack(deleteKey)
                                   }
-                                  ArchiveTrack={(data) => this.ArchiveTrack(data)}
-                                  EidtOption={(value, updateTrack, visibility) =>
+                                  ArchiveTrack={(data) =>
+                                    this.ArchiveTrack(data)
+                                  }
+                                  EidtOption={(
+                                    value,
+                                    updateTrack,
+                                    visibility
+                                  ) =>
                                     this.EidtOption(
                                       value,
                                       updateTrack,
@@ -1122,12 +1159,21 @@ class Index extends Component {
                                   patient_gender={this.state.patient_gender}
                                 />
                               ))}
-                              {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
-                                {Seemore10entries}
-                              </div>}
-                              {this.state.loading && <div className="more10entries">
-                                {loadingref}
-                              </div>}
+                              {this.state.allTrack2 > this.state.allTrack && (
+                                <div
+                                  className="more10entries"
+                                  onClick={() =>
+                                    this.LoadMore(this.state.allTrack2)
+                                  }
+                                >
+                                  {Seemore10entries}
+                                </div>
+                              )}
+                              {this.state.loading && (
+                                <div className="more10entries">
+                                  {loadingref}
+                                </div>
+                              )}
                             </div>
                           ) : (
                             <EmptyData />
@@ -1145,40 +1191,38 @@ class Index extends Component {
                     onClose={this.handleCloseData}
                     className={
                       this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
                         ? "darkTheme"
                         : ""
                     }
                   >
                     <Grid className="dataBoxCntnt">
                       <Grid className="dataCourse">
-                      <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-      <label>{patient_access_data}</label>
-      <p>{healthcare_access_for_non_conn_patient}</p>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseData}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
-
-
+                        <Grid container direction="row" justify="center">
+                          <Grid item xs={8} md={8} lg={8}>
+                            <label>{patient_access_data}</label>
+                            <p>{healthcare_access_for_non_conn_patient}</p>
+                          </Grid>
+                          <Grid item xs={4} md={4} lg={4}>
+                            <Grid>
+                              <Grid className="entryCloseBtn">
+                                <a onClick={this.handleCloseData}>
+                                  <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
                       </Grid>
 
                       <Grid className="dataBoxUpr">
-                         <Grid>
+                        <Grid>
                           {this.state.error_msg && (
                             <div className="err_message">
                               {id_pin_not_correct}
@@ -1243,9 +1287,9 @@ class Index extends Component {
                         onClose={this.handleCloseInqryNw}
                         className={
                           this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === "dark"
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
                             ? "darkTheme nwDiaModel"
                             : "nwDiaModel"
                         }
@@ -1253,251 +1297,253 @@ class Index extends Component {
                         <Grid className="nwDiaCntnt">
                           <Grid className="nwDiaCntntIner">
                             <Grid className="nwDiaCourse">
-                            <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-    {this.state.updateOne !==
-                                this.state.updateTrack.track_id ? (
-                                <div>
-                                  <p>
-                                    {New} {entry}
-                                  </p>
-                                  <Grid className="nwDiaSel">
-                                    <select
-                                      onChange={(e) =>
-                                        this.SelectOption(e.target.value)
-                                      }
-                                      value={this.state.current_select}
-                                    >
-                                      <option value="anamnesis">
-                                        {anamnesis}
-                                      </option>
-                                      <option value="blood_pressure">
-                                        {blood_pressure}
-                                      </option>
-                                      <option value="blood_sugar">
-                                        {blood_sugar}
-                                      </option>
-                                      <option value="condition_pain">
-                                        {condition_pain}
-                                      </option>
-                                      <option value="covid_19">
-                                        {covid_diary}
-                                      </option>
-                                      <option value="vaccination_trial">
-                                        {VaccinationTrial}
-                                      </option>
-                                      <option value="diagnosis">
-                                        {diagnosis}
-                                      </option>
-                                      <option value="diary">{diary}</option>
-                                      <option value="doctor_visit">
-                                        {doc_visit}
-                                      </option>
-                                      <option value="family_anamnesis">
-                                        {family_anmnies}
-                                      </option>
-                                      <option value="file_upload">
-                                        {file_uplod}
-                                      </option>
-                                      <option value="hospitalization">
-                                        {hosp_visit}
-                                      </option>
-                                      <option value="laboratory_result">
-                                        {lab_result}
-                                      </option>
-                                      <option value="long_covid">
-                                       {long_covid}
-                                      </option>
-                                      <option value="marcumar_pass">
-                                        {marcumar_pass}
-                                      </option>
-                                      <option value="medication">
-                                        {medication}
-                                      </option>
-                                      <option value="prescription">
-                                        {prescription}
-                                      </option>
-                                      <option value="second_opinion">
-                                        {secnd_openion}
-                                      </option>
-                                      <option value="sick_certificate">
-                                        {sick_cert}
-                                      </option>
-                                      <option value="smoking_status">
-                                        {smoking_status}
-                                      </option>
-                                      <option value="vaccination">
-                                        {vaccination}
-                                      </option>
-                                      <option value="weight_bmi">
-                                        {weight_bmi}
-                                      </option>
-                                      <option value="respiration">
-                                        {respiration}
-                                      </option>
-                                    </select>
+                              <Grid container direction="row" justify="center">
+                                <Grid item xs={8} md={8} lg={8}>
+                                  {this.state.updateOne !==
+                                  this.state.updateTrack.track_id ? (
+                                    <div>
+                                      <p>
+                                        {New} {entry}
+                                      </p>
+                                      <Grid className="nwDiaSel">
+                                        <select
+                                          onChange={(e) =>
+                                            this.SelectOption(e.target.value)
+                                          }
+                                          value={this.state.current_select}
+                                        >
+                                          <option value="anamnesis">
+                                            {anamnesis}
+                                          </option>
+                                          <option value="blood_pressure">
+                                            {blood_pressure}
+                                          </option>
+                                          <option value="blood_sugar">
+                                            {blood_sugar}
+                                          </option>
+                                          <option value="condition_pain">
+                                            {condition_pain}
+                                          </option>
+                                          <option value="covid_19">
+                                            {covid_diary}
+                                          </option>
+                                          <option value="vaccination_trial">
+                                            {VaccinationTrial}
+                                          </option>
+                                          <option value="diagnosis">
+                                            {diagnosis}
+                                          </option>
+                                          <option value="diary">{diary}</option>
+                                          <option value="doctor_visit">
+                                            {doc_visit}
+                                          </option>
+                                          <option value="family_anamnesis">
+                                            {family_anmnies}
+                                          </option>
+                                          <option value="file_upload">
+                                            {file_uplod}
+                                          </option>
+                                          <option value="hospitalization">
+                                            {hosp_visit}
+                                          </option>
+                                          <option value="laboratory_result">
+                                            {lab_result}
+                                          </option>
+                                          <option value="long_covid">
+                                            {long_covid}
+                                          </option>
+                                          <option value="marcumar_pass">
+                                            {marcumar_pass}
+                                          </option>
+                                          <option value="medication">
+                                            {medication}
+                                          </option>
+                                          <option value="prescription">
+                                            {prescription}
+                                          </option>
+                                          <option value="second_opinion">
+                                            {secnd_openion}
+                                          </option>
+                                          <option value="sick_certificate">
+                                            {sick_cert}
+                                          </option>
+                                          <option value="smoking_status">
+                                            {smoking_status}
+                                          </option>
+                                          <option value="vaccination">
+                                            {vaccination}
+                                          </option>
+                                          <option value="weight_bmi">
+                                            {weight_bmi}
+                                          </option>
+                                          <option value="respiration">
+                                            {respiration}
+                                          </option>
+                                        </select>
+                                      </Grid>
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      <p>
+                                        {edit} {entry}
+                                      </p>
+                                      <Grid className="nwDiaSel">
+                                        {this.state.current_select ===
+                                          "anamnesis" && (
+                                          <Grid className="nwDiaSel1">
+                                            {anamnesis}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "blood_pressure" && (
+                                          <Grid className="nwDiaSel1">
+                                            {blood_pressure}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "blood_sugar" && (
+                                          <Grid className="nwDiaSel1">
+                                            {blood_sugar}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "condition_pain" && (
+                                          <Grid className="nwDiaSel1">
+                                            {condition_pain}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "covid_19" && (
+                                          <Grid className="nwDiaSel1">
+                                            {covid_diary}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "diagnosis" && (
+                                          <Grid className="nwDiaSel1">
+                                            {diagnosis}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "diary" && (
+                                          <Grid className="nwDiaSel1">
+                                            {diary}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "doctor_visit" && (
+                                          <Grid className="nwDiaSel1">
+                                            {doc_visit}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "family_anamnesis" && (
+                                          <Grid className="nwDiaSel1">
+                                            {family_anmnies}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "file_upload" && (
+                                          <Grid className="nwDiaSel1">
+                                            {file_uplod}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "hospitalization" && (
+                                          <Grid className="nwDiaSel1">
+                                            {hosp_visit}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "laboratory_result" && (
+                                          <Grid className="nwDiaSel1">
+                                            {lab_result}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "long_covid" && (
+                                          <Grid className="nwDiaSel1">
+                                            {long_covid}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "marcumar_pass" && (
+                                          <Grid className="nwDiaSel1">
+                                            {marcumar_pass}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "medication" && (
+                                          <Grid className="nwDiaSel1">
+                                            {medication}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "prescription" && (
+                                          <Grid className="nwDiaSel1">
+                                            {prescription}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "second_opinion" && (
+                                          <Grid className="nwDiaSel1">
+                                            {secnd_openion}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "sick_certificate" && (
+                                          <Grid className="nwDiaSel1">
+                                            {sick_cert}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "smoking_status" && (
+                                          <Grid className="nwDiaSel1">
+                                            {smoking_status}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "vaccination" && (
+                                          <Grid className="nwDiaSel1">
+                                            {vaccination}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "vaccination_trial" && (
+                                          <Grid className="nwDiaSel1">
+                                            {VaccinationTrial}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "weight_bmi" && (
+                                          <Grid className="nwDiaSel1">
+                                            {weight_bmi}
+                                          </Grid>
+                                        )}
+                                        {this.state.current_select ===
+                                          "respiration" && (
+                                          <Grid className="nwDiaSel1">
+                                            {respiration}
+                                          </Grid>
+                                        )}
+                                      </Grid>
+                                    </div>
+                                  )}
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={4}>
+                                  <Grid>
+                                    <Grid className="entryCloseBtn">
+                                      <a onClick={this.handleCloseInqryNw}>
+                                        <img
+                                          src={require("assets/images/close-search.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                      </a>
+                                    </Grid>
                                   </Grid>
-                                </div>
-                              ) : (
-                                <div>
-                                  <p>
-                                    {edit} {entry}
-                                  </p>
-                                  <Grid className="nwDiaSel">
-                                    {this.state.current_select ===
-                                      "anamnesis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {anamnesis}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "blood_pressure" && (
-                                        <Grid className="nwDiaSel1">
-                                          {blood_pressure}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "blood_sugar" && (
-                                        <Grid className="nwDiaSel1">
-                                          {blood_sugar}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "condition_pain" && (
-                                        <Grid className="nwDiaSel1">
-                                          {condition_pain}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "covid_19" && (
-                                        <Grid className="nwDiaSel1">
-                                          {covid_diary}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "diagnosis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {diagnosis}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select === "diary" && (
-                                      <Grid className="nwDiaSel1">{diary}</Grid>
-                                    )}
-                                    {this.state.current_select ===
-                                      "doctor_visit" && (
-                                        <Grid className="nwDiaSel1">
-                                          {doc_visit}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "family_anamnesis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {family_anmnies}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "file_upload" && (
-                                        <Grid className="nwDiaSel1">
-                                          {file_uplod}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "hospitalization" && (
-                                        <Grid className="nwDiaSel1">
-                                          {hosp_visit}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "laboratory_result" && (
-                                        <Grid className="nwDiaSel1">
-                                          {lab_result}
-                                        </Grid>
-                                      )}
-                                         {this.state.current_select ===
-                                      "long_covid" && (
-                                        <Grid className="nwDiaSel1">
-                                        {long_covid}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "marcumar_pass" && (
-                                        <Grid className="nwDiaSel1">
-                                          {marcumar_pass}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "medication" && (
-                                        <Grid className="nwDiaSel1">
-                                          {medication}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "prescription" && (
-                                        <Grid className="nwDiaSel1">
-                                          {prescription}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "second_opinion" && (
-                                        <Grid className="nwDiaSel1">
-                                          {secnd_openion}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "sick_certificate" && (
-                                        <Grid className="nwDiaSel1">
-                                          {sick_cert}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "smoking_status" && (
-                                        <Grid className="nwDiaSel1">
-                                          {smoking_status}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "vaccination" && (
-                                        <Grid className="nwDiaSel1">
-                                          {vaccination}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "vaccination_trial" && (
-                                        <Grid className="nwDiaSel1">
-                                          {VaccinationTrial}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "weight_bmi" && (
-                                        <Grid className="nwDiaSel1">
-                                          {weight_bmi}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "respiration" && (
-                                        <Grid className="nwDiaSel1">
-                                          {respiration}
-                                        </Grid>
-                                      )}
-                                  </Grid>
-                                </div>
-                              )}
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseInqryNw}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
-     
+                                </Grid>
+                              </Grid>
                             </Grid>
                             <Grid>
                               {this.state.current_select === "anamnesis" && (
@@ -1527,29 +1573,29 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "blood_pressure" && (
-                                  <BPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <BPFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  options={this.state.Pressuresituation}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "blood_sugar" && (
                                 <BSFields
                                   cur_one={this.state.cur_one2}
@@ -1576,31 +1622,31 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "condition_pain" && (
-                                  <CPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    gender={this.state.patient_gender}
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Allpain_quality}
-                                    options2={this.state.Allpain_type}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <CPFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  gender={this.state.patient_gender}
+                                  GetHideShow={this.GetHideShow}
+                                  options={this.state.Allpain_quality}
+                                  options2={this.state.Allpain_type}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "covid_19" && (
                                 <CovidFields
                                   cur_one={this.state.cur_one2}
@@ -1702,30 +1748,30 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "family_anamnesis" && (
-                                  <FAFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.Allgender}
-                                    relativeList={this.state.Allrelation}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <FAFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  options={this.state.Allgender}
+                                  relativeList={this.state.Allrelation}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "file_upload" && (
                                 <FUFields
                                   cur_one={this.state.cur_one2}
@@ -1752,31 +1798,30 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "hospitalization" && (
-                                  <HVFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.AllSpecialty}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
-                                {this.state.current_select ===
-                              "long_covid" && (
+                                <HVFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  options={this.state.AllSpecialty}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
+                              {this.state.current_select === "long_covid" && (
                                 <CovidSymptomsField
                                   cur_one={this.state.cur_one}
                                   FileAttachMulti={this.FileAttachMulti}
@@ -1799,55 +1844,55 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "laboratory_result" && (
-                                  <LRFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    lrpUnit={AllL_Ps.AllL_Ps.units}
-                                    lrpEnglish={AllL_Ps.AllL_Ps.english}
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.AllSpecialty}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <LRFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  lrpUnit={AllL_Ps.AllL_Ps.units}
+                                  lrpEnglish={AllL_Ps.AllL_Ps.english}
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  options={this.state.AllSpecialty}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select ===
                                 "marcumar_pass" && (
-                                  <MPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <MPFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "medication" && (
                                 <MedicationFields
                                   cur_one={this.state.cur_one2}
@@ -1900,79 +1945,79 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "second_opinion" && (
-                                  <SOFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <SOFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  options={this.state.Pressuresituation}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select ===
                                 "sick_certificate" && (
-                                  <SCFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <SCFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  options={this.state.Pressuresituation}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select ===
                                 "smoking_status" && (
-                                  <SSFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="doctor"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Allsmoking_status}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <SSFields
+                                  cur_one={this.state.cur_one2}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="doctor"
+                                  GetHideShow={this.GetHideShow}
+                                  options={this.state.Allsmoking_status}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "vaccination" && (
                                 <VaccinationFields
                                   cur_one={this.state.cur_one2}
@@ -1998,32 +2043,32 @@ class Index extends Component {
                               )}
                               {this.state.current_select ===
                                 "vaccination_trial" && (
-                                  <VaccinationTrialFields
-                                    cur_one={this.state.cur_one2}
-                                    option4={this.state.vaccinations}
-                                    FileAttachMultiVaccination={
-                                      this.FileAttachMultiVaccination
-                                    }
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="patient"
-                                    gender={this.state.patient_gender}
-                                    GetHideShow={this.GetHideShow}
-                                    options3={this.state.Alltemprature}
-                                    options={this.state.Allpain_quality}
-                                    options2={this.state.Allpain_type}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
-                                )}
+                                <VaccinationTrialFields
+                                  cur_one={this.state.cur_one2}
+                                  option4={this.state.vaccinations}
+                                  FileAttachMultiVaccination={
+                                    this.FileAttachMultiVaccination
+                                  }
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="patient"
+                                  gender={this.state.patient_gender}
+                                  GetHideShow={this.GetHideShow}
+                                  options3={this.state.Alltemprature}
+                                  options={this.state.Allpain_quality}
+                                  options2={this.state.Allpain_type}
+                                  AddTrack={this.AddTrack}
+                                  date_format={
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select === "weight_bmi" && (
                                 <BMIFields
                                   cur_one={this.state.cur_one2}
@@ -2142,10 +2187,8 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const {
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
-  } = state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { Doctorsetget } = state.Doctorset;
