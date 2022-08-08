@@ -72,8 +72,9 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
+    this.getAddTaskData1();
   }
-  
+
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
   };
@@ -90,16 +91,17 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}/${this.props?.House?.value}`,
+        "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
+        console.log("response", response)
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
-          if(response?.data?.data){
+          if (response?.data?.data) {
             var patientForFilterArr = filterPatient(response.data.data);
-            this.setState({patientForFilter: patientForFilterArr});
-        }
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
           var Done =
             response.data.data?.length > 0 &&
             response.data.data.filter((item) => item.status === "done");
@@ -114,17 +116,60 @@ class Index extends Component {
           if (goArchive) {
             this.setState({ tabvalue2: 3 });
           }
-          else{
-            this.setState({ tabvalue2: tabvalue2 ? tabvalue2: 0 });
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
           }
         }
         this.setState({ loaderImage: false });
       });
   };
 
+  //get Add task data
+  getAddTaskData1 = (tabvalue2, goArchive) => {
+    var nurse_id = this.props.stateLoginValueAim?.user?._id
+    console.log("this.props.stateLoginValueAim?.user", this.props.stateLoginValueAim?.user)
+    this.setState({ loaderImage: true });
+    axios
+      .post(
+        sitedata.data.path +
+        "/vc/nurseafter",
+        { nurse_id: nurse_id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        console.log("responsedfgdfgdfg", response)
+        this.setState({ AllTasks: response.data.data });
+        if (response.data.hassuccessed) {
+          if (response?.data?.data) {
+            var patientForFilterArr = filterPatient(response.data.data);
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
+          var Done =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "done");
+          var Open =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "open");
+          this.setState({
+            AllTasks: response.data.data,
+            DoneTask: Done,
+            OpenTask: Open,
+          });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          }
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+          }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {} = translate;
+    let { } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -149,9 +194,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -172,7 +217,7 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={(tabvalue2 ,goArchive) => {
+                        getAddTaskData={(tabvalue2, goArchive) => {
                           this.getAddTaskData(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}

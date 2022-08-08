@@ -170,23 +170,23 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       var AllSmokingStatus = GetLanguageDropdown(
         this.state.allMetadata &&
-          this.state.allMetadata.smoking_status &&
-          this.state.allMetadata.smoking_status?.length > 0 &&
-          this.state.allMetadata.smoking_status,
+        this.state.allMetadata.smoking_status &&
+        this.state.allMetadata.smoking_status?.length > 0 &&
+        this.state.allMetadata.smoking_status,
         this.props.stateLanguageType
       );
       var AllSituation = GetLanguageDropdown(
         this.state.allMetadata &&
-          this.state.allMetadata.situation &&
-          this.state.allMetadata.situation?.length > 0 &&
-          this.state.allMetadata.situation,
+        this.state.allMetadata.situation &&
+        this.state.allMetadata.situation?.length > 0 &&
+        this.state.allMetadata.situation,
         this.props.stateLanguageType
       );
       var AllGender = GetLanguageDropdown(
         this.state.allMetadata &&
-          this.state.allMetadata.gender &&
-          this.state.allMetadata.gender?.length > 0 &&
-          this.state.allMetadata.gender,
+        this.state.allMetadata.gender &&
+        this.state.allMetadata.gender?.length > 0 &&
+        this.state.allMetadata.gender,
         this.props.stateLanguageType
       );
       this.setState({
@@ -303,7 +303,7 @@ class Index extends Component {
       certificateId: false,
       PatientID: false,
       taskData: {},
-      errorMsg:false
+      errorMsg: false
     });
   };
   handleChangeTab = (event, tabvalue) => {
@@ -437,7 +437,7 @@ class Index extends Component {
           { user_id: user_id },
           commonHeader(this.props.stateLoginValueAim.token)
         )
-        .then((responce) => {})
+        .then((responce) => { })
         .catch((error) => {
           console.log(error);
         });
@@ -609,9 +609,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -645,9 +645,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -708,7 +708,7 @@ class Index extends Component {
         },
         commonHeader(this.props.stateLoginValueAim.token)
       )
-      .then((responce1) => {});
+      .then((responce1) => { });
   };
   // onKeyUp = (e) => {
   //   if (e.key === "Enter") {
@@ -893,9 +893,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -929,9 +929,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -1015,7 +1015,7 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
   // open Edit model
   editTask = (data) => {
@@ -1539,9 +1539,9 @@ class Index extends Component {
         <Grid container direction="row">
           <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            <AssignedService openAss={this.state.openAss} editTask={this.editTask}  getAddTaskData={(tabvalue2) => {
-                          this.props.getAddTaskData(tabvalue2);
-                        }}/>
+            <AssignedService openAss={this.state.openAss} editTask={this.editTask} getAddTaskData={(tabvalue2) => {
+              this.props.getAddTaskData(tabvalue2);
+            }} />
           </Grid>
 
 
@@ -3633,9 +3633,9 @@ class Index extends Component {
           <Modal
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'darkTheme '
                 : ' '
             }
@@ -3647,16 +3647,25 @@ class Index extends Component {
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="creatLbl">
-                      <Grid className="creatLblClose">
-                        <a onClick={this.handleCloseTask}>
-                          <img
-                            src={require('assets/images/close-search.svg')}
-                            alt=""
-                            title=""
-                          />
-                        </a>
+                      <Grid container direction="row" justify="center" className="addSpeclLbl">
+                        <Grid item xs={8} md={8} lg={8}>
+                          <label>{CreateCertificate}</label>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                          <Grid>
+                            <Grid className="entryCloseBtn">
+                              <a onClick={() => this.handleCloseAss()}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <label>{CreateCertificate}</label>
+
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -3988,25 +3997,34 @@ class Index extends Component {
           <Grid
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'nwEntrCntnt fltrClear darkTheme'
                 : 'nwEntrCntnt fltrClear'
             }
           >
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
-                <Grid className="fltrLblClose">
-                  <a onClick={this.handleCloseRvw}>
-                    <img
-                      src={require('../../../../assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                    <label>{filters}</label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseRvw}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <label>{filters}</label>
+
               </Grid>
 
               <TabContainer>
@@ -4021,8 +4039,8 @@ class Index extends Component {
                               name="open"
                               value={
                                 this.state.check &&
-                                this.state.check.open &&
-                                this.state.check.open == true
+                                  this.state.check.open &&
+                                  this.state.check.open == true
                                   ? false
                                   : true
                               }
@@ -4039,8 +4057,8 @@ class Index extends Component {
                               name="done"
                               value={
                                 this.state.check &&
-                                this.state.check.done &&
-                                this.state.check.done == true
+                                  this.state.check.done &&
+                                  this.state.check.done == true
                                   ? false
                                   : true
                               }

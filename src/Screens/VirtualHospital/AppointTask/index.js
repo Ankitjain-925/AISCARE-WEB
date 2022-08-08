@@ -207,7 +207,7 @@ class Index extends Component {
         allWards: wardsFullData,
         selectWard: getCurrentWard?.[0],
         check: check,
-        showField : data?.filter === 'Appointment'   ? false : true,
+        showField: data?.filter === 'Appointment' ? false : true,
         tabvalue: tabvalue,
       });
     }
@@ -400,7 +400,7 @@ class Index extends Component {
               className: 'trigger',
               /* your props here */
             })}
-            // onClick={() => this.CallEvents(data.event)}
+          // onClick={() => this.CallEvents(data.event)}
           >
             <p className="calendar-cont"> {data.event.title} </p>
             <p className="calendar-date">
@@ -439,7 +439,7 @@ class Index extends Component {
               className: 'trigger',
               /* your props here */
             })}
-            // onClick={() => this.CallEvents(data.event)}
+          // onClick={() => this.CallEvents(data.event)}
           >
             <p
               style={{
@@ -494,8 +494,8 @@ class Index extends Component {
             'data-placement': placement,
             className:
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'darktheme tooltip-arrow '
                 : 'tooltip-arrow ',
           })}
@@ -507,8 +507,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'darktheme meetBoxCntnt'
                   : 'meetBoxCntnt'
               }
@@ -545,15 +545,15 @@ class Index extends Component {
                       {data.appointment_type == 'practice_days'
                         ? consultancy_appintment
                         : data.appointment_type == 'online_appointment'
-                        ? vdo_call
-                        : this.state.appointmentDatas &&
-                          this.state.appointmentDatas.appointments &&
-                          this.state.appointmentDatas.appointments.length > 0 &&
-                          this.state.appointmentDatas.appointments[0]
-                            .custom_text
-                        ? this.state.appointmentDatas.appointments[0]
-                            .custom_text
-                        : Task}
+                          ? vdo_call
+                          : this.state.appointmentDatas &&
+                            this.state.appointmentDatas.appointments &&
+                            this.state.appointmentDatas.appointments.length > 0 &&
+                            this.state.appointmentDatas.appointments[0]
+                              .custom_text
+                            ? this.state.appointmentDatas.appointments[0]
+                              .custom_text
+                            : Task}
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
@@ -738,7 +738,7 @@ class Index extends Component {
     // })
 
     // this.getGeoLocation();
-    this.setState({ openAllowAccess: true });
+    this.setState({ openAllowAccess: true, errorMsg: '' });
   };
 
   handleCloseAllowAccess = () => {
@@ -972,7 +972,7 @@ class Index extends Component {
       appointmentData: {},
       currentSelected: null,
     });
-    Object.keys(this.state.allDocData).map((index, i) => {});
+    Object.keys(this.state.allDocData).map((index, i) => { });
   };
 
   handleOpenApoint = (apoint) => {
@@ -1066,8 +1066,8 @@ class Index extends Component {
       axios
         .post(
           sitedata.data.path +
-            '/UserProfile/abletocancel/' +
-            this.state.cancelappoint.doctor_id,
+          '/UserProfile/abletocancel/' +
+          this.state.cancelappoint.doctor_id,
           {
             appointment_type: this.state.cancelappoint.appointment_type,
             timedifference: timedifference1,
@@ -1094,7 +1094,7 @@ class Index extends Component {
             loaderImage: false,
           });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       this.setState({
         cancelNable: true,
@@ -1120,8 +1120,8 @@ class Index extends Component {
     axios
       .put(
         sitedata.data.path +
-          '/UserProfile/GetAppointment/' +
-          this.state.cancelappoint._id,
+        '/UserProfile/GetAppointment/' +
+        this.state.cancelappoint._id,
         {
           status: 'cancel',
           message: this.state.message,
@@ -1143,7 +1143,7 @@ class Index extends Component {
         }, 5000);
         // this.getUpcomingAppointment();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   onChange = (date) => {
@@ -1284,9 +1284,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme homeBgDrk'
             : 'homeBg'
         }
@@ -1368,7 +1368,7 @@ class Index extends Component {
                                   endAccessor="end"
                                   style={{ minHeight: 900 }}
                                   popup
-                                  onShowMore={(events, date) => {}}
+                                  onShowMore={(events, date) => { }}
                                   messages={{
                                     showMore: (total) => (
                                       <div
@@ -1412,7 +1412,7 @@ class Index extends Component {
                                   endAccessor="end"
                                   style={{ minHeight: 900 }}
                                   popup
-                                  onShowMore={(events, date) => {}}
+                                  onShowMore={(events, date) => { }}
                                   messages={{
                                     showMore: (total) => (
                                       <div
@@ -1457,7 +1457,7 @@ class Index extends Component {
                                   endAccessor="end"
                                   style={{ minHeight: 900 }}
                                   popup
-                                  onShowMore={(events, date) => {}}
+                                  onShowMore={(events, date) => { }}
                                   messages={{
                                     showMore: (total) => (
                                       <div
@@ -1495,33 +1495,33 @@ class Index extends Component {
                   <Grid
                     className={
                       this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode &&
-                      this.props.settings.setting.mode === 'dark'
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === 'dark'
                         ? 'nwEntrCntnt fltrClear darkTheme'
                         : 'nwEntrCntnt fltrClear'
                     }
                   >
                     <Grid className="fltrClearIner">
                       <Grid className="fltrLbl">
-                      <Grid container direction="row" justify="center">
+                        <Grid container direction="row" justify="center">
                           <Grid item xs={8} md={8} lg={8}>
-                              <label>{filters}</label>
+                            <label>{filters}</label>
                           </Grid>
                           <Grid item xs={4} md={4} lg={4}>
-                              <Grid>
+                            <Grid>
                               <Grid className="entryCloseBtn">
-                                  <a onClick={this.handleCloseFil}>
+                                <a onClick={this.handleCloseFil}>
                                   <img
-                                      src={require("assets/images/close-search.svg")}
-                                      alt=""
-                                      title=""
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
                                   />
-                                  </a>
+                                </a>
                               </Grid>
-                              </Grid>
+                            </Grid>
                           </Grid>
-                      </Grid>
+                        </Grid>
                         {/* <Grid className="fltrLblClose">
                           <a onClick={this.handleCloseFil}>
                             <img
@@ -1561,85 +1561,84 @@ class Index extends Component {
                           </Grid>
                         </Grid> */}
                         {/* {this.state.showField && ( */}
-                         
+
+                        <Grid className="fltrInput">
+                          <label>{speciality}</label>
+                          <Grid className="addInput">
+                            <Select
+                              onChange={(e) => this.onFieldChange2(e)}
+                              options={this.state.specilaityList}
+                              name="specialty_name"
+                              value={this.state.selectSpec2}
+                              placeholder={FilterbySpeciality}
+                              className="addStafSelect"
+                              isMulti={false}
+                              isSearchable={true}
+                            />
+                          </Grid>
+                        </Grid>
+                        {this.state.wardList &&
+                          this.state.wardList.length > 0 && (
                             <Grid className="fltrInput">
-                              <label>{speciality}</label>
+                              <label>{Ward}</label>
                               <Grid className="addInput">
                                 <Select
-                                  onChange={(e) => this.onFieldChange2(e)}
-                                  options={this.state.specilaityList}
-                                  name="specialty_name"
-                                  value={this.state.selectSpec2}
-                                  placeholder={FilterbySpeciality}
-                                  className="addStafSelect"
+                                  onChange={(e) => this.onWardChange(e)}
+                                  options={this.state.wardList}
+                                  name="ward_name"
+                                  value={this.state.selectWard}
+                                  placeholder={FilterbyWard}
                                   isMulti={false}
+                                  className="addStafSelect"
                                   isSearchable={true}
                                 />
                               </Grid>
                             </Grid>
-                            {this.state.wardList &&
-                              this.state.wardList.length > 0 && (
-                                <Grid className="fltrInput">
-                                  <label>{Ward}</label>
-                                  <Grid className="addInput">
-                                    <Select
-                                      onChange={(e) => this.onWardChange(e)}
-                                      options={this.state.wardList}
-                                      name="ward_name"
-                                      value={this.state.selectWard}
-                                      placeholder={FilterbyWard}
-                                      isMulti={false}
-                                      className="addStafSelect"
-                                      isSearchable={true}
-                                    />
-                                  </Grid>
-                                </Grid>
-                              )}
-                           {this.state.showField && <Grid className="fltrInput">
-                           
-                              <Grid>
-                                <label>{Taskstatus}</label>
-                              </Grid>
-                              <Grid className="addInput">
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      name="open"
-                                      value={
-                                        this.state.check &&
-                                        this.state.check.open &&
-                                        this.state.check.open == true
-                                          ? false
-                                          : true
-                                      }
-                                      color="#00ABAF"
-                                      checked={this.state.check.open}
-                                      onChange={(e) => this.updateTaskFilter(e)}
-                                    />
+                          )}
+                        {this.state.showField && <Grid className="fltrInput">
+                          <Grid>
+                            <label>{Taskstatus}</label>
+                          </Grid>
+                          <Grid className="addInput">
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name="open"
+                                  value={
+                                    this.state.check &&
+                                      this.state.check.open &&
+                                      this.state.check.open == true
+                                      ? false
+                                      : true
                                   }
-                                  label={Open}
+                                  color="#00ABAF"
+                                  checked={this.state.check.open}
+                                  onChange={(e) => this.updateTaskFilter(e)}
                                 />
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      name="done"
-                                      value={
-                                        this.state.check &&
-                                        this.state.check.done &&
-                                        this.state.check.done == true
-                                          ? false
-                                          : true
-                                      }
-                                      color="#00ABAF"
-                                      checked={this.state.check.done}
-                                      onChange={(e) => this.updateTaskFilter(e)}
-                                    />
+                              }
+                              label={Open}
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name="done"
+                                  value={
+                                    this.state.check &&
+                                      this.state.check.done &&
+                                      this.state.check.done == true
+                                      ? false
+                                      : true
                                   }
-                                  label={done}
+                                  color="#00ABAF"
+                                  checked={this.state.check.done}
+                                  onChange={(e) => this.updateTaskFilter(e)}
                                 />
-                              </Grid>
-                            </Grid>}
-                      
+                              }
+                              label={done}
+                            />
+                          </Grid>
+                        </Grid>}
+
                         {/* )} */}
                       </Grid>
                       <Grid className="aplyFltr">
@@ -1671,33 +1670,33 @@ class Index extends Component {
                   onClose={this.handleCloseApoint}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === 'dark'
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === 'dark'
                       ? 'darkTheme editBoxModel'
                       : 'editBoxModel'
                   }
                 >
                   <Grid className="apontBoxCntnt">
                     <Grid className="apontCourse">
-                    <Grid container direction="row" justify="center">
-                      <Grid item xs={8} md={8} lg={8}>
+                      <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
                           <label>{cancel_apointmnt}</label>
                           <p>{plz_write_short_explnation}</p>
-                      </Grid>
-                      <Grid item xs={4} md={4} lg={4}>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
                           <Grid>
-                          <Grid className="entryCloseBtn">
+                            <Grid className="entryCloseBtn">
                               <a onClick={this.handleCloseApoint}>
-                              <img
+                                <img
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                              />
+                                />
                               </a>
+                            </Grid>
                           </Grid>
-                          </Grid>
+                        </Grid>
                       </Grid>
-                  </Grid>
                     </Grid>
                     <Grid className="apontDragCntnt">
                       <Grid>

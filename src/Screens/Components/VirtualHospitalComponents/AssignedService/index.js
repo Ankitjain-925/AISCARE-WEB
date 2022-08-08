@@ -88,10 +88,10 @@ class Index extends Component {
     handleCloseAss = () => {
         this.setState({
             openAss: false,
-            service: {},
-            selectedPat: {},
-            assignedTo: false, newspeciality: false, errorMsg: false, error: false,
-            items: false, assignedTo: false, viewCutom: false,
+            service: '',
+            selectedPat: '',
+            assignedTo: '', newspeciality: '', errorMsg: '', error: '',
+            items: [], addinvoice: {},showError:''
         });
 
     };
@@ -103,19 +103,19 @@ class Index extends Component {
         const state = this.state.service;
         this.setState({ selectSpec: e });
         var speciality =
-          this.props.speciality?.SPECIALITY &&
-          this.props?.speciality?.SPECIALITY.length > 0 &&
-          this.props?.speciality?.SPECIALITY.filter((data) => data._id === e.value);
+            this.props.speciality?.SPECIALITY &&
+            this.props?.speciality?.SPECIALITY.length > 0 &&
+            this.props?.speciality?.SPECIALITY.filter((data) => data._id === e.value);
         if (speciality && speciality.length > 0) {
-          state["speciality"] = {
-            background_color: speciality[0]?.background_color,
-            color: speciality[0]?.color,
-            specialty_name: speciality[0]?.specialty_name,
-            _id: speciality[0]?._id,
-          };
-          this.setState({ service: state });
+            state["speciality"] = {
+                background_color: speciality[0]?.background_color,
+                color: speciality[0]?.color,
+                specialty_name: speciality[0]?.specialty_name,
+                _id: speciality[0]?._id,
+            };
+            this.setState({ service: state });
         }
-      };
+    };
 
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
@@ -125,7 +125,9 @@ class Index extends Component {
             } else {
                 this.setState({ viewCutom: false });
             }
+            state['title'] = e.title;
             state['price_per_quantity'] = e.price;
+            state['quantity'] = 1;
             state[name] = e;
         } else {
             state[name] = e;
@@ -138,49 +140,49 @@ class Index extends Component {
     assignedTo = (e) => {
         this.setState({ assignedTo: e }, () => {
             var data =
-              e?.length > 0 &&
-              e.reduce((last, current, index) => {
-                let isProf =
-                  this.state.professionalArray?.length > 0 &&
-                  this.state.professionalArray.filter(
-                    (data, index) => data.user_id === current.value
-                  );
-                if (isProf && isProf.length > 0) {
-                  last.push(isProf[0]);
-                }
-                return last;
-              }, []);
+                e?.length > 0 &&
+                e.reduce((last, current, index) => {
+                    let isProf =
+                        this.state.professionalArray?.length > 0 &&
+                        this.state.professionalArray.filter(
+                            (data, index) => data.user_id === current.value
+                        );
+                    if (isProf && isProf.length > 0) {
+                        last.push(isProf[0]);
+                    }
+                    return last;
+                }, []);
             const state = this.state.service;
             state["assinged_to"] = data;
             this.setState({ service: state }, () => {
-              this.selectProf(
-                this.state.service?.assinged_to,
-                this.state.professional_id_list
-              );
+                this.selectProf(
+                    this.state.service?.assinged_to,
+                    this.state.professional_id_list
+                );
             });
-          });
+        });
     }
 
-     // manage assign to list
-  selectProf = (listing, data) => {
-    var showdata = data;
-    var alredyAssigned =
-      listing &&
-      listing?.length > 0 &&
-      listing.map((item) => {
-        return item.user_id;
-      });
-    if (alredyAssigned && alredyAssigned.length > 0) {
-      showdata =
-        data?.length > 0 &&
-        data.filter((item) => !alredyAssigned.includes(item.value));
-      var assignedto =
-        data?.length > 0 &&
-        data.filter((item) => alredyAssigned.includes(item.value));
-      this.setState({ assignedTo: assignedto });
-    }
-    this.setState({ professional_id_list1: showdata });
-  };
+    // manage assign to list
+    selectProf = (listing, data) => {
+        var showdata = data;
+        var alredyAssigned =
+            listing &&
+            listing?.length > 0 &&
+            listing.map((item) => {
+                return item.user_id;
+            });
+        if (alredyAssigned && alredyAssigned.length > 0) {
+            showdata =
+                data?.length > 0 &&
+                data.filter((item) => !alredyAssigned.includes(item.value));
+            var assignedto =
+                data?.length > 0 &&
+                data.filter((item) => alredyAssigned.includes(item.value));
+            this.setState({ assignedTo: assignedto });
+        }
+        this.setState({ professional_id_list1: showdata });
+    };
 
     //to get the speciality list
     specailityList = () => {
@@ -212,66 +214,66 @@ class Index extends Component {
         }
     };
 
-      // Get the Patient data
-  getPatientData = async () => {
-    this.setState({ loaderImage: true });
-    let response = await getPatientData(
-      this.props.stateLoginValueAim.token,
-      this.props?.House?.value,
-      "taskpage"
-    );
-    if (response?.isdata) {
-      this.setState(
-        { users1: response.PatientList1, users: response.patientArray },
-        () => {
-          if (this.props.location?.state?.user) {
-            let user =
-              this.state.users1.length > 0 &&
-              this.state.users1.filter(
-                (user) => user.value === this.props.location?.state?.user.value
-              );
-            // if (user?.length > 0) {
-            //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
-            // }
-            this.updateEntryState2(this.props.location?.state?.user);
-          }
+    // Get the Patient data
+    getPatientData = async () => {
+        this.setState({ loaderImage: true });
+        let response = await getPatientData(
+            this.props.stateLoginValueAim.token,
+            this.props?.House?.value,
+            "taskpage"
+        );
+        if (response?.isdata) {
+            this.setState(
+                { users1: response.PatientList1, users: response.patientArray },
+                () => {
+                    if (this.props.location?.state?.user) {
+                        let user =
+                            this.state.users1.length > 0 &&
+                            this.state.users1.filter(
+                                (user) => user.value === this.props.location?.state?.user.value
+                            );
+                        // if (user?.length > 0) {
+                        //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
+                        // }
+                        this.updateEntryState2(this.props.location?.state?.user);
+                    }
+                }
+            );
+        } else {
+            this.setState({ loaderImage: false });
         }
-      );
-    } else {
-      this.setState({ loaderImage: false });
-    }
-  };
+    };
 
     updateEntryState2 = (user) => {
         var user1 =
-          this.state.users?.length > 0 &&
-          this.state.users.filter((data) => data.user_id=== user.value);
+            this.state.users?.length > 0 &&
+            this.state.users.filter((data) => data.user_id === user.value);
         if (user1 && user1?.length > 0) {
-          const state = this.state.service;
-    
-          state['patient'] = user1[0];
-          state['patient_id'] = user1[0].user_id;
-          state['case_id'] = user1[0].case_id;
-    
-          if (!user.label) {
-            user["label"] =
-              user1[0].first_name && user1[0].last_name
-                ? user1[0].first_name + " " + user1[0].last_name
-                : user1[0].first_name;
-          }
-          if (!state?.speciality) {
-            state["speciality"] = user1[0].speciality;
-            this.setState({
-              selectSpec: {
-                label: user1[0]?.speciality?.specialty_name,
-                value: user1[0]?.speciality?._id,
-              },
-            });
-          }
-          this.setState({ service: state, selectedPat: user });
+            const state = this.state.service;
+
+            state['patient'] = user1[0];
+            state['patient_id'] = user1[0].user_id;
+            state['case_id'] = user1[0].case_id;
+
+            if (!user.label) {
+                user["label"] =
+                    user1[0].first_name && user1[0].last_name
+                        ? user1[0].first_name + " " + user1[0].last_name
+                        : user1[0].first_name;
+            }
+            if (!state?.speciality) {
+                state["speciality"] = user1[0].speciality;
+                this.setState({
+                    selectSpec: {
+                        label: user1[0]?.speciality?.specialty_name,
+                        value: user1[0]?.speciality?._id,
+                    },
+                });
+            }
+            this.setState({ service: state, selectedPat: user });
         }
-      };
-    
+    };
+
     updateEntry = (value, name) => {
         var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
         const state = this.state.service;
@@ -284,47 +286,49 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
-    
+
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong } = translate;
-        this.setState({ errorMsg: "" })
+        let { Something_went_wrong, Plz_select_a_Patient, Plz_select_a_staff } = translate;
         this.setState({ loaderImage: true });
         var data = this.state.service;
-        data.house_id =  this.props?.House.value;
+        data.house_id = this.props?.House.value;
         data.assign_service = this.state.items;
         data.status = "open";
-        data.created_at =  new Date();
-        let value = {}
-        value = this.state.service
-    //     if (!value.title) {
-    //         this.setState({ errorMsg: "please enter title " })
-    //     }
-    //    else if (!value.service) {
-    //         this.setState({ errorMsg: "please select atleast one service" })
-    //     }
+        data.created_at = new Date();
 
-    //     else {
-            // this.setState({ loaderImage: true })
-            // axios
-            //     .post(
-            //         sitedata.data.path + "/assignservice/Addassignservice",
-            //         data,
-            //         commonHeader(this.props.stateLoginValueAim.token)
-            //     )
-            //     .then((responce) => {
-            //         this.setState({ loaderImage: false });
-            //         this.props.getAddTaskData();
-            //         this.handleCloseAss();
+        this.setState({ loaderImage: true })
+        if (
+            !data.patient ||
+            (data && data.patient && data.patient.length < 1)
+        ) {
+            this.setState({ errorMsg: Plz_select_a_Patient });
+        }
+       else if (
+           !data.assinged_to
+        ) {
+            this.setState({ errorMsg:Plz_select_a_staff });
+        }
+        else {
+            axios
+                .post(
+                    sitedata.data.path + "/assignservice/Addassignservice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    this.props.getAddTaskData();
+                    this.handleCloseAss();
 
-            //     }).catch(function (error) {
-            //         console.log(error);
-            //         this.setState({ errorMsg: Something_went_wrong })
+                }).catch(function (error) {
+                    console.log(error);
+                    this.setState({ errorMsg: Something_went_wrong })
 
-            //     });
-        // }
+                });
+        }
+    }
 
-    };
 
     //get services list
     getAssignService = () => {
@@ -341,8 +345,8 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({
                         price: this.state.allServData[i].price,
-                        description: this.state.allServData[i].description,
-                        value: this.state.allServData[i]._id,
+                        // description: this.state.allServData[i].description,
+                        // value: this.state.allServData[i]._id,
                         label: this.state.allServData[i]?.title,
                     });
                 }
@@ -354,6 +358,7 @@ class Index extends Component {
                 });
             });
     };
+    
     handleCloseServ = () => {
         this.setState({ editServ: false, service: {} });
     };
@@ -370,72 +375,42 @@ class Index extends Component {
     };
     //Add the services
     handleAddSubmit = () => {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let {
-            Ser_already_exists,
-            Please_enter_valid_price,
-            Custom_service_title_cant_be_empty,
-        } = translate;
-        this.setState({ error: '' });
-        var newService = this.state.service;
-        var a =
-            this.state.items &&
-            this.state.items?.length > 0 &&
-            this.state.items.map((element) => {
-                return element?.service;
-            });
-        var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
-        if (b == true) {
-            this.setState({ error: Ser_already_exists });
-        } else {
-            if (newService?.service?.value == 'custom') {
-                if (
-                    newService?.price_per_quantity < 1 ||
-                    !newService?.price_per_quantity
-                ) {
-                    this.setState({ error: Please_enter_valid_price });
-                } else {
-                    if (newService && !newService?.custom_title) {
-                        this.setState({ error: Custom_service_title_cant_be_empty });
-                    } else {
-                        newService.price =
-                            newService?.price_per_quantity;
-                        newService.service = newService?.custom_title;
-                        let items = this.state.items ? [...this.state.items] : [];
-                        items.push(newService);
-                        let data = {};
-                        data['house_id'] = this.props?.House?.value;
-                        data['description'] = newService?.custom_description;
-                        data['price'] = newService?.price_per_quantity;
-                        data['title'] = newService?.custom_title;
-                        axios
-                            .post(
-                                sitedata.data.path + '/vh/AddService',
-                                data,
-                                commonHeader(this.props.stateLoginValueAim.token)
-                            )
-                            .then((responce) => {
-                                this.getAssignService();
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-
-                        this.setState({ items, service: {} }, () => {
-                            this.updateTotalPrize();
-                        });
-                    }
-                }
-            } else {
+        if (
+            this.state.service?.service &&
+            this.state.service?.quantity &&
+            this.state?.service?.price_per_quantity
+        ) {
+            let translate = getLanguage(this.props.stateLanguageType);
+            let {
+                Ser_already_exists,
+                Please_enter_valid_price,
+                Custom_service_title_cant_be_empty,
+            } = translate;
+            this.setState({ error: '', showError: '' });
+            var newService = this.state.service;
+            var a =
+                this.state.items &&
+                this.state.items?.length > 0 &&
+                this.state.items.map((element) => {
+                    return element?.service;
+                });
+            var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+            if (b == true) {
+                this.setState({ error: Ser_already_exists });
+            }
+            else {
                 newService.price =
-                    newService?.price_per_quantity;
+                    newService?.price_per_quantity * newService?.quantity;
                 newService.service = this.state.service?.service?.label;
+                // newService.service = this.state.service?.title;
                 let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
-                this.setState({ items, service: {} }, () => {
+                this.setState({ items ,service:{}}, () => {
                     this.updateTotalPrize();
                 });
             }
+        } else {
+            this.setState({ showError: true });
         }
     };
     updateTotalPrize = () => {
@@ -454,10 +429,11 @@ class Index extends Component {
     //Update the services
     handleAddUpdate = () => {
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         var index = this.state.newServiceIndex;
         var array = this.state.items;
         array[index].price = newService?.price;
+        array[index].quantity = newService?.quantity;
         this.updateTotalPrize();
         this.setState({ service: {}, newServiceIndex: false, editServ: false });
     };
@@ -465,10 +441,10 @@ class Index extends Component {
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
-        this.setState({ message: null });
         this.handleCloseAss();
+        this.setState({ message: null });
         let translate = getLanguage(this.props.stateLanguageType);
-        let { RemoveService, sure_remove_service_from_invoice, No, Yes } =
+        let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
             translate;
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -485,13 +461,15 @@ class Index extends Component {
                     >
                         <h1>{RemoveService}</h1>
 
-                        <p>{sure_remove_service_from_invoice}</p>
+                        <p>{sure_remove_service_from_assigned}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>{No}</button>
+                            <button onClick={() => onClose()}>{No}</button>
                             <button
                                 onClick={() => {
-                                    this.deleteClickService(id);
                                     onClose();
+                                    this.deleteClickService(id);
+
+
                                 }}
                             >
                                 {Yes}
@@ -504,15 +482,17 @@ class Index extends Component {
     };
 
     deleteClickService(id) {
+        this.handleOpenAss();
         // delete this.state.items[id]
-        this.state.items.splice(id, 1);
+      this.state.items.splice(id, 1);
         this.setState({ items: this.state.items });
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.service?.service?.label;
         let items = [...this.state.items];
         this.setState({ items, service: {} }, () => {
             this.updateTotalPrize();
+
         });
 
         // this.finishInvoice();
@@ -548,7 +528,10 @@ class Index extends Component {
             Editservice,
             Servicename,
             EnterTitlename,
-            Add_assigned_services
+            Add_assigned_services,
+            Please_select_atlest,
+            Quantity,
+            Enterquantity
         } = translate;
         return (
 
@@ -603,7 +586,7 @@ class Index extends Component {
                             </div>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
-                                    <Grid>
+                            <Grid>
                                         <VHfield
                                             label={Assignedtitle}
                                             name="title"
@@ -615,6 +598,11 @@ class Index extends Component {
                                         />
                                     </Grid>
                                     <p className="err_message">{this.state.error}</p>
+                                    {this.state.showError && (
+                                        <div className="err_message">
+                                            {Please_select_atlest}
+                                        </div>
+                                    )}
                                     <Grid>
                                         <label>{Addservice}</label>
                                         <Select
@@ -622,12 +610,24 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
-                                            value={this.state.service?.service }
+                                            value={this.state.service?.service || ''}
+
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
                                             isSearchable={true}
                                         // styles={customStyles}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={12} className="customservicetitle">
+                                        <VHfield
+                                            label={Quantity}
+                                            name="quantity"
+                                            placeholder={Enterquantity}
+                                            onChange={(e) =>
+                                                this.onFieldChange1(e.target.value, 'quantity')
+                                            }
+                                            value={this.state.service?.quantity || 0}
                                         />
                                     </Grid>
 
@@ -653,63 +653,56 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="addSrvcBtn">
-                                        <Button onClick={this.handleAddSubmit}>
+                                    <Grid className="addSrvcBtn3">
+                                        <a onClick={this.handleAddSubmit}>
                                             {Add}
-                                        </Button>
+                                        </a>
                                     </Grid>
-                                    <Grid className="srvcTable">
-                                        <h3>{Services}</h3>
-                                        <Table>
-                                            <Thead>
-                                                <Tr>
-                                                    <Th>{srvc}</Th>
-                                                    {/* <Th>{qty}</Th> */}
-                                                    <Th>{Price}</Th>
-                                                    <Th></Th>
-                                                </Tr>
-                                            </Thead>
+                                    <Grid item
+                                        xs={12}
+                                        md={12}>
+                                        <h3 className="service-head">{Services}</h3>
 
-                                            {this.state.items?.length > 0 &&
-                                                this.state.items.map((data, id) => (
-                                                    <Tbody>
+                                        <Grid container direction="row" spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid className="wardsGrup3">
+                                                    {this.state.items?.length > 0 &&
+                                                        this.state.items.map((data, id) => (
+                                                            <Grid className="roomsNum3">
+                                                                <Grid container direction="row">
+                                                                    <Grid item xs={6} md={6}>
+                                                                        <h3>{data?.service}</h3>
+                                                                        <p>{data?.quantity}</p>
+                                                                        <p>{data?.price} €</p>
+                                                                      
+                                                                    </Grid>
+                                                                    <Grid item xs={6} md={6} className="wrdEdtDelBtn edtdelservice">
 
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>
-                                                                    {data?.service}
-                                                                </label>
-                                                            </Td>
-                                                            <Td>{data?.price} €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.editService(data, id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                                <Button
-                                                                    onClick={() => {
-                                                                        this.removeServices(id);
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require('assets/virtual_images/bin.svg')}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                </Button>
-                                                            </Td>
-                                                        </Tr>
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.editService(data, id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/pencil-1.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
+                                                                        <img
+                                                                            onClick={() => {
+                                                                                this.removeServices(id);
+                                                                            }}
+                                                                            src={require('assets/virtual_images/bin.svg')}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
 
-                                                    </Tbody>
-                                                ))}
-                                        </Table>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        ))}
+                                                </Grid>
+                                            </Grid>
+
+                                        </Grid>
                                     </Grid>
                                     <Grid>
                                         <p>{ServiceAmount}</p>
@@ -719,16 +712,16 @@ class Index extends Component {
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
                                         <Grid>
-                                             <Select
-                                  name="patient"
-                                  options={this.state.users1}
-                                  placeholder={Search_Select}
-                                  onChange={(e) => this.updateEntryState2(e)}
-                                  value={this.state.selectedPat || ""}
-                                  className="addStafSelect"
-                                  isMulti={false}
-                                  isSearchable={true}
-                                />
+                                            <Select
+                                                name="patient"
+                                                options={this.state.users1}
+                                                placeholder={Search_Select}
+                                                onChange={(e) => this.updateEntryState2(e)}
+                                                value={this.state.selectedPat || ""}
+                                                className="addStafSelect"
+                                                isMulti={false}
+                                                isSearchable={true}
+                                            />
 
                                         </Grid>
                                     </Grid>
@@ -753,19 +746,19 @@ class Index extends Component {
                                             <label>{speciality}</label>
                                         </Grid>
                                         <Grid className="sevicessection serviceallSec">
-                                        <Select
-                                    onChange={(e) => this.onFieldChange(e)}
-                                    options={this.state.specilaityList}
-                                    name="specialty_name"
-                                    isSearchable={true}
-                                    className="addStafSelect"
-                                    value={this.state.selectSpec}
-                                    isDisabled={
-                                      this.props.comesFrom === "Professional"
-                                        ? true
-                                        : false
-                                    }
-                                  />
+                                            <Select
+                                                onChange={(e) => this.onFieldChange(e)}
+                                                options={this.state.specilaityList}
+                                                name="specialty_name"
+                                                isSearchable={true}
+                                                className="addStafSelect"
+                                                value={this.state.selectSpec}
+                                                isDisabled={
+                                                    this.props.comesFrom === "Professional"
+                                                        ? true
+                                                        : false
+                                                }
+                                            />
                                         </Grid>
                                     </Grid>
                                     <Grid container direction="row" alignItems="center">
@@ -800,7 +793,7 @@ class Index extends Component {
                                                     //     : false
                                                     // }
                                                     />
-                                                    {/* { console.log("date_format",this.state.date_format)} */}
+                                            
                                                 </Grid>
                                                 <Grid
                                                     item
@@ -861,10 +854,11 @@ class Index extends Component {
 
 
                             </Grid>
+                     
                             <Grid className="servSaveBtn" onClick={() =>
-                                        this.FinalServiceSubmit()
-                                    }>
-                                <a> 
+                                this.FinalServiceSubmit()
+                            }>
+                                <a>
                                     <Button>
                                         {save_and_close}
                                     </Button>
@@ -909,10 +903,21 @@ class Index extends Component {
                                             <Grid>
                                                 <VHfield
                                                     label={Servicename}
-                                                    name="label"
+                                                    name="service"
                                                     placeholder={EnterTitlename}
                                                     disabled={true}
                                                     value={this.state.service?.service}
+                                                />
+                                            </Grid>
+                                            <Grid>
+                                                <VHfield
+                                                    label={Quantity}
+                                                    name="quantity"
+                                                    placeholder={Enterquantity}
+                                                    onChange={(e) =>
+                                                        this.updateEntryState1(e, 'quantity')
+                                                    }
+                                                    value={this.state.service?.quantity}
                                                 />
                                             </Grid>
                                             <Grid>
