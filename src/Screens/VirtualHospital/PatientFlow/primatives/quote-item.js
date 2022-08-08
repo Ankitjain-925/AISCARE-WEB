@@ -231,32 +231,43 @@ export default class QuoteItem extends React.Component {
                 <Grid className="dtlCntLft">
                   {quote && quote.external === true ? (
                     <Grid>
-                     <Grid className="dtlCount">
+                      <Grid className="dtlCount dtlCountRm">
                         <a className="taskHover">
-                          {quote.full_address?.address}
-                        </a>
-                        </Grid>
-                        <Grid className="dtlCount">
-                        <a className="taskHover">
-                          {quote.full_address?.city}
-                        </a>
-                        </Grid>
-                        <Grid className="dtlCount">
-                        <a className="taskHover">
-                        Pin - {quote.full_address?.pastal_code}
+                       Address - {quote.full_address?.address}
                         </a>
                       </Grid>
                       <Grid className="dtlCount">
                         <a className="taskHover">
+                          <img
+                            src={require("assets/images/location-pin.svg")}
+                            alt=""
+                            title=""
+                          />
+                          {quote.full_address?.city} ,  
+                          {quote.full_address?.pastal_code}
+                        </a>
+                      </Grid>
+                     <Grid className="dtlCount">
+                        <a className="taskHover">
+                          <img
+                            src={require("assets/images/email.svg")}
+                            alt=""
+                            title=""
+                          />
                           {quote.full_address?.email}
                         </a>
                       </Grid>
                       <Grid className="dtlCount">
                         <a className="taskHover">
+                          <img
+                            src={require("assets/images/phone.svg")}
+                            alt=""
+                            title=""
+                          />
                           {quote.full_address?.mobile}
                         </a>
                       </Grid>
-                    
+
 
                     </Grid>
                   ) : (
