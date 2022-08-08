@@ -1824,6 +1824,7 @@
     "every_2_week":"alle 2 woche",
     "all_2_days":"2 Tage",
     "quarter":"Quartal",
-    "full_information":"Volle Information"
+    "full_information":"Volle Information",
+   "EarlierActivity":"Frühere Aktivität"
   }
 }

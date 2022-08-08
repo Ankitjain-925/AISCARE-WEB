@@ -19,6 +19,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
   AllRoomList,
+  MoveInternalSpace,
   getSteps,
   AllWards,
   PatientMoveFromHouse,
@@ -180,8 +181,6 @@ class Index extends React.Component {
       this.setState({ loaderImage: false });
     });
   };
-
-
 
   setSpeciality = (data) => {
     this.setState({ loaderImage: true });
@@ -418,22 +417,85 @@ class Index extends React.Component {
       },
     });
   };
-
  
-  MoveExternalSpace = (data) => {
+  MoveExternalSpace = () => {
     this.setState({ loaderImage: true });
     axios
-      .put(
-        sitedata.data.path + "/vc/UpdateAddress" + this.props.quote._id,
+      .post(
+        sitedata.data.path + "/vc/UpdateAddress",
         {
-         
+         case_id: this.props.quote._id,
+         house_id: this.props.quote?.house_id
         },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce1) => {
         if (responce1.data.hassuccessed) {
-         
+          this.setState({ loaderImage: false });
+          var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+          });
         } else {
+          let translate = getLanguage(this.props.stateLanguageType);
+          let {
+            Discharge_Patient_in_This_Step,
+            Patient_in_this_Step_will_be_discharged_from_the_flow,
+            What_would_you_like_to_do,
+            CreateInvoices,
+            Discharge_without_Invoices,
+            Cancel,
+          } = translate;
+          confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <Grid
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "dark-confirm deleteStep"
+                      : "deleteStep"
+                  }
+                >
+                  <Grid className="dischargeHead">
+                    <Grid>
+                      <a
+                        onClick={() => {
+                          onClose();
+                        }}
+                      >
+                        <img
+                          src={require("assets/images/close-search.svg")}
+                          alt=""
+                          title=""
+                        />
+                      </a>
+                    </Grid>
+                    <h5>{"Need Patient Information"}</h5>
+                  </Grid>
+                  <Grid className="dischargeInfo">
+                    <p>{"Patient need to fill their address / contact information completely. Before that hospital are not able to move patient as external space"}</p>
+                    
+                    <Grid>
+                      <Button
+                        className="creatInvoic"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      >
+                        {"Ok"}
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              );
+            },
+          });
           this.setState({ loaderImage: false });
         }
       });
@@ -445,7 +507,6 @@ class Index extends React.Component {
       state: { openAssign: true }
     })
   }
-
 
   moveEntry = () => {
     this.props.history.push({
@@ -473,7 +534,9 @@ class Index extends React.Component {
               <li><a onClick={() => { this.setState({ changeStaffsec: true, setSec: true, specialitysec: false, assignroom: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-change-staff"></span><p className="more-change-staff-img2">{change_staff}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: true, assignroom: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-new-speciality"></span><p className="more-change-staff-img2">{assign_to_speciality}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
-              <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false, setSec: true }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>
+              {!this.props.quote?.external_space && <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false, setSec: true }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>}
+              {!this.props.quote?.external_space && <li><a onClick={() => { this.MoveExternalSpace()}}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to external space"}</p></p> </a></li>}
+              {this.props.quote?.external_space && <li><a onClick={() => {MoveInternalSpace( this.props.quote._id, this.props.stateLoginValueAim.token)}}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to internal space"}</p></p> </a></li>}
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.Discharge() }}><span className="more-discharge-patient"></span>{DischargePatient}</a></li>}
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.RemoveDirectPatient() }}><span className="more-remove-entry"></span>{remove_patient}</a></li>}
             </>}
@@ -756,8 +819,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

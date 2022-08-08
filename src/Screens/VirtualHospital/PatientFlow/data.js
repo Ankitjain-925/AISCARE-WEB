@@ -256,6 +256,30 @@ export const setBed = async (value, case_id, user_token) => {
   }
 };
 
+export const MoveInternalSpace = async (case_id, user_token, current) => {
+  current.setState({ loaderImage: true });
+    let response = await axios.put(
+      sitedata.data.path + '/cases/AddCase/' + case_id,
+      { external_space: false},
+      commonHeader(user_token)
+    );
+    if (response) {
+      if(response.data.hassuccessed){
+        current.setState({ loaderImage: false });
+        var steps = getSteps(
+          current.props?.House?.value,
+          current.props.stateLoginValueAim.token
+        );
+        steps.then((data) => {
+          var stepData = data ? data : [];
+          current.props.setDta(stepData);
+        });
+      }
+    } else {
+      current.setState({ loaderImage: false });
+    }
+};
+
 export const setAssignedTo = async (value, case_id, user_token) => {
   if (value) {
     let response = await axios.put(
