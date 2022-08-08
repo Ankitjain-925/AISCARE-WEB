@@ -807,7 +807,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist">
                     {this.state.dlistfilter && (
-                      <div className="filterPatlistInner">
+                      <div className="filterPatlistInner filterPatlistInnerPart">
                         <Grid>
                           <label>{speciality}</label>
                           <Grid className="addInput">
@@ -847,7 +847,8 @@ class Index extends Component {
                         control={
                           <Radio className="radioPat" />
                         }
-                        label="Doctor" />
+                        label="Doctor" 
+                        />
                       <FormControlLabel
                         value="no"
                         name="selectPatDoc"

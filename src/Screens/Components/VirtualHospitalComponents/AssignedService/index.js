@@ -368,6 +368,9 @@ class Index extends Component {
         var deep = _.cloneDeep(data);
         this.setState({ service: deep, newServiceIndex: index, editServ: true });
     };
+
+    
+
     //Add the services
     handleAddSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -613,9 +616,9 @@ class Index extends Component {
                                             }
                                             value={this.state.service.title}
                                         />
-                                    </Grid>
+                                    {/* </Grid>
                                     <p className="err_message">{this.state.error}</p>
-                                    <Grid>
+                                    <Grid> */}
                                         <label>{Addservice}</label>
                                         <Select
                                             name="service"
@@ -653,6 +656,10 @@ class Index extends Component {
                                         />
                                         <p className="enterPricePart3">€</p>
                                     </Grid>
+
+                                    </Grid>
+                                    <p className="err_message">{this.state.error}</p>
+                                    <Grid>
                                     <Grid item xs={12} md={2} className="addSrvcBtn">
                                         <Button onClick={this.handleAddSubmit}>
                                             {Add}

@@ -15538,7 +15538,7 @@ a.joinmeetingtab {
   margin-bottom: 8px;
 }
 .radioPat1{
-     margin-top: 27px
+     margin-top: 27px;
 }
 
 a.hoverTopCss span{
@@ -15559,3 +15559,16 @@ width: 90px!important;
   margin-bottom: 0px;
 }
 
+
+@media (min-width:959px){
+  .filterPatlistInnerPart{
+    top: 20px;
+    left: 289px;
+  }
+}
+@media (max-width:959px){
+  .filterPatlistInnerPart{
+    top: 112px;
+    left: 63px;
+  }
+}
