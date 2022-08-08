@@ -1896,12 +1896,13 @@
     "ProfessionalActivity":"Professional Activity",
     "ServiceAmount":"Service Amount",
     "Add_assigned_services":"Add Assigned Service",
-    "EarlierActivity":"Earlier Activity".
+    "EarlierActivity":"Earlier Activity",
     "edit_assigned_services":"Edit Assigned Services",
     "delete_assigned_services":"Delete Assigned Services",
     "sure_remove_service_from_assigned":"Are you sure to remove this Service from Assigned?",
     "Please_select_atlest":"Please select atleast one service",
-    "professional_activity":"Professional Activity"
+    "professional_activity":"Professional Activity",
+    "Plz_select_a_staff":"please select a staff"
 
   }
 }
