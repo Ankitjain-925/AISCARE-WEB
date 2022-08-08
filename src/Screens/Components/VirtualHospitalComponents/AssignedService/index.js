@@ -374,6 +374,9 @@ class Index extends Component {
         var deep = _.cloneDeep(data);
         this.setState({ service: deep, newServiceIndex: index, editServ: true });
     };
+
+    
+
     //Add the services
     handleAddSubmit = () => {
         if (
@@ -597,14 +600,9 @@ class Index extends Component {
                                             }
                                             value={this.state.service.title}
                                         />
-                                    </Grid>
+                                    {/* </Grid>
                                     <p className="err_message">{this.state.error}</p>
-                                    {this.state.showError && (
-                                        <div className="err_message">
-                                            {Please_select_atlest}
-                                        </div>
-                                    )}
-                                    <Grid>
+                                    <Grid> */}
                                         <label>{Addservice}</label>
                                         <Select
                                             name="service"

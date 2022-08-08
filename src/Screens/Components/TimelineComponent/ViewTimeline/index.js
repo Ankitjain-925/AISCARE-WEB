@@ -71,7 +71,7 @@ class Index extends Component {
         <Questionnaire 
           AllOpenGraph={(current_graphPart) => this.props.AllOpenGraph(current_graphPart)}
         />
-        {console.log("this.props.AllOpenGraph",this.props)}
+       
 
         {item.type === "blood_pressure" && (
           <BPView
