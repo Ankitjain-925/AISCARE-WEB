@@ -10023,6 +10023,7 @@ button.crdoLghtBlu2 {
 }
 .edtdelservice img{
   width: 22px;
+  cursor:pointer
 }
 @media (max-width: 500px) {
   .informStatus {
@@ -15502,11 +15503,11 @@ a.joinmeetingtab {
     width: 96% !important;
   }
 }
-.openAssser {
+/* .openAssser {
   display: flex;
-  /* align-items:center; */
+  align-items:center;
   justify-content: flex-end;
-}
+} */
 
 /* .openAssser button:first-child {
   margin-right: 20px;
