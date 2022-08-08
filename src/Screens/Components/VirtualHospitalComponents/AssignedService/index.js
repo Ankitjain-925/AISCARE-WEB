@@ -60,7 +60,8 @@ class Index extends Component {
             newServiceIndex: false,
             error: '',
             addinvoice: {},
-            errorMsg: ''
+            errorMsg: '',
+            addservice:{}
 
         };
     }
@@ -119,6 +120,7 @@ class Index extends Component {
 
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
+        const state1 = this.state.addservice;
         if (name === 'service') {
             if (e.value === 'custom') {
                 this.setState({ viewCutom: true });
@@ -126,15 +128,16 @@ class Index extends Component {
                 this.setState({ viewCutom: false });
             }
 
-            state['price_per_quantity'] = e.price;
-            state['quantity'] = 1;
-            state[name] = e;
-        } else {
+            state1['price_per_quantity'] = e.price;
+            state1['quantity'] = 1;
+            state1[name] = e;
+        } else if(name === 'quantity' ){
+            state1['quantity'] = parseInt(e);
+        }
+        else {
             state[name] = e;
         }
-        this.setState({ service: state });
-
-
+        this.setState({ service: state, addservice : state1 });
     };
 
     assignedTo = (e) => {
@@ -311,21 +314,19 @@ class Index extends Component {
         }
         else {
             axios
-                .post(
-                    sitedata.data.path + "/assignservice/Addassignservice",
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ loaderImage: false });
-                    this.props.getAddTaskData();
-                    this.handleCloseAss();
+            .post(
+                sitedata.data.path + "/assignservice/Addassignservice",
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                this.setState({ loaderImage: false });
+                this.props.getAddTaskData();
+                this.handleCloseAss();
 
-                }).catch(function (error) {
-                    console.log(error);
-                    this.setState({ errorMsg: Something_went_wrong })
-
-                });
+            }).catch((error)=> {
+                this.setState({ errorMsg: Something_went_wrong })
+            });
         }
     }
 
@@ -376,9 +377,9 @@ class Index extends Component {
     //Add the services
     handleAddSubmit = () => {
         if (
-            this.state.service?.service &&
-            this.state.service?.quantity &&
-            this.state?.service?.price_per_quantity
+            this.state.addservice?.service &&
+            this.state.addservice?.quantity &&
+            this.state?.addservice?.price_per_quantity
         ) {
             let translate = getLanguage(this.props.stateLanguageType);
             let {
@@ -387,25 +388,25 @@ class Index extends Component {
                 Custom_service_title_cant_be_empty,
             } = translate;
             this.setState({ error: '', showError: '' });
-            var newService = this.state.service;
+            var newService = this.state.addservice;
             var a =
                 this.state.items &&
                 this.state.items?.length > 0 &&
                 this.state.items.map((element) => {
                     return element?.service;
                 });
-            var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+            var b = a?.length > 0 && a.includes(this.state.addservice?.service?.label);
             if (b == true) {
                 this.setState({ error: Ser_already_exists });
             }
             else {
                 newService.price =
                     newService?.price_per_quantity * newService?.quantity;
-                newService.service = this.state.service?.service?.label;
+                newService.service = this.state.addservice?.service?.label;
                 // newService.service = this.state.service?.title;
                 let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
-                this.setState({ items ,service:{}}, () => {
+                this.setState({ items ,addservice:{}}, () => {
                     this.updateTotalPrize();
                 });
             }
@@ -490,7 +491,7 @@ class Index extends Component {
         newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.service?.service?.label;
         let items = [...this.state.items];
-        this.setState({ items, service: {} }, () => {
+        this.setState({ items, addservice: {} }, () => {
             this.updateTotalPrize();
 
         });
@@ -610,7 +611,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
-                                            value={this.state.service?.service || ''}
+                                            value={this.state.addservice?.service || ''}
 
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
@@ -627,7 +628,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e.target.value, 'quantity')
                                             }
-                                            value={this.state.service?.quantity || 0}
+                                            value={this.state.addservice?.quantity || 0}
                                         />
                                     </Grid>
 
@@ -648,7 +649,7 @@ class Index extends Component {
                                                 )
                                             }
                                             value={
-                                                this.state?.service?.price_per_quantity || 0
+                                                this.state?.addservice?.price_per_quantity || 0
                                             }
                                         />
                                         <p className="enterPricePart3">€</p>
