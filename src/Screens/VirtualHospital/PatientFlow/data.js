@@ -6,7 +6,7 @@ import { AppointFilter } from 'Screens/Components/MultiFilter/index';
 
 export const getSteps = async (house_id, user_token) => {
   let response = await axios.get(
-    sitedata.data.path + '/step/GetStep/' + house_id,
+    sitedata.data.path + '/step/GetStepV2/' + house_id,
     commonHeader(user_token)
   );
   if (response.data.hassuccessed === true) {
