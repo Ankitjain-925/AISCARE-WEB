@@ -84,7 +84,9 @@ class PointPain extends Component {
                   />
                 </Grid>
                 <Grid>
-                  <label>{data.task_name}</label>
+                  <label>{data.task_name
+                     ? data.task_name
+                     : data?.title}</label>
                 </Grid>
               </Grid>
             </Grid>

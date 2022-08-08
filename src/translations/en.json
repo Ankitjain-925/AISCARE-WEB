@@ -1899,9 +1899,17 @@
     "EarlierActivity":"Earlier Activity",
     "edit_assigned_services":"Edit Assigned Services",
     "delete_assigned_services":"Delete Assigned Services",
+    "professional_activity":"Professional Activity",
+    "nurse_questionnaire":"nurse questionnaire",
+    "daily":"daily",
+    "Daily":"Daily",
+    "every_2_week":"every 2 week",
+    "all_2_days":"2 days",
+    "quarter":"quarter",
+    "full_information":"Full Information",
     "sure_remove_service_from_assigned":"Are you sure to remove this Service from Assigned?",
     "Please_select_atlest":"Please select atleast one service",
-    "professional_activity":"Professional Activity"
+    "Plz_select_a_staff":"please select a staff"
 
   }
 }

@@ -60,7 +60,8 @@ class Index extends Component {
             newServiceIndex: false,
             error: '',
             addinvoice: {},
-            errorMsg: ''
+            errorMsg: '',
+            addservice:{}
 
         };
     }
@@ -88,10 +89,10 @@ class Index extends Component {
     handleCloseAss = () => {
         this.setState({
             openAss: false,
-            service: {},
-            selectedPat: {},
-            assignedTo: false, newspeciality: false, errorMsg: false, error: false,
-            items: [], addinvoice: {}, assignedTo: false, viewCutom: false,
+            service: '',
+            selectedPat: '',
+            assignedTo: '', newspeciality: '', errorMsg: '', error: '',
+            items: [], addinvoice: {},showError:''
         });
 
     };
@@ -119,20 +120,24 @@ class Index extends Component {
 
     onFieldChange1 = (e, name) => {
         const state = this.state.service;
+        const state1 = this.state.addservice;
         if (name === 'service') {
             if (e.value === 'custom') {
                 this.setState({ viewCutom: true });
             } else {
                 this.setState({ viewCutom: false });
             }
-            state['price_per_quantity'] = e.price;
-            state[name] = e;
-        } else {
+
+            state1['price_per_quantity'] = e.price;
+            state1['quantity'] = 1;
+            state1[name] = e;
+        } else if(name === 'quantity' ){
+            state1['quantity'] = parseInt(e);
+        }
+        else {
             state[name] = e;
         }
-        this.setState({ service: state });
-
-
+        this.setState({ service: state, addservice : state1 });
     };
 
     assignedTo = (e) => {
@@ -287,7 +292,7 @@ class Index extends Component {
 
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong } = translate;
+        let { Something_went_wrong, Plz_select_a_Patient, Plz_select_a_staff } = translate;
         this.setState({ loaderImage: true });
         var data = this.state.service;
         data.house_id = this.props?.House.value;
@@ -295,18 +300,20 @@ class Index extends Component {
         data.status = "open";
         data.created_at = new Date();
 
-        let value = {}
-        value = this.state.service
-        //     if (!value.title) {
-        //         this.setState({ errorMsg: "please enter title " })
-        //     }
-        //    else if (!value.service) {
-        //         this.setState({ errorMsg: "please select atleast one service" })
-        //     }
-
-        //     else {
-        // this.setState({ loaderImage: true })
-        axios
+        this.setState({ loaderImage: true })
+        if (
+            !data.patient ||
+            (data && data.patient && data.patient.length < 1)
+        ) {
+            this.setState({ errorMsg: Plz_select_a_Patient });
+        }
+       else if (
+           !data.assinged_to
+        ) {
+            this.setState({ errorMsg:Plz_select_a_staff });
+        }
+        else {
+            axios
             .post(
                 sitedata.data.path + "/assignservice/Addassignservice",
                 data,
@@ -317,22 +324,11 @@ class Index extends Component {
                 this.props.getAddTaskData();
                 this.handleCloseAss();
 
-            }).catch(function (error) {
-                console.log(error);
+            }).catch((error)=> {
                 this.setState({ errorMsg: Something_went_wrong })
-
             });
+        }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     //get services list
@@ -350,8 +346,8 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({
                         price: this.state.allServData[i].price,
-                        description: this.state.allServData[i].description,
-                        value: this.state.allServData[i]._id,
+                        // description: this.state.allServData[i].description,
+                        // value: this.state.allServData[i]._id,
                         label: this.state.allServData[i]?.title,
                     });
                 }
@@ -363,6 +359,7 @@ class Index extends Component {
                 });
             });
     };
+    
     handleCloseServ = () => {
         this.setState({ editServ: false, service: {} });
     };
@@ -377,11 +374,15 @@ class Index extends Component {
         var deep = _.cloneDeep(data);
         this.setState({ service: deep, newServiceIndex: index, editServ: true });
     };
+
+    
+
     //Add the services
     handleAddSubmit = () => {
         if (
-            this.state.service?.service &&
-            this.state?.service?.price_per_quantity
+            this.state.addservice?.service &&
+            this.state.addservice?.quantity &&
+            this.state?.addservice?.price_per_quantity
         ) {
             let translate = getLanguage(this.props.stateLanguageType);
             let {
@@ -390,31 +391,31 @@ class Index extends Component {
                 Custom_service_title_cant_be_empty,
             } = translate;
             this.setState({ error: '', showError: '' });
-            var newService = this.state.service;
+            var newService = this.state.addservice;
             var a =
                 this.state.items &&
                 this.state.items?.length > 0 &&
                 this.state.items.map((element) => {
                     return element?.service;
                 });
-            var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+            var b = a?.length > 0 && a.includes(this.state.addservice?.service?.label);
             if (b == true) {
                 this.setState({ error: Ser_already_exists });
             }
             else {
                 newService.price =
-                    newService?.price_per_quantity;
-                newService.service = this.state.service?.service?.label;
+                    newService?.price_per_quantity * newService?.quantity;
+                newService.service = this.state.addservice?.service?.label;
+                // newService.service = this.state.service?.title;
                 let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
-                this.setState({ items, service: {} }, () => {
+                this.setState({ items ,addservice:{}}, () => {
                     this.updateTotalPrize();
                 });
             }
         } else {
             this.setState({ showError: true });
         }
-
     };
     updateTotalPrize = () => {
         var newService = this.state.addinvoice;
@@ -432,10 +433,11 @@ class Index extends Component {
     //Update the services
     handleAddUpdate = () => {
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         var index = this.state.newServiceIndex;
         var array = this.state.items;
         array[index].price = newService?.price;
+        array[index].quantity = newService?.quantity;
         this.updateTotalPrize();
         this.setState({ service: {}, newServiceIndex: false, editServ: false });
     };
@@ -486,14 +488,13 @@ class Index extends Component {
     deleteClickService(id) {
         this.handleOpenAss();
         // delete this.state.items[id]
-        console.log('hiiii', this.state.items)
-        this.state.items.splice(id, 1);
+      this.state.items.splice(id, 1);
         this.setState({ items: this.state.items });
         var newService = this.state.service;
-        newService.price = newService?.price_per_quantity;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.service?.service?.label;
         let items = [...this.state.items];
-        this.setState({ items, service: {} }, () => {
+        this.setState({ items, addservice: {} }, () => {
             this.updateTotalPrize();
 
         });
@@ -532,7 +533,9 @@ class Index extends Component {
             Servicename,
             EnterTitlename,
             Add_assigned_services,
-            Please_select_atlest
+            Please_select_atlest,
+            Quantity,
+            Enterquantity
         } = translate;
         return (
 
@@ -587,7 +590,7 @@ class Index extends Component {
                             </div>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
-                                    <Grid>
+                            <Grid>
                                         <VHfield
                                             label={Assignedtitle}
                                             name="title"
@@ -597,27 +600,33 @@ class Index extends Component {
                                             }
                                             value={this.state.service.title}
                                         />
-                                    </Grid>
+                                    {/* </Grid>
                                     <p className="err_message">{this.state.error}</p>
-                                    {this.state.showError && (
-                                        <div className="err_message">
-                                            {Please_select_atlest}
-                                        </div>
-                                    )}
-                                    <Grid>
+                                    <Grid> */}
                                         <label>{Addservice}</label>
                                         <Select
                                             name="service"
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
                                             }
-                                            value={this.state.service?.service || ''}
+                                            value={this.state.addservice?.service || ''}
 
                                             className="addStafSelect"
                                             options={this.state.service_id_list}
                                             placeholder={Searchserviceoraddcustominput}
                                             isSearchable={true}
                                         // styles={customStyles}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={12} className="customservicetitle">
+                                        <VHfield
+                                            label={Quantity}
+                                            name="quantity"
+                                            placeholder={Enterquantity}
+                                            onChange={(e) =>
+                                                this.onFieldChange1(e.target.value, 'quantity')
+                                            }
+                                            value={this.state.addservice?.quantity || 0}
                                         />
                                     </Grid>
 
@@ -638,7 +647,7 @@ class Index extends Component {
                                                 )
                                             }
                                             value={
-                                                this.state?.service?.price_per_quantity || 0
+                                                this.state?.addservice?.price_per_quantity || 0
                                             }
                                         />
                                         <p className="enterPricePart3">€</p>
@@ -662,7 +671,9 @@ class Index extends Component {
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={6} md={6}>
                                                                         <h3>{data?.service}</h3>
+                                                                        <p>{data?.quantity}</p>
                                                                         <p>{data?.price} €</p>
+                                                                      
                                                                     </Grid>
                                                                     <Grid item xs={6} md={6} className="wrdEdtDelBtn edtdelservice">
 
@@ -781,7 +792,7 @@ class Index extends Component {
                                                     //     : false
                                                     // }
                                                     />
-                                                    {/* { console.log("date_format",this.state.date_format)} */}
+                                            
                                                 </Grid>
                                                 <Grid
                                                     item
@@ -842,7 +853,7 @@ class Index extends Component {
 
 
                             </Grid>
-
+                     
                             <Grid className="servSaveBtn" onClick={() =>
                                 this.FinalServiceSubmit()
                             }>
@@ -891,10 +902,21 @@ class Index extends Component {
                                             <Grid>
                                                 <VHfield
                                                     label={Servicename}
-                                                    name="label"
+                                                    name="service"
                                                     placeholder={EnterTitlename}
                                                     disabled={true}
                                                     value={this.state.service?.service}
+                                                />
+                                            </Grid>
+                                            <Grid>
+                                                <VHfield
+                                                    label={Quantity}
+                                                    name="quantity"
+                                                    placeholder={Enterquantity}
+                                                    onChange={(e) =>
+                                                        this.updateEntryState1(e, 'quantity')
+                                                    }
+                                                    value={this.state.service?.quantity}
                                                 />
                                             </Grid>
                                             <Grid>

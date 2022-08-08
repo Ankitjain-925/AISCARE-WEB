@@ -369,6 +369,30 @@ class Index extends Component {
                 </a>
               </li>
 
+              <li
+                className={
+                  this.props.currentPage === "questionnary" ? "menuActv" : ""
+                }
+              >
+                <a onClick={() => { this.props.history.push("/nurse/care-questionary") }}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ?
+                    (<img
+                      src={require("assets/virtual_images/rightIcon2.png")}
+                      alt=""
+                      title=""
+                    />) : (
+                      <img
+                        src={this.props.currentPage === "questionnary" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                  <span>{"Care Questionnary"}</span>
+                </a>
+              </li>
             </>}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
