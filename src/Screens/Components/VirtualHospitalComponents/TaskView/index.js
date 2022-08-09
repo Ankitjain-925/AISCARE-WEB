@@ -216,7 +216,7 @@ class PointPain extends Component {
                             this.props.comesFrom === 'Professional' ? (
                             <>{view_detail}</>
                           ) : (
-                            <>{EditTask}</>
+                            data.task_name ? <>{EditTask}</> : "Edit assigned services"
                           )}
                         </a>
                       </li>

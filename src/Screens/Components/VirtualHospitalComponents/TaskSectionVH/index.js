@@ -1610,7 +1610,7 @@ class Index extends Component {
                       <Grid item xs={12} md={12} lg={12}>
                         <Grid container direction="row" justify="center">
                           <Grid item xs={8} md={8} lg={8}>
-                            <label>{CreateaTask}</label>
+                            <label>{this.state.newTask.task_name ? CreateaTask: "Assigned services"}</label>
                           </Grid>
                           <Grid item xs={4} md={4} lg={4}>
                             <Grid>
@@ -1669,7 +1669,7 @@ class Index extends Component {
                             }
                           </Grid>
                           <Grid item xs={12} md={12}>
-                            <VHfield
+                            { this.state.newTask.task_name ? <VHfield
                               label={Tasktitle}
                               name="task_name"
                               placeholder={Entertitle}
@@ -1686,6 +1686,24 @@ class Index extends Component {
                                 this.state.newTask?.task_type === "sick_leave"
                               }
                             />
+                            :
+                          <VHfield
+                              label={"Title"}
+                              name="task_name"
+                              placeholder={"Title"}
+                              onChange={(e) =>
+                                this.updateEntryState1(
+                                  e.target.value,
+                                  e.target.name
+                                )
+                              }
+                              value={this.state.newTask.title || ""}
+                              disabled={
+                                this.state.newTask?.title ===
+                                "picture_evaluation" ||
+                                this.state.newTask?.title === "sick_leave"
+                              }
+                            />}
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>

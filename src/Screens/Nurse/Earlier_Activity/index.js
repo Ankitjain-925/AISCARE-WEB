@@ -56,7 +56,7 @@ class Index extends Component {
             AllTasks: {},
             shown: false,
             professionalArray: [],
-            ArchivedTasks: [],
+            ArchivedTask: [],
             loaderImage: false,
             hope: false,
             openDate: true,
@@ -85,7 +85,7 @@ class Index extends Component {
         });
     };
     //get Add task data
-    getAddTaskData = (tabvalue2, goArchive) => {
+    getAddTaskData = async (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
         axios
             .get(
@@ -93,24 +93,28 @@ class Index extends Component {
                 "/vc/PastTask/" + this.props.stateLoginValueAim?.user?.profile_id,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
-            .then((response) => {
-                console.log("response", response)
+            .then(async (response) => {
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
+                    var services = await this.getAddTaskData1();
+                    services = [... services.data.data, ...response.data.data]
                     if (response?.data?.data) {
-                        var patientForFilterArr = filterPatient(response.data.data);
-                        this.setState({ patientForFilter: patientForFilterArr });
+                      var patientForFilterArr = filterPatient(services);
+                      this.setState({ patientForFilter: patientForFilterArr });
                     }
                     var Done =
-                        response.data.data?.length > 0 &&
-                        response.data.data.filter((item) => item.status === "done");
+                    services?.length > 0 &&
+                    services.filter((item) => item.status === "done");
                     var Open =
-                        response.data.data?.length > 0 &&
-                        response.data.data.filter((item) => item.status === "open");
+                    services?.length > 0 &&
+                    services.filter((item) => item.status === "open");
+                    var ArchivedTask  = services?.length > 0 &&
+                    services.filter((item) => item.archived);
                     this.setState({
-                        AllTasks: response.data.data,
-                        DoneTask: Done,
-                        OpenTask: Open,
+                      AllTasks: services,
+                      DoneTask: Done,
+                      OpenTask: Open,
+                      ArchivedTask: ArchivedTask
                     });
                     if (goArchive) {
                         this.setState({ tabvalue2: 3 });
@@ -122,6 +126,22 @@ class Index extends Component {
                 this.setState({ loaderImage: false });
             });
     };
+
+      //get Add task data
+  getAddTaskData1 = async (uid, data) => {
+    var nurse_id = this.props.stateLoginValueAim?.user?._id
+    let response = await axios
+    .post(
+      sitedata.data.path + "/vc/nursebefore",
+      { nurse_id: nurse_id },
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    if (response.data.hassuccessed) {
+        return response
+    } else {
+        return false
+    }
+}
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -179,7 +199,7 @@ class Index extends Component {
                                                 AllTasks={this.state.AllTasks}
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
-                                                ArchivedTasks={[]}
+                                                ArchivedTasks={this.state.ArchivedTask}
                                                 comesFrom={"Earliertask"}
                                             />
                                             {/* End of Model setup */}
