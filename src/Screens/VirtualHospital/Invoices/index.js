@@ -380,13 +380,13 @@ class Index extends Component {
     data.status =
       this.state.AllStatus1 &&
       this.state.AllStatus1.filter(
-        (item) => item.value === data?.status?.value
+        (item) => item.value === 'issued'
       )?.[0];
-    if (draft) {
-      data.status =
-        this.state.AllStatus1 &&
-        this.state.AllStatus1.filter((item) => item.value === 'draft')?.[0];
-    }
+    // if (draft) {
+    //   data.status =
+    //     this.state.AllStatus1 &&
+    //     this.state.AllStatus1.filter((item) => item.value === 'draft')?.[0];
+    // }
     // if(data._id){
     //     this.setState({ loaderImage: true });
     //     axios
@@ -431,6 +431,7 @@ class Index extends Component {
           this.setState({ loaderImage: false });
           if (responce.data.hassuccessed) {
             if (data.status.value == 'paid') {
+              console.log('come inside that');
               PatientMoveFromHouse(
                 data.case_id,
                 this.props.stateLoginValueAim.token,
