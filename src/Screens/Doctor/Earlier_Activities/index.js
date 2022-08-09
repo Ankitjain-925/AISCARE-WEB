@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
-import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -203,8 +203,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="Earliertask" />
-                                <LeftMenuMobile isNotShow={true} currentPage="Earliertask" />
+                                <LeftMenu isNotShow={true} currentPage="Profearliertask" />
+                                <LeftMenuMobile isNotShow={true} currentPage="Profearliertask" />
                                 <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
@@ -220,7 +220,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={[]}
-                                                comesFrom={"Earliertask"}
+                                                comesFrom={"Profearliertask"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

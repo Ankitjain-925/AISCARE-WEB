@@ -70,6 +70,11 @@ class Index extends Component {
     this.props.houseSelect({ value: null });
     this.props.history.push("/nurse/journal");
   };
+  
+  //For Task
+  handleActivityTask = () => {
+    this.props.history.push("/doctor/professional-activity");
+  };
 
   getSetting = () => {
     this.setState({ loaderImage: true });
