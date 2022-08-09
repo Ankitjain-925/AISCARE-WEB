@@ -3120,6 +3120,7 @@ a.profilMenu {
 }
 .arng_addEntrynw {
     text-align: right;
+    padding-bottom: 15px;
 }
 .arng_addEntrynw a {
     color: #FFFFFF !important;
@@ -3771,7 +3772,7 @@ span.css-1okebmr-indicatorSeparator {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 12px;
+    line-height: 20px;
     border-bottom: 2px solid #f3f3f3;
     vertical-align: sub;
 }
@@ -3797,7 +3798,7 @@ span.css-1okebmr-indicatorSeparator {
     border-top: 1px solid #f1f1f1;
 }
 .insrnceTbl {
-    margin-top: 32px;
+    margin-top: 12px;
 }
 .infoSub input {
     border-radius: 8px;
@@ -4001,6 +4002,7 @@ button.aboutTabsIner {
     padding: 22px 28px;
     min-height: 150vh;
     padding-bottom: 122px;
+    margin-bottom: 25px;
 }
 .profileInfoDate .react-date-picker {
     display: block !important;
@@ -6461,7 +6463,7 @@ a.archvDel:hover ul {
 }
 .entryCloseBtn {
     text-align: right;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 .entryCloseBtn img {
     width: 26px;
@@ -6709,7 +6711,8 @@ a.archvDel:hover ul {
     display: inline-block;
     margin-bottom: 10px;
 }
-.cnfrmDiaUpr, .fillDia, .travelDia, .srchdoseMg, .attchForms, .fill_editor, .plasB50{
+.cnfrmDiaUpr, .fillDia, .travelDia, 
+.srchdoseMg, .attchForms, .fill_editor, .plasB50{
     margin-bottom: 18px;
 }
 .travelDia label span {
@@ -9205,7 +9208,7 @@ td.phrImg p {
     background-color: #00ABAF;
     outline: none;
     border: none;
-    width: 100%;
+    width: 192px;
     color: #FFFFFF;
     font-family: Muli;
     font-size: 14px;
@@ -13096,13 +13099,12 @@ a.academy_ul ul {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     margin-bottom: 0px;
     padding-left: 0px;
-    padding: 14px 15px;
+    padding: 15px 12px;
     position: absolute;
     right: 0px;
     top: 23px;
     min-width: 140px;
     z-index: 111;
-    /* text-align: left; */
 }
 a.academy_ul {
     position: relative;
@@ -13128,6 +13130,19 @@ a.academy_ul ul li a {
     letter-spacing: 0;
     line-height: 14px;
     cursor: pointer;
+    position: relative;
+}
+a.academy_ul ul li span:before {
+    position: absolute;
+    left: 6px;
+    top: 7px;
+    height: 4px;
+    width: 4px;
+    background: #dfdfdf;
+    border-radius: 16px;
+}
+a.academy_ul ul li:nth-child(2) span:before {
+    content: initial !important;
 }
 a.academy_ul ul li img {
     width: auto !important;
@@ -14249,11 +14264,6 @@ button.CutomStripeButton{
 .allTimeSelnw.comonSelnw div:last-child {
     z-index: 99 !important;
 }
-.rlativeDiv .passInst {
-    position: relative!important;
-    top: 11px !important;
-    right: 0px !important;
-}
 ul.insuranceHint1 {
     z-index: 9;
     padding-left: 0px;
@@ -14980,7 +14990,7 @@ input:focus {
   .officVisit.display-cls{
       display: flex;
   }
-.homeBgDrk .tooltip-container {
+  .homeBgDrk .tooltip-container {
       background-color: #404646!important;
   }
   .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
@@ -14989,9 +14999,11 @@ input:focus {
   .dark-confirm{
     background-color: #404646!important;
   }
-  .dark-confirm h1, .dark-confirm span, .dark-confirm p, .dark-confirm h3, .dark-confirm h1 {
+  .dark-confirm h1, .dark-confirm span, .dark-confirm p, 
+  .dark-confirm h3, .dark-confirm h1, 
+  .dark-confirm .deleteStepInfo label {
     color: #D9DADA !important;
-}
+  }
 /* .darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar button {
     color: #dfdfdf;
     background: transparent;
@@ -15680,7 +15692,6 @@ a.SelectedGender{
     color: #BFC1C1 !important; 
 }
 .darkTheme > div:nth-child(3) .addStafSelect {
-    border: 1px solid #bfc1c1;
     border-radius: 4px;
 }
 .darkTheme > div:nth-child(3) .srvcTags a{
@@ -17489,6 +17500,9 @@ ul.duringCovid li:last-child {
     margin: 0px !important;
     outline: none !important;
     border-radius: 2px !important;
+}
+.MuiGrid-root.profileDescp {
+    margin-top: 0px;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 

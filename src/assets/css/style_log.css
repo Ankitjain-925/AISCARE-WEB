@@ -344,7 +344,8 @@ img.passArow {
   }
   .passInstIner:after{
     left: 0px !important;
-    top: -23px !important;
+    top: -32px !important;
+    transform: rotate(90deg);
   }
 }
 @media screen and (max-width: 767px){
