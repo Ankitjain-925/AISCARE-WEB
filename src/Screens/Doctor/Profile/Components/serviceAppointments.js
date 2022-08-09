@@ -64,6 +64,7 @@ class Index extends Component {
       thirdServiceData: {},
       weoffer: {},
       holidayAppointment: {},
+      homevisitappointment:{},
       updateService: false,
       val1: false,
       val2: false,
@@ -224,6 +225,46 @@ class Index extends Component {
             Sickleavesetting: sickleaveappointment,
           });
         }
+        let homevisitappointment = null;
+        homevisitappointment  = response.data.data.homevisit_appointment[0];
+        if (homevisitappointment) {
+          if (homevisitappointment.holidays) {
+            this.setState({
+              holidayAppointment: {
+                holidays_start:
+                homevisitappointment.holidays_start !== ""
+                    ? homevisitappointment.holidays_start
+                    : new Date(),
+                holidays_end:
+                homevisitappointment.holidays_end !== ""
+                    ? homevisitappointment.holidays_end
+                    : new Date(),
+                holidays: homevisitappointment.holidays,
+              },
+            });
+          }
+
+          keysArray.map((key) => {
+            if (homevisitappointment[key] == undefined) {
+              homevisitappointment[key] = apoinmentdata[key];
+            }
+          });
+          this.setState({
+            homevisitappointment: homevisitappointment,
+            homevisitsetting: homevisitappointment,
+          });
+        } else {
+          homevisitappointment = {};
+          keysArray.map((key) => {
+            if (homevisitappointment[key] == undefined) {
+              homevisitappointment[key] = apoinmentdata[key];
+            }
+          });
+          this.setState({
+            homevisitappointment: homevisitappointment,
+            homevisitsetting: homevisitappointment,
+          });
+        }
 
         let onlineAppointment = null;
         onlineAppointment = response.data.data.online_appointment[0];
@@ -287,6 +328,9 @@ class Index extends Component {
           if (weOffer.offer_sickleave == undefined) {
             weOffer.offer_sickleave = false;
           }
+          if (weOffer.offer_home_visit == undefined) {
+            weOffer.offer_home_visit = false;
+          }
           this.setState({ weoffer: weOffer });
         } else {
           this.setState({
@@ -297,6 +341,7 @@ class Index extends Component {
               Offer_practice_appointment: false,
               Offre_online_appointments: false,
               offer_sickleave: false,
+              offer_home_visit: false,
             },
           });
         }
@@ -354,6 +399,7 @@ class Index extends Component {
       onlineAppointments,
       holidayAppointment,
       sickleaveappointment,
+      homevisitappointment,
     } = this.state;
     let dataSave = {};
 
@@ -390,6 +436,14 @@ class Index extends Component {
      
     ) {
       this.setState({ appoinmentError: true });
+    } else if (
+      weoffer &&
+      weoffer.offer_home_visit &&
+      (!homevisitappointment.duration_of_timeslots ||
+        homevisitappointment.duration_of_timeslots === 0)
+     
+    ) {
+      this.setState({ appoinmentError: true });
     } else {
       if (firstServiceData.created) {
         dataSave["paid_services"].push(firstServiceData);
@@ -405,6 +459,7 @@ class Index extends Component {
       dataSave["online_appointment"] = onlineAppointments;
       dataSave["private_appointments"] = UpDataDetails;
       dataSave["sickleave_appointment"] = sickleaveappointment ;
+      dataSave["homevisit_appointment"] = homevisitappointment ;
    
 
       if (holidayAppointment["holidays"]) {
@@ -450,6 +505,7 @@ class Index extends Component {
       dataSave["online_appointment"] = [dataSave["online_appointment"]];
       dataSave["private_appointments"] = [dataSave["private_appointments"]];
       dataSave["sickleave_appointment"] = [ dataSave["sickleave_appointment"]];
+      dataSave["homevisit_appointment"] = [ dataSave["homevisit_appointment"]];
     
       this.setState({ loaderImage: true, PrivateErr: false });
   
@@ -880,6 +936,144 @@ class Index extends Component {
       this.setState({ PracticeErr: true });
     }
   }
+  savehomevisitappointment() {
+    if (
+      this.state.homevisitappointment.duration_of_timeslots &&
+      this.state.homevisitappointment.duration_of_timeslots !== 0
+    ) {
+      this.setState({ loaderImage: true, PracticeErr: false });
+      let monday_start,
+        monday_end,
+        tuesday_start,
+        tuesday_end,
+        wednesday_start,
+        wednesday_end,
+        thursday_end,
+        thursday_start,
+        friday_start,
+        friday_end,
+        saturday_start,
+        saturday_end,
+        sunday_start,
+        sunday_end,
+        breakslot_start,
+        breakslot_end,
+        holidays_start,
+        holidays_end;
+      const user_token = this.props.stateLoginValueAim.token;
+      let doctor_id = this.props.stateLoginValueAim.user._id;
+      if (this.state.homevisitsetting.monday == true) {
+        monday_start = this.state.homevisitappointment.monday_start;
+        monday_end = this.state.homevisitappointment.monday_end;
+      } else {
+        monday_start = "";
+        monday_end = "";
+      }
+      if (this.state.homevisitsetting.tuesday == true) {
+        tuesday_start = this.state.homevisitappointment.tuesday_start;
+        tuesday_end = this.state.homevisitappointment.tuesday_end;
+      } else {
+        tuesday_start = "";
+        tuesday_end = "";
+      }
+      if (this.state.homevisitsetting.wednesday == true) {
+        wednesday_start = this.state.homevisitappointment.wednesday_start;
+        wednesday_end = this.state.homevisitappointment.wednesday_end;
+      } else {
+        wednesday_start = "";
+        wednesday_end = "";
+      }
+      if (this.state.homevisitsetting.thursday == true) {
+        thursday_end = this.state.homevisitappointment.thursday_end;
+        thursday_start = this.state.homevisitappointment.thursday_start;
+      } else {
+        thursday_end = "";
+        thursday_start = "";
+      }
+      if (this.state.homevisitsetting.friday == true) {
+        friday_start = this.state.homevisitappointment.friday_start;
+        friday_end = this.state.homevisitappointment.friday_end;
+      } else {
+        friday_start = "";
+        friday_end = "";
+      }
+      if (this.state.homevisitsetting.saturday == true) {
+        saturday_start = this.state.homevisitappointment.saturday_start;
+        saturday_end = this.state.homevisitappointment.saturday_end;
+      } else {
+        saturday_start = "";
+        saturday_end = "";
+      }
+      if (this.state.homevisitsetting.sunday == true) {
+        sunday_start = this.state.homevisitappointment.sunday_start;
+        sunday_end = this.state.homevisitappointment.sunday_end;
+      } else {
+        sunday_start = "";
+        sunday_end = "";
+      }
+      if (this.state.homevisitsetting.breakslot == true) {
+        breakslot_start = this.state.homevisitappointment.breakslot_start;
+        breakslot_end = this.state.homevisitappointment.breakslot_end;
+      } else {
+        breakslot_start = "";
+        breakslot_end = "";
+      }
+      if (this.state.homevisitsetting.holidays == true) {
+        holidays_start = this.state.homevisitappointment.holidays_start;
+        holidays_end = this.state.homevisitappointment.holidays_end;
+      } else {
+        holidays_start = "";
+        holidays_end = "";
+      }
+
+      axios
+        .put(
+          sitedata.data.path + "/UserProfile/homevisitappointment/" + doctor_id,
+          {
+            type: "private",
+            doctor_id: this.state.homevisitappointment.doctor_id,
+            monday_start: monday_start,
+            monday_end: monday_end,
+            tuesday_start: tuesday_start,
+            tuesday_end: tuesday_end,
+            wednesday_start: wednesday_start,
+            wednesday_end: wednesday_end,
+            thursday_start: thursday_start,
+            thursday_end: thursday_end,
+            friday_start: friday_start,
+            friday_end: friday_end,
+            saturday_start: saturday_start,
+            saturday_end: saturday_end,
+            sunday_start: sunday_start,
+            sunday_end: sunday_end,
+            breakslot_start: breakslot_start,
+            breakslot_end: breakslot_end,
+            appointment_days: this.state.homevisitappointment.appointment_days,
+            appointment_hours: this.state.homevisitappointment.appointment_hours,
+            duration_of_timeslots: this.state.homevisitappointment
+              .duration_of_timeslots,
+            holidays_start: holidays_start,
+            holidays_end: holidays_end,
+            monday: this.state.homevisitsetting.monday,
+            tuesday: this.state.homevisitsetting.tuesday,
+            wednesday: this.state.homevisitsetting.wednesday,
+            thursday: this.state.homevisitsetting.thursday,
+            friday: this.state.homevisitsetting.friday,
+            saturday: this.state.homevisitsetting.saturday,
+            sunday: this.state.homevisitsetting.sunday,
+            breakslot: this.state.homevisitsetting.breakslot,
+            holidays: this.state.homevisitsetting.holidays,
+            custom_text: "offline",
+          },
+          commonHeader(user_token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+        });
+    } else {
+      this.setState({ PracticeErr: true });
+    }
+  }
   
 
   updateOnlineAppointments = (e) => {
@@ -1202,6 +1396,7 @@ class Index extends Component {
       holidayAppointment,
       changeText,
       sickleaveappointment,
+      homevisitappointment,
       appoinmentError,
     } = this.state;
 
@@ -1252,6 +1447,7 @@ class Index extends Component {
       Max,
       hourse_before_time_appointment,
       save_change,
+      Home_visit
     } = translate;
 
     return (
@@ -4576,6 +4772,761 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
+           {/* <Grid container direction="row"> */}
+           <Grid item xs={12} md={6}>
+                <Grid className="onlinSickVdo officVisit">
+                  <img
+                    src={require("assets/images/dates.png")}
+                    className="vdoCalNow mngDates"
+                    alt=""
+                    title=""
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="checkedB"
+                        color="#00ABAF"
+                        checked={
+                          weoffer && weoffer.offer_home_visit
+                            ? true
+                            : false
+                        }
+                        onChange={() =>
+                          this.handleweoffer("offer_home_visit")
+                        }
+                      />
+                    }
+                    label={Home_visit}
+                  />
+                </Grid>
+              </Grid>
+              {/* <Grid item xs={12} md={6}>
+                                <Grid className="enableTogle">
+                                    <label><Toggle icons={false} /></label>
+                                </Grid>
+                            </Grid> */}
+            {/* </Grid> */}
+            <Grid className="wrkHourUpr">
+              <Grid container direction="row">
+                <Grid item xs={12} md={6}>
+                  <Grid className="wrkHour">
+                    <Grid>
+                      <label>{set_working_hours}</label>
+                    </Grid>
+                    <Grid>
+                      <a
+                        className={
+                         homevisitappointment.monday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "monday")
+                        }
+                      >
+                        M
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.tuesday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "tuesday")
+                        }
+                      >
+                        T
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.wednesday_end !== "" &&
+                          "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "wednesday")
+                        }
+                      >
+                        {" "}
+                        W
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.thursday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "thursday")
+                        }
+                      >
+                        T
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.friday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "friday")
+                        }
+                      >
+                        F
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.saturday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "saturday")
+                        }
+                      >
+                        S
+                      </a>
+                      <a
+                        className={
+                         homevisitappointment.sunday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("homevisitappointment", "sunday")
+                        }
+                      >
+                        S
+                      </a>
+                    </Grid>
+                  </Grid>
+                  <Grid className="dayScheduleUpr appointment">
+                    {homevisitappointment.monday_end &&
+                     homevisitappointment.monday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{monday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.monday_start
+                                  ? this.getTime(homevisitappointment.monday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "monday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.monday_end
+                                  ? this.getTime(homevisitappointment.monday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "monday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          <Grid>
+                            <p
+                              onClick={() =>
+                                this.copytoall("homevisitappointment", "monday")
+                              }
+                            >
+                              <img
+                                src={require("assets/images/docscopy.svg")}
+                                alt=""
+                                title=""
+                              />
+                              {copy_to_all_time}{" "}
+                            </p>
+                          </Grid>
+                        </Grid>
+                      )}
+                    {homevisitappointment.tuesday_end &&
+                     homevisitappointment.tuesday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{tuseday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.tuesday_start
+                                  ? this.getTime(homevisitappointment.tuesday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "tuesday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.tuesday_end
+                                  ? this.getTime(homevisitappointment.tuesday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "tuesday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" && (
+                            <Grid>
+                              <p
+                                onClick={() =>
+                                  this.copytoall("homevisitappointment", "tuesday")
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/docscopy.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {copy_time_to_all}{" "}
+                              </p>
+                            </Grid>
+                          )}
+                        </Grid>
+                      )}
+                    {homevisitappointment.wednesday_end &&
+                     homevisitappointment.wednesday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{wednesday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.wednesday_start
+                                  ? this.getTime(
+                                   homevisitappointment.wednesday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "wednesday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.wednesday_end
+                                  ? this.getTime(homevisitappointment.wednesday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "wednesday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" &&
+                           homevisitappointment.tuesday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "homevisitappointment",
+                                      "wednesday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {homevisitappointment.thursday_end &&
+                     homevisitappointment.thursday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{thursday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               homevisitappointment.thursday_start
+                                  ? this.getTime(
+                                   homevisitappointment.thursday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "thursday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.thursday_end
+                                  ? this.getTime(homevisitappointment.thursday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "thursday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "homevisitappointment",
+                                      "thursday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {homevisitappointment.friday_end &&
+                      homevisitappointment.friday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{friday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.friday_start
+                                  ? this.getTime(homevisitappointment.friday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "friday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.friday_end
+                                  ? this.getTime(homevisitappointment.friday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "friday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall("homevisitappointment", "friday")
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {homevisitappointment.saturday_end &&
+                      homevisitappointment.saturday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{saturday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.saturday_start
+                                  ? this.getTime(
+                                    homevisitappointment.saturday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "saturday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.saturday_end
+                                  ? this.getTime(homevisitappointment.saturday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "saturday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" &&
+                            homevisitappointment.friday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "homevisitappointment",
+                                      "saturday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {homevisitappointment.sunday_end &&
+                      homevisitappointment.sunday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{sunday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.sunday_start
+                                  ? this.getTime(homevisitappointment.sunday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "homevisitappointment",
+                                  "sunday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                homevisitappointment.sunday_end
+                                  ? this.getTime(homevisitappointment.sunday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "homevisitappointment",
+                                  "sunday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {homevisitappointment.monday_end == "" &&
+                            homevisitappointment.tuesday_end == "" &&
+                            homevisitappointment.wednesday_end == "" &&
+                            homevisitappointment.thursday_end == "" &&
+                            homevisitappointment.friday_end == "" &&
+                            homevisitappointment.saturday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall("homevisitappointment", "sunday")
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Grid className="setScheduleUpr">
+                    <Grid className="setSchedule">
+                      <Grid className="nameSchedule">
+                        <label>{set_timeslot_duration}</label>
+                      </Grid>
+                      <Grid className="nameSchedule">
+                        <input
+                          type="text"
+                          name="duration_of_timeslots"
+                          value={homevisitappointment.duration_of_timeslots}
+                          onChange={(e) =>
+                            this.changeDuration(e, "homevisitappointment")
+                          }
+                        />{" "}
+                        {minutes}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid className="setScheduleUpr">
+                    <Grid className="setSchedule appointment">
+                      <Grid className="nameSchedule">
+                        <label>{break_time}</label>
+                      </Grid>
+                      
+                      <Grid className="nameSchedule">
+                        <TimeFormat
+                          name="time"
+                          value={
+                            homevisitappointment.breakslot_start ||
+                              homevisitappointment.breakslot_start === ""
+                              ? this.getTime(homevisitappointment.breakslot_start)
+                              : new Date()
+                          }
+                          time_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.time_format
+                          }
+                          onChange={(e) =>
+                            this.onChange(
+                              e,
+                              "start",
+                              "homevisitappointment",
+                              "breakslot"
+                            )
+                          }
+                        />
+                        <span>-</span>
+                        <TimeFormat
+                          name="time"
+                          value={
+                            homevisitappointment.breakslot_end ||
+                            homevisitappointment.breakslot_end === ""
+                              ? this.getTime(homevisitappointment.breakslot_end)
+                              : new Date()
+                          }
+                          time_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.time_format
+                          }
+                          onChange={(e) =>
+                            this.onChange(
+                              e,
+                              "end",
+                              "homevisitappointment",
+                              "breakslot"
+                            )
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid className="apontBook">
+                    <Grid>
+                      <label>{appointment_can_be_booked}</label>
+                      </Grid>
+                    <Grid>
+                      <p>
+                        <span>{up_to_days},</span>{" "}
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            this.onChangebook(
+                              e,
+                              "appointment_days",
+                              "homevisitappointment"
+                            )
+                          }
+                          value={homevisitappointment.appointment_days}
+                        />
+                        {before_day_of_appointment}
+                      </p>
+                    </Grid>
+                    <Grid>
+                      <label>{appointment_can_be_cancelled}</label>
+                    </Grid>
+                    <Grid>
+                      <p>
+                        <span>{Max},</span>{" "}
+                        <input
+                          type="text"
+                          value={homevisitappointment.appointment_hours}
+                          onChange={(e) =>
+                            this.onChangebook(
+                              e,
+                              "appointment_hours",
+                              "homevisitappointment"
+                            )
+                          }
+                        />{" "}
+                        {hourse_before_time_appointment}
+                        {this.state.val3 && (
+                          <div className="err_message">
+                            {notmore24}
+                          </div>
+                        )}
+                      </p>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          {/* </Grid> */}
 
           <Grid container direction="row">
             <Grid item xs={12} md={6} className="savChngsBtn">
