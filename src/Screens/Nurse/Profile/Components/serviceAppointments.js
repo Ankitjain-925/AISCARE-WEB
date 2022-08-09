@@ -1467,7 +1467,7 @@ class Index extends Component {
             </Grid>
           </Grid>
 
-          <Grid className="instBrdr">
+          {/* <Grid className="instBrdr">
             <Grid container direction="row">
               <Grid item xs={12} md={6}>
                 <Grid className="prescSickVdo">
@@ -2273,11 +2273,11 @@ class Index extends Component {
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
 
           {/* <Grid className="instBrdr"> */}
             {/* <Grid container direction="row"> */}
-              {/* <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <Grid
                   className={
                     changeText
@@ -2352,14 +2352,14 @@ class Index extends Component {
                     </button>
                   )}
                 </Grid>
-              </Grid> */}
+              </Grid> 
               {/* <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
                                     <label><Toggle icons={false} /></label>
                                 </Grid>
                             </Grid> */}
             {/* </Grid> */}
-            {/* <Grid className="wrkHourUpr">
+            <Grid className="wrkHourUpr">
               <Grid container direction="row">
                 <Grid item xs={12} md={6}>
                   <Grid className="wrkHour">
@@ -3061,7 +3061,7 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid> */}
+            </Grid> 
           {/* </Grid> */}
 
           {/* <Grid className="instBrdr"> */}
@@ -3820,8 +3820,8 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid> */}
-          {/* </Grid> */}
+            </Grid>
+          {/* </Grid>
           {/* <Grid className="instBrdr"> */}
             {/* <Grid container direction="row"> */}
               <Grid item xs={12} md={6}>
