@@ -173,8 +173,9 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
 
-
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                {this.props.comesFrom !== "Earliertask" &&
+                 this.props.comesFrom !== "Profearliertask" && <>
                 {!data?.is_decline && (
                   <a className="openScndhrf">
                     <img
@@ -345,7 +346,7 @@ class PointPain extends Component {
                         )}
                     </ul>
                   </a>
-                )}
+                )}</>}
                 {data.task_type === 'sick_leave' && (
                   <Grid className="informStatus">
                     {/* <Td className="billDots">
