@@ -1019,7 +1019,7 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
-
+console.log('data',data)
     this.selectProf(data?.assinged_to, this.state.professional_id_list);
     var pat1name = '';
     if (data?.patient?.first_name && data?.patient?.last_name) {
@@ -1037,8 +1037,8 @@ class Index extends Component {
       });
     var deep = _.cloneDeep(data);
     this.setState({
-      newTask: deep,
-      fileattach: data.attachments,
+      service: deep,
+    fileattach: data.attachments,
       openAss: true,
       Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
       calculate_Length: {

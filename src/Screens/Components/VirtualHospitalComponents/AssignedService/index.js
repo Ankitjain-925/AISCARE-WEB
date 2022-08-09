@@ -445,8 +445,8 @@ class Index extends Component {
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
-        this.handleCloseAss();
-        this.setState({ message: null });
+        this.setState({ openAss: false,message: null,
+       });
         let translate = getLanguage(this.props.stateLanguageType);
         let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
             translate;
