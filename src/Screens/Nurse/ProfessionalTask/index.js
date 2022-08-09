@@ -217,6 +217,7 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
+                        patientForFilter={this.state.patientForFilter}
                         getAddTaskData={(tabvalue2, goArchive) => {
                           this.getAddTaskData(tabvalue2, goArchive);
                         }}
@@ -224,7 +225,7 @@ class Index extends Component {
                         DoneTask={this.state.DoneTask}
                         OpenTask={this.state.OpenTask}
                         ArchivedTasks={[]}
-                        comesFrom={"Professional"}
+                        comesFrom="Professional"
                       />
                       {/* End of Model setup */}
                     </Grid>

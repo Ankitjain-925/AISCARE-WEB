@@ -3878,8 +3878,7 @@ class Index extends Component {
                     )}
                   </a>
 
-                  {this.props.comesFrom !== "Professional" &&
-                    this.props.comesFrom !== "detailTask" && (
+                  {this.props.comesFrom !== "detailTask" && (
                       <>
                         {tabvalue2 === 0 && (
                           <a className={AllTaskCss}>
