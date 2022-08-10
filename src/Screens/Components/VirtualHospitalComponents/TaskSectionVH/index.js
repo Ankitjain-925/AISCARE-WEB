@@ -2373,8 +2373,7 @@ class Index extends Component {
                                   {this.state.newTask?.start} -{" "}
                                   {this.state.newTask?.end}
                                 </Grid>
-
-                                {this.state.newTask.headache === "yes" && (
+                                {this.state.newTask.headache === 'yes' && (
                                   <Grid>
                                     <Grid>
                                       <h3>{Headache}</h3>
@@ -2516,7 +2515,7 @@ class Index extends Component {
                                         </p>
                                       </Grid>
                                     </Grid>
-                                    <Grid>
+                                    {this.state.newTask?.headache_have_temprature === 'yes' ? <><Grid>
                                       <h1>{body_temp}</h1>
                                     </Grid>
                                     <Grid>
@@ -2526,8 +2525,16 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask?.headache_body_temp}
                                     </p>
+                                    </>:
+                                    <><Grid>
+                                    <h1>{body_temp}</h1>
+                                  </Grid>
+                                  <Grid>
+                                    <label>{No}</label>
+                                  </Grid>
+                                  </>}
                                     {this.state.newTask
-                                      .headache_have_diabetes === "yes" && (
+                                      .headache_have_diabetes === 'yes' ? (
                                         <Grid>
                                           <Grid>
                                             <h1>{diabetes}</h1>
@@ -2563,13 +2570,22 @@ class Index extends Component {
                                                       ?.headache_situation?.value,
                                                     this.props.stateLanguageType,
                                                     true,
-                                                    "anamnesis"
+                                                    'anamnesis'
                                                   )}
                                               </p>
                                             </Grid>
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      ):
+                                      <Grid>
+                                          <Grid>
+                                            <h1>{diabetes}</h1>
+                                          </Grid>
+                                          <Grid>
+                                              <label>{No}</label>
+                                             
+                                          </Grid>
+                                        </Grid>}
                                     <Grid>
                                       <label>{quality_of_pain}</label>
                                     </Grid>
@@ -2582,7 +2598,7 @@ class Index extends Component {
                                       <label>{headache_need_to_vomit}</label>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.headache_need_to_vomit === "yes" ? (
+                                          ?.headache_need_to_vomit === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2592,7 +2608,7 @@ class Index extends Component {
                                       <label>{headache_onset_of_pain}</label>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.headache_onset_of_pain === "yes" ? (
+                                          ?.headache_onset_of_pain === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2603,7 +2619,7 @@ class Index extends Component {
                                     </Grid>
                                     {this.state.newTask &&
                                       this.state.newTask
-                                        ?.headache_take_painkillers === "yes" ? (
+                                        ?.headache_take_painkillers === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -2616,7 +2632,7 @@ class Index extends Component {
                                     {this.state.newTask &&
                                       this.state.newTask
                                         ?.headache_undergoing_treatment ===
-                                      "yes" ? (
+                                      'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -2631,8 +2647,7 @@ class Index extends Component {
                                     </p>
                                   </Grid>
                                 )}
-                                {this.state.newTask.stomach_problems ===
-                                  "yes" && (
+                                {this.state.newTask.stomach_problems === 'yes' && (
                                     <Grid>
                                       <Grid>
                                         <h3>{Stomach_Problems}</h3>
@@ -2668,7 +2683,7 @@ class Index extends Component {
                                           {this.state.newTask &&
                                             this.state.newTask
                                               ?.stomach_behind_the_sternum ===
-                                            "yes" ? (
+                                            'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -2678,7 +2693,7 @@ class Index extends Component {
                                           <label>{stomach_attack}</label>
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.stomach_heart_attack === "yes" ? (
+                                              ?.stomach_heart_attack === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -2689,14 +2704,14 @@ class Index extends Component {
 
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.stomach_heart_failure === "yes" ? (
+                                              ?.stomach_heart_failure === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
                                           )}
                                         </Grid>
                                       </Grid>
-                                      <Grid>
+                                      {this.state.newTask?.stomach_blood_pressure === 'yes' ?<><Grid>
                                         <h1>{blood_pressure}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
@@ -2716,9 +2731,15 @@ class Index extends Component {
                                                 ?.stomach_rr_diastolic}
                                           </p>
                                         </Grid>
-                                      </Grid>
+                                      </Grid></>: 
+                                      <><Grid>
+                                      <h1>{blood_pressure}</h1>
+                                    </Grid>
+                                    <Grid>
+                                        <label>{No}</label>
+                                      </Grid></>}
                                       {this.state.newTask
-                                        .stomach_have_diabetes === "yes" && (
+                                        .stomach_have_diabetes === 'yes' ? (
                                           <Grid>
                                             <Grid>
                                               <h1>{diabetes}</h1>
@@ -2754,25 +2775,33 @@ class Index extends Component {
                                                         ?.stomach_situation?.value,
                                                       this.props.stateLanguageType,
                                                       true,
-                                                      "anamnesis"
+                                                      'anamnesis'
                                                     )}
                                                 </p>
                                               </Grid>
                                             </Grid>
                                           </Grid>
-                                        )}
+                                        ):
+                                        <Grid>
+                                  <Grid>
+                                    <h1>{diabetes}</h1>
+                                  </Grid>
+                                  <Grid>
+                                    <label>{No}</label>
+                                  </Grid>
+                                  </Grid>}
                                       <Grid>
                                         <label>{stomach_periodically}</label>
                                         {this.state.newTask &&
                                           this.state.newTask
                                             ?.stomach_continuously_or_periodically ===
-                                          "yes" ? (
+                                          'yes' ? (
                                           <p>{yes}</p>
                                         ) : (
                                           <p>{no}</p>
                                         )}
                                       </Grid>
-                                      <Grid>
+                                      {this.state.newTask?.stomache_have_temprature === 'yes' ? <><Grid>
                                         <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
@@ -2781,13 +2810,21 @@ class Index extends Component {
                                       <p>
                                         {this.state.newTask &&
                                           this.state.newTask?.stomach_body_temp}
-                                      </p>
+                                      </p></>:
+                                      <Grid>
+                                      <Grid>
+                                        <h1>{body_temp}</h1>
+                                      </Grid>
+                                      <Grid>
+                                        <label>{No}</label>
+                                      </Grid>
+                                      </Grid>}
                                       <Grid>
                                         <label>{stomach_take_painkillers}</label>
                                       </Grid>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.stomach_take_painkillers === "yes" ? (
+                                          ?.stomach_take_painkillers === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2808,14 +2845,14 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.stomach_undergoing_treatment ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
                                       )}
                                     </Grid>
                                   )}
-                                {this.state.newTask.diarrhea === "yes" && (
+                                {this.state.newTask.diarrhea === 'yes' && (
                                   <Grid>
                                     <Grid>
                                       <h3>{diarrhea}</h3>
@@ -2840,13 +2877,13 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.diarrhea_suffer_from_vomiting ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
                                       )}
                                     </Grid>
-                                    <Grid>
+                                    {this.state.newTask?.diarrhea_have_temprature === 'yes' ? <><Grid>
                                       <h1>{body_temp}</h1>
                                     </Grid>
                                     <Grid>
@@ -2855,14 +2892,22 @@ class Index extends Component {
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.diarrhea_body_temp}
-                                    </p>
+                                    </p></> :
+                                    <Grid>
+                                    <Grid>
+                                      <h1>{diarrhea_body_temp}</h1>
+                                    </Grid>
+                                    <Grid>
+                                      <label>{No}</label>
+                                    </Grid>
+                                    </Grid>}
                                     <Grid>
                                       <label>{diarrhea_suffer_symtoms}</label>
 
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.diarrhea_envi_suffer_symtoms ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2874,7 +2919,7 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.diarrhea_liquids_with_you ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2882,7 +2927,7 @@ class Index extends Component {
                                     </Grid>
                                   </Grid>
                                 )}
-                                {this.state.newTask.have_fever === "yes" && (
+                                {this.state.newTask.have_fever === 'yes' && (
                                   <Grid>
                                     <Grid>
                                       <h3>{fever}</h3>
@@ -2933,7 +2978,7 @@ class Index extends Component {
                                           ?.fever_pain_intensity}
                                     </p>
                                     {this.state.newTask.fever_have_a_cough ===
-                                      "yes" && (
+                                      'yes' && (
                                         <Grid>
                                           <Grid>
                                             <h1>{cough}</h1>
@@ -2964,7 +3009,7 @@ class Index extends Component {
                                           </Grid>
                                         </Grid>
                                       )}
-                                    <Grid>
+                                    {this.state.newTask?.fever_have_a_Sputum === 'yes' ?<><Grid>
                                       <label>{fever_sputum}</label>
                                     </Grid>
                                     <p
@@ -2973,10 +3018,18 @@ class Index extends Component {
                                           this.state.newTask &&
                                           this.state.newTask?.fever_sputum,
                                       }}
-                                    />
+                                    /></>
+                                  : <Grid>
+                                  <Grid>
+                                    <h1>{fever_sputum}</h1>
+                                  </Grid>
+                                  <Grid>
+                                    <label>{No}</label>
+                                  </Grid>
+                                  </Grid>}
                                   </Grid>
                                 )}
-                                {this.state.newTask.back_pain === "yes" && (
+                                {this.state.newTask.back_pain === 'yes' && (
                                   <Grid>
                                     <Grid>
                                       <h3>{back_pain}</h3>
@@ -3000,7 +3053,7 @@ class Index extends Component {
                                     </Grid>
                                     {this.state.newTask &&
                                       this.state.newTask
-                                        ?.back_pain_been_injured === "yes" ? (
+                                        ?.back_pain_been_injured === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -3011,7 +3064,7 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.back_pain_physically_strained ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -3023,14 +3076,14 @@ class Index extends Component {
                                       {this.state.newTask &&
                                         this.state.newTask
                                           ?.back_pain_stress_depression ===
-                                        "yes" ? (
+                                        'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
                                       )}
                                     </Grid>
                                     {this.state.newTask
-                                      .back_pain_have_diabetes === "yes" && (
+                                      .back_pain_have_diabetes === 'yes' ? (
                                         <Grid>
                                           <Grid>
                                             <h1>{diabetes} </h1>
@@ -3069,18 +3122,25 @@ class Index extends Component {
                                                       ?.value,
                                                     this.props.stateLanguageType,
                                                     true,
-                                                    "anamnesis"
+                                                    'anamnesis'
                                                   )}
                                               </p>
                                             </Grid>
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      ): <Grid>
+                                      <Grid>
+                                        <h1>{diabetes}</h1>
+                                      </Grid>
+                                      <Grid>
+                                        <label>{No}</label>
+                                      </Grid>
+                                      </Grid>}
                                     <Grid>
                                       <label>{back_attack}</label>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.back_pain_heart_attack === "yes" ? (
+                                          ?.back_pain_heart_attack === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -3090,16 +3150,16 @@ class Index extends Component {
                                       <label>{back_failure}</label>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.back_pain_heart_failure === "yes" ? (
+                                          ?.back_pain_heart_failure === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
                                       )}
                                     </Grid>
-                                    <Grid>
+                                    {this.state.newTask?.back_pain_blood_pressure === 'yes' ? <><Grid>
                                       <h1>{blood_pressure}</h1>
                                     </Grid>
-                                    <Grid container xs={12} md={12}>
+                                     <Grid container xs={12} md={12}>
                                       <Grid xs={4} md={4}>
                                         <label>{rr_systolic}</label>
                                         <p>
@@ -3116,11 +3176,18 @@ class Index extends Component {
                                               ?.back_pain_rr_diastolic}
                                         </p>
                                       </Grid>
-                                    </Grid>
+                                    </Grid></>:
+                                     <Grid>
+                                     <Grid>
+                                       <h1>{diabetes}</h1>
+                                     </Grid>
+                                     <Grid>
+                                       <label>{No}</label>
+                                     </Grid>
+                                     </Grid>}
                                   </Grid>
                                 )}
-                                {this.state.newTask.cough_and_snees ===
-                                  "yes" && (
+                                {this.state.newTask.cough_and_snees === 'yes' && (
                                     <Grid>
                                       <Grid>
                                         <h3>{cough_and_snees}</h3>
@@ -3139,7 +3206,7 @@ class Index extends Component {
                                             ?.date_format
                                         )}
                                       </p>
-                                      <Grid>
+                                      {this.state.newTask?.cough_have_temprature === 'yes' ? <><Grid>
                                         <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
@@ -3148,18 +3215,26 @@ class Index extends Component {
                                       <p>
                                         {this.state.newTask &&
                                           this.state.newTask?.cough_body_temp}
-                                      </p>
+                                      </p></>:
+                                       <Grid>
+                                       <Grid>
+                                         <h1>{body_temp}</h1>
+                                       </Grid>
+                                       <Grid>
+                                         <label>{No}</label>
+                                       </Grid>
+                                       </Grid>}
                                       <Grid>
                                         <label>{cough_suffer_symtoms}</label>
                                       </Grid>
                                       {this.state.newTask &&
                                         this.state.newTask
-                                          ?.cough_envi_suffer_symtoms === "yes" ? (
+                                          ?.cough_envi_suffer_symtoms === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
                                       )}
-                                      <Grid>
+                                       {this.state.newTask?.Cough_allergies === 'yes' ? <><Grid>
                                         <label>{cough_allergies}</label>
                                       </Grid>
                                       <p
@@ -3169,11 +3244,18 @@ class Index extends Component {
                                             this.state.newTask
                                               ?.cough_suffer_from_allergies,
                                         }}
-                                      />
+                                      /></>:
+                                      <Grid>
+                                      <Grid>
+                                        <h1>{cough_allergies}</h1>
+                                      </Grid>
+                                      <Grid>
+                                        <label>{No}</label>
+                                      </Grid>
+                                      </Grid>}
                                     </Grid>
                                   )}
-                                {this.state.newTask.feel_depressed ===
-                                  "yes" && (
+                                {this.state.newTask.feel_depressed === 'yes' && (
                                     <Grid>
                                       <Grid>
                                         <h3>{feel_depressed}</h3>
@@ -3206,7 +3288,7 @@ class Index extends Component {
 
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.depressed_do_you_sleep === "yes" ? (
+                                              ?.depressed_do_you_sleep === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3220,7 +3302,7 @@ class Index extends Component {
                                           {this.state.newTask &&
                                             this.state.newTask
                                               ?.depressed_suicidal_thoughts ===
-                                            "yes" ? (
+                                            'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3232,7 +3314,7 @@ class Index extends Component {
                                           {this.state.newTask &&
                                             this.state.newTask
                                               ?.depressed_hurt_yourself ===
-                                            "yes" ? (
+                                            'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3241,8 +3323,7 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
                                   )}
-                                {this.state.newTask.cardiac_problems ===
-                                  "yes" && (
+                                {this.state.newTask.cardiac_problems === 'yes' && (
                                     <Grid>
                                       <Grid>
                                         <h3>{cardiac_problems}</h3>
@@ -3274,7 +3355,7 @@ class Index extends Component {
 
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.cardiac_heart_attack === "yes" ? (
+                                              ?.cardiac_heart_attack === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3285,7 +3366,7 @@ class Index extends Component {
 
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.cardiac_heart_failure === "yes" ? (
+                                              ?.cardiac_heart_failure === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3295,7 +3376,7 @@ class Index extends Component {
                                           <label>{cardiac_dizziness}</label>
                                           {this.state.newTask &&
                                             this.state.newTask
-                                              ?.cardiac_have_dizziness === "yes" ? (
+                                              ?.cardiac_have_dizziness === 'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
@@ -3307,7 +3388,7 @@ class Index extends Component {
                                           {this.state.newTask &&
                                             this.state.newTask
                                               ?.cardiac_have_shoulder_pain ===
-                                            "yes" ? (
+                                            'yes' ? (
                                             <p>{yes}</p>
                                           ) : (
                                             <p>{no}</p>
