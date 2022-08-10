@@ -66,6 +66,7 @@ import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
 import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
+import DoctorET from "Screens/Doctor/Earlier_Activities/index.js";
 
 //for hospital admin user
 import H_patient from "Screens/hospital_Admin/h_patient";
@@ -395,6 +396,11 @@ class Routermain extends Component {
               exact
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
+            />
+             <Route
+              path="/doctor/earlier-task"
+              exact={true}
+              render={(props) => <DoctorET {...props} />}
             />
 
             {/* Doctor Router End*/}
