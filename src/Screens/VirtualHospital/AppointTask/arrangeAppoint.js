@@ -913,7 +913,7 @@ class Index extends Component {
                       </Grid></>}
                     {this.state.selectPatDoc === 'no' && <>
                       <label>Nurse
-                        <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
+                        {/* <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} /> */}
                       </label>
                       <Grid>
                         <Select
@@ -996,7 +996,39 @@ class Index extends Component {
           <div className="alowLocAces1">
             <div className="alowLocAces1Inner">
               <div className="accessCourse">
-                <div className="handleAccessBtn">
+              <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                    <Grid
+                  className="backFlow backFlow34"
+                  onClick={() => {
+                    this.setState({ openAllowLoc: false, openAllowAccess: true });
+                  }}
+                >
+                  <a>
+                    <img
+                      src={require('assets/virtual_images/rightArrow.png')}
+                      alt=""
+                      title=""
+                    />
+                    Back
+                  </a>
+                </Grid>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                        <Grid>
+                        <Grid className="entryCloseBtn">
+                            <a onClick={this.handleCloseAllowLoc}>
+                            <img
+                                src={require("assets/images/close-search.svg")}
+                                alt=""
+                                title=""
+                            />
+                            </a>
+                        </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                {/* <div className="handleAccessBtn">
                   <a onClick={this.handleCloseAllowLoc}>
                     <img
                       src={require("assets/images/close-search.svg")}
@@ -1019,7 +1051,7 @@ class Index extends Component {
                     />
                     Back
                   </a>
-                </Grid>
+                </Grid> */}
                 <Grid
                   container
                   direction="row"
@@ -1135,17 +1167,17 @@ class Index extends Component {
               </div>
               {/* New Design */}
               <div className="allowAvailList">
-                {allDocData &&
-                  allDocData.length > 0 &&
-                  allDocData.map((doc, i) => (
-                    <div key={i} className="allowAvailListIner">
+                {this.state.personalinfo &&
+                  // allDocData.length > 0 &&
+                  // allDocData.map((doc, i) => (
+                    <div className="allowAvailListIner">
                       <Grid container direction="row" spacing={1}>
                         <Grid item xs={12} md={3}>
                           <Grid className="spclistDr">
-                            {doc.data.new_image ? (
+                            {this.state.personalinfo?.new_image ? (
                               <img
                                 className="doctor_pic"
-                                src={doc.data.new_image}
+                                src={this.state.personalinfo?.new_image}
                                 alt=""
                                 title=""
                               />
@@ -1159,20 +1191,18 @@ class Index extends Component {
                             )}
                             <a>
                               {/* <img src={doc.data.image} alt="" title="" /> */}
-                              {doc.data &&
-                                doc.data.first_name &&
-                                doc.data.first_name}{" "}
-                              {doc.data &&
-                                doc.data.last_name &&
-                                doc.data.last_name}{" "}
-                              (
+                              {this.state.personalinfo?.first_name &&
+                                this.state.personalinfo?.first_name}{" "}
+                              {this.state.personalinfo?.last_name &&
+                                this.state.personalinfo?.last_name}{" "}
+                              {/* (
                               {doc.data &&
                                 doc.data.title &&
                                 doc.data.title}
-                              )
+                              ) */}
                             </a>
                           </Grid>
-                          <Grid className="nuroDr">
+                          {/* <Grid className="nuroDr">
                             <label>
                               {doc.data &&
                                 doc.data.speciality &&
@@ -1191,7 +1221,7 @@ class Index extends Component {
                                   this.props.stateLanguageType
                                 )}
                             </p>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                         <Grid item xs={12} md={5}>
                           <Grid className="srvcTagsCntnt">
@@ -1207,7 +1237,7 @@ class Index extends Component {
                               >
                                 {Contact}
                               </a>
-                              <a
+                              {/* <a
                                 className={
                                   this.state.show_type === "service" &&
                                   "currentTab"
@@ -1230,7 +1260,7 @@ class Index extends Component {
                                 }}
                               >
                                 {latest_info}
-                              </a>
+                              </a> */}
                             </Grid>
                             {this.state.show_type === "contact" && (
                               <Grid className="srvcTagsLoc">
@@ -1240,9 +1270,9 @@ class Index extends Component {
                                     alt=""
                                     title=""
                                   />
-                                  {doc.data &&
-                                    doc.data.city &&
-                                    doc.data.city}
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.city &&
+                                    this.state.personalinfo?.city}
                                 </a>
                                 <a>
                                   <img
@@ -1250,9 +1280,9 @@ class Index extends Component {
                                     alt=""
                                     title=""
                                   />
-                                  {doc.data &&
-                                    doc.data.mobile &&
-                                    doc.data.mobile}
+                                  {this.state.personalinfo  &&
+                                    this.state.personalinfo?.mobile &&
+                                    this.state.personalinfo?.mobile}
                                 </a>
                                 <a>
                                   <img
@@ -1260,9 +1290,9 @@ class Index extends Component {
                                     alt=""
                                     title=""
                                   />
-                                  {doc.data &&
-                                    doc.data.email &&
-                                    doc.data.email}
+                                  {this.state.personalinfo  &&
+                                    this.state.personalinfo?.email &&
+                                    this.state.personalinfo?.email}
                                 </a>
                                 <a>
                                   <img
@@ -1270,14 +1300,14 @@ class Index extends Component {
                                     alt=""
                                     title=""
                                   />
-                                  {doc.data &&
-                                    doc.data.language &&
-                                    doc.data.language.length > 0 &&
-                                    doc.data.language.join(", ")}
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.language &&
+                                    this.state.personalinfo?.language.length > 0 &&
+                                    this.state.personalinfo?.language.join(", ")}
                                 </a>
                               </Grid>
                             )}
-                            {this.state.show_type === "service" && (
+                            {/* {this.state.show_type === "service" && (
                               <Grid className="srvcTagsLoc">
                                 <a>
                                   {doc.data &&
@@ -1298,10 +1328,12 @@ class Index extends Component {
                                   )}
                                 </a>
                               </Grid>
-                            )}
+                            )} */}
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={4}>
+                      {allDocData?.length > 0 &&
+                      allDocData.map((doc, i) => (
                           <Grid className="avlablDates">
                             <h3>{see_avlbl_date}:</h3>
                             <Grid>
@@ -1344,12 +1376,13 @@ class Index extends Component {
                                   ? doc.appointments[0].custom_text
                                   : office_visit}
                               </a>
-                              {/* <a
+                              
+                              <a
                                 onClick={() =>
                                   this.handleOpenFancyVdo(
                                     i,
-                                    "appointments",
-                                    doc.appointments[0]
+                                    "homevisit_appointment",
+                                    doc.homevisit_appointment[0]
                                   )
                                 }
                               >
@@ -1358,12 +1391,9 @@ class Index extends Component {
                                   alt=""
                                   title=""
                                 />
-                                {doc.appointments &&
-                                  doc.appointments.length > 0 &&
-                                  doc.appointments[0].custom_text
-                                  ? "Home visit"
-                                  : "Home visit"}
-                              </a> */}
+                                
+                                  {Home_visit}
+                              </a>
                               {/* )}
                                     <a
                                       onClick={() =>
@@ -1384,10 +1414,12 @@ class Index extends Component {
                                     </a> */}
                             </Grid>
                           </Grid>
+                      ))}
                         </Grid>
                       </Grid>
                     </div>
-                  ))}
+                  // ))}
+                }
               </div>
             </div>
             {/* End of New Design */}
