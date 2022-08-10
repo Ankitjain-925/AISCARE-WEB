@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
-import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -56,7 +56,7 @@ class Index extends Component {
             AllTasks: {},
             shown: false,
             professionalArray: [],
-            ArchivedTask: [],
+            ArchivedTasks: [],
             loaderImage: false,
             hope: false,
             openDate: true,
@@ -86,7 +86,7 @@ class Index extends Component {
         });
     };
     //get Add task data
-    getAddTaskData = async (tabvalue2, goArchive) => {
+    getAddTaskData = (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
         axios
             .get(
@@ -94,28 +94,24 @@ class Index extends Component {
                 "/vc/PastTask/" + this.props.stateLoginValueAim?.user?.profile_id,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
-            .then(async (response) => {
+            .then((response) => {
+                console.log("response", response)
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
-                    var services = await this.getAddTaskData1();
-                    services = [... services.data.data, ...response.data.data]
                     if (response?.data?.data) {
-                      var patientForFilterArr = filterPatient(services);
-                      this.setState({ patientForFilter: patientForFilterArr });
+                        var patientForFilterArr = filterPatient(response.data.data);
+                        this.setState({ patientForFilter: patientForFilterArr });
                     }
                     var Done =
-                    services?.length > 0 &&
-                    services.filter((item) => item.status === "done");
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => item.status === "done");
                     var Open =
-                    services?.length > 0 &&
-                    services.filter((item) => item.status === "open");
-                    var ArchivedTask  = services?.length > 0 &&
-                    services.filter((item) => item.archived);
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => item.status === "open");
                     this.setState({
-                      AllTasks: services,
-                      DoneTask: Done,
-                      OpenTask: Open,
-                      ArchivedTask: ArchivedTask
+                        AllTasks: response.data.data,
+                        DoneTask: Done,
+                        OpenTask: Open,
                     });
                     if (goArchive) {
                         this.setState({ tabvalue2: 3 });
@@ -128,21 +124,44 @@ class Index extends Component {
             });
     };
 
-      //get Add task data
-  getAddTaskData1 = async (uid, data) => {
-    var nurse_id = this.props.stateLoginValueAim?.user?._id
-    let response = await axios
-    .post(
-      sitedata.data.path + "/vc/nursebefore",
-      { nurse_id: nurse_id },
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    if (response.data.hassuccessed) {
-        return response
-    } else {
-        return false
-    }
-}
+     //get old task data
+     getAddTaskData1 = (tabvalue2, goArchive) => {
+        this.setState({ loaderImage: true });
+        axios
+            .post(
+                sitedata.data.path + "/vc/nursebefore/",
+                {nurse_id: this.props.stateLoginValueAim?.user?._id},
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                console.log("response", response)
+                this.setState({ AllTasks: response.data.data });
+                if (response.data.hassuccessed) {
+                    if (response?.data?.data) {
+                        var patientForFilterArr = filterPatient(response.data.data);
+                        this.setState({ patientForFilter: patientForFilterArr });
+                    }
+                    var Done =
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => item.status === "done");
+                    var Open =
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => item.status === "open");
+                    this.setState({
+                        AllTasks: response.data.data,
+                        DoneTask: Done,
+                        OpenTask: Open,
+                    });
+                    if (goArchive) {
+                        this.setState({ tabvalue2: 3 });
+                    }
+                    else {
+                        this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+                    }
+                }
+                this.setState({ loaderImage: false });
+            });
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -184,8 +203,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="Earliertask" />
-                                <LeftMenuMobile isNotShow={true} currentPage="Earliertask" />
+                                <LeftMenu isNotShow={true} currentPage="Profearliertask" />
+                                <LeftMenuMobile isNotShow={true} currentPage="Profearliertask" />
                                 <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
@@ -200,8 +219,8 @@ class Index extends Component {
                                                 AllTasks={this.state.AllTasks}
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
-                                                ArchivedTasks={this.state.ArchivedTask}
-                                                comesFrom={"Earliertask"}
+                                                ArchivedTasks={[]}
+                                                comesFrom={"Profearliertask"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

@@ -20,6 +20,10 @@ import {
     getSpeciality,
     externalSpaceApi
 } from '../../VirtualHospital/SpaceManagement/api'
+import {
+    setAssignedTo,
+    getProfessionalData,
+  } from 'Screens/VirtualHospital/PatientFlow/data';
 import { S3Image } from 'Screens/Components/GetS3Images/index';
 import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
 
@@ -34,11 +38,67 @@ class Index extends Component {
 
     componentDidMount() {
         externalSpaceApi(this);
+        this.getProfessionalData();
     }
+
+      //Set data according to package
+  setDta = () => {
+    externalSpaceApi(this)
+  };
 
     MovetoTask = () => {
         this.props.history.push('/virtualhospital/tasks');
     };
+
+     //Select the professional name
+  updateEntryState3 = (e, case_id) => {
+    var data =
+      e?.length > 0 &&
+      e.reduce((last, current, index) => {
+        let isProf =
+          this.state.professionalArray?.length > 0 &&
+          this.state.professionalArray.filter(
+            (data, index) => data.user_id === current.value
+          );
+        if (isProf && isProf.length > 0) {
+          last.push(isProf[0]);
+        }
+        return last;
+      }, []);
+
+    data = data ? data : [];
+    this.setState({ loaderImage: true });
+    var response = setAssignedTo(
+      data,
+      case_id,
+      this.props.stateLoginValueAim.token
+    );
+    response.then((responce1) => {
+      if (responce1?.data?.hassuccessed) {
+        externalSpaceApi(this)
+      } else {
+        this.setState({ loaderImage: false });
+      }
+    });
+  };
+      // Get the Professional data
+  getProfessionalData = async () => {
+    this.setState({ loaderImage: true });
+    var data = await getProfessionalData(
+      this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value,
+      this.props.stateLoginValueAim.token
+    );
+    if (data) {
+      this.setState({
+        loaderImage: false,
+        professionalArray: data.professionalArray,
+        professional_id_list: data.professionalList,
+        professional_id_list1: data.professionalList,
+      });
+    } else {
+      this.setState({ loaderImage: false });
+    }
+  };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -169,7 +229,6 @@ class Index extends Component {
                                             <Grid container direction="row" spacing={2}>
                                                 {externalData && externalData?.length > 0 &&
                                                     externalData.map((data) => (
-                                                        console.log("data", data),
                                                         <Grid item xs={12} md={4}>
                                                             <Grid className="wardsGrup3">
                                                                 <Grid className="flowInfoInr">
@@ -214,21 +273,12 @@ class Index extends Component {
                                                                         <Grid className="checkDotsRght">
                                                                             <CasesMoreButton
                                                                                 comesFrom="ExternalSpace"
-                                                                            // setDta={(item) => this.props.setDta(item)}
-                                                                            // currentStep={quote?.author?.step_name}
-                                                                            // currentIndex={checkTheIndex(
-                                                                            //     this.props.columns[quote?.author?.step_name],
-                                                                            //     'patient_id',
-                                                                            //     quote.patient_id
-                                                                            // )}
-                                                                            // columns={this.props.columns}
-                                                                            // quote={quote}
-                                                                            // onDragEnd={(data) => onDragEnd(data)}
-                                                                            // ordered={this.props.ordered}
-                                                                            // professional_id_list={this.props.professional_id_list}
-                                                                            // updateEntryState3={(e, case_id) => {
-                                                                            //     this.props.updateEntryState3(e, case_id);
-                                                                            // }}
+                                                                                setDta={(item) => this.setDta(item)}
+                                                                                quote={data}
+                                                                                professional_id_list={this.state.professional_id_list}
+                                                                                updateEntryState3={(e, case_id) => {
+                                                                                    this.updateEntryState3(e, case_id);
+                                                                                }}
                                                                             />
                                                                         </Grid>
                                                                     </Grid>

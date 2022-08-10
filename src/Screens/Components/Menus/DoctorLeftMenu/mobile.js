@@ -70,6 +70,11 @@ class Index extends Component {
     this.props.houseSelect({ value: null });
     this.props.history.push("/nurse/journal");
   };
+  
+  //For Task
+  handleActivityTask = () => {
+    this.props.history.push("/doctor/professional-activity");
+  };
 
   getSetting = () => {
     this.setState({ loaderImage: true });
@@ -251,6 +256,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      EarlierActivity,
       appointments,
       chat_vdocall,
       capab_Patients,
@@ -642,6 +648,36 @@ class Index extends Component {
                           <span>{professional_activity}</span>
                         </a>
                       </li>
+
+                      <li
+                  className={
+                    this.props.currentPage === "Profearliertask" ? "menuActv" : ""
+                  }
+                >
+                    <a onClick={() => { this.props.history.push("/doctor/earlier-task") }}>
+                    {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                      <img
+                        src={require("assets/virtual_images/rightIcon2.png")}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          this.props.currentPage === "Profearliertask"
+                            ? require("assets/virtual_images/rightIcon2.png")
+                            : require("assets/virtual_images/rightpng.png")
+                        }
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>{EarlierActivity}</span>
+                  </a>
+                </li>
 
                       <li>
                         <a className="moreMenu">

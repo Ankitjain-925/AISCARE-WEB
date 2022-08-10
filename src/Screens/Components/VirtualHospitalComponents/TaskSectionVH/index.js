@@ -280,6 +280,7 @@ class Index extends Component {
     ];
     this.setState({
       openTask: true,
+      selectedHouse:{},
       newTask: {},
       assignedTo: [],
       q: "",
@@ -1024,11 +1025,6 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
-    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
-    this.setState({
-      selectedHouse: findHouse
-    }, () => { this.getProfessionalData(); })
-
     // var assignedTo =
     //   data?.assinged_to?.length > 0 &&
     //   data?.assinged_to.map((data) => {
@@ -1057,6 +1053,7 @@ class Index extends Component {
         return item?.user_id;
       });
     var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+    console.log("findHouse",findHouse)
     var deep = _.cloneDeep(data);
     this.setState({
       selectedHouse: findHouse,
@@ -1381,6 +1378,7 @@ class Index extends Component {
   }
 
   render() {
+    console.log("selectedHouse",this.state.selectedHouse)
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateCertificate,
@@ -1583,7 +1581,7 @@ class Index extends Component {
           <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
-              {this.props.comesFrom !== "Earliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
+              {this.props.comesFrom !== "Earliertask" && this.props.comesFrom !== "Profearliertask"  && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" && <AssignedService />}
               {/* <label>{filterbedge}</label> */}
             </Grid>
@@ -1610,7 +1608,7 @@ class Index extends Component {
                       <Grid item xs={12} md={12} lg={12}>
                         <Grid container direction="row" justify="center">
                           <Grid item xs={8} md={8} lg={8}>
-                            <label>{CreateaTask}</label>
+                            <label>{this.state.newTask.task_name ? CreateaTask: "Assigned services"}</label>
                           </Grid>
                           <Grid item xs={4} md={4} lg={4}>
                             <Grid>
@@ -1650,10 +1648,9 @@ class Index extends Component {
                           alignItems="center"
                           spacing={2}
                         >
-
+                         {this.props.comesFrom === "Professional" &&
                           <Grid item xs={12} md={12}>
                             <label>For Hospital</label>
-                            {this.props.comesFrom === "Professional" &&
                               <Grid>
                                 <Select
                                   name="for_hospital"
@@ -1666,10 +1663,10 @@ class Index extends Component {
                                   isSearchable={true}
                                 />
                               </Grid>
-                            }
                           </Grid>
+                        }
                           <Grid item xs={12} md={12}>
-                            <VHfield
+                            { this.state.newTask.task_name ? <VHfield
                               label={Tasktitle}
                               name="task_name"
                               placeholder={Entertitle}
@@ -1686,6 +1683,24 @@ class Index extends Component {
                                 this.state.newTask?.task_type === "sick_leave"
                               }
                             />
+                            :
+                          <VHfield
+                              label={"Title"}
+                              name="task_name"
+                              placeholder={"Title"}
+                              onChange={(e) =>
+                                this.updateEntryState1(
+                                  e.target.value,
+                                  e.target.name
+                                )
+                              }
+                              value={this.state.newTask.title || ""}
+                              disabled={
+                                this.state.newTask?.title ===
+                                "picture_evaluation" ||
+                                this.state.newTask?.title === "sick_leave"
+                              }
+                            />}
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>

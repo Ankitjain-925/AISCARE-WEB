@@ -336,7 +336,7 @@ class Index extends React.Component {
       Discharge_Patient_in_This_Step,
       Patient_in_this_Step_will_be_discharged_from_the_flow,
       What_would_you_like_to_do,
-      CreateInvoices,
+      ok,
       Discharge_without_Invoices,
       Cancel,
     } = translate;
@@ -374,7 +374,7 @@ class Index extends React.Component {
                 <label>{What_would_you_like_to_do}</label>
               </Grid>
               <Grid>
-                <Button
+                {/* <Button
                   className="creatInvoic"
                   onClick={() => {
                     this.RemoveDirectPatientOk(1, true);
@@ -382,7 +382,7 @@ class Index extends React.Component {
                   }}
                 >
                   {CreateInvoices}
-                </Button>
+                </Button> */}
                 <Button
                   className="dischrgInvoic"
                   onClick={() => {
@@ -390,7 +390,7 @@ class Index extends React.Component {
                     onClose();
                   }}
                 >
-                  {Discharge_without_Invoices}
+                  {ok}
                 </Button>
                 <Button
                   className="dischrgCncl"
@@ -532,7 +532,7 @@ class Index extends React.Component {
               <li><a onClick={() => { this.MovetoService() }}><span className="more-add-task"></span>{add_assign_service}</a></li>
               <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=5`) }}><span className="more-add-task"></span>{Add_Appointment} </a></li>
               <li><a onClick={() => { this.setState({ changeStaffsec: true, setSec: true, specialitysec: false, assignroom: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-change-staff"></span><p className="more-change-staff-img2">{change_staff}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
-              <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
+              {this.props.comesFrom !== "ExternalSpace" && <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>}
               <li><a onClick={() => { this.setState({ specialitysec: true, assignroom: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-new-speciality"></span><p className="more-change-staff-img2">{assign_to_speciality}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               {!this.props.quote?.external_space && <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false, setSec: true }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>}
               {!this.props.quote?.external_space && <li><a onClick={() => { this.MoveExternalSpace() }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{"Move to external space"}</p></p> </a></li>}

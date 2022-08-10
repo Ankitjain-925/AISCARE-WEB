@@ -147,7 +147,7 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
-            {this.props?.House?.value &&
+            {/* {this.props?.House?.value &&
               <>
                 <li
                   className={
@@ -198,7 +198,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>}
-            {!this.props?.House?.value && <>
+            {!this.props?.House?.value && <> */}
               <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
                 <a onClick={this.Chats}>
                   {this.props.settings &&
@@ -393,7 +393,7 @@ class Index extends Component {
                   <span>{"Care Questionnary"}</span>
                 </a>
               </li>
-            </>}
+            {/* </>} */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
