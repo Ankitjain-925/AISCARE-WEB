@@ -76,25 +76,6 @@ class Index extends Component {
         // this.getAddTaskData1();
     }
 
-    mySorter(a, b) {
-        if (a?.due_on.date && b?.due_on.date) {
-          var x = a.due_on.date 
-          var y = b.due_on.date
-          return x > y ? 1 : x < y ? -1 : 0;
-        } else {
-          return -1;
-        }
-      }
-    mySorter1(a, b) {
-        if (a?.date && b.date) {
-          var x = a.date 
-          var y = b.date
-          return x > y ? 1 : x < y ? -1 : 0;
-        } else {
-          return -1;
-        }
-      }
-
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
     };
@@ -124,6 +105,25 @@ class Index extends Component {
                       this.setState({ patientForFilter: patientForFilterArr });
                     }
                     let current_time= moment().format("HH:mm")
+                    services = _.sortBy((
+                        _.sortBy(
+                        services, 
+                        (e) => {
+                          if(e.appointment_type){
+                            return e.date
+                          }
+                          else{
+                            return e.due_on.date
+                          }
+                        })),
+                        (e) => {
+                        if(e.appointment_type){
+                          return e.start_time
+                        }
+                        else{
+                          return e.due_on.time
+                        }
+                      });
                     var Done =
                     services?.length > 0 &&
                     services.filter((item) => { 
@@ -235,7 +235,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={this.state.ArchivedTask}
-                                                comesFrom={"Earliertask"}
+                                                comesFrom={"Professional"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

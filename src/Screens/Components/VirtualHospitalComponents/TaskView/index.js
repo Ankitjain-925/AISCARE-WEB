@@ -129,19 +129,17 @@ class PointPain extends Component {
             <Grid className="attchNoteMain">
               {data.appointment_type ?
                 <>
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={12}>
-                      <Grid className="asignUpr">
-                        <Grid className="asignLft">
-                        <Grid
+                  <Grid className="attchNotePart">
+                    
+                    <Grid
                       // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                       className={
                         data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true
-                          ? 'attchOpen'
+                            ? 'attchOpen'
                             : 'attchDone'
                       }
                     >
-                      <Button>
+                       <Button>
                         <label></label>
                         {/* {console.log("time", moment(current_time).isSameOrAfter(data?.end_time))} */}
                         {data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true?(
@@ -151,36 +149,228 @@ class PointPain extends Component {
                         ) }
                       </Button>
                     </Grid>
-                    <Grid className="allInfo allInfo1">
+                   <Grid>
+                      <Grid className="allInfo allInfo1">
                         <Grid className="allInfoRght date-secTask">
                           <Grid>
                             <label>
-                              {data?.date &&
+                            {data?.date &&
                                 getDate(data?.date, this.state.date_format)}
                             </label>
                           </Grid>
                           <p>
-                          {data?.date &&
-                              getTime(
-                                new Date(data?.date),
-                                this.state.time_foramt
-                              )}
+                          {data?.start_time}
                           </p>
                         </Grid>
                       </Grid>
-                   
-                        <div className="setAssignedTo">
-                    <span>
-                         {/* { console.log("data",data)} */}
-                    {data?.docProfile?.first_name} {data?.docProfile?.last_name} - ({data?.docProfile?.patient_id})
-                  </span>
-                          <S3Image imgUrl={data.docProfile?.profile_image} />
-                          </div>
-                        </Grid>
-                        
-                      </Grid>
                     </Grid>
-                  </Grid></> : <>
+                  </Grid>
+                  <Grid className="setAssignedToupper">
+                    <Assigned assigned_to={data.assinged_to} />
+                  </Grid>
+
+
+                  <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                    {!data?.is_decline && (
+                      <a className="openScndhrf">
+                        <img
+                          src={require('assets/images/three_dots_t.png')}
+                          alt=""
+                          title=""
+                          className="openScnd specialuty-more"
+                        />
+                        <ul>
+                          <li>
+                            <a
+                              onClick={() => {
+                                this.props.editTask(data);
+                              }}
+                            >
+                              <img
+                                src={require('assets/virtual_images/pencil-1.svg')}
+                                alt=""
+                                title=""
+                              />
+
+                              {data &&
+                                data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{edit_picture_evaluation}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'adminstaff' &&
+                                data.status === 'done' ? (
+                                <>{see_details}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                (this.props.comesFrom === 'adminstaff' ||
+                                  this.props.comesFrom === 'detailTask') ? (
+                                <>{assign_to_doctor}</>
+                              ) : data.task_type &&
+                                data.task_type === 'sick_leave' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{view_detail}</>
+                              ) : (
+                                data.task_name ? <>{EditTask}</> : "Edit assigned services"
+                              )}
+                            </a>
+                          </li>
+
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            !data.approved === true &&
+                            this.props.comesFrom === 'Professional' ? (
+                            <li
+                              onClick={() => {
+                                this.props.handleApprovedDetails(
+                                  data._id,
+                                  'approved',
+                                  data
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require('assets/virtual_images/pencil-1.svg')}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{approved}</>
+                              </a>
+                            </li>
+                          ) : (
+                            <></>
+                          )}
+
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'picture_evaluation'
+                            ? this.props.comesFrom !== 'Professional' &&
+                            data?.assinged_to?.length == 0 && (
+                              <li
+                                onClick={() => {
+                                  this.props.declineTask(
+                                    data._id,
+                                    data.patient_id
+                                  );
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/cancel-request.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{decline_picture_evaluation}</>
+                                </a>
+                              </li>
+                            )
+                            : data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            this.props.comesFrom === 'Professional' &&
+                            !data.is_decline &&
+                            !data.certificate?.most_likely &&
+                            !data.approved === true && (
+                              <li
+                                onClick={() => {
+                                  this.props.handleApprovedDetails(
+                                    data._id,
+                                    'decline',
+                                    data
+                                  );
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/cancel-request.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{decline}</>
+                                </a>
+                              </li>
+                            )}
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            data.meetingjoined &&
+                            !data.certificate?.most_likely && (
+                              <li
+                                onClick={() => {
+                                  this.props.cretficate(data._id, data.patient_id);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/virtual_images/menudocs.jpg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{Create_Certificate}</>
+                                </a>
+                              </li>
+                            )}
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            !data.meetingjoined &&
+                            data.link?.doctor_link && (
+                              <li
+                                onClick={() => {
+                                  // this.props.cretficate()
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/details.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <a
+                                    className="joinmeetingtab"
+                                    href={data.link?.doctor_link}
+                                    target="_blank"
+                                  >
+                                    {Join_Meeting}
+                                  </a>
+                                </a>
+                              </li>
+                            )}
+                        </ul>
+                      </a>
+                    )}
+                    {data.task_type === 'sick_leave' && (
+                      <Grid className="informStatus">
+                        {/* <Td className="billDots">
+                  <a className="academy_ul"> */}
+                        {data && data.is_payment && data.is_payment === true && data.archived === true ? (
+                          <Grid>
+                            <InfoOutlinedIcon className="InfoOutLinees" />
+                            <label className="assignHoses Paymentpending">
+                              {
+                                Not_attended
+                              }
+                            </label>
+                          </Grid>
+                        ) : (
+                          data.archived === true && (
+                            <Grid>
+                              <InfoOutlinedIcon className="InfoOutLinees" />
+                              <label className="assignHoses appointmentTime">
+                                {Payment_pending}
+
+                              </label>
+                            </Grid>
+                          )
+                        )}
+                        {/* </a>
+                </Td> */}
+                      </Grid>)}
+                  </Grid>
+                  </> : <>
                   <Grid className="attchNotePart">
                     {data.task_type !== 'sick_leave' && (
                       <Grid className="attchNoteUpr">

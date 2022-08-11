@@ -22,6 +22,7 @@ import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSec
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
 import moment from 'moment'
+import _ from "lodash";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -85,21 +86,15 @@ class Index extends Component {
       shown: !this.state.shown,
     });
   };
-   mySorter(a, b) {
-    if (a?.due_on.date && b?.due_on.date) {
-      var x = a.due_on.date 
-      var y = b.due_on.date
-      return x > y ? 1 : x < y ? -1 : 0;
-    } else {
-      return -1;
-    }
-  }
-mySorter1(a, b) {
-    if (a?.date && b.date) {
-      var x = a.date 
-      var y = b.date
-      return x > y ? 1 : x < y ? -1 : 0;
-    } else {
+
+
+  mySorter(a, b) {
+    console.log('fdgdg dg')
+    if ((a?.due_on?.date || a?.date) && (b?.due_on?.date || a?.date)) {
+      var x = a.appointment_type ? a.date  : a.due_on.date 
+      var y = b.appointment_type ? b.date  : b.due_on.date
+      return x > y ? -1 : x < y ? 1 : 0;
+    } else { 
       return -1;
     }
   }
@@ -137,6 +132,25 @@ mySorter1(a, b) {
             }
 
           }
+          });
+          services = _.sortBy((
+            _.sortBy(
+            services, 
+            (e) => {
+              if(e.appointment_type){
+                return e.date
+              }
+              else{
+                return e.due_on.date
+              }
+            })),
+            (e) => {
+            if(e.appointment_type){
+              return e.start_time
+            }
+            else{
+              return e.due_on.time
+            }
           });
           var Open =
           services?.length > 0 &&

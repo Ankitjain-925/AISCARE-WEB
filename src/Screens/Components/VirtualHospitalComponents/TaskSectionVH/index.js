@@ -1524,6 +1524,7 @@ class Index extends Component {
       cough_and_snees,
       cough_suffer_symtoms,
       cough_allergies,
+      No,
       cough_symptoms_begin,
       depressed_do_you_sleep,
       depressed_hurt_yourself,
