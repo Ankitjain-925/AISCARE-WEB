@@ -15841,3 +15841,73 @@ width: 90px!important;
     flex-direction: initial;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.proAllSpec{
+  font-size: 12px !important;
+  width: 136px;
+  display: inline-block;
+  font-family: "Mulish", sans-serif !important;
+  text-align: left;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.proAllSpec div,
+.proAllSpec div input {
+  /* border: none !important; */
+  outline: none !important;
+  box-shadow: initial !important;
+}
+.proAllSpec div {
+  color:hsl(0,0%,50%)!important;
+  background-color: #F2F2F2 !important;
+  background: #F2F2F2 !important;
+  font-weight: 600;
+  /* padding: 2.3px 2px; */
+  border:none;
+  border-radius: 4px;
+}
+
+.taskSort{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media (max-width: 599px){
+.allTaskSortPart input[type="text"] {
+    margin-bottom: 0px;
+}
+}
+
+.serviceAmountSec p{
+  font-weight: bold;
+  font-size: 15px;
+  color: #000808;
+}
+.serviceAmountSec label{
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 25px;
+  color: #000808;
+  display: block;
+  line-height: 15px;
+  letter-spacing: 0;
+}
+.allAddSection{
+  font-size: 15px;
+  font-weight: 600;
+}
+.darkTheme{
+  margin-top: 10px;
+}

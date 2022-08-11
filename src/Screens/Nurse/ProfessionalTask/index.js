@@ -217,7 +217,6 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        patientForFilter={this.state.patientForFilter}
                         getAddTaskData={(tabvalue2, goArchive) => {
                           this.getAddTaskData(tabvalue2, goArchive);
                         }}
