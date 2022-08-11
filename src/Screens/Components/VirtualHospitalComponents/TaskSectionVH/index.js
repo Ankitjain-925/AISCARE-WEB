@@ -1082,6 +1082,7 @@ class Index extends Component {
       PatientID: patient_id,
       taskData: data,
     });
+    console.log("open",this.state.openTask1)
   };
 
   // Get the Professional data
@@ -1378,7 +1379,7 @@ class Index extends Component {
   }
 
   render() {
-    console.log("selectedHouse",this.state.selectedHouse)
+    // console.log("selectedHouse",this.state.selectedHouse)
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateCertificate,
