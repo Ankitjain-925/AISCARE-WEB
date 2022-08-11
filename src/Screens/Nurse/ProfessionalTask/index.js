@@ -116,6 +116,7 @@ class Index extends Component {
             var patientForFilterArr = filterPatient(services);
             this.setState({ patientForFilter: patientForFilterArr });
           }
+          
           let current_time= moment().format("HH:mm")
           var Done =
           services?.length > 0 && 
