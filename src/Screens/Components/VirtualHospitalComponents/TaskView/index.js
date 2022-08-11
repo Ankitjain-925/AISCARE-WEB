@@ -13,6 +13,7 @@ import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/inde
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Td } from 'react-super-responsive-table';
+import moment from 'moment'
 
 class PointPain extends Component {
   constructor(props) {
@@ -51,6 +52,8 @@ class PointPain extends Component {
       Payment_pending,
     } = translate;
     var data = this.state.data;
+    let current_time= moment().format("HH:mm")
+    // console.log("current",current_time)
     return (
       <Grid className="allTabCntnt">
         <Grid container direction="row" alignItems="center">
@@ -122,7 +125,7 @@ class PointPain extends Component {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6}>
             <Grid className="attchNoteMain">
               {data.appointment_type ?
                 <>
@@ -130,8 +133,51 @@ class PointPain extends Component {
                     <Grid item xs={12} md={12}>
                       <Grid className="asignUpr">
                         <Grid className="asignLft">
-                          <S3Image imgUrl={data.docProfile?.profile_image} />
+                        <Grid
+                      // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
+                      className={
+                        data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true
+                          ? 'attchOpen'
+                            : 'attchDone'
+                      }
+                    >
+                      <Button>
+                        <label></label>
+                        {/* {console.log("time", moment(current_time).isSameOrAfter(data?.end_time))} */}
+                        {data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true?(
+                          <> {Open}</>
+                        ) :(
+                          <>{Done}</>
+                        ) }
+                      </Button>
+                    </Grid>
+                    <Grid className="allInfo allInfo1">
+                        <Grid className="allInfoRght date-secTask">
+                          <Grid>
+                            <label>
+                              {data?.date &&
+                                getDate(data?.date, this.state.date_format)}
+                            </label>
+                          </Grid>
+                          <p>
+                          {data?.date &&
+                              getTime(
+                                new Date(data?.date),
+                                this.state.time_foramt
+                              )}
+                          </p>
                         </Grid>
+                      </Grid>
+                   
+                        <div className="setAssignedTo">
+                    <span>
+                         {/* { console.log("data",data)} */}
+                    {data?.docProfile?.first_name} {data?.docProfile?.last_name} - ({data?.docProfile?.patient_id})
+                  </span>
+                          <S3Image imgUrl={data.docProfile?.profile_image} />
+                          </div>
+                        </Grid>
+                        
                       </Grid>
                     </Grid>
                   </Grid></> : <>
@@ -156,6 +202,7 @@ class PointPain extends Component {
                         </Grid>
                       </Grid>
                     )}
+                    
                     <Grid
                       // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                       className={
@@ -177,7 +224,7 @@ class PointPain extends Component {
                         )}
                       </Button>
                     </Grid>
-                    <Grid>
+                   <Grid>
                       <Grid className="allInfo allInfo1">
                         <Grid className="allInfoRght date-secTask">
                           <Grid>
