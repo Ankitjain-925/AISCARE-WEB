@@ -1910,7 +1910,10 @@
     "sure_remove_service_from_assigned":"Are you sure to remove this Service from Assigned?",
     "Please_select_atlest":"Please select atleast one service",
     "Plz_select_a_staff":"please select a staff",
-    "to":"to"
+    "to":"to",
+
+
+    "bp_should_number": "bp should be in number"
 
   }
 }
