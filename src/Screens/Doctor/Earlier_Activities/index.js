@@ -273,7 +273,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={[]}
-                                                comesFrom={"Profearliertask"}
+                                                comesFrom={"Professional"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>
