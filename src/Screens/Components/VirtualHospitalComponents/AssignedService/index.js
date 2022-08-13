@@ -445,8 +445,8 @@ class Index extends Component {
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
-        this.handleCloseAss();
-        this.setState({ message: null });
+        this.setState({ openAss: false,message: null, 
+       });
         let translate = getLanguage(this.props.stateLanguageType);
         let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
             translate;
@@ -478,11 +478,14 @@ class Index extends Component {
                             >
                                 {Yes}
                             </button>
+                           
                         </div>
                     </div>
                 );
+                
             },
         });
+        
     };
 
     deleteClickService(id) {
@@ -591,7 +594,7 @@ class Index extends Component {
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
                             <Grid>
-                                        <VHfield
+                               <VHfield
                                             label={Assignedtitle}
                                             name="title"
                                             placeholder={Entertitle}
@@ -599,10 +602,16 @@ class Index extends Component {
                                                 this.onFieldChange1(e.target.value, 'title')
                                             }
                                             value={this.state.service.title}
+                                            
                                         />
-                                    {/* </Grid>
+                                    </Grid>
                                     <p className="err_message">{this.state.error}</p>
-                                    <Grid> */}
+                                    <Grid>
+                                     {this.state.showError && (
+                                        <div className="err_message">
+                                            {Please_select_atlest}
+                                        </div>
+                                    )}
                                         <label>{Addservice}</label>
                                         <Select
                                             name="service"

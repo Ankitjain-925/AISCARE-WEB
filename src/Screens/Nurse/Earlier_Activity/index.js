@@ -21,6 +21,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
+import moment from 'moment'
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -103,9 +104,42 @@ class Index extends Component {
                       var patientForFilterArr = filterPatient(services);
                       this.setState({ patientForFilter: patientForFilterArr });
                     }
+                    let current_time= moment().format("HH:mm")
+                    services = _.sortBy((
+                        _.sortBy(
+                        services, 
+                        (e) => {
+                          if(e.appointment_type){
+                            return e.date
+                          }
+                          else{
+                            return e.due_on.date
+                          }
+                        })),
+                        (e) => {
+                        if(e.appointment_type){
+                          return e.start_time
+                        }
+                        else{
+                          return e.due_on.time
+                        }
+                      });
                     var Done =
                     services?.length > 0 &&
-                    services.filter((item) => item.status === "done");
+                    services.filter((item) => { 
+                        if(item.task_name){
+                       return item.status === "done" 
+                        }
+                        else 
+                        {
+                        if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
+                         return item
+                        }else{
+                        return item.status ==="done"
+                        }
+            
+                      }
+                      });
                     var Open =
                     services?.length > 0 &&
                     services.filter((item) => item.status === "open");
@@ -201,7 +235,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={this.state.ArchivedTask}
-                                                comesFrom={"Earliertask"}
+                                                comesFrom={"Professional"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>
