@@ -116,23 +116,7 @@ class Index extends Component {
             var patientForFilterArr = filterPatient(services);
             this.setState({ patientForFilter: patientForFilterArr });
           }
-          let current_time= moment().format("HH:mm")
-          var Done =
-          services?.length > 0 && 
-          services.filter((item) => { 
-            if(item.task_name){
-           return item.status === "done" 
-            }
-            else 
-            {
-            if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-             return item
-            }else{
-            return item.status ==="done"
-            }
-
-          }
-          });
+        
           services = _.sortBy((
             _.sortBy(
             services, 
@@ -152,9 +136,46 @@ class Index extends Component {
               return e.due_on.time
             }
           });
-          var Open =
-          services?.length > 0 &&
-          services.filter((item) => item.status === "open" );
+          let today = new Date().setHours(0, 0, 0, 0);
+          let ttime = moment().format("HH:mm");
+      var Done =
+        services?.length > 0 && 
+        services.filter((item) => { 
+          if(item.task_name){
+            return item.status === "done" 
+          }
+          else 
+          {
+            let data_end = moment(item.end_time).format("HH:mm");
+            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+           
+          if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end >= ttime) )){
+           return item
+          }else{
+          return item.status ==="done"
+          }
+
+        }
+        });
+      
+      var Open =
+        response.data.data?.length > 0 &&
+        response.data.data.filter((item) => { 
+          if(item.task_name){
+            return item.status === "open" 
+          }
+          else 
+          {
+            let data_end = moment(item.end_time).format("HH:mm");
+            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+          if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) && data_end < ttime) )){
+            return item
+          }else{
+          return item.status ==="open"
+          }
+
+        }
+        });
           var ArchivedTask  = services?.length > 0 &&
           services.filter((item) => item.archived);
           this.setState({
