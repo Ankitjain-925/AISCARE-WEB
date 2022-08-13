@@ -30,6 +30,18 @@ class PointPain extends Component {
     }
   };
 
+  checkdone = (item) => {
+    let today = new Date().setHours(0, 0, 0, 0);
+    let ttime = moment().format("HH:mm");
+    let data_end = moment(item.end_time).format("HH:mm");
+    let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+
+    if (item?.end_time && (moment(today).isAfter(data_d) || (moment(today).isSame(data_d) && data_end >= ttime))) {
+      return true;
+    }
+    return false;
+  }
+
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -52,7 +64,7 @@ class PointPain extends Component {
       Payment_pending,
     } = translate;
     var data = this.state.data;
-    let current_time= moment().format("HH:mm")
+    let current_time = moment().format("HH:mm")
     // console.log("current",current_time)
     return (
       <Grid className="allTabCntnt">
@@ -125,41 +137,41 @@ class PointPain extends Component {
               </Grid>
             </Grid>
           </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={6}>
             <Grid className="attchNoteMain">
               {data.appointment_type ?
                 <>
                   <Grid className="attchNotePart">
-                    
+
                     <Grid
                       // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                       className={
-                        data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true
-                            ? 'attchOpen'
-                            : 'attchDone'
+                        data?.end_time && this.checkdone(data)
+                          ? 'attchDone'
+                          : 'attchOpen'
                       }
                     >
-                       <Button>
+                      <Button>
                         <label></label>
                         {/* {console.log("time", moment(current_time).isSameOrAfter(data?.end_time))} */}
-                        {data?.end_time && moment(current_time).isSameOrAfter(data?.end_time)== true?(
-                          <> {Open}</>
-                        ) :(
-                          <>{Done}</>
-                        ) }
+                        {data?.end_time && this.checkdone(data) ? (
+                          <> {Done}</>
+                        ) : (
+                          <>{Open}</>
+                        )}
                       </Button>
                     </Grid>
-                   <Grid>
+                    <Grid>
                       <Grid className="allInfo allInfo1">
                         <Grid className="allInfoRght date-secTask">
                           <Grid>
                             <label>
-                            {data?.date &&
+                              {data?.date &&
                                 getDate(data?.date, this.state.date_format)}
                             </label>
                           </Grid>
                           <p>
-                          {data?.start_time}
+                            {data?.start_time}
                           </p>
                         </Grid>
                       </Grid>
@@ -370,7 +382,7 @@ class PointPain extends Component {
                 </Td> */}
                       </Grid>)}
                   </Grid>
-                  </> : <>
+                </> : <>
                   <Grid className="attchNotePart">
                     {data.task_type !== 'sick_leave' && (
                       <Grid className="attchNoteUpr">
@@ -392,7 +404,7 @@ class PointPain extends Component {
                         </Grid>
                       </Grid>
                     )}
-                    
+
                     <Grid
                       // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                       className={
@@ -414,7 +426,7 @@ class PointPain extends Component {
                         )}
                       </Button>
                     </Grid>
-                   <Grid>
+                    <Grid>
                       <Grid className="allInfo allInfo1">
                         <Grid className="allInfoRght date-secTask">
                           <Grid>

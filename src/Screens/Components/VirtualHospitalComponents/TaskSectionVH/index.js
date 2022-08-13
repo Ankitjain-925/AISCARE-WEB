@@ -129,6 +129,7 @@ class Index extends Component {
       certificateId: false,
       PatientID: false,
       taskData: {},
+      specchange: false
     };
   }
 
@@ -305,6 +306,7 @@ class Index extends Component {
       PatientID: false,
       taskData: {},
       errorMsg: false,
+      specchange: false
     });
   };
   handleChangeTab = (event, tabvalue) => {
@@ -454,7 +456,7 @@ class Index extends Component {
     ) {
       this.setState({ errorMsg: Plz_select_a_Patient });
     } else {
-      if (data?.patient?.speciality?._id !== data?.speciality?._id) {
+      if (this.state.specchange === data?.speciality?._id) {
         this.setSpeciality(data?.speciality, data?.case_id);
       }
       delete data?.patient?.speciality;
@@ -788,6 +790,7 @@ class Index extends Component {
   updateEntryState4 = (e) => {
     this.setState({ assignedTo2: e });
   };
+  
   updateEntryState3 = (e) => {
     this.setState({ assignedTo: e }, () => {
       var data =
@@ -1260,6 +1263,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
+    console.log('On edit call111')
     this.setState({
       selectRoom: "",
       selectWard: "",
@@ -1326,7 +1330,7 @@ class Index extends Component {
         specialty_name: speciality[0]?.specialty_name,
         _id: speciality[0]?._id,
       };
-      this.setState({ newTask: state });
+      this.setState({ newTask: state ,specchange:  speciality[0]?._id});
     }
   };
 
