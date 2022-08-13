@@ -15845,3 +15845,32 @@ width: 90px!important;
     justify-content: space-between;
   }
 }
+
+.measureInput input{    
+  border: 1px solid #BFC1C1;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  width: 100%;
+  padding: 10px 12px;
+  outline: none;
+  color: #000808;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+.darkTheme .measureInput input{
+      background-color: transparent !important;
+      color: #BFC1C1 !important;
+    }
+    
+    .bloodPrseure label{
+      font-weight: 500;
+    line-height: 21px;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 3px;
+    font-family: Muli !important;
+    }
