@@ -22,7 +22,6 @@ import TaskSectiuonVH from 'Screens/Components/VirtualHospitalComponents/TaskSec
 import { getLanguage } from 'translations/index';
 import { filterPatient } from 'Screens/Components/BasicMethod/index';
 import moment from 'moment'
-import { ConversationListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatConversationList/controller';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -74,6 +73,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
+   this.getAllactivities();
     this.allHouses();
   }
 
@@ -107,10 +107,29 @@ class Index extends Component {
       shown: !this.state.shown,
     });
   };
+
+  mySorter(a, b) {
+    if (a?.due_on.date && b?.due_on.date) {
+      var x = a.due_on.date 
+      var y = b.due_on.date
+      return x > y ? 1 : x < y ? -1 : 0;
+    } else {
+      return -1;
+    }
+  }
+mySorter1(a, b) {
+    if (a?.date && b.date) {
+      var x = a.date 
+      var y = b.date
+      return x > y ? 1 : x < y ? -1 : 0;
+    } else {
+      return -1;
+    }
+  }
  //get Add task data
  getAddTaskData = (tabvalue2, goArchive) => {
   this.setState({ loaderImage: true });
-  axios
+axios
     .get(
       sitedata.data.path +
       "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
@@ -182,6 +201,61 @@ class Index extends Component {
       this.setState({ loaderImage: false });
     });
 };
+
+
+getAllactivities = (tabvalue2, goArchive) => {
+  this.setState({ loaderImage: true });
+  axios
+    .get(
+      sitedata.data.path +
+      "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((response) => {
+      this.setState({ AllTasks: response.data.data });
+      console.log('response',response)
+      if (response.data.hassuccessed) {
+        if (response?.data?.data) {
+          var patientForFilterArr = filterPatient(response.data.data);
+          this.setState({ patientForFilter: patientForFilterArr });
+        }
+       let current_time= moment().format("HH:mm")
+        var Done =
+          response.data.data?.length > 0 &&
+          response.data.data.filter((item) =>{
+            if(item.task_name){
+              return item.status === "done" 
+               }
+               else 
+               {
+               if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
+                return item
+               }else{
+               return item.status ==="done"
+               }
+              }
+              });
+        var Open =
+          response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.status === "open");
+        this.setState({
+          AllTasks: response.data.data,
+          DoneTask: Done,
+          OpenTask: Open,
+        });
+        if (goArchive) {
+          this.setState({ tabvalue2: 3 });
+        }
+        else {
+          this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+        }
+      }
+      this.setState({ loaderImage: false });
+    });
+};
+
+
+
 
 
 
