@@ -6447,9 +6447,9 @@ font-weight: 700;
   padding: 3px;
   text-align: right;
 }o
-.viewTaskfilter  .css-2b097c-container{
-  width:49%;
-  padding-right: 5px;
+.viewTaskfilter select {
+  width:49% !important;
+  padding-right: 5px !important;
 }
 
 .taskSort a:first-child {

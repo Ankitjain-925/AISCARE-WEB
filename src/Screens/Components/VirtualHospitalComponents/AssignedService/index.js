@@ -57,7 +57,7 @@ class Index extends Component {
             editServ: false,
             newServiceIndex: false,
             error: '',
-            addinvoice: {},
+            total_amount:0,
             errorMsg: '',
             addservice:{}
 
@@ -311,37 +311,31 @@ class Index extends Component {
 
     };
     FinalServiceSubmit = () => {
-        console.log(' this.props?.House',  this.props?.House)
         let translate = getLanguage(this.props.stateLanguageType);
         let { Something_went_wrong,pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff } = translate;
         var data = this.state.service;
         data.house_id = this.props?.House?.value;
         data.assign_service = this.state.items;
+        data.amount = this.state.total_amount;
         data.status = data.status ? data.status : "open";
         data.created_at = new Date();
         if(!data.title || data.title === ''){
-            console.log('11')
             this.setState({ errorMsg:pleaseEntertitle });
         }else if (!data.patient ||
             (data && data.patient && data.patient.length < 1)
         ) {
-            console.log('22')
             this.setState({ errorMsg: plz_select_patient });
         }
        else if ( !data.assinged_to ) {
-        console.log('33')
             this.setState({ errorMsg:Plz_select_a_staff });
         }
         else if(!data.due_on?.date && !data.due_on?.time){
-            console.log('44')
             this.setState({ errorMsg:please_enter_dueon });
         }
         else if(!data.assign_service || data.assign_service?.length === 0){
-            console.log('55')
             this.setState({ errorMsg:"Please add atleast one service" });
         }
         else {
-            console.log('66')
         this.setState({ loaderImage: true })
             if(data?._id){
                 axios
@@ -464,7 +458,6 @@ class Index extends Component {
         }
     };
     updateTotalPrize = () => {
-        var newService = this.state.addinvoice;
         var total = 0;
         this.state.items?.length > 0 &&
             this.state.items.map((data) => {
@@ -472,8 +465,7 @@ class Index extends Component {
                     total = total + parseInt(data?.price);
                 }
             });
-        newService.total_amount = total;
-        this.setState({ addinvoice: newService });
+        this.setState({ total_amount: total });
     };
 
     //Update the services
@@ -764,7 +756,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="totalamount">
                                         <p>{ServiceAmount}</p>
-                                        <label>{this.state.addinvoice.total_amount} €</label>
+                                        <label>{this.state?.total_amount} €</label>
 
                                     </Grid>
                                     <Grid item xs={12} md={12}>
@@ -1021,7 +1013,6 @@ class Index extends Component {
 
 
                             </Grid>
-                            {console.log('errorMsg', this.state.errorMsg)}
                             <a>
                               <div className="err_message">
                                   {this.state.errorMsg}

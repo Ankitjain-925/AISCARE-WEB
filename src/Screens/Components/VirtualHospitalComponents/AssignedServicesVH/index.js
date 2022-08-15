@@ -135,7 +135,7 @@ class Index extends Component {
   }
 
   handleOpenAss = () => {
-    this.setState({ openAss: true });
+    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list });
   };
 
   componentDidUpdate = (prevProps) => {

@@ -168,13 +168,6 @@ class Index extends Component {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
 
-  AllOpenGraph = (current_GraphPart) => {
-    this.setState({
-      current_GraphPart: current_GraphPart,
-      addInqryNwSec: true,
-    });
-  };
-
   //For clear the filter
   ClearData = () => {
     this.setState(

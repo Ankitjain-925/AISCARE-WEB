@@ -107,6 +107,7 @@ import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import NurseET from "Screens/Nurse/Earlier_Activity/index";
 import ApproveHospital from "Screens/Components/ApprovalHospital/index";
 import CareQuestionary from "Screens/Nurse/CareQuestionary";
+import DoctorCareQuestionnary from "Screens/Doctor/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 
 class Routermain extends Component {
@@ -396,6 +397,11 @@ class Routermain extends Component {
               exact
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
+            />
+              <Route
+              exact
+              path="/doctor/care-questionary"
+              render={(props) => <DoctorCareQuestionnary {...props} />}
             />
              <Route
               path="/doctor/earlier-task"
