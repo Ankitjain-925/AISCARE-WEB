@@ -265,6 +265,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                             {/* Model setup */}
                                             <TaskSectiuonVH
+                                                removeAddbutton={true}
                                                 patient={this.state.patient}
                                                 getAddTaskData={(tabvalue2, goArchive) => {
                                                     this.getAddTaskData(tabvalue2, goArchive);

@@ -6430,9 +6430,28 @@ button.downloadPDF:hover {
   text-transform: capitalize;
   font-family: Muli;
 }
-.taskSort {
-  text-align: right;
+.totalamount{
+  margin : 13px 0px;
 }
+.totalamount label{
+font-weight: 700;
+    font-size: 15px;
+
+}
+.viewTaskfilter{
+  display: inline-flex;
+    width: 100% !important;
+    margin: 10px;
+}
+.taskSort {
+  padding: 3px;
+  text-align: right;
+}o
+.viewTaskfilter  .css-2b097c-container{
+  width:49%;
+  padding-right: 5px;
+}
+
 .taskSort a:first-child {
   margin-left: 0px !important;
 }

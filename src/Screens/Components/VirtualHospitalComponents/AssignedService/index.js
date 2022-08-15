@@ -6,6 +6,7 @@ import DateFormat from 'Screens/Components/DateFormat/index';
 import TimeFormat from 'Screens/Components/TimeFormat/index';
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
+import Loader from "Screens/Components/Loader/index";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import TextField from '@material-ui/core/TextField';
 import { connect } from "react-redux";
@@ -25,10 +26,7 @@ import { Speciality } from 'Screens/Login/speciality.js';
 import { confirmAlert } from 'react-confirm-alert';
 import _ from 'lodash';
 import moment from "moment";
-
-
-
-
+import { ConsoleCustom } from "Screens/Components/BasicMethod/index";
 
 const customStyles = {
     control: (base) => ({
@@ -43,7 +41,7 @@ class Index extends Component {
         super(props);
         this.state = {
             openAss: this.props.openAss ? this.props.openAss : false,
-            service: {},
+            service: this.props.service || {},
             serviceList1: [],
             users1: {},
             selectedPat: {},
@@ -74,26 +72,38 @@ class Index extends Component {
 
     }
 
+    createDuplicate = (data) => {
+        delete data._id;
+        data.archived = false;
+        this.setState({ service: data });
+      };
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.openAss !== this.props.openAss) {
             this.setState({ openAss: this.props.openAss });
         }
-    };
-
-
-    handleOpenAss = () => {
-        this.setState({ openAss: true });
+        if(prevProps.service !== this.props.service){
+            this.setState({addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
+                selectSpec: { label: this.props.service?.speciality?.specialty_name, value: this.props.service?.speciality?._id},},
+            ()=>{
+                this.selectProf(
+                    this.state.service?.assinged_to,
+                    this.state.professional_id_list
+                );
+                let user = { value: this.state.service?.patient?.user_id };
+                this.updateEntryState2(user);
+            })
+        }
     };
 
     handleCloseAss = () => {
         this.setState({
-            openAss: false,
-            service: '',
-            selectedPat: '',
-            assignedTo: '', newspeciality: '', errorMsg: '', error: '',
+            service: {},
+            selectedPat: {},
+            assignedTo: [], newspeciality: '', errorMsg: '', error: '',
             items: [], addinvoice: {},showError:''
         });
+        this.props.handleCloseAss();
 
     };
     openTaskTime = () => {
@@ -166,6 +176,7 @@ class Index extends Component {
         });
     }
 
+     
     // manage assign to list
     selectProf = (listing, data) => {
         var showdata = data;
@@ -246,6 +257,17 @@ class Index extends Component {
             this.setState({ loaderImage: false });
         }
     };
+      //Switch status done / open
+  switchStatus = (alrady) => {
+    if (!alrady) {
+      const state = this.state.service;
+      state["status"] = state.status === "done" ? "open" : "done";
+      if (state.status === "done") {
+        state["done_on"] = new Date();
+      }
+      this.setState({ service: state });
+    }
+  };
 
     updateEntryState2 = (user) => {
         var user1 =
@@ -257,7 +279,6 @@ class Index extends Component {
             state['patient'] = user1[0];
             state['patient_id'] = user1[0].user_id;
             state['case_id'] = user1[0].case_id;
-
             if (!user.label) {
                 user["label"] =
                     user1[0].first_name && user1[0].last_name
@@ -289,48 +310,73 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
-
     FinalServiceSubmit = () => {
+        console.log(' this.props?.House',  this.props?.House)
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong, Plz_select_a_Patient, Plz_select_a_staff } = translate;
-        this.setState({ loaderImage: true });
+        let { Something_went_wrong,pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff } = translate;
         var data = this.state.service;
-        data.house_id = this.props?.House.value;
+        data.house_id = this.props?.House?.value;
         data.assign_service = this.state.items;
-        data.status = "open";
+        data.status = data.status ? data.status : "open";
         data.created_at = new Date();
-
-        this.setState({ loaderImage: true })
-        if (
-            !data.patient ||
+        if(!data.title || data.title === ''){
+            console.log('11')
+            this.setState({ errorMsg:pleaseEntertitle });
+        }else if (!data.patient ||
             (data && data.patient && data.patient.length < 1)
         ) {
-            this.setState({ errorMsg: Plz_select_a_Patient });
+            console.log('22')
+            this.setState({ errorMsg: plz_select_patient });
         }
-       else if (
-           !data.assinged_to
-        ) {
+       else if ( !data.assinged_to ) {
+        console.log('33')
             this.setState({ errorMsg:Plz_select_a_staff });
         }
+        else if(!data.due_on?.date && !data.due_on?.time){
+            console.log('44')
+            this.setState({ errorMsg:please_enter_dueon });
+        }
+        else if(!data.assign_service || data.assign_service?.length === 0){
+            console.log('55')
+            this.setState({ errorMsg:"Please add atleast one service" });
+        }
         else {
-            axios
-            .post(
-                sitedata.data.path + "/assignservice/Addassignservice",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({ loaderImage: false });
-                this.props.getAddTaskData();
-                this.handleCloseAss();
+            console.log('66')
+        this.setState({ loaderImage: true })
+            if(data?._id){
+                axios
+                .put(
+                    sitedata.data.path + "/assignservice/Updateassignservice/"+ data?._id,
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false, service: {} });
+                    this.props.getAddTaskData();
+                    this.handleCloseAss();
 
-            }).catch((error)=> {
-                this.setState({ errorMsg: Something_went_wrong })
-            });
+                }).catch((error)=> {
+                    this.setState({ errorMsg: Something_went_wrong })
+                });
+            }
+            else{
+                axios
+                .post(
+                    sitedata.data.path + "/assignservice/Addassignservice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false, service: {} });
+                    this.props.getAddTaskData();
+                    this.handleCloseAss();
+
+                }).catch((error)=> {
+                    this.setState({ errorMsg: Something_went_wrong })
+                });
+            }
         }
     }
-
-
     //get services list
     getAssignService = () => {
         var serviceList = [],
@@ -445,7 +491,8 @@ class Index extends Component {
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
-        this.setState({ openAss: false,message: null, 
+        this.props.handleCloseAss();
+        this.setState({ message: null, 
        });
         let translate = getLanguage(this.props.stateLanguageType);
         let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
@@ -489,15 +536,16 @@ class Index extends Component {
     };
 
     deleteClickService(id) {
-        this.handleOpenAss();
+        this.props.handleOpenAss();
         // delete this.state.items[id]
       this.state.items.splice(id, 1);
-        this.setState({ items: this.state.items });
+        this.setState({ items: this.state.items, loaderImage: true });
         var newService = this.state.service;
         newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.service?.service?.label;
         let items = [...this.state.items];
         this.setState({ items, addservice: {} }, () => {
+            this.setState({ loaderImage: false})
             this.updateTotalPrize();
 
         });
@@ -519,8 +567,11 @@ class Index extends Component {
             Assignedto,
             Price,
             speciality,
+            Archive,
+            Delete,
             Enterserviceprice,
             FilterbySpeciality,
+            Duplicate,
             Dueon,
             Addtime,
             save_and_close,
@@ -531,6 +582,7 @@ class Index extends Component {
             srvc,
             qty,
             Add,
+            Markasdone,
             ServiceAmount,
             Editservice,
             Servicename,
@@ -543,9 +595,10 @@ class Index extends Component {
         return (
 
             <Grid className="newServc newServicAllSec">
-                <Button onClick={() => this.handleOpenAss()} >
+                <Button onClick={() => this.props.handleOpenAss()} >
                     {assignService}
                 </Button>
+                {this.state.loaderImage && <Loader />}
                 <Modal
                     open={this.state.openAss}
                     onClose={() => this.handleCloseAss()}
@@ -588,9 +641,6 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <div className="err_message">
-                                {this.state.errorMsg}
-                            </div>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
                             <Grid>
@@ -601,7 +651,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e.target.value, 'title')
                                             }
-                                            value={this.state.service.title}
+                                            value={this.state.service?.title}
                                             
                                         />
                                     </Grid>
@@ -712,7 +762,7 @@ class Index extends Component {
 
                                         </Grid>
                                     </Grid>
-                                    <Grid>
+                                    <Grid className="totalamount">
                                         <p>{ServiceAmount}</p>
                                         <label>{this.state.addinvoice.total_amount} €</label>
 
@@ -769,6 +819,7 @@ class Index extends Component {
                                             />
                                         </Grid>
                                     </Grid>
+
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={12} className="dueOn creatInfoIner">
                                             <label>{Dueon}</label>
@@ -858,10 +909,124 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                  {this.state.service?._id &&  
+                                    <Grid className="assignSecUpr">
+                            <Grid container direction="row" alignItems="center">
+                              <Grid item xs={12} sm={12} md={12}>
+                                <Grid className="assignSec">
+                                    <>
+                                            <Grid
+                                              onClick={() => {
+                                                this.createDuplicate(
+                                                  this.state.service
+                                                );
+                                              }}
+                                            >
+                                              <img
+                                                src={require("assets/virtual_images/assign-to.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              <label>{Duplicate}</label>
+                                            </Grid>
+                                            <Grid
+                                              onClick={() => {
+                                                this.switchStatus();
+                                              }}
+                                              className="markDone"
+                                            >
+                                              {this.state.service?.status ===
+                                                "done" ? (
+                                                <Grid className="revwFiles ">
+                                                  <Grid className="activeOntask">
+                                                    <img
+                                                      src={require("assets/virtual_images/greyImg.png")}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              ) : (
+                                                <Grid className="revwFiles">
+                                                  <Grid>
+                                                    <img
+                                                      src={require("assets/virtual_images/greyImg.png")}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              )}
+                                              <label>{Markasdone}</label>
+                                            </Grid>
+                                            {this.state.service?.archived ==
+                                              true ? (
+                                              <Grid
+                                                onClick={() => {
+                                                  this.updateEntry(
+                                                    false,
+                                                    "archived"
+                                                  );
+                                                }}
+                                                className="activeOntask"
+                                              >
+                                                <img
+                                                  src={require("assets/images/archive-white.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                <label>{Archive}</label>
+                                              </Grid>
+                                            ) : (
+                                              <Grid
+                                                onClick={() => {
+                                                  this.updateEntry(
+                                                    true,
+                                                    "archived"
+                                                  );
+                                                }}
+                                              >
+                                                <img
+                                                  src={require("assets/images/archive.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                <label>{Archive}</label>
+                                              </Grid>
+                                            )}
+                                            <Grid>
+                                              <img
+                                                onClick={() => {
+                                                  this.props.removeTask(this.state.service?._id);
+                                                }}
+                                                src={require("assets/virtual_images/deleteNew.png")}
+                                                alt=""
+                                                title=""
+                                                className="manage-size"
+                                              />
+                                              <label
+                                                onclick={() => {
+                                                  this.props.removeTask(this.state.service?._id);
+                                                }}
+                                              >
+                                                {Delete}
+                                              </label>
+                                            </Grid>
+                                          </>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        </Grid>}
                                 </Grid>
 
 
                             </Grid>
+                            {console.log('errorMsg', this.state.errorMsg)}
+                            <a>
+                              <div className="err_message">
+                                  {this.state.errorMsg}
+                                </div>
+                                </a>
                      
                             <Grid className="servSaveBtn" onClick={() =>
                                 this.FinalServiceSubmit()
@@ -943,8 +1108,13 @@ class Index extends Component {
                                                 />
                                             </Grid>
                                         </Grid>
+                                        
+                                        {/* {console.log('dsfdf', this.state.errorMsg)} */}
                                     </Grid>
+                                    <Grid item xs={12} md={12} className="saveTasks">
+                                </Grid>
                                     <Grid className="servSaveBtn">
+                                
                                         <a onClick={this.handleCloseServ}>
                                             <Button onClick={() => this.handleAddUpdate()}>
                                                 {save_and_close}

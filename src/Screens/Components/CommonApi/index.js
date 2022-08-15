@@ -78,6 +78,12 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
             else if (response.data?.data[i].patient?.first_name) {
                 name = response.data?.data[i].patient?.first_name
             }
+            if(response.data?.data[i]?.external_space){
+                name = name + ' (External Space)' 
+            } else{
+                name = name + ' (Internal Space)' 
+            }
+            
             comesFrom === 'arrangeappoint' ? patientArray.push({
                 last_name: response.data?.data[i].patient?.last_name,
                 first_name: response.data?.data[i].patient?.first_name,
