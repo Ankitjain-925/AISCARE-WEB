@@ -87,6 +87,25 @@ class Index extends Component {
             shown: !this.state.shown,
         });
     };
+
+    mySorter(a, b) {
+        if (a?.due_on.date && b?.due_on.date) {
+          var x = a.due_on.date 
+          var y = b.due_on.date
+          return x > y ? 1 : x < y ? -1 : 0;
+        } else {
+          return -1;
+        }
+      }
+    mySorter1(a, b) {
+        if (a?.date && b.date) {
+          var x = a.date 
+          var y = b.date
+          return x > y ? 1 : x < y ? -1 : 0;
+        } else {
+          return -1;
+        }
+      }
     //get Add task data
     getAddTaskData = (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
