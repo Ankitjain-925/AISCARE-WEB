@@ -492,7 +492,7 @@ export const MoveTop = (top) => {
 };
 
 export const handleSubmit = (current) => {
-    const { valueof, FileAttach, allQuestionData, everyDay, everyWeek, openQues, selectHouse, selectPatient } = current.state;
+    const { valueof, FileAttach, allQuestionData,  everyWeek, openQues, selectHouse, selectPatient } = current.state;
     if (!openQues) {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
@@ -535,9 +535,9 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, data?.full_disorientation_level_patient_tell, "full_disorientation_level_patient_tell")) {
                                                                                     if (checkValidation(current, data?.full_disorientation_level_family_member, "full_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, data?.full_sanitary_situation_incident, "full_sanitary_situation_incident")) {
-                                                                                            if (checkValidation(current, everyDay, data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
-                                                                                                if (checkValidation(current, everyDay, data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
-                                                                                                    if (checkValidation(current, everyDay, data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
+                                                                                            if (checkValidation(current,data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
+                                                                                                if (checkValidation(current,  data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
+                                                                                                    if (checkValidation(current,  data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
                                                                                                         if (checkValidation(current, data?.full_feeding, "full_feeding")) {
                                                                                                             if (checkValidation(current, data?.full_chair_bed_transfer, "full_chair_bed_transfer")) {
                                                                                                                 if (checkValidation(current, data?.full_ambulation, "full_ambulation")) {
@@ -546,7 +546,7 @@ export const handleSubmit = (current) => {
                                                                                                                             if (checkValidation(current, data?.full_on_and_off_toilet, "full_on_and_off_toilet")) {
                                                                                                                                 if (checkValidation(current, data?.full_bowels, "full_bowels")) {
                                                                                                                                     if (checkValidation(current, data?.full_bladder, "full_bladder")) {
-                                                                                                                                        CallApi(current);
+                                                                                                                                        CallApi(current, data)
                                                                                                                                     }
                                                                                                                                 }
                                                                                                                             }
