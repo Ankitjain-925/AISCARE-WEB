@@ -639,62 +639,6 @@ class Index extends Component {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>Weight</FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="day_anamnesis_weight"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.day_anamnesis_weight &&
-                                                                                            allQuestionData?.day_anamnesis_weight === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.day_anamnesis_weight === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="2 Weekly / If sick could be evers second day"
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>o2 Saturation</FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="day_anamnesis_o2_saturation"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.day_anamnesis_o2_saturation &&
-                                                                                            allQuestionData?.day_anamnesis_o2_saturation === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.day_anamnesis_o2_saturation === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Second Day"
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
                                                                 <p>Decubitus Situation</p>
@@ -1081,7 +1025,7 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
-                                                            {/* <Grid className="anamneSecMid">
+                                                            <Grid className="anamneSecMid">
                                                                 <p>Anamnesis</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
@@ -1139,7 +1083,7 @@ class Index extends Component {
                                                                         />
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid> */}
+                                                            </Grid>
                                                             <Grid className="anamneSecMid">
                                                                 <p>Pneunomie Situation</p>
                                                                 <Grid className="anamneSec">
@@ -1298,45 +1242,6 @@ class Index extends Component {
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <Grid className="measureInput">
-                                                                        <label>Weight (Every 2Weeks / If sick could be evers second day)</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="week_anamnesis_weight"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.week_anamnesis_weight}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid className="measureInput">
-                                                                        <label>Measure diameter Leg (If Yes daily if not evry 2 Weeks)</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="week_anamnesis_diameter_leg"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.week_anamnesis_diameter_leg}
-                                                                        />
-                                                                    </Grid>
-                                                                    <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse (If Yes daily if not evry 2 Weeks)</FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="week_anamnesis_condition">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.week_anamnesis_condition === 'better'}
-                                                                                value="better"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="Better"
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.week_anamnesis_condition === 'worse'}
-                                                                                value="worse"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="Worse"
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
@@ -1727,7 +1632,7 @@ class Index extends Component {
                                                         </Grid>
 
                                                         <Grid >
-                                                            {/* <Grid className="anamneSecMid">
+                                                            <Grid className="anamneSecMid">
                                                                 <p>Anamnesis </p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
@@ -1768,7 +1673,7 @@ class Index extends Component {
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid> */}
+                                                            </Grid>
                                                             <Grid className="anamneSecMid">
                                                                 <p>Falling Risk </p>
                                                                 <Grid className="anamneSec">
@@ -1833,7 +1738,7 @@ class Index extends Component {
                                                         <Grid >
                                                             <Grid className="anamneSecMid">
                                                                 <p>Anamnesis</p>
-                                                                {/* <Grid className="anamneSecMid">
+                                                                <Grid className="anamneSecMid">
                                                                     <p>Bartel Index</p>
                                                                     <Grid className="anamneSec">
                                                                         <FormControl>
@@ -1863,7 +1768,7 @@ class Index extends Component {
                                                                             />
                                                                         </FormControl>
                                                                     </Grid>
-                                                                </Grid> */}
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
 

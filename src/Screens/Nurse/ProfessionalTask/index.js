@@ -22,6 +22,7 @@ import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSec
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
 import moment from 'moment'
+import _ from "lodash";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -85,21 +86,15 @@ class Index extends Component {
       shown: !this.state.shown,
     });
   };
-   mySorter(a, b) {
-    if (a?.due_on.date && b?.due_on.date) {
-      var x = a.due_on.date 
-      var y = b.due_on.date
-      return x > y ? 1 : x < y ? -1 : 0;
-    } else {
-      return -1;
-    }
-  }
-mySorter1(a, b) {
-    if (a?.date && b.date) {
-      var x = a.date 
-      var y = b.date
-      return x > y ? 1 : x < y ? -1 : 0;
-    } else {
+
+
+  mySorter(a, b) {
+    console.log('fdgdg dg')
+    if ((a?.due_on?.date || a?.date) && (b?.due_on?.date || a?.date)) {
+      var x = a.appointment_type ? a.date  : a.due_on.date 
+      var y = b.appointment_type ? b.date  : b.due_on.date
+      return x > y ? -1 : x < y ? 1 : 0;
+    } else { 
       return -1;
     }
   }
@@ -121,27 +116,66 @@ mySorter1(a, b) {
             var patientForFilterArr = filterPatient(services);
             this.setState({ patientForFilter: patientForFilterArr });
           }
-          
-          let current_time= moment().format("HH:mm")
-          var Done =
-          services?.length > 0 && 
-          services.filter((item) => { 
-            if(item.task_name){
-           return item.status === "done" 
+        
+          services = _.sortBy((
+            _.sortBy(
+            services, 
+            (e) => {
+              if(e.appointment_type){
+                return e.date
+              }
+              else{
+                return e.due_on.date
+              }
+            })),
+            (e) => {
+            if(e.appointment_type){
+              return e.start_time
             }
-            else 
-            {
-            if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-             return item
-            }else{
-            return item.status ==="done"
+            else{
+              return e.due_on.time
             }
-
-          }
           });
-          var Open =
-          services?.length > 0 &&
-          services.filter((item) => item.status === "open" );
+          let today = new Date().setHours(0, 0, 0, 0);
+          let ttime = moment().format("HH:mm");
+      var Done =
+        services?.length > 0 && 
+        services.filter((item) => { 
+          if(item.task_name){
+            return item.status === "done" 
+          }
+          else 
+          {
+            let data_end = moment(item.end_time).format("HH:mm");
+            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+           
+          if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end >= ttime) )){
+           return item
+          }else{
+          return item.status ==="done"
+          }
+
+        }
+        });
+      
+      var Open =
+        response.data.data?.length > 0 &&
+        response.data.data.filter((item) => { 
+          if(item.task_name){
+            return item.status === "open" 
+          }
+          else 
+          {
+            let data_end = moment(item.end_time).format("HH:mm");
+            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+          if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) && data_end < ttime) )){
+            return item
+          }else{
+          return item.status ==="open"
+          }
+
+        }
+        });
           var ArchivedTask  = services?.length > 0 &&
           services.filter((item) => item.archived);
           this.setState({

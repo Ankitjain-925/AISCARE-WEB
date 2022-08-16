@@ -6430,9 +6430,28 @@ button.downloadPDF:hover {
   text-transform: capitalize;
   font-family: Muli;
 }
-.taskSort {
-  text-align: right;
+.totalamount{
+  margin : 13px 0px;
 }
+.totalamount label{
+font-weight: 700;
+    font-size: 15px;
+
+}
+.viewTaskfilter{
+  display: inline-flex;
+    width: 100% !important;
+    margin: 10px;
+}
+.taskSort {
+  padding: 3px;
+  text-align: right;
+}o
+.viewTaskfilter select {
+  width:49% !important;
+  padding-right: 5px !important;
+}
+
 .taskSort a:first-child {
   margin-left: 0px !important;
 }
@@ -15845,3 +15864,33 @@ width: 90px!important;
     justify-content: space-between;
   }
 }
+
+.measureInput input{    
+  border: 1px solid #BFC1C1;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  width: 100%;
+  padding: 10px 12px;
+  outline: none;
+  color: #000808;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+.darkTheme .measureInput input{
+      background-color: transparent !important;
+      color: #BFC1C1 !important;
+    }
+    
+    .bloodPrseure label{
+      font-weight: 500;
+    line-height: 21px;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 3px;
+    font-family: Muli !important;
+    }
+    

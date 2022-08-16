@@ -229,13 +229,8 @@ export default class QuoteItem extends React.Component {
             <Grid className="flowInfoInr2">
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
-                  {quote && quote.external === true ? (
+                  {quote && quote.external_space === true ? (
                     <Grid>
-                      <Grid className="dtlCount dtlCountRm">
-                        <a className="taskHover">
-                       Address - {quote.full_address?.address}
-                        </a>
-                      </Grid>
                       <Grid className="dtlCount">
                         <a className="taskHover">
                           <img
@@ -243,6 +238,7 @@ export default class QuoteItem extends React.Component {
                             alt=""
                             title=""
                           />
+                          {quote.full_address?.address},
                           {quote.full_address?.city} ,  
                           {quote.full_address?.pastal_code}
                         </a>

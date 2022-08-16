@@ -67,12 +67,15 @@ class Index extends Component {
     return (
       <div className="timelineGap">
 
-      
+        {item.type === "carequestinnary" && (
         <Questionnaire 
-          AllOpenGraph={(current_graphPart) => this.props.AllOpenGraph(current_graphPart)}
-        />
-       
-
+            onlyOverview={this.props.Overview}
+            TrackRecord={this.state.TrackRecord}
+            OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            comesfrom={this.state.comesfrom}
+            data={item}
+          />
+        )}
         {item.type === "blood_pressure" && (
           <BPView
             onlyOverview={this.props.Overview}

@@ -1012,14 +1012,14 @@ class Index extends Component {
                                             this.Invoice(data);
                                           }}
                                         >
-                                          <li>
+                                          {/* <li>
                                             <img
                                               src={require('assets/virtual_images/DuplicateInvoice.png')}
                                               alt=""
                                               title=""
                                             />
                                             <span>{DuplicateInvoice}</span>
-                                          </li>
+                                          </li> */}
                                         </a>
                                         {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
                                         <div className="printPreviewlink">

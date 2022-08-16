@@ -132,7 +132,7 @@ mySorter1(a, b) {
 axios
     .get(
       sitedata.data.path +
-      "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
+      "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
       commonHeader(this.props.stateLoginValueAim.token)
     )
     .then((response) => {
@@ -142,28 +142,52 @@ axios
           var patientForFilterArr = filterPatient(response.data.data);
           this.setState({ patientForFilter: patientForFilterArr });
         }
-       { (console.log("qw",response))}
-       let current_time= moment().format("HH:mm")
+        var services = response.data.data
+
+        let today = new Date().setHours(0, 0, 0, 0);
+            let ttime = moment().format("HH:mm");
         var Done =
-          response.data.data?.length > 0 &&
-          response.data.data.filter((item) =>{
+          services?.length > 0 && 
+          services.filter((item) => { 
             if(item.task_name){
               return item.status === "done" 
-               }
-               else 
-               {
-               if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-                return item
-               }else{
-               return item.status ==="done"
-               }
-              }
-              });
+            } 
+            else 
+            {
+              let data_end = moment(item.end_time).format("HH:mm");
+              let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+             
+            if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end >= ttime) )){
+             return item
+            }else{
+            return item.status ==="done"
+            }
+
+          }
+          });
+        // var Done =
+        // response.data.data?.length > 0 &&
+        //   response.data.data.filter((item) => item.status === "done");
         var Open =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.status === "open");
+          response.data.data.filter((item) => { 
+            if(item.task_name){
+              return item.status === "open" 
+            }
+            else 
+            {
+              let data_end = moment(item.end_time).format("HH:mm");
+              let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+            if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) && data_end < ttime) )){
+              return item
+            }else{
+            return item.status ==="open"
+            }
+
+          }
+          });
         this.setState({
-          AllTasks: response.data.data,
+          AllTasks: services,
           DoneTask: Done,
           OpenTask: Open,
         });

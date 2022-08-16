@@ -1894,7 +1894,7 @@
    "edit_assigned_service":"Edit Assigned Service",
    "add_assign_service":"Add Assign Service",
     "ProfessionalActivity":"Professional Activity",
-    "ServiceAmount":"Service Amount",
+    "ServiceAmount":"Service Total Amount",
     "Add_assigned_services":"Add Assigned Service",
     "EarlierActivity":"Earlier Activity",
     "edit_assigned_services":"Edit Assigned Services",
@@ -1909,8 +1909,12 @@
     "full_information":"Full Information",
     "sure_remove_service_from_assigned":"Are you sure to remove this Service from Assigned?",
     "Please_select_atlest":"Please select atleast one service",
-    "Plz_select_a_staff":"please select a staff",
-    "to":"to"
+    "Plz_select_a_staff":"Please select a staff",
+    "please_enter_dueon" : "Please enter due on date - time",
+    "to":"to",
+    "pleaseEntertitle" : "please enter title",
+
+    "bp_should_number": "bp should be in number"
 
   }
 }
