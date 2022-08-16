@@ -1915,7 +1915,9 @@
     "pleaseEntertitle" : "please enter title",
     "bp_should_number": "bp should be in number",
     "assigned_services":"Assigned Services",
-    "move_internal_space":"Move to internal space"
+    "move_internal_space":"Move to internal space",
+    "for_hospital":"For Hospital",
+    "care_quationnary":"Care Quationnary"
     
 
   }

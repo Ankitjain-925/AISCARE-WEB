@@ -62,6 +62,8 @@ class PointPain extends Component {
       Join_Meeting,
       Not_attended,
       Payment_pending,
+      edit_assigned_services,
+      delete_assigned_services
     } = translate;
     var data = this.state.data;
     let current_time = moment().format("HH:mm")
@@ -492,7 +494,7 @@ class PointPain extends Component {
                                 this.props.comesFrom === 'Professional' ? (
                                 <>{view_detail}</>
                               ) : (
-                                data.task_name ? <>{EditTask}</> : "Edit assigned services"
+                                data.task_name ? <>{EditTask}</> : <>{edit_assigned_services}</>
                               )}
                             </a>
                           </li>
@@ -633,7 +635,7 @@ class PointPain extends Component {
                                alt=""
                                title=""
                              />
-                             <>{"Delete assigned service"}</>
+                             <>{delete_assigned_services}</>
                            </a>
                          </li>
                           }

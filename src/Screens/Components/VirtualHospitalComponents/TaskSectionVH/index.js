@@ -1655,6 +1655,7 @@ class Index extends Component {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
+      for_hospital,
     } = translate;
 
     const {
@@ -1772,7 +1773,7 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            <label>For Hospital</label>
+                            <label>{for_hospital}</label>
                             {this.props.comesFrom === "Professional" && (
                               <Grid>
                                 <Select
