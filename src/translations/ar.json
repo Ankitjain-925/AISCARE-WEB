@@ -1678,6 +1678,7 @@
 		"cardiac_dizziness":"Cardiac dizziness",
 		"cardiac_shoulder_pain":"Shoulder pain",
 		"cardiac_heart_attack":"Heart attack",
+
 		"cardiac_heart_failure":"Heart failure",
 
 		"ProfessionalActivity":"النشاط المهني",
@@ -1700,8 +1701,12 @@
 		"Falling_Risk":"Falling Risk",
 		"ask_for_incidents":"ask for incidents",
 		"Did_you_fall_today":"Did you fall today",
-		"Use_of_tools":"Use of tools"
+		"Use_of_tools":"Use of tools",
 	
+
+		"cardiac_heart_failure":"Heart failure"
+
+
 	
 	}
 }

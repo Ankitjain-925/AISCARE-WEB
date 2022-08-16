@@ -265,9 +265,9 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                          <Grid className="allOpenAsser">
-                            {/* <AssignedService openAss={this.state.openAss} /> */}
-                          </Grid>
+                          {/* <Grid className="allOpenAsser">
+                            <AssignedService openAss={this.state.openAss} />
+                          </Grid> */}
 
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>

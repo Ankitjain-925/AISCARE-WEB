@@ -172,6 +172,7 @@ class Index extends Component {
       Invoices,
       InvoicePattern,
       Questionnaire,
+      assigned_services,
     } = translate;
     return (
       <Grid className="MenuWeb">
@@ -305,7 +306,7 @@ class Index extends Component {
                         title=""
                       />
                     )}
-                    <span>Assigned Services</span>
+                    <span>{assigned_services}</span>
                   </a>
                 </li>
 

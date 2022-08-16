@@ -26,10 +26,75 @@ export const updateAllEntrySec = (current, e) => {
     current.setState({ allQuestionData: state });
 }
 
+export const updateAllEntrySec2 = (current, e, name) => {
+    const state = current.state.allQuestionData;
+     state[name] = e;
+    current.setState({ allQuestionData: state });
+}
+
 export const updateAllEntrySec1 = (current, e, name) => {
     const state = current.state.allQuestionData;
     state[e.target.name] = e.target.checked == true ? true : false;
     current.setState({ allQuestionData: state });
+}
+
+export const checkValidation2 = (current, check, item, fulldata) => {
+    console.log('errorChrMsg','i AM HEREE', check )
+    current.setState({ errorChrMsg: '' })
+    if (item === 'daily_diameter_leg') {
+        if (!fulldata.daily_diameter_leg) {
+          current.setState({
+            errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
+          });
+          MoveTop(0);
+          return false;
+        } else if (fulldata && fulldata.daily_diameter_leg === 'yes') {
+         
+          if (!fulldata.daily_anamnesis_diameter_leg) {
+            current.setState({
+                errorChrMsg: 'please enter Diameter leg',
+            });
+            MoveTop(0);
+            return false;
+          
+          } 
+          else if (!fulldata.daily_anamnesis_condition){
+            current.setState({
+                errorChrMsg: 'Please select better and worse for condition',
+            });
+            MoveTop(0);
+            return false;
+          }else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+    }
+    if (item === 'day_Sick') {
+        if (!fulldata.day_Sick) {
+          current.setState({
+            errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
+          });
+          MoveTop(0);
+          return false;
+        } else if (fulldata && fulldata.day_Sick === 'yes') {
+         
+          if (!fulldata.day_anamnesis_weight) {
+            current.setState({
+                errorChrMsg: 'Please enter Weight',
+            });
+            MoveTop(0);
+            return false;
+          
+          } 
+         else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+    }
 }
 
 export const checkValidation = (current, check, value, item) => {
@@ -170,7 +235,7 @@ export const checkValidation = (current, check, value, item) => {
             return true;
         }
     }
-    else if ((item === "day_thrombose_diameter_leg" ||
+    else if ((item== "daily_anamnesis_diameter_leg" || item === "day_thrombose_diameter_leg" ||
         item === "week_thrombose_diameter_leg" ||
         item === "daily_thrombose_diameter_leg") && check) {
         if (!value) {
@@ -307,7 +372,7 @@ export const checkValidation = (current, check, value, item) => {
             return true;
         }
     }
-    else if ((item === "day_anamnesis_weight" ||
+    else if ((
         item === "week_anamnesis_weight" || item === "week_anamnesis_diameter_leg") && check) {
         if (!value) {
             current.setState({ errorChrMsg: "Please select Anamnesis" })
@@ -318,10 +383,9 @@ export const checkValidation = (current, check, value, item) => {
             return true;
         }
     }
-    else if ((item === "day_anamnesis_weight"
-        || item === "day_anamnesis_o2_saturation") && check) {
+    else if (( item === "day_anamnesis_o2_saturation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Anamnesis" })
+            current.setState({ errorChrMsg: "Please Enter O2 saturation" })
             MoveTop(0);
             return false;
         }
@@ -453,6 +517,7 @@ export const handleSubmit = (current) => {
             }
             if (checkValidation(current, dailyForm, data?.daily_rr_systolic, "daily_rr_systolic")) {
                 if (checkValidation(current, dailyForm, data?.daily_rr_diastolic, "daily_rr_diastolic")) {
+                    if (checkValidation2(current, data?.daily_diameter_leg, "daily_diameter_leg", data)) {
                     if (checkValidation(current, dailyForm, data?.daily_decubitus_picture_with_scale, "daily_decubitus_picture_with_scale")) {
                         if (checkValidation(current, dailyForm, data?.daily_decubitus_amount_of_wounds, "daily_decubitus_amount_of_wounds")) {
                             if (checkValidation(current, dailyForm, data?.daily_decubitus_condition, "daily_decubitus_condition")) {
@@ -491,6 +556,7 @@ export const handleSubmit = (current) => {
                         }
                     }
                 }
+                }
             }
         } else if (everyDay) {
             data.type = "two_days";
@@ -502,7 +568,7 @@ export const handleSubmit = (current) => {
             }
             if (checkValidation(current, everyDay, data?.day_rr_systolic, "day_rr_systolic")) {
                 if (checkValidation(current, everyDay, data?.day_rr_diastolic, "day_rr_diastolic")) {
-                    if (checkValidation(current, everyDay, data?.day_anamnesis_weight, "day_anamnesis_weight")) {
+                    if (checkValidation2(current, data?.day_Sick, "day_Sick", data)) {
                         if (checkValidation(current, everyDay, data?.day_anamnesis_o2_saturation, "day_anamnesis_o2_saturation")) {
                     if (checkValidation(current, everyDay, data?.day_decubitus_picture_with_scale, "day_decubitus_picture_with_scale")) {
                         if (checkValidation(current, everyDay, data?.day_decubitus_amount_of_wounds, "day_decubitus_amount_of_wounds")) {
