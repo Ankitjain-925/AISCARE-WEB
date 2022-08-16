@@ -28,7 +28,7 @@ export const updateAllEntrySec = (current, e) => {
 
 export const updateAllEntrySec2 = (current, e, name) => {
     const state = current.state.allQuestionData;
-     state[name] = e;
+    state[name] = e;
     current.setState({ allQuestionData: state });
 }
 
@@ -39,60 +39,60 @@ export const updateAllEntrySec1 = (current, e, name) => {
 }
 
 export const checkValidation2 = (current, check, item, fulldata) => {
-    console.log('errorChrMsg','i AM HEREE', check )
+    console.log('errorChrMsg', 'i AM HEREE', check)
     current.setState({ errorChrMsg: '' })
     if (item === 'daily_diameter_leg') {
         if (!fulldata.daily_diameter_leg) {
-          current.setState({
-            errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
-          });
-          MoveTop(0);
-          return false;
+            current.setState({
+                errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
+            });
+            MoveTop(0);
+            return false;
         } else if (fulldata && fulldata.daily_diameter_leg === 'yes') {
-         
-          if (!fulldata.daily_anamnesis_diameter_leg) {
-            current.setState({
-                errorChrMsg: 'please enter Diameter leg',
-            });
-            MoveTop(0);
-            return false;
-          
-          } 
-          else if (!fulldata.daily_anamnesis_condition){
-            current.setState({
-                errorChrMsg: 'Please select better and worse for condition',
-            });
-            MoveTop(0);
-            return false;
-          }else {
-            return true;
-          }
+
+            if (!fulldata.daily_anamnesis_diameter_leg) {
+                current.setState({
+                    errorChrMsg: 'please enter Diameter leg',
+                });
+                MoveTop(0);
+                return false;
+
+            }
+            else if (!fulldata.daily_anamnesis_condition) {
+                current.setState({
+                    errorChrMsg: 'Please select better and worse for condition',
+                });
+                MoveTop(0);
+                return false;
+            } else {
+                return true;
+            }
         } else {
-          return true;
+            return true;
         }
     }
     if (item === 'day_Sick') {
         if (!fulldata.day_Sick) {
-          current.setState({
-            errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
-          });
-          MoveTop(0);
-          return false;
-        } else if (fulldata && fulldata.day_Sick === 'yes') {
-         
-          if (!fulldata.day_anamnesis_weight) {
             current.setState({
-                errorChrMsg: 'Please enter Weight',
+                errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
             });
             MoveTop(0);
             return false;
-          
-          } 
-         else {
-            return true;
-          }
+        } else if (fulldata && fulldata.day_Sick === 'yes') {
+
+            if (!fulldata.day_anamnesis_weight) {
+                current.setState({
+                    errorChrMsg: 'Please enter Weight',
+                });
+                MoveTop(0);
+                return false;
+
+            }
+            else {
+                return true;
+            }
         } else {
-          return true;
+            return true;
         }
     }
 }
@@ -235,7 +235,7 @@ export const checkValidation = (current, check, value, item) => {
             return true;
         }
     }
-    else if ((item== "daily_anamnesis_diameter_leg" || item === "day_thrombose_diameter_leg" ||
+    else if ((item == "daily_anamnesis_diameter_leg" || item === "day_thrombose_diameter_leg" ||
         item === "week_thrombose_diameter_leg" ||
         item === "daily_thrombose_diameter_leg") && check) {
         if (!value) {
@@ -383,7 +383,7 @@ export const checkValidation = (current, check, value, item) => {
             return true;
         }
     }
-    else if (( item === "day_anamnesis_o2_saturation") && check) {
+    else if ((item === "day_anamnesis_o2_saturation") && check) {
         if (!value) {
             current.setState({ errorChrMsg: "Please Enter O2 saturation" })
             MoveTop(0);
@@ -518,25 +518,26 @@ export const handleSubmit = (current) => {
             if (checkValidation(current, dailyForm, data?.daily_rr_systolic, "daily_rr_systolic")) {
                 if (checkValidation(current, dailyForm, data?.daily_rr_diastolic, "daily_rr_diastolic")) {
                     if (checkValidation2(current, data?.daily_diameter_leg, "daily_diameter_leg", data)) {
-                    if (checkValidation(current, dailyForm, data?.daily_decubitus_picture_with_scale, "daily_decubitus_picture_with_scale")) {
-                        if (checkValidation(current, dailyForm, data?.daily_decubitus_amount_of_wounds, "daily_decubitus_amount_of_wounds")) {
-                            if (checkValidation(current, dailyForm, data?.daily_decubitus_condition, "daily_decubitus_condition")) {
-                                if (checkValidation(current, dailyForm, data?.daily_thrombose_diameter_leg, "daily_thrombose_diameter_leg")) {
-                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_condition, "daily_thrombose_condition")) {
-                                        if (checkValidation(current, dailyForm, data?.daily_falling_risk_incident_today, "daily_falling_risk_incident_today")) {
-                                            if (checkValidation(current, dailyForm, data?.daily_falling_risk_incident_tools, "daily_falling_risk_incident_tools")) {
-                                                if (checkValidation(current, dailyForm, data?.daily_thrombose_food_eaten_condition, "daily_thrombose_food_eaten_condition")) {
-                                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_water_trinkung, "daily_thrombose_water_trinkung")) {
-                                                        if (checkValidation(current, dailyForm, data?.daily_thrombose_toilet_situation, "daily_thrombose_toilet_situation")) {
-                                                            if (checkValidation(current, dailyForm, data?.daily_thrombose_pain_status, "daily_thrombose_pain_status")) {
-                                                                if (checkValidation(current, dailyForm, data?.daily_thrombose_picture_with_scale, "daily_thrombose_picture_with_scale")) {
-                                                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_amout_of_wounds, "daily_thrombose_amout_of_wounds")) {
-                                                                        if (checkValidation(current, dailyForm, data?.daily_thrombose_situation, "daily_thrombose_situation")) {
-                                                                            if (checkValidation(current, dailyForm, data?.daily_depression_good_today, "daily_depression_good_today")) {
-                                                                                if (checkValidation(current, dailyForm, data?.daily_disorientation_level_patient_tell, "daily_disorientation_level_patient_tell")) {
-                                                                                    if (checkValidation(current, dailyForm, data?.daily_disorientation_level_family_member, "daily_disorientation_level_family_member")) {
-                                                                                        if (checkValidation(current, dailyForm, data?.daily_sanitary_situation_incident, "daily_sanitary_situation_incident")) {
-                                                                                            CallApi(current);
+                        if (checkValidation(current, dailyForm, data?.daily_decubitus_picture_with_scale, "daily_decubitus_picture_with_scale")) {
+                            if (checkValidation(current, dailyForm, data?.daily_decubitus_amount_of_wounds, "daily_decubitus_amount_of_wounds")) {
+                                if (checkValidation(current, dailyForm, data?.daily_decubitus_condition, "daily_decubitus_condition")) {
+                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_diameter_leg, "daily_thrombose_diameter_leg")) {
+                                        if (checkValidation(current, dailyForm, data?.daily_thrombose_condition, "daily_thrombose_condition")) {
+                                            if (checkValidation(current, dailyForm, data?.daily_falling_risk_incident_today, "daily_falling_risk_incident_today")) {
+                                                if (checkValidation(current, dailyForm, data?.daily_falling_risk_incident_tools, "daily_falling_risk_incident_tools")) {
+                                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_food_eaten_condition, "daily_thrombose_food_eaten_condition")) {
+                                                        if (checkValidation(current, dailyForm, data?.daily_thrombose_water_trinkung, "daily_thrombose_water_trinkung")) {
+                                                            if (checkValidation(current, dailyForm, data?.daily_thrombose_toilet_situation, "daily_thrombose_toilet_situation")) {
+                                                                if (checkValidation(current, dailyForm, data?.daily_thrombose_pain_status, "daily_thrombose_pain_status")) {
+                                                                    if (checkValidation(current, dailyForm, data?.daily_thrombose_picture_with_scale, "daily_thrombose_picture_with_scale")) {
+                                                                        if (checkValidation(current, dailyForm, data?.daily_thrombose_amout_of_wounds, "daily_thrombose_amout_of_wounds")) {
+                                                                            if (checkValidation(current, dailyForm, data?.daily_thrombose_situation, "daily_thrombose_situation")) {
+                                                                                if (checkValidation(current, dailyForm, data?.daily_depression_good_today, "daily_depression_good_today")) {
+                                                                                    if (checkValidation(current, dailyForm, data?.daily_disorientation_level_patient_tell, "daily_disorientation_level_patient_tell")) {
+                                                                                        if (checkValidation(current, dailyForm, data?.daily_disorientation_level_family_member, "daily_disorientation_level_family_member")) {
+                                                                                            if (checkValidation(current, dailyForm, data?.daily_sanitary_situation_incident, "daily_sanitary_situation_incident")) {
+                                                                                                CallApi(current);
+                                                                                            }
                                                                                         }
                                                                                     }
                                                                                 }
@@ -555,7 +556,6 @@ export const handleSubmit = (current) => {
                             }
                         }
                     }
-                }
                 }
             }
         } else if (everyDay) {

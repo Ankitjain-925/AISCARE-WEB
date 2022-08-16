@@ -316,7 +316,7 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
+                                                            {/* <Grid className="anamneSecMid">
                                                                 <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
@@ -348,7 +348,7 @@ class Index extends Component {
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid className="anamneSecMid">
                                                                 <p>{Falling_Risk} </p>
                                                                 <Grid className="anamneSec">
@@ -780,7 +780,7 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
+                                                            {/* <Grid className="anamneSecMid">
                                                                 <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
@@ -812,7 +812,7 @@ class Index extends Component {
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid className="anamneSecMid">
                                                                 <p>{Falling_Risk} </p>
                                                                 <Grid className="anamneSec">
@@ -1186,7 +1186,7 @@ class Index extends Component {
                                                             <Grid className="anamneSecMid">
                                                                 <p>Pneunomie Situation</p>
                                                                 <Grid className="anamneSec">
-                                                                    <FormControl>
+                                                                    {/* <FormControl>
                                                                         <FormLabel>o2 Saturation</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
@@ -1211,11 +1211,10 @@ class Index extends Component {
                                                                             }
                                                                             label="Second Day"
                                                                         />
-                                                                    </FormControl>
+                                                                    </FormControl> */}
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>Sound Recording auscultation/ tech_development</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -1237,7 +1236,7 @@ class Index extends Component {
                                                                                     }}
                                                                                 />
                                                                             }
-                                                                            label="Second Day"
+                                                                            label="Sound Recording auscultation/ tech_development"
                                                                         />
                                                                     </FormControl>
                                                                 </Grid>
@@ -1353,7 +1352,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>{Measure_diameter_Leg} (If Yes daily if not evry 2 Weeks)</label>
+                                                                        <label>{Measure_diameter_Leg} </label>
 
                                                                         <input
                                                                             type="number"
@@ -1432,7 +1431,7 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
+                                                            {/* <Grid className="anamneSecMid">
                                                                 <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
@@ -1464,7 +1463,7 @@ class Index extends Component {
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid className="anamneSecMid">
 
 
@@ -1659,7 +1658,7 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
+                                                            {/* <Grid className="anamneSecMid">
                                                                 <p>Depression Risk</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
@@ -1682,7 +1681,7 @@ class Index extends Component {
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid className="anamneSecMid">
                                                                 <p>Disorientation Level</p>
                                                                 <Grid className="anamneSec">
