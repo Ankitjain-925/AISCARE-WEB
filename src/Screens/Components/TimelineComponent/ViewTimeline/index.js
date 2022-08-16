@@ -64,11 +64,12 @@ class Index extends Component {
 
   render() {
     var item = this.state.Track;
+    console.log("item", item)
     return (
       <div className="timelineGap">
 
         {item.type === "carequestinnary" && (
-        <Questionnaire 
+          <Questionnaire
             onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -138,7 +139,7 @@ class Index extends Component {
             time_format={this.props.time_format}
           />
         )}
-        {(item.type === "promotion" && this.props.comesfrom==='patient') && (
+        {(item.type === "promotion" && this.props.comesfrom === 'patient') && (
           <PromotionView
             PromotionType={this.props.PromotionType}
             onlyOverview={this.props.Overview}

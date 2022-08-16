@@ -1422,7 +1422,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Falling Risk </p>
+                                                                <p>Falling Risk</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
                                                                         <FormLabel>ask for incidents</FormLabel>

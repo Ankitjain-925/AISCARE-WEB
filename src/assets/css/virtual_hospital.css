@@ -15893,4 +15893,27 @@ width: 90px!important;
     margin-bottom: 3px;
     font-family: Muli !important;
     }
+
+    .allQuestionShow{
+      margin-left: 21px;
+    }
+    .allQuestionShow1{
+      margin-bottom: 15px;
+    }
+
+    .allQuestionShow1 h1{
+      margin-bottom: 5px;
+    }
     
+    .allQuestionShow1 p{
+      color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    }
+
+    .creatTaskModel11{
+      margin-top:21px!important
+    }
