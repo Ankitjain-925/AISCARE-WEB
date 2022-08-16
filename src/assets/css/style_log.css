@@ -497,9 +497,10 @@ p.regOnlog {
 /* Added By ANKITA */
 
 .err_message {
-    text-align: center !important;
+    text-align: left !important;
     color: red !important;;
     font-weight: 600;
+    margin-bottom: 12px;
 }
 .success_message
 {

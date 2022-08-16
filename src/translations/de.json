@@ -1826,6 +1826,27 @@
     "quarter":"Quartal",
     "full_information":"Volle Information",
    "EarlierActivity":"Frühere Aktivität",
-   "to":"zu"
+   "to":"zu",
+
+   "For_Hospital":"For Hospital",
+   "Every_2_Day":"Every 2 Day",
+   "Quarter":"Quarter",
+   "Picture_with_Scale":"Picture with Scale",
+   "Anamnesis":"Anamnesis",
+   "Decubitus_Situation":"Decubitus Situation",
+   "Amount_of_wounds":"Amount of wounds",
+   "Better":"Better",
+   "Worse":"Worse",
+   "Thrombose_Situation":"Thrombose Situation",
+   "Measure_diameter_Leg":"Measure diameter Leg",
+   "Falling_Risk":"Falling Risk",
+   "ask_for_incidents":"ask for incidents",
+   "Did_you_fall_today":"Did you fall today",
+   "Use_of_tools":"Use of tools",
+
+   "ProfessionalActivity":"Professionelle Aktivität",
+   "Edit_assigned_services":"Zugewiesene Dienste bearbeiten",
+   "Delete_assigned_service":"Zugewiesenen Dienst löschen",
+   "Care_Questionnary":"Care Questionnary"
   }
 }
