@@ -120,6 +120,7 @@ class Index extends Component {
       ProfessionalActivity,
       EarlierActivity
     } = translate;
+    console.log("this.props.currentPage", this.props.currentPage)
     return (
       <Grid
         item
@@ -146,7 +147,7 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
-            {this.props?.House?.value &&
+            {/* {this.props?.House?.value &&
               <>
                 <li
                   className={
@@ -197,7 +198,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>}
-            {!this.props?.House?.value && <>
+            {!this.props?.House?.value && <> */}
               <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
                 <a onClick={this.Chats}>
                   {this.props.settings &&
@@ -320,10 +321,10 @@ class Index extends Component {
 
               <li
                 className={
-                  this.props.currentPage === "task" ? "menuActv" : ""
+                  this.props.currentPage === "profActivity" ? "menuActv" : ""
                 }
               >
-                <a onClick={() => { this.props.history.push("/nurse/professional-task") }}>
+                <a onClick={() => { this.props.history.push("/nurse/professional-activity") }}>
                   {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
@@ -334,7 +335,7 @@ class Index extends Component {
                       title=""
                     />) : (
                       <img
-                        src={this.props.currentPage === "task" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                        src={this.props.currentPage === "profActivity" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
                         alt=""
                         title=""
                       />
@@ -392,7 +393,7 @@ class Index extends Component {
                   <span>{"Care Questionnary"}</span>
                 </a>
               </li>
-            </>}
+            {/* </>} */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

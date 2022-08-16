@@ -332,6 +332,11 @@ class Index extends Component {
                             </Grid>
                             </Grid>
                         </Grid>
+                        {this.state.showError && (
+                              <div className="err_message">
+                                {select_all_conditions_to_delete_speciality}
+                              </div>
+                            )}
                         </Grid>
                           {/* <Grid className="addWrnLbl">
                             <Grid className="addWrnClose">

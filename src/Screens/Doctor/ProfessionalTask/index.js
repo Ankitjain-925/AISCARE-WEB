@@ -90,7 +90,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}/${this.props?.House?.value}`,
+          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {

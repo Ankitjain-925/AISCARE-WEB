@@ -83,6 +83,7 @@ class Index extends Component {
       newTask: {},
       Fileadd: "",
       AllTasks: this.props.AllTasks,
+      AllTasks1: this.props.AllTasks,
       shown: false,
       professionalArray: [],
       patientForFilter: this.props.patientForFilter,
@@ -146,6 +147,7 @@ class Index extends Component {
       this.setState({
         tabvalue2: this.props.tabvalue2 || 0,
         AllTasks: this.props.AllTasks,
+        AllTasks1: this.props.AllTasks,
         ArchivedTasks: this.props.ArchivedTasks,
         DoneTask: this.props.DoneTask,
         OpenTask: this.props.OpenTask,
@@ -163,6 +165,30 @@ class Index extends Component {
       this.getMetadata();
     }
   };
+
+
+
+  // onDropDown = (tabvalue2) => {
+  //   const { AllTasks1 } = this.state;
+  //   if (tabvalue2.label == 'Task') {
+  //     let taskfilter = AllTasks1.filter((item) => {
+  //       return item.assign_service;
+  //     });
+  //     this.setState({ AllTasks: taskfilter });
+  //     console.log('task');
+  //   } else if (tabvalue2.label == 'AssignService') {
+
+  //     console.log('AssignService');
+  //   }else{
+      
+  //     console.log('appointmnt');
+  //   }
+  // };
+
+
+
+
+
 
   //get list of list
   getMetadata = () => {
@@ -231,9 +257,9 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { all } = translate;
     const Languages = [
-      { value: "All", label: all },
-      { value: "en", label: "AllType" },
-      { value: "de", label: "AllTask" },
+      { value: "All", label: "AssignService" },
+      { value: "en", label: "Appointment" },
+      { value: "de", label: "Task" },
     ];
     this.setState({ Languages });
   }
@@ -3905,20 +3931,22 @@ class Index extends Component {
                       <Select
                         value={selectedOption}
                         onChange=""
-                        options={specialitiesList}
+                        options={this.state.currentList}
                         placeholder="AllHospitals"
                         className="proAllSpec proNewSec"
                         isSearchable={false}
                       />
 
-                      <Select
-                        value={selectedOption}
-                        onChange=""
-                        options={this.state.Languages}
-                        placeholder="AllType"
-                        className="proAllSpec proNewSec"
-                        isSearchable={true}
-                      />
+                        <Select
+                          value={selectedOption}
+                          onChange={(val) => {
+                            this.onDropDown(val);
+                          }}
+                          options={this.state.Languages}
+                          placeholder="AllType"
+                          className="proAllSpec proNewSec"
+                          isSearchable={true}
+                        />
                     </>
                   )}
 

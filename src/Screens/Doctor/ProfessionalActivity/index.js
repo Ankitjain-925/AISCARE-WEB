@@ -72,7 +72,28 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
+    this.allHouses();
   }
+
+  allHouses = () => {
+    this.setState({ loaderImage: true });
+    let user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
+    axios
+      .get(
+        sitedata.data.path + "/UserProfile/Users/" + user_id,
+        commonHeader(user_token)
+      )
+      .then((response) => {
+        this.setState({ loaderImage: false });
+        this.setState({
+          currentList: response.data.data.houses,
+        });
+      })
+      .catch((error) => {
+        this.setState({ loaderImage: false });
+      });
+  };
 
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
@@ -84,51 +105,43 @@ class Index extends Component {
       shown: !this.state.shown,
     });
   };
-  //get Add task data
-  getAddTaskData = (tabvalue2, goArchive) => {
-    // this.setState({ loaderImage: true });
-    // axios
-    //   .get(
-    //     sitedata.data.path +
-    //       `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}/${this.props?.House?.value}`,
-    //     commonHeader(this.props.stateLoginValueAim.token)
-    //   )
-    //   .then((response) => {
-    //     this.setState({ AllTasks: response.data.data });
-    //     if (response.data.hassuccessed) {
-    //       if (response?.data?.data) {
-    //         var patientForFilterArr = filterPatient(response.data.data);
-    //         this.setState({ patientForFilter: patientForFilterArr });
-    //       }
-    //       var Done =
-    //         response.data.data?.length > 0 &&
-    //         response.data.data.filter(
-    //           (item) => item?.status === 'done' && item?.archived === false
-    //         );
-    //       var Archived =
-    //         response.data.data?.length > 0 &&
-    //         response.data.data.filter((item) => item?.archived === true);
-    //       var Open =
-    //         response.data.data?.length > 0 &&
-    //         response.data.data.filter(
-    //           (item) => item?.status === 'open' && item?.archived === false
-    //         );
-    //       this.setState({
-    //         AllTasks: response.data.data,
-    //         DoneTask: Done,
-    //         OpenTask: Open,
-    //         ArchivedTasks: Archived,
-    //       });
-    //       if (goArchive) {
-    //         this.setState({ tabvalue2: 3 });
-    //       } else {
-    //         this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
-    //       }
-    //     }
-    //     this.setState({ loaderImage: false });
-    //   });
-  };
-
+ //get Add task data
+ getAddTaskData = (tabvalue2, goArchive) => {
+  this.setState({ loaderImage: true });
+  axios
+    .get(
+      sitedata.data.path +
+      "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((response) => {
+      this.setState({ AllTasks: response.data.data });
+      if (response.data.hassuccessed) {
+        if (response?.data?.data) {
+          var patientForFilterArr = filterPatient(response.data.data);
+          this.setState({ patientForFilter: patientForFilterArr });
+        }
+        var Done =
+          response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.status === "done");
+        var Open =
+          response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.status === "open");
+        this.setState({
+          AllTasks: response.data.data,
+          DoneTask: Done,
+          OpenTask: Open,
+        });
+        if (goArchive) {
+          this.setState({ tabvalue2: 3 });
+        }
+        else {
+          this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+        }
+      }
+      this.setState({ loaderImage: false });
+    });
+};
 
 
 

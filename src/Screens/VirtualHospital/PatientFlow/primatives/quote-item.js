@@ -229,35 +229,80 @@ export default class QuoteItem extends React.Component {
             <Grid className="flowInfoInr2">
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
-                  <Grid className="dtlCount dtlCountRm">
-                    <a className="taskHover">
-                      <span>{Ward}</span>
-                      <img
-                        src={require('assets/virtual_images/square.png')}
-                        alt=""
-                        title=""
-                      />
-                      {quote.wards?.ward_name}
-                    </a>
-                    <a className="taskHover">
-                      <span>{Room}</span>
-                      <img
-                        src={require('assets/virtual_images/room.svg')}
-                        alt=""
-                        title=""
-                      />
-                      {quote.rooms?.room_name}
-                    </a>
-                    <a className="taskHover">
-                      <span>{Bed}</span>
-                      <img
-                        src={require('assets/virtual_images/bed2.png')}
-                        alt=""
-                        title=""
-                      />
-                      {quote.bed}
-                    </a>
-                  </Grid>
+                  {quote && quote.external === true ? (
+                    <Grid>
+                      <Grid className="dtlCount dtlCountRm">
+                        <a className="taskHover">
+                       Address - {quote.full_address?.address}
+                        </a>
+                      </Grid>
+                      <Grid className="dtlCount">
+                        <a className="taskHover">
+                          <img
+                            src={require("assets/images/location-pin.svg")}
+                            alt=""
+                            title=""
+                          />
+                          {quote.full_address?.city} ,  
+                          {quote.full_address?.pastal_code}
+                        </a>
+                      </Grid>
+                     <Grid className="dtlCount">
+                        <a className="taskHover">
+                          <img
+                            src={require("assets/images/email.svg")}
+                            alt=""
+                            title=""
+                          />
+                          {quote.full_address?.email}
+                        </a>
+                      </Grid>
+                      <Grid className="dtlCount">
+                        <a className="taskHover">
+                          <img
+                            src={require("assets/images/phone.svg")}
+                            alt=""
+                            title=""
+                          />
+                          {quote.full_address?.mobile}
+                        </a>
+                      </Grid>
+
+
+                    </Grid>
+                  ) : (
+                    <Grid>
+                      <Grid className="dtlCount dtlCountRm">
+                        <a className="taskHover">
+                          <span>{Ward}</span>
+                          <img
+                            src={require('assets/virtual_images/square.png')}
+                            alt=""
+                            title=""
+                          />
+                          {quote.wards?.ward_name}
+                        </a>
+                        <a className="taskHover">
+                          <span>{Room}</span>
+                          <img
+                            src={require('assets/virtual_images/room.svg')}
+                            alt=""
+                            title=""
+                          />
+                          {quote.rooms?.room_name}
+                        </a>
+                        <a className="taskHover">
+                          <span>{Bed}</span>
+                          <img
+                            src={require('assets/virtual_images/bed2.png')}
+                            alt=""
+                            title=""
+                          />
+                          {quote.bed}
+                        </a>
+                      </Grid>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
               <Grid className="dtlCntUpr dtlCntUprNw">
