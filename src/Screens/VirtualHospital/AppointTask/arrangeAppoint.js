@@ -749,6 +749,8 @@ class Index extends Component {
       find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
+      capab_Doctors1,
+      Nurse,
       allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit } =
       translate;
 
@@ -884,7 +886,7 @@ class Index extends Component {
                         control={
                           <Radio className="radioPat" />
                         }
-                        label="Doctor" 
+                        label={capab_Doctors1} 
                         />
                       <FormControlLabel
                         value="no"
@@ -894,7 +896,7 @@ class Index extends Component {
                         control={
                           <Radio className="radioPat" />
                         }
-                        label="Nurse" />
+                        label={Nurse} />
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist radioPat2">
