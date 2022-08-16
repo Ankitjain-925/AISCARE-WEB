@@ -182,7 +182,7 @@ class PointPain extends Component {
                   </Grid>
 
 
-                  <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                  {!this.props.removeAddbutton && <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                     {!data?.is_decline && (
                       <a className="openScndhrf">
                         <img
@@ -228,7 +228,6 @@ class PointPain extends Component {
                               )}
                             </a>
                           </li>
-
                           {data &&
                             data.task_type &&
                             data.task_type === 'sick_leave' &&
@@ -381,7 +380,7 @@ class PointPain extends Component {
                         {/* </a>
                 </Td> */}
                       </Grid>)}
-                  </Grid>
+                  </Grid>}
                 </> : <>
                   <Grid className="attchNotePart">
                     {data.task_type !== 'sick_leave' && (
@@ -451,7 +450,7 @@ class PointPain extends Component {
                   </Grid>
 
 
-                  <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                  {!this.props.removeAddbutton && <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                     {!data?.is_decline && (
                       <a className="openScndhrf">
                         <img
@@ -620,6 +619,24 @@ class PointPain extends Component {
                                 </a>
                               </li>
                             )}
+
+                      {data.title && 
+                           <li
+                           onClick={() => {
+                             this.props.removeTask(
+                               data._id);
+                           }}
+                         >
+                           <a>
+                             <img
+                               src={require('assets/virtual_images/bin.svg')}
+                               alt=""
+                               title=""
+                             />
+                             <>{"Delete assigned service"}</>
+                           </a>
+                         </li>
+                          }
                         </ul>
                       </a>
                     )}
@@ -650,7 +667,7 @@ class PointPain extends Component {
                         {/* </a>
                 </Td> */}
                       </Grid>)}
-                  </Grid>
+                  </Grid>}
                 </>}
             </Grid>
           </Grid>

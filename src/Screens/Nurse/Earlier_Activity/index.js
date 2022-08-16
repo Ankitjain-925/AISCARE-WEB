@@ -238,6 +238,7 @@ class Index extends Component {
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={this.state.ArchivedTask}
                                                 comesFrom={"Professional"}
+                                                removeAddbutton={true}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

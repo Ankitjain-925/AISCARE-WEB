@@ -65,6 +65,9 @@ class Index extends Component {
       tabvalue2: this.props.tabvalue2 || 0,
       q: "",
       selectedUser: "",
+      Types: [{label: "All Appointment", value: "appointment"}, {label: "All Assigned Service", value: "assigned_service"}, {label : "All Tasks", value: 'tasks'}],
+      task_type:{},
+      houses: {},
       professional_data: [],
       date_format: this.props.date_format,
       time_format: this.props.time_format,
@@ -200,8 +203,10 @@ class Index extends Component {
   componentDidMount() {
     this.allHouses();
     this.getMetadata();
-    this.getPatientData();
-    this.getProfessionalData();
+    if (this.props.stateLoginValueAim?.user?.type === "adminstaff"){
+      this.getPatientData();
+      this.getProfessionalData();
+    }
     this.specailityList();
     if (
       this.props.location?.state?.speciality &&
@@ -260,26 +265,8 @@ class Index extends Component {
   };
   // open model Add Task
   handleOpenTask = () => {
-    var pat1name = "";
-    if (
-      this.props.stateLoginValueAim?.user?.first_name &&
-      this.props.stateLoginValueAim?.user?.last_name
-    ) {
-      pat1name =
-        this.props.stateLoginValueAim?.user?.first_name +
-        " " +
-        this.props.stateLoginValueAim?.user?.last_name;
-    } else if (this.props.stateLoginValueAim?.user?.first_name) {
-      pat1name = this.props.stateLoginValueAim?.user?.first_name;
-    }
-    var fullData = [
-      {
-        label: pat1name,
-        value: this.props.stateLoginValueAim?.user?._id,
-        email: this.props.stateLoginValueAim?.user?.email,
-      },
-    ];
     this.setState({
+      professional_id_list1: this.state.professional_id_list,
       openTask: true,
       selectedHouse:{},
       newTask: {},
@@ -288,13 +275,11 @@ class Index extends Component {
       selectSpec: {},
       selectedPat: {},
     });
-    if (this.props.stateLoginValueAim?.user?.type === "doctor") {
-      this.updateEntryState3(fullData);
-    }
     if (this.props.patient) {
-      let user = { value: this.props.patient?.patient_id };
+      let user = { value: this.props.patient?.user_id };
       this.updateEntryState2(user);
     }
+
   };
   // close model Add Task
   handleCloseTask = () => {
@@ -307,6 +292,7 @@ class Index extends Component {
       taskData: {},
       errorMsg: false,
       specchange: false
+      
     });
   };
   handleChangeTab = (event, tabvalue) => {
@@ -473,7 +459,9 @@ class Index extends Component {
       if (data.archived === true) {
         isGOingArchive = true;
       }
+     
       data.house_id = this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value;
+
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
         axios
@@ -519,6 +507,7 @@ class Index extends Component {
           due_on["time"] = new Date();
           data.due_on = due_on;
         }
+       
         axios
           .post(
             sitedata.data.path + "/vh/AddTask",
@@ -791,7 +780,7 @@ class Index extends Component {
     this.setState({ assignedTo2: e });
   };
   
-  updateEntryState3 = (e) => {
+  updateEntryState3 = (e) => { 
     this.setState({ assignedTo: e }, () => {
       var data =
         e?.length > 0 &&
@@ -926,7 +915,7 @@ class Index extends Component {
         );
       },
     });
-  };
+  };h
 
   removeTask2 = (id) => {
     this.setState({ message: null, openTask: false });
@@ -964,8 +953,70 @@ class Index extends Component {
     });
   };
 
+  updateFilters = (e, name) =>{
+    this.setState({ text: '' });
+    if(name==='task_type'){
+      this.setState({ task_type: e });
+      if(this.state.houses?.value){
+        this.getfilterData(this.state.houses?.value, true)
+      }
+      else{
+        this.FilterByType(e, this.props.AllTasks, this.props.DoneTask, this.props.OpenTask, this.props.ArchivedTasks)
+      }
+    }
+    else{
+      this.setState({ houses: e });
+      this.getfilterData(e.value, true)
+    } 
+  }
+
+  FilterByType = (e, AllTasks, DoneTask, OpenTask, ArchivedTasks)=>{
+    this.setState({ task_type: e });
+    var TypeCondtion = e.value === 'tasks'? 'task_name' : TypeCondtion = e.value === 'appointment' ? 'appointment_type' : 'title'; 
+    let track1 = AllTasks;
+    let FilterFromSearch1 =
+      track1 &&
+      track1.length > 0 &&
+      track1.filter((obj) => {
+        return obj[TypeCondtion];
+      });
+    this.setState({ AllTasks: FilterFromSearch1 });
+
+    let track2 = DoneTask;
+    let FilterFromSearch2 =
+      track2 &&
+      track2.length > 0 &&
+      track2.filter((obj) => {
+        return obj[TypeCondtion];
+      });
+    this.setState({ DoneTask: FilterFromSearch2 });
+
+    let track3 = OpenTask; 
+    let FilterFromSearch3 =
+      track3 &&
+      track3.length > 0 &&
+      track3.filter((obj) => {
+        return obj[TypeCondtion];
+      });
+    this.setState({ OpenTask: FilterFromSearch3 });
+
+    let track4 = ArchivedTasks;
+    let FilterFromSearch4 =
+      track4 &&
+      track4.length > 0 &&
+      track4.filter((obj) => {
+        return obj[TypeCondtion];
+      });
+    this.setState({ ArchivedTasks: FilterFromSearch4 });
+
+  }
+
   FilterText = (e) => {
-    this.setState({ text: e.target.value });
+    this.setState({ text: e.target.value, houses: {},  task_type: {}});
+    this.getfilterData(e.target.value);
+  };
+
+  getfilterData = (filterm, comefrom) =>{
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
       track1 &&
@@ -973,7 +1024,7 @@ class Index extends Component {
       track1.filter((obj) => {
         return JSON.stringify(obj)
           .toLowerCase()
-          .includes(e.target?.value?.toLowerCase());
+          .includes(filterm?.toLowerCase());
       });
     this.setState({ AllTasks: FilterFromSearch1 });
 
@@ -984,7 +1035,7 @@ class Index extends Component {
       track2.filter((obj) => {
         return JSON.stringify(obj)
           .toLowerCase()
-          .includes(e.target?.value?.toLowerCase());
+          .includes(filterm?.toLowerCase());
       });
     this.setState({ DoneTask: FilterFromSearch2 });
 
@@ -995,7 +1046,7 @@ class Index extends Component {
       track3.filter((obj) => {
         return JSON.stringify(obj)
           .toLowerCase()
-          .includes(e.target?.value?.toLowerCase());
+          .includes(filterm?.toLowerCase());
       });
     this.setState({ OpenTask: FilterFromSearch3 });
 
@@ -1006,10 +1057,15 @@ class Index extends Component {
       track4.filter((obj) => {
         return JSON.stringify(obj)
           .toLowerCase()
-          .includes(e.target?.value?.toLowerCase());
+          .includes(filterm?.toLowerCase());
       });
-    this.setState({ ArchivedTasks: FilterFromSearch4 });
-  };
+    this.setState({ ArchivedTasks: FilterFromSearch4 },
+      ()=>{
+        if(comefrom){
+          this.FilterByType(this.state.task_type, this.state.AllTasks, this.state.DoneTask, this.state.OpenTask, this.state.ArchivedTasks)
+        }
+      });
+  }
   //for delete the Task
   deleteClickTask(id) {
     this.setState({ loaderImage: true });
@@ -1028,18 +1084,6 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
-    // var assignedTo =
-    //   data?.assinged_to?.length > 0 &&
-    //   data?.assinged_to.map((data) => {
-    //     var name = "";
-    //     if (data?.first_name && data?.last_name) {
-    //       name = data?.first_name + " " + data?.last_name;
-    //     } else if (data?.first_name) {
-    //       name = data?.first_name;
-    //     }
-    //     return { label: name, value: data._id };
-    //   });
-
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
@@ -1047,7 +1091,6 @@ class Index extends Component {
       pat1name = data?.patient?.first_name;
     }
     // var cal_Length = data?.attachments?.length;
-    this.selectProf(data?.assinged_to, this.state.professional_id_list);
     var Assigned_Aready =
       data &&
       data?.assinged_to &&
@@ -1056,10 +1099,9 @@ class Index extends Component {
         return item?.user_id;
       });
     var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
-    console.log("findHouse",findHouse)
     var deep = _.cloneDeep(data);
     this.setState({
-      selectedHouse: findHouse,
+      selectedHouse: findHouse[0],
       newTask: deep,
       fileattach: data.attachments,
       openTask: true,
@@ -1075,6 +1117,13 @@ class Index extends Component {
         label: data?.speciality?.specialty_name,
         value: data?.speciality?._id,
       },
+    }, ()=>{
+      this.getProfessionalData();
+      this.getPatientData();
+      this.selectProf(
+        this.state.newTask?.assinged_to,
+        this.state.professional_id_list
+      );
     });
   };
 
@@ -1085,7 +1134,6 @@ class Index extends Component {
       PatientID: patient_id,
       taskData: data,
     });
-    console.log("open",this.state.openTask1)
   };
 
   // Get the Professional data
@@ -1263,7 +1311,6 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    console.log('On edit call111')
     this.setState({
       selectRoom: "",
       selectWard: "",
@@ -1377,11 +1424,38 @@ class Index extends Component {
 
   updateEntryState5 = (e) => {
     this.setState({ selectedHouse: e }, () => {
+      var pat1name = "";
+      if (
+        this.props.stateLoginValueAim?.user?.first_name &&
+        this.props.stateLoginValueAim?.user?.last_name
+      ) {
+        pat1name =
+          this.props.stateLoginValueAim?.user?.first_name +
+          " " +
+          this.props.stateLoginValueAim?.user?.last_name;
+      } else if (this.props.stateLoginValueAim?.user?.first_name) {
+        pat1name = this.props.stateLoginValueAim?.user?.first_name;
+      }
+      var fullData = [
+        {
+          label: pat1name,
+          value: this.props.stateLoginValueAim?.user?._id,
+          email: this.props.stateLoginValueAim?.user?.email,
+        },
+      ];
       this.getProfessionalData();
       this.getPatientData();
+      this.SelectAutoAssigned(fullData);
     });
   }
 
+  SelectAutoAssigned = (fullData)=>{
+    setTimeout(()=>{
+    if (this.props.stateLoginValueAim?.user?.type === "doctor" || this.props.stateLoginValueAim?.user?.type === "nurse") {
+      this.updateEntryState3(fullData);
+    }
+  },500);
+  }
   render() {
     // console.log("selectedHouse",this.state.selectedHouse)
     let translate = getLanguage(this.props.stateLanguageType);
@@ -1587,7 +1661,7 @@ class Index extends Component {
           <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
-              {this.props.comesFrom !== "Earliertask" && this.props.comesFrom !== "Profearliertask"  && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
+              {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask"  && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" && <AssignedService />}
               {/* <label>{filterbedge}</label> */}
             </Grid>
@@ -3543,8 +3617,8 @@ class Index extends Component {
                                             )}
                                             <Grid>
                                               <img
-                                                onClick={(id) => {
-                                                  this.removeTask(id);
+                                                onClick={() => {
+                                                  this.removeTask(this.state.newTask?._id);
                                                 }}
                                                 src={require("assets/virtual_images/deleteNew.png")}
                                                 alt=""
@@ -3553,7 +3627,7 @@ class Index extends Component {
                                               />
                                               <label
                                                 onclick={(id) => {
-                                                  this.removeTask(id);
+                                                  this.removeTask(this.state.newTask?._id);
                                                 }}
                                               >
                                                 {Delete}
@@ -3948,6 +4022,29 @@ class Index extends Component {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
+              {this.props.comesFrom=== 'Professional' && 
+              <Grid className="viewTaskfilter">
+                    <Select
+                      name="task_type"
+                      onChange={(e) => this.updateFilters(e, 'task_type')}
+                      value={this.state.task_type}
+                      options={this.state.Types}
+                      placeholder={"select"}
+                      isMulti={false}
+                      isSearchable={true}
+                    />
+                    
+                    <Select
+                      name="houses"
+                      onChange={(e) => this.updateFilters(e, 'houses')}
+                      value={this.state.houses}
+                      options={this.state.currentList}
+                      placeholder={"select"}
+                      isMulti={false}
+                      isSearchable={true}
+                    />
+
+              </Grid>}
                 <Grid className="taskSort">
                   {this.state.showinput && (
                     <input
@@ -4071,6 +4168,7 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -4097,6 +4195,7 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
+                       removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -4123,6 +4222,7 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
+                       removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -4149,6 +4249,7 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
+                       removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -4175,6 +4276,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                       removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -4201,6 +4303,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                       removeAddbutton = {this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}

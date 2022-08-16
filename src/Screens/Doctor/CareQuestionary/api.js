@@ -7,16 +7,16 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 
 export const handleChangeForm = (current, value) => {
     if (value === 1) {
-        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', dailyForm: true, everyQuarter: false, everyWeek: false, everyDay: false, selectForm: "Daily" });
+        current.setState({ allQuestionData: {}, errorChrMsg: '', dailyForm: true, everyQuarter: false, everyWeek: false, everyDay: false, selectForm: "Daily" });
     }
     else if (value === 2) {
-        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyDay: true, everyQuarter: false, everyWeek: false, dailyForm: false, selectForm: "Every_2_Day" });
+        current.setState({ allQuestionData: {}, errorChrMsg: '', everyDay: true, everyQuarter: false, everyWeek: false, dailyForm: false, selectForm: "Every_2_Day" });
     }
     else if (value === 3) {
-        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyWeek: true, everyDay: false, dailyForm: false, everyQuarter: false, selectForm: "Every_2_Weeks" });
+        current.setState({ allQuestionData: {}, errorChrMsg: '', everyWeek: true, everyDay: false, dailyForm: false, everyQuarter: false, selectForm: "Every_2_Weeks" });
     }
     else {
-        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyQuarter: true, everyWeek: false, dailyForm: false, everyDay: false, selectForm: "Quarter" });
+        current.setState({ allQuestionData: {}, errorChrMsg: '', everyQuarter: true, everyWeek: false, dailyForm: false, everyDay: false, selectForm: "Quarter" });
     }
 }
 
@@ -439,7 +439,7 @@ export const handleSubmit = (current) => {
                 current.setState({ errorChrMsg1: "Please select" + " " + "Patient first" })
             }
         } else {
-            current.setState({ errorChrMsg1: "Please select" + " " + "Hospital first" })
+            current.setState({ errorChrMsg1: "Please select" + " " + "Doctor first" })
         }
     } else {
         var data = allQuestionData;
@@ -471,8 +471,7 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, dailyForm, data?.daily_disorientation_level_patient_tell, "daily_disorientation_level_patient_tell")) {
                                                                                     if (checkValidation(current, dailyForm, data?.daily_disorientation_level_family_member, "daily_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, dailyForm, data?.daily_sanitary_situation_incident, "daily_sanitary_situation_incident")) {
-                                                                                            // CallApi(current);
-                                                                                            console.log("data", data)
+                                                                                            CallApi(current);
                                                                                         }
                                                                                     }
                                                                                 }
@@ -503,8 +502,6 @@ export const handleSubmit = (current) => {
             }
             if (checkValidation(current, everyDay, data?.day_rr_systolic, "day_rr_systolic")) {
                 if (checkValidation(current, everyDay, data?.day_rr_diastolic, "day_rr_diastolic")) {
-                    if (checkValidation(current, everyDay, data?.day_anamnesis_weight, "day_anamnesis_weight")) {
-                        if (checkValidation(current, everyDay, data?.day_anamnesis_o2_saturation, "day_anamnesis_o2_saturation")) {
                     if (checkValidation(current, everyDay, data?.day_decubitus_picture_with_scale, "day_decubitus_picture_with_scale")) {
                         if (checkValidation(current, everyDay, data?.day_decubitus_amount_of_wounds, "day_decubitus_amount_of_wounds")) {
                             if (checkValidation(current, everyDay, data?.day_decubitus_condition, "day_decubitus_condition")) {
@@ -523,12 +520,13 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, everyDay, data?.day_disorientation_level_ask_for_news, "day_disorientation_level_ask_for_news")) {
                                                                                     if (checkValidation(current, everyDay, data?.day_disorientation_level_family_member, "day_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, everyDay, data?.day_sanitary_situation_ask_for_incident, "day_sanitary_situation_ask_for_incident")) {
+                                                                                            if (checkValidation(current, everyDay, data?.day_anamnesis_weight, "day_anamnesis_weight")) {
+                                                                                                if (checkValidation(current, everyDay, data?.day_anamnesis_o2_saturation, "day_anamnesis_o2_saturation")) {
                                                                                                     if (checkValidation(current, everyDay, data?.day_pneunomie_o2_saturation, "day_pneunomie_o2_saturation")) {
                                                                                                         if (checkValidation(current, everyDay, data?.day_pneunomie_o2_sound_recording, "day_pneunomie_o2_sound_recording")) {
                                                                                                             if (checkValidation(current, everyDay, data?.day_nutrition_situation_fruits, "day_nutrition_situation_fruits")) {
                                                                                                                 if (checkValidation(current, everyDay, data?.day_nutrition_situation_protein, "day_nutrition_situation_protein")) {
-                                                                                                                    // CallApi(current);
-                                                                                                                    console.log("data", data)
+                                                                                                                    CallApi(current);
                                                                                                                 }
                                                                                                             }
                                                                                                         }
@@ -566,9 +564,6 @@ export const handleSubmit = (current) => {
             }
             if (checkValidation(current, everyWeek, data?.week_rr_systolic, "week_rr_systolic")) {
                 if (checkValidation(current, everyWeek, data?.week_rr_diastolic, "week_rr_diastolic")) {
-                    if (checkValidation(current, everyWeek, data?.week_anamnesis_weight, "week_anamnesis_weight")) {
-                        if (checkValidation(current, everyWeek, data?.week_anamnesis_diameter_leg, "week_anamnesis_diameter_leg")) {
-                            if (checkValidation(current, everyWeek, data?.week_anamnesis_condition, "week_anamnesis_condition")) {
                     if (checkValidation(current, everyWeek, data?.week_decubitus_picture_with_scale, "week_decubitus_picture_with_scale")) {
                         if (checkValidation(current, everyWeek, data?.week_decubitus_amount_of_wounds, "week_decubitus_amount_of_wounds")) {
                             if (checkValidation(current, everyWeek, data?.week_decubitus_condition, "week_decubitus_condition")) {
@@ -587,11 +582,12 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, everyWeek, data?.week_disorientation_level_ask_for_news, "week_disorientation_level_ask_for_news")) {
                                                                                     if (checkValidation(current, everyWeek, data?.week_disorientation_level_family_member, "week_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, everyWeek, data?.week_sanitary_situation_ask_for_incidents, "week_sanitary_situation_ask_for_incidents")) {
-
+                                                                                            if (checkValidation(current, everyWeek, data?.week_anamnesis_weight, "week_anamnesis_weight")) {
+                                                                                                if (checkValidation(current, everyWeek, data?.week_anamnesis_diameter_leg, "week_anamnesis_diameter_leg")) {
+                                                                                                    if (checkValidation(current, everyWeek, data?.week_anamnesis_condition, "week_anamnesis_condition")) {
                                                                                                         if (checkValidation(current, everyWeek, data?.week_anamnesis_falling_up_go, "week_anamnesis_falling_up_go")) {
                                                                                                             if (checkValidation(current, everyWeek, data?.week_depression_risk_good_today, "week_depression_risk_good_today")) {
-                                                                                                                // CallApi(current);
-                                                                                                                console.log("data", data)
+                                                                                                                CallApi(current);
                                                                                                             }
                                                                                                         }
                                                                                                     }
@@ -621,7 +617,7 @@ export const handleSubmit = (current) => {
 
         } else {
             data.type = "quarter"
-            // if (checkValidation(current, everyQuarter, data?.quarter_bartel_index_full_questionaire, "quarter_bartel_index_full_questionaire")) {
+            if (checkValidation(current, everyQuarter, data?.quarter_bartel_index_full_questionaire, "quarter_bartel_index_full_questionaire")) {
                 if (checkValidation(current, everyQuarter, data?.quarter_feeding, "quarter_feeding")) {
                     if (checkValidation(current, everyQuarter, data?.quarter_chair_bed_transfer, "quarter_chair_bed_transfer")) {
                         if (checkValidation(current, everyQuarter, data?.quarter_ambulation, "quarter_ambulation")) {
@@ -630,8 +626,7 @@ export const handleSubmit = (current) => {
                                     if (checkValidation(current, everyQuarter, data?.quarter_on_and_off_toilet, "quarter_on_and_off_toilet")) {
                                         if (checkValidation(current, everyQuarter, data?.quarter_bowels, "quarter_bowels")) {
                                             if (checkValidation(current, everyQuarter, data?.quarter_bladder, "quarter_bladder")) {
-                                                // CallApi(current);
-                                                console.log("data", data)
+                                                CallApi(current);
                                             }
                                         }
                                     }
@@ -640,7 +635,7 @@ export const handleSubmit = (current) => {
                         }
                     }
                 }
-            // }
+            }
         }
     }
 }

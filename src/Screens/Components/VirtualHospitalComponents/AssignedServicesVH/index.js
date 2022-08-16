@@ -134,6 +134,10 @@ class Index extends Component {
     };
   }
 
+  handleOpenAss = () => {
+    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list });
+  };
+
   componentDidUpdate = (prevProps) => {
     if (
       prevProps.tabvalue2 !== this.props.tabvalue2 ||
@@ -227,6 +231,9 @@ class Index extends Component {
     }
   }
 
+  handleCloseAss=()=>{
+    this.setState({openAss: false})
+  }
   // manage assign to list
   selectProf = (listing, data) => {
     var showdata = data;
@@ -292,7 +299,7 @@ class Index extends Component {
       this.updateEntryState3(fullData);
     }
     if (this.props.patient) {
-      let user = { value: this.props.patient?.patient_id };
+      let user = { value: this.props.patient?.user_id };
       this.updateEntryState2(user);
     }
   };
@@ -417,134 +424,134 @@ class Index extends Component {
   };
 
   // submit Task model
-  handleTaskSubmit = (type) => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let {
-      Task_title_cant_be_empty,
-      Plz_select_a_Patient,
-      Something_went_wrong,
-    } = translate;
-    this.setState({ errorMsg: '' });
-    let ComLength = this.state.calculate_Length;
-    var data = this.state.newTask;
-    var user_id = data?.patient?.user_id;
+  // handleTaskSubmit = (type) => {
+  //   let translate = getLanguage(this.props.stateLanguageType);
+  //   let {
+  //     Task_title_cant_be_empty,
+  //     Plz_select_a_Patient,
+  //     Something_went_wrong,
+  //   } = translate;
+  //   this.setState({ errorMsg: '' });
+  //   let ComLength = this.state.calculate_Length;
+  //   var data = this.state.newTask;
+  //   var user_id = data?.patient?.user_id;
 
-    if (
-      data?.attachments?.length > ComLength?.attach_Length ||
-      data?.comments?.length > ComLength?.comments_Length
-    ) {
-      axios
-        .post(
-          sitedata.data.path + '/UserProfile/MailSendToPatient',
-          { user_id: user_id },
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => { })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    if (
-      !data.task_name ||
-      (data && data.task_name && data.task_name.length < 1)
-    ) {
-      this.setState({ errorMsg: Task_title_cant_be_empty });
-    } else if (
-      !data.patient ||
-      (data && data.patient && data.patient.length < 1)
-    ) {
-      this.setState({ errorMsg: Plz_select_a_Patient });
-    } else {
-      if (data?.patient?.speciality?._id !== data?.speciality?._id) {
-        this.setSpeciality(data?.speciality, data?.case_id);
-      }
-      delete data?.patient?.speciality;
-      if (this.state.fileupods) {
-        data.attachments = this.state.fileattach;
-      }
-      if (
-        data?.attachments?.length > ComLength?.attach_Length ||
-        data?.comments?.length > ComLength?.comments_Length
-      ) {
-        data.isviewed = false;
-      }
-      var isGOingArchive = false;
-      if (data.archived === true) {
-        isGOingArchive = true;
-      }
-      data.house_id = this.props?.House?.value;
-      this.setState({ loaderImage: true });
-      if (this.state.newTask._id) {
-        axios
-          .put(
-            sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({ loaderImage: false });
-            if (responce.data.hassuccessed) {
-              this.setState({
-                newTask: {},
-                fileattach: {},
-                professional_data: [],
-                fileupods: false,
-                assignedTo: [],
-                q: '',
-                selectSpec: {},
-              });
-              this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
-              this.handleCloseTask();
-              if (type === 'picture_evaluation') {
-                // this.props.getArchived();
-              }
-            } else {
-              this.setState({ errorMsg: Something_went_wrong });
-            }
-          });
-      } else {
-        data.done_on = '';
-        data.priority = 0;
-        data.archived = false;
-        data.status = 'open';
-        data.created_at = new Date();
-        if (!data?.due_on?.date) {
-          let due_on = data?.due_on || {};
-          due_on['date'] = new Date();
-          data.due_on = due_on;
-        }
-        if (!data?.due_on?.time) {
-          let due_on = data?.due_on || {};
-          due_on['time'] = new Date();
-          data.due_on = due_on;
-        }
-        axios
-          .post(
-            sitedata.data.path + '/vh/AddTask',
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({
-              newTask: {},
-              fileattach: {},
-              professional_data: [],
-              fileupods: false,
-              assignedTo: [],
-              q: '',
-              selectSpec: {},
-              newComment: '',
-            });
-            this.props.getAddTaskData(isGOingArchive);
-            this.handleCloseTask();
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({ errorMsg: Something_went_wrong });
-          });
-      }
-    }
-  };
+  //   if (
+  //     data?.attachments?.length > ComLength?.attach_Length ||
+  //     data?.comments?.length > ComLength?.comments_Length
+  //   ) {
+  //     axios
+  //       .post(
+  //         sitedata.data.path + '/UserProfile/MailSendToPatient',
+  //         { user_id: user_id },
+  //         commonHeader(this.props.stateLoginValueAim.token)
+  //       )
+  //       .then((responce) => { })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  //   if (
+  //     !data.task_name ||
+  //     (data && data.task_name && data.task_name.length < 1)
+  //   ) {
+  //     this.setState({ errorMsg: Task_title_cant_be_empty });
+  //   } else if (
+  //     !data.patient ||
+  //     (data && data.patient && data.patient.length < 1)
+  //   ) {
+  //     this.setState({ errorMsg: Plz_select_a_Patient });
+  //   } else {
+  //     if (data?.patient?.speciality?._id !== data?.speciality?._id) {
+  //       this.setSpeciality(data?.speciality, data?.case_id);
+  //     }
+  //     delete data?.patient?.speciality;
+  //     if (this.state.fileupods) {
+  //       data.attachments = this.state.fileattach;
+  //     }
+  //     if (
+  //       data?.attachments?.length > ComLength?.attach_Length ||
+  //       data?.comments?.length > ComLength?.comments_Length
+  //     ) {
+  //       data.isviewed = false;
+  //     }
+  //     var isGOingArchive = false;
+  //     if (data.archived === true) {
+  //       isGOingArchive = true;
+  //     }
+  //     data.house_id = this.props?.House?.value;
+  //     this.setState({ loaderImage: true });
+  //     if (this.state.newTask._id) {
+  //       axios
+  //         .put(
+  //           sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
+  //           data,
+  //           commonHeader(this.props.stateLoginValueAim.token)
+  //         )
+  //         .then((responce) => {
+  //           this.setState({ loaderImage: false });
+  //           if (responce.data.hassuccessed) {
+  //             this.setState({
+  //               newTask: {},
+  //               fileattach: {},
+  //               professional_data: [],
+  //               fileupods: false,
+  //               assignedTo: [],
+  //               q: '',
+  //               selectSpec: {},
+  //             });
+  //             this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
+  //             this.handleCloseTask();
+  //             if (type === 'picture_evaluation') {
+  //               // this.props.getArchived();
+  //             }
+  //           } else {
+  //             this.setState({ errorMsg: Something_went_wrong });
+  //           }
+  //         });
+  //     } else {
+  //       data.done_on = '';
+  //       data.priority = 0;
+  //       data.archived = false;
+  //       data.status = 'open';
+  //       data.created_at = new Date();
+  //       if (!data?.due_on?.date) {
+  //         let due_on = data?.due_on || {};
+  //         due_on['date'] = new Date();
+  //         data.due_on = due_on;
+  //       }
+  //       if (!data?.due_on?.time) {
+  //         let due_on = data?.due_on || {};
+  //         due_on['time'] = new Date();
+  //         data.due_on = due_on;
+  //       }
+  //       axios
+  //         .post(
+  //           sitedata.data.path + '/vh/AddTask',
+  //           data,
+  //           commonHeader(this.props.stateLoginValueAim.token)
+  //         )
+  //         .then((responce) => {
+  //           this.setState({
+  //             newTask: {},
+  //             fileattach: {},
+  //             professional_data: [],
+  //             fileupods: false,
+  //             assignedTo: [],
+  //             q: '',
+  //             selectSpec: {},
+  //             newComment: '',
+  //           });
+  //           this.props.getAddTaskData(isGOingArchive);
+  //           this.handleCloseTask();
+  //         })
+  //         .catch(function (error) {
+  //           console.log(error);
+  //           this.setState({ errorMsg: Something_went_wrong });
+  //         });
+  //     }
+  //   }
+  // };
 
   handleDoctorMail = () => {
     var data = this.state.assignedTo;
@@ -884,78 +891,96 @@ class Index extends Component {
         }
       });
   };
-  //{Delete} the perticular service confirmation box
-  removeTask = (id) => {
-    this.setState({ message: null, openTask: false });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1>{remove_task}</h1>
-            <p>{you_sure_to_remove_task}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.removeTask2(id);
-                  // onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
+ //{Delete} the perticular service confirmation box
+ removeTask = (id) => {
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1>{remove_task}</h1>
+          <p>{you_sure_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.removeTask2(id);
+                // onClose();
+              }}
+            >
+              {Yes}
+            </button>
           </div>
-        );
-      },
-    });
-  };
+        </div>
+      );
+    },
+  });
+};
 
-  removeTask2 = (id) => {
-    this.setState({ message: null, openTask: false });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1 class="alert-btn">{RemoveTask}</h1>
-            <p>{really_want_to_remove_task}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.deleteClickTask(id);
-                  onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
+removeTask2 = (id) => {
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1 class="alert-btn">{RemoveTask}</h1>
+          <p>{really_want_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.deleteClickTask(id);
+                onClose();
+              }}
+            >
+              {Yes}
+            </button>
           </div>
-        );
-      },
-    });
-  };
+        </div>
+      );
+    },
+  });
+};
+
+
+  //for delete the Task
+  deleteClickTask(id) {
+      this.setState({ loaderImage: true });
+      axios
+        .delete(
+          sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            this.props.getAddTaskData();
+          }
+          this.setState({ loaderImage: false });
+        })
+        .catch((error) => { });
+    }
 
   FilterText = (e) => {
     this.setState({ text: e.target.value });
@@ -1003,25 +1028,9 @@ class Index extends Component {
       });
     this.setState({ ArchivedTasks: FilterFromSearch4 });
   };
-  //for delete the Task
-  deleteClickTask(id) {
-    this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + '/vh/AddTask/' + id,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((response) => {
-        if (response.data.hassuccessed) {
-          this.props.getAddTaskData();
-        }
-        this.setState({ loaderImage: false });
-      })
-      .catch((error) => { });
-  }
+
   // open Edit model
   editTask = (data) => {
-    console.log('dataa',data, this.state.openAss)
    var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
@@ -1406,11 +1415,17 @@ class Index extends Component {
         <Grid container direction="row">
           <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            <AssignedService openAss={this.state.openAss} editTask={this.editTask} getAddTaskData={(tabvalue2) => {
+            <AssignedService openAss={this.state.openAss}
+            handleOpenAss={()=> this.handleOpenAss()}
+            handleCloseAss={()=> this.handleCloseAss()}
+            service={this.state.service}
+             removeTask={(id) => this.removeTask(id)}
+             editTask={(data) => this.editTask(data)}
+              getAddTaskData={(tabvalue2) => {
               this.props.getAddTaskData(tabvalue2);
             }} />
           </Grid>
-        <Modal
+        {/* <Modal
             className={
               this.props.settings &&
                 this.props.settings.setting &&
@@ -1477,7 +1492,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
             </Grid>
-          </Modal>
+          </Modal> */}
           {/* End of Model setup */}
         </Grid>
         <Grid className="taskDetailMob">
@@ -1500,6 +1515,7 @@ class Index extends Component {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
+                
                 <Grid className="taskSort">
                   {this.state.showinput && (
                     <input

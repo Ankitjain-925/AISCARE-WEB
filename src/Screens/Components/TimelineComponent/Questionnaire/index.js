@@ -99,7 +99,7 @@ class Index extends Component {
                       alt=""
                       title=""
                     />
-                    <span>{nurse_questionnaire}</span>
+                    <span>{'Care Quationnary'}</span>
                   </a>
                 </Grid>
               </Grid>
@@ -177,21 +177,6 @@ class Index extends Component {
                         </li>
                         {this.props.comesfrom === "patient" && (
                           <li>
-                            {item.created_by === this.state.loggedinUser._id &&
-                              (!item.updated_by || item.updated_by === "") ? (
-                              <a
-                                onClick={() =>
-                                  this.props.EidtOption(item.type, item)
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/edit-1.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {edit}
-                              </a>
-                            ) : (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item, true)
@@ -204,7 +189,6 @@ class Index extends Component {
                                 />
                                 {Change} {visibility}
                               </a>
-                            )}
                           </li>
                         )}
                         {this.props.comesfrom !== "patient" && (
@@ -224,7 +208,7 @@ class Index extends Component {
                           </li>
                         )}
 
-                        <li>
+                        {/* <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
                               src={require("assets/images/download.svg")}
@@ -233,7 +217,7 @@ class Index extends Component {
                             />
                             {Download}
                           </a>
-                        </li>
+                        </li> */}
                         <li>
                           <DownloadFullTrack
                             TrackRecord={this.state.TrackRecord}
@@ -290,7 +274,7 @@ class Index extends Component {
 
             <Grid className="bp_hg addSpc">
               <label>
-                {item.blood_sugar && item.blood_sugar} <span>{daily}</span>
+               <span>{item.questionary_type}</span>
               </label>
               
             </Grid>
@@ -309,7 +293,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
-
+                  {console.log('itemsss', item)}
                   <Grid className="addSpc detailMark">
                     <Collapsible trigger={details} open="true">
                       <Grid className="detailCntnt">
@@ -390,14 +374,6 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Collapsible>
-                  </Grid>
-                  <Grid className="addSpc detailMark">
-                    <Collapsible trigger={img_files} open="true">
-                      <FileViews
-                        images={this.state.images}
-                        attachfile={item.attachfile}
-                      />
                     </Collapsible>
                   </Grid>
                 </Grid>}
