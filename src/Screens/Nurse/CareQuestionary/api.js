@@ -7,16 +7,16 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 
 export const handleChangeForm = (current, value) => {
     if (value === 1) {
-        current.setState({ allQuestionData: {}, errorChrMsg: '', dailyForm: true, everyQuarter: false, everyWeek: false, everyDay: false, selectForm: "Daily" });
+        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', dailyForm: true, everyQuarter: false, everyWeek: false, everyDay: false, selectForm: "Daily" });
     }
     else if (value === 2) {
-        current.setState({ allQuestionData: {}, errorChrMsg: '', everyDay: true, everyQuarter: false, everyWeek: false, dailyForm: false, selectForm: "Every_2_Day" });
+        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyDay: true, everyQuarter: false, everyWeek: false, dailyForm: false, selectForm: "Every_2_Day" });
     }
     else if (value === 3) {
-        current.setState({ allQuestionData: {}, errorChrMsg: '', everyWeek: true, everyDay: false, dailyForm: false, everyQuarter: false, selectForm: "Every_2_Weeks" });
+        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyWeek: true, everyDay: false, dailyForm: false, everyQuarter: false, selectForm: "Every_2_Weeks" });
     }
     else {
-        current.setState({ allQuestionData: {}, errorChrMsg: '', everyQuarter: true, everyWeek: false, dailyForm: false, everyDay: false, selectForm: "Quarter" });
+        current.setState({ FileAttach: [], allQuestionData: {}, errorChrMsg: '', everyQuarter: true, everyWeek: false, dailyForm: false, everyDay: false, selectForm: "Quarter" });
     }
 }
 
@@ -438,7 +438,7 @@ export const handleSubmit = (current) => {
                 current.setState({ errorChrMsg1: "Please select" + " " + "Patient first" })
             }
         } else {
-            current.setState({ errorChrMsg1: "Please select" + " " + "Doctor first" })
+            current.setState({ errorChrMsg1: "Please select" + " " + "Hospital first" })
         }
     } else {
         var data = allQuestionData;
@@ -470,7 +470,8 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, dailyForm, data?.daily_disorientation_level_patient_tell, "daily_disorientation_level_patient_tell")) {
                                                                                     if (checkValidation(current, dailyForm, data?.daily_disorientation_level_family_member, "daily_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, dailyForm, data?.daily_sanitary_situation_incident, "daily_sanitary_situation_incident")) {
-                                                                                            CallApi(current);
+                                                                                            // CallApi(current);
+                                                                                            console.log("data", data)
                                                                                         }
                                                                                     }
                                                                                 }
@@ -525,7 +526,8 @@ export const handleSubmit = (current) => {
                                                                                                         if (checkValidation(current, everyDay, data?.day_pneunomie_o2_sound_recording, "day_pneunomie_o2_sound_recording")) {
                                                                                                             if (checkValidation(current, everyDay, data?.day_nutrition_situation_fruits, "day_nutrition_situation_fruits")) {
                                                                                                                 if (checkValidation(current, everyDay, data?.day_nutrition_situation_protein, "day_nutrition_situation_protein")) {
-                                                                                                                    CallApi(current);
+                                                                                                                    // CallApi(current);
+                                                                                                                    console.log("data", data)
                                                                                                                 }
                                                                                                             }
                                                                                                         }
@@ -586,7 +588,8 @@ export const handleSubmit = (current) => {
                                                                                                     if (checkValidation(current, everyWeek, data?.week_anamnesis_condition, "week_anamnesis_condition")) {
                                                                                                         if (checkValidation(current, everyWeek, data?.week_anamnesis_falling_up_go, "week_anamnesis_falling_up_go")) {
                                                                                                             if (checkValidation(current, everyWeek, data?.week_depression_risk_good_today, "week_depression_risk_good_today")) {
-                                                                                                                CallApi(current);
+                                                                                                                // CallApi(current);
+                                                                                                                console.log("data", data)
                                                                                                             }
                                                                                                         }
                                                                                                     }
@@ -625,7 +628,8 @@ export const handleSubmit = (current) => {
                                     if (checkValidation(current, everyQuarter, data?.quarter_on_and_off_toilet, "quarter_on_and_off_toilet")) {
                                         if (checkValidation(current, everyQuarter, data?.quarter_bowels, "quarter_bowels")) {
                                             if (checkValidation(current, everyQuarter, data?.quarter_bladder, "quarter_bladder")) {
-                                                CallApi(current);
+                                                // CallApi(current);
+                                                console.log("data", data)
                                             }
                                         }
                                     }

@@ -46,7 +46,8 @@ class Index extends Component {
             allQuestionData: {},
             openQues: false,
             errorChrMsg1: '',
-            loaderImage: false
+            loaderImage: false,
+            FileAttach: [],
         }
     }
 
