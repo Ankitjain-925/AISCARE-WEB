@@ -928,20 +928,21 @@ a.presSecAncr:hover {
 .journalAdd h1 {
     color: #000808;
     font-family: Muli;
-    font-size: 28px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0;
     line-height: 40px;
-    margin-top: 18px;
-    margin-bottom: 0px;
+    margin: 0px;
     white-space: nowrap;
 }
 .AddEntrynw {
     text-align: right;
 }
+.AddEntrynw a:first-child {
+    margin-right: 6px;
+}
 .AddEntrynw a {
     color: #FFFFFF !important;
-    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
@@ -951,8 +952,9 @@ a.presSecAncr:hover {
     background-color: #00ABAF;
     min-width: 164px;
     display: inline-block;
-    padding: 16px 8px;
+    padding: 12px 8px;
     cursor: pointer;
+    font-family: Muli;
 }
 .journalAdd {
     margin-top: 45px;
@@ -4084,8 +4086,8 @@ button.aboutTabsIner {
     line-height: 18px;
 }
 .factorAuth {
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 .factorAuthEnbl h4 {
     color: #404646;
@@ -5731,7 +5733,7 @@ a.nxtpag {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 32px;
-    margin-bottom: 2px;
+    margin-bottom: 0px;
 }
 .docHlthMain {
     padding: 22px 24px 22px 24px;
@@ -5923,8 +5925,7 @@ a.nxtpag {
     text-align: center;
     border: none;
     padding: 12px 8px;
-    margin-top: 22px;
-    margin-bottom: 2px;
+    margin: 0px;
     outline: none;
 }
 .cntryLiv p{
@@ -6223,7 +6224,7 @@ img.openScnd {
     line-height: 14px;
     list-style-type: none;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 8px 7px;
 }
 .scndOptionIner ul li a:hover {
     border-radius: 8px;
@@ -6232,7 +6233,7 @@ img.openScnd {
 }
 .scndOptionIner ul li{
     list-style-type: none;
-    margin-bottom: 7px;
+    margin-bottom: 0px;
 }
 .scndOptionIner ul li a img {
     margin-right: 10px;
@@ -6247,7 +6248,7 @@ img.openScnd {
     margin-bottom: 0px;
     padding: 12px 8px;
     position: absolute;
-    top: 32px;
+    top: 19px;
     right: 0;
     text-align: left;
     z-index: 111;
@@ -8534,11 +8535,11 @@ span.dosMg {
 }
 .relexStress div {
     width: 50%;
-    text-align: CENTER;
+    text-align: center;
 }
 .relexStressRght a {
     border: 1px solid #BFC1C1;
-    border-radius: 0 4px 4px 0;
+    border-radius: 2px;
     background-color: #FFFFFF;
     width: 100%;
     display: block;
@@ -9133,7 +9134,7 @@ td.phrImg p {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .imptNotic {
     padding: 24px 24px 24px 24px;
@@ -9153,10 +9154,14 @@ td.phrImg p {
     list-style-type: none;
     margin-bottom: 4px;
 }
+.trigerAction ul {
+    padding-left: 13px;
+    margin-bottom: 0px;
+}
 .trigerAction {
     border-radius: 8px;
     background-color: #FECA57;
-    padding: 16px 20px;
+    padding: 15px 16px;
 }
 .trigerAction label {
     color: #976901;
@@ -9169,9 +9174,9 @@ td.phrImg p {
 }
 .trigerAction ul li::before{
     content: '\2022';
-    color: #976901;
+    color: #d09207;
     position: absolute;
-    left: -27px;
+    left: -14px;
     top: 0;
 }
 .paraPatient label {
@@ -9190,7 +9195,7 @@ td.phrImg p {
     padding: 6px 8px;
 }
 .paraPatient {
-    margin-top: 28px;
+    margin-top: 10px;
 }
 .hereConfirm .MuiFormControlLabel-label {
     color: #404646;
@@ -9584,8 +9589,8 @@ a.menuActv img {
     line-height: 18px;
 }
 .dataBoxUpr {
-    padding: 15px 24px 24px 24px;
-    margin-right: 2px;
+    padding: 15px 20px 20px 24px;
+    margin-right: 0px;
 }
 .dataBoxInput label {
     color: #404646;
@@ -9603,12 +9608,12 @@ a.menuActv img {
     outline: none;
     padding: 10px 10px;
     color: #000808;
-    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    margin-bottom: 14px;
+    margin-bottom: 8px;
+    font-family: Muli;
 }
 .dataBoxSub input[type="submit"] {
     color: #FFFFFF;
@@ -13540,6 +13545,7 @@ a.academy_ul ul li img {
 }
 .profileBtn {
     margin: 10px;
+    margin-top: 22px;
 }
 .SetWidthPopup3 {
     width: 55%;
@@ -13871,6 +13877,7 @@ g.highcharts-axis.highcharts-yaxis text {
     border-radius: 8px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 .homeBgDrk h4.ccl-right-panel-head-ttl {
     color: #ffff;
@@ -13896,9 +13903,15 @@ g.highcharts-axis.highcharts-yaxis text {
     color: #BFC1C1 !important;
 }
 .imptNotic {
-    height: 500px;
+    height: 415px;
     padding: 24px 24px 24px 24px;
     overflow: auto;
+}
+.hereConfirm label.MuiFormControlLabel-root {
+    margin-right: 0px;
+}
+.hereConfirm span.MuiButtonBase-root.MuiIconButton-root {
+    padding-left: 0px;
 }
 .addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
     cursor: pointer;
@@ -14100,7 +14113,6 @@ g.highcharts-axis.highcharts-yaxis text {
 }
 .downloadButton {
     float: right;
-    padding: 15px;
 }
 .homeBgDrk .downloadButton{
     color:#fff!important;
@@ -14449,7 +14461,7 @@ ul.insuranceHint1 li {
     outline: none;
 }
 .AddEntrynw a {
-    margin: 10px;
+    margin-bottom: 10px;
 }
 /*Paramedic Section*/
 .ProfileImage{
@@ -14627,9 +14639,6 @@ button.CutomStripeButton span {
 }
 .add_wishList {
     display:none;
-}
-.nwCoursName h3 {
-    margin-top: 25px;
 }
 .react-stars:focus {
     outline: none !important;
@@ -16236,6 +16245,9 @@ select:-webkit-autofill:focus {
      margin-right: 8px !important;
      margin-top: 14px !important;
    }
+   .staticsAmt {
+     min-height: auto !important;
+   }
 }
 @media screen and (min-width: 700px) and (max-width: 959px){
  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
@@ -17501,8 +17513,95 @@ ul.duringCovid li:last-child {
     outline: none !important;
     border-radius: 2px !important;
 }
-.MuiGrid-root.profileDescp {
+.min_section.minall_sec {
+    margin-bottom: 12px;
+}
+.patntFlowIner .MuiGrid-root.MuiGrid-container.MuiGrid-align-items-xs-center:last-child label {
+    margin-bottom: 0px;
+}
+.srvcTableNew {
+    margin-bottom: 0px;
+}
+.addServContnt .enterServMain .enterSpcl {
+    margin-bottom: 6px;
+}
+.addServContnt .enterSpcl input {
+    width: 100% !important;
+}
+.colorbtn .tskOverView.tskOverView2 {
+    min-height: initial !important;
+}
+td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton-text {
+    padding: 0px;
+    min-width: initial !important;
+}
+.taskDescp.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-12 {
+    margin-bottom: 6px;
+}
+.relexStress div:first-child {
+    margin-right: 5px;
+}
+.relexStress div:last-child {
+    margin-left: 5px;
+}
+.cnfrmDiaMain label.MuiFormControlLabel-root.checkboxques {
+    margin-top: -22px;
+    margin-bottom: 12px;
+}
+.cnfrmDiaMain label.MuiFormControlLabel-root.checkboxquestion {
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+.addSpeclModel .addSpeclContnt {
+    height: initial !important;
+}
+.add_a_choice .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-10.MuiGrid-grid-md-10 {
+    padding-top: 0px;
+}
+.enterSpcl .rrInput.vhfield-add {
+    margin-bottom: 6px;
+}
+.add_a_choice .MuiGrid-root.roomRmv {
+    text-align: center;
+}
+.add_a_choice .roomRmv a {
     margin-top: 0px;
+}
+.SetWidthPopup3 {
+    position: relative;
+}
+.SetWidthPopup3 .entryCourse {
+    position: absolute;
+    padding: 0px;
+    top: 3px;
+    right: 3px;
+    margin-bottom: 0px;
+    z-index: 999;
+    border-bottom: none;
+}
+.SetWidthPopup3 .entryCourse a {
+    cursor: pointer;
+    padding: 2px 2px;
+}
+.MuiTabs-root.onlineTabs {
+    min-height: initial !important;
+}
+.onlineTabs button.MuiButtonBase-root {
+    min-height: initial !important;
+}
+.coursesTab header.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionStatic.MuiAppBar-colorPrimary.MuiPaper-elevation4 {
+    background: transparent !important;
+}
+.newCourseCntnt {
+    display: block !important;
+}
+.homeBgDrk .topicLang {
+    justify-content: left;
+}
+.homeBgDrk .topicLang input.searchonLMS {
+    background-color: transparent;
+    border: 1px solid #bfc1c1;
+    color: #dfdfdf;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
@@ -17516,6 +17615,19 @@ ul.duringCovid li:last-child {
    }
    a.openScndhrf {
      text-align: left;
+   }
+   a.openScndhrf button.MuiButtonBase-root.MuiButton-root.MuiButton-text, 
+   a.openScndhrf span.MuiButton-label {
+      min-width: initial !important;
+      padding: 0px !important;
+   }
+}
+@media (max-width: 1300px){ 
+  .pattern-sec {
+    margin-bottom: 14px;
+   }
+  .pattern-sec:last-child {
+    margin-bottom: 0px;
    }
 }
 a{

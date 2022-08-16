@@ -21,7 +21,7 @@ export const getSetting = (current) => {
           current.props.Settings(responce.data.data);
         } else {
           current.props.Settings({
-            user_id: current.props.stateLoginValueAim.user._id,
+            user_id: current.props?.stateLoginValueAim?.user?._id,
           });
         }
         current.setState(
