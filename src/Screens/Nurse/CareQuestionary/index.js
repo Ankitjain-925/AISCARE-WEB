@@ -56,7 +56,20 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        const { rr_systolic, RR_diastolic, Search_Select, ForPatient } = translate;
+        const { rr_systolic, RR_diastolic, Search_Select, ForPatient,For_Hospital ,Daily,every_2_week,Every_2_Day,Quarter,blood_pressure
+            ,Picture_with_Scale,
+            Anamnesis,
+            Decubitus_Situation,
+            Amount_of_wounds,
+            Worse,
+            Better,
+            Thrombose_Situation,
+            Measure_diameter_Leg,
+            Falling_Risk,
+            ask_for_incidents,
+            Did_you_fall_today,
+            Use_of_tools
+        } = translate;
         const { selectForm,
             dailyForm,
             everyDay,
@@ -96,7 +109,7 @@ class Index extends Component {
                                             <Grid>
                                                 <div className="err_message">{this.state.errorChrMsg1}</div>
                                                 <Grid item xs={12} md={12}>
-                                                    <label>For Hospital</label>
+                                                    <label>{For_Hospital}</label>
                                                     <Grid>
                                                         <Select
                                                             name="for_hospital"
@@ -147,25 +160,25 @@ class Index extends Component {
                                                             checked={selectForm === 'Daily'}
                                                             value="Daily"
                                                             control={<Radio onClick={() => handleChangeForm(this, 1)} />}
-                                                            label="Daily"
+                                                            label={Daily}
                                                         />
                                                         <FormControlLabel
                                                             checked={selectForm === 'Every_2_Day'}
                                                             value="Every_2_Day"
                                                             control={<Radio onClick={() =>
                                                                 handleChangeForm(this, 2)} />}
-                                                            label="Every 2 Day" />
+                                                            label={Every_2_Day} />
                                                         <FormControlLabel
                                                             checked={selectForm === 'Every_2_Weeks'}
                                                             value="Every_2_Weeks"
                                                             control={<Radio onClick={() => handleChangeForm(this, 3)} />}
-                                                            label="Every 2 Weeks"
+                                                            label={every_2_week}
                                                         />
                                                         <FormControlLabel
                                                             checked={selectForm === 'Quarter'}
                                                             value="Quarter"
                                                             control={<Radio onClick={() => handleChangeForm(this, 4)} />}
-                                                            label="Quarter"
+                                                            label={Quarter}
                                                         />
                                                     </RadioGroup>
                                                 </FormControl>
@@ -174,10 +187,10 @@ class Index extends Component {
                                                     <Grid>
                                                         <Grid >
                                                             <Grid className="anamneSecMid">
-                                                                <p>Anamnesis</p>
+                                                                <p>{Anamnesis}</p>
                                                                 {/* <Grid className="anamneSec"> */}
                                                                 <Grid className="bloodPrseure">
-                                                                    <label>Blood pressure</label>
+                                                                    <label>{blood_pressure}</label>
                                                                     <Grid container direction="row" spacing="1">
                                                                         <Grid item md={6} sm={6}>
                                                                             <Grid className="fillDia">
@@ -214,10 +227,10 @@ class Index extends Component {
                                                                 {/* </Grid> */}
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Decubitus Situation</p>
+                                                                <p>{Decubitus_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -232,7 +245,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds</label>
+                                                                        <label>{Amount_of_wounds}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="daily_decubitus_amount_of_wounds"
@@ -241,31 +254,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="daily_decubitus_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_decubitus_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_decubitus_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
-                                                                        <label>Measure diameter Leg </label>
+                                                                        <label>{Measure_diameter_Leg}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="daily_thrombose_diameter_leg"
@@ -274,31 +287,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="daily_thrombose_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_thrombose_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_thrombose_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Falling Risk </p>
+                                                                <p>{Falling_Risk} </p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -320,13 +333,13 @@ class Index extends Component {
                                                                                     }}
                                                                                 />
                                                                             }
-                                                                            label="Did you fall today"
+                                                                            label={Did_you_fall_today}
                                                                         />
                                                                     </FormControl>
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>Use of tools</FormLabel>
+                                                                        <FormLabel>{Use_of_tools}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -354,7 +367,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec anamneSecDbl">
                                                                     <label>Ask for Food </label>
                                                                     <FormControl className="inrLbl">
@@ -437,10 +450,10 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -455,7 +468,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds </label>
+                                                                        <label>{Amount_of_wounds} </label>
                                                                         <input
                                                                             type="number"
                                                                             value={allQuestionData?.daily_thrombose_amout_of_wounds || ''}
@@ -464,21 +477,21 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="daily_thrombose_situation">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_thrombose_situation === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.daily_thrombose_situation === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
@@ -571,7 +584,7 @@ class Index extends Component {
                                                                 <p>Sanitary Situation</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for Incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -606,10 +619,10 @@ class Index extends Component {
                                                     <Grid>
                                                         <Grid >
                                                             <Grid className="anamneSecMid">
-                                                                <p>Anamnesis</p>
+                                                                <p>{Anamnesis}</p>
                                                                 {/* <Grid className="anamneSec"> */}
                                                                 <Grid className="bloodPrseure">
-                                                                    <label>Blood pressure</label>
+                                                                    <label>{blood_pressure}</label>
                                                                     <Grid container direction="row" spacing="1">
                                                                         <Grid item md={6} sm={6}>
                                                                             <Grid className="fillDia">
@@ -697,10 +710,10 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Decubitus Situation</p>
+                                                                <p>{Decubitus_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -715,7 +728,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds</label>
+                                                                        <label>{Amount_of_wounds}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="day_decubitus_amount_of_wounds"
@@ -724,31 +737,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="day_decubitus_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_decubitus_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_decubitus_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
-                                                                        <label>Measure diameter Leg </label>
+                                                                        <label>{Measure_diameter_Leg}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="day_thrombose_diameter_leg"
@@ -757,31 +770,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="day_thrombose_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_thrombose_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_thrombose_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Falling Risk </p>
+                                                                <p>{Falling_Risk} </p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -803,13 +816,13 @@ class Index extends Component {
                                                                                     }}
                                                                                 />
                                                                             }
-                                                                            label="Did you fall today"
+                                                                            label={Did_you_fall_today}
                                                                         />
                                                                     </FormControl>
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>Use of tools</FormLabel>
+                                                                        <FormLabel>{Use_of_tools}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -837,7 +850,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec anamneSecDbl">
                                                                     <label>Ask for Food </label>
                                                                     <FormControl className="inrLbl">
@@ -920,10 +933,10 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -938,7 +951,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds </label>
+                                                                        <label>{Amount_of_wounds} </label>
                                                                         <input
                                                                             type="number"
                                                                             name="day_thrombose_amount_of_wounds"
@@ -947,21 +960,21 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="day_thrombose_situation">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_thrombose_situation === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.day_thrombose_situation === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
@@ -1054,7 +1067,7 @@ class Index extends Component {
                                                                 <p>Sanitary Situation</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for Incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -1266,10 +1279,10 @@ class Index extends Component {
                                                     <Grid>
                                                         <Grid >
                                                             <Grid className="anamneSecMid">
-                                                                <p>Anamnesis</p>
+                                                                <p>{Anamnesis}</p>
                                                                 {/* <Grid className="anamneSec"> */}
                                                                 <Grid className="bloodPrseure">
-                                                                    <label>Blood pressure</label>
+                                                                    <label>{blood_pressure}</label>
                                                                     <Grid container direction="row" spacing="1">
                                                                         <Grid item md={6} sm={6}>
                                                                             <Grid className="fillDia">
@@ -1310,7 +1323,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Measure diameter Leg (If Yes daily if not evry 2 Weeks)</label>
+                                                                        <label>{Measure_diameter_Leg} (If Yes daily if not evry 2 Weeks)</label>
                                                                         <input
                                                                             type="number"
                                                                             name="week_anamnesis_diameter_leg"
@@ -1319,31 +1332,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse (If Yes daily if not evry 2 Weeks)</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse} (If Yes daily if not evry 2 Weeks)</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="week_anamnesis_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_anamnesis_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_anamnesis_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Decubitus Situation</p>
+                                                                <p>{Decubitus_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -1358,7 +1371,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds</label>
+                                                                        <label>{Amount_of_wounds}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="week_decubitus_amount_of_wounds"
@@ -1367,31 +1380,31 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="week_decubitus_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_decubitus_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_decubitus_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
-                                                                        <label>Measure diameter Leg </label>
+                                                                        <label>{Measure_diameter_Leg}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="week_thrombose_diameter_leg"
@@ -1400,14 +1413,14 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="week_thrombose_diameter_leg_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_thrombose_diameter_leg_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_thrombose_diameter_leg_condition === 'worse'}
@@ -1421,10 +1434,10 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Falling Risk </p>
+                                                                <p>{Falling_Risk}</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -1446,13 +1459,13 @@ class Index extends Component {
                                                                                     }}
                                                                                 />
                                                                             }
-                                                                            label="Did you fall today"
+                                                                            label={Did_you_fall_today}
                                                                         />
                                                                     </FormControl>
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>Use of tools</FormLabel>
+                                                                        <FormLabel>{Use_of_tools}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -1480,7 +1493,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec anamneSecDbl">
                                                                     <label>Ask for Food </label>
                                                                     <FormControl className="inrLbl">
@@ -1563,10 +1576,10 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
-                                                                <p>Thrombose Situation</p>
+                                                                <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
-                                                                        <label>Picture with Scale</label>
+                                                                        <label>{Picture_with_Scale}</label>
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -1581,7 +1594,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid className="measureInput">
-                                                                        <label>Amount of wounds </label>
+                                                                        <label>{Amount_of_wounds}</label>
                                                                         <input
                                                                             type="number"
                                                                             name="week_thrombose_amount_of_wounds"
@@ -1590,21 +1603,21 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <FormControl>
-                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
                                                                         <RadioGroup row aria-labelledby="Condition-Radio" name="week_thrombose_condition">
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_thrombose_condition === 'better'}
                                                                                 value="better"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Better"
+                                                                                label={Better}
                                                                             />
                                                                             <FormControlLabel
                                                                                 checked={this.state.allQuestionData?.week_thrombose_condition === 'worse'}
                                                                                 value="worse"
                                                                                 onChange={(e) => updateAllEntrySec(this, e)}
                                                                                 control={<Radio />}
-                                                                                label="Worse"
+                                                                                label={Worse}
                                                                             />
                                                                         </RadioGroup>
                                                                     </FormControl>
@@ -1697,7 +1710,7 @@ class Index extends Component {
                                                                 <p>Sanitary Situation</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                        <FormLabel>ask for Incidents</FormLabel>
+                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
                                                                         <FormControlLabel
                                                                             control={
                                                                                 <Checkbox
@@ -1770,7 +1783,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid> */}
                                                             <Grid className="anamneSecMid">
-                                                                <p>Falling Risk </p>
+                                                                <p>{Falling_Risk} </p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
                                                                         <FormLabel id="Condition-Radio">timed up and go (2 Weeks)</FormLabel>
@@ -1832,7 +1845,7 @@ class Index extends Component {
                                                     <Grid>
                                                         <Grid >
                                                             <Grid className="anamneSecMid">
-                                                                <p>Anamnesis</p>
+                                                                <p>{Anamnesis}</p>
                                                                 {/* <Grid className="anamneSecMid">
                                                                     <p>Bartel Index</p>
                                                                     <Grid className="anamneSec">

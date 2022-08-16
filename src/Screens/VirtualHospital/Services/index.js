@@ -266,7 +266,7 @@ class Index extends Component {
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
                           <Grid className="allOpenAsser">
-                            <AssignedService openAss={this.state.openAss} />
+                            {/* <AssignedService openAss={this.state.openAss} /> */}
                           </Grid>
 
                           <Grid className="newServc">
