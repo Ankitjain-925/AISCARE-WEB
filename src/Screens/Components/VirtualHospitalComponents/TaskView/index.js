@@ -13,6 +13,7 @@ import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/inde
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Td } from 'react-super-responsive-table';
+import moment from 'moment'
 
 class PointPain extends Component {
   constructor(props) {
@@ -28,6 +29,18 @@ class PointPain extends Component {
       this.setState({ data: this.props.data });
     }
   };
+
+  checkdone = (item) => {
+    let today = new Date().setHours(0, 0, 0, 0);
+    let ttime = moment().format("HH:mm");
+    let data_end = moment(item.end_time).format("HH:mm");
+    let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+
+    if (item?.end_time && (moment(today).isAfter(data_d) || (moment(today).isSame(data_d) && data_end >= ttime))) {
+      return true;
+    }
+    return false;
+  }
 
   componentDidMount = () => { };
   render() {
@@ -51,6 +64,8 @@ class PointPain extends Component {
       Payment_pending,
     } = translate;
     var data = this.state.data;
+    let current_time = moment().format("HH:mm")
+    // console.log("current",current_time)
     return (
       <Grid className="allTabCntnt">
         <Grid container direction="row" alignItems="center">
@@ -126,15 +141,247 @@ class PointPain extends Component {
             <Grid className="attchNoteMain">
               {data.appointment_type ?
                 <>
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={12}>
-                      <Grid className="asignUpr">
-                        <Grid className="asignLft">
-                          <S3Image imgUrl={data.docProfile?.profile_image} />
+                  <Grid className="attchNotePart">
+
+                    <Grid
+                      // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
+                      className={
+                        data?.end_time && this.checkdone(data)
+                          ? 'attchDone'
+                          : 'attchOpen'
+                      }
+                    >
+                      <Button>
+                        <label></label>
+                        {/* {console.log("time", moment(current_time).isSameOrAfter(data?.end_time))} */}
+                        {data?.end_time && this.checkdone(data) ? (
+                          <> {Done}</>
+                        ) : (
+                          <>{Open}</>
+                        )}
+                      </Button>
+                    </Grid>
+                    <Grid>
+                      <Grid className="allInfo allInfo1">
+                        <Grid className="allInfoRght date-secTask">
+                          <Grid>
+                            <label>
+                              {data?.date &&
+                                getDate(data?.date, this.state.date_format)}
+                            </label>
+                          </Grid>
+                          <p>
+                            {data?.start_time}
+                          </p>
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Grid></> : <>
+                  </Grid>
+                  <Grid className="setAssignedToupper">
+                    <Assigned assigned_to={data.assinged_to} />
+                  </Grid>
+
+
+                  {!this.props.removeAddbutton && <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                    {!data?.is_decline && (
+                      <a className="openScndhrf">
+                        <img
+                          src={require('assets/images/three_dots_t.png')}
+                          alt=""
+                          title=""
+                          className="openScnd specialuty-more"
+                        />
+                        <ul>
+                          <li>
+                            <a
+                              onClick={() => {
+                                this.props.editTask(data);
+                              }}
+                            >
+                              <img
+                                src={require('assets/virtual_images/pencil-1.svg')}
+                                alt=""
+                                title=""
+                              />
+
+                              {data &&
+                                data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{edit_picture_evaluation}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'adminstaff' &&
+                                data.status === 'done' ? (
+                                <>{see_details}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                (this.props.comesFrom === 'adminstaff' ||
+                                  this.props.comesFrom === 'detailTask') ? (
+                                <>{assign_to_doctor}</>
+                              ) : data.task_type &&
+                                data.task_type === 'sick_leave' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{view_detail}</>
+                              ) : (
+                                data.task_name ? <>{EditTask}</> : "Edit assigned services"
+                              )}
+                            </a>
+                          </li>
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            !data.approved === true &&
+                            this.props.comesFrom === 'Professional' ? (
+                            <li
+                              onClick={() => {
+                                this.props.handleApprovedDetails(
+                                  data._id,
+                                  'approved',
+                                  data
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require('assets/virtual_images/pencil-1.svg')}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{approved}</>
+                              </a>
+                            </li>
+                          ) : (
+                            <></>
+                          )}
+
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'picture_evaluation'
+                            ? this.props.comesFrom !== 'Professional' &&
+                            data?.assinged_to?.length == 0 && (
+                              <li
+                                onClick={() => {
+                                  this.props.declineTask(
+                                    data._id,
+                                    data.patient_id
+                                  );
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/cancel-request.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{decline_picture_evaluation}</>
+                                </a>
+                              </li>
+                            )
+                            : data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            this.props.comesFrom === 'Professional' &&
+                            !data.is_decline &&
+                            !data.certificate?.most_likely &&
+                            !data.approved === true && (
+                              <li
+                                onClick={() => {
+                                  this.props.handleApprovedDetails(
+                                    data._id,
+                                    'decline',
+                                    data
+                                  );
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/cancel-request.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{decline}</>
+                                </a>
+                              </li>
+                            )}
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            data.meetingjoined &&
+                            !data.certificate?.most_likely && (
+                              <li
+                                onClick={() => {
+                                  this.props.cretficate(data._id, data.patient_id);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/virtual_images/menudocs.jpg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <>{Create_Certificate}</>
+                                </a>
+                              </li>
+                            )}
+                          {data &&
+                            data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            !data.meetingjoined &&
+                            data.link?.doctor_link && (
+                              <li
+                                onClick={() => {
+                                  // this.props.cretficate()
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require('assets/images/details.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                  <a
+                                    className="joinmeetingtab"
+                                    href={data.link?.doctor_link}
+                                    target="_blank"
+                                  >
+                                    {Join_Meeting}
+                                  </a>
+                                </a>
+                              </li>
+                            )}
+                        </ul>
+                      </a>
+                    )}
+                    {data.task_type === 'sick_leave' && (
+                      <Grid className="informStatus">
+                        {/* <Td className="billDots">
+                  <a className="academy_ul"> */}
+                        {data && data.is_payment && data.is_payment === true && data.archived === true ? (
+                          <Grid>
+                            <InfoOutlinedIcon className="InfoOutLinees" />
+                            <label className="assignHoses Paymentpending">
+                              {
+                                Not_attended
+                              }
+                            </label>
+                          </Grid>
+                        ) : (
+                          data.archived === true && (
+                            <Grid>
+                              <InfoOutlinedIcon className="InfoOutLinees" />
+                              <label className="assignHoses appointmentTime">
+                                {Payment_pending}
+
+                              </label>
+                            </Grid>
+                          )
+                        )}
+                        {/* </a>
+                </Td> */}
+                      </Grid>)}
+                  </Grid>}
+                </> : <>
                   <Grid className="attchNotePart">
                     {data.task_type !== 'sick_leave' && (
                       <Grid className="attchNoteUpr">
@@ -156,6 +403,7 @@ class PointPain extends Component {
                         </Grid>
                       </Grid>
                     )}
+
                     <Grid
                       // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                       className={
@@ -202,7 +450,7 @@ class PointPain extends Component {
                   </Grid>
 
 
-                  <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                  {!this.props.removeAddbutton && <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                     {!data?.is_decline && (
                       <a className="openScndhrf">
                         <img
@@ -371,6 +619,24 @@ class PointPain extends Component {
                                 </a>
                               </li>
                             )}
+
+                      {data.title && 
+                           <li
+                           onClick={() => {
+                             this.props.removeTask(
+                               data._id);
+                           }}
+                         >
+                           <a>
+                             <img
+                               src={require('assets/virtual_images/bin.svg')}
+                               alt=""
+                               title=""
+                             />
+                             <>{"Delete assigned service"}</>
+                           </a>
+                         </li>
+                          }
                         </ul>
                       </a>
                     )}
@@ -401,7 +667,7 @@ class PointPain extends Component {
                         {/* </a>
                 </Td> */}
                       </Grid>)}
-                  </Grid>
+                  </Grid>}
                 </>}
             </Grid>
           </Grid>

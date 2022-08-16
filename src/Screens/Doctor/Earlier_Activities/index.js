@@ -21,6 +21,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
+import moment from 'moment'
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -72,6 +73,7 @@ class Index extends Component {
 
     componentDidMount() {
         this.getAddTaskData();
+        this.PastAppoint();
         // this.getAddTaskData1();
     }
 
@@ -163,6 +165,57 @@ class Index extends Component {
             });
     };
 
+    PastAppoint = (tabvalue2, goArchive) => {
+        this.setState({ loaderImage: true });
+        axios
+          .get(
+            sitedata.data.path +
+            "/vc/PastAppointmentServiceTask/" + this.props.stateLoginValueAim?.user?._id,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((response) => {
+            this.setState({ AllTasks: response.data.data });
+            console.log('response',response)
+            if (response.data.hassuccessed) {
+              if (response?.data?.data) {
+                var patientForFilterArr = filterPatient(response.data.data);
+                this.setState({ patientForFilter: patientForFilterArr });
+              }
+             let current_time= moment().format("HH:mm")
+              var Done =
+                response.data.data?.length > 0 &&
+                response.data.data.filter((item) =>{
+                  if(item.task_name){
+                    return item.status === "done" 
+                     }
+                     else 
+                     {
+                     if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
+                      return item
+                     }else{
+                     return item.status ==="done"
+                     }
+                    }
+                    });
+              var Open =
+                response.data.data?.length > 0 &&
+                response.data.data.filter((item) => item.status === "open");
+              this.setState({
+                AllTasks: response.data.data,
+                DoneTask: Done,
+                OpenTask: Open,
+              });
+              if (goArchive) {
+                this.setState({ tabvalue2: 3 });
+              }
+              else {
+                this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+              }
+            }
+            this.setState({ loaderImage: false });
+          });
+      };
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { } = translate;
@@ -212,6 +265,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                             {/* Model setup */}
                                             <TaskSectiuonVH
+                                                removeAddbutton={true}
                                                 patient={this.state.patient}
                                                 getAddTaskData={(tabvalue2, goArchive) => {
                                                     this.getAddTaskData(tabvalue2, goArchive);
@@ -220,7 +274,7 @@ class Index extends Component {
                                                 DoneTask={this.state.DoneTask}
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={[]}
-                                                comesFrom={"Profearliertask"}
+                                                comesFrom={"Professional"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

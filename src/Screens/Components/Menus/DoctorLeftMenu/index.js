@@ -319,70 +319,9 @@ class Index extends Component {
                 <span>{appointments}</span>
               </a>
             </li>
-            {this.props?.House?.value && (
+            {/* {this.props?.House?.value && (
               <>
-                {/* <li
-                  className={
-                    this.props.currentPage === 'task' ? 'menuActv' : ''
-                  }
-                >
-                  <a onClick={this.handlePTask}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
-                      <img
-                        src={require('assets/virtual_images/rightIcon2.png')}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          this.props.currentPage === 'task'
-                            ? require('assets/virtual_images/rightIcon2.png')
-                            : require('assets/virtual_images/rightpng.png')
-                        }
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{ProfessionalTask}</span>
-                  </a>
-                </li>
-
-
-
-                <li
-                  className={
-                    this.props.currentPage === 'activity' ? 'menuActv' : ''
-                  }
-                >
-                  <a onClick={this.handleActivityTask}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
-                      <img
-                        src={require('assets/virtual_images/rightIcon2.png')}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          this.props.currentPage === 'activity'
-                            ? require('assets/virtual_images/rightIcon2.png')
-                            : require('assets/virtual_images/rightpng.png')
-                        }
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{professional_activity}</span>
-                  </a>
-                </li> */}
-
+              
                 <li
                   className={
                     this.props.currentPage === "institute" ? "menuActv" : ""
@@ -413,9 +352,9 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-            )}
+            )} */}
 
-            {!this.props?.House?.value && (
+            {/* {!this.props?.House?.value && ( */}
               <>
                 <li
                   className={
@@ -548,7 +487,7 @@ class Index extends Component {
                   </a>
                 </li> */}
 
-                <li
+                {/* <li
                   className={
                     this.props.currentPage === "task" ? "menuActv" : ""
                   }
@@ -576,7 +515,7 @@ class Index extends Component {
                     )}
                     <span>{ProfessionalTask}</span>
                   </a>
-                </li>
+                </li> */}
 
                 <li
                   className={
@@ -637,6 +576,31 @@ class Index extends Component {
                     <span>{EarlierActivity}</span>
                   </a>
                 </li>
+                
+                <li
+              className={
+                this.props.currentPage === "questionnary" ? "menuActv" : ""
+              }
+            >
+              <a onClick={() => { this.props.history.push("/doctor/care-questionary") }}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/rightIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "questionnary" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{"Care Questionnary"}</span>
+              </a>
+            </li>
 
                 <li>
                   <a className="moreMenu">
@@ -727,7 +691,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-            )}
+            {/* )} */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

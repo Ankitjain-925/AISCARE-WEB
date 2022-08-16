@@ -6,6 +6,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
 import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
+import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/index";
 import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -231,9 +232,32 @@ class Index extends Component {
       );
       if (checkCase && checkCase.length > 0) {
         state[name] = checkCase[0];
-
         state['case_id'] = checkCase[0].case_id;
         this.setState({ selectedPat: e });
+        axios
+        .get(
+          sitedata.data.path + '/vc/GetTaskandService/'+checkCase[0].case_id,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({AllTask: responce?.data?.data?.Task})
+          let ServiceDeep = _.cloneDeep(responce?.data?.data?.assigned_service)
+          var items = [] , sum = 0;
+          ServiceDeep?.length>0 && ServiceDeep.map((item)=> {
+            sum =  parseInt(item.amount)+sum;
+           return item?.assign_service?.length>0 && item?.assign_service.map((item2)=>{
+              item2.title = item.title
+              item2.assigned_service_id = item?._id
+              items.push(item2);
+            })
+          })
+          state['total_amount'] = sum;
+          this.setState({AllTask: responce?.data?.data?.Task, items: items})
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       }
     } else {
       state[name] = e;
@@ -255,110 +279,110 @@ class Index extends Component {
   };
 
   //Add the services
-  handleAddSubmit = () => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let {
-      Ser_already_exists,
-      Please_enter_valid_price,
-      Custom_service_title_cant_be_empty,
-    } = translate;
-    this.setState({ error: '' });
-    var newService = this.state.service;
-    var a =
-      this.state.items &&
-      this.state.items?.length > 0 &&
-      this.state.items.map((element) => {
-        return element?.service;
-      });
-    var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
-    if (b == true) {
-      this.setState({ error: Ser_already_exists });
-    } else {
-      if (newService?.service?.value == 'custom') {
-        if (
-          newService?.price_per_quantity < 1 ||
-          !newService?.price_per_quantity
-        ) {
-          this.setState({ error: Please_enter_valid_price });
-        } else {
-          if (newService && !newService?.custom_title) {
-            this.setState({ error: Custom_service_title_cant_be_empty });
-          } else {
-            newService.price =
-              newService?.price_per_quantity * newService?.quantity;
-            newService.service = newService?.custom_title;
-            let items = [...this.state.items];
-            items.push(newService);
-            let data = {};
-            data['house_id'] = this.props?.House?.value;
-            data['description'] = newService?.custom_description;
-            data['price'] = newService?.price_per_quantity;
-            data['title'] = newService?.custom_title;
-            axios
-              .post(
-                sitedata.data.path + '/vh/AddService',
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-              )
-              .then((responce) => {
-                this.getAllServices();
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+  // handleAddSubmit = () => {
+  //   let translate = getLanguage(this.props.stateLanguageType);
+  //   let {
+  //     Ser_already_exists,
+  //     Please_enter_valid_price,
+  //     Custom_service_title_cant_be_empty,
+  //   } = translate;
+  //   this.setState({ error: '' });
+  //   var newService = this.state.service;
+  //   var a =
+  //     this.state.items &&
+  //     this.state.items?.length > 0 &&
+  //     this.state.items.map((element) => {
+  //       return element?.service;
+  //     });
+  //   var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+  //   if (b == true) {
+  //     this.setState({ error: Ser_already_exists });
+  //   } else {
+  //     if (newService?.service?.value == 'custom') {
+  //       if (
+  //         newService?.price_per_quantity < 1 ||
+  //         !newService?.price_per_quantity
+  //       ) {
+  //         this.setState({ error: Please_enter_valid_price });
+  //       } else {
+  //         if (newService && !newService?.custom_title) {
+  //           this.setState({ error: Custom_service_title_cant_be_empty });
+  //         } else {
+  //           newService.price =
+  //             newService?.price_per_quantity * newService?.quantity;
+  //           newService.service = newService?.custom_title;
+  //           let items = [...this.state.items];
+  //           items.push(newService);
+  //           let data = {};
+  //           data['house_id'] = this.props?.House?.value;
+  //           data['description'] = newService?.custom_description;
+  //           data['price'] = newService?.price_per_quantity;
+  //           data['title'] = newService?.custom_title;
+  //           axios
+  //             .post(
+  //               sitedata.data.path + '/vh/AddService',
+  //               data,
+  //               commonHeader(this.props.stateLoginValueAim.token)
+  //             )
+  //             .then((responce) => {
+  //               this.getAllServices();
+  //             })
+  //             .catch(function (error) {
+  //               console.log(error);
+  //             });
 
-            this.setState({ items, service: {} }, () => {
-              this.updateTotalPrize();
-            });
-          }
-        }
-      } else {
-        newService.price =
-          newService?.price_per_quantity * newService?.quantity;
-        newService.service = this.state.service?.service?.label;
-        let items = [...this.state.items];
-        items.push(newService);
-        this.setState({ items, service: {} }, () => {
-          this.updateTotalPrize();
-        });
-      }
-    }
-  };
+  //           this.setState({ items, service: {} }, () => {
+  //             this.updateTotalPrize();
+  //           });
+  //         }
+  //       }
+  //     } else {
+  //       newService.price =
+  //         newService?.price_per_quantity * newService?.quantity;
+  //       newService.service = this.state.service?.service?.label;
+  //       let items = [...this.state.items];
+  //       items.push(newService);
+  //       this.setState({ items, service: {} }, () => {
+  //         this.updateTotalPrize();
+  //       });
+  //     }
+  //   }
+  // };
 
   //Update the services
-  handleAddUpdate = () => {
-    var newService = this.state.service;
-    newService.price = newService?.price_per_quantity * newService?.quantity;
-    var index = this.state.newServiceIndex;
-    var array = this.state.items;
-    array[index].price = newService?.price;
-    array[index].quantity = newService?.quantity;
-    this.updateTotalPrize();
-    this.setState({ service: {}, newServiceIndex: false, editServ: false });
-  };
+  // handleAddUpdate = () => {
+  //   var newService = this.state.service;
+  //   newService.price = newService?.price_per_quantity * newService?.quantity;
+  //   var index = this.state.newServiceIndex;
+  //   var array = this.state.items;
+  //   array[index].price = newService?.price;
+  //   array[index].quantity = newService?.quantity;
+  //   this.updateTotalPrize();
+  //   this.setState({ service: {}, newServiceIndex: false, editServ: false });
+  // };
 
-  updateTotalPrize = () => {
-    var newService = this.state.addinvoice;
-    var total = 0;
-    this.state.items?.length > 0 &&
-      this.state.items.map((data) => {
-        if (data && data?.price) {
-          total = total + data?.price;
-        }
-      });
-    newService.total_amount = total;
-    this.setState({ addinvoice: newService });
-  };
+  // updateTotalPrize = () => {
+  //   var newService = this.state.addinvoice;
+  //   var total = 0;
+  //   this.state.items?.length > 0 &&
+  //     this.state.items.map((data) => {
+  //       if (data && data?.price) {
+  //         total = total + data?.price;
+  //       }
+  //     });
+  //   newService.total_amount = total;
+  //   this.setState({ addinvoice: newService });
+  // };
 
   // For edit service
-  editService = (data, index) => {
-    var deep = _.cloneDeep(data);
-    this.setState({ service: deep, newServiceIndex: index, editServ: true });
-  };
+  // editService = (data, index) => {
+  //   var deep = _.cloneDeep(data);
+  //   this.setState({ service: deep, newServiceIndex: index, editServ: true });
+  // };
 
-  handleCloseServ = () => {
-    this.setState({ editServ: false, service: {} });
-  };
+  // handleCloseServ = () => {
+  //   this.setState({ editServ: false, service: {} });
+  // };
 
 
   Billing = () => {
@@ -503,20 +527,20 @@ class Index extends Component {
     });
   };
 
-  deleteClickService(id) {
-    // delete this.state.items[id]
-    this.state.items.splice(id, 1);
-    this.setState({ items: this.state.items });
-    var newService = this.state.service;
-    newService.price = newService?.price_per_quantity * newService?.quantity;
-    newService.service = this.state.service?.service?.label;
-    let items = [...this.state.items];
-    this.setState({ items, service: {} }, () => {
-      this.updateTotalPrize();
-    });
+  // deleteClickService(id) {
+  //   // delete this.state.items[id]
+  //   this.state.items.splice(id, 1);
+  //   this.setState({ items: this.state.items });
+  //   var newService = this.state.service;
+  //   newService.price = newService?.price_per_quantity * newService?.quantity;
+  //   newService.service = this.state.service?.service?.label;
+  //   let items = [...this.state.items];
+  //   this.setState({ items, service: {} }, () => {
+  //     this.updateTotalPrize();
+  //   });
 
     // this.finishInvoice();
-  }
+  // }
 
   render() {
     const { stateLoginValueAim, House } = this.props;
@@ -675,6 +699,19 @@ class Index extends Component {
                       </Grid>
 
                       <Grid className="srvcTable">
+                        <h3>{"Tasks"}</h3>
+                        {this.state.AllTask?.length>0 && this.state.AllTask.map((data)=>(
+                          <TaskView
+                          removeAddbutton = {true}
+                          data={data}
+                          removeTask={(id) => {}}
+                          editTask={(data) => {}}
+                          declineTask={(id, patient_id) =>{}}
+                          handleApprovedDetails={(id, status, data) => {}}
+                          comesFrom={'adminstaff'}
+                        />
+
+                        ))}
                         <h3>{Services}</h3>
                         <Table>
                           <Thead>
@@ -692,19 +729,15 @@ class Index extends Component {
                                 {data && data?.quantity && (
                                   <Tr>
                                     <Td>
+                                      <h1>{data?.title}</h1>
                                       <label>
-                                        {data &&
-                                        data?.service == 'custom' &&
-                                        data?.custom_title &&
-                                        data?.custom_title.length > 0
-                                          ? data.custom_title
-                                          : data?.service}
+                                        {data?.service}
                                       </label>
                                       <p>{data?.service?.description}</p>
                                     </Td>
                                     <Td>{data?.quantity}</Td>
                                     <Td>{data?.price} €</Td>
-                                    <Td className="xRay-edit">
+                                    {/* <Td className="xRay-edit">
                                       <Button
                                         onClick={() => {
                                           this.editService(data, id);
@@ -727,7 +760,7 @@ class Index extends Component {
                                           title=""
                                         />
                                       </Button>
-                                    </Td>
+                                    </Td> */}
                                   </Tr>
                                 )}
                               </Tbody>
@@ -735,7 +768,7 @@ class Index extends Component {
                         </Table>
                       </Grid>
 
-                      <Grid className="srvcTable">
+                      {/* <Grid className="srvcTable">
                         <Grid className="addCstmField">
                           <p className="err_message">{this.state.error}</p>
                           <Grid
@@ -841,7 +874,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         )}
-                      </Grid>
+                      </Grid> */}
                       <Grid className="invoiceAmnt">
                         <p>{InvoiceAmount}</p>
                         <label>{this.state.addinvoice.total_amount} €</label>
@@ -853,19 +886,19 @@ class Index extends Component {
                           >
                             {FinishInvoice}
                           </Button>
-                          <Button
+                          {/* <Button
                             onClick={() => {
                               this.finishInvoice('draft');
                             }}
                           >
                             {SaveDraft}
-                          </Button>
+                          </Button> */}
                         </Grid>
                       </Grid>
                     </Grid>
                     {/* End of Billing New Invoice */}
 
-                    <Modal
+                    {/* <Modal
                       open={this.state.editServ}
                       onClose={this.handleCloseServ}
                       className={
@@ -947,7 +980,7 @@ class Index extends Component {
                           </a>
                         </Grid>
                       </Grid>
-                    </Modal>
+                    </Modal> */}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}
