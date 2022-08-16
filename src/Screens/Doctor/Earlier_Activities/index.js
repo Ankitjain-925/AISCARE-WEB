@@ -87,6 +87,7 @@ class Index extends Component {
             shown: !this.state.shown,
         });
     };
+
     //get Add task data
     getAddTaskData = (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
