@@ -326,6 +326,7 @@ class Index extends Component {
       please_enter_dueon,
       plz_select_patient,
       Plz_select_a_staff,
+      Please_add_atleast_one_service,
     } = translate;
     var data = this.state.service;
     data.house_id = this.props?.House?.value;
@@ -345,7 +346,7 @@ class Index extends Component {
     } else if (!data.due_on?.date && !data.due_on?.time) {
       this.setState({ errorMsg: please_enter_dueon });
     } else if (!data.assign_service || data.assign_service?.length === 0) {
-      this.setState({ errorMsg: "Please add atleast one service" });
+      this.setState({ errorMsg: Please_add_atleast_one_service });
     } else {
       this.setState({ loaderImage: true });
       if (data?._id) {
