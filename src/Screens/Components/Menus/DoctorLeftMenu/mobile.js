@@ -62,13 +62,13 @@ class Index extends Component {
   //For change Institutes
   MoveInstitute = () => {
     this.props.houseSelect({ value: null });
-    this.props.history.push("/nurse/institutes");
+    this.props.history.push("/doctor/institutes");
   };
 
   //For change Institutes
   NormalView = () => {
     this.props.houseSelect({ value: null });
-    this.props.history.push("/nurse/journal");
+    this.props.history.push("/doctor/journal");
   };
   
   //For Task
