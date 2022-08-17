@@ -100,7 +100,7 @@ export const checkValidation2 = (current, check, item, fulldata) => {
           if (!fulldata.day_anamnesis_weight) {
             current.setState({
                 errorChrMsg: Please_enter_Weight,
-\
+
             });
             MoveTop(0);
             return false;

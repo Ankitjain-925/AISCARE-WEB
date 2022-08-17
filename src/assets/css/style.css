@@ -6459,7 +6459,7 @@ a.archvDel:hover ul {
 }
 .entryCourse {
     padding: 20px 24px 15px 24px;
-    margin-bottom: 0px;
+    margin-bottom: 12px;
     border-bottom: 1px solid #F2F2F2;
 }
 .entryCloseBtn {
@@ -14587,8 +14587,7 @@ a.painAreasTxt {
     color: #e11616 !important;
 }
 /* for Antd */
-.profileInfoDate .ant-picker:hover, 
-.profileInfoDate .ant-picker-focused {
+.profileInfoDate .ant-picker:hover, .profileInfoDate .ant-picker-focused {
     border-color: #BFC1C1;
     border-right-width: 1px !important;
     -webkit-box-shadow: none;
@@ -14662,9 +14661,6 @@ input.Mobile_extra.Emergency_number {
 /*For Documents*/ 
 h4.Inquirypaddingtop {
     padding-top: 25px;
-}
-.scndOptionIner ul {
-    margin-top: -9px !important;
 }
 .scndOptionIner ul li a img {
     height: 15px !important;
@@ -17603,23 +17599,6 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     background-color: transparent;
     border: 1px solid #bfc1c1;
     color: #dfdfdf;
-}
-.vwTaskSelectTp {
-    display: flex;
-    width: 100%;
-    max-width: 100%;
-    align-items: center;
-    justify-content: center;
-}
-.viewTaskfilter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-}
-.vwTaskSelect {
-    width: 100%;
-    margin-right: 12px;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 

@@ -1359,7 +1359,7 @@ class Index extends Component {
                                                                                 />
                                                                             }
 
-                                                                            label={Sound_Recording_auscultation}/ {tech_development}
+                                                                            label={Sound_Recording_auscultation / tech_development}
 
                                                                         />
                                                                     </FormControl>
@@ -1783,7 +1783,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
 
-                                                            <Grid className="anamneSecMid">
+                                                            {/* <Grid className="anamneSecMid">
                                                                 <p>{Depression_Risk}</p>
 
                                                                 <Grid className="anamneSec">
