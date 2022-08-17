@@ -1795,7 +1795,8 @@ removeTask21 = (id) => {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      For_Hospital
+      for_hospital,
+
     } = translate;
 
     const {
@@ -1931,7 +1932,6 @@ removeTask21 = (id) => {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-
                             {this.props.comesFrom === "Professional" && (
                               <>{!this.state.newTask._id &&
 
