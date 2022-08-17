@@ -1991,7 +1991,7 @@
      "Assistance_required_with_reaching":"Assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance.",
      "The_patient_is_independent":"The patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations.",
      "The_patient_must_wear_braces":"The patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision.",
-     " Wheelchair_Management":" Wheelchair Management",
+     "Wheelchair_Management":" Wheelchair Management",
      "Dependent_in_wheelchair":"Dependent in wheelchair ambulation.",
      "Patient_self_short_distance":"Patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management.",
      "Presence_one_person_necessary":"Presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc.",
@@ -2020,8 +2020,32 @@
      "The_patient_generally_day":"The patient is generally dry by day, but not at night and needs some assistance with the devices.",
      "The_patient_is_generally_dry ":"The patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices.",
      "The_patient_control_bladder":"The patient is able to control bladder day and night, and/or is independent with internal or external devices.",
-  "Submit":"Submit",
-  "Chair_Bed_Transfers":"Chair/Bed Transfers"
+     "Submit":"Submit",
+     "Chair_Bed_Transfers":"Chair/Bed Transfers",
+
+     "with_yes_and_no":"with yes and no",
+     "please_enter_Diameter_leg":"please enter Diameter leg",
+     "Please_select_better_and_worse_for_condition":"Please select better and worse for condition",
+     "Please_enter_Weight":"Please enter Weight",
+     "Please_Enter_Amount_of_wounds":"Please Enter Amount of wounds",
+     "Please_select_situation_Better_worse":"Please select situation Better/worse",
+     "Please_select_you_eaten":"Please select you eaten",
+     "Please_select_you_been_trinkung":"Please select you been trinkung",
+     "Please_select_you_go_to_the_toilet":"Please select you go to the toilet",
+     "Please_select_Pain_status":"Please select Pain status",
+     "Please_select_Depression_Risk":"Please select Depression Risk",
+     "Please_select_Disorientation_Level":"Please select Disorientation Level",
+     "Please_select_Sanitary_Situation":"Please select Sanitary Situation",
+     "Please_select_Anamnesis":"Please select Anamnesis",
+     "Please_Enter_O2_saturation":"Please Enter O2 saturation",
+     "Please_Select_Pneunomie_Situation":"Please Select Pneunomie Situation",
+     "Please_select_Nutrition_Situation":"Please select Nutrition Situation",
+     "Please_select_Falling_Risk":"Please select Falling Risk",
+     "Please_select_Files":"Please select Files",
+     "Patient_first":"Patient first",
+     "Hospital_first":"Hospital first",
+     "Chair_Bed_transfer":"Chair / Bed transfer",
+     "Bartel_Index":"Bartel Index"
     }
 
 
