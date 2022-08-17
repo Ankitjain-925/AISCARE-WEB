@@ -942,7 +942,6 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-
                           <Grid>
                             <Grid>
                               <h1>Thrombose Situation</h1>

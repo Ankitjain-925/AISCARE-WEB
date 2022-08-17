@@ -39,7 +39,7 @@ export const updateAllEntrySec1 = (current, e, name) => {
 }
 
 export const checkValidation2 = (current, check, item, fulldata) => {
-    console.log('errorChrMsg', 'i AM HEREE', check)
+    console.log("check", check, "item", item, "fulldata", fulldata)
     current.setState({ errorChrMsg: '' })
     if (item === 'daily_diameter_leg') {
         if (!fulldata.daily_diameter_leg) {
