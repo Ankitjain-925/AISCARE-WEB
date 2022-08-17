@@ -53,8 +53,8 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        const { rr_systolic, RR_diastolic, Search_Select, ForPatient,For_Hospital ,Daily,every_2_week,Every_2_Day,Quarter,blood_pressure
-            ,Picture_with_Scale,
+        const { rr_systolic, RR_diastolic, Search_Select, ForPatient, For_Hospital, Daily, every_2_week, Every_2_Day, Quarter, blood_pressure
+            , Picture_with_Scale,
             Anamnesis,
             Decubitus_Situation,
             Amount_of_wounds,
@@ -177,55 +177,55 @@ class Index extends Component {
                                                 </FormControl> */}
                                                 <div className="err_message">{this.state.errorChrMsg}</div>
                                                 {/* {selectForm && selectForm === 'Daily' && */}
-                                                    <Grid>
-                                                        <Grid >
-                                                            <Grid className="anamneSecMid">
-                                                                <p>{Anamnesis}</p>
-                                                                {/* <Grid className="anamneSec"> */}
-                                                                <Grid className="bloodPrseure">
-                                                                    <label>{blood_pressure}</label>
-                                                                    <Grid container direction="row" spacing="1">
-                                                                        <Grid item md={6} sm={6}>
-                                                                            <Grid className="fillDia">
-                                                                                <MMHG
-                                                                                    name="full_rr_systolic"
-                                                                                    Unit="mmHg"
-                                                                                    label={rr_systolic}
-                                                                                    onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={allQuestionData?.full_rr_systolic}
-                                                                                />
-                                                                            </Grid>
+                                                <Grid>
+                                                    <Grid >
+                                                        <Grid className="anamneSecMid">
+                                                            <p>{Anamnesis}</p>
+                                                            {/* <Grid className="anamneSec"> */}
+                                                            <Grid className="bloodPrseure">
+                                                                <label>{blood_pressure}</label>
+                                                                <Grid container direction="row" spacing="1">
+                                                                    <Grid item md={6} sm={6}>
+                                                                        <Grid className="fillDia">
+                                                                            <MMHG
+                                                                                name="full_rr_systolic"
+                                                                                Unit="mmHg"
+                                                                                label={rr_systolic}
+                                                                                onChange={(e) => updateAllEntrySec(this, e)}
+                                                                                value={allQuestionData?.full_rr_systolic}
+                                                                            />
                                                                         </Grid>
-                                                                        <Grid item md={6} sm={6}>
-                                                                            <Grid className="fillDia">
-                                                                                <MMHG
-                                                                                    name="full_rr_diastolic"
-                                                                                    Unit="mmHg"
-                                                                                    label={RR_diastolic}
-                                                                                    onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={allQuestionData?.full_rr_diastolic}
-                                                                                />
-                                                                            </Grid>
+                                                                    </Grid>
+                                                                    <Grid item md={6} sm={6}>
+                                                                        <Grid className="fillDia">
+                                                                            <MMHG
+                                                                                name="full_rr_diastolic"
+                                                                                Unit="mmHg"
+                                                                                label={RR_diastolic}
+                                                                                onChange={(e) => updateAllEntrySec(this, e)}
+                                                                                value={allQuestionData?.full_rr_diastolic}
+                                                                            />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="anamneSec">
+                                                            </Grid>
+                                                            <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                        <Grid className="fatiqueQues">
-                                                                            <FatiqueQuestion updateEntryState1={(e)=>updateAllEntrySec2(this, e, 'full_diameter_leg')} label={"Diameter Leg"} value={allQuestionData?.full_diameter_leg}/>
-                                                                        </Grid>
+                                                                    <Grid className="fatiqueQues">
+                                                                        <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_diameter_leg')} label={"Diameter Leg"} value={allQuestionData?.full_diameter_leg} />
                                                                     </Grid>
                                                                 </Grid>
-                                                                {allQuestionData?.full_diameter_leg === 'yes' && <Grid className="anamneSec">
+                                                            </Grid>
+                                                            {allQuestionData?.full_diameter_leg === 'yes' && <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                <label>Measure diameter Leg</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="full_anamnesis_diameter_leg"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.full_anamnesis_diameter_leg}
-                                                                        />
-                                                                    
+                                                                    <label>Measure diameter Leg</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        name="full_anamnesis_diameter_leg"
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        value={allQuestionData?.full_anamnesis_diameter_leg}
+                                                                    />
+
                                                                 </Grid>
                                                                 <FormControl>
                                                                     <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
@@ -246,92 +246,92 @@ class Index extends Component {
                                                                         />
                                                                     </RadioGroup>
                                                                 </FormControl>
-                                                                </Grid>}
-                                                                <Grid className="anamneSec">
+                                                            </Grid>}
+                                                            <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                        <Grid className="fatiqueQues">
-                                                                            <FatiqueQuestion updateEntryState1={(e)=>updateAllEntrySec2(this, e, 'full_Sick')} label={"Sick"} value={allQuestionData?.full_Sick}/>
-                                                                        </Grid>
+                                                                    <Grid className="fatiqueQues">
+                                                                        <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_Sick')} label={"Sick"} value={allQuestionData?.full_Sick} />
                                                                     </Grid>
                                                                 </Grid>
-                                                                {allQuestionData?.full_Sick === 'yes' && <Grid className="anamneSec">
+                                                            </Grid>
+                                                            {allQuestionData?.full_Sick === 'yes' && <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                        <label>Weight</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="full_anamnesis_weight"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.full_anamnesis_weight}
-                                                                        />
-                                                                    
+                                                                    <label>Weight</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        name="full_anamnesis_weight"
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        value={allQuestionData?.full_anamnesis_weight}
+                                                                    />
+
                                                                 </Grid>
-                                                                </Grid>}
-                                                                <Grid className="anamneSec">
+                                                            </Grid>}
+                                                            <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                        <label>o2 Saturation</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="full_anamnesis_o2_saturation"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.full_anamnesis_o2_saturation}
-                                                                        />
+                                                                    <label>o2 Saturation</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        name="full_anamnesis_o2_saturation"
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        value={allQuestionData?.full_anamnesis_o2_saturation}
+                                                                    />
                                                                 </Grid>
-                                                                </Grid>
-                                                                {/* <Grid>
+                                                            </Grid>
+                                                            {/* <Grid>
                                                                 <label>Blood pressure</label>
                                                                 <input type="text" placeholder="" name="" />
                                                             </Grid> */}
-                                                                {/* </Grid> */}
-                                                            </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>{Decubitus_Situation}</p>
-                                                                <Grid className="anamneSec">
-                                                                    <Grid>
-                                                                        <label>{Picture_with_Scale}</label>
-                                                                        <FileUploader
-                                                                            // cur_one={this.props.cur_one}
-                                                                            attachfile={
-                                                                                allQuestionData && allQuestionData?.full_decubitus_picture_with_scale
-                                                                                    ? allQuestionData?.full_decubitus_picture_with_scale
-                                                                                    : []
-                                                                            }
-                                                                            name="full_decubitus_picture_with_scale"
-                                                                            comesFrom="journal"
-                                                                            isMulti={true}
-                                                                            fileUpload={(e) => FileAttachMulti(this, e, "full_decubitus_picture_with_scale")}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid className="measureInput">
-                                                                        <label>{Amount_of_wounds}</label>
-                                                                        <input
-                                                                            type="number"
-                                                                            name="full_decubitus_amount_of_wounds"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={allQuestionData?.full_decubitus_amount_of_wounds || ''}
-                                                                        />
-                                                                    </Grid>
-                                                                    <FormControl>
-                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="full_decubitus_condition">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_decubitus_condition === 'better'}
-                                                                                value="better"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label={Better}
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_decubitus_condition === 'worse'}
-                                                                                value="worse"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label={Worse}
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
+                                                            {/* </Grid> */}
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>{Decubitus_Situation}</p>
+                                                            <Grid className="anamneSec">
+                                                                <Grid>
+                                                                    <label>{Picture_with_Scale}</label>
+                                                                    <FileUploader
+                                                                        // cur_one={this.props.cur_one}
+                                                                        attachfile={
+                                                                            allQuestionData && allQuestionData?.full_decubitus_picture_with_scale
+                                                                                ? allQuestionData?.full_decubitus_picture_with_scale
+                                                                                : []
+                                                                        }
+                                                                        name="full_decubitus_picture_with_scale"
+                                                                        comesFrom="journal"
+                                                                        isMulti={true}
+                                                                        fileUpload={(e) => FileAttachMulti(this, e, "full_decubitus_picture_with_scale")}
+                                                                    />
                                                                 </Grid>
+                                                                <Grid className="measureInput">
+                                                                    <label>{Amount_of_wounds}</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        name="full_decubitus_amount_of_wounds"
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        value={allQuestionData?.full_decubitus_amount_of_wounds || ''}
+                                                                    />
+                                                                </Grid>
+                                                                <FormControl>
+                                                                    <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
+                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="full_decubitus_condition">
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_decubitus_condition === 'better'}
+                                                                            value="better"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label={Better}
+                                                                        />
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_decubitus_condition === 'worse'}
+                                                                            value="worse"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label={Worse}
+                                                                        />
+                                                                    </RadioGroup>
+                                                                </FormControl>
                                                             </Grid>
-                                                            {/* <Grid className="anamneSecMid">
+                                                        </Grid>
+                                                        {/* <Grid className="anamneSecMid">
                                                                 <p>{Thrombose_Situation}</p>
                                                                 <Grid className="anamneSec">
                                                                     <Grid className="measureInput">
@@ -364,423 +364,423 @@ class Index extends Component {
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid> */}
-                                                            <Grid className="anamneSecMid">
-                                                                <p>{Falling_Risk} </p>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_falling_risk_incident_today"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_falling_risk_incident_today &&
-                                                                                            allQuestionData?.full_falling_risk_incident_today === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
+                                                        <Grid className="anamneSecMid">
+                                                            <p>{Falling_Risk} </p>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>{ask_for_incidents}</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_falling_risk_incident_today"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_falling_risk_incident_today &&
                                                                                         allQuestionData?.full_falling_risk_incident_today === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label={Did_you_fall_today}
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>{Use_of_tools}</FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_falling_risk_incident_tools"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_falling_risk_incident_tools &&
-                                                                                            allQuestionData?.full_falling_risk_incident_tools === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_falling_risk_incident_tools === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Can you use your tools"
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>{Thrombose_Situation}</p>
-                                                                <Grid className="anamneSec anamneSecDbl">
-                                                                    <label>Ask for Food </label>
-                                                                    <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Have you eaten </FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_food_eaten_condition">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_food_eaten_condition === 'yes'}
-                                                                                value="yes"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="Yes"
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_food_eaten_condition === 'no'}
-                                                                                value="no"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="No"
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec anamneSecDbl">
-                                                                    <label>Water </label>
-                                                                    <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Have you been trinkung </FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_water_trinkung">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_water_trinkung === 'yes'}
-                                                                                value="yes"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="Yes"
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_water_trinkung === 'no'}
-                                                                                value="no"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="No"
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec anamneSecDbl">
-                                                                    <label>Toilet situation </label>
-                                                                    <FormControl className="inrLbl">
-                                                                        <FormLabel id="Condition-Radio">Could you go to the Toilet</FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_toilet_situation">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_toilet_situation === 'yes'}
-                                                                                value="yes"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="Yes"
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_toilet_situation === 'no'}
-                                                                                value="no"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label="No"
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>Pain Status</p>
-                                                                <Grid className="anamneSec">
-                                                                    <Grid className="painIntencty">
-                                                                        <PainIntensity
-                                                                            name="full_thrombose_pain_status"
-                                                                            comesFrom="Evalute"
-                                                                            // Forview={true}
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={Math.round(this.state.allQuestionData?.full_thrombose_pain_status) || ''}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>{Thrombose_Situation}</p>
-                                                                <Grid className="anamneSec">
-                                                                    <Grid>
-                                                                        <label>{Picture_with_Scale}</label>
-                                                                        <FileUploader
-                                                                            // cur_one={this.props.cur_one}
-                                                                            attachfile={
-                                                                                allQuestionData && allQuestionData?.full_thrombose_picture_with_scale
-                                                                                    ? allQuestionData?.full_thrombose_picture_with_scale
-                                                                                    : []
-                                                                            }
-                                                                            name="full_thrombose_picture_with_scale"
-                                                                            comesFrom="journal"
-                                                                            isMulti={true}
-                                                                            fileUpload={(e) => FileAttachMulti(this, e, "full_thrombose_picture_with_scale")}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid className="measureInput">
-                                                                        <label>{Amount_of_wounds} </label>
-                                                                        <input
-                                                                            type="number"
-                                                                            value={allQuestionData?.full_thrombose_amout_of_wounds || ''}
-                                                                            name="full_thrombose_amout_of_wounds"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        />
-                                                                    </Grid>
-                                                                    <FormControl>
-                                                                        <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
-                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_situation">
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_situation === 'better'}
-                                                                                value="better"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label={Better}
-                                                                            />
-                                                                            <FormControlLabel
-                                                                                checked={this.state.allQuestionData?.full_thrombose_situation === 'worse'}
-                                                                                value="worse"
-                                                                                onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                control={<Radio />}
-                                                                                label={Worse}
-                                                                            />
-                                                                        </RadioGroup>
-                                                                    </FormControl>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>Depression Risk</p>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                    <FormLabel>what was good today</FormLabel>
-                                                                            <FormControlLabel
-                                                                                control={
-                                                                                    <Checkbox
-                                                                                        name="full_depression_good_today"
-                                                                                        value={
-                                                                                            allQuestionData &&
-                                                                                                allQuestionData?.full_depression_good_today &&
-                                                                                                allQuestionData?.full_depression_good_today === true
-                                                                                                ? false
-                                                                                                : true
-                                                                                        }
-                                                                                        checked={
-                                                                                            allQuestionData?.full_depression_good_today === true
-                                                                                                ? true
-                                                                                                : false
-                                                                                        }
-                                                                                        onChange={(e) => {
-                                                                                            updateAllEntrySec1(this, e);
-                                                                                        }}
-                                                                                    />
+                                                                                        ? false
+                                                                                        : true
                                                                                 }
-                                                                                label="Can the Patient tell somethink Good this Day"
+                                                                                checked={
+                                                                                    allQuestionData?.full_falling_risk_incident_today === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
                                                                             />
-                                                                    </FormControl>
-                                                                </Grid>
+                                                                        }
+                                                                        label={Did_you_fall_today}
+                                                                    />
+                                                                </FormControl>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>Disorientation Level</p>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>ask for News of the Day </FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_disorientation_level_patient_tell"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_disorientation_level_patient_tell &&
-                                                                                            allQuestionData?.full_disorientation_level_patient_tell === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_disorientation_level_patient_tell === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Can the Patient tell you a news of the Days"
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>Name of Family Members</FormLabel>
-                                                                        <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_disorientation_level_family_member"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_disorientation_level_family_member &&
-                                                                                            allQuestionData?.full_disorientation_level_family_member === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_disorientation_level_family_member === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Does the Patient remebmer the Name of a Family Memer"
-                                                                        />
-                                                                    </FormControl>
-                                                                </Grid>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>{Use_of_tools}</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_falling_risk_incident_tools"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_falling_risk_incident_tools &&
+                                                                                        allQuestionData?.full_falling_risk_incident_tools === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_falling_risk_incident_tools === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Can you use your tools"
+                                                                    />
+                                                                </FormControl>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
-                                                                <p>Sanitary Situation</p>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>{ask_for_incidents}</FormLabel>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>{Thrombose_Situation}</p>
+                                                            <Grid className="anamneSec anamneSecDbl">
+                                                                <label>Ask for Food </label>
+                                                                <FormControl className="inrLbl">
+                                                                    <FormLabel id="Condition-Radio">Have you eaten </FormLabel>
+                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_food_eaten_condition">
                                                                         <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_sanitary_situation_incident"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_sanitary_situation_incident &&
-                                                                                            allQuestionData?.full_sanitary_situation_incident === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_sanitary_situation_incident === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="No Incidents at the Sanitary Situation"
+                                                                            checked={this.state.allQuestionData?.full_thrombose_food_eaten_condition === 'yes'}
+                                                                            value="yes"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="Yes"
                                                                         />
-                                                                    </FormControl>
-                                                                </Grid>
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_thrombose_food_eaten_condition === 'no'}
+                                                                            value="no"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="No"
+                                                                        />
+                                                                    </RadioGroup>
+                                                                </FormControl>
                                                             </Grid>
-                                                            <Grid className="anamneSecMid">
-<p>Pneunomie Situation</p>
-
-    
-<Grid className="anamneSec">
-    <FormControl>
-        <FormLabel></FormLabel>
-        <FormControlLabel
-            control={
-                <Checkbox
-                    name="full_pneunomie_o2_sound_recording"
-                    value={
-                        allQuestionData &&
-                            allQuestionData?.full_pneunomie_o2_sound_recording &&
-                            allQuestionData?.full_pneunomie_o2_sound_recording === true
-                            ? false
-                            : true
-                    }
-                    checked={
-                        allQuestionData?.full_pneunomie_o2_sound_recording === true
-                            ? true
-                            : false
-                    }
-                    onChange={(e) => {
-                        updateAllEntrySec1(this, e);
-                    }}
-                />
-            }
-            label="Sound Recording auscultation/ tech_development"
-        />
-    </FormControl>
-</Grid>
-</Grid>
-<Grid className="anamneSecMid">
-                                                                <p>Nutrition Situation </p>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>Fruits</FormLabel>
+                                                            <Grid className="anamneSec anamneSecDbl">
+                                                                <label>Water </label>
+                                                                <FormControl className="inrLbl">
+                                                                    <FormLabel id="Condition-Radio">Have you been trinkung </FormLabel>
+                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_water_trinkung">
                                                                         <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_nutrition_situation_fruits"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_nutrition_situation_fruits &&
-                                                                                            allQuestionData?.full_nutrition_situation_fruits === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_nutrition_situation_fruits === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Have you eaten Fruits"
+                                                                            checked={this.state.allQuestionData?.full_thrombose_water_trinkung === 'yes'}
+                                                                            value="yes"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="Yes"
                                                                         />
-                                                                    </FormControl>
-                                                                </Grid>
-                                                                <Grid className="anamneSec">
-                                                                    <FormControl>
-                                                                        <FormLabel>Protein</FormLabel>
                                                                         <FormControlLabel
-                                                                            control={
-                                                                                <Checkbox
-                                                                                    name="full_nutrition_situation_protein"
-                                                                                    value={
-                                                                                        allQuestionData &&
-                                                                                            allQuestionData?.full_nutrition_situation_protein &&
-                                                                                            allQuestionData?.full_nutrition_situation_protein === true
-                                                                                            ? false
-                                                                                            : true
-                                                                                    }
-                                                                                    checked={
-                                                                                        allQuestionData?.full_nutrition_situation_protein === true
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                    onChange={(e) => {
-                                                                                        updateAllEntrySec1(this, e);
-                                                                                    }}
-                                                                                />
-                                                                            }
-                                                                            label="Have you eaten Meat / Egg / Beans"
+                                                                            checked={this.state.allQuestionData?.full_thrombose_water_trinkung === 'no'}
+                                                                            value="no"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="No"
                                                                         />
-                                                                    </FormControl>
+                                                                    </RadioGroup>
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid className="anamneSec anamneSecDbl">
+                                                                <label>Toilet situation </label>
+                                                                <FormControl className="inrLbl">
+                                                                    <FormLabel id="Condition-Radio">Could you go to the Toilet</FormLabel>
+                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_toilet_situation">
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_thrombose_toilet_situation === 'yes'}
+                                                                            value="yes"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="Yes"
+                                                                        />
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_thrombose_toilet_situation === 'no'}
+                                                                            value="no"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label="No"
+                                                                        />
+                                                                    </RadioGroup>
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Pain Status</p>
+                                                            <Grid className="anamneSec">
+                                                                <Grid className="painIntencty">
+                                                                    <PainIntensity
+                                                                        name="full_thrombose_pain_status"
+                                                                        comesFrom="Evalute"
+                                                                        // Forview={true}
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        value={Math.round(this.state.allQuestionData?.full_thrombose_pain_status) || ''}
+                                                                    />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>{Thrombose_Situation}</p>
+                                                            <Grid className="anamneSec">
+                                                                <Grid>
+                                                                    <label>{Picture_with_Scale}</label>
+                                                                    <FileUploader
+                                                                        // cur_one={this.props.cur_one}
+                                                                        attachfile={
+                                                                            allQuestionData && allQuestionData?.full_thrombose_picture_with_scale
+                                                                                ? allQuestionData?.full_thrombose_picture_with_scale
+                                                                                : []
+                                                                        }
+                                                                        name="full_thrombose_picture_with_scale"
+                                                                        comesFrom="journal"
+                                                                        isMulti={true}
+                                                                        fileUpload={(e) => FileAttachMulti(this, e, "full_thrombose_picture_with_scale")}
+                                                                    />
+                                                                </Grid>
+                                                                <Grid className="measureInput">
+                                                                    <label>{Amount_of_wounds} </label>
+                                                                    <input
+                                                                        type="number"
+                                                                        value={allQuestionData?.full_thrombose_amout_of_wounds || ''}
+                                                                        name="full_thrombose_amout_of_wounds"
+                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    />
+                                                                </Grid>
+                                                                <FormControl>
+                                                                    <FormLabel id="Condition-Radio">{Better} / {Worse}</FormLabel>
+                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="full_thrombose_situation">
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_thrombose_situation === 'better'}
+                                                                            value="better"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label={Better}
+                                                                        />
+                                                                        <FormControlLabel
+                                                                            checked={this.state.allQuestionData?.full_thrombose_situation === 'worse'}
+                                                                            value="worse"
+                                                                            onChange={(e) => updateAllEntrySec(this, e)}
+                                                                            control={<Radio />}
+                                                                            label={Worse}
+                                                                        />
+                                                                    </RadioGroup>
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Depression Risk</p>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>what was good today</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_depression_good_today"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_depression_good_today &&
+                                                                                        allQuestionData?.full_depression_good_today === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_depression_good_today === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Can the Patient tell somethink Good this Day"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Disorientation Level</p>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>ask for News of the Day </FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_disorientation_level_patient_tell"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_disorientation_level_patient_tell &&
+                                                                                        allQuestionData?.full_disorientation_level_patient_tell === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_disorientation_level_patient_tell === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Can the Patient tell you a news of the Days"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>Name of Family Members</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_disorientation_level_family_member"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_disorientation_level_family_member &&
+                                                                                        allQuestionData?.full_disorientation_level_family_member === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_disorientation_level_family_member === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Does the Patient remebmer the Name of a Family Memer"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Sanitary Situation</p>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>{ask_for_incidents}</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_sanitary_situation_incident"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_sanitary_situation_incident &&
+                                                                                        allQuestionData?.full_sanitary_situation_incident === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_sanitary_situation_incident === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="No Incidents at the Sanitary Situation"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Pneunomie Situation</p>
+
+
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel></FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_pneunomie_o2_sound_recording"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_pneunomie_o2_sound_recording &&
+                                                                                        allQuestionData?.full_pneunomie_o2_sound_recording === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_pneunomie_o2_sound_recording === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Sound Recording auscultation/ tech_development"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid className="anamneSecMid">
+                                                            <p>Nutrition Situation </p>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>Fruits</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_nutrition_situation_fruits"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_nutrition_situation_fruits &&
+                                                                                        allQuestionData?.full_nutrition_situation_fruits === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_nutrition_situation_fruits === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Have you eaten Fruits"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid className="anamneSec">
+                                                                <FormControl>
+                                                                    <FormLabel>Protein</FormLabel>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <Checkbox
+                                                                                name="full_nutrition_situation_protein"
+                                                                                value={
+                                                                                    allQuestionData &&
+                                                                                        allQuestionData?.full_nutrition_situation_protein &&
+                                                                                        allQuestionData?.full_nutrition_situation_protein === true
+                                                                                        ? false
+                                                                                        : true
+                                                                                }
+                                                                                checked={
+                                                                                    allQuestionData?.full_nutrition_situation_protein === true
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                                onChange={(e) => {
+                                                                                    updateAllEntrySec1(this, e);
+                                                                                }}
+                                                                            />
+                                                                        }
+                                                                        label="Have you eaten Meat / Egg / Beans"
+                                                                    />
+                                                                </FormControl>
+                                                            </Grid>
+                                                        </Grid>
                                                     </Grid>
+                                                </Grid>
                                                 {/* } */}
 
-                                               
 
-                                               
+
+
 
                                                 {/* {selectForm && selectForm === 'Quarter' && */}
-                                                    <Grid>
-                                                        <Grid >
-                                                            <Grid className="anamneSecMid">
-                                                                {/* <p>{Anamnesis}</p> */}
-                                                                {/* <Grid className="anamneSecMid">
+                                                <Grid>
+                                                    <Grid >
+                                                        <Grid className="anamneSecMid">
+                                                            {/* <p>{Anamnesis}</p> */}
+                                                            {/* <Grid className="anamneSecMid">
                                                                     <p>Bartel Index</p>
                                                                     <Grid className="anamneSec">
                                                                         <FormControl>
@@ -811,307 +811,307 @@ class Index extends Component {
                                                                         </FormControl>
                                                                     </Grid>
                                                                 </Grid> */}
-                                                            </Grid>
-                                                        </Grid>
-
-                                                        <Grid className="selectOptionCmn">
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="main-topic-counted">Feeding</FormLabel>
-                                                                <RadioGroup aria-labelledby="main-topic-counted" name="full_feeding">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_feeding === 'dependent in all aspects and needs to be fed'}
-                                                                        value="dependent in all aspects and needs to be fed"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Dependent in all aspects and needs to be fed."
-                                                                    />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_feeding === 'can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal'}
-                                                                        value="can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal."
-                                                                    />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_feeding === 'able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities'}
-                                                                        value="able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities."
-                                                                    />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_feeding === 'independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required'}
-                                                                        value="independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required."
-                                                                    />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_feeding === 'the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc..'}
-                                                                        value="the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.."
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.."
-                                                                    />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Chair-Bed-Transfers">Chair/Bed Transfers</FormLabel>
-                                                                <RadioGroup aria-labelledby="Chair-Bed-Transfers" name="full_chair_bed_transfer">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_chair_bed_transfer === 'unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device.'}
-                                                                        value="unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device."
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_chair_bed_transfer === 'able to participate but maximum assistance of one other person is require in all aspects of the transfer'}
-                                                                        value="able to participate but maximum assistance of one other person is require in all aspects of the transfer"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Able to participate but maximum assistance of one other person is require in all aspects of the transfer." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the presence of another person is required either as a confidence measure, to provide supervision for safety'}
-                                                                        value="the presence of another person is required either as a confidence measure, to provide supervision for safety"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The presence of another person is required either as a confidence measure, to provide supervision for safety." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely'}
-                                                                        value="the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the patient must be independent in all phases of this activity'}
-                                                                        value="the patient must be independent in all phases of this activity"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient must be independent in all phases of this activity." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-Ambulation">Ambulation</FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-Ambulation" name="full_ambulation">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_ambulation === 'dependent in ambulation'}
-                                                                        value="dependent in ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Dependent in ambulation." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_ambulation === 'constant presence of one or more assistant is required during ambulation'}
-                                                                        value="constant presence of one or more assistant is required during ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Constant presence of one or more assistant is required during ambulation." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_ambulation === 'assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance'}
-                                                                        value="assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_ambulation === 'the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations'}
-                                                                        value="the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations. " />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_ambulation === 'the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision'}
-                                                                        value="the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-Wheelchair" className="wheelChr">
-                                                                    Wheelchair Management
-                                                                    <span>(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)</span>
-                                                                </FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-Wheelchair" name="full_wheelchair_management">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_wheelchair_management === 'dependent in wheelchair ambulation'}
-                                                                        value="dependent in wheelchair ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Dependent in wheelchair ambulation." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_wheelchair_management === 'patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management'}
-                                                                        value="patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_wheelchair_management === 'presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc'}
-                                                                        value="presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_wheelchair_management === 'the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high'}
-                                                                        value="the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_wheelchair_management === 'To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb'}
-                                                                        value="To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-Stairs">Stairs</FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-Stairs" name="full_stairs">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_stairs === 'the patient is unable to climb stairs'}
-                                                                        value="the patient is unable to climb stairs"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="The patient is unable to climb stairs." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_stairs === 'assistance is required in all aspects of stairclimbing, including assistance with walking aids'}
-                                                                        value="assistance is required in all aspects of stairclimbing, including assistance with walking aids"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        control={<Radio />}
-                                                                        label="Assistance is required in all aspects of stairclimbing, including assistance with walking aids." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_stairs === 'the patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance"
-                                                                        control={<Radio />}
-                                                                        label="The patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_stairs === 'generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc"
-                                                                        control={<Radio />}
-                                                                        label="Generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_stairs === 'the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends"
-                                                                        control={<Radio />}
-                                                                        label="The patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-OnOff">On and Off the Toilet</FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-OnOff" name="full_on_and_off_toilet">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_on_and_off_toilet === 'fully dependent in toileting'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="fully dependent in toileting"
-                                                                        control={<Radio />}
-                                                                        label="Fully dependent in toileting." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_on_and_off_toilet === 'assistance required in all aspects of toileting'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="assistance required in all aspects of toileting"
-                                                                        control={<Radio />}
-                                                                        label="Assistance required in all aspects of toileting." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_on_and_off_toilet === 'assistance may be required with management of clothing, transferring, or washing hands'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="assistance may be required with management of clothing, transferring, or washing hands"
-                                                                        control={<Radio />}
-                                                                        label="Assistance may be required with management of clothing, transferring, or washing hands." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_on_and_off_toilet === 'supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning"
-                                                                        control={<Radio />}
-                                                                        label="Supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_on_and_off_toilet === 'the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it"
-                                                                        control={<Radio />}
-                                                                        label="The patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-Ambulation">Bowels</FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-Ambulation" name="full_bowels">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bowels === 'the patient is bowel incontient'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is bowel incontient"
-                                                                        control={<Radio />}
-                                                                        label="The patient is bowel incontient." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bowels === 'the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques"
-                                                                        control={<Radio />}
-                                                                        label="The patient needs help to assume appropriate position, and with bowel movement facilitatory techniques." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bowels === 'the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc"
-                                                                        control={<Radio />}
-                                                                        label="The patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bowels === 'the patient may require supervision with the use of suppository or enema and has occasional accident'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient may require supervision with the use of suppository or enema and has occasional accident"
-                                                                        control={<Radio />}
-                                                                        label="The patient may require supervision with the use of suppository or enema and has occasional accident." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bowels === 'the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary"
-                                                                        control={<Radio />}
-                                                                        label="The patient can control bowels and has no accidents, can use suppository, or take an enema when necessary." />
-                                                                </RadioGroup>
-                                                            </FormControl>
-
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="Radio-Bladder">Bladder</FormLabel>
-                                                                <RadioGroup aria-labelledby="Radio-Bladde" name="full_bladder">
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bladder === 'the patient is dependent in bladder management, is incontinent, or has indwelling catheter'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is dependent in bladder management, is incontinent, or has indwelling catheter"
-                                                                        control={<Radio />}
-                                                                        label="The patient is dependent in bladder management, is incontinent, or has indwelling catheter." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bladder === 'the patient is incontinent but is able to assist with the application of an internal or external device'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is incontinent but is able to assist with the application of an internal or external device"
-                                                                        control={<Radio />}
-                                                                        label="The patient is incontinent but is able to assist with the application of an internal or external device." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bladder === 'the patient is generally dry by day, but not at night and needs some assistance with the devices'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is generally dry by day, but not at night and needs some assistance with the devices"
-                                                                        control={<Radio />}
-                                                                        label="The patient is generally dry by day, but not at night and needs some assistance with the devices." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bladder === 'the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices"
-                                                                        control={<Radio />}
-                                                                        label="The patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices." />
-                                                                    <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.full_bladder === 'the patient is able to control bladder day and night, and/or is independent with internal or external devices'}
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
-                                                                        value="the patient is able to control bladder day and night, and/or is independent with internal or external devices"
-                                                                        control={<Radio />}
-                                                                        label="The patient is able to control bladder day and night, and/or is independent with internal or external devices." />
-                                                                </RadioGroup>
-                                                            </FormControl>
                                                         </Grid>
                                                     </Grid>
+
+                                                    <Grid className="selectOptionCmn">
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="main-topic-counted">Feeding</FormLabel>
+                                                            <RadioGroup aria-labelledby="main-topic-counted" name="full_feeding">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_feeding === 'dependent in all aspects and needs to be fed'}
+                                                                    value="dependent in all aspects and needs to be fed"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Dependent in all aspects and needs to be fed."
+                                                                />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_feeding === 'can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal'}
+                                                                    value="can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal."
+                                                                />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_feeding === 'able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities'}
+                                                                    value="able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities."
+                                                                />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_feeding === 'independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required'}
+                                                                    value="independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required."
+                                                                />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_feeding === 'the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc..'}
+                                                                    value="the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.."
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.."
+                                                                />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Chair-Bed-Transfers">Chair/Bed Transfers</FormLabel>
+                                                            <RadioGroup aria-labelledby="Chair-Bed-Transfers" name="full_chair_bed_transfer">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_chair_bed_transfer === 'unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device.'}
+                                                                    value="unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device."
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_chair_bed_transfer === 'able to participate but maximum assistance of one other person is require in all aspects of the transfer'}
+                                                                    value="able to participate but maximum assistance of one other person is require in all aspects of the transfer"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Able to participate but maximum assistance of one other person is require in all aspects of the transfer." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the presence of another person is required either as a confidence measure, to provide supervision for safety'}
+                                                                    value="the presence of another person is required either as a confidence measure, to provide supervision for safety"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The presence of another person is required either as a confidence measure, to provide supervision for safety." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely'}
+                                                                    value="the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_chair_bed_transfer === 'the patient must be independent in all phases of this activity'}
+                                                                    value="the patient must be independent in all phases of this activity"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient must be independent in all phases of this activity." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Ambulation">Ambulation</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Ambulation" name="full_ambulation">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation === 'dependent in ambulation'}
+                                                                    value="dependent in ambulation"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Dependent in ambulation." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation === 'constant presence of one or more assistant is required during ambulation'}
+                                                                    value="constant presence of one or more assistant is required during ambulation"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Constant presence of one or more assistant is required during ambulation." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation === 'assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance'}
+                                                                    value="assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation === 'the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations'}
+                                                                    value="the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations. " />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation === 'the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision'}
+                                                                    value="the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Wheelchair" className="wheelChr">
+                                                                Wheelchair Management
+                                                                <span>(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)</span>
+                                                            </FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Wheelchair" name="full_wheelchair_management">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management === 'dependent in wheelchair ambulation'}
+                                                                    value="dependent in wheelchair ambulation"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Dependent in wheelchair ambulation." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management === 'patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management'}
+                                                                    value="patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management === 'presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc'}
+                                                                    value="presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management === 'the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high'}
+                                                                    value="the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management === 'To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb'}
+                                                                    value="To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Stairs">Stairs</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Stairs" name="full_stairs">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs === 'the patient is unable to climb stairs'}
+                                                                    value="the patient is unable to climb stairs"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="The patient is unable to climb stairs." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs === 'assistance is required in all aspects of stairclimbing, including assistance with walking aids'}
+                                                                    value="assistance is required in all aspects of stairclimbing, including assistance with walking aids"
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    control={<Radio />}
+                                                                    label="Assistance is required in all aspects of stairclimbing, including assistance with walking aids." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs === 'the patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance"
+                                                                    control={<Radio />}
+                                                                    label="The patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs === 'generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc"
+                                                                    control={<Radio />}
+                                                                    label="Generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs === 'the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends"
+                                                                    control={<Radio />}
+                                                                    label="The patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-OnOff">On and Off the Toilet</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-OnOff" name="full_on_and_off_toilet">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet === 'fully dependent in toileting'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="fully dependent in toileting"
+                                                                    control={<Radio />}
+                                                                    label="Fully dependent in toileting." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet === 'assistance required in all aspects of toileting'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="assistance required in all aspects of toileting"
+                                                                    control={<Radio />}
+                                                                    label="Assistance required in all aspects of toileting." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet === 'assistance may be required with management of clothing, transferring, or washing hands'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="assistance may be required with management of clothing, transferring, or washing hands"
+                                                                    control={<Radio />}
+                                                                    label="Assistance may be required with management of clothing, transferring, or washing hands." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet === 'supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning"
+                                                                    control={<Radio />}
+                                                                    label="Supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet === 'the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it"
+                                                                    control={<Radio />}
+                                                                    label="The patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Ambulation">Bowels</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Ambulation" name="full_bowels">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels === 'the patient is bowel incontient'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is bowel incontient"
+                                                                    control={<Radio />}
+                                                                    label="The patient is bowel incontient." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels === 'the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques"
+                                                                    control={<Radio />}
+                                                                    label="The patient needs help to assume appropriate position, and with bowel movement facilitatory techniques." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels === 'the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc"
+                                                                    control={<Radio />}
+                                                                    label="The patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels === 'the patient may require supervision with the use of suppository or enema and has occasional accident'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient may require supervision with the use of suppository or enema and has occasional accident"
+                                                                    control={<Radio />}
+                                                                    label="The patient may require supervision with the use of suppository or enema and has occasional accident." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels === 'the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary"
+                                                                    control={<Radio />}
+                                                                    label="The patient can control bowels and has no accidents, can use suppository, or take an enema when necessary." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Bladder">Bladder</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Bladde" name="full_bladder">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder === 'the patient is dependent in bladder management, is incontinent, or has indwelling catheter'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is dependent in bladder management, is incontinent, or has indwelling catheter"
+                                                                    control={<Radio />}
+                                                                    label="The patient is dependent in bladder management, is incontinent, or has indwelling catheter." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder === 'the patient is incontinent but is able to assist with the application of an internal or external device'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is incontinent but is able to assist with the application of an internal or external device"
+                                                                    control={<Radio />}
+                                                                    label="The patient is incontinent but is able to assist with the application of an internal or external device." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder === 'the patient is generally dry by day, but not at night and needs some assistance with the devices'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is generally dry by day, but not at night and needs some assistance with the devices"
+                                                                    control={<Radio />}
+                                                                    label="The patient is generally dry by day, but not at night and needs some assistance with the devices." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder === 'the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices"
+                                                                    control={<Radio />}
+                                                                    label="The patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices." />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder === 'the patient is able to control bladder day and night, and/or is independent with internal or external devices'}
+                                                                    onChange={(e) => updateAllEntrySec(this, e)}
+                                                                    value="the patient is able to control bladder day and night, and/or is independent with internal or external devices"
+                                                                    control={<Radio />}
+                                                                    label="The patient is able to control bladder day and night, and/or is independent with internal or external devices." />
+                                                            </RadioGroup>
+                                                        </FormControl>
+                                                    </Grid>
+                                                </Grid>
                                                 {/* } */}
                                             </Grid>}
                                         <Grid className="infoShwSave3">

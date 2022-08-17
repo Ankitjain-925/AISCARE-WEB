@@ -435,9 +435,12 @@ export const checkValidation = (current, value, item) => {
         item === "full_thrombose_picture_with_scale" ||
         item === "full_decubitus_picture_with_scale" ||
         item === "full_thrombose_picture_with_scale")) {
-        console.log('value', value)
+        var currentItem = item === "full_decubitus_picture_with_scale" ||
+            item === "full_decubitus_picture_with_scale" ? "Decubitus" : "Thrombose"
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Files" })
+            current.setState({
+                errorChrMsg: "Please select" + " " + currentItem + " " + "Situation files"
+            })
             MoveTop(0);
             return false;
         }
@@ -492,7 +495,7 @@ export const MoveTop = (top) => {
 };
 
 export const handleSubmit = (current) => {
-    const { valueof, FileAttach, allQuestionData,  everyWeek, openQues, selectHouse, selectPatient } = current.state;
+    const { FileAttach, allQuestionData, everyWeek, openQues, selectHouse, selectPatient } = current.state;
     if (!openQues) {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
@@ -505,18 +508,11 @@ export const handleSubmit = (current) => {
         }
     } else {
         var data = allQuestionData;
-        if (valueof === 1) {
-            data.full_decubitus_picture_with_scale = FileAttach;
-        }
-        if (valueof === 2) {
-            data.full_thrombose_picture_with_scale = FileAttach;
-        }
         if (checkValidation(current, data?.full_rr_systolic, "full_rr_systolic")) {
             if (checkValidation(current, data?.full_rr_diastolic, "full_rr_diastolic")) {
                 if (checkValidation2(current, data?.full_diameter_leg, "full_diameter_leg", data)) {
                     if (checkValidation2(current, data?.full_Sick, "full_Sick", data)) {
                         if (checkValidation(current, data?.full_anamnesis_o2_saturation, "full_anamnesis_o2_saturation")) {
-
                             if (checkValidation(current, data?.full_decubitus_picture_with_scale, "full_decubitus_picture_with_scale")) {
                                 if (checkValidation(current, data?.full_decubitus_amount_of_wounds, "full_decubitus_amount_of_wounds")) {
                                     if (checkValidation(current, data?.full_decubitus_condition, "full_decubitus_condition")) {
@@ -535,9 +531,9 @@ export const handleSubmit = (current) => {
                                                                                 if (checkValidation(current, data?.full_disorientation_level_patient_tell, "full_disorientation_level_patient_tell")) {
                                                                                     if (checkValidation(current, data?.full_disorientation_level_family_member, "full_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, data?.full_sanitary_situation_incident, "full_sanitary_situation_incident")) {
-                                                                                            if (checkValidation(current,data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
-                                                                                                if (checkValidation(current,  data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
-                                                                                                    if (checkValidation(current,  data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
+                                                                                            if (checkValidation(current, data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
+                                                                                                if (checkValidation(current, data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
+                                                                                                    if (checkValidation(current, data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
                                                                                                         if (checkValidation(current, data?.full_feeding, "full_feeding")) {
                                                                                                             if (checkValidation(current, data?.full_chair_bed_transfer, "full_chair_bed_transfer")) {
                                                                                                                 if (checkValidation(current, data?.full_ambulation, "full_ambulation")) {
@@ -546,7 +542,7 @@ export const handleSubmit = (current) => {
                                                                                                                             if (checkValidation(current, data?.full_on_and_off_toilet, "full_on_and_off_toilet")) {
                                                                                                                                 if (checkValidation(current, data?.full_bowels, "full_bowels")) {
                                                                                                                                     if (checkValidation(current, data?.full_bladder, "full_bladder")) {
-                                                                                                                                        CallApi(current, data)
+                                                                                                                                        CallApi(current, data);
                                                                                                                                     }
                                                                                                                                 }
                                                                                                                             }
@@ -637,14 +633,16 @@ export const CallApi = (current, data) => {
                     )
                     .then((responce) => {
                         if (responce.data.hassuccessed) {
-                            current.setState({  errorChrMsg: '',
-                            allQuestionData: {},
-                            openQues: false,
-                            errorChrMsg1: '',
-                            loaderImage: false  });
+                            current.setState({
+                                errorChrMsg: '',
+                                allQuestionData: {},
+                                openQues: false,
+                                errorChrMsg1: '',
+                                loaderImage: false
+                            });
                         }
-                        else{
-                            current.setState({loaderImage: false })
+                        else {
+                            current.setState({ loaderImage: false })
                         }
                     })
                     .catch(function (error) {
@@ -658,16 +656,18 @@ export const CallApi = (current, data) => {
 }
 
 export const FileAttachMulti = (current, Fileadd, name) => {
-    current.setState({
-        valueof: name === "full_decubitus_picture_with_scale" ||
-            name === "full_decubitus_picture_with_scale" ||
-            name === "full_decubitus_picture_with_scale" ? 1 : 2
-    })
+    var state = current.state.allQuestionData;
+    state[name] = Fileadd;
     current.setState({
         isfileuploadmulti: true,
-        FileAttach: Fileadd,
         fileupods: true,
+        allQuestionData: state
     })
+    // current.setState({
+    //     valueof: name === "daily_decubitus_picture_with_scale" ||
+    //         name === "day_decubitus_picture_with_scale" ||
+    //         name === "week_decubitus_picture_with_scale" ? 1 : 2
+    // })
 };
 
 export const allHouses = (current) => {
