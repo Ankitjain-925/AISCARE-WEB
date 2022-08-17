@@ -39,55 +39,72 @@ export const updateAllEntrySec1 = (current, e, name) => {
 }
 
 export const checkValidation2 = (current, check, item, fulldata) => {
-    console.log('errorChrMsg', 'i AM HEREE', check)
+
+    let translate = getLanguage(current.props.stateLanguageType);
+
+    let {
+      please_select,
+      with_yes_and_no,
+      Diameter_Leg,
+      please_enter_Diameter_leg,
+      Please_select_better_and_worse_for_condition,
+      Sick,
+      Please_enter_Weight,
+
+
+    
+    } = translate;
+    console.log('errorChrMsg','i AM HEREE', check )
     current.setState({ errorChrMsg: '' })
     if (item === 'daily_diameter_leg') {
         if (!fulldata.daily_diameter_leg) {
+          current.setState({
+            errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
+          });
+          MoveTop(0);
+          return false;
+        } else if (fulldata && fulldata.daily_diameter_leg === 'yes') {
+         
+          if (!fulldata.daily_anamnesis_diameter_leg) {
             current.setState({
-                errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
+                errorChrMsg: please_enter_Diameter_leg,
             });
             MoveTop(0);
             return false;
-        } else if (fulldata && fulldata.daily_diameter_leg === 'yes') {
+          
+          } 
+          else if (!fulldata.daily_anamnesis_condition){
+            current.setState({
+                errorChrMsg: Please_select_better_and_worse_for_condition,
+            });
+            MoveTop(0);
+            return false;
+          }else {
+            return true;
+          }
 
-            if (!fulldata.daily_anamnesis_diameter_leg) {
-                current.setState({
-                    errorChrMsg: 'please enter Diameter leg',
-                });
-                MoveTop(0);
-                return false;
-
-            }
-            else if (!fulldata.daily_anamnesis_condition) {
-                current.setState({
-                    errorChrMsg: 'Please select better and worse for condition',
-                });
-                MoveTop(0);
-                return false;
-            } else {
-                return true;
-            }
         } else {
             return true;
         }
     }
     if (item === 'day_Sick') {
         if (!fulldata.day_Sick) {
+
+          current.setState({
+            errorChrMsg: please_select + ' ' + Sick + ' ' + with_yes_and_no,
+          });
+          MoveTop(0);
+          return false;
+        } else if (fulldata && fulldata.day_Sick === 'yes') {
+         
+          if (!fulldata.day_anamnesis_weight) {
             current.setState({
-                errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
+                errorChrMsg: Please_enter_Weight,
+\
             });
             MoveTop(0);
             return false;
-        } else if (fulldata && fulldata.day_Sick === 'yes') {
-
-            if (!fulldata.day_anamnesis_weight) {
-                current.setState({
-                    errorChrMsg: 'Please enter Weight',
-                });
-                MoveTop(0);
-                return false;
-
-            }
+        }
             else {
                 return true;
             }
@@ -102,43 +119,38 @@ export const checkValidation = (current, check, value, item) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let {
         please_select,
-        Pain_begin,
-        hurt_now,
-        Quality_of_pain,
         please_enter,
-        Undergoing_treatment,
-        with_yes_no,
-        pain_point,
-        continuously_or_periodically,
-        take_painkillers,
-        suffer_from_vomiting,
-        environmental_suffer_symtoms,
-        keep_liquids_with,
-        valid_body_temp,
-        sputum_intensity,
-        back_symptoms_begin,
         rr_systolic,
         bp_should_number,
         systolic_value_between,
         RR_diastolic,
         diastolic_in_number,
         diastolic_value_between,
-        pain_intensity,
-        body_temp,
-        Body_temp_bet,
-        diabetes,
-        enter_blood_sugar,
-        blood_sugar_in_number,
-        blood_sugar_between,
-        enter_hba1c,
-        Hba1c_should_between,
-        fev_cough,
-        atleast_condition,
-        low_value,
-        top_value,
-        fever_low_body_temp,
-        of_body_temprature,
-    } = translate;
+        Please_Enter_Amount_of_wounds,
+        Please_select_situation_Better_worse,
+        please_enter_Diameter_leg,
+        Please_select_you_eaten,
+        Please_select_you_been_trinkung,
+        Please_select_you_go_to_the_toilet,
+        Please_select_Pain_status,
+        Please_select_Depression_Risk,
+        Please_select_Disorientation_Level,
+        Please_select_Sanitary_Situation,
+        Please_select_Anamnesis,
+        Please_Enter_O2_saturation,
+        Please_Select_Pneunomie_Situation,
+        Please_select_Nutrition_Situation,
+        Please_select_Falling_Risk,
+        Bartel_Index,
+        Please_select_Files,
+        Feeding,
+        Chair_Bed_transfer,
+        Ambulation,
+        Wheelchair_Management,
+        Stairs,
+        On_and_off_Toilet,
+        Bowels
+ } = translate;
 
     var bpPattern = /^[0-9]+$/;
     var Valid = bpPattern.test(value);
@@ -214,7 +226,7 @@ export const checkValidation = (current, check, value, item) => {
         check) {
         // var currentItem = item === daily_decubitus_amount_of_wounds ? "" : ""
         if (!value) {
-            current.setState({ errorChrMsg: "Please Enter Amount of wounds" })
+            current.setState({ errorChrMsg: Please_Enter_Amount_of_wounds })
             MoveTop(0);
             return false;
         }
@@ -227,7 +239,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_decubitus_condition" ||
         item === "week_thrombose_diameter_leg_condition") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select situation Better/worse" })
+            current.setState({ errorChrMsg: Please_select_situation_Better_worse })
             MoveTop(0);
             return false;
         }
@@ -239,7 +251,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_thrombose_diameter_leg" ||
         item === "daily_thrombose_diameter_leg") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please Enter Diameter Leg" })
+            current.setState({ errorChrMsg: please_enter_Diameter_leg })
             MoveTop(0);
             return false;
         }
@@ -261,7 +273,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "day_thrombose_food_eaten_condition" ||
         item === "week_thrombose_food_eaten") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select you eaten" })
+            current.setState({ errorChrMsg: Please_select_you_eaten})
             MoveTop(0);
             return false;
         }
@@ -273,7 +285,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "day_thrombose_water_trinkung" ||
         item === "week_thrombose_water_trinkung") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select you been trinkung" })
+            current.setState({ errorChrMsg: Please_select_you_been_trinkung })
             MoveTop(0);
             return false;
         }
@@ -285,7 +297,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_thrombose_toilet_situation" ||
         item === "week_thrombose_toilet_situation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select you go to the toilet" })
+            current.setState({ errorChrMsg: Please_select_you_go_to_the_toilet })
             MoveTop(0);
             return false;
         }
@@ -297,7 +309,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_thrombose_pain_status"
         || item === "week_thrombose_pain_status") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Pain status" })
+            current.setState({ errorChrMsg: Please_select_Pain_status })
             MoveTop(0);
             return false;
         }
@@ -309,7 +321,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_thrombose_amount_of_wounds"
         || item === "week_thrombose_amount_of_wounds") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please Enter Amount of wounds" })
+            current.setState({ errorChrMsg:Please_Enter_Amount_of_wounds })
             MoveTop(0);
             return false;
         }
@@ -324,7 +336,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_anamnesis_condition" ||
         item === "daily_thrombose_condition") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select situation Better/worse" })
+            current.setState({ errorChrMsg: Please_select_situation_Better_worse })
             MoveTop(0);
             return false;
         }
@@ -337,7 +349,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_depression_good_today" ||
         item === "week_depression_risk_good_today") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Depression Risk" })
+            current.setState({ errorChrMsg: Please_select_Depression_Risk })
             MoveTop(0);
             return false;
         }
@@ -352,7 +364,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_disorientation_level_ask_for_news" ||
         item === "week_disorientation_level_family_member") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Disorientation Level" })
+            current.setState({ errorChrMsg: Please_select_Disorientation_Level })
             MoveTop(0);
             return false;
         }
@@ -364,7 +376,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_sanitary_situation_ask_for_incident"
         || item === "week_sanitary_situation_ask_for_incidents") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Sanitary Situation" })
+            current.setState({ errorChrMsg: Please_select_Sanitary_Situation})
             MoveTop(0);
             return false;
         }
@@ -375,7 +387,7 @@ export const checkValidation = (current, check, value, item) => {
     else if ((
         item === "week_anamnesis_weight" || item === "week_anamnesis_diameter_leg") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Anamnesis" })
+            current.setState({ errorChrMsg: Please_select_Anamnesis })
             MoveTop(0);
             return false;
         }
@@ -385,7 +397,7 @@ export const checkValidation = (current, check, value, item) => {
     }
     else if ((item === "day_anamnesis_o2_saturation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please Enter O2 saturation" })
+            current.setState({ errorChrMsg: Please_Enter_O2_saturation})
             MoveTop(0);
             return false;
         }
@@ -396,7 +408,7 @@ export const checkValidation = (current, check, value, item) => {
     else if ((item === "day_pneunomie_o2_sound_recording"
         || item === "day_pneunomie_o2_saturation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please Select Pneunomie Situation" })
+            current.setState({ errorChrMsg: Please_Select_Pneunomie_Situation})
             MoveTop(0);
             return false;
         }
@@ -407,7 +419,7 @@ export const checkValidation = (current, check, value, item) => {
     else if ((item === "day_nutrition_situation_fruits"
         || item === "day_nutrition_situation_protein") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Nutrition Situation" })
+            current.setState({ errorChrMsg: Please_select_Nutrition_Situation })
             MoveTop(0);
             return false;
         }
@@ -423,7 +435,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "daily_falling_risk_incident_today" ||
         item === "daily_falling_risk_incident_tools") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Falling Risk" })
+            current.setState({ errorChrMsg:Please_select_Falling_Risk })
             MoveTop(0);
             return false;
         }
@@ -439,7 +451,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "week_thrombose_picture_with_scale") && check) {
         console.log('value', value)
         if (!value) {
-            current.setState({ errorChrMsg: "Please select Files" })
+            current.setState({ errorChrMsg: Please_select_Files})
             MoveTop(0);
             return false;
         }
@@ -458,24 +470,24 @@ export const checkValidation = (current, check, value, item) => {
         item === "quarter_bowels" ||
         item === "quarter_bladder") && check) {
         var currentItem = item === "quarter_bartel_index_full_questionaire" ?
-            "Bartel Index"
+         Bartel_Index
             : item === "quarter_feeding"
-                ? "Feeding"
+                ? Feeding
                 : item === "quarter_chair_bed_transfer"
-                    ? "Chair / Bed transfer"
+                    ? Chair_Bed_transfer
                     : item === "quarter_ambulation"
-                        ? "Ambulation"
+                        ? Ambulation
                         : item === "quarter_wheelchair_management"
-                            ? "Wheelchair management"
+                            ? Wheelchair_Management
                             : item === "quarter_stairs"
-                                ? "Stairs"
+                                ? Stairs
                                 : item === "quarter_on_and_off_toilet"
-                                    ? "On and Off the toilet"
+                                    ? On_and_off_Toilet
                                     : item === "quarter_bowels"
-                                        ? "Bowels"
+                                        ? Bowels
                                         : "Bladder"
         if (!value) {
-            current.setState({ errorChrMsg: "Please select" + " " + currentItem })
+            current.setState({ errorChrMsg: please_select + " " + currentItem })
             MoveTop(0);
             return false;
         }
@@ -494,16 +506,24 @@ export const MoveTop = (top) => {
 };
 
 export const handleSubmit = (current) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {
+      please_select,
+      Patient_first,
+     Hospital_first
+    } = translate;
     const { valueof, FileAttach, allQuestionData, dailyForm, everyDay, everyWeek, everyQuarter, openQues, selectHouse, selectPatient } = current.state;
     if (!openQues) {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
                 current.setState({ openQues: true });
             } else {
-                current.setState({ errorChrMsg1: "Please select" + " " + "Patient first" })
+                current.setState({ errorChrMsg1: please_select + " " + Patient_first })
             }
         } else {
-            current.setState({ errorChrMsg1: "Please select" + " " + "Hospital first" })
+
+            current.setState({ errorChrMsg1: please_select + " " + Hospital_first })
+
         }
     } else {
         var data = allQuestionData;
