@@ -138,7 +138,6 @@ export const checkValidation = (current, check, value, item) => {
         Please_Select_Pneunomie_Situation,
         Please_select_Nutrition_Situation,
         Please_select_Falling_Risk,
-        Bartel_Index,
         Please_select_Files,
         Feeding,
         Chair_Bed_transfer,
@@ -146,7 +145,8 @@ export const checkValidation = (current, check, value, item) => {
         Wheelchair_Management,
         Stairs,
         On_and_off_Toilet,
-        Bowels
+        Bowels,
+        Bartel_Index
  } = translate;
 
     var bpPattern = /^[0-9]+$/;

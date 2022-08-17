@@ -66,7 +66,8 @@ export const checkValidation = (current, check, value, item) => {
         Stairs,
         On_and_off_Toilet,
         Bowels,
-        please_select
+        please_select,
+       
 
     } = translate;
 
@@ -427,11 +428,10 @@ export const MoveTop = (top) => {
 export const handleSubmit = (current) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let {
-      please_select,
-      Patient_first,
-     Hospital_first
-    } = translate;
-
+        please_select,
+        Patient_first,
+       Hospital_first
+      } = translate;
     const { valueof, FileAttach, allQuestionData, dailyForm, everyDay, everyWeek, everyQuarter, openQues, selectHouse, selectPatient } = current.state;
     if (!openQues) {
         if (selectHouse && selectHouse?.value) {
