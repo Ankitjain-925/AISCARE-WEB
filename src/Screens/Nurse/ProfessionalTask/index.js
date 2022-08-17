@@ -87,17 +87,6 @@ class Index extends Component {
     });
   };
 
-
-  mySorter(a, b) {
-    console.log('fdgdg dg')
-    if ((a?.due_on?.date || a?.date) && (b?.due_on?.date || a?.date)) {
-      var x = a.appointment_type ? a.date  : a.due_on.date 
-      var y = b.appointment_type ? b.date  : b.due_on.date
-      return x > y ? -1 : x < y ? 1 : 0;
-    } else { 
-      return -1;
-    }
-  }
   //get Add task data
   getAddTaskData = async (tabvalue2, goArchive) => {
     this.setState({ loaderImage: true });
@@ -149,8 +138,9 @@ class Index extends Component {
             let data_end = moment(item.end_time).format("HH:mm");
             let data_d = new Date(item.date).setHours(0, 0, 0, 0)
            
-          if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end >= ttime) )){
-           return item
+          if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end <= ttime) )){
+           console.log('wefwerw erwe')
+            return item
           }else{
           return item.status ==="done"
           }
@@ -168,10 +158,12 @@ class Index extends Component {
           {
             let data_end = moment(item.end_time).format("HH:mm");
             let data_d = new Date(item.date).setHours(0, 0, 0, 0)
-          if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) && data_end < ttime) )){
+            console.log('dfrew5555')
+          if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) ) )){
+            console.log('sdsdfdsf dsf')
             return item
           }else{
-          return item.status ==="open"
+            return item.status ==="open"
           }
 
         }
@@ -296,8 +288,21 @@ class Index extends Component {
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
+                <Grid className="topLeftSpc">
+                        <Grid container direction="row">
+                          <Grid item xs={11} md={11}>
+                            <Grid container direction="row">
+                              <Grid item xs={12} md={6} className="spcMgntH1">
+                                <h1>{"Professional activities"}</h1>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                   <Grid container direction="row">
+                    
                     <Grid item xs={12} md={12}>
+                      
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}

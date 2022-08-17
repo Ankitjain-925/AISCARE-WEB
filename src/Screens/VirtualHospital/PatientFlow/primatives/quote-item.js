@@ -506,6 +506,20 @@ export default class QuoteItem extends React.Component {
                         title=""
                       />
                     </a>
+                    <a
+                      className="taskHover hoverTopCss"
+                      onClick={() => {
+                        quote?.verifiedbyPatient &&
+                          this.props.MovetoService();
+                      }}
+                    >
+                      <span>{add_assign_service}</span>
+                      <img
+                        src={require('assets/virtual_images/plusIcon.png')}
+                        alt=""
+                        title=""
+                      />
+                    </a>
                     <a className="notePoint taskHover">
                       <span>{Comments}</span>
                       <img
