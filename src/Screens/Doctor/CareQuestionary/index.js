@@ -6,8 +6,9 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from "Screens/Login/authy.js";
-import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
-import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
+import { Redirect, Route } from "react-router-dom";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -52,6 +53,17 @@ class Index extends Component {
     }
 
     render() {
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (
+          stateLoginValueAim.user === 'undefined' ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === 'undefined' ||
+          stateLoginValueAim.user.type !== 'doctor' ||
+          !this.props.verifyCode ||
+          !this.props.verifyCode.code
+        ) {
+          return <Redirect to={'/'} />;
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         const { rr_systolic, RR_diastolic, Search_Select, ForPatient,For_Hospital ,Daily,every_2_week,Every_2_Day,Quarter,blood_pressure
             ,Picture_with_Scale,
@@ -101,7 +113,7 @@ class Index extends Component {
                                         {!openQues ?
                                             <Grid>
                                                 <div className="err_message">{this.state.errorChrMsg1}</div>
-                                                <Grid item xs={12} md={12}>
+                                                <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
                                                         <Select
@@ -116,7 +128,7 @@ class Index extends Component {
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} md={12}>
+                                                <Grid item xs={12} sm={9} md={6}>
                                                     <label>{ForPatient}</label>
                                                     <Grid>
                                                         <Select

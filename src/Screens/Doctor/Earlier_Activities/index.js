@@ -222,23 +222,14 @@ class Index extends Component {
         let { } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
-            stateLoginValueAim.user === "undefined" ||
-            stateLoginValueAim.token === 450 ||
-            stateLoginValueAim.token === "undefined" ||
-            !this.props.verifyCode ||
-            !this.props.verifyCode.code
+          stateLoginValueAim.user === 'undefined' ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === 'undefined' ||
+          stateLoginValueAim.user.type !== 'doctor' ||
+          !this.props.verifyCode ||
+          !this.props.verifyCode.code
         ) {
-            if (stateLoginValueAim.user) {
-                if (
-                    stateLoginValueAim?.user?.type === "nurse" ||
-                    stateLoginValueAim?.user?.type === "therapist"
-                ) {
-                } else {
-                    return <Redirect to={"/"} />;
-                }
-            } else {
-                return <Redirect to={"/"} />;
-            }
+          return <Redirect to={'/'} />;
         }
         return (
             <Grid
@@ -262,6 +253,17 @@ class Index extends Component {
                                 <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
+                                <Grid className="topLeftSpc">
+                        <Grid container direction="row">
+                          <Grid item xs={11} md={11}>
+                            <Grid container direction="row">
+                              <Grid item xs={12} md={6} className="spcMgntH1">
+                                <h1>{"Earlier activities"}</h1>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={12}>
                                             {/* Model setup */}

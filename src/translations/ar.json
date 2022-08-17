@@ -1678,7 +1678,34 @@
 		"cardiac_dizziness":"Cardiac dizziness",
 		"cardiac_shoulder_pain":"Shoulder pain",
 		"cardiac_heart_attack":"Heart attack",
+
+		"cardiac_heart_failure":"Heart failure",
+
+		"ProfessionalActivity":"النشاط المهني",
+		"EarlierActivity":"نشاط سابق",
+		"edit_assigned_services":"تحرير الخدمات المخصصة",
+		"delete_assigned_services":"حذف الخدمات المعينة",
+		"Care_Questionnary":"استبيان العناية",
+		
+		"For_Hospital":"إلى عن على مستشفى ",
+		"Every_2_Day":"Every 2 Day",
+		"Quarter":"Quarter",
+		"Picture_with_Scale":"Picture with Scale",
+		"Anamnesis":"Anamnesis",
+		"Decubitus_Situation":"Decubitus Situation",
+		"Amount_of_wounds":"Amount of wounds",
+		"Better":"Better",
+		"Worse":"Worse",
+		"Thrombose_Situation":"Thrombose Situation",
+		"Measure_diameter_Leg":"Measure diameter Leg",
+		"Falling_Risk":"Falling Risk",
+		"ask_for_incidents":"ask for incidents",
+		"Did_you_fall_today":"Did you fall today",
+		"Use_of_tools":"Use of tools",
+	
+
 		"cardiac_heart_failure":"Heart failure"
+
 
 	
 	}

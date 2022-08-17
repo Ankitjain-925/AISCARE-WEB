@@ -1828,7 +1828,7 @@
    "EarlierActivity":"Frühere Aktivität",
    "to":"zu",
 
-   "For_Hospital":"For Hospital",
+   "For_Hospital":"Für Krankenhaus",
    "Every_2_Day":"Every 2 Day",
    "Quarter":"Quarter",
    "Picture_with_Scale":"Picture with Scale",
@@ -1845,8 +1845,8 @@
    "Use_of_tools":"Use of tools",
 
    "ProfessionalActivity":"Professionelle Aktivität",
-   "Edit_assigned_services":"Zugewiesene Dienste bearbeiten",
-   "Delete_assigned_service":"Zugewiesenen Dienst löschen",
-   "Care_Questionnary":"Care Questionnary"
+   
+   
+   "Care_Questionnary":"Pflege Fragebogen"
   }
 }

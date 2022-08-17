@@ -11054,9 +11054,6 @@ p.more-change-staff-img2 {
   margin-bottom: 0px;
   font-family: Muli;
 }
-.que-mbottom button {
-  margin-bottom: 10px;
-}
 .dtlCountRm a:last-child {
   margin-left: 14px;
 }
@@ -15247,22 +15244,7 @@ a.joinmeetingtab {
 .fixedEuro {
   position: relative;
 }
-/* @media (max-width: 430px) {
-  .euroamount {
-    position: absolute;
-    top: 38px;
-    left: 140px;
-  }
-} */
-@media (max-width: 500px) {
-  .openScnd {
-    margin-top: 10px;
-  }
-}
 @media (max-width: 350px) {
-  .openScnd {
-    margin-left: 20px;
-  }
   .colorspace input {
     width: 90%;
   }
@@ -15770,10 +15752,6 @@ width: 90px!important;
   padding: 0px;
   margin-right: 8px;
 }
-.anamneSecUpr {
-  padding: 0px 45px;
-  margin-bottom: 25px;
-}
 .anamneSecMid p {
   font-size: 19px;
   color: #00abaf !important;
@@ -15860,73 +15838,6 @@ width: 90px!important;
     display: block;
     flex-direction: initial;
   }
-}
-
-.proAllSpec{
-  font-size: 12px !important;
-  width: 136px;
-  display: inline-block;
-  font-family: "Mulish", sans-serif !important;
-  text-align: left;
-  margin-left: 8px;
-  vertical-align: middle;
-}
-.proAllSpec div,
-.proAllSpec div input {
-  /* border: none !important; */
-  outline: none !important;
-  box-shadow: initial !important;
-}
-.proAllSpec div {
-  color:hsl(0,0%,50%)!important;
-  background-color: #F2F2F2 !important;
-  background: #F2F2F2 !important;
-  font-weight: 600;
-  /* padding: 2.3px 2px; */
-  border:none;
-  border-radius: 4px;
-}
-
-.taskSort{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-@media (max-width: 599px){
-.allTaskSortPart input[type="text"] {
-    margin-bottom: 0px;
-}
-}
-
-.serviceAmountSec p{
-  font-weight: bold;
-  font-size: 15px;
-  color: #000808;
-}
-.serviceAmountSec label{
-  margin-top: 5px;
-  margin-bottom: 15px;
-  font-weight: bold;
-  font-size: 25px;
-  color: #000808;
-  display: block;
-  line-height: 15px;
-  letter-spacing: 0;
-}
-.allAddSection{
-  font-size: 15px;
-  font-weight: 600;
-}
-.darkTheme{
-  margin-top: 10px;
-}
-.allFormSection {
-  margin: 20px 20px;
-  padding: 25px 25px;
-}
-.attchNoteMain {
-  justify-content: space-between;
-}
   .allFormSection {
     margin: 20px 20px;
     padding: 25px 25px;
@@ -15934,13 +15845,14 @@ width: 90px!important;
   .attchNoteMain {
     justify-content: space-between;
   }
-
   .srvcTable {
     margin-bottom: 0px !important;
   }
   .enterSpcl input, .addStafSelect {
     margin-bottom: 2px !important;
   }
+  }
+
 
 .measureInput input{    
   border: 1px solid #BFC1C1;
@@ -15999,4 +15911,5 @@ width: 90px!important;
     .MainclassQues h1{
       margin-top:20px!important
     }
+
 

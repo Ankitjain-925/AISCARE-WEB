@@ -133,7 +133,8 @@ class Index extends Component {
       certificateId: false,
       PatientID: false,
       taskData: {},
-      specchange: false
+      specchange: false,
+      openAss: false,
     };
   }
 
@@ -170,7 +171,9 @@ class Index extends Component {
     }
   };
 
-
+  handleOpenAss = () => {
+    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list });
+  };
 
   // onDropDown = (tabvalue2) => {
   //   const { AllTasks1 } = this.state;
@@ -225,6 +228,10 @@ class Index extends Component {
       });
     });
   };
+
+  handleCloseAss=()=>{
+    this.setState({openAss: false})
+  }
 
   componentDidMount() {
     this.changeLanguageState();
@@ -919,6 +926,100 @@ class Index extends Component {
         }
       });
   };
+
+ //{Delete} the perticular service confirmation box
+ removeTask1 = (id) => {
+  console.log('on removing assigned serviceee')
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1>{remove_task}</h1>
+          <p>{you_sure_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.removeTask21(id);
+                // onClose();
+              }}
+            >
+              {Yes}
+            </button>
+          </div>
+        </div>
+      );
+    },
+  });
+};
+
+removeTask21 = (id) => {
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1 class="alert-btn">{RemoveTask}</h1>
+          <p>{really_want_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.deleteClickTask(id);
+                onClose();
+              }}
+            >
+              {Yes}
+            </button>
+          </div>
+        </div>
+      );
+    },
+  });
+};
+
+
+  //for delete the Task
+  deleteClickTask1(id) {
+      this.setState({ loaderImage: true });
+      axios
+        .delete(
+          sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            this.props.getAddTaskData();
+          }
+          this.setState({ loaderImage: false });
+        })
+        .catch((error) => { });
+    }
+
+
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
@@ -1122,6 +1223,45 @@ class Index extends Component {
       .catch((error) => {});
   }
   // open Edit model
+    // open Edit model
+    editTask1 = (data) => {
+      console.log('on edit service')
+      var pat1name = "";
+       if (data?.patient?.first_name && data?.patient?.last_name) {
+         pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
+       } else if (data?.first_name) {
+         pat1name = data?.patient?.first_name;
+       }
+      this.selectProf(data?.assinged_to, this.state.professional_id_list);
+       var Assigned_Aready =
+         data &&
+         data?.assinged_to &&
+         data?.assinged_to?.length > 0 &&
+         data?.assinged_to.map((item) => {
+           return item?.user_id;
+         });
+      
+       var deep = _.cloneDeep(data);
+       this.setState({
+     
+         service: deep,
+         // OpenTask:true,
+         openAss: true,
+         Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+         calculate_Length: {
+           attach_Length: data?.attachments?.length,
+           comments_Length: data?.comments?.length,
+         },
+         // assignedTo: assignedTo,
+         q: pat1name,
+        //  selectedPat: { label: pat1name, value: data?.patient?._id },
+         selectSpec: {
+           label: data?.speciality?.specialty_name,
+           value: data?.speciality?._id,
+         },
+       });
+     };
+
   editTask = (data) => {
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
@@ -1656,6 +1796,7 @@ class Index extends Component {
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
       for_hospital,
+
     } = translate;
 
     const {
@@ -1669,6 +1810,7 @@ class Index extends Component {
       DeclinedTaskCss,
       OpenTaskCss,
       ArchivedTasksCss,
+      assignService,
       selectedOption,
       specialitiesList,
     } = this.state;
@@ -1706,12 +1848,29 @@ class Index extends Component {
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask"  && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
-              {this.props.comesFrom == "detailTask" && <AssignedService />}
+              {this.props.comesFrom == "detailTask" && 
+                <Button onClick={() => this.handleOpenAss()} >
+                    {assignService}
+                </Button>}
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}
           </Grid>
           {/* Model setup */}
+          <AssignedService 
+              openAss={this.state.openAss}
+              handleOpenAss={()=> this.handleOpenAss()}
+              handleCloseAss={()=> this.handleCloseAss()}
+              service={this.state.service}
+              removeTask={(id) => this.removeTask(id)}
+              editTask={(data) => this.editTask(data)}
+              getAddTaskData={(tabvalue2) => {
+              this.props.getAddTaskData(tabvalue2);
+            }}
+            selectedHouse = {this.props.selectedHouse}
+            patient = {this.props.patient}
+            comesFrom = {this.props.comesFrom} 
+            />
           <Modal
             className={
               this.props.settings &&
@@ -1773,9 +1932,11 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            <label>{for_hospital}</label>
                             {this.props.comesFrom === "Professional" && (
+                              <>{!this.state.newTask._id &&
+
                               <Grid>
+                                       <label>{For_Hospital}</label>
                                 <Select
                                   name="for_hospital"
                                   options={this.state.currentList}
@@ -1787,6 +1948,7 @@ class Index extends Component {
                                   isSearchable={true}
                                 />
                               </Grid>
+                              }</>
                             )}
                           </Grid>
                           <Grid item xs={12} md={12}>
@@ -1810,6 +1972,7 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
+                            {console.log('this.props.comesFrom ', this.props.comesFrom )}
                             {this.props.comesFrom === "detailTask" ? (
                               <h2>
                                 {this.props.patient?.first_name}{" "}
@@ -3947,7 +4110,7 @@ class Index extends Component {
           {/* {tabvalue === 0 && <TabContainer> */}
           <Grid className="taskCntntMng">
             <Grid container direction="row" alignItems="center">
-              <Grid item xs={12} sm={12} md={4}>
+            <Grid item xs={12} sm={6} md={7}>
                 <AppBar position="static" className="billTabs">
                   <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
                     <Tab label={ALL} className="billtabIner" />
@@ -3962,19 +4125,10 @@ class Index extends Component {
                   </Tabs>
                 </AppBar>
               </Grid>
-              <Grid item xs={12} sm={6} md={5}>
+              <Grid item xs={12} sm={6} md={5} className="vwTaskSelectTp">
               {this.props.comesFrom=== 'Professional' && 
               <Grid className="viewTaskfilter">
-                    <Select
-                      name="task_type"
-                      onChange={(e) => this.updateFilters(e, 'task_type')}
-                      value={this.state.task_type}
-                      options={this.state.Types}
-                      placeholder={"select"}
-                      isMulti={false}
-                      isSearchable={true}
-                    />
-                    
+                
                     <Select
                       name="houses"
                       onChange={(e) => this.updateFilters(e, 'houses')}
@@ -3983,6 +4137,17 @@ class Index extends Component {
                       placeholder={"select"}
                       isMulti={false}
                       isSearchable={true}
+                      className="vwTaskSelect"
+                    />
+                        <Select
+                      name="task_type"
+                      onChange={(e) => this.updateFilters(e, 'task_type')}
+                      value={this.state.task_type}
+                      options={this.state.Types}
+                      placeholder={"select"}
+                      isMulti={false}
+                      isSearchable={true}
+                      className="vwTaskSelect"
                     />
 
               </Grid>}
@@ -4025,7 +4190,7 @@ class Index extends Component {
                     )}
                   </a>
 
-                  {this.props.comesFrom == "Professional" && (
+                  {/* {this.props.comesFrom == "Professional" && (
                     <>
                       <Select
                         value={selectedOption}
@@ -4047,7 +4212,7 @@ class Index extends Component {
                           isSearchable={true}
                         />
                     </>
-                  )}
+                  )} */}
 
                   {this.props.comesFrom !== "Professional" &&
                     this.props.comesFrom !== "detailTask" && (
@@ -4137,8 +4302,8 @@ class Index extends Component {
                       <TaskView
                         removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4164,8 +4329,8 @@ class Index extends Component {
                       <TaskView
                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4191,8 +4356,8 @@ class Index extends Component {
                       <TaskView
                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4218,8 +4383,8 @@ class Index extends Component {
                       <TaskView
                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4245,8 +4410,8 @@ class Index extends Component {
                       <TaskView
                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4272,8 +4437,8 @@ class Index extends Component {
                       <TaskView
                        removeAddbutton = {this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
+                        editTask={(data) => data?.title ? this.editTask1(data) :this.editTask(data)}
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
