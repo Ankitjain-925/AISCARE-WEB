@@ -166,7 +166,7 @@ class Index extends Component {
 
   MovetoService = () => {
     this.props.history.push({
-      pathname: '/virtualhospital/services',
+      pathname: '/virtualhospital/assignedservices',
       state: { openAssign: true },
     });
   }

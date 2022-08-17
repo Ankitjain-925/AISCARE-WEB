@@ -395,164 +395,6 @@ class Index extends Component {
     this.handleDoctorMail();
   };
 
-  handleApprovedDetails = (id, status, data) => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { Something_went_wrong } = translate;
-    this.setState({ loaderImage: true });
-    axios
-      .post(
-        sitedata.data.path + '/vactive/approvedrequest',
-        {
-          for_manage: status,
-          task_id: id,
-          date: moment(data?.date).format('MMM DD, YYYY'),
-          start: data.start,
-          end: data.end,
-          patient_id: data?.patient_id,
-        },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed) {
-          this.props.getAddTaskData();
-          this.handleCloseTask();
-        } else {
-          this.setState({ errorMsg: Something_went_wrong });
-        }
-      });
-  };
-
-  // submit Task model
-  // handleTaskSubmit = (type) => {
-  //   let translate = getLanguage(this.props.stateLanguageType);
-  //   let {
-  //     Task_title_cant_be_empty,
-  //     Plz_select_a_Patient,
-  //     Something_went_wrong,
-  //   } = translate;
-  //   this.setState({ errorMsg: '' });
-  //   let ComLength = this.state.calculate_Length;
-  //   var data = this.state.newTask;
-  //   var user_id = data?.patient?.user_id;
-
-  //   if (
-  //     data?.attachments?.length > ComLength?.attach_Length ||
-  //     data?.comments?.length > ComLength?.comments_Length
-  //   ) {
-  //     axios
-  //       .post(
-  //         sitedata.data.path + '/UserProfile/MailSendToPatient',
-  //         { user_id: user_id },
-  //         commonHeader(this.props.stateLoginValueAim.token)
-  //       )
-  //       .then((responce) => { })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  //   if (
-  //     !data.task_name ||
-  //     (data && data.task_name && data.task_name.length < 1)
-  //   ) {
-  //     this.setState({ errorMsg: Task_title_cant_be_empty });
-  //   } else if (
-  //     !data.patient ||
-  //     (data && data.patient && data.patient.length < 1)
-  //   ) {
-  //     this.setState({ errorMsg: Plz_select_a_Patient });
-  //   } else {
-  //     if (data?.patient?.speciality?._id !== data?.speciality?._id) {
-  //       this.setSpeciality(data?.speciality, data?.case_id);
-  //     }
-  //     delete data?.patient?.speciality;
-  //     if (this.state.fileupods) {
-  //       data.attachments = this.state.fileattach;
-  //     }
-  //     if (
-  //       data?.attachments?.length > ComLength?.attach_Length ||
-  //       data?.comments?.length > ComLength?.comments_Length
-  //     ) {
-  //       data.isviewed = false;
-  //     }
-  //     var isGOingArchive = false;
-  //     if (data.archived === true) {
-  //       isGOingArchive = true;
-  //     }
-  //     data.house_id = this.props?.House?.value;
-  //     this.setState({ loaderImage: true });
-  //     if (this.state.newTask._id) {
-  //       axios
-  //         .put(
-  //           sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
-  //           data,
-  //           commonHeader(this.props.stateLoginValueAim.token)
-  //         )
-  //         .then((responce) => {
-  //           this.setState({ loaderImage: false });
-  //           if (responce.data.hassuccessed) {
-  //             this.setState({
-  //               newTask: {},
-  //               fileattach: {},
-  //               professional_data: [],
-  //               fileupods: false,
-  //               assignedTo: [],
-  //               q: '',
-  //               selectSpec: {},
-  //             });
-  //             this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
-  //             this.handleCloseTask();
-  //             if (type === 'picture_evaluation') {
-  //               // this.props.getArchived();
-  //             }
-  //           } else {
-  //             this.setState({ errorMsg: Something_went_wrong });
-  //           }
-  //         });
-  //     } else {
-  //       data.done_on = '';
-  //       data.priority = 0;
-  //       data.archived = false;
-  //       data.status = 'open';
-  //       data.created_at = new Date();
-  //       if (!data?.due_on?.date) {
-  //         let due_on = data?.due_on || {};
-  //         due_on['date'] = new Date();
-  //         data.due_on = due_on;
-  //       }
-  //       if (!data?.due_on?.time) {
-  //         let due_on = data?.due_on || {};
-  //         due_on['time'] = new Date();
-  //         data.due_on = due_on;
-  //       }
-  //       axios
-  //         .post(
-  //           sitedata.data.path + '/vh/AddTask',
-  //           data,
-  //           commonHeader(this.props.stateLoginValueAim.token)
-  //         )
-  //         .then((responce) => {
-  //           this.setState({
-  //             newTask: {},
-  //             fileattach: {},
-  //             professional_data: [],
-  //             fileupods: false,
-  //             assignedTo: [],
-  //             q: '',
-  //             selectSpec: {},
-  //             newComment: '',
-  //           });
-  //           this.props.getAddTaskData(isGOingArchive);
-  //           this.handleCloseTask();
-  //         })
-  //         .catch(function (error) {
-  //           console.log(error);
-  //           this.setState({ errorMsg: Something_went_wrong });
-  //         });
-  //     }
-  //   }
-  // };
-
   handleDoctorMail = () => {
     var data = this.state.assignedTo;
     var email = [];
@@ -872,25 +714,6 @@ class Index extends Component {
     }
   };
 
-  declineTask = (id, patient_id) => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { Something_went_wrong } = translate;
-    this.setState({ loaderImage: true });
-    axios
-      .put(
-        sitedata.data.path + '/vh/AddTask/' + id,
-        { is_decline: true, patient_id: patient_id },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed) {
-          this.props.getAddTaskData();
-        } else {
-          this.setState({ errorMsg: Something_went_wrong });
-        }
-      });
-  };
  //{Delete} the perticular service confirmation box
  removeTask = (id) => {
   this.setState({ message: null, openTask: false });
@@ -1064,20 +887,6 @@ removeTask2 = (id) => {
         label: data?.speciality?.specialty_name,
         value: data?.speciality?._id,
       },
-    });
-  };
-
-
-
-
-
-
-  cretficateTask = (id, patient_id, data) => {
-    this.setState({
-      openTask1: true,
-      certificateId: id,
-      PatientID: patient_id,
-      taskData: data,
     });
   };
 
@@ -1382,6 +1191,7 @@ removeTask2 = (id) => {
       DoneTaskCss,
       DeclinedTaskCss,
       OpenTaskCss,
+      assignService,
       ArchivedTasksCss,
     } = this.state;
 
@@ -1413,87 +1223,28 @@ removeTask2 = (id) => {
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
-          <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            <AssignedService openAss={this.state.openAss}
-            handleOpenAss={()=> this.handleOpenAss()}
-            handleCloseAss={()=> this.handleCloseAss()}
-            service={this.state.service}
-             removeTask={(id) => this.removeTask(id)}
-             editTask={(data) => this.editTask(data)}
+          </Grid>
+          <Grid item xs={12} md={6}>
+          <Grid className="newServc newServicAllSec">
+                <Button onClick={() => this.handleOpenAss()} >
+                    {assignService}
+                </Button>
+                
+            <AssignedService 
+              openAss={this.state.openAss}
+              handleOpenAss={()=> this.handleOpenAss()}
+              handleCloseAss={()=> this.handleCloseAss()}
+              service={this.state.service}
+              removeTask={(id) => this.removeTask(id)}
+              editTask={(data) => this.editTask(data)}
               getAddTaskData={(tabvalue2) => {
               this.props.getAddTaskData(tabvalue2);
-            }} />
+            }} 
+            comesFrom = {this.props.comesFrom}/>
           </Grid>
-        {/* <Modal
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark'
-                ? 'darkTheme '
-                : ' '
-            }
-            open={this.state.openTask1}
-            onClose={this.handleCloseTask}
-          >
-            <Grid className="creatTaskModel2">
-              <Grid className="creatTaskCntnt">
-                <Grid container direction="row">
-                  <Grid item xs={12} md={12}>
-                    <Grid className="creatLbl">
-                      <Grid container direction="row" justify="center" className="addSpeclLbl">
-                        <Grid item xs={8} md={8} lg={8}>
-                          <label>{CreateCertificate}</label>
-                        </Grid>
-                        <Grid item xs={4} md={4} lg={4}>
-                          <Grid>
-                            <Grid className="entryCloseBtn">
-                              <a onClick={() => this.handleCloseAss()}>
-                                <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
+          </Grid>
 
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
-                    <Grid className="creatDetail">
-                      <Grid className="creatInfoIner">
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          spacing={2}
-                        >
-                          <Grid item xs={12} md={12}>
-                            <Certificate
-                              handleApprovedDetails={(id, status, data) =>
-                                this.handleApprovedDetails(id, status, data)
-                              }
-                              taskData={this.state.taskData}
-                              certificateId={this.state.certificateId}
-                              PatientID={this.state.PatientID}
-                              info={this.state.info}
-                              date_format={this.state.date_format}
-                              handleCloseTask={this.handleCloseTask}
-                            />
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Modal> */}
-          {/* End of Model setup */}
         </Grid>
         <Grid className="taskDetailMob">
           {/* {tabvalue === 0 && <TabContainer> */}
@@ -1638,19 +1389,10 @@ removeTask2 = (id) => {
                 {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
-                      <TaskView
+                    <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1664,19 +1406,10 @@ removeTask2 = (id) => {
                 {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
-                      <TaskView
+                    <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1690,19 +1423,10 @@ removeTask2 = (id) => {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                      <TaskView
+                  <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1716,19 +1440,10 @@ removeTask2 = (id) => {
                 {this.state.DeclinedTask?.length > 0 &&
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
-                      <TaskView
+                     <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1742,19 +1457,10 @@ removeTask2 = (id) => {
                 {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
-                      <TaskView
+                     <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1768,19 +1474,10 @@ removeTask2 = (id) => {
                 {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
-                      <TaskView
+                       <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>

@@ -295,6 +295,17 @@ getAllactivities = (tabvalue2, goArchive) => {
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
+                <Grid className="topLeftSpc">
+                        <Grid container direction="row">
+                          <Grid item xs={11} md={11}>
+                            <Grid container direction="row">
+                              <Grid item xs={12} md={6} className="spcMgntH1">
+                                <h1>{"Professional activities"}</h1>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                   <Grid container direction="row">
                     <Grid item xs={12} md={12}>
                       {/* Model setup */}

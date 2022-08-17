@@ -314,7 +314,7 @@ class Index extends Component {
                             <ul>
                               <li>
                                 <a>
-                                  <span>Institution</span>
+                                  <span>{Institution}</span>
                                   <label>{this.props?.House?.label}</label>
                                 </a>
                               </li>
