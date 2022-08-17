@@ -14,6 +14,7 @@ import { getLanguage } from "translations/index"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { pure } from "recompose";
+import Modal from '@material-ui/core/Modal';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,7 @@ class Index extends Component {
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
       onlyOverview: this.props.onlyOverview,
+      openModal: false
     };
   }
 
@@ -49,6 +51,14 @@ class Index extends Component {
       this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
+
+  openFullInfo = () => {
+    this.setState({ openModal: true });
+  }
+
+  closeFullInfo = () => {
+    this.setState({ openModal: false });
+  }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
@@ -178,18 +188,18 @@ class Index extends Component {
                         </li>
                         {this.props.comesfrom === "patient" && (
                           <li>
-                              <a
-                                onClick={() =>
-                                  this.props.EidtOption(item.type, item, true)
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/edit.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {Change} {visibility}
-                              </a>
+                            <a
+                              onClick={() =>
+                                this.props.EidtOption(item.type, item, true)
+                              }
+                            >
+                              <img
+                                src={require("assets/images/edit.svg")}
+                                alt=""
+                                title=""
+                              />
+                              {Change} {visibility}
+                            </a>
                           </li>
                         )}
                         {this.props.comesfrom !== "patient" && (
@@ -275,9 +285,11 @@ class Index extends Component {
 
             <Grid className="bp_hg addSpc">
               <label>
-               <span>{item.questionary_type}</span>
+                <span>{item.questionary_type === "daily" ?
+                  "Daily" : item.questionary_type === "two_days" ?
+                    "Two Days" : item.questionary_type === "two_weeks" ? "Two weeks" : "Quarter"}</span>
               </label>
-              
+
             </Grid>
 
             <Collapsible
@@ -290,7 +302,7 @@ class Index extends Component {
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
                       <CreatedBySec data={item} />
-                     
+
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
@@ -367,10 +379,10 @@ class Index extends Component {
                           <Grid className="clear"></Grid>
                         </Grid>
                         <Grid className="bp_graph">
-                         
+
                           <Grid>
-                            <a onClick={() => this.props.AllOpenGraph()}>
-                                {full_information}
+                            <a onClick={() => this.openFullInfo()}>
+                              {full_information}
                             </a>
                           </Grid>
                         </Grid>
@@ -381,7 +393,658 @@ class Index extends Component {
             </Collapsible>
           </Grid>
         </Grid>
+        {/* Model setup */}
+        <Modal
+          open={this.state.openModal}
+          onClose={() => this.closeFullInfo()}
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+              ? 'darkTheme'
+              : ''
+          }
+        >
+          <Grid className="creatTaskModel creatTaskModel11">
+            <Grid className="creatTaskCntnt">
+              <Grid>
+                <Grid container direction="row">
+                  <Grid item xs={12} md={12}>
+                    <Grid className="creatLbl">
+                      <Grid className="creatLblClose createLSet">
+                        <a onClick={() => this.closeFullInfo()}>
+                          <img
+                            src={require('assets/images/close-search.svg')}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                      <label>Details</label>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  className="setDetail-eval"
+                >
+                  <Grid item xs={12} md={12} className="taskDescp">
+                    <Grid className="stndQues stndQues1 allQuestionShow">
+
+                      {item?.questionary_type === "quarter" && (
+                        <Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Feeding</h1>
+                            <p>{item?.questionnaire_answers?.quarter_feeding}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Chair/Bed Transfers</h1>
+                            <p>{item?.questionnaire_answers?.quarter_chair_bed_transfer}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Ambulation</h1>
+                            <p>{item?.questionnaire_answers?.quarter_ambulation}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Wheelchair Management</h1>
+                            <p>{item?.questionnaire_answers?.quarter_wheelchair_management}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Stairs</h1>
+                            <p>{item?.questionnaire_answers?.quarter_stairs}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>On and Off the Toilet</h1>
+                            <p>{item?.questionnaire_answers?.quarter_on_and_off_toilet}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Bowels</h1>
+                            <p>{item?.questionnaire_answers?.quarter_bowels}</p>
+                          </Grid>
+                          <Grid className="allQuestionShow1">
+                            <h1>Bladder</h1>
+                            <p>{item?.questionnaire_answers?.quarter_bladder}</p>
+                          </Grid>
+                        </Grid>
+                      )}
+                      {item?.questionary_type === "two_weeks" && (
+                        <Grid className="MainclassQues">
+                          <Grid>
+                            <h1>Anamnesis</h1>
+                            <h3>Blood pressure</h3>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>rr_systolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_rr_systolic}
+                                </p>
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>RR_diastolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_rr_diastolic}
+                                </p>
+                              </Grid>
+                            </Grid>
+
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Weight</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_anamnesis_weight}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Measure_diameter_Leg</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_anamnesis_diameter_leg}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Decubitus Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.week_decubitus_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_decubitus_amount_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.week_decubitus_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>Measure diameter Leg </label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_thrombose_diameter_leg}
+                                </p>
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.week_thrombose_diameter_leg_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Falling Risk</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>Ask for incidents</label>
+                                {item?.questionnaire_answers?.week_falling_risk_ask_for_incident && <p>Fall today</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>Use of tools</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_falling_risk_use_of_tools && <p>use yours tools</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <h3>Ask for Food</h3>
+                                <label>Have you eaten</label>
+                                {item?.questionnaire_answers?.week_thrombose_food_eaten === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Water</h3>
+                                <label>Have you been trinkung</label>
+                                {item?.questionnaire_answers?.week_thrombose_water_trinkung === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Toilet situation</h3>
+                                <label>Could you go to the Toilet</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_thrombose_toilet_situation === 'yes' ? <p>Yes</p> : <p>No</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid className="allQuestionShow1">
+                            <label>Pain Status</label>
+                            <p>{item?.questionnaire_answers?.week_thrombose_pain_status}</p>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.week_thrombose_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.week_thrombose_amount_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.week_thrombose_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Depression Risk</h1>
+                            <label>What was good today</label>
+                            {item?.questionnaire_answers?.week_decubitus_conditionweek_depression_good_today === 'month If not acute daily' ?
+                              <p>Month If not acute daily</p> : <p>Could the Patient tell somethink that was good to day</p>}
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Disorientation Level</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <h3>Ask for News of the Day</h3>
+                                <label>Can the Patient tell you a news of the Days</label>
+                                {item?.questionnaire_answers?.week_disorientation_level_ask_for_news ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <h3>Name of Family Members</h3>
+                                <label>Does the Patient remebmer the Name of a Family Memer</label>
+                                {item?.questionnaire_answers?.week_disorientation_level_family_member ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Sanitary Situation</h1>
+                            <h3>Ask for Incidents</h3>
+                            <label>No Incidents at the Sanitary Situation</label>
+                            {item?.questionnaire_answers?.week_sanitary_situation_ask_for_incidents ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Falling Risk</h1>
+                            <label>Timed up and go (2 Weeks)</label>
+                            {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Depression Risk</h1>
+                            <h3>What was good today (every 2 Weeks  If not acute daily)</h3>
+                            <label>Can the Patient tell somethink Good this Day</label>
+                            {item?.questionnaire_answers?.week_depression_risk_good_today ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+                        </Grid>
+
+                      )}
+
+                      {item?.questionary_type === "two_days" && (
+                        <Grid className="MainclassQues">
+                          <Grid>
+                            <h1>Anamnesis</h1>
+                            <Grid>
+                            </Grid>
+                            <h3>Blood pressure</h3>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>rr_systolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_rr_systolic}
+                                </p>
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>RR_diastolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_rr_diastolic}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Decubitus Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.day_decubitus_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_decubitus_amount_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.day_decubitus_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Falling Risk</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>Ask for incidents</label>
+                                {item?.questionnaire_answers?.day_falling_risk_incident && <p>Fall today</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>Use of tools</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_falling_risk_use_of_tools && <p>use yours tools</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <h3>Ask for Food</h3>
+                                <label>Have you eaten</label>
+                                {item?.questionnaire_answers?.day_thrombose_food_eaten_condition === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Water</h3>
+                                <label>Have you been trinkung</label>
+                                {item?.questionnaire_answers?.day_thrombose_water_trinkung === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Toilet situation</h3>
+                                <label>Could you go to the Toilet</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_thrombose_toilet_situation === 'yes' ? <p>Yes</p> : <p>No</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid className="allQuestionShow1">
+                            <label>Pain Status</label>
+                            <p>{item?.questionnaire_answers?.day_thrombose_pain_status}</p>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.day_thrombose_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.day_thrombose_amount_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.day_thrombose_situation === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Depression Risk</h1>
+                            <h3>What was good today (every 2 Weeks  If not acute daily)</h3>
+                            <label>Can the Patient tell somethink Good this Day</label>
+                            {item?.questionnaire_answers?.day_depression_good_today ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Disorientation Level</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <h3>Ask for News of the Day</h3>
+                                <label>Can the Patient tell you a news of the Days</label>
+                                {item?.questionnaire_answers?.day_disorientation_level_ask_for_news ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <h3>Name of Family Members</h3>
+                                <label>Does the Patient remebmer the Name of a Family Memer</label>
+                                {item?.questionnaire_answers?.day_disorientation_level_family_member ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Sanitary Situation</h1>
+                            <h3>Ask for Incidents</h3>
+                            <label>No Incidents at the Sanitary Situation</label>
+                            {item?.questionnaire_answers?.day_sanitary_situation_ask_for_incident ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Pneunomie Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <h3>o2 Saturation</h3>
+                                <label>Second Day</label>
+                                {item?.questionnaire_answers?.day_pneunomie_o2_saturation ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <h3>Sound Recording auscultation/ tech_development</h3>
+                                <label>Second Day</label>
+                                {item?.questionnaire_answers?.day_pneunomie_o2_sound_recording ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Nutrition Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <h3>Fruits</h3>
+                                <label>Have you eaten Fruits</label>
+                                {item?.questionnaire_answers?.day_nutrition_situation_fruits ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <h3>Protein</h3>
+                                <label>Have you eaten Meat / Egg / Beans</label>
+                                {item?.questionnaire_answers?.day_nutrition_situation_protein ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+
+
+
+                      )}
+
+
+                      {item?.questionary_type === "daily" && (
+                        <Grid className="MainclassQues">
+                          <Grid>
+                            <h1>Anamnesis</h1>
+                            <Grid>
+                            </Grid>
+                            <h3>Blood pressure</h3>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>rr_systolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_rr_systolic}
+                                </p>
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>RR_diastolic</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_rr_diastolic}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Decubitus Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.daily_decubitus_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_decubitus_amount_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.daily_decubitus_condition === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Falling Risk</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <label>Ask for incidents</label>
+                                {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>Fall today</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <label>Use of tools</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>use yours tools</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <h3>Ask for Food</h3>
+                                <label>Have you eaten</label>
+                                {item?.questionnaire_answers?.daily_thrombose_food_eaten_condition === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Water</h3>
+                                <label>Have you been trinkung</label>
+                                {item?.questionnaire_answers?.daily_thrombose_water_trinkung === 'yes' ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <h3>Toilet situation</h3>
+                                <label>Could you go to the Toilet</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_thrombose_toilet_situation === 'yes' ? <p>Yes</p> : <p>No</p>}
+                                </p>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+
+                          <Grid className="allQuestionShow1">
+                            <label>Pain Status</label>
+                            <p>{item?.questionnaire_answers?.daily_thrombose_pain_status}</p>
+                          </Grid>
+
+                          <Grid>
+                            <Grid>
+                              <h1>Thrombose Situation</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={4} md={4}>
+                                <label>Picture with scale</label>
+                                <FileViews
+                                  comesFrom='Picture_Task'
+                                  attachfile={item?.questionnaire_answers?.daily_thrombose_picture_with_scale}
+                                />
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Amount of wounds</label>
+                                <p>
+                                  {item?.questionnaire_answers?.daily_thrombose_amout_of_wounds}
+                                </p>
+                              </Grid>
+                              <Grid xs={4} md={4}>
+                                <label>Condition</label>
+                                {item?.questionnaire_answers?.daily_thrombose_situation === "better" ? <p>Better</p> : <p>Worse</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Depression Risk</h1>
+                            <h3>What was good today (every 2 Weeks  If not acute daily)</h3>
+                            <label>Can the Patient tell somethink Good this Day</label>
+                            {item?.questionnaire_answers?.daily_depression_good_today ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+
+
+                          <Grid>
+                            <Grid>
+                              <h1>Disorientation Level</h1>
+                            </Grid>
+                            <Grid container xs={12} md={12}>
+                              <Grid xs={6} md={6}>
+                                <h3>Ask for News of the Day</h3>
+                                <label>Can the Patient tell you a news of the Days</label>
+                                {item?.questionnaire_answers?.daily_disorientation_level_patient_tell ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                              <Grid xs={6} md={6}>
+                                <h3>Name of Family Members</h3>
+                                <label>Does the Patient remebmer the Name of a Family Memer</label>
+                                {item?.questionnaire_answers?.daily_disorientation_level_family_member ? <p>Yes</p> : <p>No</p>}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="allQuestionShow1">
+                            <h1>Sanitary Situation</h1>
+                            <h3>Ask for Incidents</h3>
+                            <label>No Incidents at the Sanitary Situation</label>
+                            {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>Yes</p> : <p>No</p>}
+                          </Grid>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Modal>
+
+        {/* End of Model setup */}
       </Grid>
+
     );
   }
 }

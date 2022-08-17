@@ -48,7 +48,8 @@ class Index extends Component {
             allQuestionData: {},
             openQues: false,
             errorChrMsg1: '',
-            loaderImage: false
+            loaderImage: false,
+            FileAttach: [],
         }
     }
 
@@ -58,8 +59,8 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        const { rr_systolic, RR_diastolic, Search_Select, ForPatient,For_Hospital ,Daily,every_2_week,Every_2_Day,Quarter,blood_pressure
-            ,Picture_with_Scale,
+        const { rr_systolic, RR_diastolic, Search_Select, ForPatient, For_Hospital, Daily, every_2_week, Every_2_Day, Quarter, blood_pressure
+            , Picture_with_Scale,
             Anamnesis,
             Decubitus_Situation,
             Amount_of_wounds,
@@ -223,44 +224,44 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
-                                                                <Grid className="measureInput">
+                                                                    <Grid className="measureInput">
                                                                         <Grid className="fatiqueQues">
-                                                                            <FatiqueQuestion updateEntryState1={(e)=>updateAllEntrySec2(this, e, 'daily_diameter_leg')} label={"Diameter Leg"} value={allQuestionData?.daily_diameter_leg}/>
+                                                                            <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'daily_diameter_leg')} label={"Diameter Leg"} value={allQuestionData?.daily_diameter_leg} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                                 {allQuestionData?.daily_diameter_leg === 'yes' && <Grid className="anamneSec">
-                                                                <Grid className="measureInput">
-                                                                <label>Measure diameter Leg</label>
+                                                                    <Grid className="measureInput">
+                                                                        <label>Measure diameter Leg</label>
                                                                         <input
                                                                             type="number"
                                                                             name="daily_anamnesis_diameter_leg"
                                                                             onChange={(e) => updateAllEntrySec(this, e)}
                                                                             value={allQuestionData?.daily_anamnesis_diameter_leg}
                                                                         />
-                                                                    
-                                                                </Grid>
-                                                                <FormControl>
-                                                                    <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
-                                                                    <RadioGroup row aria-labelledby="Condition-Radio" name="daily_anamnesis_condition">
-                                                                        <FormControlLabel
-                                                                            checked={this.state.allQuestionData?.daily_anamnesis_condition === 'better'}
-                                                                            value="better"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            control={<Radio />}
-                                                                            label="Better"
-                                                                        />
-                                                                        <FormControlLabel
-                                                                            checked={this.state.allQuestionData?.daily_anamnesis_condition === 'worse'}
-                                                                            value="worse"
-                                                                            onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            control={<Radio />}
-                                                                            label="Worse"
-                                                                        />
-                                                                    </RadioGroup>
-                                                                </FormControl>
+
+                                                                    </Grid>
+                                                                    <FormControl>
+                                                                        <FormLabel id="Condition-Radio">Better / Worse</FormLabel>
+                                                                        <RadioGroup row aria-labelledby="Condition-Radio" name="daily_anamnesis_condition">
+                                                                            <FormControlLabel
+                                                                                checked={this.state.allQuestionData?.daily_anamnesis_condition === 'better'}
+                                                                                value="better"
+                                                                                onChange={(e) => updateAllEntrySec(this, e)}
+                                                                                control={<Radio />}
+                                                                                label="Better"
+                                                                            />
+                                                                            <FormControlLabel
+                                                                                checked={this.state.allQuestionData?.daily_anamnesis_condition === 'worse'}
+                                                                                value="worse"
+                                                                                onChange={(e) => updateAllEntrySec(this, e)}
+                                                                                control={<Radio />}
+                                                                                label="Worse"
+                                                                            />
+                                                                        </RadioGroup>
+                                                                    </FormControl>
                                                                 </Grid>}
-                                                               
+
                                                                 {/* <Grid>
                                                                 <label>Blood pressure</label>
                                                                 <input type="text" placeholder="" name="" />
@@ -542,30 +543,30 @@ class Index extends Component {
                                                                 <p>Depression Risk</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                    <FormLabel>what was good today</FormLabel>
-                                                                            <FormControlLabel
-                                                                                control={
-                                                                                    <Checkbox
-                                                                                        name="daily_depression_good_today"
-                                                                                        value={
-                                                                                            allQuestionData &&
-                                                                                                allQuestionData?.daily_depression_good_today &&
-                                                                                                allQuestionData?.daily_depression_good_today === true
-                                                                                                ? false
-                                                                                                : true
-                                                                                        }
-                                                                                        checked={
+                                                                        <FormLabel>what was good today</FormLabel>
+                                                                        <FormControlLabel
+                                                                            control={
+                                                                                <Checkbox
+                                                                                    name="daily_depression_good_today"
+                                                                                    value={
+                                                                                        allQuestionData &&
+                                                                                            allQuestionData?.daily_depression_good_today &&
                                                                                             allQuestionData?.daily_depression_good_today === true
-                                                                                                ? true
-                                                                                                : false
-                                                                                        }
-                                                                                        onChange={(e) => {
-                                                                                            updateAllEntrySec1(this, e);
-                                                                                        }}
-                                                                                    />
-                                                                                }
-                                                                                label="Can the Patient tell somethink Good this Day"
-                                                                            />
+                                                                                            ? false
+                                                                                            : true
+                                                                                    }
+                                                                                    checked={
+                                                                                        allQuestionData?.daily_depression_good_today === true
+                                                                                            ? true
+                                                                                            : false
+                                                                                    }
+                                                                                    onChange={(e) => {
+                                                                                        updateAllEntrySec1(this, e);
+                                                                                    }}
+                                                                                />
+                                                                            }
+                                                                            label="Can the Patient tell somethink Good this Day"
+                                                                        />
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
@@ -701,14 +702,14 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="anamneSec">
-                                                                <Grid className="measureInput">
+                                                                    <Grid className="measureInput">
                                                                         <Grid className="fatiqueQues">
-                                                                            <FatiqueQuestion updateEntryState1={(e)=>updateAllEntrySec2(this, e, 'day_Sick')} label={"Sick"} value={allQuestionData?.day_Sick}/>
+                                                                            <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'day_Sick')} label={"Sick"} value={allQuestionData?.day_Sick} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                                 {allQuestionData?.day_Sick === 'yes' && <Grid className="anamneSec">
-                                                                <Grid className="measureInput">
+                                                                    <Grid className="measureInput">
                                                                         <label>Weight</label>
                                                                         <input
                                                                             type="number"
@@ -716,11 +717,11 @@ class Index extends Component {
                                                                             onChange={(e) => updateAllEntrySec(this, e)}
                                                                             value={allQuestionData?.day_anamnesis_weight}
                                                                         />
-                                                                    
-                                                                </Grid>
+
+                                                                    </Grid>
                                                                 </Grid>}
                                                                 <Grid className="anamneSec">
-                                                                <Grid className="measureInput">
+                                                                    <Grid className="measureInput">
                                                                         <label>o2 Saturation</label>
                                                                         <input
                                                                             type="number"
@@ -728,7 +729,7 @@ class Index extends Component {
                                                                             onChange={(e) => updateAllEntrySec(this, e)}
                                                                             value={allQuestionData?.day_anamnesis_o2_saturation}
                                                                         />
-                                                                </Grid>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="anamneSecMid">
@@ -1006,30 +1007,30 @@ class Index extends Component {
                                                                 <p>Depression Risk</p>
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
-                                                                    <FormLabel>what was good today</FormLabel>
-                                                                            <FormControlLabel
-                                                                                control={
-                                                                                    <Checkbox
-                                                                                        name="day_depression_good_today"
-                                                                                        value={
-                                                                                            allQuestionData &&
-                                                                                                allQuestionData?.day_depression_good_today &&
-                                                                                                allQuestionData?.day_depression_good_today === true
-                                                                                                ? false
-                                                                                                : true
-                                                                                        }
-                                                                                        checked={
+                                                                        <FormLabel>what was good today</FormLabel>
+                                                                        <FormControlLabel
+                                                                            control={
+                                                                                <Checkbox
+                                                                                    name="day_depression_good_today"
+                                                                                    value={
+                                                                                        allQuestionData &&
+                                                                                            allQuestionData?.day_depression_good_today &&
                                                                                             allQuestionData?.day_depression_good_today === true
-                                                                                                ? true
-                                                                                                : false
-                                                                                        }
-                                                                                        onChange={(e) => {
-                                                                                            updateAllEntrySec1(this, e);
-                                                                                        }}
-                                                                                    />
-                                                                                }
-                                                                                label="Can the Patient tell somethink Good this Day"
-                                                                            />
+                                                                                            ? false
+                                                                                            : true
+                                                                                    }
+                                                                                    checked={
+                                                                                        allQuestionData?.day_depression_good_today === true
+                                                                                            ? true
+                                                                                            : false
+                                                                                    }
+                                                                                    onChange={(e) => {
+                                                                                        updateAllEntrySec1(this, e);
+                                                                                    }}
+                                                                                />
+                                                                            }
+                                                                            label="Can the Patient tell somethink Good this Day"
+                                                                        />
                                                                     </FormControl>
                                                                 </Grid>
                                                             </Grid>
@@ -1464,7 +1465,11 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid> */}
                                                             <Grid className="anamneSecMid">
+
+
+
                                                                 <p>{Falling_Risk}</p>
+
                                                                 <Grid className="anamneSec">
                                                                     <FormControl>
                                                                         <FormLabel>{ask_for_incidents}</FormLabel>
