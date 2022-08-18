@@ -15945,6 +15945,19 @@ width: 90px!important;
       border-radius: 8px;
     }
 
+
+    .homeBgDrk .MainclassQues h1{
+      color: #F2F2F2 !important;
+    }
+
+    .homeBgDrk .FullInfoSet a{
+      color: #F2F2F2 !important;
+    }
+
+    .homeBgDrk .MainclassQues1 h3{
+      color: #F2F2F2 !important;
+    }
+
     /* added by ankita */
 
     .nurse-filter-sec {
@@ -15955,4 +15968,5 @@ width: 90px!important;
       color: #ffffff;
       margin-right: 5px;
   }
+
 
