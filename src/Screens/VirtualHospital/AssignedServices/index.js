@@ -54,22 +54,22 @@ class Index extends Component {
   };
 
   //Get Archived
-  getArchived = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path +
-          "/vh/GetAllArchivedTask/" +
-          this.props?.House?.value,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((response) => {
-        if (response.data.hassuccessed) {
-          this.setState({ ArchivedTasks: response.data.data, tabvalue2: 4 });
-        }
-        this.setState({ loaderImage: false });
-      });
-  };
+  // getArchived = () => {
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .get(
+  //       sitedata.data.path +
+  //         "/vh/GetAllArchivedTask/" +
+  //         this.props?.House?.value,
+  //       commonHeader(this.props.stateLoginValueAim.token)
+  //     )
+  //     .then((response) => {
+  //       if (response.data.hassuccessed) {
+  //         this.setState({ ArchivedTasks: response.data.data, tabvalue2: 4 });
+  //       }
+  //       this.setState({ loaderImage: false });
+  //     });
+  // };
 
   //get Add task data
   getAddTaskData = (tabvalue2) => {
@@ -88,6 +88,8 @@ class Index extends Component {
             var patientForFilterArr = filterPatient(response.data.data);
             this.setState({ patientForFilter: patientForFilterArr });
           }
+          var Archived = response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.archived === true);
           var Done =
             response.data.data?.length > 0 &&
             response.data.data.filter((item) => item.status === "done");
@@ -114,6 +116,7 @@ class Index extends Component {
             AllTasks: response.data.data,
             DeclinedTask: Decline,
             DoneTask: Done,
+            ArchivedTasks: Archived,
             OpenTask: Open,
             Open: Open?.length,
             doneToday: GetDate?.length,
@@ -192,13 +195,13 @@ class Index extends Component {
                           <p>{this.state.doneToday}</p>
                         </Grid>
                         <Grid className="showArchiv">
-                          <p
+                          {/* <p
                             onClick={() => {
                               this.getArchived();
                             }}
                           >
                             <a>{Show_archived_services}</a>
-                          </p>
+                          </p> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -206,7 +209,7 @@ class Index extends Component {
                       <AssignedServicesVH
                         comesFrom="adminstaff"
                         patientForFilter={this.state.patientForFilter}
-                        getArchived={() => this.getArchived()}
+                        // getArchived={() => this.getArchived()}
                         getAddTaskData={(tabvalue2) => {
                           this.getAddTaskData(tabvalue2);
                         }}

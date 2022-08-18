@@ -188,6 +188,7 @@ class FilterSec extends Component {
       { value: 'anamnesis', label: anamnesis },
       { value: 'blood_pressure', label: blood_pressure },
       { value: 'blood_sugar', label: blood_sugar },
+      { value: 'carequestinnary', label: 'Care Quesionnary' },
       { value: 'condition_pain', label: condition_pain },
       { value: 'covid_19', label: covid_diary },
       { value: 'vaccination_trial', label: VaccinationTrial },

@@ -133,9 +133,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -266,13 +266,13 @@ class Index extends Component {
                                     </Grid>
                                     <Grid
                                       className="flowProfilRght"
-                                      // onClick={() => {
-                                      //     quote?.verifiedbyPatient &&
-                                      //         this.props.moveDetial(
-                                      //             this.props.quote.patient_id,
-                                      //             this.props.quote._id
-                                      //         );
-                                      // }}
+                                    // onClick={() => {
+                                    //     quote?.verifiedbyPatient &&
+                                    //         this.props.moveDetial(
+                                    //             this.props.quote.patient_id,
+                                    //             this.props.quote._id
+                                    //         );
+                                    // }}
                                     >
                                       <label>
                                         {data?.patient?.first_name}{" "}
@@ -298,13 +298,45 @@ class Index extends Component {
                                 <Grid className="flowInfoInr2">
                                   <Grid className="dtlCntUpr">
                                     <Grid className="dtlCntLft">
-                                      <Grid className="dtlCount dtlCountRm dtlCountRm1">
+                                      <Grid>
+                                        <Grid className="dtlCount">
+                                          <a className="taskHover">
+                                            <img
+                                              src={require("assets/images/location-pin.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            {data?.full_address?.address} {','} {data?.full_address?.city} / {to} {'-'} {data?.full_address?.pastal_code}
+                                          </a>
+                                        </Grid>
+                                        <Grid className="dtlCount">
+                                          <a className="taskHover">
+                                            <img
+                                              src={require("assets/images/email.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            {data?.full_address?.email}
+                                          </a>
+                                        </Grid>
+                                        <Grid className="dtlCount">
+                                          <a className="taskHover">
+                                            <img
+                                              src={require("assets/images/phone.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            {data?.full_address?.mobile}
+                                          </a>
+                                        </Grid>
+                                      </Grid>
+                                      {/* <Grid className="dtlCount dtlCountRm dtlCountRm1">
                                         {data?.full_address?.address} {","}{" "}
                                         {data?.full_address?.city} / {to} {"-"}{" "}
                                         {data?.full_address?.pastal_code}
                                         <p>{data?.full_address?.email}</p>
                                         <p>{data?.full_address?.mobile}</p>
-                                      </Grid>
+                                      </Grid> */}
                                     </Grid>
                                   </Grid>
                                   <Grid className="dtlCntUpr dtlCntUprNw">

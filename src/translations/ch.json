@@ -1802,11 +1802,9 @@
 	  "for_hospital":"醫院用",
 	  "Assigned_services_overview":"分配的服務概述",
 	  "Show_archived_services":"顯示存檔服務",
-	  "assignService":"+ 分配服務",
+	  "assignServicess":"+ 分配服務",
 	  "Assignedtitle":"分配的標題",
-	  "Add_assigned_services":"添加分配的服務",
-	  "edit_assigned_services":"編輯分配的服務",
-	  "delete_assigned_services":"刪除分配的服務"
+	  "Add_assigned_services":"添加分配的服務"
 
 	}
 }
