@@ -195,7 +195,7 @@ class Index extends Component {
                             {archive}
                           </a>
                         </li>
-                        {this.props.comesfrom === "patient" && (
+                        {/* {this.props.comesfrom === "patient" && (
                           <li>
                             <a
                               onClick={() =>
@@ -210,7 +210,7 @@ class Index extends Component {
                               {Change} {visibility}
                             </a>
                           </li>
-                        )}
+                        )} */}
                         {/* {this.props.comesfrom !== "patient" && (
                           <li>
                             <a
@@ -243,7 +243,7 @@ class Index extends Component {
                             TrackRecord={this.state.TrackRecord}
                           />
                         </li>
-                        <li>
+                        {/* <li>
                           <a
                             onClick={(deleteKey) =>
                               this.props.DeleteTrack(item.track_id)
@@ -256,7 +256,7 @@ class Index extends Component {
                             />
                             {Delete}
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     ) : (
                       <ul>
@@ -270,7 +270,7 @@ class Index extends Component {
                             {de_archive}
                           </a>
                         </li>
-                        <li>
+                        {/* <li>
                           <a
                             onClick={(deleteKey) =>
                               this.props.DeleteTrack(item.track_id)
@@ -283,7 +283,7 @@ class Index extends Component {
                             />
                             {Delete}
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     )}
                   </a>

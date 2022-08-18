@@ -66,8 +66,8 @@ class Index extends Component {
       q: "",
       selectedUser: "",
       Types: [{ label: "All Appointment", value: "appointment" }, { label: "All Assigned Service", value: "assigned_service" }, { label: "All Tasks", value: 'tasks' }],
-      task_type: {},
-      houses: {},
+      task_type: false,
+      houses: false,
       professional_data: [],
       date_format: this.props.date_format,
       time_format: this.props.time_format,
@@ -230,7 +230,7 @@ class Index extends Component {
   };
 
   handleCloseAss = () => {
-    this.setState({ openAss: false })
+    this.setState({ openAss: false, selectedHouse: {} })
   }
 
   componentDidMount() {
@@ -295,7 +295,8 @@ class Index extends Component {
         data.filter((item) => alredyAssigned.includes(item.value));
       this.setState({ assignedTo: assignedto });
     }
-    this.setState({ professional_id_list1: showdata });
+    this.setState({ professional_id_list1: showdata }
+    );
   };
 
   //to get the speciality list
@@ -461,8 +462,9 @@ class Index extends Component {
     var user_id = data?.patient?.user_id;
 
     if (
-      data?.attachments?.length > ComLength?.attach_Length ||
-      data?.comments?.length > ComLength?.comments_Length
+      data?.task_type === 'picture_evaluation' &&
+      (data?.attachments?.length > ComLength?.attach_Length ||
+      data?.comments?.length > ComLength?.comments_Length)
     ) {
       axios
         .post(
@@ -493,7 +495,7 @@ class Index extends Component {
       if (this.state.fileupods) {
         data.attachments = this.state.fileattach;
       }
-      if (
+      if (  data?.task_type === 'picture_evaluation' &&
         data?.attachments?.length > ComLength?.attach_Length ||
         data?.comments?.length > ComLength?.comments_Length
       ) {
@@ -503,9 +505,6 @@ class Index extends Component {
       if (data.archived === true) {
         isGOingArchive = true;
       }
-
-      data.house_id = this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value;
-
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
         axios
@@ -536,6 +535,7 @@ class Index extends Component {
             }
           });
       } else {
+        data.house_id = this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value;
         data.done_on = "";
         data.priority = 0;
         data.archived = false;
@@ -1021,7 +1021,6 @@ removeTask21 = (id) => {
 
   //{Delete} the perticular service confirmation box
   removeTask1 = (id) => {
-    console.log('on removing assigned serviceee')
     this.setState({ message: null, openTask: false });
     let translate = getLanguage(this.props.stateLanguageType);
     let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
@@ -1242,25 +1241,24 @@ removeTask21 = (id) => {
     this.setState({ ArchivedTasks: FilterFromSearch4 });
 
   }
-  clearFilter =()=>{
+  clearFilter3 =()=>{
     this.setState({
       AllTasks: this.props.AllTasks,
       DoneTask: this.props.DoneTask,
       OpenTask: this.props.openTask,
       ArchivedTasks: this.props.ArchivedTasks,
-      task_type: {},
-      houses: {},
+      task_type: false,
+      houses: false,
       text: ''
     })
   }
 
   FilterText = (e) => {
-    this.setState({ text: e.target.value, houses: {}, task_type: {} });
+    this.setState({ text: e.target.value, houses: false, task_type: false });
     this.getfilterData(e.target.value);
   };
 
   FilterByHouse = (value , comefrom)=>{
-    console.log(value, 'value23444')
    
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
@@ -1369,6 +1367,51 @@ removeTask21 = (id) => {
     // open Edit model
     editTask1 = (data) => {
       var pat1name = "";
+      if (data?.patient?.first_name && data?.patient?.last_name) {
+        pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
+      } else if (data?.first_name) {
+        pat1name = data?.patient?.first_name;
+      }
+      // var cal_Length = data?.attachments?.length;
+      var Assigned_Aready =
+        data &&
+        data?.assinged_to &&
+        data?.assinged_to?.length > 0 &&
+        data?.assinged_to.map((item) => {
+          return item?.user_id;
+        });
+      var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+      var deep = _.cloneDeep(data);
+      this.setState({
+        selectedHouse: findHouse[0],
+        service: deep,
+        // OpenTask:true,
+        openAss: true,
+        Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+        calculate_Length: {
+          attach_Length: data?.attachments?.length,
+          comments_Length: data?.comments?.length,
+        },
+        q: pat1name,
+       //  selectedPat: { label: pat1name, value: data?.patient?._id },
+        selectSpec: {
+          label: data?.speciality?.specialty_name,
+          value: data?.speciality?._id,
+        },
+        fileattach: data.attachments,
+        selectedPat: { label: pat1name, value: data?.patient?._id },
+        selectSpec: {
+          label: data?.speciality?.specialty_name,
+          value: data?.speciality?._id,
+        },
+      }, () => {
+        this.getProfessionalData(true);
+        this.getPatientData();
+      });
+
+
+
+      var pat1name = "";
        if (data?.patient?.first_name && data?.patient?.last_name) {
          pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
        } else if (data?.first_name) {
@@ -1385,18 +1428,16 @@ removeTask21 = (id) => {
       
        var deep = _.cloneDeep(data);
        this.setState({
-     
          service: deep,
-         // OpenTask:true,
          openAss: true,
          Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
          calculate_Length: {
            attach_Length: data?.attachments?.length,
            comments_Length: data?.comments?.length,
          },
-         // assignedTo: assignedTo,
+        // assignedTo: assignedTo,
          q: pat1name,
-        //  selectedPat: { label: pat1name, value: data?.patient?._id },
+         selectedPat: { label: pat1name, value: data?.patient?._id },
          selectSpec: {
            label: data?.speciality?.specialty_name,
            value: data?.speciality?._id,
@@ -1439,12 +1480,8 @@ removeTask21 = (id) => {
         value: data?.speciality?._id,
       },
     }, () => {
-      this.getProfessionalData();
+      this.getProfessionalData(true);
       this.getPatientData();
-      this.selectProf(
-        this.state.newTask?.assinged_to,
-        this.state.professional_id_list
-      );
     });
   };
 
@@ -1458,7 +1495,7 @@ removeTask21 = (id) => {
   };
 
   // Get the Professional data
-  getProfessionalData = async () => {
+  getProfessionalData = async (fromEdit) => {
     this.setState({ loaderImage: true });
     var data = await getProfessionalData(
       this.props.comesFrom === "Professional"
@@ -1472,6 +1509,13 @@ removeTask21 = (id) => {
         professionalArray: data.professionalArray,
         professional_id_list: data.professionalList,
         professional_id_list1: data.professionalList,
+      }, ()=>{
+        if(fromEdit){
+          this.selectProf(
+            this.state.newTask?.assinged_to,
+            this.state.professional_id_list
+          );
+        }
       });
     } else {
       this.setState({ loaderImage: false });
@@ -2004,12 +2048,12 @@ removeTask21 = (id) => {
             handleOpenAss={() => this.handleOpenAss()}
             handleCloseAss={() => this.handleCloseAss()}
             service={this.state.service}
-            removeTask={(id) => this.removeTask(id)}
-            editTask={(data) => this.editTask(data)}
+            removeTask={(id) => this.removeTask1(id)}
+            editTask={(data) => this.editTask1(data)}
             getAddTaskData={(tabvalue2) => {
               this.props.getAddTaskData(tabvalue2);
             }}
-            selectedHouse={this.props.selectedHouse}
+            selectedHouse={this.state.selectedHouse}
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
           />
@@ -4270,11 +4314,11 @@ removeTask21 = (id) => {
               <Grid item xs={12} sm={6} md={5} className="vwTaskSelectTp">
               {this.props.comesFrom=== 'Professional' && 
               <Grid className="viewTaskfilter">
-                    <div className="err_message" onClick={()=>{this.clearFilter()}}>Clear filter</div>
+                    <div className="nurse-filter-sec" onClick={()=>{this.clearFilter3()}}>Clear filter</div>
                     <Select
                       name="houses"
                       onChange={(e) => this.updateFilters(e, 'houses')}
-                      value={this.state.houses || {}}
+                      value={this.state.houses?  this.state.houses : false}
                       options={this.state.currentList}
                       placeholder={"select"}
                       isMulti={false}
@@ -4284,7 +4328,7 @@ removeTask21 = (id) => {
                     <Select
                       name="task_type"
                       onChange={(e) => this.updateFilters(e, 'task_type')}
-                      value={this.state.task_type}
+                      value={this.state.task_type? this.state.task_type : false}
                       options={this.state.Types}
                       placeholder={"select"}
                       isMulti={false}
@@ -4293,7 +4337,10 @@ removeTask21 = (id) => {
                     />
 
                   </Grid>}
-                <Grid className="taskSort">
+              </Grid>
+              <Grid container direction="row" alignItems="center">
+              <Grid item xs={12} sm={12} md={12}>
+              <Grid className="taskSort ">
                   {this.state.showinput && (
                     <input
                       className="TaskSearch"
@@ -4432,6 +4479,7 @@ removeTask21 = (id) => {
                     </a>
                   )}
                 </Grid>
+              </Grid>
               </Grid>
             </Grid>
           </Grid>
