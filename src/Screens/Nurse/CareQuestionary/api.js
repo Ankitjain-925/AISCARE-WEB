@@ -43,46 +43,41 @@ export const checkValidation2 = (current, hello, check, item, fulldata) => {
     let translate = getLanguage(current.props.stateLanguageType);
 
     let {
-      please_select,
-      with_yes_and_no,
-      Diameter_Leg,
-      please_enter_Diameter_leg,
-      Please_select_better_and_worse_for_condition,
-      Sick,
-      Please_enter_Weight,
-
-
-    
+        please_select,
+        with_yes_and_no,
+        Diameter_Leg,
+        please_enter_Diameter_leg,
+        Please_select_better_and_worse_for_condition,
+        Sick,
+        Please_enter_Weight,
     } = translate;
-    console.log('errorChrMsg','i AM HEREE', check )
     current.setState({ errorChrMsg: '' })
-    if (item === 'daily_diameter_leg') {
-         if (item === 'daily_diameter_leg' && hello) {
-      if (!check) {
-          current.setState({
-            errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
-          });
-          MoveTop(0);
-          return false;
+    if (item === 'daily_diameter_leg' && hello) {
+        if (!check) {
+            current.setState({
+                errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
+            });
+            MoveTop(0);
+            return false;
         } else if (fulldata && fulldata.daily_diameter_leg === 'yes') {
-         
-          if (!fulldata.daily_anamnesis_diameter_leg) {
-            current.setState({
-                errorChrMsg: please_enter_Diameter_leg,
-            });
-            MoveTop(0);
-            return false;
-          
-          } 
-          else if (!fulldata.daily_anamnesis_condition){
-            current.setState({
-                errorChrMsg: Please_select_better_and_worse_for_condition,
-            });
-            MoveTop(0);
-            return false;
-          }else {
-            return true;
-          }
+
+            if (!fulldata.daily_anamnesis_diameter_leg) {
+                current.setState({
+                    errorChrMsg: please_enter_Diameter_leg,
+                });
+                MoveTop(0);
+                return false;
+
+            }
+            else if (!fulldata.daily_anamnesis_condition) {
+                current.setState({
+                    errorChrMsg: Please_select_better_and_worse_for_condition,
+                });
+                MoveTop(0);
+                return false;
+            } else {
+                return true;
+            }
 
         } else {
             return true;
@@ -91,21 +86,21 @@ export const checkValidation2 = (current, hello, check, item, fulldata) => {
     if (item === 'day_Sick' && hello) {
         if (!fulldata.day_Sick) {
 
-          current.setState({
-            errorChrMsg: please_select + ' ' + Sick + ' ' + with_yes_and_no,
-          });
-          MoveTop(0);
-          return false;
-        } else if (fulldata && fulldata.day_Sick === 'yes') {
-         
-          if (!fulldata.day_anamnesis_weight) {
             current.setState({
-                errorChrMsg: Please_enter_Weight,
-
+                errorChrMsg: please_select + ' ' + Sick + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
-        }
+        } else if (fulldata && fulldata.day_Sick === 'yes') {
+
+            if (!fulldata.day_anamnesis_weight) {
+                current.setState({
+                    errorChrMsg: Please_enter_Weight,
+
+                });
+                MoveTop(0);
+                return false;
+            }
             else {
                 return true;
             }
@@ -151,7 +146,7 @@ export const checkValidation = (current, check, value, item) => {
         Stairs,
         On_and_off_Toilet,
         Bowels
- } = translate;
+    } = translate;
 
     var bpPattern = /^[0-9]+$/;
     var Valid = bpPattern.test(value);
@@ -274,7 +269,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "day_thrombose_food_eaten_condition" ||
         item === "week_thrombose_food_eaten") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_select_you_eaten})
+            current.setState({ errorChrMsg: Please_select_you_eaten })
             MoveTop(0);
             return false;
         }
@@ -322,7 +317,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_thrombose_amount_of_wounds"
         || item === "week_thrombose_amount_of_wounds") && check) {
         if (!value) {
-            current.setState({ errorChrMsg:Please_Enter_Amount_of_wounds })
+            current.setState({ errorChrMsg: Please_Enter_Amount_of_wounds })
             MoveTop(0);
             return false;
         }
@@ -377,7 +372,7 @@ export const checkValidation = (current, check, value, item) => {
         || item === "day_sanitary_situation_ask_for_incident"
         || item === "week_sanitary_situation_ask_for_incidents") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_select_Sanitary_Situation})
+            current.setState({ errorChrMsg: Please_select_Sanitary_Situation })
             MoveTop(0);
             return false;
         }
@@ -398,7 +393,7 @@ export const checkValidation = (current, check, value, item) => {
     }
     else if ((item === "day_anamnesis_o2_saturation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_Enter_O2_saturation})
+            current.setState({ errorChrMsg: Please_Enter_O2_saturation })
             MoveTop(0);
             return false;
         }
@@ -409,7 +404,7 @@ export const checkValidation = (current, check, value, item) => {
     else if ((item === "day_pneunomie_o2_sound_recording"
         || item === "day_pneunomie_o2_saturation") && check) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_Select_Pneunomie_Situation})
+            current.setState({ errorChrMsg: Please_Select_Pneunomie_Situation })
             MoveTop(0);
             return false;
         }
@@ -436,7 +431,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "daily_falling_risk_incident_today" ||
         item === "daily_falling_risk_incident_tools") && check) {
         if (!value) {
-            current.setState({ errorChrMsg:Please_select_Falling_Risk })
+            current.setState({ errorChrMsg: Please_select_Falling_Risk })
             MoveTop(0);
             return false;
         }
@@ -475,7 +470,7 @@ export const checkValidation = (current, check, value, item) => {
         item === "quarter_bowels" ||
         item === "quarter_bladder") && check) {
         var currentItem = item === "quarter_bartel_index_full_questionaire" ?
-         Bartel_Index
+            Bartel_Index
             : item === "quarter_feeding"
                 ? Feeding
                 : item === "quarter_chair_bed_transfer"
@@ -511,11 +506,12 @@ export const MoveTop = (top) => {
 };
 
 export const handleSubmit = (current) => {
+    current.setState({ successMsg: '' });
     let translate = getLanguage(current.props.stateLanguageType);
     let {
-      please_select,
-      Patient_first,
-     Hospital_first
+        please_select,
+        Patient_first,
+        Hospital_first
     } = translate;
     const { valueof, FileAttach, allQuestionData, dailyForm, everyDay, everyWeek, everyQuarter, openQues, selectHouse, selectPatient } = current.state;
     if (!openQues) {
@@ -766,8 +762,9 @@ export const CallApi = (current, data) => {
                     )
                     .then((responce) => {
                         // if (responce.data.hassuccessed) {
-                        console.log("check")
-                        current.setState({ loaderImage: false, allQuestionData: {} });
+                        current.setState({ loaderImage: false, allQuestionData: {}, successMsg: "Your form data successfully submitted" });
+                        setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
+                        MoveTop(0);
                         // }
                     })
                     .catch(function (error) {
