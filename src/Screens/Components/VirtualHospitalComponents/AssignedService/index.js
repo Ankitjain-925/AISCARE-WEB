@@ -368,6 +368,7 @@ class Index extends Component {
         }
         else {
         this.setState({ loaderImage: true })
+        console.log('dats',data)
             if(data?._id){
                 // data.house_id = this.state.selectedHouse?.value;
                 axios

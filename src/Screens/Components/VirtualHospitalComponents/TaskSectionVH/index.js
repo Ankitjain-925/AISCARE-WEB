@@ -1980,7 +1980,8 @@ removeTask21 = (id) => {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      For_Hospital,
+      For_Hospital
+
 
     } = translate;
 
