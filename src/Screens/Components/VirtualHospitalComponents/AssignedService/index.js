@@ -59,8 +59,8 @@ class Index extends Component {
             error: '',
             total_amount:0,
             errorMsg: '',
-            addservice:{}
-
+            addservice:{},
+            selectedHouse: this.props.selectedHouse
         };
     }
 
@@ -79,8 +79,15 @@ class Index extends Component {
       };
 
     componentDidUpdate = (prevProps) => {
+        if (prevProps.patient !== this.props.patient) {
+            let user = { value: this.props.patient?.patient_id };
+            this.updateEntryState2(user);
+          }
         if (prevProps.openAss !== this.props.openAss) {
             this.setState({ openAss: this.props.openAss });
+        }
+        if (prevProps.selectedHouse !== this.props.selectedHouse) {
+            this.setState({ selectedHouse: this.props.selectedHouse });
         }
         if(prevProps.service !== this.props.service){
             this.setState({addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
@@ -93,7 +100,7 @@ class Index extends Component {
                 let user = { value: this.state.service?.patient?.user_id };
                 this.updateEntryState2(user);
             })
-        }
+        } 
     };
 
     handleCloseAss = () => {
@@ -285,6 +292,7 @@ class Index extends Component {
                         ? user1[0].first_name + " " + user1[0].last_name
                         : user1[0].first_name;
             }
+            console.log('user1[0]', user1[0])
             if (!state?.speciality) {
                 state["speciality"] = user1[0].speciality;
                 this.setState({
@@ -294,7 +302,8 @@ class Index extends Component {
                     },
                 });
             }
-            this.setState({ service: state, selectedPat: user });
+            this.setState({ service: state, selectedPat: user }, 
+                );
         }
     };
 
@@ -314,7 +323,6 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Something_went_wrong,pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff } = translate;
         var data = this.state.service;
-        data.house_id = this.props?.House?.value;
         data.assign_service = this.state.items;
         data.amount = this.state.total_amount;
         data.status = data.status ? data.status : "open";
@@ -338,6 +346,7 @@ class Index extends Component {
         else {
         this.setState({ loaderImage: true })
             if(data?._id){
+                data.house_id = this.state.selectedHouse?.value;
                 axios
                 .put(
                     sitedata.data.path + "/assignservice/Updateassignservice/"+ data?._id,
@@ -354,6 +363,7 @@ class Index extends Component {
                 });
             }
             else{
+                data.house_id = this.props?.House?.value;
                 axios
                 .post(
                     sitedata.data.path + "/assignservice/Addassignservice",
@@ -401,7 +411,7 @@ class Index extends Component {
     };
     
     handleCloseServ = () => {
-        this.setState({ editServ: false, service: {} });
+        this.setState({ editServ: false, addservice: {} });
     };
     // Set the state of quantity and price_per_quantity
     updateEntryState1 = (e, name) => {
@@ -409,10 +419,17 @@ class Index extends Component {
         state[name] = e.target.value;
         this.setState({ service: state });
     };
+
+    updateEntryState5 = (e, name) => {
+        console.log('efsdf sfdsf')
+        const state = this.state.addservice;
+        state[name] = e.target.value;
+        this.setState({ addservice: state });
+    };
     // For edit service
     editService = (data, index) => {
         var deep = _.cloneDeep(data);
-        this.setState({ service: deep, newServiceIndex: index, editServ: true });
+        this.setState({ addservice: deep, newServiceIndex: index, editServ: true });
     };
 
     
@@ -457,6 +474,8 @@ class Index extends Component {
             this.setState({ showError: true });
         }
     };
+
+
     updateTotalPrize = () => {
         var total = 0;
         this.state.items?.length > 0 &&
@@ -470,14 +489,17 @@ class Index extends Component {
 
     //Update the services
     handleAddUpdate = () => {
-        var newService = this.state.service;
+        var newService = this.state.addservice;
         newService.price = newService?.price_per_quantity * newService?.quantity;
         var index = this.state.newServiceIndex;
         var array = this.state.items;
         array[index].price = newService?.price;
         array[index].quantity = newService?.quantity;
-        this.updateTotalPrize();
-        this.setState({ service: {}, newServiceIndex: false, editServ: false });
+        console.log('index',newService,index, array, array[index])
+        this.setState({items: array}, ()=>{
+            this.updateTotalPrize();
+            this.setState({ addservice: {}, newServiceIndex: false, editServ: false });
+        })
     };
 
 
@@ -532,9 +554,9 @@ class Index extends Component {
         // delete this.state.items[id]
       this.state.items.splice(id, 1);
         this.setState({ items: this.state.items, loaderImage: true });
-        var newService = this.state.service;
+        var newService = this.state.addservice;
         newService.price = newService?.price_per_quantity * newService?.quantity;
-        newService.service = this.state.service?.service?.label;
+        newService.service = this.state.addservice?.service?.label;
         let items = [...this.state.items];
         this.setState({ items, addservice: {} }, () => {
             this.setState({ loaderImage: false})
@@ -586,10 +608,7 @@ class Index extends Component {
         } = translate;
         return (
 
-            <Grid className="newServc newServicAllSec">
-                <Button onClick={() => this.props.handleOpenAss()} >
-                    {assignService}
-                </Button>
+           <>
                 {this.state.loaderImage && <Loader />}
                 <Modal
                     open={this.state.openAss}
@@ -761,6 +780,19 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
+
+                                        {this.props.comesFrom === "Professional" &&
+                              this.state.service?.patient?._id ? (
+                              <h2>
+                                {this.state.service?.patient?.first_name}{" "}
+                                {this.state.service?.patient?.last_name}
+                              </h2>):
+                               this.props.comesFrom === "detailTask"  ? (
+                                <h2>
+                                {this.state.service?.patient?.first_name}{" "}
+                                {this.state.service?.patient?.last_name}
+                              </h2>)
+                              :
                                         <Grid>
                                             <Select
                                                 name="patient"
@@ -773,7 +805,7 @@ class Index extends Component {
                                                 isSearchable={true}
                                             />
 
-                                        </Grid>
+                                        </Grid>}
                                     </Grid>
                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
@@ -1070,7 +1102,7 @@ class Index extends Component {
                                                     name="service"
                                                     placeholder={EnterTitlename}
                                                     disabled={true}
-                                                    value={this.state.service?.service}
+                                                    value={this.state.addservice?.service}
                                                 />
                                             </Grid>
                                             <Grid>
@@ -1079,9 +1111,9 @@ class Index extends Component {
                                                     name="quantity"
                                                     placeholder={Enterquantity}
                                                     onChange={(e) =>
-                                                        this.updateEntryState1(e, 'quantity')
+                                                        this.updateEntryState5(e, 'quantity')
                                                     }
-                                                    value={this.state.service?.quantity}
+                                                    value={this.state.addservice?.quantity}
                                                 />
                                             </Grid>
                                             <Grid>
@@ -1090,12 +1122,12 @@ class Index extends Component {
                                                     name="price"
                                                     placeholder={Enterserviceprice}
                                                     onChange={(e) =>
-                                                        this.updateEntryState1(
+                                                        this.updateEntryState5(
                                                             e,
                                                             'price_per_quantity'
                                                         )
                                                     }
-                                                    value={this.state.service?.price_per_quantity}
+                                                    value={this.state.addservice?.price_per_quantity}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -1118,7 +1150,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Modal>
-            </Grid>
+            </>
         );
     }
 }

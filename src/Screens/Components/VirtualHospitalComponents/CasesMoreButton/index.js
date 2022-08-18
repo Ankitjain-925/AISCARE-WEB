@@ -503,7 +503,7 @@ class Index extends React.Component {
 
   MovetoService = () => {
     this.props.history.push({
-      pathname: '/virtualhospital/services',
+      pathname: '/virtualhospital/assignedservices',
       state: { openAssign: true }
     })
   }

@@ -99,6 +99,7 @@ class Index extends Component {
       all_2_days,
       quarter,
       full_information,
+      care_quationnary,
     } = translate;
     var item = this.state.item;
     return (
@@ -117,7 +118,7 @@ class Index extends Component {
                       alt=""
                       title=""
                     />
-                    <span>{'Care Quationnary'}</span>
+                    <span>{care_quationnary}</span>
                   </a>
                 </Grid>
               </Grid>

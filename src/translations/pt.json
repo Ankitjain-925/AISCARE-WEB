@@ -1764,7 +1764,29 @@
 	  "plz_enter_imposible_since":"Please enter valid date for the imposible work to since",
 	  "plz_enter_imposs_work_until":"Please enter valid date for the imposible work until",
 	  "plz_enter_detected_at":"Please enter valid date for the detected at",
-	  "plz_attached_file":"Please attached the file"
+	  "plz_attached_file":"Please attached the file",
+
+	  "For_Hospital":"For Hospital",
+	  "Every_2_Day":"Every 2 Day",
+	  "Quarter":"Quarter",
+	  "Picture_with_Scale":"Picture with Scale",
+	  "Anamnesis":"Anamnesis",
+	  "Decubitus_Situation":"Decubitus Situation",
+	  "Amount_of_wounds":"Amount of wounds",
+	  "Better":"Better",
+	  "Worse":"Worse",
+	  "Thrombose_Situation":"Thrombose Situation",
+	  "Measure_diameter_Leg":"Measure diameter Leg",
+	  "Falling_Risk":"Falling Risk",
+	  "ask_for_incidents":"ask for incidents",
+	  "Did_you_fall_today":"Did you fall today",
+	  "Use_of_tools":"Use of tools",
+  
+	  "Care_Questionnary":"Care Questionnary",
+	  "edit_assigned_services":"Edit Assigned Services",
+	  "delete_assigned_services":"Delete Assigned Services",
+	  "ProfessionalActivity":"Professional Activity",
+	  "EarlierActivity":"Earlier Activity"
 
 
 
