@@ -38,7 +38,7 @@ export const updateAllEntrySec1 = (current, e, name) => {
     current.setState({ allQuestionData: state });
 }
 
-export const checkValidation2 = (current, check, item, fulldata) => {
+export const checkValidation2 = (current, item, fulldata) => {
     current.setState({ errorChrMsg: '' })
     if (item === 'full_diameter_leg') {
         if (!fulldata.full_diameter_leg) {
@@ -100,8 +100,8 @@ export const checkValidation = (current, value, item) => {
     current.setState({ errorChrMsg: '' })
     let translate = getLanguage(current.props.stateLanguageType);
     let {
-      please_enter,
-       rr_systolic,
+        please_enter,
+        rr_systolic,
         bp_should_number,
         systolic_value_between,
         RR_diastolic,
@@ -207,7 +207,7 @@ export const checkValidation = (current, value, item) => {
         item === "full_decubitus_amount_of_wounds")) {
         // var currentItem = item === full_decubitus_amount_of_wounds ? "" : ""
         if (!value) {
-            current.setState({ errorChrMsg: Please_Enter_Amount_of_wounds})
+            current.setState({ errorChrMsg: Please_Enter_Amount_of_wounds })
             MoveTop(0);
             return false;
         }
@@ -232,7 +232,7 @@ export const checkValidation = (current, value, item) => {
         item === "full_thrombose_diameter_leg" ||
         item === "full_thrombose_diameter_leg")) {
         if (!value) {
-            current.setState({ errorChrMsg:please_enter_Diameter_leg })
+            current.setState({ errorChrMsg: please_enter_Diameter_leg })
             MoveTop(0);
             return false;
         }
@@ -266,7 +266,7 @@ export const checkValidation = (current, value, item) => {
         item === "full_thrombose_water_trinkung" ||
         item === "full_thrombose_water_trinkung")) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_select_you_been_trinkung})
+            current.setState({ errorChrMsg: Please_select_you_been_trinkung })
             MoveTop(0);
             return false;
         }
@@ -330,7 +330,7 @@ export const checkValidation = (current, value, item) => {
         item === "full_depression_good_today" ||
         item === "full_depression_risk_good_today")) {
         if (!value) {
-            current.setState({ errorChrMsg: Please_select_Depression_Risk})
+            current.setState({ errorChrMsg: Please_select_Depression_Risk })
             MoveTop(0);
             return false;
         }
@@ -345,7 +345,7 @@ export const checkValidation = (current, value, item) => {
         item === "full_disorientation_level_ask_for_news" ||
         item === "full_disorientation_level_family_member")) {
         if (!value) {
-            current.setState({ errorChrMsg:Please_select_Disorientation_Level })
+            current.setState({ errorChrMsg: Please_select_Disorientation_Level })
             MoveTop(0);
             return false;
         }
@@ -449,30 +449,30 @@ export const checkValidation = (current, value, item) => {
     }
 
 
-    else if ((item === "quarter_bartel_index_full_questionaire" ||
-        item === "quarter_feeding" ||
-        item === "quarter_chair_bed_transfer" ||
-        item === "quarter_ambulation" ||
-        item === "quarter_wheelchair_management" ||
-        item === "quarter_stairs" ||
-        item === "quarter_on_and_off_toilet" ||
-        item === "quarter_bowels" ||
-        item === "quarter_bladder")) {
+    else if ((
+        item === "full_feeding" ||
+        item === "full_chair_bed_transfer" ||
+        item === "full_ambulation" ||
+        item === "full_wheelchair_management" ||
+        item === "full_stairs" ||
+        item === "full_on_and_off_toilet" ||
+        item === "full_bowels" ||
+        item === "full_bladder")) {
         var currentItem = item === "quarter_bartel_index_full_questionaire" ?
             Bartel_Index
-            : item === "quarter_feeding"
+            : item === "full_feeding"
                 ? Feeding
-                : item === "quarter_chair_bed_transfer"
+                : item === "full_chair_bed_transfer"
                     ? Chair_Bed_transfer
-                    : item === "quarter_ambulation"
+                    : item === "full_ambulation"
                         ? Ambulation
-                        : item === "quarter_wheelchair_management"
+                        : item === "full_wheelchair_management"
                             ? Wheelchair_Management
-                            : item === "quarter_stairs"
+                            : item === "full_stairs"
                                 ? Stairs
-                                : item === "quarter_on_and_off_toilet"
+                                : item === "full_on_and_off_toilet"
                                     ? On_and_off_Toilet
-                                    : item === "quarter_bowels"
+                                    : item === "full_bowels"
                                         ? Bowels
                                         : "Bladder"
         if (!value) {
@@ -495,11 +495,12 @@ export const MoveTop = (top) => {
 };
 
 export const handleSubmit = (current) => {
+    current.setState({ successMsg: '' });
     let translate = getLanguage(current.props.stateLanguageType);
     let {
-      please_select,
-      Patient_first,
-     Hospital_first
+        please_select,
+        Patient_first,
+        Hospital_first
     } = translate;
 
     const { FileAttach, allQuestionData, everyWeek, openQues, selectHouse, selectPatient } = current.state;
@@ -509,17 +510,19 @@ export const handleSubmit = (current) => {
             if (selectPatient && selectPatient?.value) {
                 current.setState({ openQues: true });
             } else {
-                current.setState({ errorChrMsg1:please_select + " " + Patient_first })
+                current.setState({ errorChrMsg1: please_select + " " + Patient_first })
             }
         } else {
-            current.setState({ errorChrMsg1: please_select + " " + Hospital_first})
+            current.setState({ errorChrMsg1: please_select + " " + Hospital_first })
         }
     } else {
         var data = allQuestionData;
         if (checkValidation(current, data?.full_rr_systolic, "full_rr_systolic")) {
             if (checkValidation(current, data?.full_rr_diastolic, "full_rr_diastolic")) {
-                if (checkValidation2(current, data?.full_diameter_leg, "full_diameter_leg", data)) {
-                    if (checkValidation2(current, data?.full_Sick, "full_Sick", data)) {
+                // if (checkValidation2(current, data?.full_diameter_leg, "full_diameter_leg", data)) {
+                if (checkValidation2(current, "full_diameter_leg", data)) {
+
+                    if (checkValidation2(current, "full_Sick", data)) {
                         if (checkValidation(current, data?.full_anamnesis_o2_saturation, "full_anamnesis_o2_saturation")) {
                             if (checkValidation(current, data?.full_decubitus_picture_with_scale, "full_decubitus_picture_with_scale")) {
                                 if (checkValidation(current, data?.full_decubitus_amount_of_wounds, "full_decubitus_amount_of_wounds")) {
@@ -640,18 +643,23 @@ export const CallApi = (current, data) => {
                         commonHeader(current.props.stateLoginValueAim?.token)
                     )
                     .then((responce) => {
-                        if (responce.data.hassuccessed) {
-                            current.setState({
-                                errorChrMsg: '',
-                                allQuestionData: {},
-                                openQues: false,
-                                errorChrMsg1: '',
-                                loaderImage: false
-                            });
-                        }
-                        else {
-                            current.setState({ loaderImage: false })
-                        }
+                        // if (responce.data.hassuccessed) {
+                        current.setState({
+                            isfileuploadmulti: false,
+                            fileupods: false,
+                            errorChrMsg: '',
+                            allQuestionData: {},
+                            // openQues: false,
+                            errorChrMsg1: '',
+                            loaderImage: false,
+                            successMsg: "Your form data successfully submitted"
+                        });
+                        setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
+                        MoveTop(0);
+                        // }
+                        // else {
+                        //     current.setState({ loaderImage: false })
+                        // }
                     })
                     .catch(function (error) {
                         current.setState({ loaderImage: false })

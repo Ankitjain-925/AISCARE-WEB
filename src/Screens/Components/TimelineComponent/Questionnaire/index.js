@@ -14,6 +14,7 @@ import { getLanguage } from "translations/index"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { pure } from "recompose";
+import { Settings } from 'Screens/Login/setting';
 import Modal from '@material-ui/core/Modal';
 class Index extends Component {
   constructor(props) {
@@ -1518,10 +1519,12 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
+    settings
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
+  connect(mapStateToProps,  { Settings, LanguageFetchReducer })(Index)
 ));
