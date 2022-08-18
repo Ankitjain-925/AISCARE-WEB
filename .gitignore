@@ -1,3 +1,16 @@
+# dependencies
+/node_modules
+
+# Secret file
+.env
+
+# testing
+/coverage
+
+# production
+/build
+
+
 # Logs
 logs
 *.log
