@@ -84,22 +84,35 @@ class Index extends Component {
             this.updateEntryState2(user);
           }
         if (prevProps.openAss !== this.props.openAss) {
-            this.setState({ openAss: this.props.openAss });
+            if(this.props.comesFrom !== 'Professional'){
+                this.setState({ openAss: this.props.openAss , professional_id_list1: this.state.professional_id_list});
+            }
+            else{
+                this.setState({ openAss: this.props.openAss})
+            }
         }
-        if (prevProps.selectedHouse !== this.props.selectedHouse) {
-            this.setState({ selectedHouse: this.props.selectedHouse });
-        }
+        // if (prevProps.selectedHouse !== this.props.selectedHouse) {
+        //     this.setState({ selectedHouse: this.props.selectedHouse },()=>{
+                
+        //     });
+        // }
         if(prevProps.service !== this.props.service){
             this.setState({addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
                 selectSpec: { label: this.props.service?.speciality?.specialty_name, value: this.props.service?.speciality?._id},},
             ()=>{
+                if(this.props.comesFrom !== 'Professional'){
                 this.selectProf(
                     this.state.service?.assinged_to,
                     this.state.professional_id_list
                 );
                 let user = { value: this.state.service?.patient?.user_id };
                 this.updateEntryState2(user);
+                }
+                else{
+                        this.getProfessionalData(true)
+                }
             })
+         
         } 
     };
 
@@ -216,24 +229,35 @@ class Index extends Component {
         this.setState({ specilaityList: spec });
     };
 
-    // Get the Professional data
-    getProfessionalData = async () => {
-        this.setState({ loaderImage: true });
-        var data = await getProfessionalData(
-            this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-        );
-        if (data) {
-            this.setState({
-                loaderImage: false,
-                professionalArray: data.professionalArray,
-                professional_id_list: data.professionalList,
-                professional_id_list1: data.professionalList,
-            });
-        } else {
-            this.setState({ loaderImage: false });
+
+      // Get the Professional data
+  getProfessionalData = async (fromEdit) => {
+    console.log('herreeee')
+    this.setState({ loaderImage: true });
+    var data = await getProfessionalData(
+      this.props.comesFrom === "Professional"
+        ? this.state.service?.house_id
+        : this.props?.House?.value,
+      this.props.stateLoginValueAim.token
+    );
+    if (data) {
+      this.setState({
+        loaderImage: false,
+        professionalArray: data.professionalArray,
+        professional_id_list: data.professionalList,
+        professional_id_list1: data.professionalList,
+      }, ()=>{
+        if(fromEdit){
+          this.selectProf(
+            this.state.service?.assinged_to,
+            this.state.professional_id_list
+          );
         }
-    };
+      });
+    } else {
+      this.setState({ loaderImage: false });
+    }
+  };
 
     // Get the Patient data
     getPatientData = async () => {
@@ -292,7 +316,6 @@ class Index extends Component {
                         ? user1[0].first_name + " " + user1[0].last_name
                         : user1[0].first_name;
             }
-            console.log('user1[0]', user1[0])
             if (!state?.speciality) {
                 state["speciality"] = user1[0].speciality;
                 this.setState({
@@ -308,7 +331,7 @@ class Index extends Component {
     };
 
     updateEntry = (value, name) => {
-        var due_on = this.state.service?.due_on ? this.state.service?.due_on : {};
+        var due_on = this.state.service?.due_on ? this.state.service?.due_on : {date : new Date(), time: new Date()};
         const state = this.state.service;
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
@@ -337,7 +360,7 @@ class Index extends Component {
        else if ( !data.assinged_to ) {
             this.setState({ errorMsg:Plz_select_a_staff });
         }
-        else if(!data.due_on?.date && !data.due_on?.time){
+        else if(!data.due_on?.date || !data.due_on?.time){
             this.setState({ errorMsg:please_enter_dueon });
         }
         else if(!data.assign_service || data.assign_service?.length === 0){
@@ -345,8 +368,9 @@ class Index extends Component {
         }
         else {
         this.setState({ loaderImage: true })
+        console.log('dats',data)
             if(data?._id){
-                data.house_id = this.state.selectedHouse?.value;
+                // data.house_id = this.state.selectedHouse?.value;
                 axios
                 .put(
                     sitedata.data.path + "/assignservice/Updateassignservice/"+ data?._id,
@@ -421,7 +445,6 @@ class Index extends Component {
     };
 
     updateEntryState5 = (e, name) => {
-        console.log('efsdf sfdsf')
         const state = this.state.addservice;
         state[name] = e.target.value;
         this.setState({ addservice: state });
@@ -495,7 +518,6 @@ class Index extends Component {
         var array = this.state.items;
         array[index].price = newService?.price;
         array[index].quantity = newService?.quantity;
-        console.log('index',newService,index, array, array[index])
         this.setState({items: array}, ()=>{
             this.updateTotalPrize();
             this.setState({ addservice: {}, newServiceIndex: false, editServ: false });
@@ -633,6 +655,7 @@ class Index extends Component {
                         }
                     // className="addServContnt"
                     >
+                       
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
@@ -807,6 +830,7 @@ class Index extends Component {
 
                                         </Grid>}
                                     </Grid>
+                                   
                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
                                         <Grid>

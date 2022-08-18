@@ -64,7 +64,6 @@ class Index extends Component {
 
   render() {
     var item = this.state.Track;
-    console.log("item", item)
     return (
       <div className="timelineGap">
 

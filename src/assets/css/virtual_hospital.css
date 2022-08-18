@@ -6444,9 +6444,7 @@ button.downloadPDF:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: initial;
-  margin-left: 6px;
-  margin-top: 4px;
+  margin: 4px;
 }
 .taskSort img {
   height: 16px;
@@ -10785,7 +10783,7 @@ p.more-change-staff-img2 {
   color: #000808;
   vertical-align: top;
   padding: 6px 7px;
-  width: 76%;
+  width: 36%;
   margin-bottom: 0px;
   min-height: 40px;
 }
@@ -15959,8 +15957,16 @@ width: 90px!important;
     .homeBgDrk .MainclassQues1 h3{
       color: #F2F2F2 !important;
     }
-    
 
-    
+    /* added by ankita */
+
+    .nurse-filter-sec {
+      width: 203px;
+      background-color: #01abaf;
+      padding: 6px 4px;
+      text-align: center;
+      color: #ffffff;
+      margin-right: 5px;
+  }
 
 

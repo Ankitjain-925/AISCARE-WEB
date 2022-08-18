@@ -452,7 +452,7 @@ class PointPain extends Component {
                   </Grid>
 
 
-                  {(!this.props.removeAddbutton || !data.appointment_type )&& <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+                  {(!this.props.removeAddbutton && !data.appointment_type  )&& <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                     {!data?.is_decline && (
                       <a className="openScndhrf">
                         <img
@@ -622,7 +622,7 @@ class PointPain extends Component {
                               </li>
                             )}
 
-                      {data.title && 
+                      {data.title && this.props.comesFrom !== 'Professional' &&
                            <li
                            onClick={() => {
                              this.props.removeTask(
