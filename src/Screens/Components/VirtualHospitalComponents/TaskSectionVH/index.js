@@ -927,6 +927,98 @@ class Index extends Component {
       });
   };
 
+ //{Delete} the perticular service confirmation box
+ removeTask1 = (id) => {
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1>{remove_task}</h1>
+          <p>{you_sure_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.removeTask21(id);
+                // onClose();
+              }}
+            >
+              {Yes}
+            </button>
+          </div>
+        </div>
+      );
+    },
+  });
+};
+
+removeTask21 = (id) => {
+  this.setState({ message: null, openTask: false });
+  let translate = getLanguage(this.props.stateLanguageType);
+  let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
+          }
+        >
+          <h1 class="alert-btn">{RemoveTask}</h1>
+          <p>{really_want_to_remove_task}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                this.deleteClickTask(id);
+                onClose();
+              }}
+            >
+              {Yes}
+            </button>
+          </div>
+        </div>
+      );
+    },
+  });
+};
+
+
+  //for delete the Task
+  deleteClickTask1(id) {
+      this.setState({ loaderImage: true });
+      axios
+        .delete(
+          sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            this.props.getAddTaskData();
+          }
+          this.setState({ loaderImage: false });
+        })
+        .catch((error) => { });
+    }
+
+
   //{Delete} the perticular service confirmation box
   removeTask1 = (id) => {
     console.log('on removing assigned serviceee')
@@ -1097,8 +1189,8 @@ class Index extends Component {
     this.setState({ text: '' });
     if (name === 'task_type') {
       this.setState({ task_type: e });
-      if (this.state.houses?.value) {
-        this.getfilterData(this.state.houses?.value, true)
+      if(this.state.houses?.value){
+        this.FilterByHouse(this.state.houses?.value, true)
       }
       else {
         this.FilterByType(e, this.props.AllTasks, this.props.DoneTask, this.props.OpenTask, this.props.ArchivedTasks)
@@ -1106,8 +1198,8 @@ class Index extends Component {
     }
     else {
       this.setState({ houses: e });
-      this.getfilterData(e.value, true)
-    }
+      this.FilterByHouse(e.value, true)
+    } 
   }
 
   FilterByType = (e, AllTasks, DoneTask, OpenTask, ArchivedTasks) => {
@@ -1150,13 +1242,69 @@ class Index extends Component {
     this.setState({ ArchivedTasks: FilterFromSearch4 });
 
   }
+  clearFilter =()=>{
+    this.setState({
+      AllTasks: this.props.AllTasks,
+      DoneTask: this.props.DoneTask,
+      OpenTask: this.props.openTask,
+      ArchivedTasks: this.props.ArchivedTasks,
+      task_type: {},
+      houses: {},
+      text: ''
+    })
+  }
 
   FilterText = (e) => {
     this.setState({ text: e.target.value, houses: {}, task_type: {} });
     this.getfilterData(e.target.value);
   };
 
-  getfilterData = (filterm, comefrom) => {
+  FilterByHouse = (value , comefrom)=>{
+    console.log(value, 'value23444')
+   
+    let track1 = this.props.AllTasks;
+    let FilterFromSearch1 =
+      track1 &&
+      track1.length > 0 &&
+      track1.filter((obj) => {
+        return obj.house_id === value;
+      });
+    this.setState({ AllTasks: FilterFromSearch1 });
+
+    let track2 = this.props.DoneTask;;
+    let FilterFromSearch2 =
+      track2 &&
+      track2.length > 0 &&
+      track2.filter((obj) => {
+        return obj.house_id === value;
+      });
+    this.setState({ DoneTask: FilterFromSearch2 });
+
+    let track3 = this.props.OpenTask; 
+    let FilterFromSearch3 =
+      track3 &&
+      track3.length > 0 &&
+      track3.filter((obj) => {
+        return obj.house_id === value;
+      });
+    this.setState({ OpenTask: FilterFromSearch3 });
+
+    let track4 = this.props.ArchivedTasks;
+    let FilterFromSearch4 =
+      track4 &&
+      track4.length > 0 &&
+      track4.filter((obj) => {
+        return obj.house_id === value;
+      });
+    this.setState({ ArchivedTasks: FilterFromSearch4 },
+      ()=>{
+        if(comefrom){
+          this.FilterByType(this.state.task_type, this.state.AllTasks, this.state.DoneTask, this.state.OpenTask, this.state.ArchivedTasks)
+        }
+      });
+
+  }
+  getfilterData = (filterm, comefrom) =>{
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
       track1 &&
@@ -1199,12 +1347,7 @@ class Index extends Component {
           .toLowerCase()
           .includes(filterm?.toLowerCase());
       });
-    this.setState({ ArchivedTasks: FilterFromSearch4 },
-      () => {
-        if (comefrom) {
-          this.FilterByType(this.state.task_type, this.state.AllTasks, this.state.DoneTask, this.state.OpenTask, this.state.ArchivedTasks)
-        }
-      });
+    this.setState({ ArchivedTasks: FilterFromSearch4 });
   }
   //for delete the Task
   deleteClickTask(id) {
@@ -1223,44 +1366,43 @@ class Index extends Component {
       .catch((error) => { });
   }
   // open Edit model
-  // open Edit model
-  editTask1 = (data) => {
-    console.log('on edit service')
-    var pat1name = "";
-    if (data?.patient?.first_name && data?.patient?.last_name) {
-      pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
-    } else if (data?.first_name) {
-      pat1name = data?.patient?.first_name;
-    }
-    this.selectProf(data?.assinged_to, this.state.professional_id_list);
-    var Assigned_Aready =
-      data &&
-      data?.assinged_to &&
-      data?.assinged_to?.length > 0 &&
-      data?.assinged_to.map((item) => {
-        return item?.user_id;
-      });
-
-    var deep = _.cloneDeep(data);
-    this.setState({
-
-      service: deep,
-      // OpenTask:true,
-      openAss: true,
-      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
-      calculate_Length: {
-        attach_Length: data?.attachments?.length,
-        comments_Length: data?.comments?.length,
-      },
-      // assignedTo: assignedTo,
-      q: pat1name,
-      //  selectedPat: { label: pat1name, value: data?.patient?._id },
-      selectSpec: {
-        label: data?.speciality?.specialty_name,
-        value: data?.speciality?._id,
-      },
-    });
-  };
+    // open Edit model
+    editTask1 = (data) => {
+      var pat1name = "";
+       if (data?.patient?.first_name && data?.patient?.last_name) {
+         pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
+       } else if (data?.first_name) {
+         pat1name = data?.patient?.first_name;
+       }
+      this.selectProf(data?.assinged_to, this.state.professional_id_list);
+       var Assigned_Aready =
+         data &&
+         data?.assinged_to &&
+         data?.assinged_to?.length > 0 &&
+         data?.assinged_to.map((item) => {
+           return item?.user_id;
+         });
+      
+       var deep = _.cloneDeep(data);
+       this.setState({
+     
+         service: deep,
+         // OpenTask:true,
+         openAss: true,
+         Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+         calculate_Length: {
+           attach_Length: data?.attachments?.length,
+           comments_Length: data?.comments?.length,
+         },
+         // assignedTo: assignedTo,
+         q: pat1name,
+        //  selectedPat: { label: pat1name, value: data?.patient?._id },
+         selectSpec: {
+           label: data?.speciality?.specialty_name,
+           value: data?.speciality?._id,
+         },
+       });
+     };
 
   editTask = (data) => {
     var pat1name = "";
@@ -1638,7 +1780,6 @@ class Index extends Component {
     }, 500);
   }
   render() {
-    // console.log("selectedHouse",this.state.selectedHouse)
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateCertificate,
@@ -1795,7 +1936,7 @@ class Index extends Component {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      for_hospital,
+      For_Hospital,
 
     } = translate;
 
@@ -1850,7 +1991,7 @@ class Index extends Component {
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" &&
                 <Button onClick={() => this.handleOpenAss()} >
-                  {assignService}
+                    {"+ Assign service"}
                 </Button>}
               {/* <label>{filterbedge}</label> */}
             </Grid>
@@ -1936,7 +2077,7 @@ class Index extends Component {
                               <>{!this.state.newTask._id &&
 
                                 <Grid>
-                                  <label>{for_hospital}</label>
+                                  <label>{For_Hospital}</label>
                                   <Select
                                     name="for_hospital"
                                     options={this.state.currentList}
@@ -1972,7 +2113,7 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                            {console.log('this.props.comesFrom ', this.props.comesFrom)}
+                            
                             {this.props.comesFrom === "detailTask" ? (
                               <h2>
                                 {this.props.patient?.first_name}{" "}
@@ -4126,13 +4267,13 @@ class Index extends Component {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5} className="vwTaskSelectTp">
-                {this.props.comesFrom === 'Professional' &&
-                  <Grid className="viewTaskfilter">
-
+              {this.props.comesFrom=== 'Professional' && 
+              <Grid className="viewTaskfilter">
+                    <div className="err_message" onClick={()=>{this.clearFilter()}}>Clear filter</div>
                     <Select
                       name="houses"
                       onChange={(e) => this.updateFilters(e, 'houses')}
-                      value={this.state.houses}
+                      value={this.state.houses || {}}
                       options={this.state.currentList}
                       placeholder={"select"}
                       isMulti={false}

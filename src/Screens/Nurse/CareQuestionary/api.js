@@ -38,6 +38,7 @@ export const updateAllEntrySec1 = (current, e, name) => {
     current.setState({ allQuestionData: state });
 }
 
+
 export const checkValidation2 = (current, hello, check, item, fulldata) => {
 
     let translate = getLanguage(current.props.stateLanguageType);

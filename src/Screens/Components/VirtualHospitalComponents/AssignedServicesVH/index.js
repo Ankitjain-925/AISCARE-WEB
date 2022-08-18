@@ -319,9 +319,9 @@ class Index extends Component {
     this.setState({ tabvalue });
   };
   handleChangeTab2 = (event, tabvalue2) => {
-    if (tabvalue2 == 4) {
-      this.props.getArchived();
-    }
+    // if (tabvalue2 == 4) {
+    //   this.props.getArchived();
+    // }
     this.setState({ tabvalue2 });
   };
 
@@ -1228,7 +1228,7 @@ removeTask2 = (id) => {
           <Grid item xs={12} md={6}>
           <Grid className="newServc newServicAllSec">
                 <Button onClick={() => this.handleOpenAss()} >
-                    {assignService}
+                    {"+ Assign service"}
                 </Button>
                 
             <AssignedService 
@@ -1238,8 +1238,8 @@ removeTask2 = (id) => {
               service={this.state.service}
               removeTask={(id) => this.removeTask(id)}
               editTask={(data) => this.editTask(data)}
-              getAddTaskData={(tabvalue2) => {
-              this.props.getAddTaskData(tabvalue2);
+              getAddTaskData={(tabvalue) => {
+              this.props.getAddTaskData(tabvalue);
             }} 
             comesFrom = {this.props.comesFrom}/>
           </Grid>
@@ -1303,7 +1303,7 @@ removeTask2 = (id) => {
                       />
                     )}
                   </a>
-
+                      {console.log('ArchivedTasks', this.state.ArchivedTasks)}
                   {this.props.comesFrom !== 'Professional' &&
                     this.props.comesFrom !== 'detailTask' && (
                       <>
@@ -1434,24 +1434,8 @@ removeTask2 = (id) => {
               </Grid>
             </TabContainer>
           )}
-          {tabvalue2 === 3 && this.props.comesFrom === 'adminstaff' && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.DeclinedTask?.length > 0 &&
-                  this.state.DeclinedTask.map((data) => (
-                    <Grid>
-                     <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
-          {tabvalue2 === 3 && this.props.comesFrom === 'Professional' && (
+        
+          {tabvalue2 === 3 && (
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&
