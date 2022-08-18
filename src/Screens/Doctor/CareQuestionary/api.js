@@ -38,7 +38,7 @@ export const updateAllEntrySec1 = (current, e, name) => {
     current.setState({ allQuestionData: state });
 }
 
-export const checkValidation2 = (current, check, item, fulldata) => {
+export const checkValidation2 = (current, item, fulldata) => {
     current.setState({ errorChrMsg: '' })
     if (item === 'full_diameter_leg') {
         if (!fulldata.full_diameter_leg) {
@@ -457,7 +457,7 @@ export const checkValidation = (current, value, item) => {
         item === "quarter_stairs" ||
         item === "quarter_on_and_off_toilet" ||
         item === "quarter_bowels" ||
-        item === "quarter_bladder") && check) {
+        item === "quarter_bladder")) {
         var currentItem = item === "quarter_bartel_index_full_questionaire" ?
             Bartel_Index
             : item === "quarter_feeding"

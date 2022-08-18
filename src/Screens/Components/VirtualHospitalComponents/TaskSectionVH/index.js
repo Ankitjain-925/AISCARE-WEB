@@ -1796,7 +1796,7 @@ removeTask21 = (id) => {
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
       for_hospital,
-
+      For_Hospital,
     } = translate;
 
     const {
