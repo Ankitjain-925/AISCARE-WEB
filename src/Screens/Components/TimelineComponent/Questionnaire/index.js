@@ -210,7 +210,7 @@ class Index extends Component {
                             </a>
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
+                        {/* {this.props.comesfrom !== "patient" && (
                           <li>
                             <a
                               onClick={() =>
@@ -225,7 +225,7 @@ class Index extends Component {
                               {edit}
                             </a>
                           </li>
-                        )}
+                        )} */}
 
                         {/* <li>
                           <a onClick={() => this.props.downloadTrack(item)}>

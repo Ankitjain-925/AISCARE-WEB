@@ -457,7 +457,7 @@ export const checkValidation = (current, value, item) => {
         item === "quarter_stairs" ||
         item === "quarter_on_and_off_toilet" ||
         item === "quarter_bowels" ||
-        item === "quarter_bladder") && check) {
+        item === "quarter_bladder")) {
         var currentItem = item === "quarter_bartel_index_full_questionaire" ?
             Bartel_Index
             : item === "quarter_feeding"

@@ -87,7 +87,11 @@ export const checkValidation2 = (current, hello, check, item, fulldata) => {
         } else {
             return true;
         }
+    } else {
+        return true;
     }
+}
+
     if (item === 'day_Sick' && hello) {
         if (!fulldata.day_Sick) {
 
