@@ -744,7 +744,6 @@ export const CallApi = (current, data) => {
                     )
                     .then((responce) => {
                         // if (responce.data.hassuccessed) {
-                        console.log("check")
                         current.setState({ loaderImage: false, allQuestionData: {} });
                         // }
                     })

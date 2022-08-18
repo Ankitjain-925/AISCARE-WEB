@@ -632,18 +632,20 @@ export const CallApi = (current, data) => {
                         commonHeader(current.props.stateLoginValueAim?.token)
                     )
                     .then((responce) => {
-                        if (responce.data.hassuccessed) {
-                            current.setState({
-                                errorChrMsg: '',
-                                allQuestionData: {},
-                                openQues: false,
-                                errorChrMsg1: '',
-                                loaderImage: false
-                            });
-                        }
-                        else {
-                            current.setState({ loaderImage: false })
-                        }
+                        // if (responce.data.hassuccessed) {
+                        current.setState({
+                            isfileuploadmulti: false,
+                            fileupods: false,
+                            errorChrMsg: '',
+                            allQuestionData: {},
+                            openQues: false,
+                            errorChrMsg1: '',
+                            loaderImage: false
+                        });
+                        // }
+                        // else {
+                        //     current.setState({ loaderImage: false })
+                        // }
                     })
                     .catch(function (error) {
                         current.setState({ loaderImage: false })

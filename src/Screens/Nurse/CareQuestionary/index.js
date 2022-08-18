@@ -84,6 +84,7 @@ class Index extends Component {
             selectPatient,
             selectService,
             openQues } = this.state;
+        console.log("allrenderfgdh", allQuestionData)
         return (
             <Grid
                 className={
@@ -202,11 +203,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={rr_systolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={
-                                                                                        dailyForm
-                                                                                            ? allQuestionData?.daily_rr_systolic
-                                                                                            : ''
-                                                                                    }
+                                                                                    value={allQuestionData?.daily_rr_systolic || ''}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -217,7 +214,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={RR_diastolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={allQuestionData?.daily_rr_diastolic}
+                                                                                    value={allQuestionData?.daily_rr_diastolic || ''}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -276,8 +273,8 @@ class Index extends Component {
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
-                                                                                allQuestionData && allQuestionData?.daily_decubitus_picture_with_scale
-                                                                                    ? allQuestionData?.daily_decubitus_picture_with_scale
+                                                                                allQuestionData && allQuestionData?.FileAttach
+                                                                                    ? allQuestionData?.FileAttach
                                                                                     : []
                                                                             }
                                                                             name="daily_decubitus_picture_with_scale"
@@ -486,7 +483,7 @@ class Index extends Component {
                                                                             comesFrom="Evalute"
                                                                             // Forview={true}
                                                                             onChange={(e) => updateAllEntrySec(this, e)}
-                                                                            value={Math.round(this.state.allQuestionData?.daily_thrombose_pain_status) || ''}
+                                                                            value={Math.round(this.state.allQuestionData?.daily_thrombose_pain_status) || 0}
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
@@ -680,11 +677,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={rr_systolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={
-                                                                                        everyDay
-                                                                                            ? allQuestionData?.day_rr_systolic
-                                                                                            : ''
-                                                                                    }
+                                                                                    value={allQuestionData?.day_rr_systolic || ''}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -695,7 +688,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={RR_diastolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={allQuestionData?.day_rr_diastolic}
+                                                                                    value={allQuestionData?.day_rr_diastolic || ''}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -1320,11 +1313,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={rr_systolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={
-                                                                                        dailyForm
-                                                                                            ? allQuestionData?.week_rr_systolic
-                                                                                            : ''
-                                                                                    }
+                                                                                    value={allQuestionData?.week_rr_systolic || ""}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -1335,7 +1324,7 @@ class Index extends Component {
                                                                                     Unit="mmHg"
                                                                                     label={RR_diastolic}
                                                                                     onChange={(e) => updateAllEntrySec(this, e)}
-                                                                                    value={allQuestionData?.week_rr_diastolic}
+                                                                                    value={allQuestionData?.week_rr_diastolic || ''}
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>

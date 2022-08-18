@@ -23,7 +23,7 @@ import {
 import {
     setAssignedTo,
     getProfessionalData,
-  } from 'Screens/VirtualHospital/PatientFlow/data';
+} from 'Screens/VirtualHospital/PatientFlow/data';
 import { S3Image } from 'Screens/Components/GetS3Images/index';
 import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
 
@@ -41,64 +41,64 @@ class Index extends Component {
         this.getProfessionalData();
     }
 
-      //Set data according to package
-  setDta = () => {
-    externalSpaceApi(this)
-  };
+    //Set data according to package
+    setDta = () => {
+        externalSpaceApi(this)
+    };
 
     MovetoTask = () => {
         this.props.history.push('/virtualhospital/tasks');
     };
 
-     //Select the professional name
-  updateEntryState3 = (e, case_id) => {
-    var data =
-      e?.length > 0 &&
-      e.reduce((last, current, index) => {
-        let isProf =
-          this.state.professionalArray?.length > 0 &&
-          this.state.professionalArray.filter(
-            (data, index) => data.user_id === current.value
-          );
-        if (isProf && isProf.length > 0) {
-          last.push(isProf[0]);
-        }
-        return last;
-      }, []);
+    //Select the professional name
+    updateEntryState3 = (e, case_id) => {
+        var data =
+            e?.length > 0 &&
+            e.reduce((last, current, index) => {
+                let isProf =
+                    this.state.professionalArray?.length > 0 &&
+                    this.state.professionalArray.filter(
+                        (data, index) => data.user_id === current.value
+                    );
+                if (isProf && isProf.length > 0) {
+                    last.push(isProf[0]);
+                }
+                return last;
+            }, []);
 
-    data = data ? data : [];
-    this.setState({ loaderImage: true });
-    var response = setAssignedTo(
-      data,
-      case_id,
-      this.props.stateLoginValueAim.token
-    );
-    response.then((responce1) => {
-      if (responce1?.data?.hassuccessed) {
-        externalSpaceApi(this)
-      } else {
-        this.setState({ loaderImage: false });
-      }
-    });
-  };
-      // Get the Professional data
-  getProfessionalData = async () => {
-    this.setState({ loaderImage: true });
-    var data = await getProfessionalData(
-      this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value,
-      this.props.stateLoginValueAim.token
-    );
-    if (data) {
-      this.setState({
-        loaderImage: false,
-        professionalArray: data.professionalArray,
-        professional_id_list: data.professionalList,
-        professional_id_list1: data.professionalList,
-      });
-    } else {
-      this.setState({ loaderImage: false });
-    }
-  };
+        data = data ? data : [];
+        this.setState({ loaderImage: true });
+        var response = setAssignedTo(
+            data,
+            case_id,
+            this.props.stateLoginValueAim.token
+        );
+        response.then((responce1) => {
+            if (responce1?.data?.hassuccessed) {
+                externalSpaceApi(this)
+            } else {
+                this.setState({ loaderImage: false });
+            }
+        });
+    };
+    // Get the Professional data
+    getProfessionalData = async () => {
+        this.setState({ loaderImage: true });
+        var data = await getProfessionalData(
+            this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+        );
+        if (data) {
+            this.setState({
+                loaderImage: false,
+                professionalArray: data.professionalArray,
+                professional_id_list: data.professionalList,
+                professional_id_list1: data.professionalList,
+            });
+        } else {
+            this.setState({ loaderImage: false });
+        }
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -286,11 +286,43 @@ class Index extends Component {
                                                                 <Grid className="flowInfoInr2">
                                                                     <Grid className="dtlCntUpr">
                                                                         <Grid className="dtlCntLft">
-                                                                            <Grid className="dtlCount dtlCountRm dtlCountRm1">
+                                                                            <Grid>
+                                                                                <Grid className="dtlCount">
+                                                                                    <a className="taskHover">
+                                                                                        <img
+                                                                                            src={require("assets/images/location-pin.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {data?.full_address?.address} {','} {data?.full_address?.city} / {to} {'-'} {data?.full_address?.pastal_code}
+                                                                                    </a>
+                                                                                </Grid>
+                                                                                <Grid className="dtlCount">
+                                                                                    <a className="taskHover">
+                                                                                        <img
+                                                                                            src={require("assets/images/email.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {data?.full_address?.email}
+                                                                                    </a>
+                                                                                </Grid>
+                                                                                <Grid className="dtlCount">
+                                                                                    <a className="taskHover">
+                                                                                        <img
+                                                                                            src={require("assets/images/phone.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {data?.full_address?.mobile}
+                                                                                    </a>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                            {/* <Grid className="dtlCount dtlCountRm dtlCountRm1">
                                                                                 {data?.full_address?.address} {','} {data?.full_address?.city} / {to} {'-'} {data?.full_address?.pastal_code}
                                                                                 <p>{data?.full_address?.email}</p>
                                                                                 <p>{data?.full_address?.mobile}</p>
-                                                                            </Grid>
+                                                                            </Grid> */}
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid className="dtlCntUpr dtlCntUprNw">
