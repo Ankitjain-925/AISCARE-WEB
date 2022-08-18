@@ -220,27 +220,22 @@ class Index extends Component {
           }
         >
           <Grid>
-            <Grid className="entryCourse">
-              <Grid className="entryCloseBtn">
-                <a onClick={this.CloseFile}>
-                  <img
-                    src={require('assets/images/close-search.svg')}
-                    alt=""
-                    title=""
-                  />
-                </a>
-              </Grid>
-            </Grid>
             <Grid
               className={
                 this.state.cnrttype.toLowerCase() === 'png' ||
                 this.state.cnrttype.toLowerCase() === 'jpeg' ||
                 this.state.cnrttype.toLowerCase() === 'jpg' ||
                 this.state.cnrttype.toLowerCase() === 'svg'
-                  ? 'entryBoxCntnt SetWidthPopup1'
+                  ? 'entryBoxCntnt SetWidthPopup1 22'
                   : 'entryBoxCntnt SetWidthPopup'
-              }
-              >
+              }>
+            <Grid className="entryCourse">
+              <Grid className="entryCloseBtn">
+                <a onClick={this.CloseFile}>
+                  <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                </a>
+              </Grid>
+            </Grid>
             {this.state.cnrttype.toLowerCase() === 'png' ||
             this.state.cnrttype.toLowerCase() === 'jpeg' ||
             this.state.cnrttype.toLowerCase() === 'jpg' ||

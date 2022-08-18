@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
-import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { LoginReducerAim } from 'Screens/Login/actions';
-import { Settings } from 'Screens/Login/setting';
-import axios from 'axios';
-import { LanguageFetchReducer } from 'Screens/actions';
-import sitedata from 'sitedata';
-import { commonHeader } from 'component/CommonHeader/index';
-import { authy } from 'Screens/Login/authy.js';
-import { houseSelect } from '../Institutes/selecthouseaction';
-import Loader from 'Screens/Components/Loader/index';
-import TaskSectiuonVH from 'Screens/Components/VirtualHospitalComponents/TaskSectionVH';
-import { Speciality } from 'Screens/Login/speciality.js';
-import { Redirect, Route } from 'react-router-dom';
-import { getLanguage } from 'translations/index';
-import { filterPatient } from 'Screens/Components/BasicMethod/index';
-import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
-import AssignedServicesVH from 'Screens/Components/VirtualHospitalComponents/AssignedServicesVH/index';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
+import { authy } from "Screens/Login/authy.js";
+import { houseSelect } from "../Institutes/selecthouseaction";
+import Loader from "Screens/Components/Loader/index";
+import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
+import { Speciality } from "Screens/Login/speciality.js";
+import { Redirect, Route } from "react-router-dom";
+import { getLanguage } from "translations/index";
+import { filterPatient } from "Screens/Components/BasicMethod/index";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
+import AssignedServicesVH from "Screens/Components/VirtualHospitalComponents/AssignedServicesVH/index";
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -59,7 +59,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          '/vh/GetAllArchivedTask/' +
+          "/vh/GetAllArchivedTask/" +
           this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
@@ -76,7 +76,9 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + '/assignservice/getAssignedServices/' + this.props?.House?.value,
+        sitedata.data.path +
+          "/assignservice/getAssignedServices/" +
+          this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -88,12 +90,12 @@ class Index extends Component {
           }
           var Done =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === 'done');
+            response.data.data.filter((item) => item.status === "done");
           var Open =
             response.data.data?.length > 0 &&
             response.data.data.filter(
               (item) =>
-                item.status === 'open' &&
+                item.status === "open" &&
                 (!item.is_decline || item.is_decline === false)
             );
           var Decline =
@@ -126,27 +128,34 @@ class Index extends Component {
   render() {
     const { stateLoginValueAim, House } = this.props;
     if (
-      stateLoginValueAim.user === 'undefined' ||
+      stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === 'undefined' ||
-      stateLoginValueAim.user.type !== 'adminstaff'
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff"
     ) {
-      return <Redirect to={'/'} />;
+      return <Redirect to={"/"} />;
     }
     if (House && House?.value === null) {
-      return <Redirect to={'/VirtualHospital/space'} />;
+      return <Redirect to={"/VirtualHospital/space"} />;
     }
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Tasks_overview, ShowArchivedTasks, Open, Donetoday,Assigned_services_overview,Show_archived_services} = translate;
+    let {
+      Tasks_overview,
+      ShowArchivedTasks,
+      Open,
+      Donetoday,
+      Assigned_services_overview,
+      Show_archived_services,
+    } = translate;
     return (
       <Grid
         className={
           this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
-            ? 'homeBg darkTheme'
-            : 'homeBg'
+          this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
         }
       >
         {this.state.loaderImage && <Loader />}
