@@ -339,13 +339,13 @@ class Index extends Component {
                                     <h3>Blood pressure</h3>
                                     <Grid container xs={12} md={12}>
                                       <Grid xs={3} md={3}>
-                                        <label>rr_systolic</label>
+                                        <label>Systolic</label>
                                         <p>
                                           {item?.questionnaire_answers?.week_rr_systolic}
                                         </p>
                                       </Grid>
                                       <Grid xs={3} md={3}>
-                                        <label>RR_diastolic</label>
+                                        <label>Diastolic</label>
                                         <p>
                                           {item?.questionnaire_answers?.week_rr_diastolic}
                                         </p>
@@ -376,13 +376,13 @@ class Index extends Component {
                                         <h3>Blood pressure</h3>
                                         <Grid container xs={12} md={12}>
                                           <Grid xs={6} md={6}>
-                                            <label>rr_systolic</label>
+                                            <label>Systolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.day_rr_systolic}
                                             </p>
                                           </Grid>
                                           <Grid xs={6} md={6}>
-                                            <label>RR_diastolic</label>
+                                            <label>Diastolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.day_rr_diastolic}
                                             </p>
@@ -423,13 +423,13 @@ class Index extends Component {
                                         <h3>Blood pressure</h3>
                                         <Grid container xs={12} md={12}>
                                           <Grid xs={6} md={6}>
-                                            <label>rr_systolic</label>
+                                            <label>Systolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.daily_rr_systolic}
                                             </p>
                                           </Grid>
                                           <Grid xs={6} md={6}>
-                                            <label>RR_diastolic</label>
+                                            <label>Diastolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.daily_rr_diastolic}
                                             </p>
@@ -462,20 +462,20 @@ class Index extends Component {
                             }
                             {item?.questionary_type === "full" && (
                               <Grid className="stndQues stndQues1">
-                                <Grid className="MainclassQues">
+                                <Grid className="MainclassQues MainclassQues1">
                                   <Grid>
                                     <h1>Anamnesis</h1>
                                     <Grid container xs={12} md={12}>
                                       <h3>Blood pressure</h3>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={6} md={6}>
-                                          <label>rr_systolic</label>
+                                          <label>Systolic</label>
                                           <p>
                                             {item?.questionnaire_answers?.full_rr_systolic}
                                           </p>
                                         </Grid>
                                         <Grid xs={6} md={6}>
-                                          <label>RR_diastolic</label>
+                                          <label>Diastolic</label>
                                           <p>
                                             {item?.questionnaire_answers?.full_rr_diastolic}
                                           </p>
@@ -523,7 +523,7 @@ class Index extends Component {
                           </Grid>
 
                         </Grid>
-                        <Grid className="bp_graph">
+                        <Grid className="bp_graph FullInfoSet">
 
                           <Grid>
                             <a onClick={() => this.openFullInfo()}>
@@ -621,13 +621,13 @@ class Index extends Component {
                             <h3>Blood pressure</h3>
                             <Grid container xs={12} md={12}>
                               <Grid xs={3} md={3}>
-                                <label>rr_systolic</label>
+                                <label>Systolic</label>
                                 <p>
                                   {item?.questionnaire_answers?.week_rr_systolic}
                                 </p>
                               </Grid>
                               <Grid xs={3} md={3}>
-                                <label>RR_diastolic</label>
+                                <label>Diastolic</label>
                                 <p>
                                   {item?.questionnaire_answers?.week_rr_diastolic}
                                 </p>
@@ -843,13 +843,13 @@ class Index extends Component {
                                 <h3>Blood pressure</h3>
                                 <Grid container xs={12} md={12}>
                                   <Grid xs={6} md={6}>
-                                    <label>rr_systolic</label>
+                                    <label>Systolic</label>
                                     <p>
                                       {item?.questionnaire_answers?.day_rr_systolic}
                                     </p>
                                   </Grid>
                                   <Grid xs={6} md={6}>
-                                    <label>RR_diastolic</label>
+                                    <label>Diastolic</label>
                                     <p>
                                       {item?.questionnaire_answers?.day_rr_diastolic}
                                     </p>
@@ -1067,13 +1067,13 @@ class Index extends Component {
                                 <h3>Blood pressure</h3>
                                 <Grid container xs={12} md={12}>
                                   <Grid xs={6} md={6}>
-                                    <label>rr_systolic</label>
+                                    <label>Systolic</label>
                                     <p>
                                       {item?.questionnaire_answers?.daily_rr_systolic}
                                     </p>
                                   </Grid>
                                   <Grid xs={6} md={6}>
-                                    <label>RR_diastolic</label>
+                                    <label>Diastolic</label>
                                     <p>
                                       {item?.questionnaire_answers?.daily_rr_diastolic}
                                     </p>
@@ -1249,13 +1249,13 @@ class Index extends Component {
                               <h3>Blood pressure</h3>
                               <Grid container xs={12} md={12}>
                                 <Grid xs={6} md={6}>
-                                  <label>rr_systolic</label>
+                                  <label>Systolic</label>
                                   <p>
                                     {item?.questionnaire_answers?.full_rr_systolic}
                                   </p>
                                 </Grid>
                                 <Grid xs={6} md={6}>
-                                  <label>RR_diastolic</label>
+                                  <label>Diastolic</label>
                                   <p>
                                     {item?.questionnaire_answers?.full_rr_diastolic}
                                   </p>
