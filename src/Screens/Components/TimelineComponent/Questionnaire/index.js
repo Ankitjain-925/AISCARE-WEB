@@ -377,13 +377,13 @@ class Index extends Component {
                                         <h3>Blood pressure</h3>
                                         <Grid container xs={12} md={12}>
                                           <Grid xs={6} md={6}>
-                                            <label>Systolic</label>
+                                            <label>RR Systolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.day_rr_systolic}
                                             </p>
                                           </Grid>
                                           <Grid xs={6} md={6}>
-                                            <label>Diastolic</label>
+                                            <label>RR Diastolic</label>
                                             <p>
                                               {item?.questionnaire_answers?.day_rr_diastolic}
                                             </p>
