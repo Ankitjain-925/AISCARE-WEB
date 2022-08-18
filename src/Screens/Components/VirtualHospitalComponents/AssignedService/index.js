@@ -345,8 +345,10 @@ class Index extends Component {
         }
         else {
         this.setState({ loaderImage: true })
+        console.log('dats',data)
             if(data?._id){
-                data.house_id = this.state.selectedHouse?.value;
+                // data.house_id = this.state.selectedHouse?.value;
+                console.log('house', data.house_id)
                 axios
                 .put(
                     sitedata.data.path + "/assignservice/Updateassignservice/"+ data?._id,
