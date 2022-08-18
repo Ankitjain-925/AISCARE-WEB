@@ -709,6 +709,7 @@ class Index extends Component {
                           declineTask={(id, patient_id) =>{}}
                           handleApprovedDetails={(id, status, data) => {}}
                           comesFrom={'adminstaff'}
+                          removeMorebutton ={true}
                         />
 
                         ))}
