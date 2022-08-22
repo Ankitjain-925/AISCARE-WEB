@@ -762,7 +762,7 @@ class Index extends Component {
                                                         this.state.items.map((data, id) => (
                                                             <Grid className="roomsNum3">
                                                                 <Grid container direction="row">
-                                                                    <Grid item xs={6} md={6}>
+                                                                    <Grid item xs={6} md={6} className="aaa">
                                                                         <h3>{data?.service}</h3>
                                                                         <p>{data?.quantity}</p>
                                                                         <p>{data?.price} €</p>
