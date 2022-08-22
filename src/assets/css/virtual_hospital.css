@@ -5059,6 +5059,7 @@ a.recodBlck:hover {
   letter-spacing: 0;
   line-height: 16px;
   text-align: center;
+  cursor: pointer;
 }
 .spclSaveBtn button {
   border-radius: 8px;
@@ -5165,7 +5166,7 @@ a.recodBlck:hover {
 }
 .wrdsBtn {
   text-align: right;
-  margin-bottom: 32px;
+  margin-bottom: 0px;
 }
 .wrdsBtn button {
   font-size: 14px;
@@ -6442,7 +6443,9 @@ button.downloadPDF:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 4px;
+  margin: initial;
+  margin-left: 6px;
+  margin-top: 4px;
 }
 .taskSort img {
   height: 16px;
@@ -15911,7 +15914,7 @@ width: 90px!important;
     font-family: Muli !important;
     }
     
-        
+
     .allQuestionShow{
       margin-left: 21px;
     }
@@ -15968,5 +15971,6 @@ width: 90px!important;
       color: #ffffff;
       margin-right: 5px;
   }
+
 
 
