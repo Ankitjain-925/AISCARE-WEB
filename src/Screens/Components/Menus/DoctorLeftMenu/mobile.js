@@ -257,6 +257,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       EarlierActivity,
+      Care_Questionnary,
       appointments,
       chat_vdocall,
       capab_Patients,
@@ -631,7 +632,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{"Care Questionnary"}</span>
+                <span>{Care_Questionnary}</span>
               </a>
             </li>
 
