@@ -4867,8 +4867,7 @@ button.onlogyBtn {
   border: 1px solid #bfc1c1;
   border-radius: 4px;
   background-color: #ffffff;
-  /* width: 96.5%; */
-  width: 98%;
+  width: 100%;
   font-family: Muli;
   font-size: 14px;
   font-weight: 600;
@@ -5455,7 +5454,7 @@ button.downloadPDF:hover {
   width: 154px;
 }
 .invoiceAmnt div button:first-child {
-  color: #ffffff;
+  color: #ffffff !important;
   background-color: #00abaf;
 }
 .invoiceAmnt div button:last-child {
@@ -6311,7 +6310,6 @@ button.downloadPDF:hover {
   margin-top: 15px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-  min-height: 100vh;
   padding: 24px 20px;
   border-radius: 15px;
 }
@@ -6373,7 +6371,6 @@ button.downloadPDF:hover {
 }
 .showArchiv {
   text-align: center;
-  margin-top: 20px;
 }
 .showArchiv a {
   color: #00abaf !important;
@@ -6445,8 +6442,7 @@ button.downloadPDF:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: initial;
-  margin-left: 6px;
+  margin: 4px;
 }
 .taskSort img {
   height: 16px;
@@ -6456,7 +6452,7 @@ button.downloadPDF:hover {
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   padding: 0px 20px;
-  margin: 25px 0px 12px;
+  margin: 0px 0px 12px;
 }
 .revwFiles label {
   color: #000808;
@@ -6696,8 +6692,8 @@ button.downloadPDF:hover {
   line-height: 12px;
 }
 .newassignLft img {
-  height: 32px;
-  width: 32px;
+  height: 26px;
+  width: 26px;
   border-radius: 27px;
 }
 .asignLft img,
@@ -7731,19 +7727,18 @@ a.horzSort2 {
 .aplyRght1 {
   width: 50%;
 }
-.aplyRght button,
-.aplyRght1 button {
+.aplyRght button, .aplyRght1 button {
   border-radius: 8px;
   background-color: #00abaf;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 16px;
   text-align: center;
   font-family: Muli;
   text-transform: capitalize;
-  padding: 10px 10px;
+  padding: 10px 8px;
 }
 .aplyRght {
   text-align: right;
@@ -10252,9 +10247,6 @@ ul.addpatientoption li:hover {
   .vh-section .presOpinionIner td.pivoted img.openScnd {
     margin-top: -15px;
   }
-  a.openScndhrf {
-    display: inline-block;
-  }
   .spcMgntRght7 {
     text-align: left !important;
   }
@@ -10774,7 +10766,7 @@ p.more-change-staff-img2 {
 }
 .TaskSearch {
   border: 1px solid #bfc1c1;
-  border-radius: 4px;
+  border-radius: 0px;
   background-color: #ffffff;
   font-family: Muli;
   font-size: 14px;
@@ -10784,7 +10776,10 @@ p.more-change-staff-img2 {
   box-sizing: border-box !important;
   color: #000808;
   vertical-align: top;
-  padding: 0px 7px;
+  padding: 6px 7px;
+  width: 36%;
+  margin-bottom: 0px;
+  min-height: 40px;
 }
 .darkTheme .hideTask {
   background-color: #192020;
@@ -11053,6 +11048,9 @@ p.more-change-staff-img2 {
   margin-right: 7px;
   margin-bottom: 0px;
   font-family: Muli;
+}
+.que-mbottom button {
+  margin-bottom: 10px;
 }
 .dtlCountRm a:last-child {
   margin-left: 14px;
@@ -11499,7 +11497,7 @@ ul.patientHint li {
 }
 .MenuWeb .menuItems ul li:last-child {
   margin-bottom: 0px !important;
-  margin-top: 62px;
+  margin-top: 40px;
 }
 .flag-select__option:not(.flag-select__option--placeholder):hover,
 .flag-select__option:not(.flag-select__option--placeholder):focus {
@@ -12610,7 +12608,7 @@ ul.patientHint li {
 .darkTheme .bilingTabUpr {
   background-color: #404646;
 }
-.darkTheme .billTabs button {
+.da rkTheme .billTabs button {
   color: #fafafa !important;
 }
 .darkTheme .billtabIner.Mui-selected {
@@ -13066,9 +13064,9 @@ ul.patientHint li {
 .darkTheme .rrSysto div input[type="text"] {
   background-color: transparent !important;
 }
-/* .darkTheme .rrSysto div:last-child div {
-    border-color: transparent;
-} */
+.darkTheme .allFormSection {
+  background-color: #404646;
+}
 .darkTheme .rrSysto {
   color: #f7f7f7;
 }
@@ -13552,20 +13550,21 @@ input:-moz-autofill:active{
   .attchNotePart {
     display: flex;
   }
-  /* .attchOpen button{
-        margin-left: 40px;
-    } */
+  .taskSort {
+    margin-left: 3px;
+   }
 }
 @media (max-width: 599px) {
-  .taskSort input[type="text"] {
-    margin-bottom: 20px;
-  }
-  .addFlowRght,
-  .spcMgntH1 h1 {
+  .addFlowRght, .spcMgntH1 h1 {
     text-align: center !important;
   }
   .addFlowRght {
     margin-top: 24px !important;
+  }
+  .vwTaskSelectTp {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    align-items: initial !important;
   }
 }
 @media (max-width: 468px) {
@@ -13573,6 +13572,12 @@ input:-moz-autofill:active{
     padding-left: 10px !important;
     padding-right: 10px !important;
     margin-top: 50px !important;
+  }
+  .viewTaskfilter {
+    display: block;
+  }
+  .vwTaskSelect {
+    margin-bottom: 3px;
   }
 }
 @media (max-width: 452px) {
@@ -13588,7 +13593,6 @@ input:-moz-autofill:active{
     width: 300px;
   }
 }
-
 @media (max-width: 959px) {
   .mainMenuAllSec {
     display: flex;
@@ -13600,7 +13604,7 @@ input:-moz-autofill:active{
     padding-left: 9% !important;
   }
   .specialitybutton {
-    margin: 10px 0px;
+    margin: 4px 0px;
   }
 }
 .addSpeclContntIner {
@@ -13987,7 +13991,8 @@ input:-webkit-autofill:active{
 }
 
 .academy_ul.stepTdotupper ul {
-  height: 250px;
+  height: auto;
+  /* height: 250px; */
   overflow-y: auto;
 }
 
@@ -14072,6 +14077,12 @@ input:-webkit-autofill:active{
   bottom: -4px;
   content: "";
   margin: 0 auto;
+}
+.invoiceForm input[type="text"] {
+  min-height: 45px !important;
+}
+.darkTheme .invoiceForm .addStafSelect div {
+  border-color: #565656 !important;
 }
 @media (max-width: 1268px) {
   .vh-section .presOpinionIner td.pivoted {
@@ -15244,7 +15255,22 @@ a.joinmeetingtab {
 .fixedEuro {
   position: relative;
 }
+/* @media (max-width: 430px) {
+  .euroamount {
+    position: absolute;
+    top: 38px;
+    left: 140px;
+  }
+} */
+@media (max-width: 500px) {
+  .openScnd {
+    margin-top: 10px;
+  }
+}
 @media (max-width: 350px) {
+  .openScnd {
+    margin-left: 20px;
+  }
   .colorspace input {
     width: 90%;
   }
@@ -15752,6 +15778,10 @@ width: 90px!important;
   padding: 0px;
   margin-right: 8px;
 }
+.anamneSecUpr {
+  padding: 0px 45px;
+  margin-bottom: 25px;
+}
 .anamneSecMid p {
   font-size: 19px;
   color: #00abaf !important;
@@ -15815,7 +15845,6 @@ width: 90px!important;
   padding: 30px 30px;
   border-radius: 12px;
   background-color: #FFFFFF;
-  min-height: 100vh;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
 }
 .wrapperdnd {
@@ -15827,8 +15856,8 @@ width: 90px!important;
 }
 .newServc {
   text-align: right;
-  margin-top: 32px;
-  margin-bottom: 34px;
+  margin-top: 0px;
+  margin-bottom: 24px;
 }
 @media (max-width: 599px) {
   .addSpeclContnt2 {
@@ -15851,8 +15880,7 @@ width: 90px!important;
   .enterSpcl input, .addStafSelect {
     margin-bottom: 2px !important;
   }
-  }
-
+}
 
 .measureInput input{    
   border: 1px solid #BFC1C1;
@@ -15882,8 +15910,8 @@ width: 90px!important;
     margin-bottom: 3px;
     font-family: Muli !important;
     }
-
-
+    
+        
     .allQuestionShow{
       margin-left: 21px;
     }
@@ -15952,3 +15980,51 @@ width: 90px!important;
     .creatTaskCntnt1{
       padding-top: 0px;
     }
+    .homeBgDrk .MainclassQues h1{
+      color: #F2F2F2 !important;
+    }
+
+    .homeBgDrk .FullInfoSet a{
+      color: #F2F2F2 !important;
+    }
+
+    .homeBgDrk .MainclassQues1 h3{
+      color: #F2F2F2 !important;
+    }
+
+    /* added by ankita */
+
+    .nurse-filter-sec {
+      width: 203px;
+      background-color: #01abaf;
+      padding: 6px 4px;
+      text-align: center;
+      color: #ffffff;
+      margin-right: 5px;
+  }
+
+
+
+.totalamount label{
+  color: #000808;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40px;
+  margin-bottom: 12px;
+  display: block;
+}
+.totalamount p{
+  color: #000808;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.darkTheme .totalamount{
+  margin-top: 10px;
+}
+.aaa{
+  font-weight: bold;
+}

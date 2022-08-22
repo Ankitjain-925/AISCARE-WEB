@@ -141,7 +141,7 @@ export default class QuoteItem extends React.Component {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
       this.props;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice, add_assign_service } =
+    let { to, Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice, add_assign_service } =
       translate;
     return (
       <div
@@ -239,11 +239,10 @@ export default class QuoteItem extends React.Component {
                             title=""
                           />
                           {quote.full_address?.address},
-                          {quote.full_address?.city} ,  
-                          {quote.full_address?.pastal_code}
+                          {quote.full_address?.city} / {to} - {quote.full_address?.pastal_code}
                         </a>
                       </Grid>
-                     <Grid className="dtlCount">
+                      <Grid className="dtlCount">
                         <a className="taskHover">
                           <img
                             src={require("assets/images/email.svg")}

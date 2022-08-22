@@ -64,7 +64,6 @@ class Index extends Component {
 
   render() {
     var item = this.state.Track;
-    console.log("item", item)
     return (
       <div className="timelineGap">
 
@@ -76,6 +75,17 @@ class Index extends Component {
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
             comesfrom={this.state.comesfrom}
             data={item}
+            downloadTrack={(data) => this.props.downloadTrack(data)}
+            images={this.state.images}
+            Archive={this.state.Archive}
+            DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
+            ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
+            EidtOption={(value, updateTrack, visibility) =>
+              this.props.EidtOption(value, updateTrack, visibility)
+            }
+            loggedinUser={this.state.loggedinUser}
+            date_format={this.props.date_format}
+            time_format={this.props.time_format}
           />
         )}
         {item.type === "blood_pressure" && (

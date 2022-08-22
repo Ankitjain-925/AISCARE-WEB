@@ -55,14 +55,14 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
-          stateLoginValueAim.user === 'undefined' ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === 'undefined' ||
-          stateLoginValueAim.user.type !== 'doctor' ||
-          !this.props.verifyCode ||
-          !this.props.verifyCode.code
+            stateLoginValueAim.user === 'undefined' ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === 'undefined' ||
+            stateLoginValueAim.user.type !== 'doctor' ||
+            !this.props.verifyCode ||
+            !this.props.verifyCode.code
         ) {
-          return <Redirect to={'/'} />;
+            return <Redirect to={'/'} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
         const { rr_systolic, RR_diastolic, Search_Select, ForPatient, For_Hospital, Daily, every_2_week, Every_2_Day, Quarter, blood_pressure
@@ -188,6 +188,7 @@ class Index extends Component {
                                                     </RadioGroup>
                                                 </FormControl> */}
                                                 <div className="err_message">{this.state.errorChrMsg}</div>
+                                                <div className="success_message">{this.state.successMsg}</div>
                                                 {/* {selectForm && selectForm === 'Daily' && */}
                                                 <Grid>
                                                     <Grid >

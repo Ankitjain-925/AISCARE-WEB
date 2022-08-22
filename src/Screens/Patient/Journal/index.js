@@ -32,6 +32,7 @@ import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/inde
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
 import Loader from "Screens/Components/Loader/index.js";
 import BPFields from "Screens/Components/TimelineComponent/BPFields/index";
+import QuestionnaireFields from "Screens/Components/TimelineComponent/QuestionnaireFields/index";
 import BSFields from "Screens/Components/TimelineComponent/BSFields/index";
 import BMIFields from "Screens/Components/TimelineComponent/BMIFields/index";
 import MPFields from "Screens/Components/TimelineComponent/MPFields/index";
@@ -1510,6 +1511,12 @@ class Index extends Component {
                                           {respiration}
                                         </Grid>
                                       )}
+                                       {this.state.current_select ===
+                                      "carequestinnary" && (
+                                        <Grid className="nwDiaSel1">
+                                          {"Care Questionnaire"}
+                                        </Grid>
+                                      )}
                                   </div>
                                 )}
                               </Grid>
@@ -2006,6 +2013,24 @@ class Index extends Component {
                               <RespirationField
                                 cur_one={this.state.cur_one}
                                 FileAttachMulti={this.FileAttachMulti}
+                                visibility={this.state.visibility}
+                                comesfrom="patient"
+                                GetHideShow={this.GetHideShow}
+                                AddTrack={this.AddTrack}
+                                date_format={
+                                  this.props.settings.setting.date_format
+                                }
+                                time_format={
+                                  this.props.settings.setting.time_format
+                                }
+                                updateEntryState={this.updateEntryState}
+                                updateEntryState1={this.updateEntryState1}
+                                updateTrack={this.state.updateTrack}
+                              />
+                            )}
+                            {this.state.current_select === "carequestinnary" && (
+                              <QuestionnaireFields
+                                cur_one={this.state.cur_one}
                                 visibility={this.state.visibility}
                                 comesfrom="patient"
                                 GetHideShow={this.GetHideShow}
