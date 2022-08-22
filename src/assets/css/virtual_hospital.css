@@ -4622,11 +4622,11 @@ button.onlogyBtn {
 .roomBreadCrumb3 ul li:last-child::after {
   content: initial !important;
 }
-
 .wardsGrup3 {
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  margin-bottom: 12px;
 }
 .spcMgntUpr3,
 .roomsNum3 {
@@ -6455,6 +6455,7 @@ button.downloadPDF:hover {
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   padding: 0px 20px;
+  padding-bottom: 8px;
   margin: 0px 0px 12px;
 }
 .revwFiles label {
@@ -10780,7 +10781,7 @@ p.more-change-staff-img2 {
   color: #000808;
   vertical-align: top;
   padding: 6px 7px;
-  width: 36%;
+  width: 34.66%;
   margin-bottom: 0px;
   min-height: 40px;
 }
@@ -13568,6 +13569,7 @@ input:-moz-autofill:active{
     padding-top: 12px;
     padding-bottom: 12px;
     align-items: initial !important;
+    justify-content: center !important;
   }
 }
 @media (max-width: 468px) {
@@ -15951,7 +15953,6 @@ width: 90px!important;
 
 
 
-
     .MainclassQues1 h1{
       font-size: 16px;
       font-weight: bold;
@@ -15982,7 +15983,7 @@ width: 90px!important;
     }
     .creatTaskCntnt1{
       padding-top: 0px;
-    }
+    }    
     .homeBgDrk .MainclassQues h1{
       color: #F2F2F2 !important;
     }
@@ -16007,27 +16008,27 @@ width: 90px!important;
   }
 
 
-
-.totalamount label{
-  color: #000808;
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 0;
-  line-height: 40px;
-  margin-bottom: 12px;
-  display: block;
-}
-.totalamount p{
-  color: #000808;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-.darkTheme .totalamount{
-  margin-top: 10px;
-}
-.aaa{
-  font-weight: bold;
-}
+  
+  .totalamount label{
+    color: #000808;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .totalamount p{
+    color: #000808;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .darkTheme .totalamount{
+    margin-top: 10px;
+  }
+  .services-head{
+    font-weight: bold;
+  }

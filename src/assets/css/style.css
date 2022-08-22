@@ -17610,7 +17610,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     width: 100%;
     max-width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .viewTaskfilter {
     display: flex;
@@ -17661,6 +17661,13 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 }
 .addTaskBtn.addAssignBtn1 button {
     margin-bottom: 24px;
+}
+.addSpeclContntIner2 .enterServMain .enterSpcl h2 {
+    margin-bottom: 18px;
+}
+.homeBgDrk .stndQues1 h3, 
+.homeBgDrk .bp_graph.FullInfoSet a {
+    color: #00B0DB !important;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
