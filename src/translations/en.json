@@ -2045,7 +2045,11 @@
      "Patient_first":"Patient first",
      "Hospital_first":"Hospital first",
      "Chair_Bed_transfer":"Chair / Bed transfer",
-     "Bartel_Index":"Bartel Index"
+     "Bartel_Index":"Bartel Index",
+     "Situation_files":"Situation files",
+     "Your_form_data_successfully_submitted":"Your form data successfully submitted",
+     "SoundRecording_Techdevelopment":"Sound Recording auscultation / Tech development"
+     
     }
 
 
