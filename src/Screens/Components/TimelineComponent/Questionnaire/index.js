@@ -72,7 +72,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-     visible,
+      visible,
       show,
       date,
       time,
@@ -89,7 +89,7 @@ class Index extends Component {
       Change,
       archive,
       de_archive,
-    full_information,
+      full_information,
       care_quationnary,
       Feeding,
       Anamnesis,
@@ -131,13 +131,13 @@ class Index extends Component {
       Bladder,
       The_patient_control_bowels_accidents,
       Have_you_eaten_Fruits,
-     Bowels,
+      Bowels,
       Have_you_eaten,
-    On_and_off_Toilet,
+      On_and_off_Toilet,
       Stairs,
-     Wheelchair_Management,
-     Chair_Bed_Transfers,
-     Ambulation,
+      Wheelchair_Management,
+      Chair_Bed_Transfers,
+      Ambulation,
       Have_you_eaten_Meat,
       Pain_Status,
       Depression_Risk,
@@ -607,8 +607,29 @@ class Index extends Component {
           <Grid className="creatTaskModel creatTaskModel11">
             <Grid className="creatTaskCntnt">
               <Grid>
-                <Grid container direction="row">
-                  <Grid item xs={12} md={12}>
+                <Grid container direction="row" justify="center" className="addSpeclLbl">
+                  <Grid item xs={8} md={8} lg={8}>
+                    <label>{Details}</label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={() => this.closeFullInfo()}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {/* <Grid container direction="row">
+                   <Grid item xs={8} md={8} lg={8}>
+                                    <label>{Details}</label>
+                                </Grid>
+                                 <Grid item xs={4} md={4} lg={4}>
                     <Grid className="creatLbl">
                       <Grid className="creatLblClose createLSet">
                         <a onClick={() => this.closeFullInfo()}>
@@ -619,10 +640,10 @@ class Index extends Component {
                           />
                         </a>
                       </Grid>
-                      <label>{Details}</label>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
+                  </Grid> */}
+
                 <Grid
                   container
                   direction="row"
