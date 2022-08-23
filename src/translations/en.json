@@ -1954,7 +1954,7 @@
      "what_was_today":"what was good today",
      "Patient_tell_Good_Day":"Can the Patient tell somethink Good this Day",
      "Disorientation_Level":"Disorientation Level",
-     "ask_for_News_Day ":"ask for News of the Day ",
+     "ask_for_News_Day":"ask for News of the Day ",
      "Patient_tell_news_Days":"Can the Patient tell you a news of the Days",
      "Name_of_Family_Members":"Name of Family Members",
      "Patient_remebmer_Family_Memer":"Does the Patient remebmer the Name of a Family Memer",
@@ -2046,7 +2046,24 @@
      "Bartel_Index":"Bartel Index",
      "Situation_files":"Situation files",
      "Your_form_data_successfully_submitted":"Your form data successfully submitted",
-     "SoundRecording_Techdevelopment":"Sound Recording auscultation / Tech development"
+     "SoundRecording_Techdevelopment":"Sound Recording auscultation / Tech development",
+     "Amount":"Amount",
+     "Welcome_to_aimedis":"Welcome to aimedis",
+     "From":"From",
+     "For":"For",
+     "Invoice":"Invoice",
+     "date":"Date",
+     "ProfileID":"ProfileID",
+     "Bill_to":"Bill to",
+     "Service_Charges":"Service Charges",
+     "Due_Date":"Due Date",
+     "Earlier_activities":"Earlier activities",
+     "Professional_activities":"Professional activities",
+     "Systolic":"Systolic",
+     "Diastolic":"Diastolic",
+     "Condition":"Condition",
+     "Fall_today":"Fall today",
+     "use_yours_tools":"use yours tools"
      
     }
 
