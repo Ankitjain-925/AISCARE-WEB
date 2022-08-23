@@ -48,7 +48,8 @@ class ImageUploderView extends Component {
   };
   updateImages = (attachfile) => {
     var images = [];
-    attachfile &&
+    if(attachfile && attachfile.length > 0 ){
+      attachfile &&
       attachfile.length > 0 &&
       attachfile.map((data, index) => {
         var find = data && data.filename && data.filename;
@@ -64,6 +65,11 @@ class ImageUploderView extends Component {
             });
         }
       });
+    }
+    else{
+     this.setState({attachfile : this.props.attachfile})
+    }
+   
   };
   getFileName = (file) => {
     if (file && file.filename) {
@@ -86,7 +92,6 @@ class ImageUploderView extends Component {
       this.state.attachfile.length > 0 &&
       this.state.attachfile.filter((item) => item.filename !== file);
     this.setState({ attachfile: data });
-    console.log('data', data)
     this.props.fileUpload(data, this.props.name);
   };
   //For upload and image previews
@@ -186,7 +191,6 @@ class ImageUploderView extends Component {
                 .catch((error) => { });
 
               this.setState({ loaderImage: false, attachfile: Fileadd });
-              console.log('inside Props', Fileadd)
               this.props.fileUpload(Fileadd, this.props.name);
             }
          }
@@ -296,7 +300,6 @@ class ImageUploderView extends Component {
                 .catch((error) => { });
 
               this.setState({ loaderImage: false, attachfile: Fileadd });
-              console.log('inside Props', Fileadd)
               this.props.fileUpload(Fileadd, this.props.name);
             }
             else {
@@ -389,7 +392,7 @@ class ImageUploderView extends Component {
             </div>
           )}
         </Dropzone>
-
+        
         {this.state.attachfile && this.state.attachfile.length > 0
           ? this.state.attachfile.map((file, index) => (
             <Grid container direction="row" className="updatedfileuploader">
