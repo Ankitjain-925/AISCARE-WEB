@@ -521,6 +521,7 @@ export const handleSubmit = (current) => {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
                 current.setState({ openQues: true });
+                prevQuestData(current);
             } else {
                 current.setState({ errorChrMsg1: please_select + " " + Patient_first })
             }
@@ -715,7 +716,7 @@ export const handleSubmit = (current) => {
 
 export const CallApi = (current, data) => {
     let translate = getLanguage(current.props.stateLanguageType);
-   let {
+    let {
         Your_form_data_successfully_submitted
     } = translate;
     const { allQuestionData, allPatientData, selectHouse } = current.state;
@@ -769,7 +770,7 @@ export const CallApi = (current, data) => {
                     )
                     .then((responce) => {
                         // if (responce.data.hassuccessed) {
-                        current.setState({ loaderImage: false, allQuestionData: {}, successMsg: Your_form_data_successfully_submitted});
+                        current.setState({ loaderImage: false, allQuestionData: {}, successMsg: Your_form_data_successfully_submitted });
                         setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
                         MoveTop(0);
                         // }
@@ -867,4 +868,31 @@ export const updateEntryState1 = (current, e) => {
         return el?.user_id === e?.value;
     });
     current.setState({ allPatientData: newArray });
+}
+
+
+export const prevQuestData = (current) => {
+    current.setState({ loaderImage: true });
+    let user_token = current.props.stateLoginValueAim.token;
+    let user_id = current.state.selectPatient?.value;
+    axios
+        .get(
+            sitedata.data.path + "/vc/GetUserQuerstionair/" + user_id,
+            commonHeader(user_token)
+        )
+        .then((response) => {
+            console.log("response", response)
+            current.setState({ prevData: response.data.data, loaderImage: false });
+        })
+        .catch((error) => {
+            current.setState({ loaderImage: false });
+        });
+};
+
+export const openFullQues = (current, data) => {
+    current.setState({ openModal: true, ModalData: data });
+}
+
+export const closeFullQues = (current) => {
+    current.setState({ openModal: false });
 }

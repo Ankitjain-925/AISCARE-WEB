@@ -70,6 +70,7 @@ class Index extends Component {
   }
 
   render() {
+
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       blood_sugar,
@@ -1526,5 +1527,5 @@ const mapStateToProps = (state) => {
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps,  { Settings, LanguageFetchReducer })(Index)
+  connect(mapStateToProps, { Settings, LanguageFetchReducer })(Index)
 ));
