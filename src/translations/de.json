@@ -1957,6 +1957,30 @@
      "Patient_first":"Patient first",
      "Hospital_first":"Hospital first",
      "Chair_Bed_transfer":"Chair / Bed transfer",
-     "Bartel_Index":"Bartel Index"
+     "Bartel_Index":"Bartel Index",
+     "Situation_files":"Situation files",
+     "Your_form_data_successfully_submitted":"Your form data successfully submitted",
+     "SoundRecording_Techdevelopment":"Sound Recording auscultation / Tech development",
+     "Amount":"Amount",
+     "Welcome_to_aimedis":"Welcome to aimedis",
+     "From":"From",
+     "For":"For",
+     "Invoice":"Invoice",
+     "date":"Date",
+     "ProfileID":"ProfileID",
+     "Bill_to":"Bill to",
+     "Service_Charges":"Service Charges",
+     "Due_Date":"Due Date",
+     "Earlier_activities":"Earlier activities",
+     "Professional_activities":"Professional activities",
+     "Systolic":"Systolic",
+     "Diastolic":"Diastolic",
+     "Condition":"Condition",
+     "Fall_today":"Fall today",
+     "use_yours_tools":"use yours tools",
+     "Assign_service":"+ Assign service",
+     "Please_select_doctor_nurse":"Please select either dotor or nurse",
+     "Please_select_patient_first":"Please select patient first"
+     
   }
 }
