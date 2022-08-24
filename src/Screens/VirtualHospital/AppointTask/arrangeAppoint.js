@@ -417,6 +417,8 @@ class Index extends Component {
   }
 
   handleAllowLoc = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {please_select,first,Please_select_doctor_nurse,Please_select_patient_first} = translate;
     this.setState({ errorMsg: "" });
     const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
     if (Object.keys(selectedPatient).length !== 0) {
@@ -446,13 +448,13 @@ class Index extends Component {
           this.props.handleCloseAllowAccess();
         } else {
           var item = selectPatDoc === "yes" ? "Doctor" : "Nurse";
-          this.setState({ errorMsg: "Please select" + " " + item + " " + "first" });
+          this.setState({ errorMsg: please_select + " " + item + " " + first });
         }
       } else {
-        this.setState({ errorMsg: "Please select either dotor or nurse" });
+        this.setState({ errorMsg: Please_select_doctor_nurse });
       }
     } else
-      this.setState({ errorMsg: "Please select patient first" });
+      this.setState({ errorMsg: Please_select_patient_first});
   };
 
   handleCloseAllowLoc = () => {
