@@ -1980,7 +1980,8 @@ removeTask21 = (id) => {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      For_Hospital
+      For_Hospital,
+      Assign_service
 
 
     } = translate;
@@ -2036,7 +2037,7 @@ removeTask21 = (id) => {
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" &&
                 <Button onClick={() => this.handleOpenAss()} >
-                    {"+ Assign service"}
+                    {Assign_service}
                 </Button>}
               {/* <label>{filterbedge}</label> */}
             </Grid>
