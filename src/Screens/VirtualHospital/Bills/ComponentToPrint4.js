@@ -29,7 +29,7 @@ export class ComponentToPrint4 extends React.Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
-            ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
+            ServiceName, TotalAmount, InvoiceID, srvc,Priceperquantity,Amount,Invoice, Quantity,date, ProfileID,Bill_to,total,contactAimedisForQuery, Service_Charges,SysAimedis } = translate;
         var { data, index } = this.state;
 
         return (
@@ -59,21 +59,21 @@ export class ComponentToPrint4 extends React.Component {
                         <table width="100%" className="tabL10">
                             <tr>
                                 <td className="tabL10Col1 TblPG2">
-                                    <p><b>Service Charges</b></p>
+                                    <p><b>{Service_Charges}</b></p>
                                     <strong>
-                                        <p>Invoice: &nbsp;{data?.invoice_id}</p>
-                                        <p>Date: &nbsp;{getDate(
+                                        <p>{Invoice}: &nbsp;{data?.invoice_id}</p>
+                                        <p>{date}: &nbsp;{getDate(
                                             data?.created_at,
                                             this.props.settings &&
                                             this.props.settings?.setting &&
                                             this.props.settings?.setting?.date_format
                                         )}</p>
-                                        <p>ProfileID: &nbsp;{data?.patient?.alies_id ? data?.patient?.alies_id : data?.patient?.profile_id} </p>
+                                        <p>{ProfileID}: &nbsp;{data?.patient?.alies_id ? data?.patient?.alies_id : data?.patient?.profile_id} </p>
                                     </strong>
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">
                                     <strong>
-                                        <p>Bill to: &nbsp;{data?.patient?.first_name}&nbsp;{data?.patient?.last_name}</p>
+                                        <p>{Bill_to}: &nbsp;{data?.patient?.first_name}&nbsp;{data?.patient?.last_name}</p>
                                     </strong>
                                 </td>
                             </tr>
@@ -81,10 +81,10 @@ export class ComponentToPrint4 extends React.Component {
                         <table width="100%">
                             <table className="firsttabhead tabL3a" width="100%" bgcolor="black">
                                 <tr>
-                                    <th width="30%" align="left">Service</th>
-                                    <th width="30%">Price Per Quantity</th>
-                                    <th width="30%">Quantity</th>
-                                    <th width="10%" align="right">Amount</th>
+                                    <th width="30%" align="left">{srvc}</th>
+                                    <th width="30%">{Priceperquantity}</th>
+                                    <th width="30%">{Quantity}</th>
+                                    <th width="10%" align="right">{Amount}</th>
                                 </tr>
                             </table>
                             <table width="100%" className="secsttabhead tabLLa">
@@ -100,7 +100,7 @@ export class ComponentToPrint4 extends React.Component {
                             <table width="100%" className="tabL3">
                                 <tr>
                                     <td width="68%">
-                                        <p>Total</p>
+                                        <p>{total}</p>
                                     </td>
                                     <td width="32%" className="tabDatPart">
                                         <p>{data?.total_amount}</p>
@@ -110,11 +110,10 @@ export class ComponentToPrint4 extends React.Component {
                             <table className="tabL4">
                                 <tr>
                                     <td>
-                                        <h1 className="termCond termCond2">Your Aimedis team</h1><br />
+                                        <h1 className="termCond termCond2">{YourAimedisTeam}</h1><br />
                                         <p>https://aimedis.io</p><br />
                                         <p>https://sys.aimedis.com</p><br />
-                                        <p>If you have any questions do not hesitate to
-                                            contact us via the support chat or via contact@aimedis.com</p>
+                                        <p>{contactAimedisForQuery}</p>
                                     </td>
                                 </tr>
                             </table>
