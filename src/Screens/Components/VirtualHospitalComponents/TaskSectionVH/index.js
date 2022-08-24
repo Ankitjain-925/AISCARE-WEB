@@ -4294,7 +4294,7 @@ class Index extends Component {
         </Grid>
         <Grid className="taskDetailMob">
           {/* {tabvalue === 0 && <TabContainer> */}
-          <Grid className="taskCntntMng">
+          <Grid className="taskCntntMng vwTaskSelectTpCstm">
             <Grid container direction="row" alignItems="center">
               <Grid item xs={12} sm={6} md={7}>
                 <AppBar position="static" className="billTabs">
