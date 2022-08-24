@@ -22,14 +22,14 @@ class Pain extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (
-      this.props.value &&
-      this.props.value !== "NaN" &&
-      prevProps.value !== this.props.value &&
+      this.props.value ||
+      this.props.value !== "NaN" ||
+      prevProps.value !== this.props.value ||
       this.props.Forview
     ) {
-      this.setState({ value: this.props.value });
-    }
+      this.setState({ value: this.props.value })
   };
+}
   shouldComponentUpdate(nextProps, nextState) {
     return (
       (nextState.value !== this.state.value && this.state.value !== "NaN") ||

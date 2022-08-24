@@ -383,7 +383,7 @@ class Index extends Component {
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
                                                                         <label>{Picture_with_Scale}</label>
-                                                                        {console.log("allQuestionData?.daily_decubitus_picture_with_scale", allQuestionData?.daily_decubitus_picture_with_scale)}
+                                                                       
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={

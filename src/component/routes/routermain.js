@@ -105,6 +105,7 @@ import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import NurseET from "Screens/Nurse/Earlier_Activity/index";
+import NurseAppointment from "Screens/Nurse/Appointment/index.js";
 import ApproveHospital from "Screens/Components/ApprovalHospital/index";
 import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import DoctorCareQuestionnary from "Screens/Doctor/CareQuestionary";
@@ -362,7 +363,14 @@ class Routermain extends Component {
               render={(props) => <DoctorAppointment {...props} />}
             />
 
+            
+
             {/* Added by ankita */}
+            <Route
+              exact
+              path="/nurse/appointment"
+              render={(props) => <NurseAppointment {...props} />}
+            />
             <Route
               exact
               path="/doctor/emergency"
