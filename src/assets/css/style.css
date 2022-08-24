@@ -17665,6 +17665,32 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .addSpeclContntIner2 .enterServMain .enterSpcl h2 {
     margin-bottom: 18px;
 }
+.MuiGrid-root.LeftPatientDataWeb .profileDescp {
+    margin-top: 0px !important;
+}
+.addFlowContnt .patentInfo {
+    padding-bottom: 0px;
+}
+.MuiGrid-root.patentInfoBtn.patentTnfoBtn1 button {
+    width: 88%;
+    margin: 0 auto;
+    display: inherit;
+    margin-bottom: 8px;
+}
+.vwTaskSelectTpCstm {
+    position: relative;
+}
+.vwTaskSelectTpCstm .taskSort {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+.vwTaskSelectTpCstm input.TaskSearch{
+    width: 67%;
+}
+.taskDetailMob .allInerTabs .allTabCntnt {
+    padding: 10px 7px;
+}
 .homeBgDrk .stndQues1 h3, 
 .homeBgDrk .bp_graph.FullInfoSet a {
     color: #00B0DB !important;
@@ -17690,6 +17716,14 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
    .allInfo {
       margin-top: 5px;
    }
+   .vwTaskSelectTpCstm .taskSort {
+       position: initial;
+       right: initial;
+       top: initial;
+   }
+   .vwTaskSelectTpCstm input.TaskSearch {
+        width: initial;
+   }
 }
 @media (max-width: 1300px){
   .pattern-sec {
@@ -17707,7 +17741,6 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     .tasklistName img {
         width: 32px !important;
         height: 32px !important;
-        margin-right: 0px !important;
     }
     .allInerTabs {
         padding: 14px 12px !important;
