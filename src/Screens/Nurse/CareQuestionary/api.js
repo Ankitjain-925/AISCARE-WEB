@@ -146,7 +146,9 @@ export const checkValidation = (current, check, value, item) => {
         Wheelchair_Management,
         Stairs,
         On_and_off_Toilet,
-        Bowels
+        Bowels,
+        Situation_files,
+        Bladder
     } = translate;
 
     var bpPattern = /^[0-9]+$/;
@@ -451,7 +453,7 @@ export const checkValidation = (current, check, value, item) => {
             item === "week_decubitus_picture_with_scale" ? "Decubitus" : "Thrombose"
         if (!value) {
             current.setState({
-                errorChrMsg: "Please select" + " " + currentItem + " " + "Situation files"
+                errorChrMsg: please_select + " " + currentItem + " " + Situation_files
             })
             MoveTop(0);
             return false;
@@ -486,7 +488,7 @@ export const checkValidation = (current, check, value, item) => {
                                     ? On_and_off_Toilet
                                     : item === "quarter_bowels"
                                         ? Bowels
-                                        : "Bladder"
+                                        : Bladder
         if (!value) {
             current.setState({ errorChrMsg: please_select + " " + currentItem })
             MoveTop(0);
@@ -712,6 +714,10 @@ export const handleSubmit = (current) => {
 
 
 export const CallApi = (current, data) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+   let {
+        Your_form_data_successfully_submitted
+    } = translate;
     const { allQuestionData, allPatientData, selectHouse } = current.state;
     var nurse_id = current.props.stateLoginValueAim?.user?._id;
     var data = {
@@ -763,7 +769,7 @@ export const CallApi = (current, data) => {
                     )
                     .then((responce) => {
                         // if (responce.data.hassuccessed) {
-                        current.setState({ loaderImage: false, allQuestionData: {}, successMsg: "Your form data successfully submitted" });
+                        current.setState({ loaderImage: false, allQuestionData: {}, successMsg: Your_form_data_successfully_submitted});
                         setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
                         MoveTop(0);
                         // }

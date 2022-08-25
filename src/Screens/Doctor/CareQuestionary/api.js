@@ -39,11 +39,22 @@ export const updateAllEntrySec1 = (current, e, name) => {
 }
 
 export const checkValidation2 = (current, item, fulldata) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {
+        please_select,
+        with_yes_and_no,
+        Diameter_Leg,
+        please_enter_Diameter_leg,
+        Please_select_better_and_worse_for_condition,
+        Sick,
+        Please_enter_Weight,
+         Your_form_data_successfully_submitted
+     } = translate;
     current.setState({ errorChrMsg: '' })
     if (item === 'full_diameter_leg') {
         if (!fulldata.full_diameter_leg) {
             current.setState({
-                errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
+                errorChrMsg:  please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
@@ -51,7 +62,7 @@ export const checkValidation2 = (current, item, fulldata) => {
 
             if (!fulldata.full_anamnesis_diameter_leg) {
                 current.setState({
-                    errorChrMsg: 'please enter Diameter leg',
+                    errorChrMsg: please_enter_Diameter_leg,
                 });
                 MoveTop(0);
                 return false;
@@ -59,7 +70,7 @@ export const checkValidation2 = (current, item, fulldata) => {
             }
             else if (!fulldata.full_anamnesis_condition) {
                 current.setState({
-                    errorChrMsg: 'Please select better and worse for condition',
+                    errorChrMsg: Please_select_better_and_worse_for_condition,
                 });
                 MoveTop(0);
                 return false;
@@ -73,7 +84,7 @@ export const checkValidation2 = (current, item, fulldata) => {
     if (item === 'full_Sick') {
         if (!fulldata.full_Sick) {
             current.setState({
-                errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
+                errorChrMsg: please_select + ' ' + Sick + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
@@ -81,7 +92,7 @@ export const checkValidation2 = (current, item, fulldata) => {
 
             if (!fulldata.full_anamnesis_weight) {
                 current.setState({
-                    errorChrMsg: 'Please enter Weight',
+                    errorChrMsg: Please_enter_Weight ,
                 });
                 MoveTop(0);
                 return false;
@@ -130,7 +141,10 @@ export const checkValidation = (current, value, item) => {
         Stairs,
         On_and_off_Toilet,
         Bowels,
-        please_select
+        please_select,
+        Please_Enter_O2_saturation,
+        Situation_files,
+        Bladder
 
     } = translate;
 
@@ -379,7 +393,7 @@ export const checkValidation = (current, value, item) => {
     else if ((item === "full_anamnesis_o2_saturation")) {
         if (!value) {
 
-            current.setState({ errorChrMsg: "Please Enter O2 saturation" })
+            current.setState({ errorChrMsg: Please_Enter_O2_saturation })
 
             MoveTop(0);
             return false;
@@ -437,7 +451,7 @@ export const checkValidation = (current, value, item) => {
         if (!value) {
 
             current.setState({
-                errorChrMsg: "Please select" + " " + currentItem + " " + "Situation files"
+                errorChrMsg: please_select + " " + currentItem + " " + Situation_files
             })
 
             MoveTop(0);
@@ -474,7 +488,7 @@ export const checkValidation = (current, value, item) => {
                                     ? On_and_off_Toilet
                                     : item === "full_bowels"
                                         ? Bowels
-                                        : "Bladder"
+                                        : Bladder
         if (!value) {
             current.setState({ errorChrMsg: please_select + " " + currentItem })
             MoveTop(0);
@@ -594,7 +608,11 @@ export const handleSubmit = (current) => {
 
 
 export const CallApi = (current, data) => {
-    const { allQuestionData, allPatientData, selectHouse } = current.state;
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {
+         Your_form_data_successfully_submitted
+     } = translate;
+     const { allQuestionData, allPatientData, selectHouse } = current.state;
     var nurse_id = current.props.stateLoginValueAim?.user?._id;
     var data = {
         created_by: nurse_id,
@@ -652,7 +670,7 @@ export const CallApi = (current, data) => {
                             // openQues: false,
                             errorChrMsg1: '',
                             loaderImage: false,
-                            successMsg: "Your form data successfully submitted"
+                            successMsg: Your_form_data_successfully_submitted
                         });
                         setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
                         MoveTop(0);

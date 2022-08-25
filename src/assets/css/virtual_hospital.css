@@ -4622,11 +4622,11 @@ button.onlogyBtn {
 .roomBreadCrumb3 ul li:last-child::after {
   content: initial !important;
 }
-
 .wardsGrup3 {
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  margin-bottom: 12px;
 }
 .spcMgntUpr3,
 .roomsNum3 {
@@ -5059,6 +5059,7 @@ a.recodBlck:hover {
   letter-spacing: 0;
   line-height: 16px;
   text-align: center;
+  cursor: pointer;
 }
 .spclSaveBtn button {
   border-radius: 8px;
@@ -5165,7 +5166,7 @@ a.recodBlck:hover {
 }
 .wrdsBtn {
   text-align: right;
-  margin-bottom: 32px;
+  margin-bottom: 0px;
 }
 .wrdsBtn button {
   font-size: 14px;
@@ -6442,7 +6443,9 @@ button.downloadPDF:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 4px;
+  margin: initial;
+  margin-left: 6px;
+  margin-top: 4px;
 }
 .taskSort img {
   height: 16px;
@@ -6452,6 +6455,7 @@ button.downloadPDF:hover {
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   padding: 0px 20px;
+  padding-bottom: 8px;
   margin: 0px 0px 12px;
 }
 .revwFiles label {
@@ -10777,7 +10781,7 @@ p.more-change-staff-img2 {
   color: #000808;
   vertical-align: top;
   padding: 6px 7px;
-  width: 36%;
+  width: 34.66%;
   margin-bottom: 0px;
   min-height: 40px;
 }
@@ -13565,6 +13569,7 @@ input:-moz-autofill:active{
     padding-top: 12px;
     padding-bottom: 12px;
     align-items: initial !important;
+    justify-content: center !important;
   }
 }
 @media (max-width: 468px) {
@@ -14460,9 +14465,9 @@ label.newrole {
   margin-top: 10px;
 }
 
-.stndQues1 label {
+/* .stndQues1 label {
   margin-top: 12px;
-}
+} */
 .imageEvalSize img {
   /* height: 90px; */
   width: 50%;
@@ -15911,7 +15916,7 @@ width: 90px!important;
     font-family: Muli !important;
     }
     
-        
+
     .allQuestionShow{
       margin-left: 21px;
     }
@@ -15948,7 +15953,6 @@ width: 90px!important;
 
 
 
-
     .MainclassQues1 h1{
       font-size: 16px;
       font-weight: bold;
@@ -15979,7 +15983,7 @@ width: 90px!important;
     }
     .creatTaskCntnt1{
       padding-top: 0px;
-    }
+    }    
     .homeBgDrk .MainclassQues h1{
       color: #F2F2F2 !important;
     }
@@ -16004,27 +16008,41 @@ width: 90px!important;
   }
 
 
+  
+  .totalamount label{
+    color: #000808;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .totalamount p{
+    color: #000808;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .darkTheme .totalamount{
+    margin-top: 10px;
+  }
+  .services-head{
+    font-weight: bold;
+  }
 
-.totalamount label{
-  color: #000808;
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 0;
-  line-height: 40px;
-  margin-bottom: 12px;
-  display: block;
+
+
+
+.stndQues1 span{
+  color:unset;
+  margin-bottom: 0px;
 }
-.totalamount p{
-  color: #000808;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  font-weight: 600;
-  margin-bottom: 2px;
+.mainQueLab{
+  line-height: 20px!important;
 }
-.darkTheme .totalamount{
-  margin-top: 10px;
-}
-.addServicesPart{
-  font-weight: bold;
+.creatTskCnt{
+  padding:0px;
 }

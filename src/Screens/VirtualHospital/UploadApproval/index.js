@@ -405,7 +405,7 @@ class Index extends Component {
 
                         <Grid container direction="row" justifyContent="center">
                           <Grid item xs={12} md={8} lg={8}>
-                            <Grid className="aaa">
+                            <Grid className="services-head">
                               <Grid className="headerCountTxt infoSubInpSection">
                                 <input
                                   type="submit"

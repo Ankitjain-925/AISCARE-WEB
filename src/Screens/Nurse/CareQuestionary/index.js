@@ -177,7 +177,8 @@ class Index extends Component {
             tech_development,
             timed_up_and_go,
             Bladder,
-            Ambulation
+            Ambulation,
+            SoundRecording_Techdevelopment
         } = translate;
         const { selectForm,
             dailyForm,
@@ -1355,7 +1356,7 @@ class Index extends Component {
                                                                                 />
                                                                             }
 
-                                                                            label="Sound Recording auscultation / Tech development"
+                                                                            label={SoundRecording_Techdevelopment}
 
                                                                         />
                                                                     </FormControl>

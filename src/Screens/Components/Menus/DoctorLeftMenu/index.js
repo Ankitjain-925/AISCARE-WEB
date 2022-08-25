@@ -245,7 +245,8 @@ class Index extends Component {
       Currently_available,
       Not_available,
       professional_activity,
-      EarlierActivity
+      EarlierActivity,
+      Care_Questionnary
     } = translate;
     const { inputValue, value, CheckCurrent } = this.state;
     const { selectedOption } = this.state;
@@ -598,7 +599,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{"Care Questionnary"}</span>
+                <span>{Care_Questionnary}</span>
               </a>
             </li>
 

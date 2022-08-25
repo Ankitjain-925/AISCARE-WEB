@@ -203,8 +203,8 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     margin-bottom: 45px;
 }
 .addSpc {
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 28px;
+    padding-right: 28px;
 }
 .icd_num {
     margin-top: 18px;
@@ -614,7 +614,7 @@ a.hideDots img {
     margin-top: 24px;
 }
 .bp_graph a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -4003,8 +4003,7 @@ button.aboutTabsIner {
 }
 .profilePkgIner2 {
     padding: 22px 28px;
-    min-height: 150vh;
-    padding-bottom: 122px;
+    padding-bottom: 34px;
     margin-bottom: 25px;
 }
 .profileInfoDate .react-date-picker {
@@ -7156,7 +7155,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk a.vsblDots, .homeBgDrk a.conPainDots, .homeBgDrk a.bp_vsblDots, .homeBgDrk a.hideDots {
-    border: 1px solid #4C5252;
+    border: 1px solid #848484;
     border-radius: 8px;
     background-color: #404646;
     padding: 6px 3px 9px;
@@ -15094,7 +15093,7 @@ input:focus {
     background-color: #606565;
 }
 .scndOptionIner1 ul li img {
-    margin-right: 12px;
+    margin-right: 2px;
     width: 25px;
 }
 td.docphrImg {
@@ -17611,7 +17610,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     width: 100%;
     max-width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .viewTaskfilter {
     display: flex;
@@ -17638,7 +17637,8 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .addStafSelect input {
     min-height: initial !important;
 }
-.enterServMain .customservicetitle, .enterServMain .enterSpcl {
+.enterServMain .customservicetitle, 
+.enterServMain .enterSpcl {
     margin-bottom: 12px;
 }
 .enterServMain .addStafSelect {
@@ -17649,6 +17649,25 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 }
 .enterServMain .dueOn.creatInfoIner {
     margin-bottom: 0px;
+}
+.nwEntrCntnt.fltrClear .fltrClearIner {
+    height: 368px;
+}
+.nwEntrCntnt.fltrClear .fltrForm {
+    min-height: 126px;
+}
+.addAssignBtn1 .MuiGrid-root.newServc.newServicAllSec {
+    margin-bottom: 0px;
+}
+.addTaskBtn.addAssignBtn1 button {
+    margin-bottom: 24px;
+}
+.addSpeclContntIner2 .enterServMain .enterSpcl h2 {
+    margin-bottom: 18px;
+}
+.homeBgDrk .stndQues1 h3, 
+.homeBgDrk .bp_graph.FullInfoSet a {
+    color: #00B0DB !important;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
@@ -17668,8 +17687,11 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
       min-width: initial !important;
       padding: 0px !important;
    }
+   .allInfo {
+      margin-top: 5px;
+   }
 }
-@media (max-width: 1300px){ 
+@media (max-width: 1300px){
   .pattern-sec {
     margin-bottom: 14px;
    }
@@ -17677,9 +17699,35 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     margin-bottom: 0px;
    }
 }
-a{
-    color: #000;
+@media only screen and (min-width: 600px) and (max-width: 1168px){
+    .newassignLft img {
+      height: 22px !important;
+      width: 22px !important;
+    }
+    .tasklistName img {
+        width: 32px !important;
+        height: 32px !important;
+        margin-right: 0px !important;
+    }
+    .allInerTabs {
+        padding: 14px 12px !important;
+    }
+    img.openScnd {
+      height: 22px !important;
+      width: 22px;
+    }
+    .allInfo label {
+      font-size: 10px !important;
+    }
+    .allInfo p {
+      font-size: 10px !important;
+    }
+    .revwFilesRght, .allInfoRght {
+        margin-left: 2px !important;
+    }
+    .revwFiles {
+        margin-right: 6px !important;
+    }
 }
-a:hover{
-    color: #000;
-}
+a{color: #000;}
+a:hover{color: #000;}
