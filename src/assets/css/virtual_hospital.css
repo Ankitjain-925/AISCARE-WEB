@@ -16076,11 +16076,13 @@ width: 90px!important;
 }
 
 .allFormSection1 label
-{font-size: 1rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;}
+{font-size: 15px;
+  font-family: Muli;
+  font-weight: 500;
+  color:#7F8383
+  /* line-height: 1.5; */
+  /* letter-spacing: 0.00938em; */
+}
 
   .nurseImagrProf{
     border: 2px solid #00abaf;

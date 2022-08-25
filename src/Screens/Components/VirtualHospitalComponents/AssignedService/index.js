@@ -123,7 +123,8 @@ class Index extends Component {
             // service: {},
             selectedPat: {},
             assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-            items: [], addinvoice: {}, showError: ''
+               items: [], total_amount: 0,showError:''
+
         });
         this.props.handleCloseAss();
 
