@@ -133,18 +133,14 @@ class Index extends Component {
                             if (item.task_name) {
                                 return item.status === "done"
                             }
-                            else {
-                                if (item?.end_time && moment(current_time).isSameOrAfter(item?.end_time) === false) {
-                                    return item
-                                } else {
-                                    return item.status === "done"
-                                }
-
+                            else { 
+                                return item.status === "done"
                             }
                         });
                     var Open =
                         services?.length > 0 &&
-                        services.filter((item) => item.status === "open");
+                        services.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
+                        // services.filter((item) => item.status === "open" );
                     var ArchivedTask = services?.length > 0 &&
                         services.filter((item) => item.archived);
                     this.setState({

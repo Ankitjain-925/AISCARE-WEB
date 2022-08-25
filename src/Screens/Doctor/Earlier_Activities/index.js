@@ -110,7 +110,7 @@ class Index extends Component {
                         response.data.data.filter((item) => item.status === "done");
                     var Open =
                         response.data.data?.length > 0 &&
-                        response.data.data.filter((item) => item.status === "open");
+                        response.data.data.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
                     this.setState({
                         AllTasks: response.data.data,
                         DoneTask: Done,
