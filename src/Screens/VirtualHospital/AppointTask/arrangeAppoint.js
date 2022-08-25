@@ -417,6 +417,8 @@ class Index extends Component {
   }
 
   handleAllowLoc = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {please_select,first,Please_select_doctor_nurse,Please_select_patient_first} = translate;
     this.setState({ errorMsg: "" });
     const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
     if (Object.keys(selectedPatient).length !== 0) {
@@ -446,13 +448,13 @@ class Index extends Component {
           this.props.handleCloseAllowAccess();
         } else {
           var item = selectPatDoc === "yes" ? "Doctor" : "Nurse";
-          this.setState({ errorMsg: "Please select" + " " + item + " " + "first" });
+          this.setState({ errorMsg: please_select + " " + item + " " + first });
         }
       } else {
-        this.setState({ errorMsg: "Please select either dotor or nurse" });
+        this.setState({ errorMsg: Please_select_doctor_nurse });
       }
     } else
-      this.setState({ errorMsg: "Please select patient first" });
+      this.setState({ errorMsg: Please_select_patient_first});
   };
 
   handleCloseAllowLoc = () => {
@@ -751,7 +753,7 @@ class Index extends Component {
       vdo_call, All, Open, done,
       capab_Doctors1,
       Nurse,
-      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit } =
+      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit,Ok,Cancel } =
       translate;
 
     const { tabvalue, patNotSelected,
@@ -826,8 +828,8 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         }
-                        <Button onClick={this.UpdatePatientList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearPatientList}>{"Cancel"}</Button>
+                        <Button onClick={this.UpdatePatientList}>{Ok}</Button>
+                        <Button onClick={this.ClearPatientList}>{Cancel}</Button>
                       </div>)}
                     <label>{Patient}
                       <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ plistfilter: true }) }} />
@@ -861,8 +863,8 @@ class Index extends Component {
                               isSearchable={true} />
                           </Grid>
                         </Grid>
-                        <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
+                        <Button onClick={this.UpdateDocList}>{Ok}</Button>
+                        <Button onClick={this.ClearDocList}>{Cancel}</Button>
                       </div>)}
                     {/* <label>{capab_Doctors}
                       <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
@@ -914,7 +916,7 @@ class Index extends Component {
                         />
                       </Grid></>}
                     {this.state.selectPatDoc === 'no' && <>
-                      <label>Nurse
+                      <label>{Nurse}
                         {/* <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} /> */}
                       </label>
                       <Grid>
@@ -1091,7 +1093,7 @@ class Index extends Component {
                       />
                     </>}
                     {this.state.selectPatDoc === 'no' && <>
-                      <Grid><label>Nurse</label></Grid>
+                      <Grid><label>{Nurse}</label></Grid>
                       <Select
                         value={selectNurData || ''}
                         onChange={this.handleNurSelect}

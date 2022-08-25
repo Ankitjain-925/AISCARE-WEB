@@ -1221,29 +1221,30 @@ class Index extends Component {
                       this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
-                  }
-                >
+                  }>
                   <Grid className="apontBoxCntnt">
-                    <Grid className="apontCourse">
-                    <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-        <label>{cancel_apointmnt}</label>
-        <p>{plz_write_short_explnation}</p>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseApoint}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
+                    <Grid className="apontCourse 555">
+
+                    {/* <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
+                            <label>{cancel_apointmnt}</label>
+                            <p>{plz_write_short_explnation}</p>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                            <Grid>
+                            <Grid className="entryCloseBtn">
+                                <a onClick={this.handleCloseApoint}>
+                                <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                />
+                                </a>
+                            </Grid>
+                            </Grid>
+                        </Grid>
+                     </Grid> */}
+
                       <Grid className="apontCloseBtn">
                         <a onClick={this.handleCloseApoint}>
                           <img

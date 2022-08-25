@@ -110,7 +110,7 @@ class Index extends Component {
                         response.data.data.filter((item) => item.status === "done");
                     var Open =
                         response.data.data?.length > 0 &&
-                        response.data.data.filter((item) => item.status === "open");
+                        response.data.data.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
                     this.setState({
                         AllTasks: response.data.data,
                         DoneTask: Done,
@@ -219,7 +219,7 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { } = translate;
+        let {Earlier_activities} = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
           stateLoginValueAim.user === 'undefined' ||
@@ -258,7 +258,7 @@ class Index extends Component {
                           <Grid item xs={11} md={11}>
                             <Grid container direction="row">
                               <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{"Earlier activities"}</h1>
+                                <h1>{Earlier_activities}</h1>
                               </Grid>
                             </Grid>
                           </Grid>
