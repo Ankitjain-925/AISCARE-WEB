@@ -57,9 +57,9 @@ class Index extends Component {
             editServ: false,
             newServiceIndex: false,
             error: '',
-            total_amount:0,
+            total_amount: 0,
             errorMsg: '',
-            addservice:{},
+            addservice: {},
             selectedHouse: this.props.selectedHouse
         };
     }
@@ -76,52 +76,54 @@ class Index extends Component {
         delete data._id;
         data.archived = false;
         this.setState({ service: data });
-      };
+    };
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.patient !== this.props.patient) {
             let user = { value: this.props.patient?.patient_id };
             this.updateEntryState2(user);
-          }
+        }
         if (prevProps.openAss !== this.props.openAss) {
-            if(this.props.comesFrom !== 'Professional'){
-                this.setState({ openAss: this.props.openAss , professional_id_list1: this.state.professional_id_list});
+            if (this.props.comesFrom !== 'Professional') {
+                this.setState({ openAss: this.props.openAss, professional_id_list1: this.state.professional_id_list });
             }
-            else{
-                this.setState({ openAss: this.props.openAss})
+            else {
+                this.setState({ openAss: this.props.openAss })
             }
         }
         // if (prevProps.selectedHouse !== this.props.selectedHouse) {
         //     this.setState({ selectedHouse: this.props.selectedHouse },()=>{
-                
+
         //     });
         // }
-        if(prevProps.service !== this.props.service){
-            this.setState({addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
-                selectSpec: { label: this.props.service?.speciality?.specialty_name, value: this.props.service?.speciality?._id},},
-            ()=>{
-                if(this.props.comesFrom !== 'Professional'){
-                this.selectProf(
-                    this.state.service?.assinged_to,
-                    this.state.professional_id_list
-                );
-                let user = { value: this.state.service?.patient?.user_id };
-                this.updateEntryState2(user);
-                }
-                else{
+        if (prevProps.service !== this.props.service) {
+            this.setState({
+                addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
+                selectSpec: { label: this.props.service?.speciality?.specialty_name, value: this.props.service?.speciality?._id },
+            },
+                () => {
+                    if (this.props.comesFrom !== 'Professional') {
+                        this.selectProf(
+                            this.state.service?.assinged_to,
+                            this.state.professional_id_list
+                        );
+                        let user = { value: this.state.service?.patient?.user_id };
+                        this.updateEntryState2(user);
+                    }
+                    else {
                         this.getProfessionalData(true)
-                }
-            })
-         
-        } 
+                    }
+                })
+
+        }
     };
 
     handleCloseAss = () => {
         this.setState({
-            service: {},
+            // service: {},
             selectedPat: {},
             assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-            items: [], addinvoice: {},showError:''
+            items: [], addinvoice: {}, showError: ''
         });
         this.props.handleCloseAss();
 
@@ -161,13 +163,13 @@ class Index extends Component {
             state1['price_per_quantity'] = e.price;
             state1['quantity'] = 1;
             state1[name] = e;
-        } else if(name === 'quantity' ){
+        } else if (name === 'quantity') {
             state1['quantity'] = parseInt(e);
         }
         else {
             state[name] = e;
         }
-        this.setState({ service: state, addservice : state1 });
+        this.setState({ service: state, addservice: state1 });
     };
 
     assignedTo = (e) => {
@@ -196,7 +198,7 @@ class Index extends Component {
         });
     }
 
-     
+
     // manage assign to list
     selectProf = (listing, data) => {
         var showdata = data;
@@ -230,34 +232,33 @@ class Index extends Component {
     };
 
 
-      // Get the Professional data
-  getProfessionalData = async (fromEdit) => {
-    console.log('herreeee')
-    this.setState({ loaderImage: true });
-    var data = await getProfessionalData(
-      this.props.comesFrom === "Professional"
-        ? this.state.service?.house_id
-        : this.props?.House?.value,
-      this.props.stateLoginValueAim.token
-    );
-    if (data) {
-      this.setState({
-        loaderImage: false,
-        professionalArray: data.professionalArray,
-        professional_id_list: data.professionalList,
-        professional_id_list1: data.professionalList,
-      }, ()=>{
-        if(fromEdit){
-          this.selectProf(
-            this.state.service?.assinged_to,
-            this.state.professional_id_list
-          );
+    // Get the Professional data
+    getProfessionalData = async (fromEdit) => {
+        this.setState({ loaderImage: true });
+        var data = await getProfessionalData(
+            this.props.comesFrom === "Professional"
+                ? this.state.service?.house_id
+                : this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+        );
+        if (data) {
+            this.setState({
+                loaderImage: false,
+                professionalArray: data.professionalArray,
+                professional_id_list: data.professionalList,
+                professional_id_list1: data.professionalList,
+            }, () => {
+                if (fromEdit) {
+                    this.selectProf(
+                        this.state.service?.assinged_to,
+                        this.state.professional_id_list
+                    );
+                }
+            });
+        } else {
+            this.setState({ loaderImage: false });
         }
-      });
-    } else {
-      this.setState({ loaderImage: false });
-    }
-  };
+    };
 
     // Get the Patient data
     getPatientData = async () => {
@@ -288,17 +289,17 @@ class Index extends Component {
             this.setState({ loaderImage: false });
         }
     };
-      //Switch status done / open
-  switchStatus = (alrady) => {
-    if (!alrady) {
-      const state = this.state.service;
-      state["status"] = state.status === "done" ? "open" : "done";
-      if (state.status === "done") {
-        state["done_on"] = new Date();
-      }
-      this.setState({ service: state });
-    }
-  };
+    //Switch status done / open
+    switchStatus = (alrady) => {
+        if (!alrady) {
+            const state = this.state.service;
+            state["status"] = state.status === "done" ? "open" : "done";
+            if (state.status === "done") {
+                state["done_on"] = new Date();
+            }
+            this.setState({ service: state });
+        }
+    };
 
     updateEntryState2 = (user) => {
         var user1 =
@@ -325,13 +326,13 @@ class Index extends Component {
                     },
                 });
             }
-            this.setState({ service: state, selectedPat: user }, 
-                );
+            this.setState({ service: state, selectedPat: user },
+            );
         }
     };
 
     updateEntry = (value, name) => {
-        var due_on = this.state.service?.due_on ? this.state.service?.due_on : {date : new Date(), time: new Date()};
+        var due_on = this.state.service?.due_on ? this.state.service?.due_on : { date: new Date(), time: new Date() };
         const state = this.state.service;
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
@@ -344,64 +345,63 @@ class Index extends Component {
     };
     FinalServiceSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong,pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff,Please_add_atleast_one_service } = translate;
+        let { Something_went_wrong, pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff, Please_add_atleast_one_service } = translate;
         var data = this.state.service;
         data.assign_service = this.state.items;
         data.amount = this.state.total_amount;
         data.status = data.status ? data.status : "open";
         data.created_at = new Date();
-        if(!data.title || data.title === ''){
-            this.setState({ errorMsg:pleaseEntertitle });
-        }else if (!data.patient ||
+        if (!data.title || data.title === '') {
+            this.setState({ errorMsg: pleaseEntertitle });
+        } else if (!data.patient ||
             (data && data.patient && data.patient.length < 1)
         ) {
             this.setState({ errorMsg: plz_select_patient });
         }
-       else if ( !data.assinged_to ) {
-            this.setState({ errorMsg:Plz_select_a_staff });
+        else if (!data.assinged_to) {
+            this.setState({ errorMsg: Plz_select_a_staff });
         }
-        else if(!data.due_on?.date || !data.due_on?.time){
-            this.setState({ errorMsg:please_enter_dueon });
+        else if (!data.due_on?.date || !data.due_on?.time) {
+            this.setState({ errorMsg: please_enter_dueon });
         }
-        else if(!data.assign_service || data.assign_service?.length === 0){
-            this.setState({ errorMsg:Please_add_atleast_one_service });
+        else if (!data.assign_service || data.assign_service?.length === 0) {
+            this.setState({ errorMsg: Please_add_atleast_one_service });
         }
         else {
-        this.setState({ loaderImage: true })
-        console.log('dats',data)
-            if(data?._id){
+            this.setState({ loaderImage: true })
+            if (data?._id) {
                 // data.house_id = this.state.selectedHouse?.value;
                 axios
-                .put(
-                    sitedata.data.path + "/assignservice/Updateassignservice/"+ data?._id,
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ loaderImage: false, service: {} });
-                    this.props.getAddTaskData();
-                    this.handleCloseAss();
+                    .put(
+                        sitedata.data.path + "/assignservice/Updateassignservice/" + data?._id,
+                        data,
+                        commonHeader(this.props.stateLoginValueAim.token)
+                    )
+                    .then((responce) => {
+                        this.setState({ loaderImage: false, service: {} });
+                        this.props.getAddTaskData();
+                        this.handleCloseAss();
 
-                }).catch((error)=> {
-                    this.setState({ errorMsg: Something_went_wrong })
-                });
+                    }).catch((error) => {
+                        this.setState({ errorMsg: Something_went_wrong })
+                    });
             }
-            else{
+            else {
                 data.house_id = this.props?.House?.value;
                 axios
-                .post(
-                    sitedata.data.path + "/assignservice/Addassignservice",
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ loaderImage: false, service: {} });
-                    this.props.getAddTaskData();
-                    this.handleCloseAss();
+                    .post(
+                        sitedata.data.path + "/assignservice/Addassignservice",
+                        data,
+                        commonHeader(this.props.stateLoginValueAim.token)
+                    )
+                    .then((responce) => {
+                        this.setState({ loaderImage: false, service: {} });
+                        this.props.getAddTaskData();
+                        this.handleCloseAss();
 
-                }).catch((error)=> {
-                    this.setState({ errorMsg: Something_went_wrong })
-                });
+                    }).catch((error) => {
+                        this.setState({ errorMsg: Something_went_wrong })
+                    });
             }
         }
     }
@@ -433,7 +433,7 @@ class Index extends Component {
                 });
             });
     };
-    
+
     handleCloseServ = () => {
         this.setState({ editServ: false, addservice: {} });
     };
@@ -455,7 +455,7 @@ class Index extends Component {
         this.setState({ addservice: deep, newServiceIndex: index, editServ: true });
     };
 
-    
+
 
     //Add the services
     handleAddSubmit = () => {
@@ -489,7 +489,7 @@ class Index extends Component {
                 // newService.service = this.state.service?.title;
                 let items = this.state.items ? [...this.state.items] : [];
                 items.push(newService);
-                this.setState({ items ,addservice:{}}, () => {
+                this.setState({ items, addservice: {} }, () => {
                     this.updateTotalPrize();
                 });
             }
@@ -518,7 +518,7 @@ class Index extends Component {
         var array = this.state.items;
         array[index].price = newService?.price;
         array[index].quantity = newService?.quantity;
-        this.setState({items: array}, ()=>{
+        this.setState({ items: array }, () => {
             this.updateTotalPrize();
             this.setState({ addservice: {}, newServiceIndex: false, editServ: false });
         })
@@ -528,8 +528,9 @@ class Index extends Component {
     //Delete the perticular service confirmation box
     removeServices = (id) => {
         this.props.handleCloseAss();
-        this.setState({ message: null, 
-       });
+        this.setState({
+            message: null,
+        });
         let translate = getLanguage(this.props.stateLanguageType);
         let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
             translate;
@@ -561,27 +562,27 @@ class Index extends Component {
                             >
                                 {Yes}
                             </button>
-                           
+
                         </div>
                     </div>
                 );
-                
+
             },
         });
-        
+
     };
 
     deleteClickService(id) {
         this.props.handleOpenAss();
         // delete this.state.items[id]
-      this.state.items.splice(id, 1);
+        this.state.items.splice(id, 1);
         this.setState({ items: this.state.items, loaderImage: true });
         var newService = this.state.addservice;
         newService.price = newService?.price_per_quantity * newService?.quantity;
         newService.service = this.state.addservice?.service?.label;
         let items = [...this.state.items];
         this.setState({ items, addservice: {} }, () => {
-            this.setState({ loaderImage: false})
+            this.setState({ loaderImage: false })
             this.updateTotalPrize();
 
         });
@@ -630,7 +631,7 @@ class Index extends Component {
         } = translate;
         return (
 
-           <>
+            <>
                 {this.state.loaderImage && <Loader />}
                 <Modal
                     open={this.state.openAss}
@@ -655,7 +656,7 @@ class Index extends Component {
                         }
                     // className="addServContnt"
                     >
-                       
+
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
@@ -677,8 +678,8 @@ class Index extends Component {
                             </Grid>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
-                            <Grid>
-                               <VHfield
+                                    <Grid>
+                                        <VHfield
                                             label={Assignedtitle}
                                             name="title"
                                             placeholder={Entertitle}
@@ -686,16 +687,15 @@ class Index extends Component {
                                                 this.onFieldChange1(e.target.value, 'title')
                                             }
                                             value={this.state.service?.title}
-                                            
                                         />
                                     </Grid>
                                     <p className="err_message">{this.state.error}</p>
                                     <Grid>
-                                     {this.state.showError && (
-                                        <div className="err_message">
-                                            {Please_select_atlest}
-                                        </div>
-                                    )}
+                                        {this.state.showError && (
+                                            <div className="err_message">
+                                                {Please_select_atlest}
+                                            </div>
+                                        )}
                                         <label>{Addservice}</label>
                                         <Select
                                             name="service"
@@ -766,7 +766,7 @@ class Index extends Component {
                                                                         <h3>{data?.service}</h3>
                                                                         <p>{data?.quantity}</p>
                                                                         <p>{data?.price} €</p>
-                                                                      
+
                                                                     </Grid>
                                                                     <Grid item xs={6} md={6} className="wrdEdtDelBtn edtdelservice">
 
@@ -805,32 +805,33 @@ class Index extends Component {
                                         <label>{ForPatient}</label>
 
                                         {this.props.comesFrom === "Professional" &&
-                              this.state.service?.patient?._id ? (
-                              <h2>
-                                {this.state.service?.patient?.first_name}{" "}
-                                {this.state.service?.patient?.last_name}
-                              </h2>):
-                               this.props.comesFrom === "detailTask"  ? (
-                                <h2>
-                                {this.state.service?.patient?.first_name}{" "}
-                                {this.state.service?.patient?.last_name}
-                              </h2>)
-                              :
-                                        <Grid>
-                                            <Select
-                                                name="patient"
-                                                options={this.state.users1}
-                                                placeholder={Search_Select}
-                                                onChange={(e) => this.updateEntryState2(e)}
-                                                value={this.state.selectedPat || ""}
-                                                className="addStafSelect"
-                                                isMulti={false}
-                                                isSearchable={true}
-                                            />
+                                            this.state.service?.patient?._id ? (
 
-                                        </Grid>}
+                                            <h2>
+                                                {this.state.service?.patient?.first_name}{" "}
+                                                {this.state.service?.patient?.last_name}
+                                            </h2>) :
+                                            this.props.comesFrom === "detailTask" ? (
+                                                <h2>
+                                                    {this.state.service?.patient?.first_name}{" "}
+                                                    {this.state.service?.patient?.last_name}
+                                                </h2>)
+                                                :
+                                                <Grid>
+                                                    <Select
+                                                        name="patient"
+                                                        options={this.state.users1}
+                                                        placeholder={Search_Select}
+                                                        onChange={(e) => this.updateEntryState2(e)}
+                                                        value={this.state.selectedPat || ""}
+                                                        className="addStafSelect"
+                                                        isMulti={false}
+                                                        isSearchable={true}
+                                                    />
+
+                                                </Grid>}
                                     </Grid>
-                                   
+
                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
                                         <Grid>
@@ -900,7 +901,7 @@ class Index extends Component {
                                                     //     : false
                                                     // }
                                                     />
-                                            
+
                                                 </Grid>
                                                 <Grid
                                                     item
@@ -957,124 +958,124 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                  {this.state.service?._id &&  
-                                    <Grid className="assignSecUpr">
-                            <Grid container direction="row" alignItems="center">
-                              <Grid item xs={12} sm={12} md={12}>
-                                <Grid className="assignSec">
-                                    <>
-                                            <Grid
-                                              onClick={() => {
-                                                this.createDuplicate(
-                                                  this.state.service
-                                                );
-                                              }}
-                                            >
-                                              <img
-                                                src={require("assets/virtual_images/assign-to.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              <label>{Duplicate}</label>
-                                            </Grid>
-                                            <Grid
-                                              onClick={() => {
-                                                this.switchStatus();
-                                              }}
-                                              className="markDone"
-                                            >
-                                              {this.state.service?.status ===
-                                                "done" ? (
-                                                <Grid className="revwFiles ">
-                                                  <Grid className="activeOntask">
-                                                    <img
-                                                      src={require("assets/virtual_images/greyImg.png")}
-                                                      alt=""
-                                                      title=""
-                                                    />
-                                                  </Grid>
+                                    {this.state.service?._id &&
+                                        <Grid className="assignSecUpr">
+                                            <Grid container direction="row" alignItems="center">
+                                                <Grid item xs={12} sm={12} md={12}>
+                                                    <Grid className="assignSec">
+                                                        <>
+                                                            <Grid
+                                                                onClick={() => {
+                                                                    this.createDuplicate(
+                                                                        this.state.service
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <img
+                                                                    src={require("assets/virtual_images/assign-to.svg")}
+                                                                    alt=""
+                                                                    title=""
+                                                                />
+                                                                <label>{Duplicate}</label>
+                                                            </Grid>
+                                                            <Grid
+                                                                onClick={() => {
+                                                                    this.switchStatus();
+                                                                }}
+                                                                className="markDone"
+                                                            >
+                                                                {this.state.service?.status ===
+                                                                    "done" ? (
+                                                                    <Grid className="revwFiles ">
+                                                                        <Grid className="activeOntask">
+                                                                            <img
+                                                                                src={require("assets/virtual_images/greyImg.png")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                ) : (
+                                                                    <Grid className="revwFiles">
+                                                                        <Grid>
+                                                                            <img
+                                                                                src={require("assets/virtual_images/greyImg.png")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                )}
+                                                                <label>{Markasdone}</label>
+                                                            </Grid>
+                                                            {this.state.service?.archived ==
+                                                                true ? (
+                                                                <Grid
+                                                                    onClick={() => {
+                                                                        this.updateEntry(
+                                                                            false,
+                                                                            "archived"
+                                                                        );
+                                                                    }}
+                                                                    className="activeOntask"
+                                                                >
+                                                                    <img
+                                                                        src={require("assets/images/archive-white.svg")}
+                                                                        alt=""
+                                                                        title=""
+                                                                    />
+                                                                    <label>{Archive}</label>
+                                                                </Grid>
+                                                            ) : (
+                                                                <Grid
+                                                                    onClick={() => {
+                                                                        this.updateEntry(
+                                                                            true,
+                                                                            "archived"
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <img
+                                                                        src={require("assets/images/archive.svg")}
+                                                                        alt=""
+                                                                        title=""
+                                                                    />
+                                                                    <label>{Archive}</label>
+                                                                </Grid>
+                                                            )}
+                                                            <Grid>
+                                                                <img
+                                                                    onClick={() => {
+                                                                        this.props.removeTask(this.state.service?._id);
+                                                                    }}
+                                                                    src={require("assets/virtual_images/deleteNew.png")}
+                                                                    alt=""
+                                                                    title=""
+                                                                    className="manage-size"
+                                                                />
+                                                                <label
+                                                                    onclick={() => {
+                                                                        this.props.removeTask(this.state.service?._id);
+                                                                    }}
+                                                                >
+                                                                    {Delete}
+                                                                </label>
+                                                            </Grid>
+                                                        </>
+                                                    </Grid>
                                                 </Grid>
-                                              ) : (
-                                                <Grid className="revwFiles">
-                                                  <Grid>
-                                                    <img
-                                                      src={require("assets/virtual_images/greyImg.png")}
-                                                      alt=""
-                                                      title=""
-                                                    />
-                                                  </Grid>
-                                                </Grid>
-                                              )}
-                                              <label>{Markasdone}</label>
                                             </Grid>
-                                            {this.state.service?.archived ==
-                                              true ? (
-                                              <Grid
-                                                onClick={() => {
-                                                  this.updateEntry(
-                                                    false,
-                                                    "archived"
-                                                  );
-                                                }}
-                                                className="activeOntask"
-                                              >
-                                                <img
-                                                  src={require("assets/images/archive-white.svg")}
-                                                  alt=""
-                                                  title=""
-                                                />
-                                                <label>{Archive}</label>
-                                              </Grid>
-                                            ) : (
-                                              <Grid
-                                                onClick={() => {
-                                                  this.updateEntry(
-                                                    true,
-                                                    "archived"
-                                                  );
-                                                }}
-                                              >
-                                                <img
-                                                  src={require("assets/images/archive.svg")}
-                                                  alt=""
-                                                  title=""
-                                                />
-                                                <label>{Archive}</label>
-                                              </Grid>
-                                            )}
-                                            <Grid>
-                                              <img
-                                                onClick={() => {
-                                                  this.props.removeTask(this.state.service?._id);
-                                                }}
-                                                src={require("assets/virtual_images/deleteNew.png")}
-                                                alt=""
-                                                title=""
-                                                className="manage-size"
-                                              />
-                                              <label
-                                                onclick={() => {
-                                                  this.props.removeTask(this.state.service?._id);
-                                                }}
-                                              >
-                                                {Delete}
-                                              </label>
-                                            </Grid>
-                                          </>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        </Grid>}
+                                        </Grid>}
                                 </Grid>
 
 
                             </Grid>
                             <a>
-                              <div className="err_message">
-                                  {this.state.errorMsg}
+                                <div className="err_message">
+                                    {this.state.errorMsg}
                                 </div>
-                                </a>
-                     
+                            </a>
+
                             <Grid className="servSaveBtn" onClick={() =>
                                 this.FinalServiceSubmit()
                             }>
@@ -1155,13 +1156,11 @@ class Index extends Component {
                                                 />
                                             </Grid>
                                         </Grid>
-                                        
-                                        {/* {console.log('dsfdf', this.state.errorMsg)} */}
                                     </Grid>
                                     <Grid item xs={12} md={12} className="saveTasks">
-                                </Grid>
+                                    </Grid>
                                     <Grid className="servSaveBtn">
-                                
+
                                         <a onClick={this.handleCloseServ}>
                                             <Button onClick={() => this.handleAddUpdate()}>
                                                 {save_and_close}

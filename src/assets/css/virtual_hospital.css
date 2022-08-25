@@ -16038,3 +16038,32 @@ width: 90px!important;
   .services-head{
     font-weight: bold;
   }
+
+.allFormSection1
+  {    margin: 40px 40px 0px 0px!important;
+}
+
+
+.nurseImagrProf img{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin: 4px 7px 0px 0px
+}
+
+.allFormSection1 label
+{font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;}
+
+  .nurseImagrProf{
+    border: 2px solid #00abaf;
+    border-radius: 5px;
+    margin: 1px 0px 18px 0px;
+  }
+
+  .nurseImagrProf1{
+    padding: 9px;
+  }
