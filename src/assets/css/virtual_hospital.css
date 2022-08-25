@@ -14468,9 +14468,9 @@ label.newrole {
   margin-top: 10px;
 }
 
-.stndQues1 label {
+/* .stndQues1 label {
   margin-top: 12px;
-}
+} */
 .imageEvalSize img {
   /* height: 90px; */
   width: 50%;
@@ -16042,6 +16042,22 @@ width: 90px!important;
   .services-head{
     font-weight: bold;
   }
+
+
+
+
+
+.stndQues1 span{
+  color:unset;
+  margin-bottom: 0px;
+}
+.mainQueLab{
+  line-height: 20px!important;
+}
+.creatTskCnt{
+  padding:0px;
+}
+
   .downloadButton {
     margin-top: 10px;
     margin-left: 14px;
@@ -16093,3 +16109,4 @@ width: 90px!important;
   .nurseImagrProf1{
     padding: 9px;
   }
+
