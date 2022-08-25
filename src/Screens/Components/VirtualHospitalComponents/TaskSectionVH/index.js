@@ -4490,6 +4490,7 @@ removeTask21 = (id) => {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4517,6 +4518,7 @@ removeTask21 = (id) => {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4544,6 +4546,7 @@ removeTask21 = (id) => {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4571,6 +4574,7 @@ removeTask21 = (id) => {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4598,6 +4602,7 @@ removeTask21 = (id) => {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4625,6 +4630,7 @@ removeTask21 = (id) => {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        DoneAppointment={()=>{}}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}

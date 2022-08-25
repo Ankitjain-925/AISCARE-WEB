@@ -1393,6 +1393,7 @@ removeTask2 = (id) => {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        DoneAppointment={()=>{}}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1408,6 +1409,7 @@ removeTask2 = (id) => {
                     <Grid>
                     <TaskView
                         data={data}
+                        DoneAppointment={()=>{}}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1424,6 +1426,7 @@ removeTask2 = (id) => {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                   <TaskView
+                    DoneAppointment={()=>{}}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1442,6 +1445,7 @@ removeTask2 = (id) => {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                      <TaskView
+                       DoneAppointment={()=>{}}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1459,6 +1463,7 @@ removeTask2 = (id) => {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                        <TaskView
+                         DoneAppointment={()=>{}}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
