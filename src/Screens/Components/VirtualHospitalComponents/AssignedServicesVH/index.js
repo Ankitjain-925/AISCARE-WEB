@@ -1303,7 +1303,6 @@ class Index extends Component {
                       />
                     )}
                   </a>
-                  {console.log('ArchivedTasks', this.state.ArchivedTasks)}
                   {this.props.comesFrom !== 'Professional' &&
                     this.props.comesFrom !== 'detailTask' && (
                       <>
@@ -1393,7 +1392,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        DoneAppointment={()=>{}}
+                        DoneAppointment={() => { }}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1409,7 +1408,7 @@ class Index extends Component {
                     <Grid>
                       <TaskView
                         data={data}
-                        DoneAppointment={()=>{}}
+                        DoneAppointment={() => { }}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1425,8 +1424,8 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                  <TaskView
-                    DoneAppointment={()=>{}}
+                      <TaskView
+                        DoneAppointment={() => { }}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1445,8 +1444,8 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
 
-                     <TaskView
-                       DoneAppointment={()=>{}}
+                      <TaskView
+                        DoneAppointment={() => { }}
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1463,8 +1462,8 @@ class Index extends Component {
                 {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
-                       <TaskView
-                         DoneAppointment={()=>{}}
+                      <TaskView
+                        DoneAppointment={() => { }}
 
                         data={data}
                         removeTask={(id) => this.removeTask(id)}

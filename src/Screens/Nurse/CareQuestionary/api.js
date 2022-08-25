@@ -20,6 +20,10 @@ export const handleChangeForm = (current, value) => {
     }
 }
 
+export const updateAllEntrySec0 = (current, e) => {
+    current.setState({ allQuestionData: e });
+}
+
 export const updateAllEntrySec = (current, e) => {
     const state = current.state.allQuestionData;
     state[e.target.name] = e.target.value;

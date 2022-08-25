@@ -33,7 +33,8 @@ import {
     updateEntryState,
     updateEntryState1,
     openFullQues,
-    closeFullQues
+    closeFullQues,
+    updateAllEntrySec0
 } from "./api"
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import Select from "react-select";
@@ -69,6 +70,8 @@ class Index extends Component {
 
 
     render() {
+        console.log("this.state.allQuestionData", this.state.allQuestionData)
+
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -2049,40 +2052,53 @@ class Index extends Component {
                                                                 <FormLabel id="main-topic-counted">{Feeding}</FormLabel>
                                                                 <RadioGroup aria-labelledby="main-topic-counted" name="quarter_feeding">
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_feeding === 'dependent in all aspects and needs to be fed'}
-                                                                        value="dependent in all aspects and needs to be fed"
+                                                                        checked={this.state.allQuestionData?.quarter_feeding?.value === 'feeding_v1'}
+                                                                        value="feeding_v1"
                                                                         onChange={(e) => {
-                                                                            var e = { value: "quarter_feeding", label: e }
-                                                                            updateAllEntrySec(this, e)
+                                                                            var e = { quarter_feeding: { value: "feeding_v1", label: "dependent in all aspects and needs to be fed" } }
+                                                                            updateAllEntrySec0(this, e)
                                                                         }}
                                                                         control={<Radio />}
                                                                         label={Dependent_in_all_aspects}
                                                                     />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_feeding === 'can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal'}
-                                                                        value="can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_feeding?.value === 'feeding_v2'}
+                                                                        value="feeding_v2"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_feeding: { value: "feeding_v2", label: "can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Can_manipulate_an_eating_device}
                                                                     />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_feeding === 'able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities'}
-                                                                        value="able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_feeding?.value === 'feeding_v3'}
+                                                                        value="feeding_v3"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_feeding: { value: "feeding_v3", label: "able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Able_to_feed_self}
                                                                     />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_feeding === 'independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required'}
-                                                                        value="independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_feeding?.value === 'feeding_v4'}
+                                                                        value="feeding_v4"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_feeding: { value: "feeding_v4", label: "independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
+
                                                                         control={<Radio />}
                                                                         label={Independence_in_feeding}
                                                                     />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_feeding === 'the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc..'}
-                                                                        value="the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.."
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_feeding?.value === 'feeding_v5'}
+                                                                        value="feeding_v5"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_feeding: { value: "feeding_v5", label: "the patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc.." } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={The_patient_can_feed_tray}
                                                                     />
@@ -2093,33 +2109,53 @@ class Index extends Component {
                                                                 <FormLabel id="Chair-Bed-Transfers">{Chair_Bed_Transfers}</FormLabel>
                                                                 <RadioGroup aria-labelledby="Chair-Bed-Transfers" name="quarter_chair_bed_transfer">
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer === 'unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device.'}
-                                                                        value="unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device."
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer?.value === 'chair_bed_v1'}
+                                                                        value="chair_bed_v1"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_chair_bed_transfer: { value: "chair_bed_v1", label: "unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Unable_participate_transfer} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer === 'able to participate but maximum assistance of one other person is require in all aspects of the transfer'}
-                                                                        value="able to participate but maximum assistance of one other person is require in all aspects of the transfer"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer?.value === 'chair_bed_v2'}
+                                                                        value="chair_bed_v2"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_chair_bed_transfer: { value: "chair_bed_v2", label: "able to participate but maximum assistance of one other person is require in all aspects of the transfer" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
+
                                                                         control={<Radio />}
                                                                         label={Able_participate_but_maximum} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer === 'the presence of another person is required either as a confidence measure, to provide supervision for safety'}
-                                                                        value="the presence of another person is required either as a confidence measure, to provide supervision for safety"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer?.value === 'chair_bed_v3'}
+                                                                        value="chair_bed_v3"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_chair_bed_transfer: { value: "chair_bed_v3", label: "the presence of another person is required either as a confidence measure, to provide supervision for safety" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
+
                                                                         control={<Radio />}
                                                                         label={The_presence_another_person_required} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer === 'the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely'}
-                                                                        value="the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer?.value === 'chair_bed_v4'}
+                                                                        value="chair_bed_v4"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_chair_bed_transfer: { value: "chair_bed_v4", label: "the patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
+
                                                                         control={<Radio />}
                                                                         label={The_patient_safety_approach} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer === 'the patient must be independent in all phases of this activity'}
-                                                                        value="the patient must be independent in all phases of this activity"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_chair_bed_transfer?.value === 'chair_bed_v5'}
+                                                                        value="chair_bed_v5"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_chair_bed_transfer: { value: "chair_bed_v5", label: "the patient must be independent in all phases of this activity" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={The_patient_must_be_independent} />
                                                                 </RadioGroup>
@@ -2129,33 +2165,54 @@ class Index extends Component {
                                                                 <FormLabel id="Radio-Ambulation">{Ambulation}</FormLabel>
                                                                 <RadioGroup aria-labelledby="Radio-Ambulation" name="quarter_ambulation">
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_ambulation === 'dependent in ambulation'}
-                                                                        value="dependent in ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_ambulation?.value === 'abulation_v1'}
+                                                                        value="abulation_v1"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_ambulation: { value: "abulation_v1", label: "the patient must be independent in all phases of this activity" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Dependent_in_ambulation} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_ambulation === 'constant presence of one or more assistant is required during ambulation'}
-                                                                        value="constant presence of one or more assistant is required during ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_ambulation?.value === 'abulation_v2'}
+                                                                        value="abulation_v2"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_ambulation: { value: "abulation_v2", label: "constant presence of one or more assistant is required during ambulation" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Constant_presence_of_one} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_ambulation === 'assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance'}
-                                                                        value="assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+
+                                                                        checked={this.state.allQuestionData?.quarter_ambulation?.value === 'abulation_v3'}
+                                                                        value="abulation_v3"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_ambulation: { value: "abulation_v3", label: "assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Assistance_required_with_reaching} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_ambulation === 'the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations'}
-                                                                        value="the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_ambulation?.value === 'abulation_v4'}
+                                                                        value="abulation_v4"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_ambulation: { value: "abulation_v4", label: "the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={The_patient_is_independent} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_ambulation === 'the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision'}
-                                                                        value="the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_ambulation?.value === 'abulation_v5'}
+                                                                        value="abulation_v5"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_ambulation: { value: "abulation_v5", label: "the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={The_patient_must_wear_braces} />
                                                                 </RadioGroup>
@@ -2168,33 +2225,50 @@ class Index extends Component {
                                                                 </FormLabel>
                                                                 <RadioGroup aria-labelledby="Radio-Wheelchair" name="quarter_wheelchair_management">
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management === 'dependent in wheelchair ambulation'}
-                                                                        value="dependent in wheelchair ambulation"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management?.value === 'wheelchair_v1'}
+                                                                        value="wheelchair_v1"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_wheelchair_management: { value: "wheelchair_v1", label: "dependent in wheelchair ambulation" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Dependent_in_wheelchair} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management === 'patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management'}
-                                                                        value="patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+
+                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management?.value === 'wheelchair_v2'}
+                                                                        value="wheelchair_v2"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_wheelchair_management: { value: "wheelchair_v2", label: "patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
+
                                                                         control={<Radio />}
                                                                         label={Patient_self_short_distance} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management === 'presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc'}
-                                                                        value="presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management?.value === 'wheelchair_v3'}
+                                                                        value="wheelchair_v3"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_wheelchair_management: { value: "wheelchair_v3", label: "presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Presence_one_person_necessary} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management === 'the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high'}
-                                                                        value="the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management?.value === 'wheelchair_v4'}
+                                                                        value="wheelchair_v4"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_wheelchair_management: { value: "wheelchair_v4", label: "the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={The_patient_propel_self_reasonable_duration} />
                                                                     <FormControlLabel
-                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management === 'To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb'}
-                                                                        value="To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        checked={this.state.allQuestionData?.quarter_wheelchair_management?.value === 'wheelchair_v5'}
+                                                                        value="wheelchair_v5"
+                                                                        onChange={(e) => {
+                                                                            var e = { quarter_wheelchair_management: { value: "wheelchair_v5", label: "To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb" } }
+                                                                            updateAllEntrySec0(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={To_propel_wheelchair_independently} />
                                                                 </RadioGroup>

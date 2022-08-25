@@ -57,7 +57,7 @@ class Index extends Component {
             editServ: false,
             newServiceIndex: false,
             error: '',
-            total_amount: 0,
+            total_amount: this.props.total_amount,
             errorMsg: '',
             addservice: {},
             selectedHouse: this.props.selectedHouse
@@ -82,6 +82,10 @@ class Index extends Component {
         if (prevProps.patient !== this.props.patient) {
             let user = { value: this.props.patient?.patient_id };
             this.updateEntryState2(user);
+        }
+        if (prevProps.total_amount !== this.props.total_amount) {
+            this.setState({ total_amount: this.props.total_amount });
+
         }
         if (prevProps.openAss !== this.props.openAss) {
             if (this.props.comesFrom !== 'Professional') {
@@ -411,7 +415,7 @@ class Index extends Component {
             serviceList1 = [];
         axios
             .get(
-                sitedata.data.path + '/vh/GetService/' + this.props?.House?.value,
+                sitedata.data.path + '/vh/GetService/' + "60fabfe5b3394533f7f9a6dc-1654919887767",
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -502,7 +506,7 @@ class Index extends Component {
     updateTotalPrize = () => {
         var total = 0;
         this.state.items?.length > 0 &&
-            this.state.items.map((data) => {
+            this.state.items.map((data, i) => {
                 if (data && data?.price) {
                     total = total + parseInt(data?.price);
                 }
