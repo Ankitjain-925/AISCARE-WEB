@@ -66,9 +66,7 @@ class Index extends Component {
     }
 
 
-    closeFullQues = () => {
-        this.setState({ openModal: false });
-    }
+
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -2053,7 +2051,10 @@ class Index extends Component {
                                                                     <FormControlLabel
                                                                         checked={this.state.allQuestionData?.quarter_feeding === 'dependent in all aspects and needs to be fed'}
                                                                         value="dependent in all aspects and needs to be fed"
-                                                                        onChange={(e) => updateAllEntrySec(this, e)}
+                                                                        onChange={(e) => {
+                                                                            var e = { value: "quarter_feeding", label: e }
+                                                                            updateAllEntrySec(this, e)
+                                                                        }}
                                                                         control={<Radio />}
                                                                         label={Dependent_in_all_aspects}
                                                                     />
@@ -2383,7 +2384,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid>
                                                             <label>Checked by: <S3Image imgUrl={item?.nurse_info?.image} />
-                                                                {item?.nurse_info?.first_name} {" "} {item?.nurse_info?.last_name}</label></Grid>
+                                                                {item?.nurse_info?.first_name} {" "} {item?.nurse_info?.last_name} ({item?.nurse_info?.alies_id})</label></Grid>
                                                         <Grid className="bp_graph FullInfoSet">
 
                                                             <Grid>
@@ -2397,7 +2398,7 @@ class Index extends Component {
                                                 </Grid>
                                             ))}
                                             <ShowPrevQues
-                                                closeFullQues={() => this.closeFullQues()}
+                                                closeFullQues={() => closeFullQues(this)}
                                                 openModal={this.state.openModal}
                                                 item={this.state.ModalData}
                                             />
