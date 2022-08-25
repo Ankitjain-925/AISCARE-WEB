@@ -349,7 +349,7 @@ a.vsblTime {
     border-radius: 8px;
     background-color: #F2F2F2;
     padding: 8px 14px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: block;
     color: #404646;
     font-family: Muli;
@@ -570,11 +570,11 @@ a.hideDots img {
     font-size: 16px;
 }
 .bpJohnMain {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-top: 1px solid #f2f2f2;
+    /* padding-top: 12px; */
+    /* padding-bottom: 12px; */
+    /* border-top: 1px solid #f2f2f2; */
     border-bottom: 1px solid #f2f2f2;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 .bpJohnImg img {
     width: 16px;
@@ -7410,7 +7410,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk a.nxtpag {
     color: #00ABAF !important;
 }
-.homeBgDrk .presPkgIner1 header.presTabsUpr, .homeBgDrk .presPkgIner1 .MuiTabs-flexContainer {
+.homeBgDrk .presPkgIner1 header.presTabsUpr, 
+.homeBgDrk .presPkgIner1 .MuiTabs-flexContainer {
     background-color: #404646 !important;
 }
 .homeBgDrk .presTabs button span {
@@ -9804,9 +9805,6 @@ a.temp_f {
     letter-spacing: 0;
     line-height: 14px;
     margin-bottom: 6px;
-}
-.stndQues {
-    margin-bottom: 30px;
 }
 input.approvBtn {
     border-radius: 8px;
@@ -16451,9 +16449,9 @@ select:-webkit-autofill:focus {
 .officeVst .MuiGrid-container {
     align-items: center;
 }
-.apointUpcom .officeVst:nth-child(6) .officeVstRght img {
+/* .apointUpcom .officeVst:nth-child(6) .officeVstRght img {
     width: 11px;
-}
+} */
 @media screen and (max-height: 625px) {
     .phrmLinkUpr {
         height: 480px !important;
@@ -16492,6 +16490,10 @@ select:-webkit-autofill:focus {
   }
   .downloadButton {
     float: left;
+  }
+  .downloadButton {
+    margin-left: 0px !important;
+    margin-right: 22px !important;
   }
 }
 @media (min-width: 960px) {
@@ -17318,7 +17320,7 @@ ul.duringCovid li:last-child {
     background-color: #00abaf !important;
 }
 .detailMark {
-    margin-top: 16px;
+    margin-top: 20px;
     width: 100%;
 }
 .homeBgDrk .fatiqueQues h2{
@@ -17691,10 +17693,6 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .taskDetailMob .allInerTabs .allTabCntnt {
     padding: 10px 7px;
 }
-.homeBgDrk .stndQues1 h3, 
-.homeBgDrk .bp_graph.FullInfoSet a {
-    color: #00B0DB !important;
-}
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
   .presOpinionIner span.revwGry {
@@ -17764,3 +17762,4 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 }
 a{color: #000;}
 a:hover{color: #000;}
+

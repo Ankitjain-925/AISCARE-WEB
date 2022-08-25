@@ -16001,6 +16001,10 @@ width: 90px!important;
     .homeBgDrk .MainclassQues1 h3{
       color: #F2F2F2 !important;
     }
+    .homeBgDrk .stndQues1 h3, 
+    .homeBgDrk .bp_graph.FullInfoSet a {
+        color: #00B0DB !important;
+    }
 
     /* added by ankita */
 
@@ -16037,4 +16041,25 @@ width: 90px!important;
   }
   .services-head{
     font-weight: bold;
+  }
+  .downloadButton {
+    margin-top: 10px;
+    margin-left: 14px;
+  }
+  .showDetail .cancelAppoint a {
+    margin-bottom: 0px;
+  }
+  .creatTaskModel.creatTaskModel11 .MuiGrid-root.creatLbl {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+  }
+  .creatTaskModel.creatTaskModel11 {
+    padding: 0px;
+  }
+  .darkTheme > .apontBoxCntnt .apontDragCntnt textarea {
+    background-color: transparent;
   }

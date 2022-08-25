@@ -219,25 +219,22 @@ getAllactivities = (tabvalue2, goArchive) => {
           var patientForFilterArr = filterPatient(response.data.data);
           this.setState({ patientForFilter: patientForFilterArr });
         }
-       let current_time= moment().format("HH:mm")
         var Done =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) =>{
-            if(item.task_name){
-              return item.status === "done" 
-               }
-               else 
-               {
-               return item.status ==="done"
-              }
-              });
+          response.data.data.filter((item) =>item.status === "done" || item.status === "Done")
+           
         var Open =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
+          response.data.data.filter(
+            (item) => item.status !== "done" || (item.appointment_type && item.status !== "done")
+          );
+          var ArchivedTask  = response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.archived);
         this.setState({
           AllTasks: response.data.data,
           DoneTask: Done,
           OpenTask: Open,
+          ArchivedTasks: ArchivedTask
         });
         if (goArchive) {
           this.setState({ tabvalue2: 3 });

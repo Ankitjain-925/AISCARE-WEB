@@ -125,17 +125,15 @@ class Index extends Component {
               return e.due_on.time
             }
           });
-          let today = new Date().setHours(0, 0, 0, 0);
-          let ttime = moment().format("HH:mm");
       var Done =
         services?.length > 0 && 
         services.filter((item) => { 
           if(item.task_name){
-            return item.status === "done" && item?.archived === false
+            return item.status === "done"
           }
           else 
           {
-            return item.status ==="done" && item?.archived === false
+            return item.status ==="done"
           }
         });
       
