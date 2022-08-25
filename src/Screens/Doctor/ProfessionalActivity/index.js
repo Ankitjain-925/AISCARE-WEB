@@ -228,16 +228,12 @@ getAllactivities = (tabvalue2, goArchive) => {
                }
                else 
                {
-               if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-                return item
-               }else{
                return item.status ==="done"
-               }
               }
               });
         var Open =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.status === "open");
+          response.data.data.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
         this.setState({
           AllTasks: response.data.data,
           DoneTask: Done,
