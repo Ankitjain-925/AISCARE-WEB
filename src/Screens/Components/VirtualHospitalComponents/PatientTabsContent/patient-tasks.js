@@ -133,7 +133,7 @@ class Index extends Component {
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
               <TaskSectiuonVH patient={this.state.patient} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom={"detailTask"} tabvalue2={this.state.tabvalue2} />
-            </Grid>
+            </Grid> 
             {/* End of Right Section */}
           </Grid>
         </Grid>
