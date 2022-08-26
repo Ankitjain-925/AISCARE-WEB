@@ -719,7 +719,7 @@ class Index extends Component {
     this.setState({ newTask: state, openTask: true });
   }
 
-  DoneAppointment = (id)=> {
+  DoneAppointment = (id) => {
     console.log('id', id)
     let translate = getLanguage(this.props.stateLanguageType);
     let { RemoveComment, really_want_to_remove_comment, No, Yes } = translate;
@@ -743,7 +743,7 @@ class Index extends Component {
               <button
                 onClick={() => {
                   this.DoneA1(id);
-                   onClose();
+                  onClose();
                 }}
               >
                 {Yes}
@@ -752,10 +752,10 @@ class Index extends Component {
           </div>
         );
       },
-    }); 
+    });
   }
 
-  DoneA1 = (id) =>{
+  DoneA1 = (id) => {
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -1434,6 +1434,7 @@ class Index extends Component {
     var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
     var deep = _.cloneDeep(data);
     this.setState({
+      total_amount: data?.amount,
       selectedHouse: findHouse[0],
       service: deep,
       // OpenTask:true,
@@ -2107,6 +2108,7 @@ class Index extends Component {
             selectedHouse={this.state.selectedHouse}
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
+            total_amount={this.state.total_amount}
           />
           <Modal
             className={
@@ -4541,7 +4543,7 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4569,7 +4571,7 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
-                          DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4597,7 +4599,7 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
-                          DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4625,7 +4627,7 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
-                          DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4653,7 +4655,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                          DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4681,7 +4683,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={(id)=>{this.DoneAppointment(id)}}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
