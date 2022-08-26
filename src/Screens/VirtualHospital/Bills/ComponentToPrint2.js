@@ -40,6 +40,14 @@ export class ComponentToPrint2 extends React.Component {
       TotalAmount,
       InvoiceID,
       srvc,
+      Priceperquantity,
+      Quantity,
+      Amount,
+      Welcome_to_aimedis,
+      From,
+      For,
+      total,
+     Due_Date,
       Price,
       quantity,
       contactAimedisForQuery,
@@ -80,20 +88,20 @@ export class ComponentToPrint2 extends React.Component {
                     </td>
                   </tr>
                   <tr>
-                    <td className="WlcmAimds">Welcome to aimedis</td>
+                    <td className="WlcmAimds">{Welcome_to_aimedis}</td>
                   </tr>
                 </table>
                 <table width="100%" className="TblPG2 secsttabhead">
                   <tr>
                     <td width="33%">
-                      <p>From</p>
+                      <p>{From}</p>
                     </td>
                     <td width="33%">
-                      <p>For</p>
+                      <p>{For}</p>
                     </td>
                     <td width="33%">
                       <strong>
-                        <p>InvoiceID: &nbsp;{data?.invoice_id}</p>
+                        <p>{InvoiceID}: &nbsp;{data?.invoice_id}</p>
                       </strong>
                     </td>
                   </tr>
@@ -111,7 +119,7 @@ export class ComponentToPrint2 extends React.Component {
                     </td>
                     <td>
                       <p>
-                        Due Date: &nbsp;{' '}
+                        {Due_Date}: &nbsp;{' '}
                         {getDate(
                           data?.created_at,
                           this.props.settings &&
@@ -148,12 +156,12 @@ export class ComponentToPrint2 extends React.Component {
                   >
                     <tr>
                       <th width="30%" align="left">
-                        Service
+                        {srvc}
                       </th>
-                      <th width="30%">Price Per Quantity</th>
-                      <th width="30%">Quantity</th>
+                      <th width="30%">{Priceperquantity}</th>
+                      <th width="30%">{Quantity}</th>
                       <th width="10%" align="right">
-                        Amount
+                       {Amount}
                       </th>
                     </tr>
                   </table>
@@ -174,7 +182,7 @@ export class ComponentToPrint2 extends React.Component {
                   <table width="100%" className="tabL3">
                     <tr>
                       <td width="68%">
-                        <p>Total</p>
+                        <p>{total}</p>
                       </td>
                       <td width="32%" className="tabDatPart">
                         <p>{data?.total_amount}</p>
@@ -185,7 +193,7 @@ export class ComponentToPrint2 extends React.Component {
                     <tr>
                       <td>
                         <h1 className="termCond termCond2">
-                          Your Aimedis team
+                         {YourAimedisTeam}
                         </h1>
                         <br />
                         <p>https://aimedis.io</p>
@@ -193,8 +201,7 @@ export class ComponentToPrint2 extends React.Component {
                         <p>https://sys.aimedis.com</p>
                         <br />
                         <p>
-                          If you have any questions do not hesitate to contact
-                          us via the support chat or via contact@aimedis.com
+                          {contactAimedisForQuery}
                         </p>
                       </td>
                     </tr>

@@ -20,6 +20,8 @@ import MMHG from 'Screens/Components/mmHgField/index';
 import { getLanguage } from 'translations/index';
 import PainIntensity from "Screens/Components/PainIntansity/index";
 import FatiqueQuestion from "Screens/Components/TimelineComponent/CovidSymptomsField/FatiqueQuestions";
+import { S3Image } from 'Screens/Components/GetS3Images/index';
+import { getDate } from 'Screens/Components/BasicMethod';
 import {
     updateAllEntrySec2,
     handleChangeForm,
@@ -29,11 +31,14 @@ import {
     FileAttachMulti,
     allHouses,
     updateEntryState,
-    updateEntryState1
+    updateEntryState1,
+    openFullQues,
+    closeFullQues
 } from "./api"
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import Select from "react-select";
 import Loader from 'Screens/Components/Loader/index';
+import ShowPrevQues from '../../Components/ShowPrevQues/index'
 
 class Index extends Component {
     constructor(props) {
@@ -51,12 +56,18 @@ class Index extends Component {
             errorChrMsg1: '',
             loaderImage: false,
             FileAttach: [],
-            successMsg: ''
+            successMsg: '',
+            openModal: false
         }
     }
 
     componentDidMount() {
         allHouses(this);
+    }
+
+
+    closeFullQues = () => {
+        this.setState({ openModal: false });
     }
 
     render() {
@@ -85,6 +96,7 @@ class Index extends Component {
         const { rr_systolic, RR_diastolic, Search_Select, ForPatient, For_Hospital, Daily, every_2_week, Every_2_Day, Quarter, blood_pressure
             , Picture_with_Scale,
             Anamnesis,
+            full_information,
             Decubitus_Situation,
             On_and_off_Toilet,
             Amount_of_wounds,
@@ -213,7 +225,7 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="questionnary" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                <Grid item xs={12} sm={12} md={9}>
+                                <Grid item xs={12} sm={12} md={8}>
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
@@ -383,7 +395,7 @@ class Index extends Component {
                                                                 <Grid className="anamneSec">
                                                                     <Grid>
                                                                         <label>{Picture_with_Scale}</label>
-                                                                        {console.log("allQuestionData?.daily_decubitus_picture_with_scale", allQuestionData?.daily_decubitus_picture_with_scale)}
+
                                                                         <FileUploader
                                                                             // cur_one={this.props.cur_one}
                                                                             attachfile={
@@ -2346,6 +2358,50 @@ class Index extends Component {
                                     </Grid>
 
 
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={3}>
+                                    {openQues &&
+                                        <Grid className="allFormSection allFormSection1">
+
+                                            <label>Last Filled Information</label>
+
+                                            {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
+                                                <Grid className="nurseImagrProf">
+                                                    <Grid className="nurseImagrProf1">
+                                                        <Grid><label>Date: {getDate(
+                                                            item?.submitDate,
+                                                            this.props.settings.setting &&
+                                                            this.props.settings.setting.date_format
+                                                        )}</label>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <label>Type: {item?.questionnaire_type === "daily" ?
+                                                                "Daily" : item?.questionnaire_type === "two_days" ?
+                                                                    "Two Days" : item?.questionnaire_type === "two_weeks" ?
+                                                                        "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                            </label>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <label>Checked by: <S3Image imgUrl={item?.nurse_info?.image} />
+                                                                {item?.nurse_info?.first_name} {" "} {item?.nurse_info?.last_name}</label></Grid>
+                                                        <Grid className="bp_graph FullInfoSet">
+
+                                                            <Grid>
+                                                                <a onClick={() => openFullQues(this, item)}>
+                                                                    {full_information}
+                                                                </a>
+                                                            </Grid>
+                                                        </Grid>
+
+                                                    </Grid>
+                                                </Grid>
+                                            ))}
+                                            <ShowPrevQues
+                                                closeFullQues={() => this.closeFullQues()}
+                                                openModal={this.state.openModal}
+                                                item={this.state.ModalData}
+                                            />
+                                        </Grid>}
                                 </Grid>
                             </Grid>
                         </Grid>

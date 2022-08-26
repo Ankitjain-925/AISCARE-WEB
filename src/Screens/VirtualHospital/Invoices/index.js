@@ -707,6 +707,7 @@ class Index extends Component {
                           removeTask={(id) => {}}
                           editTask={(data) => {}}
                           declineTask={(id, patient_id) =>{}}
+                          DoneAppointment={()=>{}}
                           handleApprovedDetails={(id, status, data) => {}}
                           comesFrom={'adminstaff'}
                           removeMorebutton ={true}

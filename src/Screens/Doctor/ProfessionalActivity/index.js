@@ -219,29 +219,22 @@ getAllactivities = (tabvalue2, goArchive) => {
           var patientForFilterArr = filterPatient(response.data.data);
           this.setState({ patientForFilter: patientForFilterArr });
         }
-       let current_time= moment().format("HH:mm")
         var Done =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) =>{
-            if(item.task_name){
-              return item.status === "done" 
-               }
-               else 
-               {
-               if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-                return item
-               }else{
-               return item.status ==="done"
-               }
-              }
-              });
+          response.data.data.filter((item) =>item.status === "done" || item.status === "Done")
+           
         var Open =
           response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.status === "open");
+          response.data.data.filter(
+            (item) => item.status !== "done" || (item.appointment_type && item.status !== "done")
+          );
+          var ArchivedTask  = response.data.data?.length > 0 &&
+          response.data.data.filter((item) => item.archived);
         this.setState({
           AllTasks: response.data.data,
           DoneTask: Done,
           OpenTask: Open,
+          ArchivedTasks: ArchivedTask
         });
         if (goArchive) {
           this.setState({ tabvalue2: 3 });
@@ -261,7 +254,7 @@ getAllactivities = (tabvalue2, goArchive) => {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {} = translate;
+    let {Professional_activities} = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === 'undefined' ||
@@ -300,7 +293,7 @@ getAllactivities = (tabvalue2, goArchive) => {
                           <Grid item xs={11} md={11}>
                             <Grid container direction="row">
                               <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{"Professional activities"}</h1>
+                                <h1>{Professional_activities}</h1>
                               </Grid>
                             </Grid>
                           </Grid>
