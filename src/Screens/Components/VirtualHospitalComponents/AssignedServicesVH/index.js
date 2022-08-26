@@ -1303,6 +1303,7 @@ class Index extends Component {
                       />
                     )}
                   </a>
+
                   {this.props.comesFrom !== 'Professional' &&
                     this.props.comesFrom !== 'detailTask' && (
                       <>
@@ -1392,7 +1393,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+
                         DoneAppointment={() => { }}
+
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1408,7 +1411,9 @@ class Index extends Component {
                     <Grid>
                       <TaskView
                         data={data}
+
                         DoneAppointment={() => { }}
+
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1424,44 +1429,7 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                      <TaskView
-                        DoneAppointment={() => { }}
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
 
-          {tabvalue2 === 3 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-
-                      <TaskView
-                        DoneAppointment={() => { }}
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
-          {tabvalue2 === 4 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
                       <TaskView
                         DoneAppointment={() => { }}
 
@@ -1470,12 +1438,60 @@ class Index extends Component {
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
                       />
-                    </Grid>
-                  ))}
+                    </Grid >
+                  ))
+                }
               </Grid>
-            </TabContainer>
+            </TabContainer >
           )}
-        </Grid>
+
+          {
+            tabvalue2 === 3 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+
+
+                        <TaskView
+                          DoneAppointment={() => { }}
+
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}
+          {
+            tabvalue2 === 4 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+
+                        <TaskView
+                          DoneAppointment={() => { }}
+
+
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}
+        </Grid >
         <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
           <Grid
             className={
@@ -1651,7 +1667,7 @@ class Index extends Component {
             </Grid>
           </Grid>
         </Modal>
-      </Grid>
+      </Grid >
     );
   }
 }

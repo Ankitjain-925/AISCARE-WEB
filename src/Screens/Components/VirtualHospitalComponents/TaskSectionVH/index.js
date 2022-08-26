@@ -719,6 +719,57 @@ class Index extends Component {
     this.setState({ newTask: state, openTask: true });
   }
 
+  DoneAppointment = (id) => {
+    console.log('id', id)
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveComment, really_want_to_remove_comment, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>{"Done appointment"}</h1>
+            <p>{"Do you really want done this appointment"}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  this.DoneA1(id);
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  }
+
+  DoneA1 = (id) => {
+    this.setState({ loaderImage: true });
+    axios
+      .put(
+        sitedata.data.path + "/vc/AppointmentUpdate/" + id,
+        { status: "done" },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.props.getAddTaskData();
+        }
+      })
+  }
   editComment = (index) => {
     this.setState({ editcomment: index });
   };
@@ -4492,7 +4543,7 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4520,7 +4571,7 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4548,7 +4599,7 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4576,7 +4627,7 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4604,7 +4655,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4632,7 +4683,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        DoneAppointment={() => { }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}

@@ -4,6 +4,8 @@ import sitedata from 'sitedata';
 import { commonHeader } from 'component/CommonHeader/index';
 import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import _ from 'lodash'
+
 
 export const handleChangeForm = (current, value) => {
     if (value === 1) {
@@ -21,7 +23,9 @@ export const handleChangeForm = (current, value) => {
 }
 
 export const updateAllEntrySec0 = (current, e) => {
-    current.setState({ allQuestionData: e });
+    const state = current.state.allQuestionData;
+    state[e.name] = e.z;
+    current.setState({ allQuestionData: state });
 }
 
 export const updateAllEntrySec = (current, e) => {
@@ -467,8 +471,7 @@ export const checkValidation = (current, check, value, item) => {
         }
     }
 
-    else if ((item === "quarter_bartel_index_full_questionaire" ||
-        item === "quarter_feeding" ||
+    else if ((item === "quarter_feeding" ||
         item === "quarter_chair_bed_transfer" ||
         item === "quarter_ambulation" ||
         item === "quarter_wheelchair_management" ||
@@ -476,23 +479,21 @@ export const checkValidation = (current, check, value, item) => {
         item === "quarter_on_and_off_toilet" ||
         item === "quarter_bowels" ||
         item === "quarter_bladder") && check) {
-        var currentItem = item === "quarter_bartel_index_full_questionaire" ?
-            Bartel_Index
-            : item === "quarter_feeding"
-                ? Feeding
-                : item === "quarter_chair_bed_transfer"
-                    ? Chair_Bed_transfer
-                    : item === "quarter_ambulation"
-                        ? Ambulation
-                        : item === "quarter_wheelchair_management"
-                            ? Wheelchair_Management
-                            : item === "quarter_stairs"
-                                ? Stairs
-                                : item === "quarter_on_and_off_toilet"
-                                    ? On_and_off_Toilet
-                                    : item === "quarter_bowels"
-                                        ? Bowels
-                                        : Bladder
+        var currentItem = item === "quarter_feeding"
+            ? Feeding
+            : item === "quarter_chair_bed_transfer"
+                ? Chair_Bed_transfer
+                : item === "quarter_ambulation"
+                    ? Ambulation
+                    : item === "quarter_wheelchair_management"
+                        ? Wheelchair_Management
+                        : item === "quarter_stairs"
+                            ? Stairs
+                            : item === "quarter_on_and_off_toilet"
+                                ? On_and_off_Toilet
+                                : item === "quarter_bowels"
+                                    ? Bowels
+                                    : Bladder
         if (!value) {
             current.setState({ errorChrMsg: please_select + " " + currentItem })
             MoveTop(0);
@@ -695,14 +696,14 @@ export const handleSubmit = (current) => {
         } else {
             data.type = "quarter"
             // if (checkValidation(current, everyQuarter, data?.quarter_bartel_index_full_questionaire, "quarter_bartel_index_full_questionaire")) {
-            if (checkValidation(current, everyQuarter, data?.quarter_feeding, "quarter_feeding")) {
-                if (checkValidation(current, everyQuarter, data?.quarter_chair_bed_transfer, "quarter_chair_bed_transfer")) {
-                    if (checkValidation(current, everyQuarter, data?.quarter_ambulation, "quarter_ambulation")) {
-                        if (checkValidation(current, everyQuarter, data?.quarter_wheelchair_management, "quarter_wheelchair_management")) {
-                            if (checkValidation(current, everyQuarter, data?.quarter_stairs, "quarter_stairs")) {
-                                if (checkValidation(current, everyQuarter, data?.quarter_on_and_off_toilet, "quarter_on_and_off_toilet")) {
-                                    if (checkValidation(current, everyQuarter, data?.quarter_bowels, "quarter_bowels")) {
-                                        if (checkValidation(current, everyQuarter, data?.quarter_bladder, "quarter_bladder")) {
+            if (checkValidation(current, everyQuarter, data?.quarter_feeding?.value, "quarter_feeding")) {
+                if (checkValidation(current, everyQuarter, data?.quarter_chair_bed_transfer?.value, "quarter_chair_bed_transfer")) {
+                    if (checkValidation(current, everyQuarter, data?.quarter_ambulation?.value, "quarter_ambulation")) {
+                        if (checkValidation(current, everyQuarter, data?.quarter_wheelchair_management?.value, "quarter_wheelchair_management")) {
+                            if (checkValidation(current, everyQuarter, data?.quarter_stairs?.value, "quarter_stairs")) {
+                                if (checkValidation(current, everyQuarter, data?.quarter_on_and_off_toilet?.value, "quarter_on_and_off_toilet")) {
+                                    if (checkValidation(current, everyQuarter, data?.quarter_bowels?.value, "quarter_bowels")) {
+                                        if (checkValidation(current, everyQuarter, data?.quarter_bladder?.value, "quarter_bladder")) {
                                             CallApi(current);
                                         }
                                     }
@@ -885,7 +886,6 @@ export const prevQuestData = (current) => {
             commonHeader(user_token)
         )
         .then((response) => {
-            console.log("response", response)
             current.setState({ prevData: response.data.data, loaderImage: false });
         })
         .catch((error) => {
@@ -899,4 +899,9 @@ export const openFullQues = (current, data) => {
 
 export const closeFullQues = (current) => {
     current.setState({ openModal: false });
+}
+
+export const showHouseValue = (current, house_id) => {
+    const house_name = _.filter(current.state.currentList, (item) => item.value === house_id).map((obj) => obj.label)
+    return house_name[0];
 }

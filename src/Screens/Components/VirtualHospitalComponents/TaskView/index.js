@@ -192,9 +192,9 @@ class PointPain extends Component {
                           {data.status !== 'done' &&
                             <li>
                                <a
-                              onClick={() => {
-                                this.props.editTask(data);
-                              }}
+                            onClick={() => {
+                              this.props.DoneAppointment(data?._id);
+                            }}
                             >
                               <img
                                 src={require('assets/virtual_images/pencil-1.svg')}
@@ -321,7 +321,7 @@ class PointPain extends Component {
                             <li>
                                <a
                               onClick={() => {
-                                this.props.DoneAppointment(data);
+                                this.props.DoneAppointment(data?._id);
                               }}
                             >
                               <img

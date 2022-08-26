@@ -14468,9 +14468,9 @@ label.newrole {
   margin-top: 10px;
 }
 
-.stndQues1 label {
+/* .stndQues1 label {
   margin-top: 12px;
-}
+} */
 .imageEvalSize img {
   /* height: 90px; */
   width: 50%;
@@ -16001,6 +16001,10 @@ width: 90px!important;
     .homeBgDrk .MainclassQues1 h3{
       color: #F2F2F2 !important;
     }
+    .homeBgDrk .stndQues1 h3, 
+    .homeBgDrk .bp_graph.FullInfoSet a {
+        color: #00B0DB !important;
+    }
 
     /* added by ankita */
 
@@ -16039,6 +16043,42 @@ width: 90px!important;
     font-weight: bold;
   }
 
+
+
+
+
+.stndQues1 span{
+  color:unset;
+  margin-bottom: 0px;
+}
+.mainQueLab{
+  line-height: 20px!important;
+}
+.creatTskCnt{
+  padding:0px;
+}
+
+  .downloadButton {
+    margin-top: 10px;
+    margin-left: 14px;
+  }
+  .showDetail .cancelAppoint a {
+    margin-bottom: 0px;
+  }
+  .creatTaskModel.creatTaskModel11 .MuiGrid-root.creatLbl {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+  }
+  .creatTaskModel.creatTaskModel11 {
+    padding: 0px;
+  }
+  .darkTheme > .apontBoxCntnt .apontDragCntnt textarea {
+    background-color: transparent;
+  }
 .allFormSection1
   {    margin: 40px 40px 0px 0px!important;
 }
@@ -16052,11 +16092,13 @@ width: 90px!important;
 }
 
 .allFormSection1 label
-{font-size: 1rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;}
+{font-size: 15px;
+  font-family: Muli;
+  font-weight: 500;
+  color:#7F8383
+  /* line-height: 1.5; */
+  /* letter-spacing: 0.00938em; */
+}
 
   .nurseImagrProf{
     border: 2px solid #00abaf;
@@ -16067,3 +16109,4 @@ width: 90px!important;
   .nurseImagrProf1{
     padding: 9px;
   }
+
