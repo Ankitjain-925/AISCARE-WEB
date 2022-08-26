@@ -1443,7 +1443,7 @@ removeTask2 = (id) => {
                     <Grid>
                      <TaskView
                         data={data}
-                        removeTask={(id) => this.removeTask(id)}
+                        removeTask={(id) => this.removeTask(id)}wqeqe
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
                       />
