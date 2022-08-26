@@ -130,7 +130,7 @@ class Index extends Component {
       PatientID: false,
       taskData: {},
       openAss: false,
-     
+
     };
   }
 
@@ -231,8 +231,8 @@ class Index extends Component {
     }
   }
 
-  handleCloseAss=()=>{
-    this.setState({openAss: false})
+  handleCloseAss = () => {
+    this.setState({ openAss: false })
   }
   // manage assign to list
   selectProf = (listing, data) => {
@@ -287,7 +287,7 @@ class Index extends Component {
       },
     ];
     this.setState({
-      service:{},
+      service: {},
       openTask: true,
       newTask: {},
       assignedTo: [],
@@ -714,96 +714,96 @@ class Index extends Component {
     }
   };
 
- //{Delete} the perticular service confirmation box
- removeTask = (id) => {
-  this.setState({ message: null, openTask: false });
-  let translate = getLanguage(this.props.stateLanguageType);
-  let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
-  confirmAlert({
-    customUI: ({ onClose }) => {
-      return (
-        <div
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-              ? "dark-confirm react-confirm-alert-body"
-              : "react-confirm-alert-body"
-          }
-        >
-          <h1>{remove_task}</h1>
-          <p>{you_sure_to_remove_task}</p>
-          <div className="react-confirm-alert-button-group">
-            <button onClick={onClose}>{No}</button>
-            <button
-              onClick={() => {
-                this.removeTask2(id);
-                // onClose();
-              }}
-            >
-              {Yes}
-            </button>
+  //{Delete} the perticular service confirmation box
+  removeTask = (id) => {
+    this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>{remove_task}</h1>
+            <p>{you_sure_to_remove_task}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  this.removeTask2(id);
+                  // onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
           </div>
-        </div>
-      );
-    },
-  });
-};
+        );
+      },
+    });
+  };
 
-removeTask2 = (id) => {
-  this.setState({ message: null, openTask: false });
-  let translate = getLanguage(this.props.stateLanguageType);
-  let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
-  confirmAlert({
-    customUI: ({ onClose }) => {
-      return (
-        <div
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-              ? "dark-confirm react-confirm-alert-body"
-              : "react-confirm-alert-body"
-          }
-        >
-          <h1 class="alert-btn">{RemoveTask}</h1>
-          <p>{really_want_to_remove_task}</p>
-          <div className="react-confirm-alert-button-group">
-            <button onClick={onClose}>{No}</button>
-            <button
-              onClick={() => {
-                this.deleteClickTask(id);
-                onClose();
-              }}
-            >
-              {Yes}
-            </button>
+  removeTask2 = (id) => {
+    this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">{RemoveTask}</h1>
+            <p>{really_want_to_remove_task}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  this.deleteClickTask(id);
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
           </div>
-        </div>
-      );
-    },
-  });
-};
+        );
+      },
+    });
+  };
 
 
   //for delete the Task
   deleteClickTask(id) {
-      this.setState({ loaderImage: true });
-      axios
-        .delete(
-          sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((response) => {
-          if (response.data.hassuccessed) {
-            this.props.getAddTaskData();
-          }
-          this.setState({ loaderImage: false });
-        })
-        .catch((error) => { });
-    }
+    this.setState({ loaderImage: true });
+    axios
+      .delete(
+        sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          this.props.getAddTaskData();
+        }
+        this.setState({ loaderImage: false });
+      })
+      .catch((error) => { });
+  }
 
   FilterText = (e) => {
     this.setState({ text: e.target.value });
@@ -854,13 +854,13 @@ removeTask2 = (id) => {
 
   // open Edit model
   editTask = (data) => {
-   var pat1name = "";
+    var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
     } else if (data?.first_name) {
       pat1name = data?.patient?.first_name;
     }
-   this.selectProf(data?.assinged_to, this.state.professional_id_list);
+    this.selectProf(data?.assinged_to, this.state.professional_id_list);
     var Assigned_Aready =
       data &&
       data?.assinged_to &&
@@ -868,10 +868,10 @@ removeTask2 = (id) => {
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
-   
+
     var deep = _.cloneDeep(data);
     this.setState({
-  
+
       service: deep,
       // OpenTask:true,
       openAss: true,
@@ -1162,13 +1162,13 @@ removeTask2 = (id) => {
       CreateCertificate,
       Ward,
       Room,
-     Patient,
+      Patient,
       Staff,
-    filters,
+      filters,
       Taskstatus,
       speciality,
       applyFilters,
-       clear_all_filters,
+      clear_all_filters,
       Search,
       Filterbypatient,
       FilterbyStaff,
@@ -1179,7 +1179,7 @@ removeTask2 = (id) => {
       Done,
       Open,
       Archived,
-      } = translate;
+    } = translate;
 
     const {
       tabvalue,
@@ -1226,23 +1226,23 @@ removeTask2 = (id) => {
           <Grid item xs={12} md={6}>
           </Grid>
           <Grid item xs={12} md={6}>
-          <Grid className="newServc newServicAllSec">
-                <Button onClick={() => this.handleOpenAss()} >
-                    {"+ Assign service"}
-                </Button>
-                
-            <AssignedService 
-              openAss={this.state.openAss}
-              handleOpenAss={()=> this.handleOpenAss()}
-              handleCloseAss={()=> this.handleCloseAss()}
-              service={this.state.service}
-              removeTask={(id) => this.removeTask(id)}
-              editTask={(data) => this.editTask(data)}
-              getAddTaskData={(tabvalue) => {
-              this.props.getAddTaskData(tabvalue);
-            }} 
-            comesFrom = {this.props.comesFrom}/>
-          </Grid>
+            <Grid className="newServc newServicAllSec">
+              <Button onClick={() => this.handleOpenAss()} >
+                {"+ Assign service"}
+              </Button>
+
+              <AssignedService
+                openAss={this.state.openAss}
+                handleOpenAss={() => this.handleOpenAss()}
+                handleCloseAss={() => this.handleCloseAss()}
+                service={this.state.service}
+                removeTask={(id) => this.removeTask(id)}
+                editTask={(data) => this.editTask(data)}
+                getAddTaskData={(tabvalue) => {
+                  this.props.getAddTaskData(tabvalue);
+                }}
+                comesFrom={this.props.comesFrom} />
+            </Grid>
           </Grid>
 
         </Grid>
@@ -1266,7 +1266,7 @@ removeTask2 = (id) => {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
-                
+
                 <Grid className="taskSort">
                   {this.state.showinput && (
                     <input
@@ -1303,7 +1303,7 @@ removeTask2 = (id) => {
                       />
                     )}
                   </a>
-                      {console.log('ArchivedTasks', this.state.ArchivedTasks)}
+
                   {this.props.comesFrom !== 'Professional' &&
                     this.props.comesFrom !== 'detailTask' && (
                       <>
@@ -1389,10 +1389,13 @@ removeTask2 = (id) => {
                 {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
-                    <TaskView
+                      <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+
+                        DoneAppointment={() => { }}
+
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -1406,8 +1409,11 @@ removeTask2 = (id) => {
                 {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
-                    <TaskView
+                      <TaskView
                         data={data}
+
+                        DoneAppointment={() => { }}
+
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1423,53 +1429,69 @@ removeTask2 = (id) => {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-                  <TaskView
+
+                      <TaskView
+                        DoneAppointment={() => { }}
+
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
                       />
-                    </Grid>
-                  ))}
+                    </Grid >
+                  ))
+                }
               </Grid>
-            </TabContainer>
+            </TabContainer >
           )}
-        
-          {tabvalue2 === 3 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-                     <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
-          {tabvalue2 === 4 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-                       <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
-        </Grid>
+
+          {
+            tabvalue2 === 3 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+
+
+                        <TaskView
+                          DoneAppointment={() => { }}
+
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}
+          {
+            tabvalue2 === 4 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+
+                        <TaskView
+                          DoneAppointment={() => { }}
+
+
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}
+        </Grid >
         <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
           <Grid
             className={
@@ -1645,7 +1667,7 @@ removeTask2 = (id) => {
             </Grid>
           </Grid>
         </Modal>
-      </Grid>
+      </Grid >
     );
   }
 }
