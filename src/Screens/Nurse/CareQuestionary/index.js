@@ -2516,36 +2516,65 @@ class Index extends Component {
                                     {openQues &&
                                         <Grid className="allFormSection allFormSection1">
 
-                                            <label>Last Filled Information</label>
-
-
+                                            <h2>Last Filled Information</h2>
                                             {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
-                                                console.log("item", item),
                                                 < Grid className="nurseImagrProf" >
                                                     <Grid className="nurseImagrProf1">
-                                                        <Grid><label>Date: {getDate(
+                                                        <Grid><label>Date: </label>
+                                                        <p>{getDate(
                                                             item?.submitDate,
                                                             this.props.settings.setting &&
                                                             this.props.settings.setting.date_format
-                                                        )}</label>
+                                                        )}</p>
                                                         </Grid>
                                                         <Grid>
-                                                            <label>Type: {item?.questionnaire_type === "daily" ?
+                                                            <label>Type:  </label>
+                                                            <p>{item?.questionnaire_type === "daily" ?
                                                                 "Daily" : item?.questionnaire_type === "two_days" ?
                                                                     "Two Days" : item?.questionnaire_type === "two_weeks" ?
-                                                                        "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                            </label>
+                                                                        "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}</p>
+                                                           
                                                         </Grid>
                                                         <Grid>
-                                                            <label>Checked by: <S3Image imgUrl={item?.nurse_info?.image} />
-                                                                {item?.nurse_info?.first_name} {" "} {item?.nurse_info?.last_name} ({item?.nurse_info?.alies_id})</label>
+                                                            <label>Checked by: </label>
+                                                            <div className="showAllAssignedInner">
+                                    <Grid className="allInfo allInfo2 tasklistName">
+                                      <Grid>
+                                        <S3Image imgUrl={item?.nurse_info?.image} />
+                                      </Grid>
+                                      <Grid className="allInfoRght">
+                                        <Grid>
+                                          <label>
+                                            {item?.nurse_info?.first_name} {item?.nurse_info?.last_name}
+                                          </label>
+                                        </Grid>
+                                        <p>{item?.nurse_info?.alies_id}</p>
+                                      </Grid>
+                                    </Grid>
+                                  </div>
                                                         </Grid>
                                                         <Grid>
-                                                            <label>Patient: <S3Image imgUrl={item?.patient_info?.image} />
-                                                                {item?.patient_info?.first_name} {" "} {item?.patient_info?.last_name} ({item?.patient_info?.profile_id})</label>
+                                                            <label>Patient: </label>
+                                                            <div className="showAllAssignedInner">
+                                    <Grid className="allInfo allInfo2 tasklistName">
+                                      <Grid>
+                                        <S3Image imgUrl={item?.patient_info?.image} />
+                                      </Grid>
+                                      <Grid className="allInfoRght">
+                                        <Grid>
+                                          <label>
+                                            {item?.patient_info?.first_name} {item?.patient_info?.last_name}
+                                          </label>
+                                        </Grid>
+                                        <p>{item?.patient_info?.profile_id}</p>
+                                      </Grid>
+                                    </Grid>
+                                  </div>
+                                                            
                                                         </Grid>
                                                         <Grid>
-                                                            <label>Hospital: {showHouseValue(this, item?.house_id)}</label>
+                                                            <label>Hospital:</label>
+                                                            <p> {showHouseValue(this, item?.house_id)}</p>
                                                         </Grid>
                                                         <Grid className="bp_graph FullInfoSet">
 

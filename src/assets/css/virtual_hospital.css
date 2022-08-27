@@ -16101,13 +16101,22 @@ width: 90px!important;
   margin: 4px 7px 0px 0px
 }
 
-.allFormSection1 label
-{font-size: 15px;
+.allFormSection1 h2 {
+  font-size: 15px;
   font-family: Muli;
-  font-weight: 500;
-  color:#7F8383
-  /* line-height: 1.5; */
-  /* letter-spacing: 0.00938em; */
+  font-weight: 700;
+  color: #01abb0;
+  margin: 5px 0px;
+}
+.allFormSection1 label {
+  font-size: 13px;
+  font-family: Muli;
+  font-weight: 700;
+  color: #7F8383;
+  margin: 5px 0px 0px 0px;
+}
+.allFormSection1 p {
+  font-size: 13px;
 }
 
   .nurseImagrProf{
