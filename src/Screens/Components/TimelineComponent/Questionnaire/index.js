@@ -16,6 +16,11 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { pure } from "recompose";
 import { Settings } from 'Screens/Login/setting';
 import Modal from '@material-ui/core/Modal';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +71,7 @@ class Index extends Component {
   }
 
   capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string && string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   render() {
@@ -156,6 +161,113 @@ class Index extends Component {
       Could_the_Patient_tell_day
     } = translate;
     var item = this.state.item;
+    const selectoption = [
+      {
+        label: "Feeding",
+        result: item?.questionnaire_answers?.quarter_feeding,
+        value: [
+          "dependent in all aspects and needs to be fed",
+          "can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal",
+          "able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities",
+          "independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required",
+          "The patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc..",
+        ],
+      },
+      {
+        label: "Chair/Bed Transfers",
+        result:
+          item?.questionnaire_answers?.quarter_chair_bed_transfer,
+        value: [
+          "Unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device.",
+          "Able to participate but maximum assistance of one other person is require in all aspects of the transfer.",
+          "The presence of another person is required either as a confidence measure, to provide supervision for safety.",
+          "The patient can safety approach the bed walking or in a wheelchair, look breaks, lift footrest, or position walking aid, move safely to bed, lie down, come to a sitting position on the side of the bed, chnage the position of the wheelchair, transfer back into it safely.",
+          "The patient must be independent in all phases of this activity.",
+        ],
+      },
+      {
+        label: "Ambulation",
+        result: item?.questionnaire_answers?.quarter_ambulation,
+        value: [
+          "Dependent in ambulation.",
+          "Constant presence of one or more assistant is required during ambulation.",
+          "Assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance.",
+          "The patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations.",
+          "The patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision.",
+        ],
+      },
+      {
+        label:
+          "Wheelchair Management(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)",
+        result:
+          item?.questionnaire_answers?.quarter_wheelchair_management,
+        value: [
+          "Dependent in wheelchair ambulation.",
+          "Patient can propel self short distance on flat surface, but assistance is required for all other steps of wheelchair management",
+          "Presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc.",
+          "The patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high.",
+          "To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb.",
+        ],
+      },
+      {
+        label: "Stairs",
+        result: item?.questionnaire_answers?.quarter_stairs,
+        value: [
+          "The patient is unable to climb stairs.",
+          "Assistance is required in all aspects of stairclimbing, including assistance with walking aids.",
+          "The patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance.The patient is able to ascend/desend but is unable to carry walking aids and needs supervision and assistance.",
+          "Generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc.",
+          "The patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends.",
+        ],
+      },
+      {
+        label: "On and Off the Toilet",
+        result: item?.questionnaire_answers?.quarter_on_and_off_toilet,
+        value: [
+          "Fully dependent in toileting.",
+          "Assistance required in all aspects of toileting.",
+          "Assistance may be required with management of clothing, transferring, or washing hands.",
+          "Supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning.",
+          "The patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it.",
+        ],
+      },
+      {
+        label: "Bowels",
+        result: item?.questionnaire_answers?.quarter_bowels,
+        value: [
+          "The patient is bowel incontient.",
+          "The patient needs help to assume appropriate position, and with bowel movement facilitatory techniques.",
+          "The patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc.",
+          "The patient may require supervision with the use of suppository or enema and has occasional accident.",
+          "The patient can control bowels and has no accidents, can use suppository, or take an enema when necessary.",
+        ],
+      },
+      {
+        label: "Bladder",
+        result: item?.questionnaire_answers?.quarter_bladder,
+        value: [
+          "The patient is dependent in bladder management, is incontinent, or has indwelling catheter.",
+          "The patient is incontinent but is able to assist with the application of an internal or external device.",
+          "The patient is generally dry by day, but not at night and needs some assistance with the devices.",
+          "The patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices.",
+          "The patient is able to control bladder day and night, and/or is independent with internal or external devices.",
+        ],
+      },
+    ]
+    const feedingoption = [
+      {
+        label: "Feeding",
+        result: item?.questionnaire_answers?.quarter_feeding,
+        value: [
+          "dependent in all aspects and needs to be fed",
+          "can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal",
+          "able to feed self with supervision. Assistance is required with associated tasks such as putting milk/sugar into tea, salt, pepper,spreading butter, turning a plate or other “set up” activities",
+          "independence in feeding with prepared tray, except may need meat cut, milk carton opened or jar lid etc. The presence of another person is not required",
+          "The patient can feed self from a tray or table when someone puts the food within reach. The patient must put on an assistive device if needed, cut food, and if desired use salt and pepper, spread butter, etc..",
+        ],
+      },
+    ]
+
     return (
       <Grid container direction="row" className="descpCntnt">
         <Grid item xs={12} md={1} className="descpCntntLft">
@@ -380,7 +492,7 @@ class Index extends Component {
                                   <Grid container direction="row">
                                     <Grid className="allQuestionShow1">
                                       <h1>{Feeding}</h1>
-                                      <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding)}</p>
+                                      <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding?.label)}</p>
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -654,43 +766,79 @@ class Index extends Component {
                     <Grid className="stndQues stndQues1 allQuestionShow">
 
                       {item?.questionary_type === "quarter" && (
-                        <Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Feeding}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding)}</p>
+                        <Grid className="selectOptionCmn">
+                          <Grid container xs={12} md={12}>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Type of Report</h1>
+                                <label>
+                                  {item.questionary_type === "daily" ?
+                                    "Daily" : item.questionary_type === "two_days" ?
+                                      "Two Days" : item.questionary_type === "two_weeks" ?
+                                        "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                </label>
+                              </Grid>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Report Date</h1>
+                                <label>{getDate(item.created_on, this.state.date_format)}</label>
+                              </Grid>
+                            </Grid>
                           </Grid>
                           <Grid className="allQuestionShow1">
-                            <h1>{Chair_Bed_Transfers}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_chair_bed_transfer)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Ambulation}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_ambulation)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Wheelchair_Management}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_wheelchair_management)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Stairs}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_stairs)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{On_and_off_Toilet}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_on_and_off_toilet)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Bowels}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_bowels)}</p>
-                          </Grid>
-                          <Grid className="allQuestionShow1">
-                            <h1>{Bladder}</h1>
-                            <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_bladder)}</p>
+                            {selectoption.map((item) => (
+                              <FormControl className="selectOption">
+                                <FormLabel id="main-topic-counted" className="mainQueLab">
+                                  {item.label}
+                                </FormLabel>
+                                {item.value?.map((option, index) => {
+
+                                  const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                    item?.result?.value.split('_v').pop())
+                                  return (
+                                    <RadioGroup
+                                      aria-labelledby="main-topic-counted"
+                                      name="quarter_feeding"
+                                    >
+                                      <FormControlLabel
+                                        control={<Radio />}
+                                        label={this.capitalizeFirstLetter(option)}
+                                        checked={
+                                          compareResult === index + 1 ? (
+                                            <Radio />
+                                          ) : null
+                                        }
+                                      />
+                                    </RadioGroup>
+                                  );
+                                })}
+                              </FormControl>
+                            ))}
                           </Grid>
                         </Grid>
                       )}
                       {item?.questionary_type === "two_weeks" && (
                         <Grid className="MainclassQues">
+                          <Grid container xs={12} md={12}>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Type of Report</h1>
+                                <label>
+                                  {item.questionary_type === "daily" ?
+                                    "Daily" : item.questionary_type === "two_days" ?
+                                      "Two Days" : item.questionary_type === "two_weeks" ?
+                                        "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                </label>
+                              </Grid>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Report Date</h1>
+                                <label>{getDate(item.created_on, this.state.date_format)}</label>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                           <Grid>
                             <h1>{Anamnesis}</h1>
                             <h3>{blood_pressure}</h3>
@@ -911,6 +1059,25 @@ class Index extends Component {
                       )}
                       {item?.questionary_type === "two_days" && (
                         <Grid className="MainclassQues">
+                          <Grid container xs={12} md={12}>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Type of Report</h1>
+                                <label>
+                                  {item.questionary_type === "daily" ?
+                                    "Daily" : item.questionary_type === "two_days" ?
+                                      "Two Days" : item.questionary_type === "two_weeks" ?
+                                        "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                </label>
+                              </Grid>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Report Date</h1>
+                                <label>{getDate(item.created_on, this.state.date_format)}</label>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                           <Grid>
                             <h1>{Anamnesis}</h1>
                             <Grid container xs={12} md={12}>
@@ -1135,6 +1302,25 @@ class Index extends Component {
                       )}
                       {item?.questionary_type === "daily" && (
                         <Grid className="MainclassQues">
+                          <Grid container xs={12} md={12}>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Type of Report</h1>
+                                <label>
+                                  {item.questionary_type === "daily" ?
+                                    "Daily" : item.questionary_type === "two_days" ?
+                                      "Two Days" : item.questionary_type === "two_weeks" ?
+                                        "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                </label>
+                              </Grid>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Report Date</h1>
+                                <label>{getDate(item.created_on, this.state.date_format)}</label>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                           <Grid>
                             <h1>{Anamnesis}</h1>
                             <Grid container xs={12} md={12}>
@@ -1318,6 +1504,25 @@ class Index extends Component {
                       )}
                       {item?.questionary_type === "full" && (
                         <Grid className="MainclassQues">
+                          <Grid container xs={12} md={12}>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Type of Report</h1>
+                                <label>
+                                  {item.questionary_type === "daily" ?
+                                    "Daily" : item.questionary_type === "two_days" ?
+                                      "Two Days" : item.questionary_type === "two_weeks" ?
+                                        "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                </label>
+                              </Grid>
+                            </Grid>
+                            <Grid xs={4} md={4}>
+                              <Grid className="RportCss">
+                                <h1>Report Date</h1>
+                                <label>{getDate(item.created_on, this.state.date_format)}</label>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                           <Grid>
                             <h1>{Anamnesis}</h1>
                             <Grid container xs={12} md={12}>
@@ -1538,38 +1743,36 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          <Grid>
+                          <Grid className="selectOptionCmn">
                             <Grid className="allQuestionShow1">
-                              <h1>{Feeding}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_feeding)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Chair_Bed_Transfers}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_chair_bed_transfer)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Ambulation}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_ambulation)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Wheelchair_Management}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_wheelchair_management)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Stairs}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_stairs)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{On_and_off_Toilet}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_on_and_off_toilet)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Bowels}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_bowels)}</p>
-                            </Grid>
-                            <Grid className="allQuestionShow1">
-                              <h1>{Bladder}</h1>
-                              <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_bladder)}</p>
+                              {selectoption.map((item) => (
+                                <FormControl className="selectOption">
+                                  <FormLabel id="main-topic-counted" className="mainQueLab">
+                                    {item.label}
+                                  </FormLabel>
+                                  {item.value?.map((option, index) => {
+
+                                    const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                      item?.result?.value.split('_v').pop())
+                                    return (
+                                      <RadioGroup
+                                        aria-labelledby="main-topic-counted"
+                                        name="quarter_feeding"
+                                      >
+                                        <FormControlLabel
+                                          control={<Radio />}
+                                          label={this.capitalizeFirstLetter(option)}
+                                          checked={
+                                            compareResult === index + 1 ? (
+                                              <Radio />
+                                            ) : null
+                                          }
+                                        />
+                                      </RadioGroup>
+                                    );
+                                  })}
+                                </FormControl>
+                              ))}
                             </Grid>
                           </Grid>
 
