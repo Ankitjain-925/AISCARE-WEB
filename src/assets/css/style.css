@@ -5764,9 +5764,6 @@ a.nxtpag {
     line-height: 18px;
     margin-bottom: 12px;
 }
-.drstndrdQues {
-    margin-top: 32px;
-}
 .drstndrdQues h3 {
     color: #000808;
     font-family: Muli;
@@ -9445,7 +9442,7 @@ a.menuActv img {
 }
 .userAdres {
     display: flex;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 .userAdres p {
     color: #404646;
@@ -9469,6 +9466,7 @@ a.menuActv img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 10px;
 }
 .insureMe p {
     color: #404646;
@@ -9730,7 +9728,6 @@ a.temp_f {
 }
 
 /* -------------- */
-
 .prespBoxCntnt {
     width: 420px;
     background: #fff;
@@ -9745,7 +9742,7 @@ a.temp_f {
     padding-bottom: 8px;
 }
 .prespCourse {
-    padding: 12px 24px 18px 24px;
+    padding: 16px 24px 12px 24px;
     border-bottom: 1px solid #F2F2F2;
 }
 .prespCloseBtn {
@@ -9839,9 +9836,8 @@ input.rejectBtn {
     color: #00abaf;
     cursor: pointer !important;
 }
-
 .scamUPForms {
-    margin-bottom: 32px;
+    margin-bottom: 25px;
 }
 .scamUPForms label {
     color: #404646;
