@@ -95,6 +95,11 @@ class Index extends Component {
     this.props.history.push('/virtualHospital/external-space');
   };
 
+   //For show question from hospital
+   questionshow = () => {
+    this.props.history.push('/virtualHospital/carequestionnary-submit');
+  };
+
   //For Services
   Services = () => {
     this.props.history.push("/virtualHospital/services");
@@ -155,6 +160,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       external_space_management,
+      Care_Questionnary_Submit,
       my_profile,
       profile_setting,
       Language,
@@ -368,6 +374,35 @@ class Index extends Component {
                       />
                     )}
                     <span>{external_space_management}</span>
+                  </a>
+                </li>
+                <li
+                  className={
+                    this.props.currentPage === 'showquestion' ? 'menuActv' : ''
+                  }
+                >
+                  <a onClick={this.questionshow}>
+                    {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
+                      <img
+                      src={require("assets/virtual_images/rightIcon2.png")}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          this.props.currentPage === 'showquestion'
+                          ? require("assets/virtual_images/rightIcon2.png")
+                          : require("assets/virtual_images/rightpng.png")
+                        }
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>{Care_Questionnary_Submit}</span>
                   </a>
                 </li>
               </>
