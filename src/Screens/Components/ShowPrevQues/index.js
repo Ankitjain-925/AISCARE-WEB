@@ -13,6 +13,8 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import { getDate } from 'Screens/Components/BasicMethod';
+
 
 
 class Index extends Component {
@@ -21,15 +23,17 @@ class Index extends Component {
         this.state = {
             item: this.props.item || {},
             openModal: this.props.openModal,
-            settings: this.props.settings
+            settings: this.props.settings,
+            comesFrom: this.props.comesFrom
         };
     }
 
     componentDidUpdate = (prevProps) => {
-
+        if (prevProps.comesFrom !== this.props.comesFrom) {
+            this.setState({ comesFrom: this.props.comesFrom });
+        }
         if (prevProps.item !== this.props.item) {
             this.setState({ item: this.props.item });
-
         }
         if (prevProps.openModal !== this.props.openModal) {
             this.setState({ openModal: this.props.openModal });
@@ -50,8 +54,6 @@ class Index extends Component {
     }
 
     render() {
-
-
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             o2_Saturation,
@@ -116,10 +118,11 @@ class Index extends Component {
             Could_the_Patient_tell_day
         } = translate;
         var item = this.state.item;
+        console.log("item", item)
         const selectoption = [
             {
                 label: "Feeding",
-                result: item?.questionnaire_answers?.quarter_feeding,
+                result: item?.questionnaire_answers?.quarter_feeding || item?.questionnaire_answers?.full_feeding,
                 value: [
                     "dependent in all aspects and needs to be fed",
                     "can manipulate an eating device, usually a spoon, but someone must provide active assistance during the meal",
@@ -131,7 +134,7 @@ class Index extends Component {
             {
                 label: "Chair/Bed Transfers",
                 result:
-                    item?.questionnaire_answers?.quarter_chair_bed_transfer,
+                    item?.questionnaire_answers?.quarter_chair_bed_transfer || item?.questionnaire_answers?.full_chair_bed_transfer,
                 value: [
                     "Unable to participate in a transfer. Two attendants are required to transfer the patient with or without a mechanical device.",
                     "Able to participate but maximum assistance of one other person is require in all aspects of the transfer.",
@@ -142,7 +145,7 @@ class Index extends Component {
             },
             {
                 label: "Ambulation",
-                result: item?.questionnaire_answers?.quarter_ambulation,
+                result: item?.questionnaire_answers?.quarter_ambulation || item?.questionnaire_answers?.full_ambulation,
                 value: [
                     "Dependent in ambulation.",
                     "Constant presence of one or more assistant is required during ambulation.",
@@ -155,7 +158,7 @@ class Index extends Component {
                 label:
                     "Wheelchair Management(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)",
                 result:
-                    item?.questionnaire_answers?.quarter_wheelchair_management,
+                    item?.questionnaire_answers?.quarter_wheelchair_management || item?.questionnaire_answers?.full_wheelchair_management,
                 value: [
                     "Dependent in wheelchair ambulation.",
                     "Patient can propel self short distance on flat surface, but assistance is required for all other steps of wheelchair management",
@@ -166,7 +169,7 @@ class Index extends Component {
             },
             {
                 label: "Stairs",
-                result: item?.questionnaire_answers?.quarter_stairs,
+                result: item?.questionnaire_answers?.quarter_stairs || item?.questionnaire_answers?.full_stairs,
                 value: [
                     "The patient is unable to climb stairs.",
                     "Assistance is required in all aspects of stairclimbing, including assistance with walking aids.",
@@ -177,7 +180,7 @@ class Index extends Component {
             },
             {
                 label: "On and Off the Toilet",
-                result: item?.questionnaire_answers?.quarter_on_and_off_toilet,
+                result: item?.questionnaire_answers?.quarter_on_and_off_toilet || item?.questionnaire_answers?.full_on_and_off_toilet,
                 value: [
                     "Fully dependent in toileting.",
                     "Assistance required in all aspects of toileting.",
@@ -188,7 +191,7 @@ class Index extends Component {
             },
             {
                 label: "Bowels",
-                result: item?.questionnaire_answers?.quarter_bowels,
+                result: item?.questionnaire_answers?.quarter_bowels || item?.questionnaire_answers?.full_bowels,
                 value: [
                     "The patient is bowel incontient.",
                     "The patient needs help to assume appropriate position, and with bowel movement facilitatory techniques.",
@@ -199,7 +202,7 @@ class Index extends Component {
             },
             {
                 label: "Bladder",
-                result: item?.questionnaire_answers?.quarter_bladder,
+                result: item?.questionnaire_answers?.quarter_bladder || item?.questionnaire_answers?.full_bladder,
                 value: [
                     "The patient is dependent in bladder management, is incontinent, or has indwelling catheter.",
                     "The patient is incontinent but is able to assist with the application of an internal or external device.",
@@ -253,8 +256,29 @@ class Index extends Component {
                                 >
                                     <Grid item xs={12} md={12} className="taskDescp">
                                         <Grid className="stndQues stndQues1 allQuestionShow">
-                                            {item?.questionnaire_type === "quarter" && (
+                                            {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
                                                 <Grid className=" selectOptionCmn">
+                                                    {this.state.comesFrom === "PatientEnd" &&
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Type of Report</h1>
+                                                                    <label>
+                                                                        {item.questionary_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    </label>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Report Date</h1>
+                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    }
                                                     <Grid className="allQuestionShow1">
                                                         {selectoption.map((item) => (
                                                             <FormControl className="selectOption">
@@ -286,45 +310,29 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             )}
-
-                                            {/* {item?.questionnaire_type === "quarter" && (
-                                                <Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Feeding}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Chair_Bed_Transfers}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_chair_bed_transfer?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Ambulation}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_ambulation?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Wheelchair_Management}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_wheelchair_management?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Stairs}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_stairs?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{On_and_off_Toilet}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_on_and_off_toilet?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Bowels}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_bowels?.label)}</p>
-                                                    </Grid>
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Bladder}</h1>
-                                                        <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_bladder?.label)}</p>
-                                                    </Grid>
-                                                </Grid>
-                                            )} */}
-                                            {item?.questionnaire_type === "two_weeks" && (
+                                            {item && (item?.questionnaire_type === "two_weeks" || item?.questionary_type === "two_weeks") && (
                                                 <Grid className="MainclassQues">
+                                                    {this.state.comesFrom === "PatientEnd" &&
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Type of Report</h1>
+                                                                    <label>
+                                                                        {item.questionary_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    </label>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Report Date</h1>
+                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    }
                                                     <Grid>
                                                         <h1>{Anamnesis}</h1>
                                                         <h3>{blood_pressure}</h3>
@@ -526,8 +534,29 @@ class Index extends Component {
                                                 </Grid>
 
                                             )}
-                                            {item?.questionnaire_type === "two_days" && (
+                                            {item && (item?.questionnaire_type === "two_days" || item?.questionary_type === "two_days") && (
                                                 <Grid className="MainclassQues">
+                                                    {this.state.comesFrom === "PatientEnd" &&
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Type of Report</h1>
+                                                                    <label>
+                                                                        {item.questionary_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    </label>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Report Date</h1>
+                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    }
                                                     <Grid>
                                                         <h1>{Anamnesis}</h1>
                                                         <Grid container xs={12} md={12}>
@@ -750,8 +779,29 @@ class Index extends Component {
 
 
                                             )}
-                                            {item?.questionnaire_type === "daily" && (
+                                            {item && (item?.questionnaire_type === "daily" || item?.questionary_type === "daily") && (
                                                 <Grid className="MainclassQues">
+                                                    {this.state.comesFrom === "PatientEnd" &&
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Type of Report</h1>
+                                                                    <label>
+                                                                        {item.questionary_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    </label>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Report Date</h1>
+                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    }
                                                     <Grid>
                                                         <h1>{Anamnesis}</h1>
                                                         <Grid container xs={12} md={12}>
@@ -933,8 +983,29 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             )}
-                                            {item?.questionnaire_type === "full" && (
+                                            {item && (item?.questionnaire_type === "full" || item?.questionary_type === "full") && (
                                                 <Grid className="MainclassQues">
+                                                    {this.state.comesFrom === "PatientEnd" &&
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Type of Report</h1>
+                                                                    <label>
+                                                                        {item.questionary_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    </label>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <Grid className="RportCss">
+                                                                    <h1>Report Date</h1>
+                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    }
                                                     <Grid>
                                                         <h1>{Anamnesis}</h1>
                                                         <Grid container xs={12} md={12}>

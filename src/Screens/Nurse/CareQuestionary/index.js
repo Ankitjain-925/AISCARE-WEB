@@ -2332,7 +2332,7 @@ class Index extends Component {
                                                                         checked={this.state.allQuestionData?.quarter_stairs?.value === 'stairs_v5'}
                                                                         value="stairs_v5"
                                                                         onChange={(e) => {
-                                                                            var e = { quartername: "quarter_stairs", z_stairs: { value: "stairs_v5", label: "the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends" } }
+                                                                            var e = { quartername: "quarter_stairs", z: { value: "stairs_v5", label: "the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends" } }
                                                                             updateAllEntrySec0(this, e)
                                                                         }}
                                                                         control={<Radio />}
@@ -2461,7 +2461,7 @@ class Index extends Component {
                                                                         checked={this.state.allQuestionData?.quarter_bladder?.value === 'bladder_v2'}
                                                                         value="bladder_v2"
                                                                         onChange={(e) => {
-                                                                            var e = { quartername: "quarter_bladder", z_bladder: { value: "bladder_v2", label: "the patient is incontinent but is able to assist with the application of an internal or external device" } }
+                                                                            var e = { quartername: "quarter_bladder", z: { value: "bladder_v2", label: "the patient is incontinent but is able to assist with the application of an internal or external device" } }
                                                                             updateAllEntrySec0(this, e)
                                                                         }}
                                                                         control={<Radio />}
@@ -2515,12 +2515,8 @@ class Index extends Component {
                                 <Grid item xs={12} sm={12} md={3}>
                                     {openQues &&
                                         <Grid className="allFormSection allFormSection1">
-
                                             <label>Last Filled Information</label>
-
-
                                             {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
-                                                console.log("item", item),
                                                 < Grid className="nurseImagrProf" >
                                                     <Grid className="nurseImagrProf1">
                                                         <Grid><label>Date: {getDate(
