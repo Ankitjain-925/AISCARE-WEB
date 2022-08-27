@@ -21,6 +21,8 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import ShowPrevQues from '../../../Components/ShowPrevQues/index'
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -62,8 +64,8 @@ class Index extends Component {
     }
   };
 
-  openFullInfo = () => {
-    this.setState({ openModal: true });
+  openFullInfo = (data) => {
+    this.setState({ openModal: true, ModalData: data });
   }
 
   closeFullInfo = () => {
@@ -487,16 +489,51 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={12} className="bloodPreBy">
                             {item && item?.questionary_type === "quarter" &&
-                              <Grid className="stndQues stndQues1">
-                                <Grid className="MainclassQues">
-                                  <Grid container direction="row">
-                                    <Grid className="allQuestionShow1">
-                                      <h1>{Feeding}</h1>
-                                      <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding?.label)}</p>
-                                    </Grid>
+                              // <Grid className="stndQues stndQues1">
+                              //   <Grid className="MainclassQues">
+                              //     <Grid container direction="row">
+                              //       <Grid className="allQuestionShow1">
+                              //         <h1>{Feeding}</h1>
+                              //         <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.quarter_feeding?.label)}</p>
+                              //       </Grid>
+                              //     </Grid>
+                              //   </Grid>
+                              // </Grid>
+                              <Grid className="stndQues stndQues1 allQuestionShow">
+                                <Grid className="selectOptionCmn">
+                                  <Grid className="allQuestionShow1">
+                                    {feedingoption.map((item) => (
+                                      <FormControl className="selectOption">
+                                        <FormLabel id="main-topic-counted" className="mainQueLab">
+                                          {item.label}
+                                        </FormLabel>
+                                        {item.value?.map((option, index) => {
+
+                                          const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                            item?.result?.value.split('_v').pop())
+                                          return (
+                                            <RadioGroup
+                                              aria-labelledby="main-topic-counted"
+                                              name="quarter_feeding"
+                                            >
+                                              <FormControlLabel
+                                                control={<Radio />}
+                                                label={this.capitalizeFirstLetter(option)}
+                                                checked={
+                                                  compareResult === index + 1 ? (
+                                                    <Radio />
+                                                  ) : null
+                                                }
+                                              />
+                                            </RadioGroup>
+                                          );
+                                        })}
+                                      </FormControl>
+                                    ))}
                                   </Grid>
                                 </Grid>
-                              </Grid>}
+                              </Grid>
+                            }
                             {item && item?.questionary_type === "two_weeks" &&
                               <Grid className="stndQues stndQues1">
                                 <Grid className="MainclassQues">
@@ -692,7 +729,7 @@ class Index extends Component {
                         <Grid className="bp_graph FullInfoSet">
 
                           <Grid>
-                            <a onClick={() => this.openFullInfo()}>
+                            <a onClick={() => this.openFullInfo(item)}>
                               {full_information}
                             </a>
                           </Grid>
@@ -705,7 +742,7 @@ class Index extends Component {
           </Grid>
         </Grid>
         {/* Model setup */}
-        <Modal
+        {/* <Modal
           open={this.state.openModal}
           onClose={() => this.closeFullInfo()}
           className={
@@ -738,25 +775,6 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                 </Grid>
-                {/* <Grid container direction="row">
-                   <Grid item xs={8} md={8} lg={8}>
-                                    <label>{Details}</label>
-                                </Grid>
-                                 <Grid item xs={4} md={4} lg={4}>
-                    <Grid className="creatLbl">
-                      <Grid className="creatLblClose createLSet">
-                        <a onClick={() => this.closeFullInfo()}>
-                          <img
-                            src={require('assets/images/close-search.svg')}
-                            alt=""
-                            title=""
-                          />
-                        </a>
-                      </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid> */}
-
                 <Grid
                   container
                   direction="row"
@@ -868,25 +886,6 @@ class Index extends Component {
                                 </p>
                               </Grid>
                             </Grid>
-
-                            {/* <Grid container xs={12} md={12}>
-                              <Grid xs={4} md={4}>
-                                <label>Weight</label>
-                                <p>
-                                  {item?.questionnaire_answers?.week_anamnesis_weight}
-                                </p>
-                              </Grid>
-                              <Grid xs={4} md={4}>
-                                <label>Measure_diameter_Leg</label>
-                                <p>
-                                  {item?.questionnaire_answers?.week_anamnesis_diameter_leg}
-                                </p>
-                              </Grid>
-                              <Grid xs={4} md={4}>
-                                <label>Condition</label>
-                                {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>Better</p> : <p>Worse</p>}
-                              </Grid>
-                            </Grid> */}
                           </Grid>
 
                           <Grid>
@@ -1785,9 +1784,16 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
-        </Modal>
+        </Modal> */}
 
         {/* End of Model setup */}
+
+        <ShowPrevQues
+          closeFullQues={() => this.closeFullInfo()}
+          openModal={this.state.openModal}
+          item={this.state.ModalData}
+          comesFrom="PatientEnd"
+        />
       </Grid>
 
     );
