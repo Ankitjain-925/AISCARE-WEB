@@ -139,11 +139,11 @@ class Index extends Component {
         let email = this.state.inputEmail;
         let password = this.state.inputPass;
         this.setState({ loaderImage: true });
-        var logintoken= false;
-        if(this.state.logintoken != '' && this.state.logintoken != undefined){
+        var logintoken = false;
+        if (this.state.logintoken != '' && this.state.logintoken != undefined) {
           logintoken = this.state.logintoken
         }
-        this.props.LoginReducerAim(email, password,logintoken, () => {
+        this.props.LoginReducerAim(email, password, logintoken, () => {
           this.setState({ myLogin: true });
           this.setState({ loaderImage: false });
           if (
@@ -246,8 +246,8 @@ class Index extends Component {
     } = translate;
 
     if (
-      stateLoginValueAim.token !== 401 &&
-      stateLoginValueAim.token !== 450 &&
+      stateLoginValueAim?.token !== 401 &&
+      stateLoginValueAim?.token !== 450 &&
       stateLoginValueAim?.user?.type === "patient" &&
       this.props.verifyCode.code
     ) {
@@ -278,8 +278,8 @@ class Index extends Component {
       }
     }
     if (
-      stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "adminstaff" &&
+      stateLoginValueAim?.token !== 450 &&
+      stateLoginValueAim?.user?.type === "adminstaff" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -503,23 +503,23 @@ class Index extends Component {
                       {this.state.loginError1
                         ? code_not_verified
                         : this.state.loginError2
-                        ? email_not_valid
-                        : this.state.loginError9
-                        ? password_cant_empty 
-                        : stateLoginValueAim.isVerified == false 
-                        ? verifyAccount
-                        : stateLoginValueAim.isBlocked == true 
-                        ? stateLoginValueAim.type === 'patient' ? user_is_blocked : needUnblock
-                        : this.state.loginError === false &&
-                          stateLoginValueAim.token === 450 &&
-                          myLogin &&
-                          stateLoginValueAim.message
-                        ? stateLoginValueAim.message === "User does not exist"
-                          ? user_not_exist
-                          : stateLoginValueAim.message === "Wrong password"
-                          ? wrong_password 
-                          : false
-                        : false}
+                          ? email_not_valid
+                          : this.state.loginError9
+                            ? password_cant_empty
+                            : stateLoginValueAim.isVerified == false
+                              ? verifyAccount
+                              : stateLoginValueAim.isBlocked == true
+                                ? stateLoginValueAim.type === 'patient' ? user_is_blocked : needUnblock
+                                : this.state.loginError === false &&
+                                  stateLoginValueAim.token === 450 &&
+                                  myLogin &&
+                                  stateLoginValueAim.message
+                                  ? stateLoginValueAim.message === "User does not exist"
+                                    ? user_not_exist
+                                    : stateLoginValueAim.message === "Wrong password"
+                                      ? wrong_password
+                                      : false
+                                  : false}
                       {
 
                       }
