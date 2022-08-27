@@ -1444,7 +1444,6 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-
                           <Grid className="allQuestionShow1">
                             <label>{Pain_Status}</label>
                             <p>{item?.questionnaire_answers?.full_thrombose_pain_status}</p>
