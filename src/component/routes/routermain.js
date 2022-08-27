@@ -110,6 +110,7 @@ import ApproveHospital from "Screens/Components/ApprovalHospital/index";
 import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import DoctorCareQuestionnary from "Screens/Doctor/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
+import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 
 class Routermain extends Component {
   render() {
@@ -514,6 +515,11 @@ class Routermain extends Component {
               path="/virtualhospital/external-space"
               exact={true}
               render={(props) => <VHExterSpaceManagement {...props} />}
+            />
+              <Route
+              path="/virtualhospital/carequestionnary-submit"
+              exact={true}
+              render={(props) => <QuestionShow {...props} />}
             />
             <Route
               path="/virtualhospital/services"
