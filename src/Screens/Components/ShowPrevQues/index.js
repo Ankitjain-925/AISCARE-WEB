@@ -262,7 +262,8 @@ class Index extends Component {
                                                                     {item.label}
                                                                 </FormLabel>
                                                                 {item.value?.map((option, index) => {
-                                                                    const compareResult = parseInt(item.result?.value.split('_v').pop())
+                                                                    const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                                                        item?.result?.value.split('_v').pop())
                                                                     return (
                                                                         <RadioGroup
                                                                             aria-labelledby="main-topic-counted"
@@ -1154,7 +1155,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
 
-                                                    <Grid>
+                                                    {/* <Grid>
                                                         <Grid className="allQuestionShow1">
                                                             <h1>{Feeding}</h1>
                                                             <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_feeding?.label)}</p>
@@ -1186,6 +1187,38 @@ class Index extends Component {
                                                         <Grid className="allQuestionShow1">
                                                             <h1>{Bladder}</h1>
                                                             <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_bladder?.label)}</p>
+                                                        </Grid>
+                                                    </Grid> */}
+
+                                                    <Grid className=" selectOptionCmn">
+                                                        <Grid className="allQuestionShow1">
+                                                            {selectoption.map((item) => (
+                                                                <FormControl className="selectOption">
+                                                                    <FormLabel id="main-topic-counted" className="mainQueLab">
+                                                                        {item.label}
+                                                                    </FormLabel>
+                                                                    {item.value?.map((option, index) => {
+                                                                        const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                                                            item?.result?.value.split('_v').pop())
+                                                                        return (
+                                                                            <RadioGroup
+                                                                                aria-labelledby="main-topic-counted"
+                                                                                name="quarter_feeding"
+                                                                            >
+                                                                                <FormControlLabel
+                                                                                    control={<Radio />}
+                                                                                    label={this.capitalizeFirstLetter(option)}
+                                                                                    checked={
+                                                                                        compareResult === index + 1 ? (
+                                                                                            <Radio />
+                                                                                        ) : null
+                                                                                    }
+                                                                                />
+                                                                            </RadioGroup>
+                                                                        );
+                                                                    })}
+                                                                </FormControl>
+                                                            ))}
                                                         </Grid>
                                                     </Grid>
 
