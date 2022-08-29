@@ -1492,7 +1492,8 @@ class Index extends Component {
               </TabContainer >
             )}
         </Grid >
-        <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
+        <Modal open={this.state.noWards}
+          onClose={this.handleCloseRvw}>
           <Grid
             className={
               this.props.settings &&
