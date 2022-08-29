@@ -127,7 +127,7 @@ class Index extends Component {
             // service: {},
             selectedPat: {},
             assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-               items: [], total_amount: 0,showError:''
+            items: [], total_amount: 0, showError: ''
 
         });
         this.props.handleCloseAss();
@@ -312,7 +312,6 @@ class Index extends Component {
             this.state.users.filter((data) => data.user_id === user.value);
         if (user1 && user1?.length > 0) {
             const state = this.state.service;
-
             state['patient'] = user1[0];
             state['patient_id'] = user1[0].user_id;
             state['case_id'] = user1[0].case_id;
