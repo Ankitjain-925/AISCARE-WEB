@@ -16129,7 +16129,22 @@ width: 90px!important;
     padding: 9px;
   }
 
+  .careQuestionTabUpr {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    padding: 20px 20px;
+    margin: 34px 0px 30px;
+  }
+  .darkTheme .careQuestionTabUpr {
+    background-color: #404646;
+  }
+
+
   .RportCss h1{
     margin-bottom: 5px;
   }
 
+  .darkTheme .recaddDocUpr {
+    background-color: #303737 !important;
+  }

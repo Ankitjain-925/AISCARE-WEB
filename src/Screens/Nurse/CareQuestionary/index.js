@@ -2508,12 +2508,14 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={3}>
+
                                     <PreviousInfo
                                         openQues={openQues}
                                         prevData={this.state.prevData}
                                         closeFullQues={() => closeFullQues(this)}
                                         showHouseValue={(id) => showHouseValue(this, id)}
                                     />
+
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -17759,3 +17759,6 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 a{color: #000;}
 a:hover{color: #000;}
 
+.setMarginBottom{
+    margin : 0px 0px 30px 0px;
+}
