@@ -16151,4 +16151,6 @@ width: 90px!important;
     font-size:12px;
   }
 
-
+  .darkTheme .recaddDocUpr {
+    background-color: #303737 !important;
+  }
