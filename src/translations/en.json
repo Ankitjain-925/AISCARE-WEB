@@ -1332,7 +1332,6 @@
     "CompletedTasks": "Completed Tasks",
     "DocumentsFiles": "Documents / Files",
     "Issued": "Issued",
-    "Weight": "Weight",
     "Height": "Height",
     "BloodPressure": "BloodPressure",
     "Lastdoctorvisits": "Last doctor visits",
@@ -1965,7 +1964,7 @@
      "o2_Saturation":"o2 Saturation",
      "Pneunomie_Situation":"Pneunomie Situation",
      "Second_Day":"Second Day",
-     "Nutrition_Situation ":"Nutrition Situation ",
+     "Nutrition_Situation":"Nutrition Situation ",
      "Fruits":"Fruits",
      "Have_you_eaten_Fruits":"Have you eaten Fruits",
      "Protein":"Protein",
@@ -2067,7 +2066,9 @@
      "Assign_service":"+ Assign service",
 
      "Please_select_doctor_nurse":"Please select either dotor or nurse",
-     "Please_select_patient_first":"Please select patient first"
+     "Please_select_patient_first":"Please select patient first",
+     "Doctor_Nurse":" Doctor/Nurse",
+     "Care_Questionnary_Submit":"Care Questionnary Submit"
      
     }
 
