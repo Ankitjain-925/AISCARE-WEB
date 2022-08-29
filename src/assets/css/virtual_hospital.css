@@ -14465,7 +14465,7 @@ label.newrole {
 }
 .stndQues1 h1 {
   font-weight: 700;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .stndQues1 label {
@@ -16139,8 +16139,6 @@ width: 90px!important;
   .darkTheme .careQuestionTabUpr {
     background-color: #404646;
   }
-
-
   .RportCss h1{
     margin-bottom: 5px;
     font-family: Muli;
@@ -16151,6 +16149,16 @@ width: 90px!important;
     font-size:12px;
   }
 
+
+
+  .darkTheme .stndQues span {
+    color: unset;
+  }
+  .darkTheme .MainclassQues1 h1{
+    color: #00abaf!important;
+  }
+
+ 
   .darkTheme .recaddDocUpr {
     background-color: #303737 !important;
   }
