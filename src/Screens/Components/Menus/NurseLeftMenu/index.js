@@ -46,6 +46,10 @@ class Index extends Component {
   changeLanguage = (e) => {
     this.setState({ languageValue: e.target.value });
   };
+    //For Appointmet
+    Appointment = () => {
+      this.props.history.push("/nurse/appointment");
+    };
 
   openLanguageModel = () => {
     this.setState({ openFancyLanguage: true });
@@ -117,6 +121,7 @@ class Index extends Component {
       ProfessionalTask,
       Nurse_view,
       VHS_view,
+      appointments,
       ProfessionalActivity,
       EarlierActivity,
       Care_Questionnary
@@ -147,6 +152,31 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
+          <li
+              className={
+                this.props.currentPage === "appointment" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.Appointment}>
+                {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-appointments-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : (
+                  <img
+                    src={require("assets/images/nav-appointments.svg")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                <span>{appointments}</span>
+              </a>
+            </li>
             {/* {this.props?.House?.value &&
               <>
                 <li

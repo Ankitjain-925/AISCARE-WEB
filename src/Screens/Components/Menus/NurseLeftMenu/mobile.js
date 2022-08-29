@@ -134,43 +134,69 @@ class Index extends Component {
     }
   };
 
-  //For Patient
-  Service = () => {
-    this.props.history.push("/doctor/patient");
+  // Change Language function
+  changeLanguage = (e) => {
+    this.setState({ languageValue: e.target.value });
   };
-  //For My Document
-  MyDocument = () => {
-    this.props.history.push("/doctor/inquiries");
+    //For Appointmet
+    Appointment = () => {
+      this.props.history.push("/nurse/appointment");
+    };
+
+  openLanguageModel = () => {
+    this.setState({ openFancyLanguage: true });
   };
 
-  //For My Profile
-  Myprofile = () => {
-    this.props.history.push("/doctor/profile");
+  handleCloseFancyLanguage = () => {
+    this.setState({ openFancyLanguage: false });
   };
-  //For Chat
+
+  //For logout the User
+  logOutClick = async () => {
+    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), { lastActiveAt: Date.now() })
+    if (data) {
+      let email = "";
+      let password = "";
+      this.props.LoginReducerAim(email, password);
+      let languageType = "en";
+      this.props.LanguageFetchReducer(languageType);
+    }
+  };
+
+  //For My Profile link
+  ProfileLink = () => {
+    this.props.history.push("/nurse/profile");
+  };
+
+  //For online Course
+  OnlineCourse = () => {
+    this.props.history.push("/nurse/online-course");
+  };
+  //For Timeline / Journal
+  Journal = () => {
+    this.props.history.push("/nurse/journal");
+  };
+  //For chat
   Chats = () => {
-    this.props.history.push("/doctor/chats");
+    this.props.history.push("/nurse");
   };
 
   //For Emergency
   Emergency = () => {
-    this.props.history.push("/doctor/emergency");
+    this.props.history.push("/nurse/emergency");
   };
 
-  //For Online Course
-  Online = () => {
-    this.props.history.push("/doctor/online-course");
+  //For change Institutes
+  MoveInstitute = () => {
+    this.props.houseSelect({ value: null });
+    this.props.history.push('/nurse/institutes')
   };
 
-  //For Appointmet
-  Appointment = () => {
-    this.props.history.push("/doctor/appointment");
+  //For change Institutes
+  NormalView = () => {
+    this.props.houseSelect({ value: null });
+    this.props.history.push('/nurse/journal')
   };
-
-  //For Task
-  handlePTask = () => {
-    this.props.history.push("/doctor/professional-task");
-  }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
@@ -189,6 +215,7 @@ class Index extends Component {
       VHS_view,
       ProfessionalActivity,
       EarlierActivity,
+      appointments,
       Care_Questionnary
     } = translate;
     return (
@@ -216,6 +243,31 @@ class Index extends Component {
             <Menu className="addCstmMenu">
               <Grid className="menuItems">
               <ul>
+              <li
+              className={
+                this.props.currentPage === "appointment" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.Appointment}>
+                {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-appointments-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : (
+                  <img
+                    src={require("assets/images/nav-appointments.svg")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                <span>{appointments}</span>
+              </a>
+            </li>
             {/* {this.props?.House?.value &&
               <>
                 <li
