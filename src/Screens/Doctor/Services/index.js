@@ -238,6 +238,7 @@ class Index extends Component {
         {
           id: AskPatient
         },
+
         commonHeader(user_token)
       )
       .then((responce) => {
