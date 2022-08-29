@@ -235,6 +235,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path + "/UserProfile/AskPatientProfile/" + AskPatient,
+        // {'credentials':'include'},
         commonHeader(user_token)
       )
       .then((responce) => {
