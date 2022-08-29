@@ -265,10 +265,10 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
@@ -319,10 +319,10 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
@@ -543,10 +543,10 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
@@ -788,10 +788,10 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
@@ -992,10 +992,10 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
