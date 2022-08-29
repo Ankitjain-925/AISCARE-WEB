@@ -156,21 +156,11 @@ class Index extends Component {
                                     <Grid className="topLeftSpc">
                                         <Grid container direction="row" alignItems="center">
                                             <Grid item xs={12} sm={6} md={6}>
-                                                <Grid className="spcMgntH1">
+                                                <Grid className="spcMgntH1 setMarginBottom">
                                                     <h1>{Care_Questionnary_Submit}</h1>
                                                 </Grid>
                                             </Grid>
 
-                                        </Grid>
-
-                                        <Grid className="careQuestionTabUpr">
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} sm={7} md={7}>
-                                                </Grid>
-                                                <Grid item xs={12} sm={5} md={5}>
-
-                                                </Grid>
-                                            </Grid>
                                         </Grid>
                                         <Grid className="billInfoData">
                                             <Table>
