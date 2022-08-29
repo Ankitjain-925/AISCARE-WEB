@@ -40,7 +40,8 @@ import {
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import Select from "react-select";
 import Loader from 'Screens/Components/Loader/index';
-import ShowPrevQues from '../../Components/ShowPrevQues/index'
+import PreviousInfo from "../../Components/PreviousInfo/index"
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -65,10 +66,6 @@ class Index extends Component {
     componentDidMount() {
         allHouses(this);
     }
-
-
-
-
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -2509,58 +2506,14 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
-
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={3}>
-                                    {openQues &&
-                                        <Grid className="allFormSection allFormSection1">
-                                            <label>Last Filled Information</label>
-                                            {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
-                                                < Grid className="nurseImagrProf" >
-                                                    <Grid className="nurseImagrProf1">
-                                                        <Grid><label>Date: {getDate(
-                                                            item?.submitDate,
-                                                            this.props.settings.setting &&
-                                                            this.props.settings.setting.date_format
-                                                        )}</label>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <label>Type: {item?.questionnaire_type === "daily" ?
-                                                                "Daily" : item?.questionnaire_type === "two_days" ?
-                                                                    "Two Days" : item?.questionnaire_type === "two_weeks" ?
-                                                                        "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                            </label>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <label>Checked by: <S3Image imgUrl={item?.nurse_info?.image} />
-                                                                {item?.nurse_info?.first_name} {" "} {item?.nurse_info?.last_name} ({item?.nurse_info?.alies_id})</label>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <label>Patient: <S3Image imgUrl={item?.patient_info?.image} />
-                                                                {item?.patient_info?.first_name} {" "} {item?.patient_info?.last_name} ({item?.patient_info?.profile_id})</label>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <label>Hospital: {showHouseValue(this, item?.house_id)}</label>
-                                                        </Grid>
-                                                        <Grid className="bp_graph FullInfoSet">
-
-                                                            <Grid>
-                                                                <a onClick={() => openFullQues(this, item)}>
-                                                                    {full_information}
-                                                                </a>
-                                                            </Grid>
-                                                        </Grid>
-
-                                                    </Grid>
-                                                </Grid>
-                                            ))}
-                                            <ShowPrevQues
-                                                closeFullQues={() => closeFullQues(this)}
-                                                openModal={this.state.openModal}
-                                                item={this.state.ModalData}
-                                            />
-                                        </Grid>}
+                                    <PreviousInfo
+                                        openQues={openQues}
+                                        prevData={this.state.prevData}
+                                        closeFullQues={() => closeFullQues(this)}
+                                        showHouseValue={(id) => showHouseValue(this, id)}
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>

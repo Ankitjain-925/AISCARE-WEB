@@ -14,9 +14,6 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { getDate } from 'Screens/Components/BasicMethod';
-
-
-
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -46,8 +43,6 @@ class Index extends Component {
     capitalizeFirstLetter = (string) => {
         return string && string.charAt(0).toUpperCase() + string.slice(1);
     }
-
-
 
     closeFullQues = () => {
         this.props.closeFullQues();
@@ -118,7 +113,6 @@ class Index extends Component {
             Could_the_Patient_tell_day
         } = translate;
         var item = this.state.item;
-        console.log("item", item)
         const selectoption = [
             {
                 label: "Feeding",
@@ -1303,8 +1297,8 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Modal>
-
-                {/* End of Model setup */}</Grid>
+                {/* End of Model setup */}
+            </Grid>
         )
     }
 
