@@ -16143,6 +16143,12 @@ width: 90px!important;
 
   .RportCss h1{
     margin-bottom: 5px;
+    font-family: Muli;
+    font-size:15px
+  }
+  .RportCss label{
+   font-family: Muli;
+    font-size:12px;
   }
 
 

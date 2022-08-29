@@ -188,11 +188,11 @@ class Index extends Component {
                                                         <Tbody>
                                                             <Tr>
                                                                 <Td>{data.questionnaire_type === "daily" ?
-                                                                            "Daily" : data.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : data.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : data.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}</Td>
+                                                                    "Daily" : data.questionnaire_type === "two_days" ?
+                                                                        "Two Days" : data.questionnaire_type === "two_weeks" ?
+                                                                            "Two weeks" : data.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}</Td>
                                                                 <Td className="patentPic">
-                                                                  <S3Image imgUrl={data?.patient_info?.image} />
+                                                                    <S3Image imgUrl={data?.patient_info?.image} />
                                                                     {data?.patient_info?.first_name}{' '}
                                                                     {data?.patient_info?.last_name}
                                                                 </Td>
@@ -203,12 +203,11 @@ class Index extends Component {
                                                                     {data?.nurse_info?.last_name}
                                                                 </Td>
                                                                 <Td>
-                                                                    {data.submitDate
-                                                                        ? getDate(
-                                                                            data.submitDate,
-                                                                            this.props.settings.setting.date_format
-                                                                        )
-                                                                        : not_mentioned}
+                                                                    {getDate(
+                                                                        data?.submitDate,
+                                                                        this.props.settings.setting &&
+                                                                        this.props.settings.setting.date_format
+                                                                    )}
                                                                 </Td>
                                                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                                                     <a>
@@ -245,6 +244,7 @@ class Index extends Component {
                                                 closeFullQues={() => this.closeFullQues()}
                                                 openModal={this.state.openModal}
                                                 item={this.state.ModalData}
+                                                comesFrom="PatientEnd"
                                             />
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">

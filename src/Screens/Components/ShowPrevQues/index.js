@@ -57,6 +57,8 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             o2_Saturation,
+            Report_Date,
+            Type_Report,
             Feeding,
             Anamnesis,
             blood_pressure,
@@ -118,7 +120,6 @@ class Index extends Component {
             Could_the_Patient_tell_day
         } = translate;
         var item = this.state.item;
-        console.log("item", item)
         const selectoption = [
             {
                 label: "Feeding",
@@ -262,7 +263,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
                                                                         {item.questionary_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" ?
@@ -273,8 +274,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -316,7 +317,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
                                                                         {item.questionary_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" ?
@@ -327,8 +328,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -540,7 +541,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
                                                                         {item.questionary_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" ?
@@ -551,8 +552,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -785,7 +786,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
                                                                         {item.questionary_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" ?
@@ -796,8 +797,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -989,7 +990,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
                                                                         {item.questionary_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" ?
@@ -1000,8 +1001,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
