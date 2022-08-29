@@ -48,13 +48,13 @@ export const checkValidation2 = (current, item, fulldata) => {
         Please_select_better_and_worse_for_condition,
         Sick,
         Please_enter_Weight,
-         Your_form_data_successfully_submitted
-     } = translate;
+        Your_form_data_successfully_submitted
+    } = translate;
     current.setState({ errorChrMsg: '' })
     if (item === 'full_diameter_leg') {
         if (!fulldata.full_diameter_leg) {
             current.setState({
-                errorChrMsg:  please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
+                errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
@@ -92,7 +92,7 @@ export const checkValidation2 = (current, item, fulldata) => {
 
             if (!fulldata.full_anamnesis_weight) {
                 current.setState({
-                    errorChrMsg: Please_enter_Weight ,
+                    errorChrMsg: Please_enter_Weight,
                 });
                 MoveTop(0);
                 return false;
@@ -559,14 +559,14 @@ export const handleSubmit = (current) => {
                                                                                             if (checkValidation(current, data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
                                                                                                 if (checkValidation(current, data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
                                                                                                     if (checkValidation(current, data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
-                                                                                                        if (checkValidation(current, data?.full_feeding, "full_feeding")) {
-                                                                                                            if (checkValidation(current, data?.full_chair_bed_transfer, "full_chair_bed_transfer")) {
-                                                                                                                if (checkValidation(current, data?.full_ambulation, "full_ambulation")) {
-                                                                                                                    if (checkValidation(current, data?.full_wheelchair_management, "full_wheelchair_management")) {
-                                                                                                                        if (checkValidation(current, data?.full_stairs, "full_stairs")) {
-                                                                                                                            if (checkValidation(current, data?.full_on_and_off_toilet, "full_on_and_off_toilet")) {
-                                                                                                                                if (checkValidation(current, data?.full_bowels, "full_bowels")) {
-                                                                                                                                    if (checkValidation(current, data?.full_bladder, "full_bladder")) {
+                                                                                                        if (checkValidation(current, data?.full_feeding?.value, "full_feeding")) {
+                                                                                                            if (checkValidation(current, data?.full_chair_bed_transfer?.value, "full_chair_bed_transfer")) {
+                                                                                                                if (checkValidation(current, data?.full_ambulation?.value, "full_ambulation")) {
+                                                                                                                    if (checkValidation(current, data?.full_wheelchair_management?.value, "full_wheelchair_management")) {
+                                                                                                                        if (checkValidation(current, data?.full_stairs?.value, "full_stairs")) {
+                                                                                                                            if (checkValidation(current, data?.full_on_and_off_toilet?.value, "full_on_and_off_toilet")) {
+                                                                                                                                if (checkValidation(current, data?.full_bowels?.value, "full_bowels")) {
+                                                                                                                                    if (checkValidation(current, data?.full_bladder?.value, "full_bladder")) {
                                                                                                                                         CallApi(current, data);
                                                                                                                                     }
                                                                                                                                 }
@@ -610,9 +610,9 @@ export const handleSubmit = (current) => {
 export const CallApi = (current, data) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let {
-         Your_form_data_successfully_submitted
-     } = translate;
-     const { allQuestionData, allPatientData, selectHouse } = current.state;
+        Your_form_data_successfully_submitted
+    } = translate;
+    const { allQuestionData, allPatientData, selectHouse } = current.state;
     var nurse_id = current.props.stateLoginValueAim?.user?._id;
     var data = {
         created_by: nurse_id,
@@ -772,4 +772,10 @@ export const updateEntryState1 = (current, e) => {
         return el?.user_id === e?.value;
     });
     current.setState({ allPatientData: newArray });
+}
+
+export const updateAllEntrySec0 = (current, e) => {
+    const state = current.state.allQuestionData;
+    state[e.name] = e.z;
+    current.setState({ allQuestionData: state });
 }

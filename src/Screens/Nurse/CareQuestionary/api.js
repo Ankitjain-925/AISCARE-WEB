@@ -776,7 +776,8 @@ export const CallApi = (current, data) => {
                     .then((responce) => {
                         // if (responce.data.hassuccessed) {
                         current.setState({ loaderImage: false, allQuestionData: {}, successMsg: Your_form_data_successfully_submitted });
-                        setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
+                        setTimeout(() => { current.setState({ successMsg: "" }) }, 5000);
+                        prevQuestData(current);
                         MoveTop(0);
                         // }
                     })
