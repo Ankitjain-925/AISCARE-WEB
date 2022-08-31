@@ -1320,3 +1320,4 @@ const mapStateToProps = (state) => {
 export default pure(withRouter(
     connect(mapStateToProps, { Settings, LanguageFetchReducer })(Index)
 ));
+

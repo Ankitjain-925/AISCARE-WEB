@@ -411,6 +411,7 @@ class Index extends Component {
       next,
       Yes,
       No,
+      Currently_available,
     } = translate;
     return (
       <Grid
@@ -496,7 +497,7 @@ class Index extends Component {
                           <Th>{recEmp_LastName}</Th>
                           <Th>{imprint_Email}</Th>
                           <Th>{ID}</Th>
-                          <Th>Currently available</Th>
+                          <Th>{Currently_available}</Th>
                           <Th></Th>
                           <Th></Th>
                         </Tr>

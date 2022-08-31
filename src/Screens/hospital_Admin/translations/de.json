@@ -673,6 +673,23 @@
 		"Something_went_wrong":"Etwas ist schief gelaufen, bitte versuchen Sie es erneut",
 		"Hospital_Name_is_already_exist":"Name des Krankenhauses existiert bereits, bitte wählen Sie einen anderen aus",
 		"Hospital_Name_cant_be_empty":"Krankenhausname darf nicht leer sein",
-		"Hospital_Description_Note_cant_be_empty":"Krankenhaus Beschreibung Hinweis darf nicht leer sein"
+		"Hospital_Description_Note_cant_be_empty":"Krankenhaus Beschreibung Hinweis darf nicht leer sein",
+		"Currently_available":"Gegenwärtig verfügbar",
+		"ManageHouse":"Krankenhaus verwalten",
+		"admin_staff":"Verwaltungspersonal",
+		"Delete_Document":"Dokument löschen",
+		"This_document_is_not_permanently_deleted_this_is_only_go_in_archive":"Dieses Dokument wird nicht dauerhaft gelöscht, sondern nur ins Archiv verschoben",
+		"are_you_sure": "Sind Sie sicher, dass Sie dies tun möchten?",
+		"YesDelete": "Ja, löschen",
+		"DeleteGroup": "Gruppe löschen",
+		"hospitals_in_this_step_will_be_removed_action_cannot_reversed": "Alle Krankenhäuser in diesem Schritt werden aus der Gruppe entfernt. Diese Aktion kann nicht rückgängig gemacht werden.",
+		"yes_deleteStep": "Ja, Schritt löschen",
+		"cancel_keepStep": "Abbrechen, Schritt halten",
+		"new_entry": "Neuer Eintrag",
+		"create_new_user": "Neuen Benutzer anlegen",
+		"Currentpassword": "Aktuelles Passwort",
+    	"Confirm_your_password": "Bestätigen Sie Ihr Passwort",
+    	"First_name": "Vorname",
+    	"Last_name": "Nachname"
 	}
 }
