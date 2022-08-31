@@ -64,6 +64,7 @@ class Index extends Component {
             Worse,
             Better,
             Thrombose_Situation,
+            Wound_doc,
             Falling_Risk,
             ask_for_incidents,
             Fall_today,
@@ -425,7 +426,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -456,7 +457,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Wound_doc}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -643,7 +644,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -674,7 +675,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Wound_doc}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -887,7 +888,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -918,7 +919,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Wound_doc}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -1103,7 +1104,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
@@ -1134,7 +1135,7 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
+                                                            <h1>{Wound_doc}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>

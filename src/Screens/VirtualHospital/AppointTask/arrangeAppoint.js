@@ -418,7 +418,7 @@ class Index extends Component {
 
   handleAllowLoc = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {please_select,first,Please_select_doctor_nurse,Please_select_patient_first} = translate;
+    let { please_select, first, Please_select_doctor_nurse, Please_select_patient_first } = translate;
     this.setState({ errorMsg: "" });
     const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
     if (Object.keys(selectedPatient).length !== 0) {
@@ -454,7 +454,7 @@ class Index extends Component {
         this.setState({ errorMsg: Please_select_doctor_nurse });
       }
     } else
-      this.setState({ errorMsg: Please_select_patient_first});
+      this.setState({ errorMsg: Please_select_patient_first });
   };
 
   handleCloseAllowLoc = () => {
@@ -753,7 +753,7 @@ class Index extends Component {
       vdo_call, All, Open, done,
       capab_Doctors1,
       Nurse,
-      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit,Ok,Cancel } =
+      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit, Ok, Cancel } =
       translate;
 
     const { tabvalue, patNotSelected,
@@ -888,8 +888,8 @@ class Index extends Component {
                         control={
                           <Radio className="radioPat" />
                         }
-                        label={capab_Doctors1} 
-                        />
+                        label={capab_Doctors1}
+                      />
                       <FormControlLabel
                         value="no"
                         name="selectPatDoc"
@@ -1000,37 +1000,37 @@ class Index extends Component {
           <div className="alowLocAces1">
             <div className="alowLocAces1Inner">
               <div className="accessCourse">
-              <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
                     <Grid
-                  className="backFlow backFlow34"
-                  onClick={() => {
-                    this.setState({ openAllowLoc: false, openAllowAccess: true });
-                  }}
-                >
-                  <a>
-                    <img
-                      src={require('assets/virtual_images/rightArrow.png')}
-                      alt=""
-                      title=""
-                    />
-                    Back
-                  </a>
-                </Grid>
+                      className="backFlow backFlow34"
+                      onClick={() => {
+                        this.setState({ openAllowLoc: false, openAllowAccess: true });
+                      }}
+                    >
+                      <a>
+                        <img
+                          src={require('assets/virtual_images/rightArrow.png')}
+                          alt=""
+                          title=""
+                        />
+                        Back
+                      </a>
                     </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
-                        <Grid>
-                        <Grid className="entryCloseBtn">
-                            <a onClick={this.handleCloseAllowLoc}>
-                            <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                            />
-                            </a>
-                        </Grid>
-                        </Grid>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseAllowLoc}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
                     </Grid>
+                  </Grid>
                 </Grid>
                 {/* <div className="handleAccessBtn">
                   <a onClick={this.handleCloseAllowLoc}>
@@ -1174,39 +1174,39 @@ class Index extends Component {
                 {this.state.personalinfo &&
                   // allDocData.length > 0 &&
                   // allDocData.map((doc, i) => (
-                    <div className="allowAvailListIner">
-                      <Grid container direction="row" spacing={1}>
-                        <Grid item xs={12} md={3}>
-                          <Grid className="spclistDr">
-                            {this.state.personalinfo?.new_image ? (
-                              <img
-                                className="doctor_pic"
-                                src={this.state.personalinfo?.new_image}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                className="doctor_pic"
-                                src={require("assets/images/avatar.png")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            <a>
-                              {/* <img src={doc.data.image} alt="" title="" /> */}
-                              {this.state.personalinfo?.first_name &&
-                                this.state.personalinfo?.first_name}{" "}
-                              {this.state.personalinfo?.last_name &&
-                                this.state.personalinfo?.last_name}{" "}
-                              {/* (
+                  <div className="allowAvailListIner">
+                    <Grid container direction="row" spacing={1}>
+                      <Grid item xs={12} md={3}>
+                        <Grid className="spclistDr">
+                          {this.state.personalinfo?.new_image ? (
+                            <img
+                              className="doctor_pic"
+                              src={this.state.personalinfo?.new_image}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              className="doctor_pic"
+                              src={require("assets/images/avatar.png")}
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          <a>
+                            {/* <img src={doc.data.image} alt="" title="" /> */}
+                            {this.state.personalinfo?.first_name &&
+                              this.state.personalinfo?.first_name}{" "}
+                            {this.state.personalinfo?.last_name &&
+                              this.state.personalinfo?.last_name}{" "}
+                            {/* (
                               {doc.data &&
                                 doc.data.title &&
                                 doc.data.title}
                               ) */}
-                            </a>
-                          </Grid>
-                          {/* <Grid className="nuroDr">
+                          </a>
+                        </Grid>
+                        {/* <Grid className="nuroDr">
                             <label>
                               {doc.data &&
                                 doc.data.speciality &&
@@ -1226,22 +1226,22 @@ class Index extends Component {
                                 )}
                             </p>
                           </Grid> */}
-                        </Grid>
-                        <Grid item xs={12} md={5}>
-                          <Grid className="srvcTagsCntnt">
-                            <Grid className="srvcTags">
-                              <a
-                                className={
-                                  this.state.show_type === "contact" &&
-                                  "currentTab"
-                                }
-                                onClick={() => {
-                                  this.setState({ show_type: "contact" });
-                                }}
-                              >
-                                {Contact}
-                              </a>
-                              {/* <a
+                      </Grid>
+                      <Grid item xs={12} md={5}>
+                        <Grid className="srvcTagsCntnt">
+                          <Grid className="srvcTags">
+                            <a
+                              className={
+                                this.state.show_type === "contact" &&
+                                "currentTab"
+                              }
+                              onClick={() => {
+                                this.setState({ show_type: "contact" });
+                              }}
+                            >
+                              {Contact}
+                            </a>
+                            {/* <a
                                 className={
                                   this.state.show_type === "service" &&
                                   "currentTab"
@@ -1265,53 +1265,53 @@ class Index extends Component {
                               >
                                 {latest_info}
                               </a> */}
+                          </Grid>
+                          {this.state.show_type === "contact" && (
+                            <Grid className="srvcTagsLoc">
+                              <a>
+                                <img
+                                  src={require("assets/images/location-pin.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.city &&
+                                  this.state.personalinfo?.city}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/phone.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.mobile &&
+                                  this.state.personalinfo?.mobile}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/email.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.email &&
+                                  this.state.personalinfo?.email}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/language.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.language &&
+                                  this.state.personalinfo?.language.length > 0 &&
+                                  this.state.personalinfo?.language.join(", ")}
+                              </a>
                             </Grid>
-                            {this.state.show_type === "contact" && (
-                              <Grid className="srvcTagsLoc">
-                                <a>
-                                  <img
-                                    src={require("assets/images/location-pin.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo &&
-                                    this.state.personalinfo?.city &&
-                                    this.state.personalinfo?.city}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/phone.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo  &&
-                                    this.state.personalinfo?.mobile &&
-                                    this.state.personalinfo?.mobile}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/email.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo  &&
-                                    this.state.personalinfo?.email &&
-                                    this.state.personalinfo?.email}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/language.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo &&
-                                    this.state.personalinfo?.language &&
-                                    this.state.personalinfo?.language.length > 0 &&
-                                    this.state.personalinfo?.language.join(", ")}
-                                </a>
-                              </Grid>
-                            )}
-                            {/* {this.state.show_type === "service" && (
+                          )}
+                          {/* {this.state.show_type === "service" && (
                               <Grid className="srvcTagsLoc">
                                 <a>
                                   {doc.data &&
@@ -1333,16 +1333,18 @@ class Index extends Component {
                                 </a>
                               </Grid>
                             )} */}
-                          </Grid>
                         </Grid>
-                        <Grid item xs={12} md={4}>
-                      {allDocData?.length > 0 &&
-                      allDocData.map((doc, i) => (
-                          <Grid className="avlablDates">
-                            <h3>{see_avlbl_date}:</h3>
-                            <Grid>
-                              {/* {this.state.video_call && ( */}
-                              {/* <a
+                      </Grid>
+                      <Grid item xs={12} md={4}>
+                        {allDocData?.length > 0 &&
+                          allDocData.map((doc, i) => (
+                            <Grid className="avlablDates">
+                              <h3>{see_avlbl_date}:</h3>
+                              <Grid>
+                                {console.log("thiskjhiuyyiyyuiyyiyu", doc?.appointments[0]?.custom_text)}
+
+                                {/* {this.state.video_call && ( */}
+                                {/* <a
                                         onClick={() =>
                                           this.handleOpenFancyVdo(
                                             i,
@@ -1358,47 +1360,47 @@ class Index extends Component {
                                         />
                                         {vdo_call}
                                       </a> */}
-                              {/* )} */}
-                              {/* {this.state.office_visit && ( */}
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "appointments",
-                                    doc.appointments[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {doc.appointments &&
-                                  doc.appointments.length > 0 &&
-                                  doc.appointments[0].custom_text
-                                  ? doc.appointments[0].custom_text
-                                  : office_visit}
-                              </a>
-                              
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "homevisit_appointment",
-                                    doc.homevisit_appointment[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                
+                                {/* )} */}
+                                {/* {this.state.office_visit && ( */}
+                                <a
+                                  onClick={() =>
+                                    this.handleOpenFancyVdo(
+                                      i,
+                                      "appointments",
+                                      doc.appointments[0]
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/ShapeCopy2.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {doc.appointments &&
+                                    doc.appointments.length > 0 &&
+                                    doc.appointments[0].custom_text
+                                    ? doc.appointments[0].custom_text
+                                    : office_visit}
+                                </a>
+
+                                <a
+                                  onClick={() =>
+                                    this.handleOpenFancyVdo(
+                                      i,
+                                      "homevisit_appointment",
+                                      doc.homevisit_appointment[0]
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/ShapeCopy2.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+
                                   {Home_visit}
-                              </a>
-                              {/* )}
+                                </a>
+                                {/* )}
                                     <a
                                       onClick={() =>
                                         this.handleOpenFancyVdo(
@@ -1416,12 +1418,12 @@ class Index extends Component {
                                       />
                                       {consultancy_cstm_calnder}
                                     </a> */}
+                              </Grid>
                             </Grid>
-                          </Grid>
-                      ))}
-                        </Grid>
+                          ))}
                       </Grid>
-                    </div>
+                    </Grid>
+                  </div>
                   // ))}
                 }
               </div>
