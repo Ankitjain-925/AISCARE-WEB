@@ -4171,9 +4171,8 @@ button.aboutTabsIner {
     cursor: pointer;
 }
 .docTabCntnt {
-    margin-bottom: 52px;
+    margin-bottom: 6px;
 }
-
 .doctrstCntnt {
     margin-bottom: 52px;
 }
@@ -4721,7 +4720,7 @@ button.aboutTabsIner {
     text-align: center;
     justify-content: center;
     align-items: center;
-    min-height: 120px;
+    min-height: 80px;
     display: flex;
     color: #7F8383;
     font-family: Muli;
@@ -5256,7 +5255,7 @@ span.revwRed{
     font-weight: bold;
     letter-spacing: 0;
     line-height: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     white-space: nowrap;
 }
 .medicalNotify {
@@ -5287,7 +5286,7 @@ span.revwRed{
 }
 .medicalDesp {
     padding: 18px 18px;
-    min-height: 84px;
+    min-height: 80px;
 }
 .medicalDesp a {
     color: #000808 !important;
@@ -5306,10 +5305,10 @@ span.revwRed{
     font-weight: bold;
     letter-spacing: 0;
     line-height: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 .otherInfo {
-    margin-top: 52px;
+    margin-top: 38px;
 }
 .docCntctLft label {
     color: #00B0DB;
@@ -5334,7 +5333,7 @@ span.revwRed{
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
-    min-height: 342px;
+    min-height: 278px;
 }
 .docCntct {
     border-bottom: 1px solid #F2F2F2;
@@ -5402,7 +5401,7 @@ span.revwRed{
     padding: 15px 18px 20px;
 }
 .neuroGen {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 .jlyMorr label {
     color: #000808;
@@ -5491,7 +5490,7 @@ span.revwRed{
     padding: 22px 18px 28px;
 }
 .srvcActiv {
-    padding: 15px 18px 15px;
+    padding: 6px 8px 16px;
     border-top: 1px solid #F2F2F2;
 }
 .acvtTogle label {
@@ -5774,7 +5773,7 @@ a.nxtpag {
     margin-bottom: 12px;
 }
 .drsplestQues, .ishelpUpr {
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 }
 .drsplestQues label {
     color: #404646;
@@ -5846,7 +5845,7 @@ a.nxtpag {
     width: 100%;
 }
 .medicnSub {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .nwPresCntntIner {
     height: 564px;
@@ -7345,7 +7344,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyData h1 {
     color: #FAFAFA !important;
 }
-.homeBgDrk .healthStatus h2, .homeBgDrk .otherInfo h2 {
+.homeBgDrk .healthStatus h2, 
+.homeBgDrk .otherInfo h2 {
     color: #FAFAFA !important;
 }
 .homeBgDrk .medicalNotify {
@@ -8408,7 +8408,7 @@ a.vsblDots2 img {
     border-radius: 4px;
     background-color: #FFFFFF;
     width: 100%;
-    padding: 10px 12px;
+    padding: 8px 9px;
     outline: none;
     color: #000808;
     font-family: Muli;
@@ -8445,7 +8445,7 @@ span.dosMg {
     line-height: 18px;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 8px;
 }
 .rrInput input {
     border: 1px solid #BFC1C1;
@@ -10640,7 +10640,7 @@ img.editPendata {
     line-height: 12px;
 }
 .invitLinkInfo .css-2b097c-container {
-    border: 1px solid #BFC1C1 !important;
+    /* border: 1px solid #BFC1C1 !important; */
     border-radius: 4px;
     background-color: #FFFFFF;
     color: #404646;
@@ -13313,8 +13313,8 @@ a.academy_ul ul li img {
 .__PrivateStripeElement iframe {
     min-width: 500px !important;
 }
-.srvcActiv p{
-    line-height: 20px;
+.srvcActiv p {
+    line-height: 16px;
 }
 .sbu_button .cancel {
     background: red;
@@ -13332,7 +13332,8 @@ a.academy_ul ul li img {
     border-radius: 8px;
     padding: 5px 8%;
     font-weight:600;
-    margin-top: 10px;
+    margin-top: 0px;
+    font-size: 12px;
 }
 @media (max-width: 768px){
   .menuItems {
@@ -14016,8 +14017,10 @@ g.highcharts-axis.highcharts-yaxis text {
 .presCloseBtn a:hover{
     background: #e2e2e2e0 !important;
 }
-.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
-    background-color: #404646!important;
+.darkTheme > .nwPresCntnt ,
+.darkTheme > .opinBoxCntnt, 
+.darkTheme > .invtCourse {
+    background-color: #404646 !important;
 }
 .timeIconClas_crested img{
     width: 30px;
@@ -15043,6 +15046,9 @@ input:focus {
 }
 .homeBgDrk .rbc-today {
     background-color: #404646 !important;
+}
+.darkTheme .latstInfo .ql-container.ql-snow span {
+    color: #dfdfdf !important;
 }
 .calendar-cont {
     font-size: 11px; 

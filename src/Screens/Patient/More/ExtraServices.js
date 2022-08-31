@@ -315,7 +315,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     <p>
                                       {srvc} {activated} {on}{" "}
                                       <span>
@@ -323,7 +323,7 @@ class Index extends Component {
                                       </span>
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     {this.state.firstServiceData?.subscription_info?.subscribed_from === 'web' && 
                                     <Grid className="acvtTogle">
                                       <div className="sbu_button">
@@ -373,7 +373,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     <p>
                                       {srvc} {activated} {on}{" "}
                                       <span>
@@ -381,7 +381,7 @@ class Index extends Component {
                                       </span>
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                       {this.state.secondServiceData?.subscription_info?.subscribed_from === 'web' && <Grid className="acvtTogle">
                                       <div className="sbu_button">
                                         <button
@@ -415,41 +415,23 @@ class Index extends Component {
                           <Grid item xs={12} md={3}>
                             <Grid className="docArundUpr">
                               <Grid className="docArund">
-                                <Grid>
-                                  <img
-                                    src={require("assets/images/24.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </Grid>
-                                <Grid>
-                                  <label>{doc_around_clock}</label>
-                                </Grid>
-                                <Grid>
-                                  <p>{cntct_aimedis_medi_team_24_7}</p>
-                                </Grid>
+                                <Grid><img src={require("assets/images/24.svg")}  alt="" title="" /></Grid>
+                                <Grid><label>{doc_around_clock}</label></Grid>
+                                <Grid><p>{cntct_aimedis_medi_team_24_7}</p></Grid>
                               </Grid>
                               <Grid className="srvcActiv">
-                                <Grid
-                                  container
-                                  direction="row"
-                                  justify="center"
-                                  alignItems="center"
-                                >
-                                  <Grid item xs={12} md={5}>
-                                    <p>
-                                      {activate} {srvc}{" "}
-                                    </p>
+                                <Grid container direction="row" justify="center" alignItems="center">
+                                  <Grid item xs={12} sm={6} md={6}>
+                                    <p>{activate} {srvc}{" "}</p>
                                   </Grid>
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     <Grid className="acvtTogle">
                                       {!this.state.show1 &&
                                       <div className="sbu_button">
                                       <button
                                           onClick={() => {
                                             this.setState({show1: true, show2: false})
-                                          }}
-                                        >
+                                          }}>
                                           {recEmp_SUBSCRIBE}
                                         </button>
                                       </div>}
@@ -495,12 +477,12 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={5}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     <p>
                                       {activate} {srvc}
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} sm={6} md={6}>
                                     <Grid className="acvtTogle">
                                       <div className="sbu_button">
                                       {!this.state.show2 && <button
