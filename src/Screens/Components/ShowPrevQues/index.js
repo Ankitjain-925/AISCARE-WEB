@@ -52,6 +52,8 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             o2_Saturation,
+            Report_Date,
+            Type_Report,
             Feeding,
             Anamnesis,
             blood_pressure,
@@ -256,20 +258,22 @@ class Index extends Component {
                                                     {this.state.comesFrom === "PatientEnd" &&
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
+                                                                <Grid className="RportCss MainclassQues1">
                                                                     <h1>Type of Report</h1>
+
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
+                                                                <Grid className="RportCss MainclassQues1">
                                                                     <h1>Report Date</h1>
                                                                     <label>{getDate(item.created_on, this.state.date_format)}</label>
+
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -306,24 +310,24 @@ class Index extends Component {
                                                 </Grid>
                                             )}
                                             {item && (item?.questionnaire_type === "two_weeks" || item?.questionary_type === "two_weeks") && (
-                                                <Grid className="MainclassQues">
+                                                <Grid className="MainclassQues MainclassQues1">
                                                     {this.state.comesFrom === "PatientEnd" &&
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -530,24 +534,24 @@ class Index extends Component {
 
                                             )}
                                             {item && (item?.questionnaire_type === "two_days" || item?.questionary_type === "two_days") && (
-                                                <Grid className="MainclassQues">
+                                                <Grid className="MainclassQues MainclassQues1">
                                                     {this.state.comesFrom === "PatientEnd" &&
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -775,24 +779,24 @@ class Index extends Component {
 
                                             )}
                                             {item && (item?.questionnaire_type === "daily" || item?.questionary_type === "daily") && (
-                                                <Grid className="MainclassQues">
+                                                <Grid className="MainclassQues MainclassQues1">
                                                     {this.state.comesFrom === "PatientEnd" &&
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -979,24 +983,24 @@ class Index extends Component {
                                                 </Grid>
                                             )}
                                             {item && (item?.questionnaire_type === "full" || item?.questionary_type === "full") && (
-                                                <Grid className="MainclassQues">
+                                                <Grid className="MainclassQues MainclassQues1">
                                                     {this.state.comesFrom === "PatientEnd" &&
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                        {item.questionary_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>

@@ -517,6 +517,7 @@ class Index extends Component {
                                               name="quarter_feeding"
                                             >
                                               <FormControlLabel
+                                                // className="aaa"
                                                 control={<Radio />}
                                                 label={this.capitalizeFirstLetter(option)}
                                                 checked={
@@ -1647,7 +1648,6 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           </Grid>
-
 
                           <Grid className="allQuestionShow1">
                             <label>{Pain_Status}</label>

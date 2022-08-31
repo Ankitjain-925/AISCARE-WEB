@@ -1834,7 +1834,13 @@
 		 "use_yours_tools":"use yours tools",
 		 "Assign_service":"+ Assign service",
 		 "Please_select_doctor_nurse":"Please select either dotor or nurse",
-		 "Please_select_patient_first":"Please select patient first"
+		 "Please_select_patient_first":"Please select patient first",
+		 "Doctor_Nurse":" Doctor/Nurse",
+		 "Care_Questionnary_Submit":"Care Questionnary Submit",
+		 "Type_Report":"Type of Report",
+		 "Report_Date":"Report Date",
+		 "Last_Filled_Information":"Last Filled Information",
+		 "Checked_by":"Checked by"
 		 
 
 
