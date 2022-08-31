@@ -2070,7 +2070,10 @@
      "Doctor_Nurse":" Doctor/Nurse",
      "Care_Questionnary_Submit":"Care Questionnary Submit",
      "Type_Report":"Type of Report",
-     "Report_Date":"Report Date"
+     "Report_Date":"Report Date",
+     "Last_Filled_Information":"Last Filled Information",
+     "Checked_by":"Checked by"
+  
      
     }
 
