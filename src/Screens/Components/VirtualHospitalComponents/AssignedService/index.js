@@ -124,11 +124,16 @@ class Index extends Component {
 
     handleCloseAss = () => {
         this.setState({
-            // service: {},
+            service: {},
             selectedPat: {},
             assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-            items: [], total_amount: 0, showError: ''
+            items: [], total_amount: 0, showError: '',
 
+        }, ()=>{
+            if(this.props.comesFrom === 'detailTask'){
+                let user = { value: this.props.patient?.patient_id };
+                this.updateEntryState2(user);
+              }
         });
         this.props.handleCloseAss();
 
@@ -690,7 +695,7 @@ class Index extends Component {
                                             onChange={(e) =>
                                                 this.onFieldChange1(e.target.value, 'title')
                                             }
-                                            value={this.state.service?.title}
+                                            value={this.state.service?.title || ''}
                                         />
                                     </Grid>
                                     <p className="err_message">{this.state.error}</p>
