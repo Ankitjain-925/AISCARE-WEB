@@ -288,8 +288,8 @@ class Index extends Component {
                             start: new Date(da1).valueOf(),
                             end: new Date(da2).valueOf(),
                           });
-                          if(this.props.House?.value){
-                            if(d1.house_id === this.props.House.value){
+                          if (this.props.House?.value) {
+                            if (d1.house_id === this.props.House.value) {
                               finaldata.push({
                                 id: index,
                                 title:
@@ -303,19 +303,19 @@ class Index extends Component {
                               });
                             }
                           }
-                         else{
-                          finaldata.push({
-                            id: index,
-                            title:
-                              d1.patient_info.first_name +
-                              " " +
-                              d1.patient_info.last_name,
-                            start: new Date(da1),
-                            end: new Date(da2),
-                            indexout: indexout,
-                            fulldata: [d1],
-                          });
-                         }
+                          else {
+                            finaldata.push({
+                              id: index,
+                              title:
+                                d1.patient_info.first_name +
+                                " " +
+                                d1.patient_info.last_name,
+                              start: new Date(da1),
+                              end: new Date(da2),
+                              indexout: indexout,
+                              fulldata: [d1],
+                            });
+                          }
                         }
                       });
                   }
@@ -400,9 +400,9 @@ class Index extends Component {
                 }
               }
             });
-            if(this.props?.House?.value){
-              newAppoint = newAppoint && newAppoint.length>0 && newAppoint.filter((data)=>data.house_id===this.props?.House?.value)
-            }
+          if (this.props?.House?.value) {
+            newAppoint = newAppoint && newAppoint.length > 0 && newAppoint.filter((data) => data.house_id === this.props?.House?.value)
+          }
           this.setState({ newAppoinments: newAppoint });
         }
       });
@@ -473,13 +473,13 @@ class Index extends Component {
 
   updateAppointmentDetails(status, id, data) {
     let user_token = this.props.stateLoginValueAim.token;
-  
+
     axios
-    .put(
+      .put(
         sitedata.data.path + "/UserProfile/GetAppointment/" + id,
         {
           status: status,
-        
+
           email: data.patient_info.email,
           lan: this.props.stateLanguageType,
           docProfile: {
