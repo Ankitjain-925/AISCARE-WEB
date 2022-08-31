@@ -258,7 +258,7 @@ class Index extends Component {
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss MainclassQues1">
-                                                                    <h1>Type of Report</h1>
+                                                                    <h1>{Type_Report}</h1>
 
                                                                     <label>
                                                                         {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
@@ -270,8 +270,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss MainclassQues1">
-                                                                    <h1>Report Date</h1>
-                                                                    <label>{getDate(item.created_on, this.state.date_format)}</label>
+                                                                    <h1>{Report_Date}</h1>
+                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
 
                                                                 </Grid>
                                                             </Grid>
