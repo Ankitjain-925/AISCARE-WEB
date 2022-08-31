@@ -45,6 +45,12 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             full_information,
+            Last_Filled_Information,
+            date,
+            type,
+            Checked_by,
+            Patient,
+            hospital
         } = translate;
         var item = this.state.item;
         console.log("item", item)
@@ -53,11 +59,11 @@ class Index extends Component {
             <Grid>
                 {openQues &&
                     <Grid className="allFormSection allFormSection1">
-                        <h2>Last Filled Information</h2>
+                        <h2>{Last_Filled_Information}</h2>
                         {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
                             < Grid className="nurseImagrProf" >
                                 <Grid className="nurseImagrProf1">
-                                    <Grid><label>Date: </label>
+                                    <Grid><label>{date}: </label>
                                         <p>{getDate(
                                             item?.submitDate,
                                             this.props.settings.setting &&
@@ -65,7 +71,7 @@ class Index extends Component {
                                         )}</p>
                                     </Grid>
                                     <Grid>
-                                        <label>Type:  </label>
+                                        <label>{type}:  </label>
                                         <p>{item?.questionnaire_type === "daily" ?
                                             "Daily" : item?.questionnaire_type === "two_days" ?
                                                 "Two Days" : item?.questionnaire_type === "two_weeks" ?
@@ -73,7 +79,7 @@ class Index extends Component {
 
                                     </Grid>
                                     <Grid>
-                                        <label>Checked by: </label>
+                                        <label>{Checked_by}: </label>
                                         <div className="showAllAssignedInner">
                                             <Grid className="allInfo allInfo2 tasklistName">
                                                 <Grid>
@@ -91,7 +97,7 @@ class Index extends Component {
                                         </div>
                                     </Grid>
                                     <Grid>
-                                        <label>Patient: </label>
+                                        <label>{Patient}: </label>
                                         <div className="showAllAssignedInner">
                                             <Grid className="allInfo allInfo2 tasklistName">
                                                 <Grid>
@@ -110,7 +116,7 @@ class Index extends Component {
 
                                     </Grid>
                                     <Grid>
-                                        <label>Hospital:</label>
+                                        <label>{hospital}:</label>
                                         <p> {this.props.showHouseValue(item?.house_id)}</p>
                                     </Grid>
                                     <Grid className="bp_graph FullInfoSet">
