@@ -22,7 +22,6 @@ import PainIntensity from "Screens/Components/PainIntansity/index";
 import FatiqueQuestion from "Screens/Components/TimelineComponent/CovidSymptomsField/FatiqueQuestions";
 import {
     updateAllEntrySec2,
-    handleChangeForm,
     updateAllEntrySec,
     handleSubmit,
     updateAllEntrySec1,
@@ -30,11 +29,14 @@ import {
     allHouses,
     updateEntryState,
     updateEntryState1,
-    updateAllEntrySec0
+    updateAllEntrySec0,
+    showHouseValue
 } from "./api"
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import Select from "react-select";
 import Loader from 'Screens/Components/Loader/index';
+import PreviousInfo from "../../Components/PreviousInfo/index"
+
 
 class Index extends Component {
     constructor(props) {
@@ -190,7 +192,7 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="questionnary" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                <Grid item xs={12} sm={12} md={9}>
+                                <Grid item xs={12} sm={12} md={8}>
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
@@ -1359,6 +1361,14 @@ class Index extends Component {
                                     </Grid>
 
 
+                                </Grid>
+
+                                <Grid item xs={12} sm={12} md={3}>
+                                    <PreviousInfo
+                                        openQues={openQues}
+                                        prevData={this.state.prevData}
+                                        showHouseValue={(id) => showHouseValue(this, id)}
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>

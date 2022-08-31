@@ -233,8 +233,12 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
 
     axios
-      .get(
-        sitedata.data.path + "/UserProfile/AskPatientProfile/" + AskPatient,
+      .post(
+        sitedata.data.path + "/UserProfile/AskPatientProfile" ,
+        {
+          id: AskPatient
+        },
+
         commonHeader(user_token)
       )
       .then((responce) => {

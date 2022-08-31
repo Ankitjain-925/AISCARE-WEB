@@ -2,8 +2,9 @@ import { getLanguage } from 'translations/index';
 import axios from 'axios';
 import sitedata from 'sitedata';
 import { commonHeader } from 'component/CommonHeader/index';
-import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import _ from 'lodash';
+
 
 export const handleChangeForm = (current, value) => {
     if (value === 1) {
@@ -523,6 +524,7 @@ export const handleSubmit = (current) => {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
                 current.setState({ openQues: true });
+                prevQuestData(current);
             } else {
                 current.setState({ errorChrMsg1: please_select + " " + Patient_first })
             }
@@ -674,6 +676,7 @@ export const CallApi = (current, data) => {
                         });
                         setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
                         MoveTop(0);
+                        prevQuestData(current);
                         // }
                         // else {
                         //     current.setState({ loaderImage: false })
@@ -697,11 +700,6 @@ export const FileAttachMulti = (current, Fileadd, name) => {
         fileupods: true,
         allQuestionData: state
     })
-    // current.setState({
-    //     valueof: name === "daily_decubitus_picture_with_scale" ||
-    //         name === "day_decubitus_picture_with_scale" ||
-    //         name === "week_decubitus_picture_with_scale" ? 1 : 2
-    // })
 };
 
 export const allHouses = (current) => {
@@ -731,25 +729,6 @@ export const updateEntryState = (current, e) => {
     });
 }
 
-// Get the Professional data
-// export const getProfessionalData1 = async (current) => {
-//     current.setState({ loaderImage: true });
-//     var data = await getProfessionalData(
-//         current.state.selectHouse?.value,
-//         current.props.stateLoginValueAim?.token
-//     );
-//     if (data) {
-//         current.setState({
-//             loaderImage: false,
-//             professionalArray: data.professionalArray,
-//             professional_id_list: data.professionalList,
-//             professional_id_list1: data.professionalList,
-//         });
-//     } else {
-//         current.setState({ loaderImage: false });
-//     }
-// };
-
 // Get the Patient data
 export const getPatientData1 = async (current) => {
     current.setState({ loaderImage: true });
@@ -778,4 +757,26 @@ export const updateAllEntrySec0 = (current, e) => {
     const state = current.state.allQuestionData;
     state[e.name] = e.z;
     current.setState({ allQuestionData: state });
+}
+
+export const prevQuestData = (current) => {
+    current.setState({ loaderImage: true });
+    let user_token = current.props.stateLoginValueAim.token;
+    let user_id = current.state.selectPatient?.value;
+    axios
+        .get(
+            sitedata.data.path + "/vc/GetUserQuerstionair/" + user_id,
+            commonHeader(user_token)
+        )
+        .then((response) => {
+            current.setState({ prevData: response.data.data, loaderImage: false });
+        })
+        .catch((error) => {
+            current.setState({ loaderImage: false });
+        });
+};
+
+export const showHouseValue = (current, house_id) => {
+    const house_name = _.filter(current.state.currentList, (item) => item.value === house_id).map((obj) => obj.label)
+    return house_name[0];
 }

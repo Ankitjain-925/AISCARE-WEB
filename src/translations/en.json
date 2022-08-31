@@ -1902,7 +1902,7 @@
     "nurse_questionnaire":"nurse questionnaire",
     "daily":"daily",
     "Daily":"Daily",
-    "every_2_week":"every 2 week",
+    "every_2_week":"Every 2 week",
     "all_2_days":"2 days",
     "quarter":"quarter",
     "full_information":"Full Information",
@@ -2068,7 +2068,9 @@
      "Please_select_doctor_nurse":"Please select either dotor or nurse",
      "Please_select_patient_first":"Please select patient first",
      "Doctor_Nurse":" Doctor/Nurse",
-     "Care_Questionnary_Submit":"Care Questionnary Submit"
+     "Care_Questionnary_Submit":"Care Questionnary Submit",
+     "Type_Report":"Type of Report",
+     "Report_Date":"Report Date"
      
     }
 
