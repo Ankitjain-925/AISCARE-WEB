@@ -107,7 +107,7 @@ class Index extends Component {
             The_patient_dependent_bladder_management,
             Bladder,
             The_patient_control_bowels_accidents,
-            Have_you_eaten_Fruits, 
+            Have_you_eaten_Fruits,
             Supervision_safety_with_normal_toilet,
             The_patient_toilet,
             Bowels,
@@ -192,7 +192,7 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="questionnary" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                <Grid item xs={12} sm={12} md={9}>
+                                <Grid item xs={12} sm={12} md={8}>
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
@@ -915,7 +915,7 @@ class Index extends Component {
                                                         <FormControl className="selectOption">
                                                             <FormLabel id="main-topic-counted">{Feeding}</FormLabel>
                                                             <RadioGroup aria-labelledby="main-topic-counted" name="full_feeding">
-                                                            <FormControlLabel
+                                                                <FormControlLabel
                                                                     checked={this.state.allQuestionData?.full_feeding?.value === 'feeding_v1'}
                                                                     value="feeding_v1"
                                                                     onChange={(e) => {
@@ -1030,346 +1030,346 @@ class Index extends Component {
                                                             <RadioGroup aria-labelledby="Radio-Ambulation" name="full_ambulation">
                                                                 <FormControlLabel
 
-                                       checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v1'}
-                                       value="abulation_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_ambulation", z: { value: "abulation_v1", label: "the patient must be independent in all phases of this activity" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Dependent_in_ambulation} />
-                                   <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v1'}
+                                                                    value="abulation_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_ambulation", z: { value: "abulation_v1", label: "the patient must be independent in all phases of this activity" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Dependent_in_ambulation} />
+                                                                <FormControlLabel
 
-                                       checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v2'}
-                                       value="abulation_v2"
-                                       onChange={(e) => {
-                                           var e = { name: "full_ambulation", z: { value: "abulation_v2", label: "constant presence of one or more assistant is required during ambulation" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Constant_presence_of_one} />
-                                   <FormControlLabel
-
-
-                                       checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v3'}
-                                       value="abulation_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_ambulation", z: { value: "abulation_v3", label: "assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Assistance_required_with_reaching} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v4'}
-                                       value="abulation_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_ambulation", z: { value: "abulation_v4", label: "the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_is_independent} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v5'}
-                                       value="abulation_v5"
-                                       onChange={(e) => {
-                                           var e = { name: "full_ambulation", z: { value: "abulation_v5", label: "the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_must_wear_braces} />
-                               </RadioGroup>
-                           </FormControl>
-
-                           <FormControl className="selectOption">
-                               <FormLabel id="Radio-Wheelchair" className="wheelChr">
-                                   {Wheelchair_Management}
-                                   <span>(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)</span>
-                               </FormLabel>
-                               <RadioGroup aria-labelledby="Radio-Wheelchair" name="full_wheelchair_management">
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v1'}
-                                       value="wheelchair_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v1", label: "dependent in wheelchair ambulation" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Dependent_in_wheelchair} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v2'}
-                                       value="wheelchair_v2"
-                                       onChange={(e) => {
-                                           var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v2", label: "patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-
-                                       control={<Radio />}
-                                       label={Patient_self_short_distance} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v3'}
-                                       value="wheelchair_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v3", label: "presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Presence_one_person_necessary} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v4'}
-                                       value="wheelchair_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v4", label: "the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_propel_self_reasonable_duration} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v5'}
-                                       value="wheelchair_v5"
-                                       onChange={(e) => {
-                                           var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v5", label: "To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={To_propel_wheelchair_independently} />
-                               </RadioGroup>
-                           </FormControl>
-
-                           <FormControl className="selectOption">
-                               <FormLabel id="Radio-Stairs">{Stairs}</FormLabel>
-                               <RadioGroup aria-labelledby="Radio-Stairs" name="full_stairs">
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v1'}
-                                       value="stairs_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_stairs", z: { value: "stairs_v1", label: "the patient is unable to climb stairs" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_unable_climb_stairs} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v2'}
-                                       value="stairs_v2"
-                                       onChange={(e) => {
-                                           var e = { name: "full_stairs", z: { value: "stairs_v2", label: "assistance is required in all aspects of stairclimbing, including assistance with walking aids" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Assistance_is_required} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v3'}
-                                       value="stairs_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_stairs", z: { value: "stairs_v3", label: "the patient is unable to climb stairs" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_ascend_desend} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v4'}
-                                       value="stairs_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_stairs", z: { value: "stairs_v4", label: "generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Generally_no_assistance_required} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v5'}
-                                       value="stairs_v5"
-                                       onChange={(e) => {
-                                           var e = { quartername: "full_stairs", z: { value: "stairs_v5", label: "the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_up_and_down} />
-                               </RadioGroup>
-                           </FormControl>
-
-                           <FormControl className="selectOption">
-                               <FormLabel id="Radio-OnOff">{On_and_off_Toilet}</FormLabel>
-                               <RadioGroup aria-labelledby="Radio-OnOff" name="full_on_and_off_toilet">
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v1'}
-                                       value="on_of_toilet_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v1", label: "fully dependent in toileting" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Fully_dependent_in_toileting} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v2'}
-                                       value="on_of_toilet_v2"
-                                       onChange={(e) => {
-                                           var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v2", label: "assistance required in all aspects of toileting" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Assistance_required_aspects_toileting} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v3'}
-                                       value="on_of_toilet_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v3", label: "assistance may be required with management of clothing, transferring, or washing hands" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Assistance_required_management_hands} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v4'}
-                                       value="on_of_toilet_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v4", label: "supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={Supervision_safety_with_normal_toilet} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v5'}
-                                       value="on_of_toilet_v5"
-                                       onChange={(e) => {
-                                           var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v5", label: "the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_toilet} />
-                               </RadioGroup>
-                           </FormControl>
-
-                           <FormControl className="selectOption">
-                               <FormLabel id="Radio-Ambulation">{Bowels}</FormLabel>
-                               <RadioGroup aria-labelledby="Radio-Ambulation" name="full_bowels">
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v1'}
-                                       value="bowels_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bowels", z: { value: "bowels_v1", label: "the patient is bowel incontient" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_is_bowel_incontient} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v2'}
-                                       value="bowels_v2"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bowels", z: { value: "bowels_v2", label: "the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_appropriate_position} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v3'}
-                                       value="bowels_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bowels", z: { value: "bowels_v3", label: "the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_can_assume_appropriate_position} />
-                                   <FormControlLabel
-
-                                       checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v4'}
-                                       value="bowels_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bowels", z: { value: "bowels_v4", label: "the patient may require supervision with the use of suppository or enema and has occasional accident" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_require_supervision} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v5'}
-                                       value="bowels_v5"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bowels", z: { value: "bowels_v5", label: "the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_control_bowels_accidents} />
-                               </RadioGroup>
-                           </FormControl>
-
-                           <FormControl className="selectOption">
-                               <FormLabel id="Radio-Bladder">{Bladder}</FormLabel>
-                               <RadioGroup aria-labelledby="Radio-Bladde" name="full_bladder">
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v1'}
-                                       value="bladder_v1"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bladder", z: { value: "bladder_v1", label: "the patient is dependent in bladder management, is incontinent, or has indwelling catheter" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_dependent_bladder_management} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v2'}
-                                       value="bladder_v2"
-                                       onChange={(e) => {
-                                           var e = { quartername: "full_bladder", z: { value: "bladder_v2", label: "the patient is incontinent but is able to assist with the application of an internal or external device" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_incontinent} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v3'}
-                                       value="bladder_v3"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bladder", z: { value: "bladder_v3", label: "the patient is generally dry by day, but not at night and needs some assistance with the devices" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_generally_day} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v4'}
-                                       value="bladder_v4"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bladder", z: { value: "bladder_v4", label: "the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_is_generally_dry} />
-                                   <FormControlLabel
-                                       checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v5'}
-                                       value="bladder_v5"
-                                       onChange={(e) => {
-                                           var e = { name: "full_bladder", z: { value: "bladder_v5", label: "the patient is able to control bladder day and night, and/or is independent with internal or external devices" } }
-                                           updateAllEntrySec0(this, e)
-                                       }}
-                                       control={<Radio />}
-                                       label={The_patient_control_bladder} />
-                               </RadioGroup>
-                           </FormControl>
-                       </Grid>
-                   </Grid>
-                   {/* } */}
-               </Grid>}
-           <Grid item xs={12} sm={9} md={6}>
-
-               <Grid className="infoShwSave3">
-                   <input
-                       type={Submit}
-                       value={Submit}
-                       onClick={() => handleSubmit(this)}
-                   />
-               </Grid>
-           </Grid>
-       </Grid>
+                                                                    checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v2'}
+                                                                    value="abulation_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_ambulation", z: { value: "abulation_v2", label: "constant presence of one or more assistant is required during ambulation" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Constant_presence_of_one} />
+                                                                <FormControlLabel
 
 
-   </Grid>
+                                                                    checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v3'}
+                                                                    value="abulation_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_ambulation", z: { value: "abulation_v3", label: "assistance is required with reaching aids and/ or their manipulation. One person is required to offer assistance" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Assistance_required_with_reaching} />
+                                                                <FormControlLabel
 
-   <Grid item xs={12} sm={12} md={3}>
-       <PreviousInfo
-           openQues={openQues}
-           prevData={this.state.prevData}
-           showHouseValue={(id) => showHouseValue(this, id)}
-       />
-   </Grid>
+                                                                    checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v4'}
+                                                                    value="abulation_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_ambulation", z: { value: "abulation_v4", label: "the patient is independent in ambulation but unable to walk 50 metres/yards without help, or supervision in needed for confidence or safety in hazardous situations" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_is_independent} />
+                                                                <FormControlLabel
+
+                                                                    checked={this.state.allQuestionData?.full_ambulation?.value === 'abulation_v5'}
+                                                                    value="abulation_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_ambulation", z: { value: "abulation_v5", label: "the patient must be able to wear braces if required, lock and unlock these braces assume standing position, sit down and place the necessary aids into position for use. The patient must be able to crutches, canes, or a walkarette, and walk 50 meters/yards without help or Supervision" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_must_wear_braces} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Wheelchair" className="wheelChr">
+                                                                {Wheelchair_Management}
+                                                                <span>(*Only use this item if the patient is rated “0” for ambulation, and then only if the patient has been trained in w/c management.)</span>
+                                                            </FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Wheelchair" name="full_wheelchair_management">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v1'}
+                                                                    value="wheelchair_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v1", label: "dependent in wheelchair ambulation" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Dependent_in_wheelchair} />
+                                                                <FormControlLabel
+
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v2'}
+                                                                    value="wheelchair_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v2", label: "patient can propel self  short distance on flat surface, but assistance is required for all other steps of wheelchair management" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+
+                                                                    control={<Radio />}
+                                                                    label={Patient_self_short_distance} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v3'}
+                                                                    value="wheelchair_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v3", label: "presence of one person is necessary and constant assistance is required to manipulate chair to table, bed, etc" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Presence_one_person_necessary} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v4'}
+                                                                    value="wheelchair_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v4", label: "the patient can propel self for a reasonable duration over regularly encountered terrain. Minimal assistance may still be required in “tight corners” or to negotiate a kerb 100mm high" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_propel_self_reasonable_duration} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_wheelchair_management?.value === 'wheelchair_v5'}
+                                                                    value="wheelchair_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_wheelchair_management", z: { value: "wheelchair_v5", label: "To propel wheelchair independently, the patient must be able to go around corners, turn around, manoeuvre the chair to a table, bed, toilet, etc. The patient must be able to push a chair at least 50 meters and negotiate a kerb" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={To_propel_wheelchair_independently} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Stairs">{Stairs}</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Stairs" name="full_stairs">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v1'}
+                                                                    value="stairs_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_stairs", z: { value: "stairs_v1", label: "the patient is unable to climb stairs" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_unable_climb_stairs} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v2'}
+                                                                    value="stairs_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_stairs", z: { value: "stairs_v2", label: "assistance is required in all aspects of stairclimbing, including assistance with walking aids" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Assistance_is_required} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v3'}
+                                                                    value="stairs_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_stairs", z: { value: "stairs_v3", label: "the patient is unable to climb stairs" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_ascend_desend} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v4'}
+                                                                    value="stairs_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_stairs", z: { value: "stairs_v4", label: "generally no assistance is required. At times supervision is required for safety due to morning stiffness, shortness of breath, etc" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Generally_no_assistance_required} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_stairs?.value === 'stairs_v5'}
+                                                                    value="stairs_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { quartername: "full_stairs", z: { value: "stairs_v5", label: "the patient is able to go up and down a flight of stairs safety without help or supervision. The patient is able to use hand rails, cane or Crutches when needed and is able to carry these devices as he/she ascends or descends" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_up_and_down} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-OnOff">{On_and_off_Toilet}</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-OnOff" name="full_on_and_off_toilet">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v1'}
+                                                                    value="on_of_toilet_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v1", label: "fully dependent in toileting" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Fully_dependent_in_toileting} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v2'}
+                                                                    value="on_of_toilet_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v2", label: "assistance required in all aspects of toileting" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Assistance_required_aspects_toileting} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v3'}
+                                                                    value="on_of_toilet_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v3", label: "assistance may be required with management of clothing, transferring, or washing hands" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Assistance_required_management_hands} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v4'}
+                                                                    value="on_of_toilet_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v4", label: "supervision may be required for safety with normal toilet. A commode may be used at night but assistance is required for emptying and cleaning" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={Supervision_safety_with_normal_toilet} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_on_and_off_toilet?.value === 'on_of_toilet_v5'}
+                                                                    value="on_of_toilet_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_on_and_off_toilet", z: { value: "on_of_toilet_v5", label: "the patient is able to get on/off the toilet, fasten clothing and use toilet paper without help. If necessary, the patient may use a bed pan or Commode or urinal at night, but must be able to empty it and clean it" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_toilet} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Ambulation">{Bowels}</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Ambulation" name="full_bowels">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v1'}
+                                                                    value="bowels_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bowels", z: { value: "bowels_v1", label: "the patient is bowel incontient" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_is_bowel_incontient} />
+                                                                <FormControlLabel
+
+                                                                    checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v2'}
+                                                                    value="bowels_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bowels", z: { value: "bowels_v2", label: "the patient needs help to assume appropriate position, and with bowel movement facilitatory techniques" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_appropriate_position} />
+                                                                <FormControlLabel
+
+                                                                    checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v3'}
+                                                                    value="bowels_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bowels", z: { value: "bowels_v3", label: "the patient can assume appropriate position, but can not use facilitatory techniques or clean self without assistance and has frequent accident. Assistance is required with incontinence aids such as pad, etc" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_can_assume_appropriate_position} />
+                                                                <FormControlLabel
+
+                                                                    checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v4'}
+                                                                    value="bowels_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bowels", z: { value: "bowels_v4", label: "the patient may require supervision with the use of suppository or enema and has occasional accident" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_require_supervision} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bowels?.value === 'bowels_v5'}
+                                                                    value="bowels_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bowels", z: { value: "bowels_v5", label: "the patient can control bowels and has no accidents, can use suppository, or take an enema when necessary" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_control_bowels_accidents} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+
+                                                        <FormControl className="selectOption">
+                                                            <FormLabel id="Radio-Bladder">{Bladder}</FormLabel>
+                                                            <RadioGroup aria-labelledby="Radio-Bladde" name="full_bladder">
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v1'}
+                                                                    value="bladder_v1"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bladder", z: { value: "bladder_v1", label: "the patient is dependent in bladder management, is incontinent, or has indwelling catheter" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_dependent_bladder_management} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v2'}
+                                                                    value="bladder_v2"
+                                                                    onChange={(e) => {
+                                                                        var e = { quartername: "full_bladder", z: { value: "bladder_v2", label: "the patient is incontinent but is able to assist with the application of an internal or external device" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_incontinent} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v3'}
+                                                                    value="bladder_v3"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bladder", z: { value: "bladder_v3", label: "the patient is generally dry by day, but not at night and needs some assistance with the devices" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_generally_day} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v4'}
+                                                                    value="bladder_v4"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bladder", z: { value: "bladder_v4", label: "the patient is generally dry by day and night, but may have an occasional accident or need minimal assistance with internal or external devices" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_is_generally_dry} />
+                                                                <FormControlLabel
+                                                                    checked={this.state.allQuestionData?.full_bladder?.value === 'bladder_v5'}
+                                                                    value="bladder_v5"
+                                                                    onChange={(e) => {
+                                                                        var e = { name: "full_bladder", z: { value: "bladder_v5", label: "the patient is able to control bladder day and night, and/or is independent with internal or external devices" } }
+                                                                        updateAllEntrySec0(this, e)
+                                                                    }}
+                                                                    control={<Radio />}
+                                                                    label={The_patient_control_bladder} />
+                                                            </RadioGroup>
+                                                        </FormControl>
+                                                    </Grid>
+                                                </Grid>
+                                                {/* } */}
+                                            </Grid>}
+                                        <Grid item xs={12} sm={9} md={6}>
+
+                                            <Grid className="infoShwSave3">
+                                                <input
+                                                    type={Submit}
+                                                    value={Submit}
+                                                    onClick={() => handleSubmit(this)}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+
+                                <Grid item xs={12} sm={12} md={3}>
+                                    <PreviousInfo
+                                        openQues={openQues}
+                                        prevData={this.state.prevData}
+                                        showHouseValue={(id) => showHouseValue(this, id)}
+                                    />
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
