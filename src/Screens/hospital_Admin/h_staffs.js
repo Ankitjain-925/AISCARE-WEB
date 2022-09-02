@@ -524,6 +524,7 @@ class Index extends Component {
       ManageHouse,
       Findaadminstaff,
       see_detail,
+      admin_staff,
     } = translate;
 
     return (
@@ -564,11 +565,11 @@ class Index extends Component {
                     className="archvOpinLbl"
                   >
                     <Grid item xs={12} md={6}>
-                      <label>{'Admin staff'}</label>
+                      <label>{admin_staff}</label>
                     </Grid>
                     <Grid item xs={12} md={6} className="archvOpinRght">
                       <a onClick={this.handleOpenCreate}>
-                        + {add_new} {'Admin staff'}
+                        + {add_new} {admin_staff}
                       </a>
                     </Grid>
                   </Grid>

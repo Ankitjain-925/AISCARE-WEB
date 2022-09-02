@@ -140,9 +140,9 @@ class Index extends Component {
             {/* <div className="languageHead"></div> */}
             <Grid className="languageBox">
               <Grid className="row">
-                {
-                // this.props.comesFrom !== 'adminstaff' &&
-                  this.props.comesFrom !== 'Hospital' && (
+                {/* {
+                this.props.comesFrom !== 'adminstaff' &&
+                  this.props.comesFrom !== 'Hospital' && ( */}
                     <Grid className="col-xl-6">
                       <Grid>
                         <input
@@ -260,11 +260,11 @@ class Index extends Component {
                         </label>
                       </Grid>
                     </Grid>
-                  )}
+                  {/* )} */}
                 <Grid className="col-xl-6">
-                  {
-                  // this.props.comesFrom !== 'adminstaff' &&
-                    this.props.comesFrom !== 'Hospital' && (
+                  {/* {
+                  this.props.comesFrom !== 'adminstaff' &&
+                    this.props.comesFrom !== 'Hospital' && ( */}
                       <>
                         <Grid>
                           <input
@@ -324,7 +324,7 @@ class Index extends Component {
                           </label>
                         </Grid>
                       </>
-                    )}
+                     {/* )} */}
              
                   <Grid>
             

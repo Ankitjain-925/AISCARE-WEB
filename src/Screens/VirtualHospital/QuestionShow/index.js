@@ -43,7 +43,6 @@ class Index extends Component {
 
 
     openFullQues = (data) => {
-        console.log('1')
         this.setState({ openModal: true, ModalData: data });
     }
     closeFullQues = () => {
@@ -63,7 +62,7 @@ class Index extends Component {
                 if (response?.data?.hassuccessed) {
                     var totalPage = Math.ceil(response.data.data.length / 10);
                     this.setState({
-                        loaderImage: false, carequestions_data: response.data.data,
+                        loaderImage: false, Allquestion: response.data.data,
                         totalPage: totalPage,
                         value: value,
                         currentPage: 1,
@@ -187,7 +186,6 @@ class Index extends Component {
                                                                     {data?.patient_info?.last_name}
                                                                 </Td>
                                                                 <Td className="patentPic">
-
                                                                     <S3Image imgUrl={data?.nurse_info?.image} />
                                                                     {data?.nurse_info?.first_name}{' '}
                                                                     {data?.nurse_info?.last_name}
