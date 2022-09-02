@@ -1265,7 +1265,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid> */}
 
-                                                    <Grid className="selectOptionCmn yyy">
+                                                    <Grid className="selectOptionCmn">
                                                         <Grid className="allQuestionShow1">
                                                             {selectoption.map((item) => (
                                                                 <FormControl className="selectOption">
