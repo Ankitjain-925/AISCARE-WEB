@@ -16275,3 +16275,6 @@ border-radius: 12px;
 .homeBgDrk .valuecolor label{
   color: white!important;
 }
+.darkTheme .yearSecBg:hover {
+  background-color: #404646;
+}
