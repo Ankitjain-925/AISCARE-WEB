@@ -92,7 +92,7 @@ class PointPain extends Component {
           }
         >
           <Grid className="addSpeclContntIner">
-            <Grid className="entryCourse">
+            <Grid className="entryCourse ">
               <Grid container direction="row" justify="center">
                 <Grid item xs={12} md={12} lg={12}>
                   <Grid container direction="row" justify="center">
@@ -117,7 +117,7 @@ class PointPain extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid className="checkHelth 1111">
+            <Grid className="checkHelth 1111 checkHelth2">
               <Grid container direction="row">
                 <Grid item xs={12} sm={6} md={6}>
                   <Grid className="checkHelthLbl 111">
