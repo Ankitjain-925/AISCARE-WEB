@@ -335,6 +335,17 @@ class Index extends Component {
       });
   };
 
+
+  getNurseAppoint = () => {
+    axios
+      .post(sitedata.data.path + "vc/nurseapp",
+        { nurse_id: this.props.stateLoginValueAim?.user?._id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      ).then((response) => {
+        console.log("response", response)
+      })
+  }
+
   getAppoinment = () => {
     var user_token = this.props.stateLoginValueAim.token;
     axios
@@ -852,8 +863,6 @@ class Index extends Component {
                       />
                     )}
                     <span>
-                      {console.log("this.state.appointmentDatas.appointments[0].custom_text", this.state.appointmentDatas?.appointments[0]?.custom_text)}
-
                       {data.appointment_type == "practice_days"
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"
@@ -1058,6 +1067,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {console.log("newAppoinments", newAppoinments)}
                     {newAppoinments && newAppoinments.length > 0 && (
                       <Grid className="newRequestMain">
                         <h4>{new_rqst}</h4>
@@ -1320,6 +1330,7 @@ class Index extends Component {
                                                                 }) : this.state.suggesteddate !== undefined ?
                                                                         <Grid><span>{holiday}!</span></Grid> : ''
                                                                 } */}
+                                  {console.log("this.state.appointDate", this.state.appointDate)}
                                   {this.state.appointDate &&
                                     this.state.appointDate.length > 0 ? (
                                     this.state.appointDate.map((data, iA) => {

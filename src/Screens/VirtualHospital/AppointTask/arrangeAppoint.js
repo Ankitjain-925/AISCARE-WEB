@@ -124,6 +124,7 @@ class Index extends Component {
     })
     this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData, nurseData: nurseData1, filterNurse: nurseData });
   }
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.openAllowAccess !== this.props.openAllowAccess) {
@@ -201,7 +202,6 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec });
   };
-
 
   getSpecialities() {
     this.setState({
@@ -304,6 +304,7 @@ class Index extends Component {
   getlocation() {
     let radius, Latitude, longitude;
     if (this.state.searchDetails && this.state.searchDetails.radius) {
+
       radius = this.state.searchDetails.radius + "000";
     } else {
       radius = 20 + "000";

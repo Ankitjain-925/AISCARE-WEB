@@ -92,6 +92,37 @@ export const checkValidation2 = (current, hello, check, item, fulldata) => {
             return true;
         }
     }
+    if (item === "week_diameter_leg" && hello) {
+        if (!check) {
+            current.setState({
+                errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
+            });
+            MoveTop(0);
+            return false;
+        } else if (fulldata && fulldata.week_diameter_leg) {
+
+            if (!fulldata.week_thrombose_diameter_leg) {
+                current.setState({
+                    errorChrMsg: please_enter_Diameter_leg,
+                });
+                MoveTop(0);
+                return false;
+
+            }
+            else if (!fulldata.week_diameter_condition) {
+                current.setState({
+                    errorChrMsg: Please_select_better_and_worse_for_condition,
+                });
+                MoveTop(0);
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
     if (item === 'day_Sick' && hello) {
         if (!fulldata.day_Sick) {
 
@@ -667,7 +698,8 @@ export const handleSubmit = (current) => {
                                                                                     if (checkValidation(current, everyWeek, data?.week_disorientation_level_family_member, "week_disorientation_level_family_member")) {
                                                                                         if (checkValidation(current, everyWeek, data?.week_sanitary_situation_ask_for_incidents, "week_sanitary_situation_ask_for_incidents")) {
                                                                                             // if (checkValidation(current, everyWeek, data?.week_depression_risk_good_today, "week_depression_risk_good_today")) {
-                                                                                            if (checkValidation(current, everyWeek, data?.week_anamnesis_diameter_leg, "week_anamnesis_diameter_leg")) {
+                                                                                            if (checkValidation2(current, everyWeek, data?.week_diameter_leg, "week_diameter_leg", data)) {
+
                                                                                                 CallApi(current);
                                                                                             }
                                                                                         }
