@@ -99,8 +99,7 @@ export const checkValidation2 = (current, hello, check, item, fulldata) => {
             });
             MoveTop(0);
             return false;
-        } else if (fulldata && fulldata.week_diameter_leg) {
-
+        } else if (fulldata && fulldata.week_diameter_leg === 'yes') {
             if (!fulldata.week_thrombose_diameter_leg) {
                 current.setState({
                     errorChrMsg: please_enter_Diameter_leg,

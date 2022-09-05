@@ -264,7 +264,7 @@ class Index extends Component {
                                                                     <label>
                                                                         {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
                                                                                     "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
@@ -272,7 +272,7 @@ class Index extends Component {
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss MainclassQues1">
                                                                     <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
+                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
 
                                                                 </Grid>
                                                             </Grid>
@@ -322,9 +322,9 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
                                                                                     "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
@@ -332,7 +332,7 @@ class Index extends Component {
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
                                                                     <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
+                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -360,10 +360,8 @@ class Index extends Component {
                                                                 </p>
                                                             </Grid>
                                                             <Grid xs={3} md={3}>
-                                                                <label>{Measure_diameter_Leg}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_anamnesis_diameter_leg}
-                                                                </p>
+                                                                <label>{Condition}</label>
+                                                                {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
                                                             </Grid>
                                                         </Grid>
 
@@ -397,38 +395,26 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Measure_diameter_Leg}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_thrombose_diameter_leg}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.week_thrombose_diameter_leg_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
+
 
                                                     <Grid>
                                                         <Grid>
                                                             <h1>{Falling_Risk}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
+                                                            <Grid xs={4} md={4}>
                                                                 <label>{ask_for_incidents}</label>
                                                                 {item?.questionnaire_answers?.week_falling_risk_ask_for_incident && <p>{Fall_today}</p>}
                                                             </Grid>
-                                                            <Grid xs={6} md={6}>
+                                                            <Grid xs={4} md={4}>
                                                                 <label>{Use_of_tools}</label>
                                                                 <p>
                                                                     {item?.questionnaire_answers?.week_falling_risk_use_of_tools && <p>{use_yours_tools}</p>}
                                                                 </p>
+                                                            </Grid>
+                                                            <Grid xs={4} md={4}>
+                                                                <label>{timed_up_and_go} (2 Weeks)</label>
+                                                                {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -460,7 +446,7 @@ class Index extends Component {
 
 
                                                     <Grid className="allQuestionShow1">
-                                                        <label>{Pain_Status}</label>
+                                                        <h1>{Pain_Status}</h1>
                                                         <p>{item?.questionnaire_answers?.week_thrombose_pain_status}</p>
                                                     </Grid>
 
@@ -490,13 +476,13 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-
+                                                    {/* 
                                                     <Grid className="allQuestionShow1">
                                                         <h1>{Depression_Risk}</h1>
                                                         <label>{what_was_today}</label>
                                                         {item?.questionnaire_answers?.week_decubitus_conditionweek_depression_good_today === 'month If not acute daily' ?
                                                             <p>{Month_If_not_acute_daily}</p> : <p>{Could_the_Patient_tell_day}</p>}
-                                                    </Grid>
+                                                    </Grid> */}
 
                                                     <Grid>
                                                         <Grid>
@@ -523,21 +509,40 @@ class Index extends Component {
                                                         {item?.questionnaire_answers?.week_sanitary_situation_ask_for_incidents ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid>
 
-                                                    <Grid className="allQuestionShow1">
+                                                    {/* <Grid className="allQuestionShow1">
                                                         <h1>{Falling_Risk}</h1>
                                                         <label>{timed_up_and_go} (2 Weeks)</label>
                                                         {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-
+                                                    </Grid> */}
+                                                    {/* 
                                                     <Grid className="allQuestionShow1">
                                                         <h1>{Depression_Risk}</h1>
                                                         <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
                                                         <label>{Patient_tell_Good_Day}</label>
                                                         {item?.questionnaire_answers?.week_depression_risk_good_today ? <p>{Yes}</p> : <p>{No}</p>}
+                                                    </Grid> */}
+
+                                                    <Grid>
+                                                        <Grid>
+                                                            <h1>{Thrombose_Situation}</h1>
+                                                        </Grid>
+                                                        {item?.questionnaire_answers?.week_thrombose_diameter_leg ?
+                                                            <Grid container xs={12} md={12}>
+                                                                <Grid xs={6} md={6}>
+                                                                    <label>{Measure_diameter_Leg}</label>
+                                                                    <p>
+                                                                        {item?.questionnaire_answers?.week_thrombose_diameter_leg}
+                                                                    </p>
+                                                                </Grid>
+                                                                <Grid xs={6} md={6}>
+                                                                    <label>{Condition}</label>
+                                                                    {item?.questionnaire_answers?.week_thrombose_diameter_leg_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                </Grid>
+                                                            </Grid> : <Grid><p>{No}</p></Grid>}
                                                     </Grid>
                                                 </Grid>
-
                                             )}
+
                                             {item && (item?.questionnaire_type === "two_days" || item?.questionary_type === "two_days") && (
                                                 <Grid className="MainclassQues MainclassQues1">
                                                     {this.state.comesFrom === "PatientEnd" &&
@@ -546,9 +551,9 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
                                                                                     "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
@@ -556,7 +561,7 @@ class Index extends Component {
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
                                                                     <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
+                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -674,11 +679,23 @@ class Index extends Component {
                                                                 </p>
                                                             </Grid>
                                                         </Grid>
+                                                        <Grid container xs={12} md={12}>
+                                                            <Grid xs={6} md={6}>
+                                                                <h3>{Fruits}</h3>
+                                                                <label>{Have_you_eaten_Fruits}</label>
+                                                                {item?.questionnaire_answers?.day_nutrition_situation_fruits ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
+                                                            <Grid xs={6} md={6}>
+                                                                <h3>{Protein}</h3>
+                                                                <label>{Have_you_eaten_Meat}</label>
+                                                                {item?.questionnaire_answers?.day_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
+                                                        </Grid>
                                                     </Grid>
 
 
                                                     <Grid className="allQuestionShow1">
-                                                        <label>{Pain_Status}</label>
+                                                        <h1>{Pain_Status}</h1>
                                                         <p>{item?.questionnaire_answers?.day_thrombose_pain_status}</p>
                                                     </Grid>
 
@@ -747,12 +764,12 @@ class Index extends Component {
                                                             <h1>{Pneunomie_Situation}</h1>
                                                         </Grid>
                                                         <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
+                                                            {/* <Grid xs={6} md={6}>
                                                                 <h3>{o2_Saturation}</h3>
                                                                 <label>{Second_Day}</label>
                                                                 {item?.questionnaire_answers?.day_pneunomie_o2_saturation ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
+                                                            </Grid> */}
+                                                            <Grid item xs={12} md={12}>
                                                                 <h3>{SoundRecording_Techdevelopment}</h3>
                                                                 <label>{Second_Day}</label>
                                                                 {item?.questionnaire_answers?.day_pneunomie_o2_sound_recording ? <p>{Yes}</p> : <p>{No}</p>}
@@ -761,7 +778,7 @@ class Index extends Component {
                                                     </Grid>
 
 
-                                                    <Grid>
+                                                    {/* <Grid>
                                                         <Grid>
                                                             <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
@@ -777,7 +794,7 @@ class Index extends Component {
                                                                 {item?.questionnaire_answers?.day_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
 
 
@@ -791,9 +808,9 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
                                                                                     "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
@@ -801,31 +818,31 @@ class Index extends Component {
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
                                                                     <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
+                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     }
                                                     <Grid>
                                                         <h1>{Anamnesis}</h1>
+                                                        {/* <Grid container xs={12} md={12}> */}
+                                                        {/* <Grid xs={6} md={6}> */}
+                                                        <h3>{blood_pressure}</h3>
                                                         <Grid container xs={12} md={12}>
                                                             <Grid xs={6} md={6}>
-                                                                <h3>{blood_pressure}</h3>
-                                                                <Grid container xs={12} md={12}>
-                                                                    <Grid xs={6} md={6}>
-                                                                        <label>{Systolic}</label>
-                                                                        <p>
-                                                                            {item?.questionnaire_answers?.daily_rr_systolic}
-                                                                        </p>
-                                                                    </Grid>
-                                                                    <Grid xs={6} md={6}>
-                                                                        <label>{Diastolic}</label>
-                                                                        <p>
-                                                                            {item?.questionnaire_answers?.daily_rr_diastolic}
-                                                                        </p>
-                                                                    </Grid>
-                                                                </Grid>
+                                                                <label>{Systolic}</label>
+                                                                <p>
+                                                                    {item?.questionnaire_answers?.daily_rr_systolic}
+                                                                </p>
                                                             </Grid>
+                                                            <Grid xs={6} md={6}>
+                                                                <label>{Diastolic}</label>
+                                                                <p>
+                                                                    {item?.questionnaire_answers?.daily_rr_diastolic}
+                                                                </p>
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* </Grid>
                                                             {item && item?.questionnaire_answers?.daily_diameter_leg === 'yes' &&
                                                                 <Grid xs={6} md={6}>
                                                                     <h3>{Diameter_Leg}</h3>
@@ -845,7 +862,7 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             }
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </Grid>
 
 
@@ -985,6 +1002,25 @@ class Index extends Component {
                                                         <label>{No_Incidents_Sanitary_Situation}</label>
                                                         {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid>
+                                                    <Grid>
+                                                        {console.log("item?.daily_diameter_leg", item?.daily_diameter_leg)}
+                                                        <Grid>
+                                                            <h1>{Thrombose_Situation}</h1>
+                                                        </Grid>
+                                                        {item?.questionnaire_answers?.daily_anamnesis_diameter_leg ?
+                                                            <Grid container xs={12} md={12}>
+                                                                <Grid xs={6} md={6}>
+                                                                    <label>{Measure_diameter_Leg}</label>
+                                                                    <p>
+                                                                        {item?.questionnaire_answers?.daily_anamnesis_diameter_leg}
+                                                                    </p>
+                                                                </Grid>
+                                                                <Grid xs={6} md={6}>
+                                                                    <label>{Condition}</label>
+                                                                    {item?.questionnaire_answers?.daily_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                </Grid>
+                                                            </Grid> : <Grid><p>{No}</p></Grid>}
+                                                    </Grid>
                                                 </Grid>
                                             )}
                                             {item && (item?.questionnaire_type === "full" || item?.questionary_type === "full") && (
@@ -995,9 +1031,9 @@ class Index extends Component {
                                                                 <Grid className="RportCss">
                                                                     <h1>{Type_Report}</h1>
                                                                     <label>
-                                                                    {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
                                                                             "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks"?
+                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
                                                                                     "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
                                                                     </label>
                                                                 </Grid>
@@ -1005,7 +1041,7 @@ class Index extends Component {
                                                             <Grid xs={4} md={4}>
                                                                 <Grid className="RportCss">
                                                                     <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on:item.submitDate, this.state.date_format)}</label>
+                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1138,7 +1174,7 @@ class Index extends Component {
 
 
                                                     <Grid className="allQuestionShow1">
-                                                        <label>{Pain_Status}</label>
+                                                        <h1>{Pain_Status}</h1>
                                                         <p>{item?.questionnaire_answers?.full_thrombose_pain_status}</p>
                                                     </Grid>
 
