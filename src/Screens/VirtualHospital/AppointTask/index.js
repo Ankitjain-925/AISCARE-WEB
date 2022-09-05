@@ -16,6 +16,7 @@ import { Redirect, Route } from 'react-router-dom';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 import Modal from '@material-ui/core/Modal';
+import HomeIcon from '@material-ui/icons/Home';
 import { Speciality } from 'Screens/Login/speciality.js';
 import { getLanguage } from 'translations/index';
 import Select from 'react-select';
@@ -475,6 +476,7 @@ class Index extends Component {
     let {
       DetailsQuestions,
       vdo_call,
+      Home_visit,
       // office_visit,
       Task,
       consultancy_appintment,
@@ -541,19 +543,24 @@ class Index extends Component {
                         title=""
                       />
                     )}
+                    {data.appointment_type == 'homevisit_appointment' && (
+                      <HomeIcon className="homeiconcolor" />
+                    )}
                     <span>
-                      {data.appointment_type == 'practice_days'
-                        ? consultancy_appintment
-                        : data.appointment_type == 'online_appointment'
-                          ? vdo_call
-                          : this.state.appointmentDatas &&
-                            this.state.appointmentDatas.appointments &&
-                            this.state.appointmentDatas.appointments.length > 0 &&
-                            this.state.appointmentDatas.appointments[0]
-                              .custom_text
-                            ? this.state.appointmentDatas.appointments[0]
-                              .custom_text
-                            : Task}
+                      {data.appointment_type == 'homevisit_appointment'
+                        ? Home_visit
+                        : data.appointment_type == 'practice_days'
+                          ? consultancy_appintment
+                          : data.appointment_type == 'online_appointment'
+                            ? vdo_call
+                            : this.state.appointmentDatas &&
+                              this.state.appointmentDatas.appointments &&
+                              this.state.appointmentDatas.appointments.length > 0 &&
+                              this.state.appointmentDatas.appointments[0]
+                                .custom_text
+                              ? this.state.appointmentDatas.appointments[0]
+                                .custom_text
+                              : Task}
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
