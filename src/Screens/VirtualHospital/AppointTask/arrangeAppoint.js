@@ -124,6 +124,7 @@ class Index extends Component {
     })
     this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData, nurseData: nurseData1, filterNurse: nurseData });
   }
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.openAllowAccess !== this.props.openAllowAccess) {
@@ -201,7 +202,6 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec });
   };
-
 
   getSpecialities() {
     this.setState({
@@ -304,6 +304,7 @@ class Index extends Component {
   getlocation() {
     let radius, Latitude, longitude;
     if (this.state.searchDetails && this.state.searchDetails.radius) {
+
       radius = this.state.searchDetails.radius + "000";
     } else {
       radius = 20 + "000";
@@ -412,7 +413,6 @@ class Index extends Component {
         { nurse_id: this.props.stateLoginValueAim?.user?._id },
         commonHeader(this.props.stateLoginValueAim.token)
       ).then((response) => {
-        console.log("response", response)
       })
   }
 
@@ -1341,8 +1341,6 @@ class Index extends Component {
                             <Grid className="avlablDates">
                               <h3>{see_avlbl_date}:</h3>
                               <Grid>
-                                {console.log("thiskjhiuyyiyyuiyyiyu", doc?.appointments[0]?.custom_text)}
-
                                 {/* {this.state.video_call && ( */}
                                 {/* <a
                                         onClick={() =>
