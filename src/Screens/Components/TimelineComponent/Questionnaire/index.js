@@ -487,7 +487,7 @@ class Index extends Component {
                     <Collapsible trigger={details} open="true">
                       <Grid className="detailCntnt">
                         <Grid container direction="row">
-                          <Grid item xs={12} md={12} className="bloodPreBy">
+                          <Grid item xs={12} md={12}>
                             {item && item?.questionary_type === "quarter" &&
                               // <Grid className="stndQues stndQues1">
                               //   <Grid className="MainclassQues">
@@ -512,6 +512,7 @@ class Index extends Component {
                                           const compareResult = parseInt(item && item?.result && item?.result?.value &&
                                             item?.result?.value.split('_v').pop())
                                           return (
+                                            <Grid className={compareResult === index + 1 &&('selectdcolchange')?compareResult === index + 1 &&('selectdcolchange'):('valuecolor')}>
                                             <RadioGroup
                                               aria-labelledby="main-topic-counted"
                                               name="quarter_feeding"
@@ -526,6 +527,7 @@ class Index extends Component {
                                                 }
                                               />
                                             </RadioGroup>
+                                            </Grid>
                                           );
                                         })}
                                       </FormControl>

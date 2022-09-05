@@ -55,19 +55,19 @@ class Index extends Component {
   }
   componentDidUpdate = (prevProps) => {
     if (prevProps.searchValue !== this.props.searchValue) {
-        if(this.props.searchValue===''){
-          this.getMyprescriptionssData();
-        }
-        else{
-          let FilterFromSearch1 = this.state.AllPres?.length>0 && this.state.AllPres.filter((obj) => {
-            return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
-          });
-          this.setState({
-            MypatientsData : FilterFromSearch1
-          });
-        }
+      if (this.props.searchValue === '') {
+        this.getMyprescriptionssData();
       }
-}
+      else {
+        let FilterFromSearch1 = this.state.AllPres?.length > 0 && this.state.AllPres.filter((obj) => {
+          return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
+        });
+        this.setState({
+          MypatientsData: FilterFromSearch1
+        });
+      }
+    }
+  }
 
   findByName = (e) => {
     let newEntry = this.state.newEntry;
@@ -819,34 +819,34 @@ class Index extends Component {
           >
             <Grid className="prespBoxCntnt">
               <Grid className="prespCourse">
-              <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-    <p>{prescription_inquiry}</p>
-    <label>
-                    {data.patient_info &&
-                      data.patient_info.first_name &&
-                      data.patient_info.first_name}{" "}
-                    {data.patient_info &&
-                      data.patient_info.last_name &&
-                      data.patient_info.last_name}
-                  </label>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleClosePrescp}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                    <p>{prescription_inquiry}</p>
+                    <label>
+                      {data.patient_info &&
+                        data.patient_info.first_name &&
+                        data.patient_info.first_name}{" "}
+                      {data.patient_info &&
+                        data.patient_info.last_name &&
+                        data.patient_info.last_name}
+                    </label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleClosePrescp}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
 
-                <Grid className="prespCloseBtn">
+                {/* <Grid className="prespCloseBtn">
                   <a onClick={this.handleClosePrescp}>
                     <img
                       src={require("assets/images/close-search.svg")}
@@ -865,7 +865,7 @@ class Index extends Component {
                       data.patient_info.last_name &&
                       data.patient_info.last_name}
                   </label>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Grid className="detailPrescp">
                 <Grid className="stndQues">
@@ -1128,27 +1128,27 @@ class Index extends Component {
           >
             <Grid className="rejectBoxCntnt">
               <Grid className="rejectCourse">
-              <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-    <p onClick={this.handleCloseReject}>{back}</p>
-    <label> {decline} {inquiry} </label>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseReject}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                    <p onClick={this.handleCloseReject}>{back}</p>
+                    <label> {decline} {inquiry} </label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseReject}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
 
-            
+
               </Grid>
               <Grid className="shrtRejctMsg">
                 <Grid>
