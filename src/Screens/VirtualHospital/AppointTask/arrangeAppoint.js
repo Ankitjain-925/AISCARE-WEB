@@ -413,7 +413,6 @@ class Index extends Component {
         { nurse_id: this.props.stateLoginValueAim?.user?._id },
         commonHeader(this.props.stateLoginValueAim.token)
       ).then((response) => {
-        console.log("response", response)
       })
   }
 
@@ -1342,8 +1341,6 @@ class Index extends Component {
                             <Grid className="avlablDates">
                               <h3>{see_avlbl_date}:</h3>
                               <Grid>
-                                {console.log("thiskjhiuyyiyyuiyyiyu", doc?.appointments[0]?.custom_text)}
-
                                 {/* {this.state.video_call && ( */}
                                 {/* <a
                                         onClick={() =>

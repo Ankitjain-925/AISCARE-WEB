@@ -1467,7 +1467,7 @@ class Index extends Component {
             </Grid>
           </Grid>
 
-          {/* <Grid className="instBrdr">
+          <Grid className="instBrdr">
             <Grid container direction="row">
               <Grid item xs={12} md={6}>
                 <Grid className="prescSickVdo">
@@ -2155,7 +2155,7 @@ class Index extends Component {
                     <Grid className="setSchedule">
                       <Grid className="nameSchedule">
                         <label>{set_timeslot_duration}</label>
-                        </Grid>
+                      </Grid>
                       <Grid className="nameSchedule">
                         <input
                           type="text"
@@ -2273,7 +2273,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
             </Grid>
-          </Grid> */}
+          </Grid>
 
           {/* <Grid className="instBrdr"> */}
           {/* <Grid container direction="row"> */}

@@ -28,6 +28,8 @@ import { getLanguage } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
+import HomeIcon from '@material-ui/icons/Home';
+
 
 const days = [
   "monday",
@@ -580,7 +582,18 @@ class Index extends Component {
           this.onChange(new Date(data.date));
         }
       );
-    } else {
+    } else if (data.appointment_type == "homevisit_appointment") {
+      this.setState(
+        {
+          appoinmentSelected: data,
+          appointmentData: this.state.appointmentDatas.homevisit_appointment,
+        },
+        () => {
+          this.onChange(new Date(data.date));
+        }
+      );
+    }
+    else {
       this.setState(
         {
           appoinmentSelected: data,
@@ -786,6 +799,7 @@ class Index extends Component {
 
     let {
       DetailsQuestions,
+      Home_visit,
       vdo_call,
       office_visit,
       consultancy_appintment,
@@ -851,14 +865,19 @@ class Index extends Component {
                         title=""
                       />
                     )}
+                    {data.appointment_type == 'homevisit_appointment' && (
+                      <HomeIcon className="homeiconcolor" />
+                    )}
                     <span>
 
-                      {data.appointment_type == "practice_days"
-                        ? consultancy_appintment
-                        : data.appointment_type == "online_appointment"
-                          ? vdo_call
-                          : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
-                            ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
+                      {data.appointment_type == "homevisit_appointment"
+                        ? Home_visit
+                        : data.appointment_type == "practice_days"
+                          ? consultancy_appintment
+                          : data.appointment_type == "online_appointment"
+                            ? vdo_call
+                            : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
+                              ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
                       }
                     </span>
                   </Grid>

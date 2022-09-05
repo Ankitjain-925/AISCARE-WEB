@@ -28,6 +28,8 @@ import { getLanguage } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
+import HomeIcon from '@material-ui/icons/Home';
+
 
 const days = [
   "monday",
@@ -151,69 +153,69 @@ class Index extends Component {
     this.setState({ apointDay: days, selectedDate: date1 });
   };
 
-  // getUserData() {
-  //     this.setState({ loaderImage: true });
-  //     let user_token = this.props.stateLoginValueAim.token
-  //     let user_id = this.props.stateLoginValueAim.user._id
-  //     axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, 
-  //      commonHeader(user_token)).then((response) => {
-  //         types.map(opoinmentData => {
+  getUserData() {
+    this.setState({ loaderImage: true });
+    let user_token = this.props.stateLoginValueAim.token
+    let user_id = this.props.stateLoginValueAim.user._id
+    axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
+      commonHeader(user_token)).then((response) => {
+        types.map(opoinmentData => {
 
-  //             if (response.data.data[opoinmentData]) {
-  //                 let Appointments = response.data.data[opoinmentData][0];
-  //                 if (Appointments) {
-  //                     if (Appointments.holidays) {
-  //                         this.setState({
-  //                             holidayAppointment: {
-  //                                 holidays_start: Appointments.holidays_start !== '' ? Appointments.holidays_start : new Date(),
-  //                                 holidays_end: Appointments.holidays_end !== '' ? Appointments.holidays_end : new Date(),
-  //                                 holidays: Appointments.holidays
-  //                             }
-  //                         })
-  //                     }
+          if (response.data.data[opoinmentData]) {
+            let Appointments = response.data.data[opoinmentData][0];
+            if (Appointments) {
+              if (Appointments.holidays) {
+                this.setState({
+                  holidayAppointment: {
+                    holidays_start: Appointments.holidays_start !== '' ? Appointments.holidays_start : new Date(),
+                    holidays_end: Appointments.holidays_end !== '' ? Appointments.holidays_end : new Date(),
+                    holidays: Appointments.holidays
+                  }
+                })
+              }
 
-  //                     if (opoinmentData == types[0]) {
-  //                         let workingDays = []
-  //                         days.map(weekday => {
-  //                             if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-  //                                 workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
-  //                             }
-  //                         })
-  //                         this.setState({
-  //                             UpDataDetails: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
-  //                         })
-  //                     }
+              if (opoinmentData == types[0]) {
+                let workingDays = []
+                days.map(weekday => {
+                  if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
+                  }
+                })
+                this.setState({
+                  UpDataDetails: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                })
+              }
 
-  //                     if (opoinmentData == types[1]) {
-  //                         let workingDays = []
-  //                         days.map(weekday => {
-  //                             if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-  //                                 workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
-  //                             }
-  //                         })
-  //                         this.setState({
-  //                             DaysforPractices: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
-  //                         })
-  //                     }
+              if (opoinmentData == types[1]) {
+                let workingDays = []
+                days.map(weekday => {
+                  if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
+                  }
+                })
+                this.setState({
+                  DaysforPractices: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                })
+              }
 
-  //                     if (opoinmentData == types[2]) {
-  //                         let workingDays = []
-  //                         days.map(weekday => {
-  //                             if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-  //                                 workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
-  //                             }
-  //                         })
-  //                         this.setState({
-  //                             onlineAppointments: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
-  //                         })
-  //                     }
-  //                 }
-  //             }
-  //         })
-  //         setTimeout(() => { this.setState({ loaderImage: false }) }, 3000);
+              if (opoinmentData == types[2]) {
+                let workingDays = []
+                days.map(weekday => {
+                  if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
+                  }
+                })
+                this.setState({
+                  onlineAppointments: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                })
+              }
+            }
+          }
+        })
+        setTimeout(() => { this.setState({ loaderImage: false }) }, 3000);
 
-  //     })
-  // }
+      })
+  }
   GetTime = (start_time) => {
     let da1 = new Date();
     if (start_time) {
@@ -342,7 +344,6 @@ class Index extends Component {
         { nurse_id: this.props.stateLoginValueAim?.user?._id },
         commonHeader(this.props.stateLoginValueAim.token)
       ).then((response) => {
-        console.log("response", response)
       })
   }
 
@@ -591,7 +592,18 @@ class Index extends Component {
           this.onChange(new Date(data.date));
         }
       );
-    } else {
+    } else if ((data.appointment_type == "homevisit_appointment")) {
+      this.setState(
+        {
+          appoinmentSelected: data,
+          appointmentData: this.state.appointmentDatas.homevisit_appointment,
+        },
+        () => {
+          this.onChange(new Date(data.date));
+        }
+      );
+    }
+    else {
       this.setState(
         {
           appoinmentSelected: data,
@@ -796,6 +808,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
 
     let {
+      Home_visit,
       DetailsQuestions,
       vdo_call,
       office_visit,
@@ -862,13 +875,19 @@ class Index extends Component {
                         title=""
                       />
                     )}
+                    {data.appointment_type == 'homevisit_appointment' && (
+                      <HomeIcon className="homeiconcolor" />
+                    )}
                     <span>
-                      {data.appointment_type == "practice_days"
-                        ? consultancy_appintment
-                        : data.appointment_type == "online_appointment"
-                          ? vdo_call
-                          : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
-                            ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
+
+                      {data.appointment_type == "homevisit_appointment"
+                        ? Home_visit
+                        : data.appointment_type == "practice_days"
+                          ? consultancy_appintment
+                          : data.appointment_type == "online_appointment"
+                            ? vdo_call
+                            : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
+                              ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
                       }
                     </span>
                   </Grid>
@@ -997,6 +1016,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
 
     let {
+      Home_visit,
       holiday,
       appointments,
       new_rqst,
@@ -1067,7 +1087,6 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {console.log("newAppoinments", newAppoinments)}
                     {newAppoinments && newAppoinments.length > 0 && (
                       <Grid className="newRequestMain">
                         <h4>{new_rqst}</h4>
@@ -1313,6 +1332,7 @@ class Index extends Component {
                                 />
                               </Grid>
                             </Grid>
+
                             {this.state.date && (
                               <Grid item xs={6} md={6}>
                                 <Grid>
@@ -1330,7 +1350,6 @@ class Index extends Component {
                                                                 }) : this.state.suggesteddate !== undefined ?
                                                                         <Grid><span>{holiday}!</span></Grid> : ''
                                                                 } */}
-                                  {console.log("this.state.appointDate", this.state.appointDate)}
                                   {this.state.appointDate &&
                                     this.state.appointDate.length > 0 ? (
                                     this.state.appointDate.map((data, iA) => {
