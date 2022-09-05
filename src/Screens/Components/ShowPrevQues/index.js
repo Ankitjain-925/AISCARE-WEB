@@ -225,7 +225,7 @@ class Index extends Component {
                             : ''
                     }
                 >
-                    <Grid className="creatTaskModel creatTaskModel11">
+                    <Grid className="creatTaskModel3 creatTaskModel11">
                         <Grid className="creatTaskCntnt">
                             <Grid>
                                 <Grid container direction="row" justify="center" className="addSpeclLbl">
@@ -288,6 +288,8 @@ class Index extends Component {
                                                                     const compareResult = parseInt(item && item?.result && item?.result?.value &&
                                                                         item?.result?.value.split('_v').pop())
                                                                     return (
+                                                                        <Grid className={compareResult === index + 1 &&('selectdcolchange')}>
+
                                                                         <RadioGroup
                                                                             aria-labelledby="main-topic-counted"
                                                                             name="quarter_feeding"
@@ -301,9 +303,12 @@ class Index extends Component {
                                                                                     ) : null
                                                                                 }
                                                                             />
+                                                                          
                                                                         </RadioGroup>
+                                                                        </Grid>
                                                                     );
                                                                 })}
+                                                                
                                                             </FormControl>
                                                         ))}
                                                     </Grid>
@@ -1260,7 +1265,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid> */}
 
-                                                    <Grid className=" selectOptionCmn">
+                                                    <Grid className="selectOptionCmn">
                                                         <Grid className="allQuestionShow1">
                                                             {selectoption.map((item) => (
                                                                 <FormControl className="selectOption">

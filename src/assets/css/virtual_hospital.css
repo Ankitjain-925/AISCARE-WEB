@@ -15764,10 +15764,12 @@ width: 90px!important;
 .selectOptionCmn {
   margin-top: 20px;
 }
+
 .selectOptionCmn label span {
   font-weight: 500;
   line-height: 21px;
   font-size: 15px;
+  margin-right: 10px;
   font-family: Muli !important;
 }
 .selectOption {
@@ -16230,3 +16232,49 @@ width: 90px!important;
   .extraSrvcUpr .actvMain {
     margin-bottom: 32px !important;
   }
+
+
+.checkHelth2{
+  overflow-y: scroll;
+    height: 362px !important;
+}
+
+.creatTaskModel3{
+width: 580px;
+background: #fff;
+margin: 0 auto;
+border: none;
+outline: none;
+background-color: #ffffff;
+box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+margin-top: 20px;
+padding-right: 2px;
+padding-top: 18px;
+padding-bottom: 16px;
+border-radius: 12px;
+}
+.darkTheme .creatTaskModel3 {
+  background-color: #404646 !important;
+}
+
+@media (max-width: 768px) {
+  .creatTaskModel3 {
+    width: 98% !important;
+  }
+}
+.selectOptionCmn label{
+  color:grey;
+}
+/* .uuu label{
+  color: black
+} */
+ .selectdcolchange label{
+  color:#00abaf!important
+}
+
+.homeBgDrk .valuecolor label{
+  color: white!important;
+}
+.darkTheme .yearSecBg:hover {
+  background-color: #404646;
+}
