@@ -1225,10 +1225,10 @@ class Index extends Component {
                   <Grid className="apontBoxCntnt">
                     <Grid className="apontCourse 555">
 
-                    {/* <Grid container direction="row" justify="center">
+                    <Grid container direction="row" justify="center">
                         <Grid item xs={8} md={8} lg={8}>
                             <label>{cancel_apointmnt}</label>
-                            <p>{plz_write_short_explnation}</p>
+                            {/* <p>{plz_write_short_explnation}</p> */}
                         </Grid>
                         <Grid item xs={4} md={4} lg={4}>
                             <Grid>
@@ -1243,9 +1243,10 @@ class Index extends Component {
                             </Grid>
                             </Grid>
                         </Grid>
-                     </Grid> */}
+                        <p>{plz_write_short_explnation}</p>
+                     </Grid>
 
-                      <Grid className="apontCloseBtn">
+                      {/* <Grid className="apontCloseBtn">
                         <a onClick={this.handleCloseApoint}>
                           <img
                             src={require("assets/images/close-search.svg")}
@@ -1257,7 +1258,7 @@ class Index extends Component {
                       <Grid>
                         <label>{cancel_apointmnt}</label>
                       </Grid>
-                      <p>{plz_write_short_explnation}</p>
+                      <p>{plz_write_short_explnation}</p> */}
                     </Grid>
                     <Grid className="apontDragCntnt">
                       <Grid>
