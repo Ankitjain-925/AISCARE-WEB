@@ -399,7 +399,7 @@ class Index extends Component {
                       <Tab label={DocumentsFiles} className="tsktabIner" />
                       {/* <Tab label={Room} className="tsktabIner" /> */}
                       <Tab label={personal_info} className="tsktabIner" />
-                      <Tab label={'Appointments'} className="tsktabIner" />
+                      <Tab label={Appointments} className="tsktabIner" />
                     </Tabs>
                   </AppBar>
                 </Grid>
