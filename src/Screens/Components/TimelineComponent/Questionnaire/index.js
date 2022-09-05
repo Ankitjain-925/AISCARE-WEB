@@ -560,10 +560,8 @@ class Index extends Component {
                                         </p>
                                       </Grid>
                                       <Grid xs={3} md={3}>
-                                        <label>{Measure_diameter_Leg}</label>
-                                        <p>
-                                          {item?.questionnaire_answers?.week_anamnesis_diameter_leg}
-                                        </p>
+                                        <label>{Condition}</label>
+                                        {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
                                       </Grid>
                                     </Grid>
                                   </Grid>
@@ -621,24 +619,24 @@ class Index extends Component {
                                 <Grid className="MainclassQues">
                                   <Grid>
                                     <h1>{Anamnesis}</h1>
+                                    {/* <Grid container xs={12} md={12}> */}
+                                    {/* <Grid xs={6} md={6}> */}
+                                    <h3>{blood_pressure}</h3>
                                     <Grid container xs={12} md={12}>
                                       <Grid xs={6} md={6}>
-                                        <h3>{blood_pressure}</h3>
-                                        <Grid container xs={12} md={12}>
-                                          <Grid xs={6} md={6}>
-                                            <label>{Systolic}</label>
-                                            <p>
-                                              {item?.questionnaire_answers?.daily_rr_systolic}
-                                            </p>
-                                          </Grid>
-                                          <Grid xs={6} md={6}>
-                                            <label>{Diastolic}</label>
-                                            <p>
-                                              {item?.questionnaire_answers?.daily_rr_diastolic}
-                                            </p>
-                                          </Grid>
-                                        </Grid>
+                                        <label>{Systolic}</label>
+                                        <p>
+                                          {item?.questionnaire_answers?.daily_rr_systolic}
+                                        </p>
                                       </Grid>
+                                      <Grid xs={6} md={6}>
+                                        <label>{Diastolic}</label>
+                                        <p>
+                                          {item?.questionnaire_answers?.daily_rr_diastolic}
+                                        </p>
+                                      </Grid>
+                                    </Grid>
+                                    {/* </Grid>
                                       {item && item?.questionnaire_answers?.daily_diameter_leg === 'yes' &&
                                         <Grid xs={6} md={6}>
                                           <h3>{Diameter_Leg}</h3>
@@ -657,8 +655,8 @@ class Index extends Component {
                                             </Grid>
                                           </Grid>
                                         </Grid>
-                                      }
-                                    </Grid>
+                                      } */}
+                                    {/* </Grid> */}
                                   </Grid>
                                 </Grid>
                               </Grid>

@@ -53,7 +53,6 @@ class Index extends Component {
             hospital
         } = translate;
         var item = this.state.item;
-        console.log("item", item)
         const { openQues } = this.state;
         return (
             <Grid>
