@@ -423,7 +423,7 @@ class Index extends Component {
             <Grid item xs={12} md={8}>
               <Grid className="profileIdLft">
                 <Grid container direction="row" alignItems="center" spacing={1}>
-                  <Grid item xs={12} md={7}>
+                  <Grid item xs={12} md={8}>
                     <label>
                       {profile} {ID}
                     </label>
@@ -448,7 +448,7 @@ class Index extends Component {
                       />
                     </a>
                   </Grid>
-                  <Grid item xs={12} md={5}>
+                  <Grid item xs={12} md={4}>
                     <label>{pin}</label>
                     <span id="profile_pin">
                       {this.state.UpDataDetails.pin &&

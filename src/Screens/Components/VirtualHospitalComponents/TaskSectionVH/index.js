@@ -2167,7 +2167,7 @@ class Index extends Component {
                           container
                           direction="row"
                           alignItems="center"
-                          spacing={2}
+                          // spacing={1}
                         >
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
