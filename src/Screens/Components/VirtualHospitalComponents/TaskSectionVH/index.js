@@ -464,7 +464,7 @@ class Index extends Component {
     if (
       data?.task_type === 'picture_evaluation' &&
       (data?.attachments?.length > ComLength?.attach_Length ||
-      data?.comments?.length > ComLength?.comments_Length)
+        data?.comments?.length > ComLength?.comments_Length)
     ) {
       axios
         .post(
@@ -720,7 +720,6 @@ class Index extends Component {
   }
 
   DoneAppointment = (id) => {
-    console.log('id', id)
     let translate = getLanguage(this.props.stateLanguageType);
     let { RemoveComment, really_want_to_remove_comment, No, Yes } = translate;
     confirmAlert({
@@ -978,96 +977,96 @@ class Index extends Component {
       });
   };
 
- //{Delete} the perticular service confirmation box
- removeTask1 = (id) => {
-  this.setState({ message: null, openTask: false });
-  let translate = getLanguage(this.props.stateLanguageType);
-  let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
-  confirmAlert({
-    customUI: ({ onClose }) => {
-      return (
-        <div
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-              ? "dark-confirm react-confirm-alert-body"
-              : "react-confirm-alert-body"
-          }
-        >
-          <h1>{remove_task}</h1>
-          <p>{you_sure_to_remove_task}</p>
-          <div className="react-confirm-alert-button-group">
-            <button onClick={onClose}>{No}</button>
-            <button
-              onClick={() => {
-                this.removeTask21(id);
-                // onClose();
-              }}
-            >
-              {Yes}
-            </button>
+  //{Delete} the perticular service confirmation box
+  removeTask1 = (id) => {
+    this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>{remove_task}</h1>
+            <p>{you_sure_to_remove_task}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  this.removeTask21(id);
+                  // onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
           </div>
-        </div>
-      );
-    },
-  });
-};
+        );
+      },
+    });
+  };
 
-removeTask21 = (id) => {
-  this.setState({ message: null, openTask: false });
-  let translate = getLanguage(this.props.stateLanguageType);
-  let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
-  confirmAlert({
-    customUI: ({ onClose }) => {
-      return (
-        <div
-          className={
-            this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-              ? "dark-confirm react-confirm-alert-body"
-              : "react-confirm-alert-body"
-          }
-        >
-          <h1 class="alert-btn">{RemoveTask}</h1>
-          <p>{really_want_to_remove_task}</p>
-          <div className="react-confirm-alert-button-group">
-            <button onClick={onClose}>{No}</button>
-            <button
-              onClick={() => {
-                this.deleteClickTask(id);
-                onClose();
-              }}
-            >
-              {Yes}
-            </button>
+  removeTask21 = (id) => {
+    this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">{RemoveTask}</h1>
+            <p>{really_want_to_remove_task}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  this.deleteClickTask(id);
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
           </div>
-        </div>
-      );
-    },
-  });
-};
+        );
+      },
+    });
+  };
 
 
   //for delete the Task
   deleteClickTask1(id) {
-      this.setState({ loaderImage: true });
-      axios
-        .delete(
-          sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((response) => {
-          if (response.data.hassuccessed) {
-            this.props.getAddTaskData();
-          }
-          this.setState({ loaderImage: false });
-        })
-        .catch((error) => { });
-    }
+    this.setState({ loaderImage: true });
+    axios
+      .delete(
+        sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          this.props.getAddTaskData();
+        }
+        this.setState({ loaderImage: false });
+      })
+      .catch((error) => { });
+  }
 
 
   //{Delete} the perticular service confirmation box
@@ -1239,7 +1238,7 @@ removeTask21 = (id) => {
     this.setState({ text: '' });
     if (name === 'task_type') {
       this.setState({ task_type: e });
-      if (this.state.houses?.value){
+      if (this.state.houses?.value) {
         this.FilterByHouse(this.state.houses?.value, true)
       }
       else {
@@ -1249,18 +1248,18 @@ removeTask21 = (id) => {
     else {
       this.setState({ houses: e });
       this.FilterByHouse(e.value, true)
-    } 
+    }
   }
 
   FilterByType = (e, AllTasks, DoneTask, OpenTask, ArchivedTasks) => {
     this.setState({ task_type: e });
-    var TypeCondtion = e.value === 'tasks' ? 'task_name' : TypeCondtion = e.value === 'appointment' ? 'appointment_type' : 'title';
+    var TypeCondtion = e.value === 'tasks' ? 'task_name' : TypeCondtion = e.value === 'appointment' ? 'appointment_type' : TypeCondtion = e.value === "assigned_service" ? 'title' : "";
     let track1 = AllTasks;
     let FilterFromSearch1 =
       track1 &&
       track1.length > 0 &&
       track1.filter((obj) => {
-        return obj[TypeCondtion];
+        return TypeCondtion ? obj[TypeCondtion] : obj;
       });
     this.setState({ AllTasks: FilterFromSearch1 });
 
@@ -1269,7 +1268,7 @@ removeTask21 = (id) => {
       track2 &&
       track2.length > 0 &&
       track2.filter((obj) => {
-        return obj[TypeCondtion];
+        return TypeCondtion ? obj[TypeCondtion] : obj;
       });
     this.setState({ DoneTask: FilterFromSearch2 });
 
@@ -1278,7 +1277,7 @@ removeTask21 = (id) => {
       track3 &&
       track3.length > 0 &&
       track3.filter((obj) => {
-        return obj[TypeCondtion];
+        return TypeCondtion ? obj[TypeCondtion] : obj;
       });
     this.setState({ OpenTask: FilterFromSearch3 });
 
@@ -1287,7 +1286,7 @@ removeTask21 = (id) => {
       track4 &&
       track4.length > 0 &&
       track4.filter((obj) => {
-        return obj[TypeCondtion];
+        return TypeCondtion ? obj[TypeCondtion] : obj;
       });
     this.setState({ ArchivedTasks: FilterFromSearch4 });
 
@@ -1310,7 +1309,7 @@ removeTask21 = (id) => {
   };
 
   FilterByHouse = (value, comefrom) => {
-   
+
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
       track1 &&
@@ -1329,7 +1328,7 @@ removeTask21 = (id) => {
       });
     this.setState({ DoneTask: FilterFromSearch2 });
 
-    let track3 = this.props.OpenTask; 
+    let track3 = this.props.OpenTask;
     let FilterFromSearch3 =
       track3 &&
       track3.length > 0 &&
@@ -1415,87 +1414,87 @@ removeTask21 = (id) => {
       .catch((error) => { });
   }
   // open Edit model
-    // open Edit model
-    editTask1 = (data) => {
-      var pat1name = "";
-      if (data?.patient?.first_name && data?.patient?.last_name) {
-        pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
-      } else if (data?.first_name) {
-        pat1name = data?.patient?.first_name;
-      }
-      // var cal_Length = data?.attachments?.length;
-      var Assigned_Aready =
-        data &&
-        data?.assinged_to &&
-        data?.assinged_to?.length > 0 &&
-        data?.assinged_to.map((item) => {
-          return item?.user_id;
-        });
-      var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
-      var deep = _.cloneDeep(data);
-      this.setState({
-        total_amount: data?.amount,
-        selectedHouse: findHouse[0],
-        service: deep,
-        // OpenTask:true,
-        openAss: true,
-        Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
-        calculate_Length: {
-          attach_Length: data?.attachments?.length,
-          comments_Length: data?.comments?.length,
-        },
-        q: pat1name,
-       //  selectedPat: { label: pat1name, value: data?.patient?._id },
-        selectSpec: {
-          label: data?.speciality?.specialty_name,
-          value: data?.speciality?._id,
-        },
-        fileattach: data.attachments,
-        selectedPat: { label: pat1name, value: data?.patient?._id },
-        selectSpec: {
-          label: data?.speciality?.specialty_name,
-          value: data?.speciality?._id,
-        },
-      }, () => {
-        this.getProfessionalData(true);
-        this.getPatientData();
+  // open Edit model
+  editTask1 = (data) => {
+    var pat1name = "";
+    if (data?.patient?.first_name && data?.patient?.last_name) {
+      pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
+    } else if (data?.first_name) {
+      pat1name = data?.patient?.first_name;
+    }
+    // var cal_Length = data?.attachments?.length;
+    var Assigned_Aready =
+      data &&
+      data?.assinged_to &&
+      data?.assinged_to?.length > 0 &&
+      data?.assinged_to.map((item) => {
+        return item?.user_id;
+      });
+    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+    var deep = _.cloneDeep(data);
+    this.setState({
+      total_amount: data?.amount,
+      selectedHouse: findHouse[0],
+      service: deep,
+      // OpenTask:true,
+      openAss: true,
+      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+      calculate_Length: {
+        attach_Length: data?.attachments?.length,
+        comments_Length: data?.comments?.length,
+      },
+      q: pat1name,
+      //  selectedPat: { label: pat1name, value: data?.patient?._id },
+      selectSpec: {
+        label: data?.speciality?.specialty_name,
+        value: data?.speciality?._id,
+      },
+      fileattach: data.attachments,
+      selectedPat: { label: pat1name, value: data?.patient?._id },
+      selectSpec: {
+        label: data?.speciality?.specialty_name,
+        value: data?.speciality?._id,
+      },
+    }, () => {
+      this.getProfessionalData(true);
+      this.getPatientData();
+    });
+
+
+
+    var pat1name = "";
+    if (data?.patient?.first_name && data?.patient?.last_name) {
+      pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
+    } else if (data?.first_name) {
+      pat1name = data?.patient?.first_name;
+    }
+    this.selectProf(data?.assinged_to, this.state.professional_id_list);
+    var Assigned_Aready =
+      data &&
+      data?.assinged_to &&
+      data?.assinged_to?.length > 0 &&
+      data?.assinged_to.map((item) => {
+        return item?.user_id;
       });
 
-
-
-      var pat1name = "";
-       if (data?.patient?.first_name && data?.patient?.last_name) {
-         pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
-       } else if (data?.first_name) {
-         pat1name = data?.patient?.first_name;
-       }
-      this.selectProf(data?.assinged_to, this.state.professional_id_list);
-       var Assigned_Aready =
-         data &&
-         data?.assinged_to &&
-         data?.assinged_to?.length > 0 &&
-         data?.assinged_to.map((item) => {
-           return item?.user_id;
-         });
-      
-       var deep = _.cloneDeep(data);
-       this.setState({
-         service: deep,
-         openAss: true,
-         Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
-         calculate_Length: {
-           attach_Length: data?.attachments?.length,
-           comments_Length: data?.comments?.length,
-         },
-        // assignedTo: assignedTo,
-         q: pat1name,
-         selectedPat: { label: pat1name, value: data?.patient?._id },
-         selectSpec: {
-           label: data?.speciality?.specialty_name,
-           value: data?.speciality?._id,
-         },
-       });
-     };
+    var deep = _.cloneDeep(data);
+    this.setState({
+      service: deep,
+      openAss: true,
+      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+      calculate_Length: {
+        attach_Length: data?.attachments?.length,
+        comments_Length: data?.comments?.length,
+      },
+      // assignedTo: assignedTo,
+      q: pat1name,
+      selectedPat: { label: pat1name, value: data?.patient?._id },
+      selectSpec: {
+        label: data?.speciality?.specialty_name,
+        value: data?.speciality?._id,
+      },
+    });
+  };
 
   editTask = (data) => {
     var pat1name = "";
@@ -2088,7 +2087,7 @@ removeTask21 = (id) => {
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
               {this.props.comesFrom == "detailTask" &&
                 <Button onClick={() => this.handleOpenAss()} >
-                    {"+ Assign service"}
+                  {"+ Assign service"}
                 </Button>}
               {/* <label>{filterbedge}</label> */}
             </Grid>
@@ -2211,7 +2210,7 @@ removeTask21 = (id) => {
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                            
+
                             {this.props.comesFrom === "detailTask" ? (
                               <h2>
                                 {this.props.patient?.first_name}{" "}
@@ -4365,7 +4364,7 @@ removeTask21 = (id) => {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5} className="vwTaskSelectTp">
-              {this.props.comesFrom === 'Professional' &&
+                {this.props.comesFrom === 'Professional' &&
                   <Grid className="viewTaskfilter">
                     <div className="nurse-filter-sec" onClick={() => { this.clearFilter3() }}>Clear filter</div>
                     <Select
@@ -4392,47 +4391,47 @@ removeTask21 = (id) => {
                   </Grid>}
               </Grid>
               <Grid container direction="row" alignItems="center">
-              <Grid item xs={12} sm={12} md={12}>
-              <Grid className="taskSort taskSortDtr 44">
-                  {this.state.showinput && (
-                    <input
-                      className="TaskSearch"
-                      type="text"
-                      name="search"
-                      placeholder={Search}
-                      value={this.state.text}
-                      onChange={this.FilterText}
-                    />
-                  )}
-                  <a>
-                    {!this.state.showinput ? (
-                      <img
-                        src={require("assets/virtual_images/search-entries.svg")}
-                        alt=""
-                        title=""
-                        onClick={() => {
-                          this.setState({
-                            showinput: !this.state.showinput,
-                          });
-                        }}
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                        onClick={() => {
-                          this.setState({
-                            showinput: !this.state.showinput,
-                            text: "",
-                          });
-                          this.clearFilter();
-                        }}
+                <Grid item xs={12} sm={12} md={12}>
+                  <Grid className="taskSort taskSortDtr 44">
+                    {this.state.showinput && (
+                      <input
+                        className="TaskSearch"
+                        type="text"
+                        name="search"
+                        placeholder={Search}
+                        value={this.state.text}
+                        onChange={this.FilterText}
                       />
                     )}
-                  </a>
+                    <a>
+                      {!this.state.showinput ? (
+                        <img
+                          src={require("assets/virtual_images/search-entries.svg")}
+                          alt=""
+                          title=""
+                          onClick={() => {
+                            this.setState({
+                              showinput: !this.state.showinput,
+                            });
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={require("assets/images/close-search.svg")}
+                          alt=""
+                          title=""
+                          onClick={() => {
+                            this.setState({
+                              showinput: !this.state.showinput,
+                              text: "",
+                            });
+                            this.clearFilter();
+                          }}
+                        />
+                      )}
+                    </a>
 
-                  {/* {this.props.comesFrom == "Professional" && (
+                    {/* {this.props.comesFrom == "Professional" && (
                     <>
                       <Select
                         value={selectedOption}
@@ -4456,83 +4455,83 @@ removeTask21 = (id) => {
                     </>
                   )} */}
 
-                  {this.props.comesFrom !== "Professional" &&
-                    this.props.comesFrom !== "detailTask" && (
-                      <>
-                        {tabvalue2 === 0 && (
-                          <a className={AllTaskCss}>
-                            <img
-                              src={
-                                AllTaskCss === "filterApply"
-                                  ? require("assets/virtual_images/sort-active.png")
-                                  : require("assets/virtual_images/sort.png")
-                              }
-                              alt=""
-                              title=""
-                              onClick={this.handleOpenRvw}
-                            />
-                          </a>
-                        )}
-                        {tabvalue2 === 1 && (
-                          <a className={DoneTaskCss}>
-                            <img
-                              src={
-                                AllTaskCss === "filterApply"
-                                  ? require("assets/virtual_images/sort-active.png")
-                                  : require("assets/virtual_images/sort.png")
-                              }
-                              alt=""
-                              title=""
-                              onClick={this.handleOpenRvw}
-                            />
-                          </a>
-                        )}
-                        {tabvalue2 === 2 && (
-                          <a className={OpenTaskCss}>
-                            <img
-                              src={
-                                AllTaskCss === "filterApply"
-                                  ? require("assets/virtual_images/sort-active.png")
-                                  : require("assets/virtual_images/sort.png")
-                              }
-                              alt=""
-                              title=""
-                              onClick={this.handleOpenRvw}
-                            />
-                          </a>
-                        )}
-                        {tabvalue2 === 3 && (
-                          <a className={DeclinedTaskCss}>
-                            <img
-                              src={
-                                DeclinedTaskCss === "filterApply"
-                                  ? require("assets/virtual_images/sort-active.png")
-                                  : require("assets/virtual_images/sort.png")
-                              }
-                              alt=""
-                              title=""
-                              onClick={this.handleOpenRvw}
-                            />
-                          </a>
-                        )}
-                      </>
+                    {this.props.comesFrom !== "Professional" &&
+                      this.props.comesFrom !== "detailTask" && (
+                        <>
+                          {tabvalue2 === 0 && (
+                            <a className={AllTaskCss}>
+                              <img
+                                src={
+                                  AllTaskCss === "filterApply"
+                                    ? require("assets/virtual_images/sort-active.png")
+                                    : require("assets/virtual_images/sort.png")
+                                }
+                                alt=""
+                                title=""
+                                onClick={this.handleOpenRvw}
+                              />
+                            </a>
+                          )}
+                          {tabvalue2 === 1 && (
+                            <a className={DoneTaskCss}>
+                              <img
+                                src={
+                                  AllTaskCss === "filterApply"
+                                    ? require("assets/virtual_images/sort-active.png")
+                                    : require("assets/virtual_images/sort.png")
+                                }
+                                alt=""
+                                title=""
+                                onClick={this.handleOpenRvw}
+                              />
+                            </a>
+                          )}
+                          {tabvalue2 === 2 && (
+                            <a className={OpenTaskCss}>
+                              <img
+                                src={
+                                  AllTaskCss === "filterApply"
+                                    ? require("assets/virtual_images/sort-active.png")
+                                    : require("assets/virtual_images/sort.png")
+                                }
+                                alt=""
+                                title=""
+                                onClick={this.handleOpenRvw}
+                              />
+                            </a>
+                          )}
+                          {tabvalue2 === 3 && (
+                            <a className={DeclinedTaskCss}>
+                              <img
+                                src={
+                                  DeclinedTaskCss === "filterApply"
+                                    ? require("assets/virtual_images/sort-active.png")
+                                    : require("assets/virtual_images/sort.png")
+                                }
+                                alt=""
+                                title=""
+                                onClick={this.handleOpenRvw}
+                              />
+                            </a>
+                          )}
+                        </>
+                      )}
+                    {tabvalue2 === 4 && (
+                      <a className={ArchivedTasksCss}>
+                        <img
+                          src={
+                            ArchivedTasksCss === "filterApply"
+                              ? require("assets/virtual_images/sort-active.png")
+                              : require("assets/virtual_images/sort.png")
+                          }
+                          alt=""
+                          title=""
+                          onClick={this.handleOpenRvw}
+                        />{" "}
+                      </a>
                     )}
-                  {tabvalue2 === 4 && (
-                    <a className={ArchivedTasksCss}>
-                      <img
-                        src={
-                          ArchivedTasksCss === "filterApply"
-                            ? require("assets/virtual_images/sort-active.png")
-                            : require("assets/virtual_images/sort.png")
-                        }
-                        alt=""
-                        title=""
-                        onClick={this.handleOpenRvw}
-                      />{" "}
-                    </a>
-                  )}
+                  </Grid>
                 </Grid>
-              </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -4543,7 +4542,7 @@ removeTask21 = (id) => {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
-                      DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4571,7 +4570,7 @@ removeTask21 = (id) => {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
-                      DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4599,7 +4598,7 @@ removeTask21 = (id) => {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
-                      DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4627,7 +4626,7 @@ removeTask21 = (id) => {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
-DoneAppointment={(id) => { this.DoneAppointment(id) }}                      
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4655,7 +4654,7 @@ DoneAppointment={(id) => { this.DoneAppointment(id) }}
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                      DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
@@ -4683,8 +4682,8 @@ DoneAppointment={(id) => { this.DoneAppointment(id) }}
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                      DoneAppointment={(id) => { this.DoneAppointment(id) }}
-                      removeAddbutton={this.props.removeAddbutton}
+                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        removeAddbutton={this.props.removeAddbutton}
                         data={data}
                         removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
                         editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
