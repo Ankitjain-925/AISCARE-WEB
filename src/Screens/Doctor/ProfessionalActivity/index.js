@@ -73,7 +73,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAddTaskData();
-   this.getAllactivities();
+    this.getAllactivities();
     this.allHouses();
   }
 
@@ -110,142 +110,140 @@ class Index extends Component {
 
   mySorter(a, b) {
     if (a?.due_on.date && b?.due_on.date) {
-      var x = a.due_on.date 
+      var x = a.due_on.date
       var y = b.due_on.date
       return x > y ? 1 : x < y ? -1 : 0;
     } else {
       return -1;
     }
   }
-mySorter1(a, b) {
+  mySorter1(a, b) {
     if (a?.date && b.date) {
-      var x = a.date 
+      var x = a.date
       var y = b.date
       return x > y ? 1 : x < y ? -1 : 0;
     } else {
       return -1;
     }
   }
- //get Add task data
- getAddTaskData = (tabvalue2, goArchive) => {
-  this.setState({ loaderImage: true });
-axios
-    .get(
-      sitedata.data.path +
-      "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    .then((response) => {
-      this.setState({ AllTasks: response.data.data });
-      if (response.data.hassuccessed) {
-        if (response?.data?.data) {
-          var patientForFilterArr = filterPatient(response.data.data);
-          this.setState({ patientForFilter: patientForFilterArr });
-        }
-        var services = response.data.data
-
-        let today = new Date().setHours(0, 0, 0, 0);
-            let ttime = moment().format("HH:mm");
-        var Done =
-          services?.length > 0 && 
-          services.filter((item) => { 
-            if(item.task_name){
-              return item.status === "done" 
-            } 
-            else 
-            {
-              let data_end = moment(item.end_time).format("HH:mm");
-              let data_d = new Date(item.date).setHours(0, 0, 0, 0)
-             
-            if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end >= ttime) )){
-             return item
-            }else{
-            return item.status ==="done"
-            }
-
+  //get Add task data
+  getAddTaskData = (tabvalue2, goArchive) => {
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path +
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        this.setState({ AllTasks: response.data.data });
+        if (response.data.hassuccessed) {
+          if (response?.data?.data) {
+            var patientForFilterArr = filterPatient(response.data.data);
+            this.setState({ patientForFilter: patientForFilterArr });
           }
-          });
-        // var Done =
-        // response.data.data?.length > 0 &&
-        //   response.data.data.filter((item) => item.status === "done");
-        var Open =
-          response.data.data?.length > 0 &&
-          response.data.data.filter((item) => { 
-            if(item.task_name){
-              return item.status === "open" 
-            }
-            else 
-            {
-              let data_end = moment(item.end_time).format("HH:mm");
-              let data_d = new Date(item.date).setHours(0, 0, 0, 0)
-            if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) && data_end < ttime) )){
-              return item
-            }else{
-            return item.status ==="open"
-            }
+          var services = response.data.data
 
+          let today = new Date().setHours(0, 0, 0, 0);
+          let ttime = moment().format("HH:mm");
+          var Done =
+            services?.length > 0 &&
+            services.filter((item) => {
+              if (item.task_name) {
+                return item.status === "done"
+              }
+              else {
+                let data_end = moment(item.end_time).format("HH:mm");
+                let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+
+                if (item?.end_time && (moment(today).isAfter(data_d) || (moment(today).isSame(data_d) && data_end >= ttime))) {
+                  return item
+                } else {
+                  return item.status === "done"
+                }
+
+              }
+            });
+          // var Done =
+          // response.data.data?.length > 0 &&
+          //   response.data.data.filter((item) => item.status === "done");
+          var Open =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => {
+              if (item.task_name) {
+                return item.status === "open"
+              }
+              else {
+                let data_end = moment(item.end_time).format("HH:mm");
+                let data_d = new Date(item.date).setHours(0, 0, 0, 0)
+                if (item?.end_time && (moment(today).isBefore(data_d) || (moment(today).isSame(data_d) && data_end < ttime))) {
+                  return item
+                } else {
+                  return item.status === "open"
+                }
+
+              }
+            });
+          this.setState({
+            AllTasks: services,
+            DoneTask: Done,
+            OpenTask: Open,
+          });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
           }
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+          }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
+
+  getAllactivities = (tabvalue2, goArchive) => {
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path +
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        this.setState({ AllTasks: response.data.data });
+        console.log('response', response)
+        if (response.data.hassuccessed) {
+          if (response?.data?.data) {
+            var patientForFilterArr = filterPatient(response.data.data);
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
+          var Done =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "done" || item.status === "Done")
+
+          var Open =
+            response.data.data?.length > 0 &&
+            response.data.data.filter(
+              (item) => item.status !== "done" || (item.appointment_type && item.status !== "done")
+            );
+          var ArchivedTask = response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.archived);
+          this.setState({
+            AllTasks: response.data.data,
+            DoneTask: Done,
+            OpenTask: Open,
+            ArchivedTasks: ArchivedTask
           });
-        this.setState({
-          AllTasks: services,
-          DoneTask: Done,
-          OpenTask: Open,
-        });
-        if (goArchive) {
-          this.setState({ tabvalue2: 3 });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          }
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+          }
         }
-        else {
-          this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
-        }
-      }
-      this.setState({ loaderImage: false });
-    });
-};
-
-
-getAllactivities = (tabvalue2, goArchive) => {
-  this.setState({ loaderImage: true });
-  axios
-    .get(
-      sitedata.data.path +
-      "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    .then((response) => {
-      this.setState({ AllTasks: response.data.data });
-      console.log('response',response)
-      if (response.data.hassuccessed) {
-        if (response?.data?.data) {
-          var patientForFilterArr = filterPatient(response.data.data);
-          this.setState({ patientForFilter: patientForFilterArr });
-        }
-        var Done =
-          response.data.data?.length > 0 &&
-          response.data.data.filter((item) =>item.status === "done" || item.status === "Done")
-           
-        var Open =
-          response.data.data?.length > 0 &&
-          response.data.data.filter(
-            (item) => item.status !== "done" || (item.appointment_type && item.status !== "done")
-          );
-          var ArchivedTask  = response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.archived);
-        this.setState({
-          AllTasks: response.data.data,
-          DoneTask: Done,
-          OpenTask: Open,
-          ArchivedTasks: ArchivedTask
-        });
-        if (goArchive) {
-          this.setState({ tabvalue2: 3 });
-        }
-        else {
-          this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
-        }
-      }
-      this.setState({ loaderImage: false });
-    });
-};
+        this.setState({ loaderImage: false });
+      });
+  };
 
 
 
@@ -254,7 +252,7 @@ getAllactivities = (tabvalue2, goArchive) => {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Professional_activities} = translate;
+    let { Professional_activities } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === 'undefined' ||
@@ -270,9 +268,9 @@ getAllactivities = (tabvalue2, goArchive) => {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -288,17 +286,17 @@ getAllactivities = (tabvalue2, goArchive) => {
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
-                <Grid className="topLeftSpc">
+                  <Grid className="topLeftSpc">
+                    <Grid container direction="row">
+                      <Grid item xs={11} md={11}>
                         <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{Professional_activities}</h1>
-                              </Grid>
-                            </Grid>
+                          <Grid item xs={12} md={6} className="spcMgntH1">
+                            <h1>{Professional_activities}</h1>
                           </Grid>
                         </Grid>
                       </Grid>
+                    </Grid>
+                  </Grid>
                   <Grid container direction="row">
                     <Grid item xs={12} md={12}>
                       {/* Model setup */}
