@@ -16283,3 +16283,8 @@ border-radius: 12px;
 .darkTheme .yearSecBg:hover {
   background-color: #404646;
 }
+
+.scrollvalue {
+  height: 537px;
+  overflow-y: scroll;
+}
