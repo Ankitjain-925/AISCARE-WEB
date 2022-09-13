@@ -535,7 +535,7 @@ class Index extends Component {
                             }
                           >
                             <Grid className="addSpeclContnt">
-                              <Grid className="addSpeclContntIner">
+                              <Grid className="addSpeclContntIner scrollvalue">
                                 <Grid className="addSpeclLbl">
                                 <Grid container direction="row" justify="center">
                                   <Grid item xs={8} md={8} lg={8}>
