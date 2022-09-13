@@ -351,7 +351,12 @@ class PointPain extends Component {
                         <a
                           onClick={() => this.handleChangeEntry("prescription")}
                         >
-                          {this.state.openBy !== "patient" && <span>16</span>}
+                             {this.state.openBy !== "patient" ? (
+                               <span>17</span>
+                              ) : (
+                             <span>16</span>
+                           )}
+                          {/* {this.state.openBy !== "patient" && <span>16</span>} */}
                           <p>{prescription}</p>
                         </a>
                       </Grid>
@@ -377,7 +382,12 @@ class PointPain extends Component {
                             this.handleChangeEntry("second_opinion")
                           }
                         >
-                          {this.state.openBy !== "patient" && <span>18</span>}
+                            {this.state.openBy !== "patient" ? (
+                          <span>19</span>
+                        ) : (
+                          <span>18</span>
+                        )}
+                          {/* {this.state.openBy !== "patient" && <span>18</span>} */}
                           <p>{secnd_openion}</p>
                         </a>
                       </Grid>
@@ -392,7 +402,12 @@ class PointPain extends Component {
                             this.handleChangeEntry("sick_certificate")
                           }
                         >
-                          {this.state.openBy !== "patient" && <span>19</span>}
+                            {this.state.openBy !== "patient" ? (
+                          <span>20</span>
+                        ) : (
+                          <span>19</span>
+                        )}
+                          {/* {this.state.openBy !== "patient" && <span>19</span>} */}
                           <p>{sick_cert}</p>
                         </a>
                       </Grid>
