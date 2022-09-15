@@ -16290,6 +16290,27 @@ border-radius: 12px;
   height: 537px;
   overflow-y: scroll;
 }
+
+
+
+.profileIdRght{
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cancelAppointSec{
+  min-width: 185px;
+}
+
+@media screen and (max-width:959px) {
+  .profileIdRght{
+    padding-top: 10px;
+    padding-bottom: 8px;
+  }
+}
+
 .DetailHead label {
   color: #000808;
   font-size: 20px;
@@ -16308,3 +16329,4 @@ border-radius: 12px;
 .DetailHead-close{
   padding: 25px;
 }
+
