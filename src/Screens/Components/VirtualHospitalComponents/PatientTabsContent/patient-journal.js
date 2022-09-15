@@ -1108,6 +1108,7 @@ class Index extends Component {
                           <div>
                             {this.state.allTrack.map((item, index) => (
                               <ViewTimeline
+                              Opencare={(data)=>this.props.Opencare(data)}  
                                 lrp={AllL_Ps.AllL_Ps.english}
                                 Allrelation={this.state.Allrelation}
                                 Allreminder={this.state.Allreminder}
