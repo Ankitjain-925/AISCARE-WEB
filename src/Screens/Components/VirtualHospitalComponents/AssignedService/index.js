@@ -275,9 +275,11 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(
             this.props.stateLoginValueAim.token,
-            this.props?.House?.value,
+            this.props.comesFrom === "Professional"
+              ? this.state.service?.house_id
+              : this.props?.House?.value,
             "taskpage"
-        );
+          );
         if (response?.isdata) {
             this.setState(
                 { users1: response.PatientList1, users: response.patientArray },
@@ -379,7 +381,7 @@ class Index extends Component {
         else {
             this.setState({ loaderImage: true })
             if (data?._id) {
-                // data.house_id = this.state.selectedHouse?.value;
+                data.house_id = this.state.selectedHouse?.value;
                 axios
                     .put(
                         sitedata.data.path + "/assignservice/Updateassignservice/" + data?._id,
@@ -581,6 +583,34 @@ class Index extends Component {
 
     };
 
+    updateEntryState5 = (e) => {
+        this.setState({ selectedHouse: e }, () => {
+          var pat1name = "";
+          if (
+            this.props.stateLoginValueAim?.user?.first_name &&
+            this.props.stateLoginValueAim?.user?.last_name
+          ) {
+            pat1name =
+              this.props.stateLoginValueAim?.user?.first_name +
+              " " +
+              this.props.stateLoginValueAim?.user?.last_name;
+          } else if (this.props.stateLoginValueAim?.user?.first_name) {
+            pat1name = this.props.stateLoginValueAim?.user?.first_name;
+          }
+          var fullData = [
+            {
+              label: pat1name,
+              value: this.props.stateLoginValueAim?.user?._id,
+              email: this.props.stateLoginValueAim?.user?.email,
+            },
+          ];
+          this.getProfessionalData();
+          this.getPatientData();
+        });
+      }; 
+
+    
+
     deleteClickService(id) {
         this.props.handleOpenAss();
         // delete this.state.items[id]
@@ -619,6 +649,7 @@ class Index extends Component {
             FilterbySpeciality,
             Duplicate,
             Dueon,
+            For_Hospital,
             Addtime,
             save_and_close,
             remove_time,
@@ -687,6 +718,27 @@ class Index extends Component {
                             </Grid>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
+                                <Grid item xs={12} md={12}>
+                                {console.log('dfsdfsdf', this.props.comesFrom)}
+                            {this.props.comesFrom === "Professional" && (
+                              <>{!this.state.service?._id &&
+
+                                <Grid>
+                                  <label>{For_Hospital}</label>
+                                  <Select
+                                    name="for_hospital"
+                                    options={this.props.currentList}
+                                    placeholder={Search_Select}
+                                    onChange={(e) => this.updateEntryState5(e)}
+                                    value={this.state.selectedHouse || ""}
+                                    className="addStafSelect"
+                                    isMulti={false}
+                                    isSearchable={true}
+                                  />
+                                </Grid>
+                              }</>
+                            )}
+                          </Grid>
                                     <Grid>
                                         <VHfield
                                             label={Assignedtitle}

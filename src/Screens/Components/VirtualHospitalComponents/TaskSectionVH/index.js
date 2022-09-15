@@ -2095,6 +2095,7 @@ class Index extends Component {
           </Grid>
           {/* Model setup */}
           <AssignedService
+            currentList={this.state.currentList}
             openAss={this.state.openAss}
             handleOpenAss={() => this.handleOpenAss()}
             handleCloseAss={() => this.handleCloseAss()}
