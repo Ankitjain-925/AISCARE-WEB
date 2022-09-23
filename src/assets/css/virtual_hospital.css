@@ -16328,5 +16328,22 @@ border-radius: 12px;
 }
 .DetailHead-close{
   padding: 25px;
+}  
+
+/* Added by Ankit */
+
+.msgSectionCss {
+  font-weight: 600;
+  font-size: 23px;
+  text-align: center;
+  margin-top: 20%;
+  color: #696969;
 }
 
+label.formviewhead{
+  font-weight: 700 !important;
+}
+
+.darkTheme .accessForm {
+  background: #404646
+}
