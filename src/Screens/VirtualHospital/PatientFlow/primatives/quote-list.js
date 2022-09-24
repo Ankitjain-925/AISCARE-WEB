@@ -77,7 +77,9 @@ class InnerQuoteList extends React.Component {
       if(quote?._id ===_id ){
       quote.verifiedbyPatient = true;
       }
-  })}
+  })
+  this.props.updatesQuotes(this.props.quotes)
+}
   
 
   render() {
@@ -131,6 +133,7 @@ class InnerList extends React.Component {
       <div>
         <div ref={dropProvided.innerRef} className="quote-list">
           <InnerQuoteList
+          updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
             socket={this.props.socket}
             MovetoTask={(speciality, patient_id) => {
               this.props.MovetoTask(speciality, patient_id);
@@ -199,6 +202,7 @@ export default class QuoteList extends React.Component {
             {internalScroll ? (
               <ScrollContainer style={scrollContainerStyle}>
                 <InnerList
+                updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
                   moveDetial={(id, case_id) =>
                     this.props.moveDetial(id, case_id)
                   }
@@ -228,6 +232,7 @@ export default class QuoteList extends React.Component {
               </ScrollContainer>
             ) : (
               <InnerList
+              updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
                 moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
                 ordered={this.props.ordered}
                 columns={this.props.columns}
