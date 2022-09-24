@@ -2206,7 +2206,8 @@ class Index extends Component {
                               disabled={
                                 this.state.newTask?.task_type ===
                                 "picture_evaluation" ||
-                                this.state.newTask?.task_type === "sick_leave"
+                                this.state.newTask?.task_type === "sick_leave" ||
+                                this.state.newTask.task_type === "video_conference"
                               }
                             />
                           </Grid>
@@ -2285,7 +2286,7 @@ class Index extends Component {
                           )}
 
                           {this.state.newTask.task_type !==
-                            "picture_evaluation" ||
+                            "picture_evaluation" || this.state.newTask.task_type !== "video_conference"
                             (this.state.newTask.task_type !== "sick_leave" && (
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <label>{Taskdescription}</label>
@@ -2727,7 +2728,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             )}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid item xs={12} md={12}>
                               <label>{Assignedto}</label>
                               <Grid>
@@ -2754,7 +2755,7 @@ class Index extends Component {
                           {(this.state.newTask &&
                             this.state.newTask?.task_type ===
                             "picture_evaluation") ||
-                            (this.state.newTask.task_type !== "sick_leave" && (
+                            (this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                               <Grid item xs={12} md={12}>
                                 <label>{Speciallity}</label>
                                 <Grid className="specialFor">
@@ -2774,7 +2775,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             ))}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} md={12} className="dueOn">
                                 <label>{Dueon}</label>
@@ -2866,7 +2867,7 @@ class Index extends Component {
                             </Grid>
                           )}
 
-                          {this.state.newTask.task_type === "sick_leave" && (
+                          {(this.state.newTask.task_type === "sick_leave" || this.state.newTask.task_type === "video_conference") && (
                             <Grid item xs={12} md={12} className="taskDescp">
                               <Grid className="stndQues  stndQues1">
                                 <Grid className="stndQues">
@@ -4072,7 +4073,7 @@ class Index extends Component {
                                         </>
                                       ) : (
                                         this.state.newTask?.task_type !==
-                                        "sick_leave" && (
+                                        "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                                           <>
                                             <Grid
                                               onClick={() => {
@@ -4137,7 +4138,7 @@ class Index extends Component {
                               </Grid>
                             ))}
                           {this.props.comesFrom === "Professional" &&
-                            this.state.newTask.task_type !== "sick_leave" && (
+                            this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                               <Grid item xs={12} md={12}>
                                 <Grid>
                                   <label>{Comments}</label>
@@ -4241,7 +4242,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             )}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid item xs={12} md={12} className="saveTasks">
                               <a>
                                 <div className="err_message">
@@ -4559,6 +4560,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        switchStatus={()=>{this.switchStatus()}}
                       />
                     </Grid>
                   ))}

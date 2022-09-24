@@ -57,6 +57,7 @@ class PointPain extends Component {
       Open,
       Done,
       see_details,
+      Markasdone,
       EditTask,
       DeleteTask,
       assign_to_doctor,
@@ -505,7 +506,8 @@ class PointPain extends Component {
                             {data &&
                               data.task_type &&
                               (data.task_type === 'video_conference') && (
-                                <li
+                                <>
+                                      <li
                                   onClick={() => this.openAccessKey()}
                                 >
                                   <a>
@@ -523,9 +525,31 @@ class PointPain extends Component {
                                     </a>
                                   </a>
                                 </li>
+                                {data.status !=="done" && data.meetingjoined === true &&
+                                <li
+                                  onClick={() => this.props.switchStatus()}
+                                >
+                                  <a>
+                                    <img
+                                      src={require('assets/images/details.svg')}
+                                      alt=""
+                                      title=""
+                                    />
+                                    <a
+                                      className="joinmeetingtab"
+                                    // href={data.link?.doctor_link}
+                                    // target="_blank"
+                                    >
+                                      {Markasdone}
+                                    </a>
+                                  </a>
+                                </li>}
+                                </>
+                                
                               )}
 
                             {data.title && this.props.comesFrom !== 'Professional' &&
+
                               <li
                                 onClick={() => {
                                   this.props.removeTask(
@@ -541,6 +565,7 @@ class PointPain extends Component {
                                   <>{delete_assigned_services}</>
                                 </a>
                               </li>
+                       
                             }
                           </ul>
                         </a>

@@ -55,7 +55,13 @@ const Container = styled.div``;
 /* stylelint-enable */
 
 class InnerQuoteList extends React.Component {
-  shouldComponentUpdate(nextProps) {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+ 
+  shouldComponentUpdate(nextProps, nextState) {
     if (
       nextProps.quotes !== this.props.quotes ||
       nextProps.view !== this.props.view
@@ -65,6 +71,14 @@ class InnerQuoteList extends React.Component {
 
     return false;
   }
+
+  verifySection = (_id)=>{
+    this.props.quotes.map((quote, index) => {
+      if(quote?._id ===_id ){
+      quote.verifiedbyPatient = true;
+      }
+  })}
+  
 
   render() {
     return this.props.quotes.map((quote, index) => (
@@ -77,6 +91,7 @@ class InnerQuoteList extends React.Component {
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
+            verifySection={(_id)=>{this.verifySection(_id)}}
             moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
             columns={this.props.columns}
             ordered={this.props.ordered}

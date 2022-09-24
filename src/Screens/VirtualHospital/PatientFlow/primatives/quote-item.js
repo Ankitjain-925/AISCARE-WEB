@@ -130,8 +130,9 @@ export default class QuoteItem extends React.Component {
 
   componentDidMount() {
     this.props.socket.on('email_accept', (data) => {
-      if (this.props.quote._id === data.case_id) {
+      if (this.props.quote?._id === data.case_id) {
         this.props.quote.verifiedbyPatient = true;
+        this.props.verifySection(this.props.quote?._id);
         this.setState({ update: !this.state.update });
       }
     });
