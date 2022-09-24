@@ -15,6 +15,6 @@ export const APIs2 = {
 };
 
 export const APIs3 = {
-  joinmeeting: "/joinmeeting/"
+  joinmeeting: path + "/vactive/joinmeeting/"
 }
 // export default APIs

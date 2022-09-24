@@ -202,7 +202,7 @@ const VideoCallPat = (props) => {
                     setStartCall(1);
                     setTaskData(taskData);
                     setGender(gender);
-                    startTimer(taskData);
+                    // startTimer(taskData);
                   })
                   .catch((err) => {
                     setLoaderImage(false);
@@ -224,7 +224,7 @@ const VideoCallPat = (props) => {
             setStartCall(3);
           } else {
             setLoaderImage(false);
-            setStartCall(4);
+            setStartCall(5);
           }
         }
       })
@@ -264,40 +264,40 @@ const VideoCallPat = (props) => {
   };
 
 
-  const startTimer = (data) => {
-    console.log("data", data)
-    setTimer(countDown(data));
-  }
+  // const startTimer = (data) => {
+  //   console.log("data", data)
+  //   setTimer(countDown(data));
+  // }
 
 
-  const countDown = (data) => {
+  // const countDown = (data) => {
 
-    setInterval(() => {
-      let [t0, t1] = data?.end.split(':');
-      let date = new Date().setHours(t0, t1)
-      var countDownDate = new Date(date).getTime();
-      var now = new Date().getTime();
-      var distance = countDownDate - now;
-      let distance1 = distance - 1;
-      setTime(secondsToTime(distance1)
-        , () => {
-          if (distance1 < 0) {
-            setStartCall(6);
-            clearInterval(timer);
-          }
-        }, 1000)
-    })
-    //   this.setState({
-    //     time: ,
-    //     distance1: distance1,
-    //   }, () => {
-    //     if (distance1 < 0) {
-    //       this.setState({ sectionValue: 6 });
-    //       clearInterval(timer);
-    //     }
-    //   });
-    // }, 1000)
-  }
+  //   setInterval(() => {
+  //     let [t0, t1] = data?.end.split(':');
+  //     let date = new Date().setHours(t0, t1)
+  //     var countDownDate = new Date(date).getTime();
+  //     var now = new Date().getTime();
+  //     var distance = countDownDate - now;
+  //     let distance1 = distance - 1;
+  //     setTime(secondsToTime(distance1)
+  //       , () => {
+  //         if (distance1 < 0) {
+  //           setStartCall(6);
+  //           clearInterval(timer);
+  //         }
+  //       }, 1000)
+  //   })
+  //   //   this.setState({
+  //   //     time: ,
+  //   //     distance1: distance1,
+  //   //   }, () => {
+  //   //     if (distance1 < 0) {
+  //   //       this.setState({ sectionValue: 6 });
+  //   //       clearInterval(timer);
+  //   //     }
+  //   //   });
+  //   // }, 1000)
+  // }
 
   const secondsToTime = (distance) => {
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
