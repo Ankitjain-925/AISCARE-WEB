@@ -6,11 +6,11 @@ function Item({ item }) {
     <div className="gridDiv">
       <div className="call-feadback-header width100">
         <div>
-          {/* <img
+          <img
             className="call-img"
             src={require(`assets/virtual_images/patient.png`)}
             alt="doctor"
-          /> */}
+          />
         </div>
         <div className="comment-callpat">
           <h5> Latest review for: </h5>

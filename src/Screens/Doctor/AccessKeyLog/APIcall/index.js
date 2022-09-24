@@ -14,4 +14,7 @@ export const APIs2 = {
   linktime: path + "/vactive/Linktime"
 };
 
+export const APIs3 = {
+  joinmeeting: "/joinmeeting/"
+}
 // export default APIs
