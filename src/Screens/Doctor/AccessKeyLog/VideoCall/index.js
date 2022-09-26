@@ -144,7 +144,6 @@ const VideoCallPat = (props) => {
   } = translate;
 
   useEffect(() => {
-    console.log("allTasks", allTasks)
     if (props.location?.state?.code) {
       var accessKey = props.location?.state?.code;
     }
