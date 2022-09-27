@@ -186,6 +186,7 @@ class Index extends Component {
       country,
       Nurse,
       Doctor,
+      Admin_staff,
       registration,
       capab_Doctors,
       in_critical_enviroment_id,
@@ -209,6 +210,9 @@ class Index extends Component {
             </h5>}
             {this.props.comesFrom === 'doctor' && <h5>
               {capab_Doctors} {ID} / {kyc}
+            </h5>}
+            {this.props.comesFrom === 'adminstaff' && <h5>
+              {Admin_staff} {ID} / {kyc}
             </h5>}
             <p>{enter_healthcare_and_upload_data}</p>
           </Grid>
@@ -256,7 +260,7 @@ class Index extends Component {
 
               <Grid className="kycForms">
                 <Grid>
-                  {(this.props.comesFrom === 'pharmacy' || this.props.comesFrom === 'nurse' || this.props.comesFrom === 'doctor') && <label>{responsible_authority}</label>}
+                  {(this.props.comesFrom === 'pharmacy' || this.props.comesFrom === 'nurse' || this.props.comesFrom === 'doctor'  ||  this.props.comesFrom === 'adminstaff' ) && <label>{responsible_authority}</label>}
                   {this.props.comesFrom === 'pateint' && <label>{insurance} {company}</label>}
                 </Grid>
                 {this.state.CreateKYC &&
@@ -286,7 +290,7 @@ class Index extends Component {
 
               <Grid className="kycForms">
                 <Grid>
-                  {this.props.comesFrom === 'pharmacy' || this.props.comesFrom === 'nurse' && <label>{reg_number_if_aplicble}</label>}
+                  {this.props.comesFrom === 'pharmacy' || this.props.comesFrom === 'nurse'||  this.props.comesFrom === 'adminstaff' && <label>{reg_number_if_aplicble}</label>}
                   {this.props.comesFrom === 'pateint' && <label>{insurance} {number}</label>}
                   {this.props.comesFrom === 'doctor' && <label>{registration} / {capab_Doctors} {number} </label>}
                 </Grid>

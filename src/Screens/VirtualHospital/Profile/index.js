@@ -213,7 +213,7 @@ class Index extends Component {
                         {/* Start of KYC */}
                         {value === 2 && (
                           <TabContainer>
-                            <KycSection comesFrom="nurse" />
+                            <KycSection comesFrom="adminstaff" />
                           </TabContainer>
                         )}
                         {/* End of KYC */}

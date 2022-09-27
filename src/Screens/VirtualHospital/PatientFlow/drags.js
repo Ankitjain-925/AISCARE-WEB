@@ -134,6 +134,7 @@ class Index extends Component {
             >
               {ordered.map((key, index) => (
                 <Column
+                updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
                   moveDetial={(id, case_id) =>
                     this.props.moveDetial(id, case_id)
                   }

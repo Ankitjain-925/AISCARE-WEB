@@ -2072,8 +2072,11 @@
      "Type_Report":"Type of Report",
      "Report_Date":"Report Date",
      "Last_Filled_Information":"Last Filled Information",
-     "Checked_by":"Checked by"
-
+     "Checked_by":"Checked by",
+     "activate_very_soon": "The link will be activate very soon",
+     "link_has_been_expired": "Link has been expired, Please book time slot again",
+     "meeting_has_ended": "Meeting has ended",
+     "check_your_meeting_key_or_link_again": "Meeting not available please check your meeting key or link again"
      
     }
 
