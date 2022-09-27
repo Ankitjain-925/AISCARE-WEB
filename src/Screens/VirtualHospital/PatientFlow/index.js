@@ -1092,6 +1092,16 @@ class Index extends Component {
     // }
   };
 
+  updatesQuotes = (data)=>{
+    var steps = getSteps(
+      this.props?.House?.value,
+      this.props.stateLoginValueAim.token
+    );
+    steps.then((data) => {
+      var stepData = data ? data : [];
+      this.setDta(stepData);
+    });
+  }
   //ward field data
   onWardChange = (e) => {
     this.setState({ selectRoom: '' });
@@ -1498,6 +1508,7 @@ class Index extends Component {
                     </Grid>
                     <div className="custom-d-n-d">
                       <Drags
+                       updatesQuotes={(data)=>{this.updatesQuotes(data)}}
                         moveDetial={(id, case_id) =>
                           this.moveDetial(id, case_id)
                         }

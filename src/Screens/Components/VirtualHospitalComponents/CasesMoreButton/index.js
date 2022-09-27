@@ -137,7 +137,7 @@ class Index extends React.Component {
               <Grid>
                 <Button
                   onClick={() => {
-                    this.RemoveDirectPatientOk(5, false);
+                    this.RemoveDirectPatientOk(5, false, false);
                     onClose();
                   }}
                 >
@@ -158,13 +158,14 @@ class Index extends React.Component {
     });
   };
 
-  RemoveDirectPatientOk = (status, inhospital) => {
+  RemoveDirectPatientOk = (status, inhospital, viewQuestionaire) => {
     this.setState({ loaderImage: true });
     var response = PatientMoveFromHouse(
       this.props.quote._id,
       this.props.stateLoginValueAim.token,
       status,
-      inhospital
+      inhospital,
+      viewQuestionaire
     );
     response.then((responce1) => {
       if (responce1.data.hassuccessed) {
@@ -386,7 +387,7 @@ class Index extends React.Component {
                 <Button
                   className="dischrgInvoic"
                   onClick={() => {
-                    this.RemoveDirectPatientOk(4, false);
+                    this.RemoveDirectPatientOk(4, false, true);
                     onClose();
                   }}
                 >

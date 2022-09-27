@@ -69,6 +69,7 @@ class Index extends Component {
 
         {item.type === "carequestinnary" && (
           <Questionnaire
+            Opencare={(data)=>this.props.Opencare(data)}
             settings={this.props.settings}
             onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
