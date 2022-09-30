@@ -87,6 +87,7 @@ class Index extends Component {
       house_id: '',
       AllQuestions1: [],
       ratingValue: false,
+      Checked:false
     };
   }
 
@@ -179,7 +180,7 @@ class Index extends Component {
 
   };
   otheranswer = (value) => {
-    this.setState({ otherField: value })
+   this.setState({ otherField: value ,Checked:true})
   }
 
   updateEntry2 = (e, name, id, type, index) => {
@@ -384,12 +385,14 @@ class Index extends Component {
                                                               <Grid className="otherBrdrUpr">
                                                                 <FormControlLabel
                                                                   control={<Checkbox
-                                                                    name="other"
+                                                                    name="checkedB"
                                                                     color="primary"
-                                                                    checked={this.state.newTask.other ? this.state.newTask.other : null}
+
+                                                                    checked={this.state.newTask.other}
                                                                     onChange={(e) =>
                                                                       this.otheranswer(e.target.checked, "value", data1._id, data1.type, index1)
                                                                     }
+                                                                  
                                                                     value="checkedB"
                                                                   />
                                                                   }
