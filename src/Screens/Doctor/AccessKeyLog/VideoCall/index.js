@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import AppBar from "@material-ui/core/AppBar";
-import Select from "react-select";
 import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import Typography from "@material-ui/core/Typography";
@@ -14,14 +9,6 @@ import Item from "./SliderItem";
 import Carousel from "react-material-ui-carousel";
 import { APIs, APIs1, APIs2, APIs3 } from "../APIcall/index";
 import axios from "axios";
-import { pure } from "recompose";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import { LanguageFetchReducer } from "Screens/actions";
-import { OptionList } from "Screens/Login/metadataaction";
-import { authy } from "Screens/Login/authy.js";
 import {
   CometChatOutgoingDirectCall,
 } from './Calls/CometChatOutgoingDirectCall';
@@ -59,6 +46,7 @@ const VideoCallPat = (props) => {
 
   let translate = getLanguage(props.stateLanguageType);
   let { my_profile,
+    You_dont_have_an_access_of_this_meeting,
     Headache,
     stomach_problems,
     diarrhea,
@@ -176,9 +164,7 @@ const VideoCallPat = (props) => {
       });
   }, [time]);
 
-
   const callCometChat = (accessKey) => {
-    console.log("accessKey", accessKey)
     var profile_id = stateLoginValueAim?.user?.profile_id;
     let callType = 'DIRECT';
     setLoaderImage(true);
@@ -188,28 +174,35 @@ const VideoCallPat = (props) => {
         // setStartCall(1);
         if (response && response.data && response.data.hassuccessed) {
           if (response.data.message === 'link active') {
-            var taskData = response.data.data.Task;
-            var gender = response.data.data.gender;
-            CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-              .then((resp) => {
-                axios
-                  .post(APIs1.cometUserList, {
-                    profile_id: profile_id,
-                  })
-                  .then((response) => {
-                    setLoaderImage(false);
-                    setStartCall(1);
-                    setTaskData(taskData);
-                    setGender(gender);
-                    // startTimer(taskData);
-                  })
-                  .catch((err) => {
-                    setLoaderImage(false);
-                  });
-              }).catch((err) => {
-                setLoaderImage(false);
-              });
+            if (response?.data?.data.doctor_info?.user_id === stateLoginValueAim?.user?._id || response?.data?.data?.Session?.patient_id === stateLoginValueAim?.user?._id) {
+
+              var taskData = response.data.data.Task;
+              var gender = response.data.data.gender;
+              CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+                .then((resp) => {
+                  axios
+                    .post(APIs1.cometUserList, {
+                      profile_id: profile_id,
+                    })
+                    .then((response) => {
+                      setLoaderImage(false);
+                      setStartCall(1);
+                      setTaskData(taskData);
+                      setGender(gender);
+                      // startTimer(taskData);
+                    })
+                    .catch((err) => {
+                      setLoaderImage(false);
+                    });
+                }).catch((err) => {
+                  setLoaderImage(false);
+                });
+            } else {
+              setStartCall(7);
+              setLoaderImage(false);
+            }
           }
+
         }
         else {
           if (
@@ -1543,7 +1536,12 @@ const VideoCallPat = (props) => {
                   </p>
                 </Grid>
               )}
-
+              {startCall === 7 && (
+                <Grid className="msgSectionCss">
+                  {/* <label className="formviewhead"></label> */}
+                  <p>{You_dont_have_an_access_of_this_meeting}</p>
+                </Grid>
+              )}
             </Grid>
           </Grid>
         </Grid>
