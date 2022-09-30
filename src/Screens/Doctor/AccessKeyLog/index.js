@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Grid from '@material-ui/core/Grid';
-import LeftMenu from 'Screens/Components/Menus/PatientLeftMenu/index';
-import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
+import LeftMenu from 'Screens/Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from 'Screens/Components/Menus/DoctorLeftMenu/mobile';
 import Notification from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications';
 import AppBar from '@material-ui/core/AppBar';
 import { getLanguage } from 'translations/index';
