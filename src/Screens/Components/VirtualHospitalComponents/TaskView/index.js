@@ -525,7 +525,7 @@ class PointPain extends Component {
                                     </a>
                                   </a>
                                 </li>
-                                {data.status !=="done" && data.meetingjoined === true &&
+                                {(data.status !=="done" && data.meetingjoined === true) &&
                                 <li
                                   onClick={() => this.props.switchStatus()}
                                 >

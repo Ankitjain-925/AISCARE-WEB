@@ -229,7 +229,7 @@ class Index extends Component {
                     <Grid className="creatTaskModel11">
                         <Grid>
                             <Grid>
-                                <Grid container direction="row" justify="center" className="DetailHead">
+                                {/* <Grid container direction="row" justify="center" className="DetailHead">
                                     <Grid item xs={8} md={8} lg={8}>
                                         <label>{Details}</label>
                                     </Grid>
@@ -246,7 +246,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                                </Grid> */}
                                 <Grid
                                     container
                                     direction="row"
