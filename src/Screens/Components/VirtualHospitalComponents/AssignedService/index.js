@@ -65,6 +65,7 @@ class Index extends Component {
   }
 
   componentDidMount() {
+    this.getProfessionalData();
     this.getAssignService();
     this.specailityList();
   }
@@ -263,6 +264,7 @@ class Index extends Component {
       );
     }
     if (data) {
+      console.log("data",data)
       this.setState(
         {
           loaderImage: false,
