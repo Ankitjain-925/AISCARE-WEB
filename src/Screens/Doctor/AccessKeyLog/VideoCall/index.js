@@ -185,47 +185,47 @@ const VideoCallPat = (props) => {
     axios
       .get(APIs2.linktime + "/" + accessKey)
       .then((response) => {
-        // setStartCall(1);
-        if (response && response.data && response.data.hassuccessed) {
-          if (response.data.message === 'link active') {
-            var taskData = response.data.data.Task;
-            var gender = response.data.data.gender;
-            CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-              .then((resp) => {
-                axios
-                  .post(APIs1.cometUserList, {
-                    profile_id: profile_id,
-                  })
-                  .then((response) => {
-                    setLoaderImage(false);
-                    setStartCall(1);
-                    setTaskData(taskData);
-                    setGender(gender);
-                    // startTimer(taskData);
-                  })
-                  .catch((err) => {
-                    setLoaderImage(false);
-                  });
-              }).catch((err) => {
-                setLoaderImage(false);
-              });
-          }
-        }
-        else {
-          if (
-            response.data.message === 'Link will active soon' ||
-            response.data.message === 'link start soon'
-          ) {
-            setLoaderImage(false);
-            setStartCall(2);
-          } else if (response.data.message === 'Link Expire') {
-            setLoaderImage(false);
-            setStartCall(3);
-          } else {
-            setLoaderImage(false);
-            setStartCall(5);
-          }
-        }
+        setStartCall(1);
+        // if (response && response.data && response.data.hassuccessed) {
+        //   if (response.data.message === 'link active') {
+        //     var taskData = response.data.data.Task;
+        //     var gender = response.data.data.gender;
+        //     CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+        //       .then((resp) => {
+        //         axios
+        //           .post(APIs1.cometUserList, {
+        //             profile_id: profile_id,
+        //           })
+        //           .then((response) => {
+        //             setLoaderImage(false);
+        //             setStartCall(1);
+        //             setTaskData(taskData);
+        //             setGender(gender);
+        //             // startTimer(taskData);
+        //           })
+        //           .catch((err) => {
+        //             setLoaderImage(false);
+        //           });
+        //       }).catch((err) => {
+        //         setLoaderImage(false);
+        //       });
+        //   }
+        // }
+        // else {
+        //   if (
+        //     response.data.message === 'Link will active soon' ||
+        //     response.data.message === 'link start soon'
+        //   ) {
+        //     setLoaderImage(false);
+        //     setStartCall(2);
+        //   } else if (response.data.message === 'Link Expire') {
+        //     setLoaderImage(false);
+        //     setStartCall(3);
+        //   } else {
+        //     setLoaderImage(false);
+        //     setStartCall(5);
+        //   }
+        // }
       })
       .catch((err) => {
         console.log('err', err);

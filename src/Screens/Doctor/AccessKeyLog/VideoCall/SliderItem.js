@@ -16,7 +16,7 @@ function Item({ item }) {
     >
       <Grid className='call-feedback-part'>
         <Grid container direction="row" alignItems="center">
-          <Grid item xs={6} md={6} sm={6}>
+          <Grid item xs={5} md={5} sm={5}>
             <Grid className='call-feadback-header'>
 
 
@@ -29,7 +29,7 @@ function Item({ item }) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6} md={6} sm={6}>
+          <Grid item xs={7} md={7} sm={7}>
             <Grid className="setDataSym">
               <SymptomQuestions
                 updateEntryState1={(e) =>

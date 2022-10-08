@@ -16737,3 +16737,15 @@ overflow: auto
 .darkTheme .MuiPaper-rounded{
   background: #1c2226
 }
+
+.call-feadbackimg img{
+  width: 37px !important;
+  height: 37px !important;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.setDataSym{
+  margin-top: 4px;
+  margin-left: 7px;
+  }
