@@ -158,6 +158,7 @@ class Index extends Component {
       this.props.LanguageFetchReducer(languageType);
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
+      this.props.history.push("/");
     }
   };
 

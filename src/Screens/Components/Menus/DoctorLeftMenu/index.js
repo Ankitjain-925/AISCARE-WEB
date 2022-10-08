@@ -86,6 +86,7 @@ class Index extends Component {
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
+      this.props.history.push("/");
     }
   };
 
