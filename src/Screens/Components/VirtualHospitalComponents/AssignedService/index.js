@@ -445,7 +445,7 @@ class Index extends Component {
       .get(
         sitedata.data.path +
         "/vh/GetService/" +
-        "60fabfe5b3394533f7f9a6dc-1654919887767",
+        this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
