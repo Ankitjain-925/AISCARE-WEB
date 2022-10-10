@@ -65,7 +65,10 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    this.getProfessionalData();
+    if (this.props?.House?.value) {
+      this.getPatientData();
+      this.getProfessionalData(true);
+    }
     this.getAssignService();
     this.specailityList();
   }
@@ -252,19 +255,18 @@ class Index extends Component {
   // Get the Professional data
   getProfessionalData = async (fromEdit) => {
     this.setState({ loaderImage: true });
-    if(fromEdit){
+    if (fromEdit) {
       var data = await getProfessionalData(
-        this.state.service?.house_id,
-        this.props.stateLoginValueAim.token
+        this.state.service?.house_id || this.props?.House?.value,
+        this.props.stateLoginValueAim?.token
       );
-    }else{
+    } else {
       var data = await getProfessionalData(
-        this.state.selectedHouse.value,
-        this.props.stateLoginValueAim.token
+        this.state.selectedHouse?.value,
+        this.props.stateLoginValueAim?.token
       );
     }
     if (data) {
-      console.log("data",data)
       this.setState(
         {
           loaderImage: false,
@@ -288,10 +290,10 @@ class Index extends Component {
 
   // Get the Patient data
   getPatientData = async (houseId) => {
-    this.setState({ loaderImage: true });
+    // this.setState({ loaderImage: true });
     let response = await getPatientData(
-      this.props.stateLoginValueAim.token,
-        this.state.selectedHouse.value,
+      this.props.stateLoginValueAim?.token,
+      this.state.selectedHouse?.value || this.props?.House?.value,
       "taskpage"
     );
     if (response?.isdata) {
@@ -403,8 +405,8 @@ class Index extends Component {
         axios
           .put(
             sitedata.data.path +
-              "/assignservice/Updateassignservice/" +
-              data?._id,
+            "/assignservice/Updateassignservice/" +
+            data?._id,
             data,
             commonHeader(this.props.stateLoginValueAim.token)
           )
@@ -442,8 +444,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          "/vh/GetService/" +
-          "60fabfe5b3394533f7f9a6dc-1654919887767",
+        "/vh/GetService/" +
+        "60fabfe5b3394533f7f9a6dc-1654919887767",
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -476,11 +478,11 @@ class Index extends Component {
     this.setState({ service: state });
   };
 
-//   updateEntryState5 = (e, name) => {
-//     const state = this.state.addservice;
-//     state[name] = e.target.value;
-//     this.setState({ addservice: state });    
-//   };
+  //   updateEntryState5 = (e, name) => {
+  //     const state = this.state.addservice;
+  //     state[name] = e.target.value;
+  //     this.setState({ addservice: state });    
+  //   };
 
   // For edit service
   editService = (data, index) => {
@@ -573,9 +575,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -691,9 +693,9 @@ class Index extends Component {
           onClose={() => this.handleCloseAss()}
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
               ? "darkTheme addSpeclModel"
               : "addSpeclModel"
           }
@@ -701,13 +703,13 @@ class Index extends Component {
           <Grid
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme addSpeclContnt2"
                 : "addServContnt"
             }
-            // className="addServContnt"
+          // className="addServContnt"
           >
             <Grid className="addSpeclContntIner2">
               <Grid
@@ -781,7 +783,7 @@ class Index extends Component {
                       options={this.state.service_id_list}
                       placeholder={Searchserviceoraddcustominput}
                       isSearchable={true}
-                      // styles={customStyles}
+                    // styles={customStyles}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} className="customservicetitle">
@@ -877,7 +879,7 @@ class Index extends Component {
                     <label>{ForPatient}</label>
 
                     {this.props.comesFrom === "Professional" &&
-                    this.state.service?.patient?._id ? (
+                      this.state.service?.patient?._id ? (
                       <h2>
                         {this.state.service?.patient?.first_name}{" "}
                         {this.state.service?.patient?.last_name}
@@ -959,11 +961,11 @@ class Index extends Component {
                             date_format={this.state.date_format}
                             onChange={(e) => this.updateEntry(e, "date")}
 
-                            // disabled={
-                            //   this.props.comesFrom === 'Professional'
-                            //     ? true
-                            //     : false
-                            // }
+                          // disabled={
+                          //   this.props.comesFrom === 'Professional'
+                          //     ? true
+                          //     : false
+                          // }
                           />
                         </Grid>
                         <Grid
@@ -994,12 +996,12 @@ class Index extends Component {
                                 }
                                 time_format={this.state.time_format}
                                 onChange={(e) => this.updateEntry(e, "time")}
-                                // disabled={
-                                //   this.props.comesFrom ===
-                                //     'Professional'
-                                //     ? true
-                                //     : false
-                                // }
+                              // disabled={
+                              //   this.props.comesFrom ===
+                              //     'Professional'
+                              //     ? true
+                              //     : false
+                              // }
                               />
                               <span
                                 className="addTimeTask1span"
@@ -1137,9 +1139,9 @@ class Index extends Component {
                 onClose={this.handleCloseServ}
                 className={
                   this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark"
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
                     ? "darkTheme addSpeclModel"
                     : "addSpeclModel"
                 }
