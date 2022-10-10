@@ -1418,8 +1418,8 @@ class Index extends Component {
                     </Modal>
                     {/* End of Model setup */}
 
-                    <Grid className="getCalapoint">
-                      <Grid className="getCalBnr">
+                    <Grid className="getCalapoint getAllCalSec">
+                      <Grid className="getCalBnr ">
                         <Calendar
                           localizer={localizer}
                           events={myEventsList}

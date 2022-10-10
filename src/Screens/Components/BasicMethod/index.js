@@ -398,13 +398,13 @@ export function GetSocketUrl() {
   let env ="Sysaimedis";
   if (typeof window !== "undefined") {
     let target = window.location.href;
-    env =  target.match(/localhost/) ? "Virtualhospital" :
+    env =  target.match(/localhost/) ? "Local" :
       target.match(/virtualhospital/) ? "Virtualhospital" : 
       target.match(/aidoc.io/) ? "Aimedix" : "Sysaimedis";
     }
     let SOCKET_URL;
     if (env === "Local") {
-      SOCKET_URL = "http://localhost:5000/";
+      SOCKET_URL = "http://localhost:5001/";
     } else if (env === "Virtualhospital") {
       SOCKET_URL = "https://virtualhospital.aidoc.io/";
     } else if (env === "Aimedix") {

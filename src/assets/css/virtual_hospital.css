@@ -16336,7 +16336,7 @@ border-radius: 12px;
   font-weight: 600;
   font-size: 23px;
   text-align: center;
-  margin-top: 18%;
+  margin-top: 13%;
   /* margin-left: 31%; */
   color: #696969;
   width: 100%;
@@ -16749,3 +16749,21 @@ overflow: auto
   margin-top: 4px;
   margin-left: 7px;
   }
+
+  .adhsjs{
+    margin: 16px!important;
+    line-height: 0px!important;
+  }
+
+
+
+.err_message1{
+  text-align: center!important;
+}
+.getAllCalSec .rbc-calendar{
+  min-height: 990px!important;
+}
+.menuItemsAll ul li:last-child:not(.doctor-menu) {
+  margin-bottom: 0px !important;
+  margin-top: 40px;
+}

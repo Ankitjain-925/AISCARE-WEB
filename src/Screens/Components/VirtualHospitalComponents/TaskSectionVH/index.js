@@ -557,10 +557,11 @@ class Index extends Component {
             sitedata.data.path + "/vh/AddTask",
             data,
             commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({
-              newTask: {},
+            )
+            .then((responce) => {
+              this.setState({
+                loaderImage: true,
+                newTask: {},
               fileattach: {},
               professional_data: [],
               fileupods: false,
@@ -572,6 +573,7 @@ class Index extends Component {
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
           })
+        
           .catch(function (error) {
             console.log(error);
             this.setState({ errorMsg: Something_went_wrong });

@@ -293,7 +293,7 @@ class Index extends Component {
           )}
         </Grid>
 
-        <Grid className="menuItems">
+        <Grid className="menuItems menuItemsAll">
           <ul>
             <li
               className={

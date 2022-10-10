@@ -251,10 +251,17 @@ class Index extends Component {
   // Get the Professional data
   getProfessionalData = async (fromEdit) => {
     this.setState({ loaderImage: true });
-    var data = await getProfessionalData(
-      this.state.selectedHouse.value,
-      this.props.stateLoginValueAim.token
-    );
+    if(fromEdit){
+      var data = await getProfessionalData(
+        this.state.service?.house_id,
+        this.props.stateLoginValueAim.token
+      );
+    }else{
+      var data = await getProfessionalData(
+        this.state.selectedHouse.value,
+        this.props.stateLoginValueAim.token
+      );
+    }
     if (data) {
       this.setState(
         {
@@ -1112,7 +1119,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
               <a>
-                <div className="err_message">{this.state.errorMsg}</div>
+                <div className="err_message err_message1">{this.state.errorMsg}</div>
               </a>
 
               <Grid
