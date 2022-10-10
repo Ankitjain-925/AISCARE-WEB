@@ -3848,7 +3848,7 @@ class Index extends Component {
                                   {this.state.newTask?._id && (
                                     <>
                                       {this.props.comesFrom !==
-                                        "Professional" ? (
+                                        "Professional" && this.props.comesFrom !== "detailTask" ? (
                                         this.state.newTask?.task_type ===
                                           "picture_evaluation" ? (
                                           <>
