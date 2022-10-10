@@ -459,6 +459,16 @@ class Index extends Component {
     this.setState({ errorMsg: "" });
     let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
+    if (this.props.patient) {
+      data.patient_id = this.props.patient?.patient_id;
+      data.patient = {
+        first_name: this.props.patient?.first_name,
+        last_name: this.props.patient?.last_name,
+        alies_id: this.props.patient?.alies_id,
+        patient_id: this.props.patient?.patient_id,
+        user_id: this.props.patient?.patient_id
+      };
+    }
     var user_id = data?.patient?.user_id;
 
     if (
@@ -557,11 +567,11 @@ class Index extends Component {
             sitedata.data.path + "/vh/AddTask",
             data,
             commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-              this.setState({
-                loaderImage: true,
-                newTask: {},
+          )
+          .then((responce) => {
+            this.setState({
+              loaderImage: true,
+              newTask: {},
               fileattach: {},
               professional_data: [],
               fileupods: false,
@@ -573,7 +583,7 @@ class Index extends Component {
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
           })
-        
+
           .catch(function (error) {
             console.log(error);
             this.setState({ errorMsg: Something_went_wrong });
@@ -1499,7 +1509,6 @@ class Index extends Component {
   };
 
   editTask = (data) => {
-    console.log("1")
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
@@ -2289,24 +2298,24 @@ class Index extends Component {
 
                           {this.state.newTask.task_type !==
                             "picture_evaluation" || this.state.newTask.task_type !== "video_conference"
-                            (this.state.newTask.task_type !== "sick_leave" && (
-                              <Grid item xs={12} md={12} className="taskDescp">
-                                <label>{Taskdescription}</label>
-                                <Grid>
-                                  <textarea
-                                    placeholder={Enterdescription}
-                                    name="description"
-                                    onChange={(e) =>
-                                      this.updateEntryState1(
-                                        e.target.value,
-                                        e.target.name
-                                      )
-                                    }
-                                    value={this.state.newTask.description || ""}
-                                  ></textarea>
+                              (this.state.newTask.task_type !== "sick_leave" && (
+                                <Grid item xs={12} md={12} className="taskDescp">
+                                  <label>{Taskdescription}</label>
+                                  <Grid>
+                                    <textarea
+                                      placeholder={Enterdescription}
+                                      name="description"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(
+                                          e.target.value,
+                                          e.target.name
+                                        )
+                                      }
+                                      value={this.state.newTask.description || ""}
+                                    ></textarea>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            ))}
+                              ))}
 
                           {this.state.newTask.task_type ===
                             "picture_evaluation" && (
@@ -3839,7 +3848,7 @@ class Index extends Component {
                                   {this.state.newTask?._id && (
                                     <>
                                       {this.props.comesFrom !==
-                                        "Professional" ? (
+                                        "Professional" && this.props.comesFrom !== "detailTask" ? (
                                         this.state.newTask?.task_type ===
                                           "picture_evaluation" ? (
                                           <>
@@ -4562,7 +4571,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
-                        switchStatus={()=>{this.switchStatus()}}
+                        switchStatus={() => { this.switchStatus() }}
                       />
                     </Grid>
                   ))}
