@@ -397,7 +397,6 @@ class Index extends Component {
     } else {
       this.setState({ loaderImage: true });
       if (data?._id) {
-        data.house_id = this.state.selectedHouse.value;
         axios
           .put(
             sitedata.data.path +
