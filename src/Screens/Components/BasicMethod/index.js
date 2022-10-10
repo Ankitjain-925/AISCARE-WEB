@@ -398,7 +398,7 @@ export function GetSocketUrl() {
   let env ="Sysaimedis";
   if (typeof window !== "undefined") {
     let target = window.location.href;
-    env =  target.match(/localhost/) ? "Local" :
+    env =  target.match(/localhost/) ? "Virtualhospital" :
       target.match(/virtualhospital/) ? "Virtualhospital" : 
       target.match(/aidoc.io/) ? "Aimedix" : "Sysaimedis";
     }

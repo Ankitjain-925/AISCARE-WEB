@@ -507,27 +507,30 @@ class PointPain extends Component {
                               data.task_type &&
                               (data.task_type === 'video_conference') && (
                                 <>
-                                      <li
-                                  onClick={() => this.openAccessKey()}
-                                >
-                                  <a>
-                                    <img
-                                      src={require('assets/images/details.svg')}
-                                      alt=""
-                                      title=""
-                                    />
-                                    <a
-                                      className="joinmeetingtab"
-                                    // href={data.link?.doctor_link}
-                                    // target="_blank"
-                                    >
-                                      {Join_Meeting}
-                                    </a>
-                                  </a>
-                                </li>
+                                { data.meetingjoined  !== true && 
+                                   <li
+                                   onClick={() => this.openAccessKey()}
+                                 >
+                                   <a>
+                                     <img
+                                       src={require('assets/images/details.svg')}
+                                       alt=""
+                                       title=""
+                                     />
+                                     <a
+                                       className="joinmeetingtab"
+                                     // href={data.link?.doctor_link}
+                                     // target="_blank"
+                                     >
+                                       {Join_Meeting}
+                                     </a>
+                                   </a>
+                                 </li>
+                                }
+                                   
                                 {(data.status !=="done" && data.meetingjoined === true) &&
                                 <li
-                                  onClick={() => this.props.switchStatus()}
+                                  onClick={() => this.props.doneTask(data?._id)}
                                 >
                                   <a>
                                     <img
