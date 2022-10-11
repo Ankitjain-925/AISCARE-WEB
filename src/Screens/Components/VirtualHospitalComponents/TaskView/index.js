@@ -507,45 +507,45 @@ class PointPain extends Component {
                               data.task_type &&
                               (data.task_type === 'video_conference') && (
                                 <>
-                                      <li
-                                  onClick={() => this.openAccessKey()}
-                                >
-                                  <a>
-                                    <img
-                                      src={require('assets/images/details.svg')}
-                                      alt=""
-                                      title=""
-                                    />
-                                    <a
-                                      className="joinmeetingtab"
-                                    // href={data.link?.doctor_link}
-                                    // target="_blank"
-                                    >
-                                      {Join_Meeting}
+                                  <li
+                                    onClick={() => this.openAccessKey()}
+                                  >
+                                    <a>
+                                      <img
+                                        src={require('assets/images/details.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      <a
+                                        className="joinmeetingtab"
+                                      // href={data.link?.doctor_link}
+                                      // target="_blank"
+                                      >
+                                        {Join_Meeting}
+                                      </a>
                                     </a>
-                                  </a>
-                                </li>
-                                {(data.status !=="done" && data.meetingjoined === true) &&
-                                <li
-                                  onClick={() => this.props.switchStatus()}
-                                >
-                                  <a>
-                                    <img
-                                      src={require('assets/images/details.svg')}
-                                      alt=""
-                                      title=""
-                                    />
-                                    <a
-                                      className="joinmeetingtab"
-                                    // href={data.link?.doctor_link}
-                                    // target="_blank"
+                                  </li>
+                                  {(data.status !== "done" && data.meetingjoined === true) &&
+                                    <li
+                                      onClick={() => this.props.switchStatus()}
                                     >
-                                      {Markasdone}
-                                    </a>
-                                  </a>
-                                </li>}
+                                      <a>
+                                        <img
+                                          src={require('assets/images/details.svg')}
+                                          alt=""
+                                          title=""
+                                        />
+                                        <a
+                                          className="joinmeetingtab"
+                                        // href={data.link?.doctor_link}
+                                        // target="_blank"
+                                        >
+                                          {Markasdone}
+                                        </a>
+                                      </a>
+                                    </li>}
                                 </>
-                                
+
                               )}
 
                             {data.title && this.props.comesFrom !== 'Professional' &&
@@ -565,7 +565,7 @@ class PointPain extends Component {
                                   <>{delete_assigned_services}</>
                                 </a>
                               </li>
-                       
+
                             }
                           </ul>
                         </a>

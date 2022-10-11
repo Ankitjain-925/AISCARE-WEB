@@ -450,6 +450,9 @@ class Index extends Component {
 
   // submit Task model
   handleTaskSubmit = (type) => {
+    this.setState({
+      isButtonDisabled: true
+    });
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       Task_title_cant_be_empty,
@@ -536,6 +539,7 @@ class Index extends Component {
                 selectSpec: {},
               });
               this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
+              window.location.reload();
               this.handleCloseTask();
               if (type === "picture_evaluation") {
                 // this.props.getArchived();
@@ -581,6 +585,7 @@ class Index extends Component {
               newComment: "",
             });
             this.props.getAddTaskData(isGOingArchive);
+            window.location.reload();
             this.handleCloseTask();
           })
 
@@ -4265,6 +4270,7 @@ class Index extends Component {
                                       this.state.newTask?.task_type
                                     )
                                   }
+                                  disabled={this.state.isButtonDisabled}
                                 >
                                   {save_task_and_close}
                                 </Button>
