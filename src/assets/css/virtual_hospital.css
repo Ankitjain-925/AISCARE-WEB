@@ -16141,9 +16141,9 @@ width: 90px!important;
   .careQuestionTabUpr {
     border-radius: 12px;
     background-color: #ffffff;
-    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
     padding: 20px 20px;
     margin: 34px 0px 30px;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   }
   .darkTheme .careQuestionTabUpr {
     background-color: #404646;
@@ -16151,7 +16151,7 @@ width: 90px!important;
   .RportCss h1{
     margin-bottom: 5px;
     font-family: Muli;
-    font-size:15px
+    font-size:15px;
   }
   .RportCss label{
    font-family: Muli;
@@ -16754,3 +16754,16 @@ overflow: auto
     margin: 16px!important;
     line-height: 0px!important;
   }
+
+
+
+.err_message1{
+  text-align: center!important;
+}
+.getAllCalSec .rbc-calendar{
+  min-height: 990px!important;
+}
+.menuItemsAll ul li:last-child:not(.doctor-menu) {
+  margin-bottom: 0px !important;
+  margin-top: 40px;
+}
