@@ -450,6 +450,9 @@ class Index extends Component {
 
   // submit Task model
   handleTaskSubmit = (type) => {
+    this.setState({
+      isButtonDisabled: true
+    });
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       Task_title_cant_be_empty,
@@ -534,6 +537,7 @@ class Index extends Component {
                 assignedTo: [],
                 q: "",
                 selectSpec: {},
+                isButtonDisabled: false
               });
               this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
@@ -579,6 +583,7 @@ class Index extends Component {
               q: "",
               selectSpec: {},
               newComment: "",
+              isButtonDisabled: false
             });
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
@@ -782,24 +787,26 @@ class Index extends Component {
       })
   }
 
-  doneTask=(id)=>{
+  doneTask = (id) => {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Something_went_wrong } = translate;
     axios
-          .put(
-            sitedata.data.path + "/vh/AddTask/" + id,
-            {status: "done",
-            done_on : new Date()},
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({ loaderImage: false });
-            if (responce.data.hassuccessed) {
-              this.props.getAddTaskData(this.state.tabvalue2);
-            } else {
-              this.setState({ errorMsg: Something_went_wrong });
-            }
-          });
+      .put(
+        sitedata.data.path + "/vh/AddTask/" + id,
+        {
+          status: "done",
+          done_on: new Date()
+        },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.props.getAddTaskData(this.state.tabvalue2);
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
 
   }
 
@@ -4287,6 +4294,7 @@ class Index extends Component {
                                       this.state.newTask?.task_type
                                     )
                                   }
+                                  disabled={this.state.isButtonDisabled}
                                 >
                                   {save_task_and_close}
                                 </Button>
@@ -4578,7 +4586,7 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4608,7 +4616,7 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
-                          doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4637,7 +4645,7 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
-                          doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4666,7 +4674,7 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
-                          doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4695,7 +4703,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                          doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4724,7 +4732,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                          doneTask={(id)=>{this.doneTask(id)}}
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}

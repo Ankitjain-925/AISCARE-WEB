@@ -418,7 +418,10 @@ class Index extends Component {
             this.setState({ errorMsg: Something_went_wrong });
           });
       } else {
-        data.house_id = this.state.selectedHouse.value;
+        data.house_id = (this.state.selectedHouse &&
+          this.state.selectedHouse?.value) ||
+          (this.props.House &&
+            this.props.House?.value);
         axios
           .post(
             sitedata.data.path + "/assignservice/Addassignservice",
@@ -431,7 +434,7 @@ class Index extends Component {
             this.handleCloseAss();
           })
           .catch((error) => {
-            this.setState({ errorMsg: Something_went_wrong });
+            this.setState({ loaderImage: false, errorMsg: Something_went_wrong });
           });
       }
     }
