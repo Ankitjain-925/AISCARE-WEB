@@ -4509,6 +4509,7 @@ button.onlogyBtn {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin :5px;
 }
 .medcalFZCntnt a {
   display: block;

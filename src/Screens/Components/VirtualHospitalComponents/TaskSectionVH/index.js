@@ -450,9 +450,6 @@ class Index extends Component {
 
   // submit Task model
   handleTaskSubmit = (type) => {
-    this.setState({
-      isButtonDisabled: true
-    });
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       Task_title_cant_be_empty,
@@ -520,6 +517,9 @@ class Index extends Component {
       }
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .put(
             sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
@@ -565,7 +565,9 @@ class Index extends Component {
           due_on["time"] = new Date();
           data.due_on = due_on;
         }
-
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .post(
             sitedata.data.path + "/vh/AddTask",
