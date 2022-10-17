@@ -1259,7 +1259,7 @@ class Index extends Component {
             }
           >
             <h1 class="alert-btn">{RemoveTask}</h1>
-            <p>{really_want_to_remove_task}</p>
+            <p>You dont have access to remove Task</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>{No}</button>
               <button
@@ -2254,7 +2254,7 @@ class Index extends Component {
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
-                            <label>{ForPatient}</label>
+                            <label className="required">{ForPatient}</label>
 
                             {this.props.comesFrom === "detailTask" ? (
                               <h2>

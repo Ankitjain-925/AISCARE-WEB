@@ -314,7 +314,6 @@ class PointPain extends Component {
                     <Assigned assigned_to={data.assinged_to} />
                   </Grid>
 
-
                   {(!this.props.removeAddbutton) &&
                     <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                       {!data?.is_decline && (
@@ -348,6 +347,7 @@ class PointPain extends Component {
                                   this.props.editTask(data);
                                 }}
                               >
+
                                 <img
                                   src={require('assets/virtual_images/pencil-1.svg')}
                                   alt=""

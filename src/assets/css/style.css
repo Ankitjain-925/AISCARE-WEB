@@ -17625,6 +17625,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .vwTaskSelect {
     width: 100%;
     margin-right: 5px;
+    cursor: pointer;
 }
 .darkTheme .vwTaskSelect {
     border: 1px solid #939393;

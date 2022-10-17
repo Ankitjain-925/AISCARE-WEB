@@ -520,7 +520,7 @@ class Index extends Component {
                     <span>{emegancy_access}</span>
                   </a>
                 </li>
-                <li
+                {/* <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
                   }
@@ -548,7 +548,7 @@ class Index extends Component {
                     )}
                     <span>{VHS_view}</span>
                   </a>
-                </li>
+                </li> */}
 
                 {/* <li
                   className={

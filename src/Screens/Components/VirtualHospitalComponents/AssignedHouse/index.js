@@ -82,7 +82,9 @@ class PointPain extends Component {
       .then((responce) => {
         this.props.closeHouse();
         this.setState({ loaderImage: true });
-        console.log("res3", responce)
+        this.props.history.push('h-doctors');
+        // window.location.reload();
+      
        if (responce.data.data.type == "nurse") {
           console.log("1")
           socket.emit("nurse", responce)

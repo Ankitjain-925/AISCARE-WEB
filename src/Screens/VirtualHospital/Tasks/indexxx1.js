@@ -619,7 +619,7 @@ class Index extends Component {
                                                                                         value={this.state.newTask.task_name}
                                                                                     />
                                                                                 </Grid>
-                                                                                <Grid>For Patient</Grid>
+                                                                                <Grid className="required"><label></label></Grid>
                                                                                 <Grid><input type="text" placeholder={"Search & Select"} value={this.state.q} onChange={this.onChange} />
                                                                                     <ul className={this.state.shown && "patientHint"}>
                                                                                         {userList}
