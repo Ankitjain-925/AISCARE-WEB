@@ -16,6 +16,11 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
 import { Button } from "@material-ui/core/index";
 import _ from "lodash";
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
+console.log("SOCKET_URL",SOCKET_URL)
+var socket;
 
 class Index extends Component {
   constructor(props) {
@@ -28,9 +33,13 @@ class Index extends Component {
       showRename: false,
       txtName: {},
       showinput: false,
+      loaderImage: false,
     };
+    socket = io(SOCKET_URL);
   }
   componentDidMount = () => {
+    socket.on('connection', () => {
+    });
     this.allHouses();
     this.getSetting();
   };
@@ -85,6 +94,40 @@ class Index extends Component {
   };
 
   allHouses = () => {
+    var data= this.props.stateLoginValueAim.user.type
+    console.log("datttt",data)
+    console.log("data=='nusre",data=='nurse')
+    if(data=="nurse"){
+     console.log("1")
+      socket.on("displaynurse",(data)=>{
+        console.log("data12",data)
+          this.setState({ loaderImage: false });
+            this.setState({
+              currentList: data.data.data.houses,
+              currentList2: data.data.data.houses,
+            });
+        })
+    }else if(data=='doctor'){
+     console.log("2")
+     socket.on("displaydoctor",(data)=>{
+       console.log("data12",data)
+         this.setState({ loaderImage: false });
+           this.setState({
+             currentList: data.data.data.houses,
+             currentList2: data.data.data.houses,
+           });
+       })
+    }else if(data=='adminstaff'){
+     console.log("3")
+     socket.on("displayadmin",(data)=>{
+       console.log("data12",data)
+         this.setState({ loaderImage: false });
+           this.setState({
+             currentList: data.data.data.houses,
+             currentList2: data.data.data.houses,
+           });
+       })
+    }
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
@@ -94,6 +137,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((response) => {
+        console.log("response1",response)
         this.setState({ loaderImage: false });
         this.setState({
           currentList: response.data.data.houses,
@@ -352,6 +396,12 @@ class Index extends Component {
           </Grid>
         </Grid>
         {/* End of Bread Crumb */}
+        {this.props.message && (
+              <div className="err_message">
+                {this.props.message}
+              </div>
+            )
+            }
 
         <Grid className="wardsGrupUpr">
           <Grid container direction="row">

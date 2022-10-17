@@ -296,6 +296,7 @@ class Index extends Component {
 
         <Grid className="menuItems menuItemsAll">
           <ul>
+          {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager'))) && (
             <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
@@ -320,31 +321,59 @@ class Index extends Component {
                 )}
                 <span>{appointments}</span>
               </a>
-            </li>
-            {/* {this.props?.House?.value && (
+            </li>)}
+            {this.props?.House?.value && (
               <>
-              
-                <li
+               {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('task_manager') && <li
                   className={
-                    this.props.currentPage === "institute" ? "menuActv" : ""
+                    this.props.currentPage === 'task' ? 'menuActv' : ''
                   }
                 >
-                  <a onClick={this.NormalView}>
+                  <a onClick={this.handlePTask}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
+                    this.props.settings.setting.mode === 'dark' ? (
                       <img
-                        src={require("assets/virtual_images/hospitalIcon2.png")}
+                        src={require('assets/virtual_images/rightIcon2.png')}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === "institute"
-                            ? require("assets/virtual_images/hospitalIcon2.png")
-                            : require("assets/virtual_images/hospitalIcon.png")
+                          this.props.currentPage === 'task'
+                            ? require('assets/virtual_images/rightIcon2.png')
+                            : require('assets/virtual_images/rightpng.png')
+                        }
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>{ProfessionalTask}</span>
+                  </a>
+                </li>}
+                <li
+                  className={
+                    this.props.currentPage === 'institute' ? 'menuActv' : ''
+                  }
+                >
+                  <a onClick={this.NormalView}>
+                    {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === 'dark' ? (
+                      <img
+                        src={require('assets/virtual_images/hospitalIcon2.png')}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          this.props.currentPage === 'institute'
+                            ? require('assets/virtual_images/hospitalIcon2.png')
+                            : require('assets/virtual_images/hospitalIcon.png')
                         }
                         alt=""
                         title=""
@@ -354,9 +383,9 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-            )} */}
-
-            {/* {!this.props?.House?.value && ( */}
+            )}
+           
+            {!this.props?.House?.value && (
               <>
                 <li
                   className={
@@ -459,7 +488,7 @@ class Index extends Component {
                     <span>{emegancy_access}</span>
                   </a>
                 </li>
-                {/* <li
+                <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
                   }
@@ -487,68 +516,41 @@ class Index extends Component {
                     )}
                     <span>{VHS_view}</span>
                   </a>
-                </li> */}
-
-                {/* <li
-                  className={
-                    this.props.currentPage === "task" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.handlePTask}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/virtual_images/rightIcon2.png")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          this.props.currentPage === "task"
-                            ? require("assets/virtual_images/rightIcon2.png")
-                            : require("assets/virtual_images/rightpng.png")
-                        }
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{ProfessionalTask}</span>
-                  </a>
-                </li> */}
-
-                <li
-                  className={
-                    this.props.currentPage === "activity" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.handleActivityTask}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/virtual_images/rightIcon2.png")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          this.props.currentPage === "activity"
-                            ? require("assets/virtual_images/rightIcon2.png")
-                            : require("assets/virtual_images/rightpng.png")
-                        }
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{professional_activity}</span>
-                  </a>
                 </li>
-
+               
+                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_professsionalactivity'))) && (
+             <li
+               className={
+                 this.props.currentPage === "activity" ? "menuActv" : ""
+               }
+             >
+               <a onClick={this.handleActivityTask}>
+                 {this.props.settings &&
+                 this.props.settings.setting &&
+                 this.props.settings.setting.mode &&
+                 this.props.settings.setting.mode === "dark" ? (
+                   <img
+                     src={require("assets/virtual_images/rightIcon2.png")}
+                     alt=""
+                     title=""
+                   />
+                 ) : (
+                   <img
+                     src={
+                       this.props.currentPage === "activity"
+                         ? require("assets/virtual_images/rightIcon2.png")
+                         : require("assets/virtual_images/rightpng.png")
+                     }
+                     alt=""
+                     title=""
+                   />
+                 )}
+                 <span>{professional_activity}</span>
+               </a>
+             </li>
+                ) } 
+                
+                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
                 <li
                   className={
                     this.props.currentPage === "Profearliertask" ? "menuActv" : ""
@@ -577,7 +579,7 @@ class Index extends Component {
                     )}
                     <span>{EarlierActivity}</span>
                   </a>
-                </li>
+                </li>)}
                 
                 <li
               className={
@@ -693,7 +695,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-            {/* )} */}
+             )} 
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
