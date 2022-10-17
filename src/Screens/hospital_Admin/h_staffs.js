@@ -437,47 +437,56 @@ class Index extends Component {
     this.setState({ house: value });
   };
 
-  SaveAssignHouse = () => {
+  SaveAssignHouse = (authority) => {
     var userid = this.state.current_user._id;
     var housevalue = this.state.house;
-    this.setState({ loaderImage: true });
-    if (housevalue && housevalue?.value) {
-      axios
-        .put(
-          sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
-          this.state.house,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({
-              assignedhouse: true,
-              blankerror: false,
-              house: {},
+    if (housevalue.value) {
+        housevalue.roles = authority;
+        if(authority?.length>0){
+            this.setState({ blankerror: false, selectRole: false,  assignedhouse: false , loaderImage: true})
+            axios
+            .put(
+                sitedata.data.path +
+                `/hospitaladmin/assignedHouse/${userid}`,
+                this.state.house,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                    this.getallGroups();
+                    this.getAdminstaff(true);
+                    setTimeout(() => {
+                        this.setState({ assignedhouse: false, house: {} })
+                    }, 5000)
+                    this.getallGroups();
+                    this.getAdminstaff(this.state.current_user._id);
+                }
+                // else {
+                //     this.setState({ alredyExist: true })
+                //     setTimeout(() => {
+                //         this.setState({ alredyExist: false })
+                //     }, 5000)
+                // }
+                this.setState({ loaderImage: false });
             });
+        }
+        else{
+            this.setState({ blankerror: false, selectRole: true,  assignedhouse: false })  
             setTimeout(() => {
-              this.setState({ assignedhouse: false, house: {} });
-            }, 5000);
-            this.getallGroups();
-            this.getAdminstaff(this.state.current_user._id);
-          }
-          // else {
-          //   this.setState({ alredyExist: true })
-          //   setTimeout(() => {
-          //     this.setState({ alredyExist: false })
-          //   }, 3000)
-          // }
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({ blankerror: true, assignedhouse: false });
-      setTimeout(() => {
-        this.setState({ blankerror: false });
-      }, 5000);
+                this.setState({ selectRole: false })
+            }, 5000)
+        }
+    }
+    else {
+        this.setState({ blankerror: true, assignedhouse: false })
+        setTimeout(() => {
+            this.setState({ blankerror: false })
+        }, 5000)
     }
     this.setState({ loaderImage: false });
-    // /assignedHouse/:
-  };
+   
+}
   deleteHouse = (deleteId) => {
     var userid = this.state.current_user._id;
     this.setState({ loaderImage: true });
@@ -778,7 +787,7 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
-                    // checkboxdata={this.state.checkboxdata}
+                    checkboxdata={this.state.checkboxdata}
                   />
                   {/* <Modal
                     open={this.state.openHouse}

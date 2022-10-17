@@ -620,3 +620,9 @@ ul.flag-select__options li {
 }
 
 /*End By Ankita*/
+
+.err_message {
+    text-align: center !important;
+    color: red !important;;
+    font-weight: 600;
+}

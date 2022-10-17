@@ -41,7 +41,43 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-    this.props.history.push("/VirtualHospital/space");
+    console.log("data", data)
+    if (data.roles) {
+      if (data.roles.includes("space_managemnet")) {
+        this.props.history.push("/VirtualHospital/space");
+
+      }
+      if (data.roles.includes("get_spacemanagement")) {
+        this.props.history.push("virtualHospital/external-space");
+
+      }
+      if (data.roles.includes("Calendar")) {
+        this.props.history.push("/virtualHospital/calendar");
+
+      }
+      if (data.roles.includes("patient_flow")) {
+        this.props.history.push("/virtualHospital/patient-flow");
+
+      }
+      if (data.roles.includes("service_manager")) {
+        this.props.history.push("/VirtualHospital/services");
+
+      }
+      if (data.roles.includes("task_manager")) {
+        this.props.history.push("/virtualHospital/tasks");
+
+      }
+      if (data.roles.includes("questionnaire")) {
+        this.props.history.push("/virtualHospital/questionnaire");
+
+      }
+      else {
+        this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
+      }
+    }
+    else {
+      this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
+    }
   };
 
   // getSetting = () => {
@@ -204,7 +240,7 @@ class Index extends Component {
                   </Grid>
 
                   <Grid item xs={12} md={11}>
-                  <Institutes redirectSpace={(data) => this.redirectSpace(data)}/>
+                  <Institutes redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
                     {/* <Grid className="topLeftSpc">
                    
                       <Grid className="breadCrumbUpr">
