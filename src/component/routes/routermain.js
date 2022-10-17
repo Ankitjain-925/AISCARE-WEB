@@ -100,6 +100,8 @@ import UploadApproval from "Screens/VirtualHospital/UploadApproval/index";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js";
+import StaffGroup from "Screens/VirtualHospital/StaffGroup/index.js";
+import AssignTherapy from "Screens/VirtualHospital/AssignTherapy/index.js";
 import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
@@ -592,6 +594,16 @@ class Routermain extends Component {
               path="/virtualHospital/invoice_pattern"
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
+            />
+            <Route
+              path="/virtualHospital/staff-group"
+              exact={true}
+              render={(props) => <StaffGroup {...props} />}
+            />
+              <Route
+              path="/virtualHospital/assign-therapy"
+              exact={true}
+              render={(props) => <AssignTherapy {...props} />}
             />
 
             <Route
