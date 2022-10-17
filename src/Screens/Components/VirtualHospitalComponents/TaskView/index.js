@@ -304,8 +304,6 @@ class PointPain extends Component {
                   <Grid className="setAssignedToupper">
                     <Assigned assigned_to={data.assinged_to} />
                   </Grid>
-
-                 
                   {(!this.props.removeAddbutton) && 
                   <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                     {!data?.is_decline && (
@@ -369,7 +367,43 @@ class PointPain extends Component {
                               )}
                             </a>
                           </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                this.props.removeTask(data._id);
+                              }}
+                            >
+                              <img
+                                src={require('assets/virtual_images/deleteNew.png')}
+                                alt=""
+                                title=""
+                              />
+                            
 
+                              {data &&
+                                data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{edit_picture_evaluation}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'adminstaff' &&
+                                data.status === 'done' ? (
+                                <>{see_details}</>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                (this.props.comesFrom === 'adminstaff' ||
+                                  this.props.comesFrom === 'detailTask') ? (
+                                <>{assign_to_doctor}</>
+                              ) : data.task_type &&
+                                data.task_type === 'sick_leave' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <>{view_detail}</>
+                              ) : (
+                                data.task_name ? <>{DeleteTask}</> : <>{edit_assigned_services}</>
+                              )}
+                            </a>
+                          </li>
                           {data &&
                             data.task_type &&
                             data.task_type === 'sick_leave' &&

@@ -9373,7 +9373,10 @@ button.crdoLghtBlu2 {
   margin-right: 20px;
   border-radius: 4px;
 }
-
+.required:after {
+    content:" *";
+    color: red;
+}
 .checkboxprop label {
   margin-left: 0px !important;
 }
@@ -13589,6 +13592,7 @@ input:-moz-autofill:active{
   }
   .vwTaskSelect {
     margin-bottom: 3px;
+    cursor: pointer;
   }
 }
 @media (max-width: 452px) {
@@ -16019,6 +16023,7 @@ width: 90px!important;
       text-align: center;
       color: #ffffff;
       margin-right: 5px;
+      cursor: pointer;
   }
 
 
