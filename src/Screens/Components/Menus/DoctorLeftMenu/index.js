@@ -86,6 +86,7 @@ class Index extends Component {
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
+      this.props.history.push("/");
     }
   };
 
@@ -293,7 +294,7 @@ class Index extends Component {
           )}
         </Grid>
 
-        <Grid className="menuItems">
+        <Grid className="menuItems menuItemsAll">
           <ul>
           {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 &&
           this.props?.House?.roles.includes('appointment_manager'))) && (

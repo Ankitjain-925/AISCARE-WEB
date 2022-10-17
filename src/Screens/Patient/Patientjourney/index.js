@@ -87,6 +87,7 @@ class Index extends Component {
       house_id: '',
       AllQuestions1: [],
       ratingValue: false,
+      Checked:false
     };
   }
 
@@ -112,7 +113,7 @@ class Index extends Component {
       }
       this.setState({
         answers,
-        updateTrack: []
+        // updateTrack: []
       });
     } else {
       if (finalIndex > -1) {
@@ -152,18 +153,19 @@ class Index extends Component {
         if (response.data.hassuccessed) {
           this.getQuestionnaire();
         }
-        this.setState({ loaderImage: false });
+        this.setState({ loaderImage: false, updateTrack :[] });
       });
   };
 
-  options = (e, id, type, index) => {
+  options = (e, id, type, index, index3) => {
     const state = this.state.updateTrack;
     var data = state.options ? state.options : []
+
     if (e.target.checked == true) {
       data.push(e.target.value);
     }
     else {
-      if (data.indexOf(e.target.value) > 0) {
+      if (data.indexOf(e.target.value) >= 0) {
         var index = data.indexOf(e.target.value)
         data.splice(index, 1);
       }
@@ -178,7 +180,7 @@ class Index extends Component {
 
   };
   otheranswer = (value) => {
-    this.setState({ otherField: value })
+   this.setState({ otherField: value ,Checked:true})
   }
 
   updateEntry2 = (e, name, id, type, index) => {
@@ -281,7 +283,7 @@ class Index extends Component {
 
   render() {
     const { stateLoginValueAim, Doctorsetget, House } = this.props;
-    const { AllQuestions1 } = this.state
+    const { AllQuestions1, updateTrack, answers } = this.state
 
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -366,13 +368,14 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                           <Grid className="onlineBox">
-                                                            {data1?.options.map((data3) => (
+                                                            {data1?.options.map((data3, index3) => (
                                                               <>
                                                                 <Grid><FormControlLabel
                                                                   control={<Checkbox
                                                                     value={data3}
-                                                                    checked={this.state.newTask.options ? this.state.newTask.options : null}
-                                                                    onChange={(e) => this.options(e, data1._id, data1.type, index1)}
+                                                                    // checked={this.state.newTask.options ? this.state.newTask.options : null}
+                                                                    checked = {updateTrack?.options?.length ? updateTrack.options.includes(data3) : false}
+                                                                    onChange={(e) => this.options(e, data1._id, data1.type, index1, index3)}
                                                                     name={data3}
                                                                     color="primary"
                                                                   />} />{data3}</Grid>
@@ -382,12 +385,14 @@ class Index extends Component {
                                                               <Grid className="otherBrdrUpr">
                                                                 <FormControlLabel
                                                                   control={<Checkbox
-                                                                    name="other"
+                                                                    name="checkedB"
                                                                     color="primary"
-                                                                    checked={this.state.newTask.other ? this.state.newTask.other : null}
+
+                                                                    checked={this.state.newTask.other}
                                                                     onChange={(e) =>
                                                                       this.otheranswer(e.target.checked, "value", data1._id, data1.type, index1)
                                                                     }
+                                                                  
                                                                     value="checkedB"
                                                                   />
                                                                   }

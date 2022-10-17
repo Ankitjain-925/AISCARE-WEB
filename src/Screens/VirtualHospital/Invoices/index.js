@@ -441,8 +441,6 @@ class Index extends Component {
       this.setState({ finishError: Invoice_Id_cant_be_empty });
     } else if (!data.patient || (data.patient && data.patient.length < 1)) {
       this.setState({ finishError: Please_select_patient });
-    } else if (!data.services || data.services.length < 1) {
-      this.setState({ finishError: Please_add_atleast_one_service });
     } else {
       this.setState({ loaderImage: true });
       axios

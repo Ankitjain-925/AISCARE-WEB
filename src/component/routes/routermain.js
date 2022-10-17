@@ -112,6 +112,8 @@ import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import DoctorCareQuestionnary from "Screens/Doctor/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
+import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
+import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
 
 class Routermain extends Component {
   render() {
@@ -365,7 +367,7 @@ class Routermain extends Component {
               render={(props) => <DoctorAppointment {...props} />}
             />
 
-            
+
 
             {/* Added by ankita */}
             <Route
@@ -408,12 +410,23 @@ class Routermain extends Component {
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
             />
-              <Route
+            <Route
+              exact
+              path="/doctor/video-call"
+              render={(props) => <VideoCall {...props} />}
+            />
+
+            <Route
+              exact
+              path="/doctor/access-key"
+              render={(props) => <AccessKeyLog {...props} />}
+            />
+            <Route
               exact
               path="/doctor/care-questionary"
               render={(props) => <DoctorCareQuestionnary {...props} />}
             />
-             <Route
+            <Route
               path="/doctor/earlier-task"
               exact={true}
               render={(props) => <DoctorET {...props} />}
@@ -517,7 +530,7 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <VHExterSpaceManagement {...props} />}
             />
-              <Route
+            <Route
               path="/virtualhospital/carequestionnary-submit"
               exact={true}
               render={(props) => <QuestionShow {...props} />}
@@ -641,6 +654,7 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NotFound {...props} />}
             />
+
 
             {/* End By Ankita */}
           </Switch>

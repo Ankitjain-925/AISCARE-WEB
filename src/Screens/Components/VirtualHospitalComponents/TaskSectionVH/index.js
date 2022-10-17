@@ -459,6 +459,16 @@ class Index extends Component {
     this.setState({ errorMsg: "" });
     let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
+    if (this.props.patient) {
+      data.patient_id = this.props.patient?.patient_id;
+      data.patient = {
+        first_name: this.props.patient?.first_name,
+        last_name: this.props.patient?.last_name,
+        alies_id: this.props.patient?.alies_id,
+        patient_id: this.props.patient?.patient_id,
+        user_id: this.props.patient?.patient_id
+      };
+    }
     var user_id = data?.patient?.user_id;
 
     if (
@@ -507,6 +517,9 @@ class Index extends Component {
       }
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .put(
             sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
@@ -524,6 +537,7 @@ class Index extends Component {
                 assignedTo: [],
                 q: "",
                 selectSpec: {},
+                isButtonDisabled: false
               });
               this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
@@ -551,7 +565,9 @@ class Index extends Component {
           due_on["time"] = new Date();
           data.due_on = due_on;
         }
-
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .post(
             sitedata.data.path + "/vh/AddTask",
@@ -560,6 +576,7 @@ class Index extends Component {
           )
           .then((responce) => {
             this.setState({
+              loaderImage: true,
               newTask: {},
               fileattach: {},
               professional_data: [],
@@ -568,10 +585,12 @@ class Index extends Component {
               q: "",
               selectSpec: {},
               newComment: "",
+              isButtonDisabled: false
             });
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
           })
+
           .catch(function (error) {
             console.log(error);
             this.setState({ errorMsg: Something_went_wrong });
@@ -769,6 +788,30 @@ class Index extends Component {
         }
       })
   }
+
+  doneTask = (id) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Something_went_wrong } = translate;
+    axios
+      .put(
+        sitedata.data.path + "/vh/AddTask/" + id,
+        {
+          status: "done",
+          done_on: new Date()
+        },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.props.getAddTaskData(this.state.tabvalue2);
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
+
+  }
+
   editComment = (index) => {
     this.setState({ editcomment: index });
   };
@@ -2085,7 +2128,7 @@ class Index extends Component {
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
-              {(this.props.comesFrom == "Professional"||this.props.comesFrom == "detailTask")  &&
+              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
                 </Button>}
@@ -2095,6 +2138,7 @@ class Index extends Component {
           </Grid>
           {/* Model setup */}
           <AssignedService
+            currentList={this.state.currentList}
             openAss={this.state.openAss}
             handleOpenAss={() => this.handleOpenAss()}
             handleCloseAss={() => this.handleCloseAss()}
@@ -2167,7 +2211,7 @@ class Index extends Component {
                           container
                           direction="row"
                           alignItems="center"
-                          // spacing={1}
+                        // spacing={1}
                         >
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
@@ -2204,7 +2248,8 @@ class Index extends Component {
                               disabled={
                                 this.state.newTask?.task_type ===
                                 "picture_evaluation" ||
-                                this.state.newTask?.task_type === "sick_leave"
+                                this.state.newTask?.task_type === "sick_leave" ||
+                                this.state.newTask.task_type === "video_conference"
                               }
                             />
                           </Grid>
@@ -2283,25 +2328,25 @@ class Index extends Component {
                           )}
 
                           {this.state.newTask.task_type !==
-                            "picture_evaluation" ||
-                            (this.state.newTask.task_type !== "sick_leave" && (
-                              <Grid item xs={12} md={12} className="taskDescp">
-                                <label>{Taskdescription}</label>
-                                <Grid>
-                                  <textarea
-                                    placeholder={Enterdescription}
-                                    name="description"
-                                    onChange={(e) =>
-                                      this.updateEntryState1(
-                                        e.target.value,
-                                        e.target.name
-                                      )
-                                    }
-                                    value={this.state.newTask.description || ""}
-                                  ></textarea>
+                            "picture_evaluation" || this.state.newTask.task_type !== "video_conference"
+                              (this.state.newTask.task_type !== "sick_leave" && (
+                                <Grid item xs={12} md={12} className="taskDescp">
+                                  <label>{Taskdescription}</label>
+                                  <Grid>
+                                    <textarea
+                                      placeholder={Enterdescription}
+                                      name="description"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(
+                                          e.target.value,
+                                          e.target.name
+                                        )
+                                      }
+                                      value={this.state.newTask.description || ""}
+                                    ></textarea>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            ))}
+                              ))}
 
                           {this.state.newTask.task_type ===
                             "picture_evaluation" && (
@@ -2725,7 +2770,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             )}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid item xs={12} md={12}>
                               <label>{Assignedto}</label>
                               <Grid>
@@ -2752,7 +2797,7 @@ class Index extends Component {
                           {(this.state.newTask &&
                             this.state.newTask?.task_type ===
                             "picture_evaluation") ||
-                            (this.state.newTask.task_type !== "sick_leave" && (
+                            (this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                               <Grid item xs={12} md={12}>
                                 <label>{Speciallity}</label>
                                 <Grid className="specialFor">
@@ -2772,7 +2817,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             ))}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} md={12} className="dueOn">
                                 <label>{Dueon}</label>
@@ -2864,7 +2909,7 @@ class Index extends Component {
                             </Grid>
                           )}
 
-                          {this.state.newTask.task_type === "sick_leave" && (
+                          {(this.state.newTask.task_type === "sick_leave" || this.state.newTask.task_type === "video_conference") && (
                             <Grid item xs={12} md={12} className="taskDescp">
                               <Grid className="stndQues  stndQues1">
                                 <Grid className="stndQues">
@@ -3834,7 +3879,7 @@ class Index extends Component {
                                   {this.state.newTask?._id && (
                                     <>
                                       {this.props.comesFrom !==
-                                        "Professional" ? (
+                                        "Professional" && this.props.comesFrom !== "detailTask" ? (
                                         this.state.newTask?.task_type ===
                                           "picture_evaluation" ? (
                                           <>
@@ -4070,7 +4115,7 @@ class Index extends Component {
                                         </>
                                       ) : (
                                         this.state.newTask?.task_type !==
-                                        "sick_leave" && (
+                                        "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                                           <>
                                             <Grid
                                               onClick={() => {
@@ -4135,7 +4180,7 @@ class Index extends Component {
                               </Grid>
                             ))}
                           {this.props.comesFrom === "Professional" &&
-                            this.state.newTask.task_type !== "sick_leave" && (
+                            this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                               <Grid item xs={12} md={12}>
                                 <Grid>
                                   <label>{Comments}</label>
@@ -4239,7 +4284,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             )}
-                          {this.state.newTask.task_type !== "sick_leave" && (
+                          {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid item xs={12} md={12} className="saveTasks">
                               <a>
                                 <div className="err_message">
@@ -4251,6 +4296,7 @@ class Index extends Component {
                                       this.state.newTask?.task_type
                                     )
                                   }
+                                  disabled={this.state.isButtonDisabled}
                                 >
                                   {save_task_and_close}
                                 </Button>
@@ -4542,6 +4588,7 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4557,6 +4604,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        switchStatus={() => { this.switchStatus() }}
                       />
                     </Grid>
                   ))}
@@ -4570,6 +4618,7 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4598,6 +4647,7 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4626,6 +4676,7 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4654,6 +4705,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
@@ -4682,6 +4734,7 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
+                        doneTask={(id) => { this.doneTask(id) }}
                         DoneAppointment={(id) => { this.DoneAppointment(id) }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}

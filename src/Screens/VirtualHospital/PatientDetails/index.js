@@ -17,6 +17,7 @@ import {
   get_track,
   download_track,
 } from 'Screens/Components/CommonApi/index.js';
+import ShowPrevQues from 'Screens/Components/ShowPrevQues/index'
 import { updateBlockchain } from 'Screens/Components/BlockchainEntry/index.js';
 import GraphView from 'Screens/Components/TimelineComponent/GraphView/index';
 import { confirmAlert } from 'react-confirm-alert';
@@ -52,6 +53,8 @@ class Index extends Component {
       updateTrack: {},
       cur_one: {},
       personalinfo: {},
+      QueryDetail: false,
+      ModalDataCare: {},
       added_data: [],
       allTrack: [],
       allTrack1: [],
@@ -184,12 +187,15 @@ class Index extends Component {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
 
-  //For Close the Graphs
-  CloseGraph = () => {
-    this.rightInfo();
-    this.getTrack();
-    this.setState({ isGraph: false });
-  };
+ //For Close the Graph
+ CloseGraph = () => {
+  this.rightInfo();
+  this.getTrack();
+  this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
+};
+Opencare=(data)=>{
+  this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
+}
 
   //For get the Track
   getTrack = async () => {
@@ -378,7 +384,7 @@ class Index extends Component {
             this.props.settings.setting &&
             this.props.settings.setting.mode &&
             this.props.settings.setting.mode === 'dark'
-            ? 'homeBg darkTheme'
+            ? 'homeBg darkTheme homeBgDrk'
             : 'homeBg'
         }
       >
@@ -469,6 +475,7 @@ class Index extends Component {
                           <PatientJournal
                             rightInfo={this.rightInfo}
                             OpenGraph={this.OpenGraph}
+                            Opencare={(data)=>this.Opencare(data)}  
                           />
                         </TabContainer>
                       )}
@@ -562,6 +569,14 @@ class Index extends Component {
             )}
           </Grid>
           {this.state.isGraph && (
+                this.state.QueryDetail ? 
+              <ShowPrevQues
+                closeFullQues={() => this.CloseGraph()}
+                item={this.state.ModalDataCare}
+                comesFrom="PatientEnd"
+              />
+                :
+
             <GraphView
               date_format={
                 this.props.settings &&

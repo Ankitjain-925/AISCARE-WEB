@@ -8750,7 +8750,7 @@ a.visibleAllShw:hover .visibleAll{
     min-height: 100vh;
 }
 .presurInner a label {
-    color: #7F8383;
+    color: #7F8383 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -8768,7 +8768,7 @@ a.visibleAllShw:hover .visibleAll{
     margin-bottom: 2px;
 }
 .presurInner a p {
-    color: #7F8383;
+    color: #7F8383 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;

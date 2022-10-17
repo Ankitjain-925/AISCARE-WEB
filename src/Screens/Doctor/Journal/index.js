@@ -12,6 +12,7 @@ import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import { Doctorset } from "Screens/Doctor/actions";
 import { Settings } from "Screens/Login/setting";
 import { Redirect } from "react-router-dom";
+import ShowPrevQues from 'Screens/Components/ShowPrevQues/index'
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import AddEntry from "Screens/Components/AddEntry/index";
@@ -119,7 +120,8 @@ class Index extends Component {
       current_Graph: "",
       upcoming_appointment: [],
       SARS: [],
-
+      QueryDetail: false,
+      ModalDataCare: {},
       itive_SARS: [],
       vaccinations: [],
       defaultValue: 20,
@@ -147,9 +149,11 @@ class Index extends Component {
   CloseGraph = () => {
     this.rightInfo();
     this.getTrack();
-    this.setState({ isGraph: false });
+    this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
   };
-
+  Opencare=(data)=>{
+    this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
+  }
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
@@ -1105,6 +1109,7 @@ class Index extends Component {
                             <div>
                               {this.state.allTrack.map((item, index) => (
                                 <ViewTimeline
+                                Opencare={(data)=>this.Opencare(data)}  
                                   lrp={AllL_Ps.AllL_Ps.english}
                                   Allrelation={this.state.Allrelation}
                                   Allreminder={this.state.Allreminder}
@@ -2161,7 +2166,15 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-              {this.state.isGraph && (
+               {this.state.isGraph && (
+                this.state.QueryDetail ? 
+                <ShowPrevQues
+                closeFullQues={() => this.CloseGraph()}
+                item={this.state.ModalDataCare}
+                comesFrom="PatientEnd"
+              />
+                :
+
                 <GraphView
                   date_format={
                     this.props.settings &&
