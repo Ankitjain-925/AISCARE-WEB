@@ -213,7 +213,7 @@ class Index extends Component {
         return (
             <Grid>
                 {/* Model setup */}
-                <Modal
+                {/* <Modal
                     open={this.state.openModal}
                     onClose={() => this.closeFullQues()}
                     className={
@@ -224,17 +224,18 @@ class Index extends Component {
                             ? 'darkTheme'
                             : ''
                     }
-                >
-                    <Grid className="creatTaskModel3 creatTaskModel11">
-                        <Grid className="creatTaskCntnt">
+                > */}
+
+                    <Grid className="creatTaskModel11">
+                        <Grid>
                             <Grid>
-                                <Grid container direction="row" justify="center" className="addSpeclLbl">
+                                {/* <Grid container direction="row" justify="center" className="DetailHead">
                                     <Grid item xs={8} md={8} lg={8}>
                                         <label>{Details}</label>
                                     </Grid>
                                     <Grid item xs={4} md={4} lg={4}>
                                         <Grid>
-                                            <Grid className="entryCloseBtn">
+                                            <Grid className="entryCloseBtn DetailHead-close">
                                                 <a onClick={() => this.closeFullQues()}>
                                                     <img
                                                         src={require("assets/images/close-search.svg")}
@@ -245,7 +246,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                                </Grid> */}
                                 <Grid
                                     container
                                     direction="row"
@@ -1342,7 +1343,7 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                </Modal>
+                {/* </Modal> */}
                 {/* End of Model setup */}
             </Grid>
         )
