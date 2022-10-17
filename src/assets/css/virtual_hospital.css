@@ -16288,3 +16288,82 @@ border-radius: 12px;
   height: 537px;
   overflow-y: scroll;
 }
+
+
+
+.addSpeclClose {
+  text-align: right;
+}
+@media (max-width: 568px) {
+ .addSpeclClose {
+    margin-bottom: 10px;
+  }
+}
+.setDiffwidth {
+  Width: 800px !important;
+}
+.collap{
+  border: 1px #00ABAF solid;
+  background: #e2e4e6;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.darkTheme .collap{
+background: #647484 !important;
+}
+.manage-authority-btn {   
+  background: #00abaf !important;
+  margin: 10px 0px !important;
+}
+.manage-authority{
+  font-weight: bold;
+  cursor: pointer;
+  color: #00ABAF !important;
+}
+
+.innerAuthority{
+  margin-left: 35px;
+}
+
+.authoirty :hover {
+  background: linear-gradient(33deg, aqua, transparent);
+}
+
+.authoirty .MuiTypography-body1{
+  font-size: 0.9rem !important;
+  font-weight: 600;
+}
+
+.sel{
+background: #04a5a9;
+margin-bottom: 10px;
+  font-size: 1rem;
+  padding-left: 8px;
+
+}
+.formscrool {
+  height: 537px;
+  overflow-y: scroll;
+}
+.headsize2 {
+  font-size: 15px;
+  font-family: muli;
+  margin-bottom: 20px;
+ 
+}
+
+.darkTheme .headsize2{
+background-color: #192020!important;
+color:#FFFFFF
+}
+.darkTheme .valuesuggest2{ 
+  background-color: #404646!important;
+  color:#FFFFFF
+  }
+
+  .authorityvalue { 
+   font-size: 20px;
+  }
+  

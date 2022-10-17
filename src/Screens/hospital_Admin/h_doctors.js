@@ -69,7 +69,8 @@ class Index extends Component {
       UpDataDetails: {},
       deleteHouses: {},
       type: 'doctor',
-      // checkboxdata:""
+      checkboxdata:"",
+      selectRole: false
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
@@ -104,7 +105,7 @@ class Index extends Component {
                     value: item.house_id,
                   });
                   this.setState({ Housesoptions: Housesoptions });
-                  // this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
+                  this.setState({checkboxdata:this.props.metadata.authority?.doctor_roles})
                 });
             });
           }
@@ -328,40 +329,56 @@ class Index extends Component {
     this.setState({ house: value });
   };
 
-  SaveAssignHouse = () => {
+  SaveAssignHouse = (authority) => {
     var userid = this.state.current_user._id;
     var housevalue = this.state.house;
-    this.setState({ loaderImage: true });
-    if (housevalue && housevalue?.value) {
-      axios
-        .put(
-          sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
-          this.state.house,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({ assignedhouse: true, house: {} });
+    if (housevalue.value) {
+        housevalue.roles = authority;
+        if(authority?.length>0){
+            this.setState({ blankerror: false, selectRole: false,  assignedhouse: false , loaderImage: true})
+            axios
+            .put(
+                sitedata.data.path +
+                `/hospitaladmin/assignedHouse/${userid}`,
+                this.state.house,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                    this.getallGroups();
+                    this.getDoctors(true);
+                    setTimeout(() => {
+                        this.setState({ assignedhouse: false, house: {} })
+                    }, 5000)
+                    this.getallGroups();
+                    this.getDoctors(this.state.current_user._id);
+                }
+                // else {
+                //     this.setState({ alredyExist: true })
+                //     setTimeout(() => {
+                //         this.setState({ alredyExist: false })
+                //     }, 5000)
+                // }
+                this.setState({ loaderImage: false });
+            });
+        }
+        else{
+            this.setState({ blankerror: false, selectRole: true,  assignedhouse: false })  
             setTimeout(() => {
-              this.setState({ assignedhouse: false });
-            }, 5000);
-            this.getallGroups();
-            this.getDoctors(this.state.current_user._id);
-          }
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({
-        assignedhouse: false,
-        alredyExist: false,
-        blankerror: true,
-        loaderImage: false,
-      });
-      setTimeout(() => {
-        this.setState({ blankerror: false });
-      }, 5000);
+                this.setState({ selectRole: false })
+            }, 5000)
+        }
     }
-  };
+    else {
+        this.setState({ blankerror: true, assignedhouse: false })
+        setTimeout(() => {
+            this.setState({ blankerror: false })
+        }, 5000)
+    }
+    this.setState({ loaderImage: false });
+   
+}
 
   deleteHouse = (deleteId, items) => {
     var userid = this.state.current_user._id;
@@ -691,6 +708,8 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
+                    selectRole={this.state.selectRole}
+                    checkboxdata={this.state.checkboxdata}
                   />
                   <ViewDetail
                     openDetial={this.state.openDetial}
