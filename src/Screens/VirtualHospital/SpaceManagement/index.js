@@ -191,6 +191,8 @@ class Index extends Component {
       return <Redirect to={'/VirtualHospital/institutes'} />;
     }
 
+    const {House:{roles=[]}={}} = this.props || {}
+
     return (
       <Grid
         className={
@@ -232,9 +234,12 @@ class Index extends Component {
                           <h1>{SpaceManagement}</h1>
                         </Grid>
                       </Grid>
+                      {roles.includes("add_speciality")  &&                      
                       <Grid item xs={12} sm={6} md={6} className="addFlowRght">
                         <a onClick={this.handleOpenSpecl}>{addNewSpeciality}</a>
                       </Grid>
+                      
+                      }
                     </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">

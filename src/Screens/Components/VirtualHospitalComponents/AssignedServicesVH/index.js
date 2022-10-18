@@ -1220,6 +1220,7 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
+  const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1227,9 +1228,11 @@ class Index extends Component {
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid className="newServc newServicAllSec">
-              <Button onClick={() => this.handleOpenAss()} >
-                {"+ Assign service"}
-              </Button>
+              {roles.includes("add_assignedservice") &&
+                <Button onClick={() => this.handleOpenAss()}>
+                  {"+ Assign service"}
+                </Button>
+              }
 
               <AssignedService
                 openAss={this.state.openAss}

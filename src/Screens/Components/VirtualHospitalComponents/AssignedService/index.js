@@ -710,7 +710,7 @@ class Index extends Component {
                                             name="service"
                                             onChange={(e) =>
                                                 this.onFieldChange1(e, 'service')
-                                                }
+                                            }
                                             value={this.state.addservice?.service || ''}
 
                                             className="addStafSelect"
@@ -811,7 +811,7 @@ class Index extends Component {
 
                                     </Grid>
                                     <Grid item xs={12} md={12}>
-                                        <label className="required">{ForPatient}</label>
+                                    <label className="required">{ForPatient}</label>
 
                                         {this.props.comesFrom === "Professional" &&
                                             this.state.service?.patient?._id ? (

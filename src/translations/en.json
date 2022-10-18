@@ -2077,7 +2077,7 @@
      "link_has_been_expired": "Link has been expired, Please book time slot again",
      "meeting_has_ended": "Meeting has ended",
      "check_your_meeting_key_or_link_again": "Meeting not available please check your meeting key or link again",
-     "You_dont_have_an_access_of_this_meeting":"You don't have an access of this meeting"
+     "You_dont_have_an_access_of_this_meeting":"You don't have an access of this meeting",
 
     "Please_select_authority_first":"Please select some authority for the user first",
 		"Give_Authority_User":"Give Authority of Task to the User",
@@ -2085,6 +2085,4 @@
      "Change_Authority":"Change Authority"
 
     }
-
-
 }

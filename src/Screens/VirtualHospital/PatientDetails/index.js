@@ -187,16 +187,15 @@ class Index extends Component {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
 
- //For Close the Graph
- CloseGraph = () => {
-  this.rightInfo();
-  this.getTrack();
-  this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
+  //For Close the Graphs
+  CloseGraph = () => {
+    this.rightInfo();
+    this.getTrack();
+    this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
 };
 Opencare=(data)=>{
   this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
 }
-
   //For get the Track
   getTrack = async () => {
     var user_id = this.props.stateLoginValueAim.user._id;

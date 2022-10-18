@@ -9375,8 +9375,8 @@ button.crdoLghtBlu2 {
   border-radius: 4px;
 }
 .required:after {
-    content:" *";
-    color: red;
+  content:" *";
+  color: red;
 }
 .checkboxprop label {
   margin-left: 0px !important;
@@ -15934,11 +15934,9 @@ width: 90px!important;
     font-family: Muli !important;
     }
     
-    .homeBgDrk .stndQues p {
-      color: #fff;
-    }
+
     .allQuestionShow{
-      margin: 0px 30px 30px 30px;
+      margin-left: 21px;
     }
     .allQuestionShow1{
       margin-bottom: 15px;
@@ -16147,9 +16145,9 @@ width: 90px!important;
   .careQuestionTabUpr {
     border-radius: 12px;
     background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
     padding: 20px 20px;
     margin: 34px 0px 30px;
-    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   }
   .darkTheme .careQuestionTabUpr {
     background-color: #404646;
@@ -16252,7 +16250,7 @@ width: 90px!important;
     height: 362px !important;
 }
 
-/* .creatTaskModel3{
+.creatTaskModel3{
 width: 580px;
 background: #fff;
 margin: 0 auto;
@@ -16268,13 +16266,13 @@ border-radius: 12px;
 }
 .darkTheme .creatTaskModel3 {
   background-color: #404646 !important;
-} */
+}
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   .creatTaskModel3 {
     width: 98% !important;
   }
-} */
+}
 .selectOptionCmn label{
   color:grey;
 }
@@ -16296,7 +16294,6 @@ border-radius: 12px;
   height: 537px;
   overflow-y: scroll;
 }
-
 
 
 .profileIdRght{
@@ -16849,4 +16846,3 @@ color:#FFFFFF
   .authorityvalue { 
    font-size: 20px;
   }
-

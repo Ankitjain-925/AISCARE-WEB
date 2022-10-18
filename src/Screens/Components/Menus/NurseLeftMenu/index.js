@@ -230,7 +230,7 @@ class Index extends Component {
             </li>
               </>}
 
-            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 )) && <>  
+            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 )) && <>      
             <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
               <a onClick={this.Chats}>
                 {this.props.settings &&
@@ -351,7 +351,7 @@ class Index extends Component {
               </a>
             </li>
             {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('show_professional_activity'))) && (
-              <li
+ <li
                     className={
                       this.props.currentPage === "profActivity" ? "menuActv" : ""
                     }
@@ -376,7 +376,7 @@ class Index extends Component {
                     </a>
                   </li>
             )}
-            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('earlier_activity'))) && (
+            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
               <li
                 className={
                   this.props.currentPage === "Earliertask" ? "menuActv" : ""

@@ -244,7 +244,7 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} sm={9} md={6}>
-                                                    <label className="required">{ForPatient}</label>
+                                                <label className="required">{ForPatient}</label>
                                                     <Grid>
                                                         <Select
                                                             name="patient"

@@ -209,9 +209,6 @@ export const EditAssignedService = (data, current) => {
   var deep = _.cloneDeep(data);
   current.setState({ updateTrack: deep, openAss: true });
 };  
-
-
-
 export const  getAmount = (current) => {
   current.setState({ loaderImage: true });
  axios

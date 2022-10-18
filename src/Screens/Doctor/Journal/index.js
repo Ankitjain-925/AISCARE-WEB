@@ -154,6 +154,7 @@ class Index extends Component {
   Opencare=(data)=>{
     this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
   }
+
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
@@ -2166,7 +2167,7 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-               {this.state.isGraph && (
+              {this.state.isGraph && (
                 this.state.QueryDetail ? 
                 <ShowPrevQues
                 closeFullQues={() => this.CloseGraph()}

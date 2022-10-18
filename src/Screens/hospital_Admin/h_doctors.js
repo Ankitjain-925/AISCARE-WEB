@@ -402,15 +402,6 @@ class Index extends Component {
       });
   };
 
-  BlockUser = (patient_id, isblock) => {
-    var data = blockClick(
-      patient_id,
-      isblock,
-      this.props.stateLoginValueAim.token
-    );
-    this.getDoctors();
-  };
-
   render() {
     if (this.props.stateLoginValueAim.user.type != 'hospitaladmin') {
       this.props.history.push('/');
