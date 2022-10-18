@@ -93,7 +93,7 @@ class InnerQuoteList extends React.Component {
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
-            verifySection={(_id)=>{this.verifySection(_id)}}
+          verifySection={(_id)=>{this.verifySection(_id)}}
             moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
             columns={this.props.columns}
             ordered={this.props.ordered}

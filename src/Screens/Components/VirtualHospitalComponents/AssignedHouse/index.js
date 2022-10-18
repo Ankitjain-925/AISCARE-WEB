@@ -82,21 +82,15 @@ class PointPain extends Component {
       .then((responce) => {
         this.props.closeHouse();
         this.setState({ loaderImage: true });
-        this.props.history.push('h-doctors');
-        // window.location.reload();
-      
        if (responce.data.data.type == "nurse") {
-          console.log("1")
           socket.emit("nurse", responce)
 
         }
         else if (responce.data.data.type == "doctor") {
-          console.log("2")
           socket.emit("doctor", responce)
 
         }
         else if (responce.data.data.type == "adminstaff"){
-          console.log("3")
           socket.emit("adminstaff", responce)
 
         }
@@ -158,6 +152,13 @@ class PointPain extends Component {
       Manage_Authority,
       Change_Authority
     } = translate;
+
+
+
+
+
+    console.log("translate", this.state.current_user)
+    console.log("Values", this.state.values)
     return (
       <Grid>
         <Modal

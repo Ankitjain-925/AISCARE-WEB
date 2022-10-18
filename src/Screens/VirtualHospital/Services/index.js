@@ -86,9 +86,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -123,9 +123,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -227,13 +227,15 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -430,7 +432,7 @@ class Index extends Component {
                             <Grid
                               className={
                                 this.state.sickamount1.amount >= 21 ||
-                                this.state.sickamount1.amount <= 9
+                                  this.state.sickamount1.amount <= 9
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
                               }
@@ -598,50 +600,55 @@ class Index extends Component {
                                   <Td>{data.price} €</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
-                                    <Grid
-                                      item
-                                      xs={6}
-                                      md={6}
-                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
-                                    >
-                                      <a className="openScndhrf">
-                                        <img
-                                          src={require("assets/images/three_dots_t.png")}
-                                          alt=""
-                                          title=""
-                                          className="openScnd specialuty-more"
-                                        />
-                                        <ul>
-                                          <li
-                                            onClick={() => {
-                                              EditService(data, this);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/virtual_images/pencil-1.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {editService}
-                                            </a>
-                                          </li>
+                                    {(roles.includes("edit_service") || roles.includes("delete_service")) &&
 
-                                          <li
-                                            onClick={() => {
-                                              this.removeServices(data._id);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/images/cancel-request.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {deleteService}
-                                            </a>
-                                          </li>
-                                        {/* 
+                                      <Grid
+                                        item
+                                        xs={6}
+                                        md={6}
+                                        className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
+                                      >
+                                        <a className="openScndhrf">
+                                          <img
+                                            src={require("assets/images/three_dots_t.png")}
+                                            alt=""
+                                            title=""
+                                            className="openScnd specialuty-more"
+                                          />
+                                          <ul>
+                                            {roles.includes("edit_service") &&
+                                              <li
+                                                onClick={() => {
+                                                  EditService(data, this);
+                                                }}
+                                              >
+                                                <a>
+                                                  <img
+                                                    src={require("assets/virtual_images/pencil-1.svg")}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  {editService}
+                                                </a>
+                                              </li>
+                                            }
+                                            {roles.includes("delete_service") &&
+                                              <li
+                                                onClick={() => {
+                                                  this.removeServices(data._id);
+                                                }}
+                                              >
+                                                <a>
+                                                  <img
+                                                    src={require("assets/images/cancel-request.svg")}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  {deleteService}
+                                                </a>
+                                              </li>
+                                            }
+                                            {/* 
                                           <li
                                             onClick={() => {
                                               EditAssignedService(data, this);
@@ -657,7 +664,7 @@ class Index extends Component {
                                             </a>
                                           </li> */}
 
-                                          {/* <li
+                                            {/* <li
                                             onClick={() => {
                                               this.removeServices(data._id);
                                             }}
@@ -671,9 +678,10 @@ class Index extends Component {
                                               {delete_assigned_services}
                                             </a>
                                           </li> */}
-                                        </ul>
-                                      </a>
-                                    </Grid>
+                                          </ul>
+                                        </a>
+                                      </Grid>
+                                    }
                                   </Td>
                                 </Tr>
                               </>

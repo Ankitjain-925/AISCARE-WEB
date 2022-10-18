@@ -20,9 +20,6 @@
 .App-link {
   color: #09d3ac;
 }
-button {
-  cursor: pointer;
-}
 .required:after {
   content:" *";
   color: red;

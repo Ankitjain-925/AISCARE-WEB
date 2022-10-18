@@ -592,7 +592,7 @@ export default class Column extends Component {
               </Header>
 
               <QuoteList
-              updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+               updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
                 ordered={this.props.ordered}
                 listId={title}
                 listType="QUOTE"

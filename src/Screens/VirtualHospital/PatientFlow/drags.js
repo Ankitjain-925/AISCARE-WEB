@@ -108,6 +108,8 @@ class Index extends Component {
     const ordered = this.state.ordered;
     let translate = getLanguage(this.props.stateLanguageType);
     let { AddStep } = translate;
+    const { roles = [] } = this.props || {}
+
     const board = (
       <div
         className={
@@ -179,9 +181,11 @@ class Index extends Component {
                   stateLanguageType={this.props.stateLanguageType}
                 />
               ))}
-              <Grid className="newAddStepBtn">
-                <Button onClick={this.AddMoreStep}>{AddStep}</Button>
-              </Grid>
+              {roles.includes("add_step") &&
+                <Grid className="newAddStepBtn">
+                  <Button onClick={this.AddMoreStep}>{AddStep}</Button>
+                </Grid>
+              }
               {provided.placeholder}
             </div>
           )}
