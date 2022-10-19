@@ -384,7 +384,7 @@ class Index extends Component {
               </>
             )}
            
-            {!this.props?.House?.value && (
+            {/* {!this.props?.House?.value && ( */}
               <>
                 <li
                   className={
@@ -517,7 +517,7 @@ class Index extends Component {
                   </a>
                 </li>
                
-                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('show_professional_activity'))) && (
+                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('professional_activity'))) && (
              <li
                className={
                  this.props.currentPage === "activity" ? "menuActv" : ""
@@ -549,7 +549,7 @@ class Index extends Component {
              </li>
                 ) } 
                 
-                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
+                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('earlier_activity'))) && (
                 <li
                   className={
                     this.props.currentPage === "Profearliertask" ? "menuActv" : ""
@@ -694,7 +694,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-             )} 
+             {/* )}  */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

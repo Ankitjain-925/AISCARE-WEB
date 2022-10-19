@@ -520,7 +520,7 @@ class Index extends Component {
                     <span>{emegancy_access}</span>
                   </a>
                 </li>
-                {/* <li
+                <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
                   }
@@ -548,7 +548,7 @@ class Index extends Component {
                     )}
                     <span>{VHS_view}</span>
                   </a>
-                </li> */}
+                </li> 
 
                 {/* <li
                   className={
@@ -579,7 +579,7 @@ class Index extends Component {
                     <span>{ProfessionalTask}</span>
                   </a>
                 </li> */}
-    {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_professsionalactivity'))) && (
+    {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('professional_activity'))) && (
                 <li
                   className={
                     this.props.currentPage === "activity" ? "menuActv" : ""
@@ -609,7 +609,7 @@ class Index extends Component {
                     <span>{professional_activity}</span>
                   </a>
                 </li>)}
-                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
+                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('earlier_activity'))) && (
                 <li
                   className={
                     this.props.currentPage === "Profearliertask" ? "menuActv" : ""
@@ -640,6 +640,7 @@ class Index extends Component {
                   </a>
                 </li>
 )}
+{(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('care_questionnary'))) && (
                 <li
               className={
                 this.props.currentPage === "questionnary" ? "menuActv" : ""
@@ -663,7 +664,7 @@ class Index extends Component {
                   )}
                 <span>{Care_Questionnary}</span>
               </a>
-            </li>
+            </li>)}
 
                 <li>
                   <a className="moreMenu">

@@ -152,8 +152,8 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
-          {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager'))) && (
-          <li
+          {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('appointment_manager'))) && (
+           <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
               }
@@ -350,7 +350,7 @@ class Index extends Component {
                 <span>{VHS_view}</span>
               </a>
             </li>
-            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('show_professional_activity'))) && (
+            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('professional_activity'))) && (
  <li
                     className={
                       this.props.currentPage === "profActivity" ? "menuActv" : ""
@@ -376,7 +376,7 @@ class Index extends Component {
                     </a>
                   </li>
             )}
-            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
+            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('earlier_activity'))) && (
               <li
                 className={
                   this.props.currentPage === "Earliertask" ? "menuActv" : ""

@@ -43,11 +43,15 @@ class Index extends Component {
     this.props.houseSelect(data);
     console.log("data", data)
     if (data.roles) {
+      if (data.roles.includes("assigned_services")) {
+        this.props.history.push("/virtualHospital/assignedservices");
+
+      }
       if (data.roles.includes("space_managemnet")) {
         this.props.history.push("/VirtualHospital/space");
 
       }
-      if (data.roles.includes("get_spacemanagement")) {
+      if (data.roles.includes("external_space_managemnet")) {
         this.props.history.push("virtualHospital/external-space");
 
       }
@@ -69,6 +73,10 @@ class Index extends Component {
       }
       if (data.roles.includes("questionnaire")) {
         this.props.history.push("/virtualHospital/questionnaire");
+
+      }
+      if (data.roles.includes("care_questionnary")) {
+        this.props.history.push("/virtualHospital/carequestionnary-submit");
 
       }
       else {
