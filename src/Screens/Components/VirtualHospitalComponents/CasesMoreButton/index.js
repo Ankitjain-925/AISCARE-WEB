@@ -158,7 +158,7 @@ class Index extends React.Component {
     });
   };
 
-  RemoveDirectPatientOk = (status, inhospital) => {
+  RemoveDirectPatientOk = (status, inhospital, viewQuestionaire) => {
     this.setState({ loaderImage: true });
     var response = PatientMoveFromHouse(
       this.props.quote._id,
