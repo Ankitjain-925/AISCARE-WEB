@@ -37,18 +37,18 @@ class Index extends Component {
         this.props.history.push("/nurse/professional-task");
 
       }
-      if (data.roles.includes("approve_appointment")) {
+      if (data.roles.includes("appointment_manager")) {
         this.props.history.push("/nurse/appointment");
       }
-      if (data.roles.includes("get_professional_activity")) {
+      if (data.roles.includes("professional_activity")) {
         this.props.history.push("/nurse/professional-activity");
 
       }
-      if (data.roles.includes("get_earlier_activity")) {
+      if (data.roles.includes("earlier_activity")) {
         this.props.history.push("/nurse/earlier-task");
 
       }
-      if (data.roles.includes("get_questionaire")) {
+      if (data.roles.includes("care_questionnary")) {
         this.props.history.push("/nurse/care-questionary");
 
       }

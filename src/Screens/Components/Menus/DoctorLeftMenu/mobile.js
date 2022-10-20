@@ -329,7 +329,7 @@ class Index extends Component {
               </Grid>
               <Grid className="menuItems">
               <ul>
-              {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager'))) && (
+              {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager') && 
             <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
@@ -354,8 +354,8 @@ class Index extends Component {
                 )}
                 <span>{appointments}</span>
               </a>
-            </li>)}
-            {this.props?.House?.value && (
+            </li>}
+            {/* {this.props?.House?.value && (
               <>
                {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('task_manager') && <li
                   className={
@@ -416,7 +416,7 @@ class Index extends Component {
                   </a>
                 </li>
               </>
-            )}
+            )} */}
           {/* {!this.props?.House?.value && ( */}
               <>
                 <li
@@ -520,7 +520,7 @@ class Index extends Component {
                     <span>{emegancy_access}</span>
                   </a>
                 </li>
-                {/* <li
+                <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
                   }
@@ -548,7 +548,7 @@ class Index extends Component {
                     )}
                     <span>{VHS_view}</span>
                   </a>
-                </li> */}
+                </li> 
 
                 {/* <li
                   className={
@@ -579,7 +579,7 @@ class Index extends Component {
                     <span>{ProfessionalTask}</span>
                   </a>
                 </li> */}
-    {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_professsionalactivity'))) && (
+    {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('professional_activity') && 
                 <li
                   className={
                     this.props.currentPage === "activity" ? "menuActv" : ""
@@ -608,8 +608,8 @@ class Index extends Component {
                     )}
                     <span>{professional_activity}</span>
                   </a>
-                </li>)}
-                {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('get_earlier_activity'))) && (
+                </li>}
+                {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('earlier_activity') && 
                 <li
                   className={
                     this.props.currentPage === "Profearliertask" ? "menuActv" : ""
@@ -639,7 +639,8 @@ class Index extends Component {
                     <span>{EarlierActivity}</span>
                   </a>
                 </li>
-)}
+}
+{this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('care_questionnary') && 
                 <li
               className={
                 this.props.currentPage === "questionnary" ? "menuActv" : ""
@@ -663,7 +664,7 @@ class Index extends Component {
                   )}
                 <span>{Care_Questionnary}</span>
               </a>
-            </li>
+            </li>}
 
                 <li>
                   <a className="moreMenu">

@@ -288,7 +288,7 @@ class Index extends Component {
                           <span>{Tasks}</span>
                         </a>
                       </li>}
-                      {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('patient_flow') &&
+                      {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('assigned_services') &&
                       <li
                         className={
                           this.props.currentPage === "assignedservices"
@@ -350,7 +350,7 @@ class Index extends Component {
                           <span>{SpaceManagement}</span>
                         </a>
                       </li>}
-                      {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('patient_flow') &&
+                      {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('external_space_managemnet') &&
                       <li
                         className={
                           this.props.currentPage === 'externalspace' ? 'menuActv' : ''
@@ -380,6 +380,7 @@ class Index extends Component {
                           <span>{external_space_management}</span>
                         </a>
                       </li>}
+                      {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('care_questionnary') &&
                       <li
                   className={
                     this.props.currentPage === 'showquestion' ? 'menuActv' : ''
@@ -408,7 +409,7 @@ class Index extends Component {
                     )}
                     <span>{Care_Questionnary_Submit}</span>
                   </a>
-                </li>
+                </li>}
                     </>
                   )}
                   <li

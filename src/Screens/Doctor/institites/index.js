@@ -42,17 +42,17 @@ class Index extends Component {
       if (data.roles.includes("task_manager")) {
         this.props.history.push("/doctor/professional-task");
       }
-      if (data.roles.includes("get_professsionalactivity")) {
+      if (data.roles.includes("professional_activity")) {
         this.props.history.push("/doctor/professional-activity");
       }
-      if (data.roles.includes("get_earlier_activity")) {
+      if (data.roles.includes("earlier_activity")) {
         this.props.history.push("/doctor/earlier-task");
       }
-      if (data.roles.includes("get_questionaire")) {
+      if (data.roles.includes("care_questionnary")) {
         this.props.history.push("/doctor/care-questionary");
 
       }
-      if (data.roles.includes("approve_appointment")) {
+      if (data.roles.includes("appointment_manager")) {
         this.props.history.push("/doctor/appointment");
       }
       else {
