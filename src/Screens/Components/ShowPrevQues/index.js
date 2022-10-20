@@ -209,7 +209,7 @@ class Index extends Component {
                 ],
             },
         ]
-
+        const { House: { roles = [] } = {} } = this.props
         return (
             <Grid>
                 {/* Model setup */}
@@ -225,10 +225,10 @@ class Index extends Component {
                             : ''
                     }
                 > */}
-                    <Grid className="creatTaskModel3 creatTaskModel11">
-                        <Grid className="creatTaskCntnt">
+                    <Grid className=" creatTaskModel11">
+                        <Grid >
                             <Grid>
-                                <Grid container direction="row" justify="center" className="addSpeclLbl">
+                                {/* <Grid container direction="row" justify="center" className="addSpeclLbl">
                                     <Grid item xs={8} md={8} lg={8}>
                                         <label>{Details}</label>
                                     </Grid>
@@ -245,13 +245,15 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                                </Grid> */}
+                            
                                 <Grid
                                     container
                                     direction="row"
                                     className="setDetail-eval"
                                 >
                                     <Grid item xs={12} md={12} className="taskDescp">
+                                    {roles.includes("show_care_questionnary") &&
                                         <Grid className="stndQues stndQues1 allQuestionShow">
                                             {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
                                                 <Grid className=" selectOptionCmn">
@@ -1335,7 +1337,7 @@ class Index extends Component {
 
                                                 </Grid>
                                             )}
-                                        </Grid>
+                                        </Grid>}
                                     </Grid>
                                 </Grid>
                             </Grid>

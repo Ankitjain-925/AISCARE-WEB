@@ -42,3 +42,15 @@ export const getSetting = (current) => {
         );
       });
   };
+  // export const checkauthority = (current, pagetitle) => {
+  //   console.log('checkauthority')
+  //   var data =  current.props.houses?.length>0 && this.props.houses.map((item)=> 
+  //    {
+  //      if(item.roles.includes(pagetitle)){
+  //        return true
+  //      }
+  //      return false
+  //    } )
+  //    console.log("erorbr=tao",data)
+  //    return data.indexOf(true)>-1;
+  //  }

@@ -18,7 +18,7 @@ import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index"
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting } from "../api";
+import { getSetting,checkauthority } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +42,8 @@ class Index extends Component {
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
-    getSetting(this)
+    getSetting(this);
+    // checkauthority(this)
   }
 
   //For change Institutes
