@@ -86,7 +86,11 @@ class Index extends Component {
   };
   //For chat
   Chats = () => {
-    this.props.history.push("/nurse");
+    this.props.history.push("/nurse/chat");
+  };
+  //For Patient
+  Service = () => {
+    this.props.history.push("/nurse/patient");
   };
 
   //For Emergency
@@ -111,6 +115,7 @@ class Index extends Component {
     let {
       chat_vdocall,
       emegancy_access,
+      capab_Patients,
       my_profile,
       online_course,
       profile_setting,
@@ -303,6 +308,31 @@ class Index extends Component {
                 <span>{emegancy_access}</span>
               </a>
             </li>
+            <li
+                  className={
+                    this.props.currentPage === "patient" ? "menuActv" : ""
+                  }
+                >
+                  <a onClick={this.Service}>
+                    {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                      <img
+                        src={require("assets/images/nav-patients-active.svg")}
+                        alt=""
+                        title=""
+                      />
+                    ) : (
+                      <img
+                        src={require("assets/images/patientinfo.png")}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>{capab_Patients}</span>
+                  </a>
+                </li>
             <li
               className={this.props.currentPage === "course" ? "menuActv" : ""}
             >
