@@ -507,6 +507,9 @@ class Index extends Component {
       }
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .put(
             sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
@@ -524,6 +527,7 @@ class Index extends Component {
                 assignedTo: [],
                 q: "",
                 selectSpec: {},
+                isButtonDisabled: false
               });
               this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
@@ -551,7 +555,9 @@ class Index extends Component {
           due_on["time"] = new Date();
           data.due_on = due_on;
         }
-
+        this.setState({
+          isButtonDisabled: true
+        });
         axios
           .post(
             sitedata.data.path + "/vh/AddTask",
@@ -568,6 +574,7 @@ class Index extends Component {
               q: "",
               selectSpec: {},
               newComment: "",
+              isButtonDisabled: false
             });
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
@@ -4251,6 +4258,7 @@ class Index extends Component {
                                       this.state.newTask?.task_type
                                     )
                                   }
+                                  disabled={this.state.isButtonDisabled}
                                 >
                                   {save_task_and_close}
                                 </Button>
