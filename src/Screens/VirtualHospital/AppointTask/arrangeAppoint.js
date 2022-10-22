@@ -782,7 +782,6 @@ class Index extends Component {
   }
 
   render() {
-
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled, add_task, AddAppointment,
       select_spec, Taskstatus, clear_all_filters, applyFilters, capab_Doctors, select,
