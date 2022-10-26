@@ -253,7 +253,7 @@ class Index extends Component {
                                     className="setDetail-eval"
                                 >
                                     <Grid item xs={12} md={12} className="taskDescp">
-                                    {roles.includes("show_care_questionnary") &&
+                                 
                                         <Grid className="stndQues stndQues1 allQuestionShow">
                                             {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
                                                 <Grid className=" selectOptionCmn">
@@ -1337,7 +1337,7 @@ class Index extends Component {
 
                                                 </Grid>
                                             )}
-                                        </Grid>}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

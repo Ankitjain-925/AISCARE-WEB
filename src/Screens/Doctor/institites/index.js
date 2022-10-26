@@ -38,6 +38,7 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
+    console.log("data", data)
     if(data.roles){
       if (data.roles.includes("task_manager")) {
         this.props.history.push("/doctor/professional-task");

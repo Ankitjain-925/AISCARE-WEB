@@ -11,6 +11,9 @@ import { S3Image } from 'Screens/Components/GetS3Images/index';
 import { getDate, getTime } from 'Screens/Components/BasicMethod/index';
 import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
+import { authy } from "Screens/Login/authy.js";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { LoginReducerAim } from "Screens/Login/actions";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Td } from 'react-super-responsive-table';
 import moment from 'moment'
@@ -76,6 +79,8 @@ class PointPain extends Component {
     var data = this.state.data;
     let current_time = moment().format("HH:mm")
     // console.log("current",current_time)
+    const { House: { roles = [] } = {} } = this.props || {}
+    {console.log("roles",roles)}
     return (
       <Grid className="allTabCntnt">
         <Grid container direction="row" alignItems="center">
@@ -314,8 +319,8 @@ class PointPain extends Component {
                   </Grid>    
                   {(!this.props.removeAddbutton) && 
                   <Grid className="spcMgntRght7 presEditDot scndOptionIner">
-                    {!data?.is_decline && (
-                      <a className="openScndhrf">
+                    {!data?.is_decline &&( (roles.includes("edit_assignedservice"))|| (roles.includes("delete_assigned_services"))||(roles.includes("delete_taks")))&& (
+                       <a className="openScndhrf">
                         <img
                           src={require('assets/images/three_dots_t.png')}
                           alt=""
@@ -339,10 +344,13 @@ class PointPain extends Component {
                               </a>
                             </li>
                           }
+                           {console.log("roles",roles)}
+                          {roles.includes("edit_assignedservice")&&(
                           <li>
-                            <a
+                           <a
                               onClick={() => {
                                 this.props.editTask(data);
+                                console.log('1')
                               }}
                             >
                               <img
@@ -375,7 +383,8 @@ class PointPain extends Component {
                                 data.task_name ? <>{EditTask}</> : <>{edit_assigned_services}</>
                               )}
                             </a>
-                          </li>
+                          </li>)}
+                          {roles.includes("delete_taks") &&(
                           <li>
                             <a
                               onClick={() => {
@@ -412,7 +421,7 @@ class PointPain extends Component {
                                 data.task_name ? <>{DeleteTask}</> : <>{edit_assigned_services}</>
                               )}
                             </a>
-                          </li>
+                          </li>)}
                           {data &&
                             data.task_type &&
                             data.task_type === 'sick_leave' &&
@@ -580,13 +589,14 @@ class PointPain extends Component {
                           </>
                             )}
 
-                      {data.title && this.props.comesFrom !== 'Professional' &&
-                           <li
+                      {data.title && this.props.comesFrom !== 'Professional'&& roles.includes("delete_assigned_services")&& (
+                      <li
                            onClick={() => {
                              this.props.removeTask(
                                data._id);
                            }}
                          >
+                          
                            <a>
                              <img
                                src={require('assets/virtual_images/bin.svg')}
@@ -596,7 +606,7 @@ class PointPain extends Component {
                              <>{delete_assigned_services}</>
                            </a>
                          </li>
-                          }
+                          )}
                         </ul>
                       </a>
                     )}
@@ -639,15 +649,26 @@ class PointPain extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
   const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
   return {
     stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    House,
     settings,
+    verifyCode,
   };
 };
+
+
 export default pure(
   withRouter(
-    connect(mapStateToProps, { LanguageFetchReducer, Settings })(PointPain)
+    connect(mapStateToProps, { LanguageFetchReducer, Settings,LoginReducerAim,authy,
+      houseSelect,})(PointPain)
   )
 );
