@@ -15,7 +15,7 @@ import { authy } from "Screens/Login/authy.js";
 
 class index extends React.Component {
   constructor(props) {
-    super(props);
+    super(props);  
     this.state = {
       diagnosisdata: [],
       mediacationdata: [],

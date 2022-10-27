@@ -900,6 +900,11 @@ export const getPatientData1 = async (current) => {
     } else {
         current.setState({ loaderImage: false });
     }
+    if(current.state.selectHouse.roles.includes('care_questionnary')) {
+        current.setState({ authorityMsg: false });
+    } else {
+        current.setState({ authorityMsg: true });
+    }
 };
 
 export const updateEntryState1 = (current, e) => {
