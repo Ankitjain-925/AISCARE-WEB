@@ -103,7 +103,7 @@ import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js";
 import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
-import NursePA from "Screens/Nurse/ProfessionalActivity/index";
+// import NursePA from "Screens/Nurse/ProfessionalActivity/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import NurseET from "Screens/Nurse/Earlier_Activity/index";
 import NurseAppointment from "Screens/Nurse/Appointment/index.js";
@@ -622,11 +622,11 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NurseInstitute {...props} />}
             />
-            <Route
+            {/* <Route
               path="/nurse/professional-activity"
               exact={true}
               render={(props) => <NursePA {...props} />}
-            />
+            /> */}
               <Route
               path="/nurse/professional-task"
               exact={true}
@@ -639,7 +639,7 @@ class Routermain extends Component {
             />
 
             <Route
-              path="/approveHospital/:id"
+              path="/approveHospital/:id/:house_id"
               exact={true}
               render={(props) => <ApproveHospital {...props} />}
             />

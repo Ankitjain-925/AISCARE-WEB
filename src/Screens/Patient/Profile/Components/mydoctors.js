@@ -205,6 +205,31 @@ class Index extends Component {
                 </Grid>
                 {!this.props.comesFrom &&
                     <Grid className="doctrstCntnt">
+                        <Grid className="trstfmlyDoc">
+                            <h3>{"Trusted Nurses"}</h3>
+                            <p>{"These Doctors have access to your Journal. "}</p>
+                        </Grid>
+
+                        {this.state.myfavNurse && this.state.myfavNurse.length > 0 && this.state.myfavNurse.map((index, i) => (
+                            <Grid className="trstaddDocUpr">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={9}>
+                                        <Grid className="trstmkFmlyDoc 44">
+                                            <Grid container direction="row" alignItems="center">
+                                                <Grid item xs={12} md={5}>
+                                                    {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
+                                                        : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
+                                                <Grid item xs={12} md={7}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        {/* <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>{remove}</a></Grid> */}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        ))}
+
 
                         <Grid className="trstfmlyDoc">
                             <h3>{trusted_doc}</h3>
@@ -213,6 +238,7 @@ class Index extends Component {
                         {this.state.recAdd && <div className="success_message">{doc_added_succefully}</div>}
                         {this.state.already1 && <div className="err_message">{doc_already_exit_in_list}</div>}
                         {this.state.removes && <div className="success_message">{doc_removed_trusted_list}</div>}
+
                         {this.state.myfavDoctors && this.state.myfavDoctors.length > 0 && this.state.myfavDoctors.map((index, i) => (
                             <Grid className="trstaddDocUpr">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
@@ -227,15 +253,16 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>{remove}</a></Grid>
+                                       {index?.byhospital !==true && <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>{remove}</a></Grid>}
                                     </Grid>
                                 </Grid>
                             </Grid>
                         ))}
+                      
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item xs={12} md={9}></Grid>
                             <Grid item xs={12} md={3}>
-                                <Grid className="addTrstDoc"><a onClick={this.handleOpenTrust}>+ {add_trusted_doc}</a></Grid>
+                               <Grid className="addTrstDoc"><a onClick={this.handleOpenTrust}>+ {add_trusted_doc}</a></Grid>
                             </Grid>
                         </Grid>
 

@@ -480,6 +480,18 @@ class Index extends Component {
     });
   };
 
+  // checkByHospital = (fav_doctor) => {
+  //   console.log('fav_doctor', fav_doctor)
+  //   return true;
+  //   // if(fav_doctor?.length>0 && fav_doctor.indexOf(this.props.stateLoginValueAim?.user?.profile_id)>-1){
+  //   //   let indexing = fav_doctor.indexOf(this.props.stateLoginValueAim?.user?.profile_id);
+  //   //   console.log('fav_doctor[indexing]?.byhospital', fav_doctor[indexing])
+  //   //   return fav_doctor[indexing]?.byhospital ? true: false
+  //   // }
+  //   // else{
+  //   //   return false;
+  //   // }
+  // }
   handleOpenNewPatient = () => {
     this.setState({ openNew: true });
   };
@@ -927,7 +939,7 @@ class Index extends Component {
                                         />
                                         {personal_info}
                                       </li>
-                                      <li
+                                      {data?.byhospital !== true && <li
                                         onClick={(e) =>
                                           this.removePatient(data)
                                         }
@@ -938,7 +950,7 @@ class Index extends Component {
                                           title=""
                                         />
                                         {remove_patient}
-                                      </li>
+                                      </li>}
                                     </ul>
                                   </a>
                                 </Td>

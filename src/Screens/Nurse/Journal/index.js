@@ -9,6 +9,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import { OptionList } from "Screens/Login/metadataaction";
 import { LoginReducerAim } from "Screens/Login/actions";
 import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
@@ -17,7 +18,6 @@ import { Settings } from "Screens/Login/setting";
 import { Redirect } from "react-router-dom";
 import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
 import { LanguageFetchReducer } from "Screens/actions";
-import ShowPrevQues from 'Screens/Components/ShowPrevQues/index'
 import AddEntry from "Screens/Components/AddEntry/index";
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
@@ -82,8 +82,6 @@ class Index extends Component {
       updateOne: 0,
       updateTrack: {},
       cur_one: {},
-      QueryDetail: false,
-      ModalDataCare: {},
       cur_one2: {},
       personalinfo: {},
       personalised_card: [],
@@ -140,11 +138,8 @@ class Index extends Component {
   CloseGraph = () => {
     this.rightInfo();
     this.getTrack();
-    this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
+    this.setState({ isGraph: false });
   };
-  Opencare=(data)=>{
-    this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
-  }
 
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
@@ -938,6 +933,11 @@ class Index extends Component {
   MoveAppoint = () => {
     this.props.history.push("/patient/appointment");
   };
+
+  GotoJournal = (data)=>{
+    this.props.Doctorset(data?._id, data?.pin);
+    this.GetInfoForPatient();
+  }
   //For the GetTrack for the patient
   setTrack = () => {
     var user_id = this.state.gettrackdatas.patient_id;
@@ -1041,8 +1041,13 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
+      not_mentioned,
+      openjournal,
+      gender,
+      Register_Mobilenumber,
       long_covid,
       journal,
+      age,
       secnd_openion,
       sick_cert,
       prescription,
@@ -1058,6 +1063,7 @@ class Index extends Component {
       patient_access_data,
       add_new_entry,
       New,
+      Patient,
       entry,
       edit,
       get_patient_access_data,
@@ -1173,6 +1179,99 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
+                      {!this.props.Doctorsetget?.p_id && 
+                       <Grid className="docOpinion">
+                         <Grid className="docOpinionIner">
+                                   <Table>
+                                     <Thead>
+                                       <Tr>
+                                         <Th>{Patient}</Th>
+                                         <Th>{age}</Th>
+                                         <Th>{gender}</Th>
+                                         <Th>{Register_Mobilenumber}</Th>
+                                         <Th>{patient_id}</Th>
+                                       </Tr>
+                                     </Thead>
+                                     <Tbody>
+                                       {this.state.MypatientsData &&
+                                         this.state.MypatientsData.length > 0 &&
+                                         this.state.MypatientsData.map((data, index) => (
+                                           <Tr>
+                                             <Td className="docphrImg">
+                                               <img
+                                                 src={
+                                                   this.state.MypatientsData[index].new_image
+                                                     ? this.state.MypatientsData[index]
+                                                         .new_image
+                                                     : require("assets/images/dr1.jpg")
+                                                 }
+                                                 alt=""
+                                                 title=""
+                                               />
+                                               {data.first_name
+                                                 ? data.first_name + " " + data.last_name
+                                                 : not_mentioned}
+                                             </Td>
+                                             <Td>
+                                               {data.birthday
+                                                 ? this.getAge(data.birthday)
+                                                 : not_mentioned}
+                                             </Td>
+                                             <Td style={{ textTransform: "capitalize" }}>
+                                               {data.sex ? data.sex : not_mentioned}
+                                             </Td>
+                                             <Td>
+                                               {data.mobile ? data.mobile : not_mentioned}
+                                             </Td>
+                                             <Td>
+                                               {data.alies_id
+                                                 ? data.alies_id
+                                                 : not_mentioned}
+                                             </Td>
+                                             <Td className="presEditDot scndOptionIner openJourMenu">
+                                               <a>
+                                                 <img
+                                                   src={require("assets/images/three_dots_t.png")}
+                                                   alt=""
+                                                   title=""
+                                                   className="openScnd"
+                                                 />
+                                                 <ul>
+                                                   <li
+                                                     onClick={() => {
+                                                       this.GotoJournal(data);
+                                                     }}
+                                                   >
+                                                     <img
+                                                       src={require("assets/images/journal1.svg")}
+                                                       alt=""
+                                                       title=""
+                                                     />
+                                                     {openjournal}
+                                                   </li>
+                                                   {/* <li
+                                                     onClick={(e) =>
+                                                       this.handleshowPatient(data)
+                                                     }
+                                                   >
+                                                     <img
+                                                       src={require("assets/images/personal-info.svg")}
+                                                       alt=""
+                                                       title=""
+                                                     />
+                                                     {personal_info}
+                                                   </li> */}
+                                                 
+                                                 </ul>
+                                               </a>
+                                             </Td>
+                                           </Tr>
+                                         ))}
+                                     </Tbody>
+                                   </Table>
+                                   </Grid>
+                                   </Grid>
+                                }
 
                       {/* For the filter section */}
                       {this.props.Doctorsetget.p_id !== null && (
@@ -1194,7 +1293,6 @@ class Index extends Component {
                             <div>
                               {this.state.allTrack.map((item, index) => (
                                 <ViewTimeline
-                                Opencare={(data)=>this.Opencare(data)}  
                                   lrp={AllL_Ps.AllL_Ps.english}
                                   Allrelation={this.state.Allrelation}
                                   Allreminder={this.state.Allreminder}
@@ -2153,15 +2251,7 @@ this.state.updateTrack.track_id ? (
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-               {this.state.isGraph && (
-                this.state.QueryDetail ? 
-                <ShowPrevQues
-                closeFullQues={() => this.CloseGraph()}
-                item={this.state.ModalDataCare}
-                comesFrom="PatientEnd"
-              />
-                :
-
+              {this.state.isGraph && (
                 <GraphView
                   date_format={this.props.settings.setting.date_format}
                   time_format={this.props.settings.setting.time_format}

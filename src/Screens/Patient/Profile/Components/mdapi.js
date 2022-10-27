@@ -50,6 +50,7 @@ export const deleteClickDoctor = (doctor, current) => {
   export const getUserData = (current) => {
     current.setState({ loaderImage: true });
     var myfavDoctors = [];
+    var myfavNurse = [];
     var reccomend = [];
     let user_token = current.props.stateLoginValueAim.token
     let user_id = current.props.stateLoginValueAim.user._id
@@ -66,13 +67,21 @@ export const deleteClickDoctor = (doctor, current) => {
             if (response.data.data.fav_doctor) {
                 for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
                     if (response.data.data.fav_doctor[i].doctor) {
-                        var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
-                        if (datas && datas.length > 0) {
-                            if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
-                                reccomend.push(datas[0])
-                            }
-                            else {
-                                myfavDoctors.push(datas[0])
+                        if(response.data.data.fav_doctor[i]?.user_type === 'nurse'){
+                            // myfavNurse[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
+                            myfavNurse.push(response.data.data?.fav_doctor[i])
+                        }
+                        else{
+                            var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
+                            if (datas && datas.length > 0) {
+                                if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
+                                    reccomend.push(datas[0])
+                                }
+                                else {
+                                    datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
+                                    myfavDoctors.push(datas[0])
+                                }
+                              console.log('datas[0]', datas[0]?._id)  
                             }
                         }
                         current.setState({ loaderImage: false });
@@ -82,7 +91,7 @@ export const deleteClickDoctor = (doctor, current) => {
                 if (response.data.data.fav_doctor.length == 0) {
                     current.setState({ loaderImage: false });
                 }
-                current.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend })
+                current.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend, myfavNurse: myfavNurse })
             }
         }).catch((error) => {
             current.setState({ loaderImage: false });
