@@ -16291,3 +16291,6 @@ border-radius: 12px;
   height: 537px;
   overflow-y: scroll;
 }
+.getAllCalSec .rbc-calendar{
+  min-height: 1055px!important;
+}
