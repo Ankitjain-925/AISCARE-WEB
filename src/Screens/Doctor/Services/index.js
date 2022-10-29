@@ -868,6 +868,7 @@ class Index extends Component {
                             <Th>{gender}</Th>
                             <Th>{Register_Mobilenumber}</Th>
                             <Th>{patient_id}</Th>
+                            <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
@@ -905,6 +906,9 @@ class Index extends Component {
                                   {data.alies_id
                                     ? data.alies_id
                                     : not_mentioned}
+                                </Td>
+                                <Td>
+                                        {data?.byhospital == true && <>{"By Hospital"}</>}
                                 </Td>
                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                   <a>
