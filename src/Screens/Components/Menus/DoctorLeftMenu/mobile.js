@@ -18,7 +18,7 @@ import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting } from "../api";
+import { getSetting,checkauthority } from "../api";
 import Checkbox from "@material-ui/core/Checkbox";
 import Loader from "Screens/Components/Loader/index";
 import io from "socket.io-client";
@@ -57,6 +57,7 @@ class Index extends Component {
     getSetting(this);
     this.getavailableUpdate();
     this.availableUpdate();
+    // checkauthority(this);
   }
 
   //For change Institutes
