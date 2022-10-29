@@ -406,6 +406,8 @@ class Index extends Component {
                                     <a>
                                       <Button
                                         onClick={() => handleSubmit(this)}
+                                        disabled={this.state.isButtonDisabled}
+                                        
                                       >
                                         {save_and_close}
                                       </Button>
