@@ -1445,7 +1445,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + "/vh/AddTask/" + id,
+        sitedata.data.path + "/vh/AddTask/" + id+"/"+ this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -2128,10 +2128,10 @@ class Index extends Component {
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
-              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
-                </Button>}
+                </Button>} */}
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}
