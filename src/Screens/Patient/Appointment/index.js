@@ -300,20 +300,26 @@ class Index extends Component {
 
   // findAppointment
   findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+    let [start, end] = this.state.allSlotes[iA]?.slot.split("-");
     apointType = apointType.replace(/['"]+/g, "");
     this.setState({
       currentSelected: iA,
       findDoc: tab,
       selectedDoc: this.state.allDocData[doc_select],
+      // mypoint: {
+      //   start:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+      //   end:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+      //   type: apointType,
+      // },
       mypoint: {
-        start:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA],
-        end:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+        start: start,
+        end: end,
         type: apointType,
       },
     });
@@ -1701,7 +1707,8 @@ class Index extends Component {
                                         this.handleOpenFancyVdo(
                                           i,
                                           "practice_days",
-                                          doc.practice_days[0]
+                                          doc.practice_days[0],
+                                          doc.data
                                         )
                                       }
                                       className="addClnder"
