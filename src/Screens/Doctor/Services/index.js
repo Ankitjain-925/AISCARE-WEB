@@ -123,7 +123,7 @@ class Index extends Component {
   //Go to journal direct
   GotoJournal = (currentone) => {
     if (currentone && currentone._id) {
-      this.props.Doctorset(currentone._id, currentone.pin);
+      this.props.Doctorset(currentone._id, currentone.pin, currentone.byhospital);
       this.props.history.push("/doctor/journal");
     }
   };
