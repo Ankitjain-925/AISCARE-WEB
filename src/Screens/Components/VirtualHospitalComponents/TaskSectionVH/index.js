@@ -135,6 +135,7 @@ class Index extends Component {
       taskData: {},
       specchange: false,
       openAss: false,
+      selectedHouse: {}
     };
   }
 
@@ -172,7 +173,7 @@ class Index extends Component {
   };
 
   handleOpenAss = () => {
-    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list });
+    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list, selectedHouse: {} });
   };
 
   // onDropDown = (tabvalue2) => {
