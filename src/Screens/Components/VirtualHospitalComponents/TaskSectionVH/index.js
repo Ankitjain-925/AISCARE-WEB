@@ -2116,6 +2116,7 @@ class Index extends Component {
           <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
+
               {!this.props.removeAddbutton &&
                 this.props.comesFrom !== "Profearliertask" && (
                   <Button onClick={this.handleOpenTask}>{add_task}</Button>
@@ -2126,6 +2127,7 @@ class Index extends Component {
                   {Assign_service}
                 </Button>
               )}
+
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}
@@ -2145,6 +2147,7 @@ class Index extends Component {
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
             total_amount={this.state.total_amount}
+            currentList={this.state.currentList}
           />
           <Modal
             className={
@@ -2204,7 +2207,7 @@ class Index extends Component {
                           container
                           direction="row"
                           alignItems="center"
-                          // spacing={1}
+                        // spacing={1}
                         >
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (

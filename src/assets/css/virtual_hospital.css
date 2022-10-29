@@ -4499,16 +4499,19 @@ button.onlogyBtn {
   letter-spacing: 0;
   line-height: 12px;
 }
-.medcalFZCntnt {
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-  min-height: 196px;
-  padding: 12px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+  .medcalFZCntnt {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    min-height: 196px;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 8px;
+
 }
 .medcalFZCntnt a {
   display: block;
@@ -16289,6 +16292,11 @@ border-radius: 12px;
   overflow-y: scroll;
 }
 
+.getAllCalSec .rbc-calendar{
+  min-height: 1055px!important;
+  }
+
+
 
 .profileIdRghtSec{
   margin-bottom: 0px;
@@ -16332,5 +16340,4 @@ border-radius: 12px;
 .editCourse1 label {
   font-size: 14px !important;
   line-height: 20px !important;
-}
 }
