@@ -1445,7 +1445,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + "/vh/AddTask/" + id,
+        sitedata.data.path + "/vh/AddTask/" + id+"/"+ this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {

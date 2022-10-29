@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Grid';
 import { getLanguage } from 'translations/index';
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
+import { authy } from "Screens/Login/authy.js";
+import { OptionList } from "Screens/Login/metadataaction";
+import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +38,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { edit, Delete } = translate;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid className="">
         {this.state.label && (
@@ -61,6 +71,7 @@ class Index extends Component {
                   md={6}
                   className="spcMgntRght7 presEditDot scndOptionIner"
                 >
+               {(roles.includes('edit_speciality') || roles.includes('delete_speciality') )&&
                   <a className="openScndhrf">
                     <img
                       src={require('assets/images/three_dots_t.png')}
@@ -70,6 +81,7 @@ class Index extends Component {
                     />
                     <ul>
                       <li>
+                      {roles.includes('edit_speciality') &&
                         <a
                           onClick={() => {
                             this.props.onClick();
@@ -81,7 +93,8 @@ class Index extends Component {
                             title=""
                           />
                           {edit}
-                        </a>
+                        </a>}
+                       {roles.includes('delete_speciality') &&
                         <a
                           onClick={() => {
                             this.props.deleteClick();
@@ -93,10 +106,10 @@ class Index extends Component {
                             title=""
                           />
                           {Delete}
-                        </a>
+                        </a>}
                       </li>
                     </ul>
-                  </a>
+                  </a>}
                 </Grid>
               </Grid>
             ) : (
@@ -127,4 +140,36 @@ class Index extends Component {
     );
   }
 }
-export default Index;
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
+  const { speciality } = state.Speciality;
+  const { House } = state.houseSelect;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
+    verifyCode,
+    metadata,
+    House,
+    speciality,
+   
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    OptionList,
+    LanguageFetchReducer,
+    Settings,
+    authy,
+    houseSelect,
+    Speciality,
+ 
+  })(Index)
+);

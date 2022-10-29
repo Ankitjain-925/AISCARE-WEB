@@ -22,6 +22,8 @@ import {
 } from 'Screens/Components/CommonApi/index';
 import { DocView } from 'Screens/Components/DocView/index.js';
 import Pagination from 'Screens/Components/Pagination/index';
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { Speciality } from "Screens/Login/speciality.js";
 // const options = [
 //     { value: 'data1', label: 'Data1' },
 //     { value: 'data2', label: 'Data2' },
@@ -338,6 +340,7 @@ class Index extends Component {
       added_by,
       add_document,
     } = translate;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid>
         <Grid className="journalAdd">
@@ -347,10 +350,11 @@ class Index extends Component {
                 <Grid item xs={12} md={6} sm={6}>
                   <h1>{DocumentsFiles}</h1>
                 </Grid>
-                <Grid item xs={12} md={6} sm={6}>
+              <Grid item xs={12} md={6} sm={6}>
+              {roles.includes("add_document_files") &&
                   <Grid className="AddEntrynw">
                     <a onClick={this.handleOpenNewEn}>+ {add_document}</a>
-                  </Grid>
+                  </Grid>}
                 </Grid>
               </Grid>
             </Grid>
@@ -533,6 +537,8 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { metadata } = state.OptionList;
+  const { speciality } = state.Speciality;
+  const { House } = state.houseSelect;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -540,6 +546,8 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     metadata,
+    House,
+    speciality,
   };
 };
 export default withRouter(
@@ -549,5 +557,7 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    houseSelect,
+    Speciality,
   })(Index)
 );
