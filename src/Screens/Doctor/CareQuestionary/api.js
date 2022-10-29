@@ -197,7 +197,7 @@ export const checkValidation = (current, value, item) => {
             return false;
         } else if (!Valid) {
             current.setState({
-                errorChrMsg: diastolic_in_number,
+                 errorChrMsg: diastolic_in_number,
             });
             MoveTop(0);
             return false;

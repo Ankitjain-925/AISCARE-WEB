@@ -11,7 +11,7 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { getLanguage } from "translations/index"
-import { getSetting } from "../api";
+import { getSetting,checkauthority } from "../api";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 class Index extends Component {
   constructor(props) {
@@ -39,6 +39,7 @@ class Index extends Component {
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
+    // checkauthority(this)
   }
 
 

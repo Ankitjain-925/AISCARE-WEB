@@ -245,10 +245,11 @@ class Index extends Component {
                                     <Grid item xs={12} md={9}>
                                         <Grid className="trstmkFmlyDoc 44">
                                             <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} md={5}>
+                                                <Grid item xs={12} md={4}>
                                                     {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                         : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
-                                                <Grid item xs={12} md={7}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                                <Grid item xs={12} md={5}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                                <Grid item xs={12} md={3}><p>{index?.byhospital == true && <>{"By Hospital"}</>}</p></Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>

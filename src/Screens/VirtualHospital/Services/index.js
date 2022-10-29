@@ -452,7 +452,7 @@ class Index extends Component {
                               />
                               <p className="euroamount">€</p>
                             </Grid>
-
+                            {roles.includes('change_sc_amount')&&
                             <Grid>
                               <img
                                 className="pionter"
@@ -465,7 +465,7 @@ class Index extends Component {
                                   });
                                 }}
                               />
-                            </Grid>
+                            </Grid>}
 
                             {/* </a> */}
                           </Grid>
