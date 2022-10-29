@@ -525,7 +525,7 @@ class Index extends Component {
             </Modal>
             {/* End of QR Model setup */}
             <Grid item xs={12} md={4}>
-              <Grid className="profileIdRght">
+              <Grid className="profileIdRght profileIdRghtSec">
                 <a onClick={this.handlePinOpen}>
                   {Change} {ID} / {pin}
                 </a>
@@ -1095,7 +1095,7 @@ class Index extends Component {
           <Grid>
             <h3>{insurance}</h3>
           </Grid>
-          <Grid className="profileIdRght">
+          <Grid className="profileIdRght profileIdRghtPart">
             <a onClick={this.handleAddInsurance}>{Addcompany}</a>
           </Grid>
           {/* Add more insurance model Open */}
@@ -1111,14 +1111,14 @@ class Index extends Component {
             }
           >
             <Grid className="editBoxCntnt">
-              <Grid className="editCourse">
+              <Grid className="editCourse editCourse1">
               <Grid container direction="row" justify="center">
                 <Grid item xs={12} md={12} lg={12}>
                   <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
+                    <Grid item xs={11} md={11} lg={11}>
                       <label>{add_more} {insurance}</label>
                     </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
+                    <Grid item xs={1} md={1} lg={1}>
                       <Grid>
                         <Grid className="entryCloseBtn">
                         <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
@@ -1134,20 +1134,6 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-                <Grid className="editCloseBtn">
-                  <a onClick={() => this.handlePinClose('addInsuranceOpen')}>
-                    <img
-                      src={require('assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </Grid>
-                <Grid>
-                  <label>
-                    {add_more} {insurance}
-                  </label>
-                </Grid>
               </Grid>
               <Grid className="editPinform">
                 <Grid className="editField">
