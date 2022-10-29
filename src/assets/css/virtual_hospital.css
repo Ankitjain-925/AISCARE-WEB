@@ -4499,16 +4499,19 @@ button.onlogyBtn {
   letter-spacing: 0;
   line-height: 12px;
 }
-.medcalFZCntnt {
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-  min-height: 196px;
-  padding: 12px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+  .medcalFZCntnt {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    min-height: 196px;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 8px;
+
 }
 .medcalFZCntnt a {
   display: block;
@@ -12361,7 +12364,7 @@ ul.patientHint li {
 }
 .darkTheme .insrnceTbl table th {
   color: #00abaf;
-  font-size: 15px;
+  /* font-size: 15px; */
 }
 .darkTheme .insrnceTbl table td {
   color: #bfc1c1;
@@ -16287,4 +16290,54 @@ border-radius: 12px;
 .scrollvalue {
   height: 537px;
   overflow-y: scroll;
+}
+
+.getAllCalSec .rbc-calendar{
+  min-height: 1055px!important;
+  }
+
+
+
+.profileIdRghtSec{
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media screen and (max-width:959px) {
+  .profileIdRghtSec{
+    padding-top: 10px;
+    padding-bottom: 8px;
+  }
+}
+.profileIdRghtPart a {
+  color: #00ABAF !important;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 12px;
+  cursor: pointer;
+}
+.profileIdRghtPart {
+  text-align: right;
+  margin-bottom: 14px;
+}
+.darkTheme .profileIdRghtPart a {
+  color: #00ABAF;
+}
+@media(max-width: 959px){
+  .profileIdRghtPart {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+.editCourse1 label{
+  font-size: 16px;
+  line-height: 25px;
+}
+@media (max-width: 959px){
+.editCourse1 label {
+  font-size: 14px !important;
+  line-height: 20px !important;
 }
