@@ -31,34 +31,7 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-
-    if (data.roles) {
-      if (data.roles.includes("task_manager")) {
-        this.props.history.push("/nurse/professional-task");
-
-      }
-      if (data.roles.includes("appointment_manager")) {
-        this.props.history.push("/nurse/appointment");
-      }
-      if (data.roles.includes("professional_activity")) {
-        this.props.history.push("/nurse/professional-activity");
-
-      }
-      if (data.roles.includes("earlier_activity")) {
-        this.props.history.push("/nurse/earlier-task");
-
-      }
-      if (data.roles.includes("care_questionnary")) {
-        this.props.history.push("/nurse/care-questionary");
-
-      }
-      else {
-        this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
-      }
-    } else {
-      this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
-    }
-
+    this.props.history.push("/nurse/professional-task");
   };
 
  
@@ -100,13 +73,13 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="institute" />
-                <LeftMenuMobile isNotShow={true} currentPage="institute" />
+                <LeftMenu isNotShow={true} currentPage="emergency" />
+                <LeftMenuMobile isNotShow={true} currentPage="emergency" />
                 <Notification />
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={11}>
-                <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
+                <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)}/>
                   {/* End of Model setup */}
                 </Grid>
               </Grid>

@@ -147,11 +147,74 @@ class Index extends Component {
         if (key == days) {
           appointDate = value;
           this.setState({ appointDate: appointDate });
+
+          let DoctorSlot = [];
+          appointDate.map((item, i) => {
+            if (i < appointDate?.length - 1) {
+              DoctorSlot.push(appointDate[i] + "-" + appointDate[i + 1])
+            }
+          })
+
+          var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
+          var id = this.state.appointmentDatas?.data?._id;
+          axios
+            .post(
+              sitedata.data.path + '/vchat/getSlotTime',
+              {
+                date: localDateTime,
+                doctor_id: id
+              },
+              commonHeader(this.props.stateLoginValueAim?.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                let bookedSlot = [];
+                responce && responce.data && responce.data.data && responce.data.data.map((item) => {
+                  bookedSlot.push(item?.starttime + "-" + item?.endtime)
+                })
+                this.calBookedSlot(DoctorSlot, bookedSlot);
+                this.setState({ loaderImage: false })
+              }
+              this.setState({ loaderImage: false })
+            })
+            .catch(function (error) {
+              this.setState({ loaderImage: false })
+            });
         }
       });
     }
     this.setState({ apointDay: days, selectedDate: date1 });
   };
+
+
+  // Find booked slots 
+  calBookedSlot = (ts, booked) => {
+    var slot;
+    var isBooked;
+    let isAlreadyExist;
+    var allSlotes = [];
+    var curTime = moment().add(30, 'minutes').format("HH:mm");
+    var curDate = moment();
+    ts.map(item => {
+      const [start, end] = item.split('-')
+      if (moment(this.state.date).isSame(curDate, 'date', 'month', 'year')) {
+        isAlreadyExist = !(curTime <= start) ? true : false;
+      } else {
+        isAlreadyExist = false;
+      }
+      // isAlreadyExist = !(curTime <= start)
+      isBooked = !booked
+        .map(item => item.split('-'))
+        .every(([bookedStart, bookedEnd]) =>
+          (bookedStart >= end || bookedEnd <= start)
+        )
+      slot = `${start}-${end}`
+      if (!isBooked && !isAlreadyExist) {
+        allSlotes.push({ slot: slot, isBooked: isBooked, isAlreadyExist: isAlreadyExist })
+      }
+    })
+    this.setState({ allSlotes: allSlotes })
+  }
 
   // getUserData() {
   //     this.setState({ loaderImage: true });
@@ -1330,7 +1393,7 @@ class Index extends Component {
                                                                 } */}
                                   {this.state.appointDate &&
                                     this.state.appointDate.length > 0 ? (
-                                    this.state.appointDate.map((data, iA) => {
+                                    this.state.allSlotes && this.state.allSlotes.map((data, iA) => {
                                       if (
                                         this.Isintime(
                                           this.state.appointDate[iA],
@@ -1357,9 +1420,7 @@ class Index extends Component {
                                                 this.findAppointment(iA);
                                               }}
                                             >
-                                              {this.state.appointDate[iA] +
-                                                " - " +
-                                                this.state.appointDate[iA + 1]}
+                                              {data?.slot}
                                             </a>
                                           ) : (
                                             this.state.appointDate[iA + 1] &&
@@ -1377,11 +1438,7 @@ class Index extends Component {
                                                   this.findAppointment(iA);
                                                 }}
                                               >
-                                                {this.state.appointDate[iA] +
-                                                  " - " +
-                                                  this.state.appointDate[
-                                                  iA + 1
-                                                  ]}
+                                                {data?.slot}
                                               </a>
                                             )
                                           )}

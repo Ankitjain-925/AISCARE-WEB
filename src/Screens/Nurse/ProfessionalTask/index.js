@@ -21,6 +21,8 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
+import moment from 'moment'
+import _ from "lodash";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -56,7 +58,7 @@ class Index extends Component {
       AllTasks: {},
       shown: false,
       professionalArray: [],
-      ArchivedTasks: [],
+      ArchivedTask: [],
       loaderImage: false,
       hope: false,
       openDate: true,
@@ -67,14 +69,13 @@ class Index extends Component {
       doneToday: 0,
       comments: [],
       newComment: {},
-      no_right: false,
     };
   }
 
   componentDidMount() {
     this.getAddTaskData();
   }
-  
+
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
   };
@@ -85,60 +86,140 @@ class Index extends Component {
       shown: !this.state.shown,
     });
   };
+
   //get Add task data
-  getAddTaskData = (tabvalue2, goArchive) => {
+  getAddTaskData = async (tabvalue2, goArchive) => {
     this.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path +
-          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}/${this.props?.House?.value}`,
+        "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
-      .then((response) => {
+      .then( async (response) => {
+        this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
-          this.setState({ AllTasks: response.data.data });
-          if(response?.data?.data){
-            var patientForFilterArr = filterPatient(response.data.data);
-            this.setState({patientForFilter: patientForFilterArr});
-        }
-          var Done =
-            response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === "done");
-          var Open =
-            response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === "open");
+          var services = await this.getAddTaskData1();
+          services = [... services.data.data, ...response.data.data]
+          if (response?.data?.data) {
+            var patientForFilterArr = filterPatient(services);
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
+        
+          services = _.sortBy((
+            _.sortBy(
+            services, 
+            (e) => {
+              if(e.appointment_type){
+                return e.date
+              }
+              else{
+                return e.due_on.date
+              }
+            })),
+            (e) => {
+            if(e.appointment_type){
+              return e.start_time
+            }
+            else{
+              return e.due_on.time
+            }
+          });
+      var Done =
+        services?.length > 0 && 
+        services.filter((item) => { 
+          if(item.task_name){
+            return item.status === "done"
+          }
+          else 
+          {
+            return item.status ==="done"
+          }
+        });
+      
+      var Open =
+        services?.length > 0 &&  
+        services.filter(
+          (item) => item.status !== "done" || (item.appointment_type && item.status !== "done") && item?.archived === false
+        );
+          var ArchivedTask  = services?.length > 0 &&
+          services.filter((item) => item.archived);
           this.setState({
-            AllTasks: response.data.data,
+            AllTasks: services,
             DoneTask: Done,
             OpenTask: Open,
+            ArchivedTask: ArchivedTask
           });
           if (goArchive) {
             this.setState({ tabvalue2: 3 });
           }
-          else{
-            this.setState({ tabvalue2: tabvalue2 ? tabvalue2: 0 });
+          else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
           }
-      }
-      else{
-        if(response.data?.data === 'no_right'){
-          this.setState({no_right: true, loaderImage: false})
-          setTimeout(() => {
-            this.setState({no_right: false})
-          }, 5000)
+          this.setState({ loaderImage: false });
         }
-      }
         this.setState({ loaderImage: false });
       });
   };
 
-  UpdateNoright =(status)=>{
-    this.setState({ no_right : status })
+  //get Add task data
+  getAddTaskData1 = async (uid, data) => {
+    var nurse_id = this.props.stateLoginValueAim?.user?._id
+    let response = await axios
+    .post(
+      sitedata.data.path + "/vc/nurseafter",
+      { nurse_id: nurse_id },
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    if (response.data.hassuccessed) {
+        return response
+    } else {
+        return false
+    }
   }
+  // getAddTaskData1 = (tabvalue2, goArchive) => {
+  //   var nurse_id = this.props.stateLoginValueAim?.user?._id
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .post(
+  //       sitedata.data.path + "/vc/nurseafter",
+  //       { nurse_id: nurse_id },
+  //       commonHeader(this.props.stateLoginValueAim.token)
+  //     )
+  //     .then((response) => {
+  //       console.log('response.data', response.data)
+  //       // this.setState({ AllTasks: response.data.data });
+  //       // if (response.data.hassuccessed) {
+  //       //   if (response?.data?.data) {
+  //       //     var patientForFilterArr = filterPatient(response.data.data);
+  //       //     this.setState({ patientForFilter: patientForFilterArr });
+  //       //   }
+  //       //   var Done =
+  //       //     response.data.data?.length > 0 &&
+  //       //     response.data.data.filter((item) => item.status === "done");
+  //       //   var Open =
+  //       //     response.data.data?.length > 0 &&
+  //       //     response.data.data.filter((item) => item.status === "open");
+  //       //   this.setState({
+  //       //     AllTasks: response.data.data,
+  //       //     DoneTask: Done,
+  //       //     OpenTask: Open,
+  //       //   });
+  //       //   if (goArchive) {
+  //       //     this.setState({ tabvalue2: 3 });
+  //       //   }
+  //       //   else {
+  //       //     this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+  //       //   }
+  //       // }
+  //       this.setState({ loaderImage: false });
+  //     }).catch((err) => { console.log("err", err) })
+  // };
 
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {} = translate;
+    let {Professional_activities } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -163,9 +244,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -176,26 +257,37 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="task" />
-                <LeftMenuMobile isNotShow={true} currentPage="task" />
+                <LeftMenu isNotShow={true} currentPage="profActivity" />
+                <LeftMenuMobile isNotShow={true} currentPage="profActivity" />
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
+                <Grid className="topLeftSpc">
+                        <Grid container direction="row">
+                          <Grid item xs={11} md={11}>
+                            <Grid container direction="row">
+                              <Grid item xs={12} md={6} className="spcMgntH1">
+                                <h1>{Professional_activities}</h1>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                   <Grid container direction="row">
+                    
                     <Grid item xs={12} md={12}>
+                      
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={(tabvalue2 ,goArchive) => {
+                        getAddTaskData={(tabvalue2, goArchive) => {
                           this.getAddTaskData(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}
                         OpenTask={this.state.OpenTask}
-                        ArchivedTasks={[]}
+                        ArchivedTasks={this.state.ArchivedTask}
                         comesFrom={"Professional"}
-                        no_right={this.state.no_right}
-                        UpdateNoright={(status)=> this.UpdateNoright(status)}
                       />
                       {/* End of Model setup */}
                     </Grid>

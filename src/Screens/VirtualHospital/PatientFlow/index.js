@@ -680,6 +680,7 @@ class Index extends Component {
                       ' ' +
                       responce.data.data?.last_name
                       : responce.data.data?.first_name;
+                      senddata.house_id = this.props.House?.value;
                     axios
                       .post(
                         sitedata.data.path + '/vh/linkforAccepthospital',
