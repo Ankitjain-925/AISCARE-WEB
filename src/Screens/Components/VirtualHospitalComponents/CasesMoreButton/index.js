@@ -159,28 +159,45 @@ class Index extends React.Component {
   };
 
   RemoveDirectPatientOk = (status, inhospital, viewQuestionaire) => {
-    this.setState({ loaderImage: true });
-    var response = PatientMoveFromHouse(
-      this.props.quote._id,
-      this.props.stateLoginValueAim.token,
-      status,
-      inhospital,
-      viewQuestionaire
-    );
-    response.then((responce1) => {
-      if (responce1.data.hassuccessed) {
-        this.setState({ loaderImage: false });
-        var steps = getSteps(
-          this.props?.House?.value,
-          this.props.stateLoginValueAim.token
-        );
-        steps.then((data) => {
-          var stepData = data ? data : [];
-          this.props.setDta(stepData);
-        });
-      }
-      this.setState({ loaderImage: false });
-    });
+    // this.setState({ loaderImage: true });
+    // var response = PatientMoveFromHouse(
+    //   this.props.quote._id,
+    //   this.props.stateLoginValueAim.token,
+    //   status,
+    //   inhospital,
+    //   viewQuestionaire
+    // );
+    // response.then((responce1) => {
+    //   if (responce1.data.hassuccessed) {
+      console.log('this.state.professional_id_list', this.state.professional_id_list)
+        let users_id = this.state.professional_id_list.map((item)=>{
+          return item?.user_id;
+        })
+        let profile_ids = this.state.professional_id_list.map((item)=>{
+          return item?.profile_id;
+        })
+        console.log('here need to call api', users_id) ;
+    //     axios.post(sitedata.data.path + "/cases/removemypatientdischarge", {
+    //       User_id: users_id,
+    //       profile_id: '',
+    //       profile_idf: []
+
+    //     } , commonHeader(this.props.stateLoginValueAim.token)).then((data)=>{
+    //       console.log('data23', data)
+    //     })
+    //     axios.
+    //     this.setState({ loaderImage: false });
+    //     var steps = getSteps(
+    //       this.props?.House?.value,
+    //       this.props.stateLoginValueAim.token
+    //     );
+    //     steps.then((data) => {
+    //       var stepData = data ? data : [];
+    //       this.props.setDta(stepData);
+    //     });
+    //   }
+    //   this.setState({ loaderImage: false });
+    // });
   };
 
   setSpeciality = (data) => {
