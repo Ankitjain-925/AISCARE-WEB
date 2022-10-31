@@ -16343,3 +16343,9 @@ border-radius: 12px;
 .passInstSec{
   top: -25px;
 }
+.enterSpclSec input{
+  min-height: 38px;
+}
+.serviceallSec1 input{
+  margin-bottom: 0px;
+}
