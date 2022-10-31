@@ -69,7 +69,6 @@ class Index extends Component {
         this.getPatientData();
         this.getProfessionalData();
         this.specailityList();
-
     }
 
     createDuplicate = (data) => {
@@ -129,11 +128,11 @@ class Index extends Component {
             assignedTo: [], newspeciality: '', errorMsg: '', error: '',
             items: [], total_amount: 0, showError: '',
 
-        }, ()=>{
-            if(this.props.comesFrom === 'detailTask'){
+        }, () => {
+            if (this.props.comesFrom === 'detailTask') {
                 let user = { value: this.props.patient?.patient_id };
                 this.updateEntryState2(user);
-              }
+            }
         });
         this.props.handleCloseAss();
 
@@ -247,7 +246,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         var data = await getProfessionalData(
             this.props.comesFrom === "Professional"
-                ? this.state.service?.house_id
+                ? this.state.service?.house_id || this.state.selectedHouse?.value
                 : this.props?.House?.value,
             this.props.stateLoginValueAim.token
         );
@@ -275,7 +274,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(
             this.props.stateLoginValueAim.token,
-            this.props?.House?.value,
+            this.props?.House?.value || this.state.selectedHouse?.value,
             "taskpage"
         );
         if (response?.isdata) {
@@ -396,7 +395,7 @@ class Index extends Component {
                     });
             }
             else {
-                data.house_id = this.props?.House?.value;
+                data.house_id = this.props?.House?.value || this.state.selectedHouse?.value;
                 axios
                     .post(
                         sitedata.data.path + "/assignservice/Addassignservice",
@@ -451,6 +450,13 @@ class Index extends Component {
         const state = this.state.service;
         state[name] = e.target.value;
         this.setState({ service: state });
+    };
+
+    updateEntryState7 = (e) => {
+        this.setState({ selectedHouse: e }, () => {
+            this.getProfessionalData();
+            this.getPatientData();
+        });
     };
 
     updateEntryState5 = (e, name) => {
@@ -604,6 +610,7 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Searchserviceoraddcustominput,
             Addservice,
+            For_Hospital,
             Customservicedescription,
             Customservicetitle,
             ForPatient,
@@ -687,6 +694,25 @@ class Index extends Component {
                             </Grid>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
+                                    <Grid item xs={12} md={12}>
+                                        {this.props.comesFrom === "Professional" && (
+                                            <>{!this.state.service._id &&
+                                                <Grid>
+                                                    <label>{For_Hospital}</label>
+                                                    <Select
+                                                        name="for_hospital"
+                                                        options={this.props.currentList}
+                                                        placeholder={Search_Select}
+                                                        onChange={(e) => this.updateEntryState7(e)}
+                                                        value={this.state.selectedHouse || ""}
+                                                        className="addStafSelect"
+                                                        isMulti={false}
+                                                        isSearchable={true}
+                                                    />
+                                                </Grid>
+                                            }</>
+                                        )}
+                                    </Grid>
                                     <Grid>
                                         <VHfield
                                             label={Assignedtitle}
@@ -811,7 +837,7 @@ class Index extends Component {
 
                                     </Grid>
                                     <Grid item xs={12} md={12}>
-                                    <label className="required">{ForPatient}</label>
+                                        <label>{ForPatient}</label>
 
                                         {this.props.comesFrom === "Professional" &&
                                             this.state.service?.patient?._id ? (
