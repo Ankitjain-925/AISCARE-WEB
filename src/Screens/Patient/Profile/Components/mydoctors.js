@@ -254,7 +254,7 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                       {index?.byhospital !==true && <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>{remove}</a></Grid>}
+                                       {!index?.byhospital && <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>{remove}</a></Grid>}
                                     </Grid>
                                 </Grid>
                             </Grid>

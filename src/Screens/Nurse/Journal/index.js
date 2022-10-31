@@ -1322,7 +1322,7 @@ getMypatientsData() {
                                           : not_mentioned}
                                       </Td>
                                       <Td>
-                                        {data?.byhospital == true && <>{"By Hospital"}</>}
+                                        {data?.byhospital && <>{"By Hospital"}</>}
                                       </Td>
                                       <Td className="presEditDot scndOptionIner openJourMenu">
                                         <a>
