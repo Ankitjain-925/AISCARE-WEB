@@ -186,7 +186,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -215,22 +215,51 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_covid_diary") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          : (this.props.comesfrom !== "patient" && (
+
+                            <li>
+                              <a
+                                onClick={() =>
+                                  this.props.EidtOption(item.type, item)
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/edit-1.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {edit}
+                              </a>
+                            </li>
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -317,7 +346,7 @@ class Index extends Component {
                     className="addSpc conPain_Cntnt"
                   >
                     <Grid item xs={12} md={5}>
-                    <CreatedBySec data={item} />
+                      <CreatedBySec data={item} />
                       {/* <Grid className="conPain_Img">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
@@ -472,34 +501,34 @@ class Index extends Component {
                     <Grid className="fatiqueQues maxWidthSet covid-fat">
                       <h2>{Fatique_questions}</h2>
                       <FatiqueQuestion
-                          notchangeble={true}
-                          label={Delirium}
-                          value={item?.delirium}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Oxygen_therapy}
-                          value={item?.oxygen_therapy}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={ECMOtherapy}
-                          value={item?.ecmo_therapy}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Sepsis}
-                          value={item?.sepsis}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Multiorgan_failure}
-                          value={item?.multiorgan_failure}
-                        />
+                        notchangeble={true}
+                        label={Delirium}
+                        value={item?.delirium}
+                      />
+                      <FatiqueQuestion
+                        notchangeble={true}
+                        label={Oxygen_therapy}
+                        value={item?.oxygen_therapy}
+                      />
+                      <FatiqueQuestion
+                        notchangeble={true}
+                        label={ECMOtherapy}
+                        value={item?.ecmo_therapy}
+                      />
+                      <FatiqueQuestion
+                        notchangeble={true}
+                        label={Sepsis}
+                        value={item?.sepsis}
+                      />
+                      <FatiqueQuestion
+                        notchangeble={true}
+                        label={Multiorgan_failure}
+                        value={item?.multiorgan_failure}
+                      />
                     </Grid>
 
                   </Grid>
-                  
+
                   <Grid className="addSpc detailMark">
                     <Collapsible trigger={notes} open="true">
                       <Grid className="detailCntnt">
