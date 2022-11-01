@@ -841,6 +841,18 @@ getMypatientsData() {
     }
   };
 
+  //Get Age
+  getAge=(agedate)=>{
+    var today = new Date();
+    var birthDate = new Date(agedate);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+  
   //Get All information Related to Metadata
   getMetadata() {
     this.setState({ allMetadata: this.props.metadata },
@@ -955,6 +967,7 @@ getMypatientsData() {
       if (Alltime_taken && Alltime_taken.length > 0) {
         Alltime_taken.sort(mySorter);
       }
+
 
       this.setState({
         Alltemprature: Alltemprature,

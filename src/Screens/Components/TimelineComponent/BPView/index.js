@@ -211,15 +211,15 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {console.log("1234567", this.props.Doctorsetget.byhospital)}
+                        {console.log("1234567", this.props.Doctorsetget?.byhospital)}
                         {console.log("1234567", this.props.stateLoginValueAim.user.houses)}
                         
 
-                        {this.props.Doctorsetget.byhospital ? (
+                        {this.props.Doctorsetget?.byhospital ? (
                           
                           this.props.stateLoginValueAim.user.houses.map((newmember) => (
 
-                            this.props.Doctorsetget.byhospital == newmember.value ? (
+                            this.props.Doctorsetget?.byhospital == newmember.value ? (
                               newmember.roles.includes("edit_blood_pressure") ? (
                                 this.props.comesfrom !== "patient" && (
 

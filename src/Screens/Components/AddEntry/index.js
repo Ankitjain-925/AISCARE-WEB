@@ -126,10 +126,10 @@ class PointPain extends Component {
             <Grid className="checkHelth 1111 checkHelth2">
 
               <Grid container direction="row">
-                {this.props.Doctorsetget.byhospital ? (
+                {this.props.Doctorsetget?.byhospital ? (
                   this.props.stateLoginValueAim.user.houses.map((newmember) => (
 
-                    this.props.Doctorsetget.byhospital == newmember.value ? (
+                    this.props.Doctorsetget?.byhospital == newmember.value ? (
 
                       <>
                         <Grid item xs={12} sm={6} md={6}>
