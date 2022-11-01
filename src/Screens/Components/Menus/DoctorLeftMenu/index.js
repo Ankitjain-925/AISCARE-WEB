@@ -40,7 +40,7 @@ class Index extends Component {
       loaderImage: false,
       openInvt: false,
       openPharma: false,
-      CheckCurrent: false,
+      CheckCurrent:{ current_available: false },
       UpDataDetails: [],
       invitation: {},
       mode: "normal",
@@ -184,6 +184,7 @@ class Index extends Component {
   availableUpdate = () => {
     this.setState({ loaderImage: true });
     var data = this.state.CheckCurrent;
+    console.log("first",data)
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(

@@ -114,6 +114,7 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
+import NurseService from "../../Screens/Nurse/Services/index"
 
 class Routermain extends Component {
   render() {
@@ -271,6 +272,16 @@ class Routermain extends Component {
             <Route
               exact
               path="/nurse"
+              render={(props) => <NurseService {...props} />}
+            />
+            <Route
+              exact
+              path="/nurse/patient"
+              render={(props) => <NurseService {...props} />}
+            />
+            <Route
+              exact
+              path="/nurse/chat"
               render={(props) => <NurseChats {...props} />}
             />
             <Route

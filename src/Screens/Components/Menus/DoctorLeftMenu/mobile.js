@@ -39,7 +39,7 @@ class Index extends Component {
       contact_partner: {},
       loaderImage: false,
       mode: "normal",
-      CheckCurrent: false,
+      CheckCurrent: { current_available: false },
       update: false,
     };
     new Timer(this.logOutClick.bind(this));
@@ -200,6 +200,7 @@ class Index extends Component {
   availableUpdate = () => {
     this.setState({ loaderImage: true });
     var data = this.state.CheckCurrent;
+    console.log("first123",data)
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
