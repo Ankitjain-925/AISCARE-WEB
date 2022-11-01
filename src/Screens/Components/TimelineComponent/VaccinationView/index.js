@@ -180,7 +180,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -209,22 +209,51 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_vaccination") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          : (this.props.comesfrom !== "patient" && (
+
+                            <li>
+                              <a
+                                onClick={() =>
+                                  this.props.EidtOption(item.type, item)
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/edit-1.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {edit}
+                              </a>
+                            </li>
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -305,7 +334,7 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                    <CreatedBySec data={item} />
+                      <CreatedBySec data={item} />
                       {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
@@ -400,10 +429,10 @@ class Index extends Component {
                                     )}{" "}
                                   {item.time_measured &&
                                     ", " +
-                                      getTime(
-                                        new Date(item.time_measured),
-                                        this.state.time_foramt
-                                      )}
+                                    getTime(
+                                      new Date(item.time_measured),
+                                      this.state.time_foramt
+                                    )}
                                 </span>
                               </Grid>
                               <Grid className="clear"></Grid>

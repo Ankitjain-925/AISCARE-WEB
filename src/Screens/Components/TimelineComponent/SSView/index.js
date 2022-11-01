@@ -172,7 +172,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -201,22 +201,51 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_smoking_status") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          : (this.props.comesfrom !== "patient" && (
+
+                            <li>
+                              <a
+                                onClick={() =>
+                                  this.props.EidtOption(item.type, item)
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/edit-1.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {edit}
+                              </a>
+                            </li>
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -303,10 +332,10 @@ class Index extends Component {
             >
               {
                 <Grid>
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-              <CreatedBySec data={item} />
-                {/* <Grid className="bpJohnImg">
+                  <Grid container direction="row" className="addSpc bpJohnMain">
+                    <Grid item xs={12} md={12}>
+                      <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -333,96 +362,96 @@ class Index extends Component {
                     </p>
                   </ReactTooltip>
                 </Grid> */}
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{smoking_status}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.smoking_status &&
-                              GetShowLabel1(
-                                this.props.Allsmoking_status,
-                                item.smoking_status.value,
-                                this.props.stateLanguageType,
-                                true,
-                                "anamnesis"
-                              )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {from} {when}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.from_when &&
-                              getDate(item.from_when, this.state.date_format)}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {until} {when}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.until_when &&
-                              getDate(
-                                item.until_when,
-                                this.state.date_format
-                              )}{" "}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Date_of_event}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.event_date &&
-                              getDate(item.event_date, this.state.date_format)}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            </Grid>}
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid className="detailCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{smoking_status}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.smoking_status &&
+                                    GetShowLabel1(
+                                      this.props.Allsmoking_status,
+                                      item.smoking_status.value,
+                                      this.props.stateLanguageType,
+                                      true,
+                                      "anamnesis"
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>
+                                  {from} {when}
+                                </label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.from_when &&
+                                    getDate(item.from_when, this.state.date_format)}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>
+                                  {until} {when}
+                                </label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.until_when &&
+                                    getDate(
+                                      item.until_when,
+                                      this.state.date_format
+                                    )}{" "}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Date_of_event}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.event_date &&
+                                    getDate(item.event_date, this.state.date_format)}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
+                        </Grid>
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={notes} open="true">
+                      <Grid className="detailCntnt">
+                        <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                </Grid>}
             </Collapsible>
           </Grid>
         </Grid>
@@ -437,6 +466,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default pure( withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
 ));
