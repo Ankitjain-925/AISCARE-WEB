@@ -1541,6 +1541,7 @@ class Index extends Component {
                         }}
                         setDta={(item) => this.setDta(item)}
                         professional_id_list={this.state.professional_id_list}
+                        professionalArray={this.state.professionalArray}
                         updateEntryState3={(e, case_id) => {
                           this.updateEntryState3(e, case_id);
                         }}

@@ -48,6 +48,7 @@ class Index extends React.Component {
       AllBeds: [],
       assignedTo: [],
       professional_id_list: [],
+      professionalArray : [],
       setSec: false,
     };
   }
@@ -65,6 +66,7 @@ class Index extends React.Component {
         return item.user_id;
       });
     var professional_id_list = this.props.professional_id_list;
+    var professionalArray = this.props.professionalArray;
     if (getAllData) {
       professional_id_list =
         this.props.professional_id_list?.length > 0 &&
@@ -78,7 +80,7 @@ class Index extends React.Component {
         );
       this.setState({ assignedTo: setUpdates });
     }
-    this.setState({ professional_id_list: professional_id_list });
+    this.setState({ professional_id_list: professional_id_list, professionalArray: professionalArray });
   };
 
   getListOption = () => {
@@ -159,45 +161,44 @@ class Index extends React.Component {
   };
 
   RemoveDirectPatientOk = (status, inhospital, viewQuestionaire) => {
-    // this.setState({ loaderImage: true });
-    // var response = PatientMoveFromHouse(
-    //   this.props.quote._id,
-    //   this.props.stateLoginValueAim.token,
-    //   status,
-    //   inhospital,
-    //   viewQuestionaire
-    // );
-    // response.then((responce1) => {
-    //   if (responce1.data.hassuccessed) {
-      console.log('this.state.professional_id_list', this.state.professional_id_list)
-        let users_id = this.state.professional_id_list.map((item)=>{
+    this.setState({ loaderImage: true });
+    var response = PatientMoveFromHouse(
+      this.props.quote._id,
+      this.props.stateLoginValueAim.token,
+      status,
+      inhospital,
+      viewQuestionaire
+    );
+    response.then((responce1) => {
+      if (responce1.data.hassuccessed) {
+      console.log('this.state.professionalArray', this.state.professionalArray)
+        let users_id = this.state.professionalArray.map((item)=>{
           return item?.user_id;
         })
-        let profile_ids = this.state.professional_id_list.map((item)=>{
+        let profile_ids = this.state.professionalArray.map((item)=>{
           return item?.profile_id;
         })
-        console.log('here need to call api', users_id) ;
-    //     axios.post(sitedata.data.path + "/cases/removemypatientdischarge", {
-    //       User_id: users_id,
-    //       profile_id: '',
-    //       profile_idf: []
+        console.log('here need to call api', users_id, profile_ids, this.props.quote?.patient?.profile_id) ;
+        axios.post(sitedata.data.path + "/cases/removemypatientdischarge", {
+          User_id: users_id,
+          profile_id: this.props.quote?.patient?.profile_id,
+          profile_idf: profile_ids,
 
-    //     } , commonHeader(this.props.stateLoginValueAim.token)).then((data)=>{
-    //       console.log('data23', data)
-    //     })
-    //     axios.
-    //     this.setState({ loaderImage: false });
-    //     var steps = getSteps(
-    //       this.props?.House?.value,
-    //       this.props.stateLoginValueAim.token
-    //     );
-    //     steps.then((data) => {
-    //       var stepData = data ? data : [];
-    //       this.props.setDta(stepData);
-    //     });
-    //   }
-    //   this.setState({ loaderImage: false });
-    // });
+        } , commonHeader(this.props.stateLoginValueAim.token)).then((data)=>{
+          console.log('data23', data)
+        })
+        this.setState({ loaderImage: false });
+        var steps = getSteps(
+          this.props?.House?.value,
+          this.props.stateLoginValueAim.token
+        );
+        steps.then((data) => {
+          var stepData = data ? data : [];
+          this.props.setDta(stepData);
+        });
+      }
+      this.setState({ loaderImage: false });
+    });
   };
 
   setSpeciality = (data) => {

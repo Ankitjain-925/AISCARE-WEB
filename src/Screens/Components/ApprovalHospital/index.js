@@ -68,7 +68,7 @@ class Index extends Component {
   mypatiantandDocSend = ()=>{
     this.setState({ loaderImage: true });
     axios.put(
-      sitedata.data.path + "/cases/addmypatient/" + this.props.match.params.id,
+      sitedata.data.path + "/cases/addmypatient/" + this.props.match.params.id+"/"+this.props.match.params.house_id,
       {  users_id : this.state.users_id,
         fav_doctor : this.state.fav_doctor
       },
