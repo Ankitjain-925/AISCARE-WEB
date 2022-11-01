@@ -1040,8 +1040,11 @@ getMypatientsData() {
   };
 
   GotoJournal = (data) => {
-    this.props.Doctorset(data?._id, data?.pin);
-    this.GetInfoForPatient();
+    this.props.Doctorset(data?._id, data?.pin, data?.byhospital);
+    setTimeout(()=>{
+      this.GetInfoForPatient();
+    }, 2000)
+
   }
   //For the GetTrack for the patient
   setTrack = () => {
