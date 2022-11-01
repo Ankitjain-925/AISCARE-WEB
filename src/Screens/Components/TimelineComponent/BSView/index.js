@@ -200,22 +200,51 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                         {this.props.Doctorsetget?.byhospital ? (
+                          
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget?.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_blood_sugar") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          : (this.props.comesfrom !== "patient" && (
+
+                            <li>
+                              <a
+                                onClick={() =>
+                                  this.props.EidtOption(item.type, item)
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/edit-1.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {edit}
+                              </a>
+                            </li>
+                          ))}
 
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>

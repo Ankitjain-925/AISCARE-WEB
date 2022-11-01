@@ -46,10 +46,10 @@ class Index extends Component {
   changeLanguage = (e) => {
     this.setState({ languageValue: e.target.value });
   };
-  //For Appointmet
-  Appointment = () => {
-    this.props.history.push("/nurse/appointment");
-  };
+    //For Appointmet
+    Appointment = () => {
+      this.props.history.push("/nurse/appointment");
+    };
 
   openLanguageModel = () => {
     this.setState({ openFancyLanguage: true });
@@ -152,17 +152,16 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
-          {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager') && 
-           <li
+          <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
               }
             >
               <a onClick={this.Appointment}>
                 {this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark" ? (
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
                   <img
                     src={require("assets/images/nav-appointments-white.svg")}
                     alt=""
@@ -177,10 +176,10 @@ class Index extends Component {
                 )}
                 <span>{appointments}</span>
               </a>
-            </li>}
+            </li>
             {/* {this.props?.House?.value &&
               <>
-                {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('task_manager') && <li
+                <li
                   className={
                     this.props.currentPage === "task" ? "menuActv" : ""
                   }
@@ -203,34 +202,33 @@ class Index extends Component {
                       )}
                     <span>{ProfessionalTask}</span>
                   </a>
-                </li>}
+                </li>
                 <li
-              className={
-                this.props.currentPage === "institute" ? "menuActv" : ""
-              }
-            >
-              <a onClick={this.NormalView}>
-                {this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark" ?
-                  (<img
-                    src={require("assets/virtual_images/hospitalIcon2.png")}
-                    alt=""
-                    title=""
-                  />) : (
-                    <img
-                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
-                      alt=""
-                      title=""
-                    />
-                  )}
-                <span>{Nurse_view}</span>
-              </a>
-            </li>
-              </>} */}
-
-            {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 )) && <>      
+                  className={
+                    this.props.currentPage === "institute" ? "menuActv" : ""
+                  }
+                >
+                  <a onClick={this.NormalView}>
+                    {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark" ?
+                      (<img
+                        src={require("assets/virtual_images/hospitalIcon2.png")}
+                        alt=""
+                        title=""
+                      />) : (
+                        <img
+                          src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
+                          alt=""
+                          title=""
+                        />
+                      )}
+                    <span>{Nurse_view}</span>
+                  </a>
+                </li>
+              </>}
+            {!this.props?.House?.value && <> */}
             <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
               <a onClick={this.Chats}>
                 {this.props.settings &&
@@ -326,82 +324,81 @@ class Index extends Component {
                 <span>AIS {online_course}</span>
               </a>
             </li>
-            <li
-              className={
-                this.props.currentPage === "institute" ? "menuActv" : ""
-              }
-            >
-              <a onClick={this.MoveInstitute}>
-                {this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark" ?
-                  (<img
-                    src={require("assets/virtual_images/hospitalIcon2.png")}
-                    alt=""
-                    title=""
-                  />) : (
-                    <img
-                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
-                      alt=""
-                      title=""
-                    />
-                  )}
-                <span>{VHS_view}</span>
-              </a>
-            </li>
-            {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('professional_activity') && 
- <li
-                    className={
-                      this.props.currentPage === "profActivity" ? "menuActv" : ""
-                    }
-                  >
-                    <a onClick={() => { this.props.history.push("/nurse/professional-activity") }}>
-                      {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ?
-                        (<img
-                          src={require("assets/virtual_images/rightIcon2.png")}
-                          alt=""
-                          title=""
-                        />) : (
-                          <img
-                            src={this.props.currentPage === "profActivity" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
-                            alt=""
-                            title=""
-                          />
-                        )}
-                      <span>{ProfessionalActivity}</span>
-                    </a>
-                  </li>
-            }
-            {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('earlier_activity') && 
-              <li
+            {/* <li
                 className={
-                  this.props.currentPage === "Earliertask" ? "menuActv" : ""
+                  this.props.currentPage === "institute" ? "menuActv" : ""
                 }
               >
-                <a onClick={() => { this.props.history.push("/nurse/earlier-task") }}>
+                <a onClick={this.MoveInstitute}>
                   {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
                     this.props.settings.setting.mode === "dark" ?
                     (<img
-                      src={require("assets/virtual_images/rightIcon2.png")}
+                      src={require("assets/virtual_images/hospitalIcon2.png")}
                       alt=""
                       title=""
                     />) : (
                       <img
-                        src={this.props.currentPage === "Earliertask" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                        src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
                         alt=""
                         title=""
                       />
                     )}
-                  <span>{EarlierActivity}</span>
+                  <span>{VHS_view}</span>
                 </a>
-              </li>}
-              {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('care_questionnary') && 
+              </li> */}
+
+            <li
+              className={
+                this.props.currentPage === "profActivity" ? "menuActv" : ""
+              }
+            >
+              <a onClick={() => { this.props.history.push("/nurse/professional-activity") }}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/rightIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "profActivity" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{ProfessionalActivity}</span>
+              </a>
+            </li>
+
+            <li
+              className={
+                this.props.currentPage === "Earliertask" ? "menuActv" : ""
+              }
+            >
+              <a onClick={() => { this.props.history.push("/nurse/earlier-task") }}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/rightIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "Earliertask" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{EarlierActivity}</span>
+              </a>
+            </li>
+
             <li
               className={
                 this.props.currentPage === "questionnary" ? "menuActv" : ""
@@ -425,8 +422,8 @@ class Index extends Component {
                   )}
                 <span>{Care_Questionnary}</span>
               </a>
-            </li>}
-            </>}
+            </li>
+            {/* </>} */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

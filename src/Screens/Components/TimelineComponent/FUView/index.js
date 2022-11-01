@@ -45,7 +45,7 @@ class Index extends Component {
       this.setState({ TrackRecord: this.props.TrackRecord });
     }
     if (prevProps.onlyOverview !== this.props.onlyOverview) {
-      this.setState({ onlyOverview: this.props.onlyOverview});
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -172,7 +172,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -201,22 +201,51 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget?.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget?.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_files_upload") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          : (this.props.comesfrom !== "patient" && (
+
+                            <li>
+                              <a
+                                onClick={() =>
+                                  this.props.EidtOption(item.type, item)
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/edit-1.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {edit}
+                              </a>
+                            </li>
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -288,8 +317,8 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
-            <Collapsible trigger={<ExpandMoreIcon />} 
-              triggerWhenOpen ={<ExpandLessIcon />}    
+            <Collapsible trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
               open={!this.state.onlyOverview}>
               {<Grid>
                 <Grid container direction="row" className="addSpc bpJohnMain">
@@ -321,7 +350,7 @@ class Index extends Component {
                         </p>
                       </ReactTooltip>
                     </Grid> */}
-                      <CreatedBySec data={item} />
+                    <CreatedBySec data={item} />
                   </Grid>
                   <Grid className="clear"></Grid>
                 </Grid>
@@ -366,16 +395,16 @@ class Index extends Component {
                   </Collapsible>
                 </Grid>
                 <Grid className="addSpc detailMark">
-                <Collapsible trigger={img_files} open="true">
-                  <FileViews
-                    images={this.state.images}
-                    attachfile={item.attachfile}
-                  />.
-                </Collapsible>
-              </Grid>
-            </Grid>}                     
-          </Collapsible>
-           
+                  <Collapsible trigger={img_files} open="true">
+                    <FileViews
+                      images={this.state.images}
+                      attachfile={item.attachfile}
+                    />.
+                  </Collapsible>
+                </Grid>
+              </Grid>}
+            </Collapsible>
+
           </Grid>
         </Grid>
       </Grid>

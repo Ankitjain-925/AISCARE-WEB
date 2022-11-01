@@ -14,7 +14,7 @@ import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
-import { getSetting } from "../api";
+import { getSetting,checkauthority } from "../api";
 import sitedata from "sitedata";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -40,7 +40,7 @@ class Index extends Component {
       loaderImage: false,
       openInvt: false,
       openPharma: false,
-      CheckCurrent: false,
+      CheckCurrent:{ current_available: false },
       UpDataDetails: [],
       invitation: {},
       mode: "normal",
@@ -60,6 +60,7 @@ class Index extends Component {
     getSetting(this);
     this.getavailableUpdate();
     this.availableUpdate();
+    // checkauthority(this);
   }
 
   // componentDidUpdate(PrevProps, PrevState) {
@@ -183,6 +184,7 @@ class Index extends Component {
   availableUpdate = () => {
     this.setState({ loaderImage: true });
     var data = this.state.CheckCurrent;
+    console.log("first",data)
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(

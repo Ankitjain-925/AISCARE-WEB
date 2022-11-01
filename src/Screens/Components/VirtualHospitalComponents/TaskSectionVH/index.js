@@ -65,7 +65,11 @@ class Index extends Component {
       tabvalue2: this.props.tabvalue2 || 0,
       q: "",
       selectedUser: "",
-      Types: [{ label: "All Appointment", value: "appointment" }, { label: "All Assigned Service", value: "assigned_service" }, { label: "All Tasks", value: 'tasks' }],
+      Types: [
+        { label: "All Appointment", value: "appointment" },
+        { label: "All Assigned Service", value: "assigned_service" },
+        { label: "All Tasks", value: "tasks" },
+      ],
       task_type: false,
       houses: false,
       professional_data: [],
@@ -135,6 +139,7 @@ class Index extends Component {
       taskData: {},
       specchange: false,
       openAss: false,
+      selectedHouse: {}
     };
   }
 
@@ -172,7 +177,7 @@ class Index extends Component {
   };
 
   handleOpenAss = () => {
-    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list });
+    this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list, selectedHouse: {} });
   };
 
   // onDropDown = (tabvalue2) => {
@@ -191,11 +196,6 @@ class Index extends Component {
   //     console.log('appointmnt');
   //   }
   // };
-
-
-
-
-
 
   //get list of list
   getMetadata = () => {
@@ -230,8 +230,8 @@ class Index extends Component {
   };
 
   handleCloseAss = () => {
-    this.setState({ openAss: false, selectedHouse: {} })
-  }
+    this.setState({ openAss: false, selectedHouse: {} });
+  };
 
   componentDidMount() {
     this.changeLanguageState();
@@ -295,8 +295,7 @@ class Index extends Component {
         data.filter((item) => alredyAssigned.includes(item.value));
       this.setState({ assignedTo: assignedto });
     }
-    this.setState({ professional_id_list1: showdata }
-    );
+    this.setState({ professional_id_list1: showdata });
   };
 
   //to get the speciality list
@@ -324,7 +323,6 @@ class Index extends Component {
       let user = { value: this.props.patient?.user_id };
       this.updateEntryState2(user);
     }
-
   };
   // close model Add Task
   handleCloseTask = () => {
@@ -336,8 +334,7 @@ class Index extends Component {
       PatientID: false,
       taskData: {},
       errorMsg: false,
-      specchange: false
-
+      specchange: false,
     });
   };
   handleChangeTab = (event, tabvalue) => {
@@ -472,7 +469,7 @@ class Index extends Component {
     var user_id = data?.patient?.user_id;
 
     if (
-      data?.task_type === 'picture_evaluation' &&
+      data?.task_type === "picture_evaluation" &&
       (data?.attachments?.length > ComLength?.attach_Length ||
         data?.comments?.length > ComLength?.comments_Length)
     ) {
@@ -505,8 +502,9 @@ class Index extends Component {
       if (this.state.fileupods) {
         data.attachments = this.state.fileattach;
       }
-      if (data?.task_type === 'picture_evaluation' &&
-        data?.attachments?.length > ComLength?.attach_Length ||
+      if (
+        (data?.task_type === "picture_evaluation" &&
+          data?.attachments?.length > ComLength?.attach_Length) ||
         data?.comments?.length > ComLength?.comments_Length
       ) {
         data.isviewed = false;
@@ -518,7 +516,7 @@ class Index extends Component {
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
         this.setState({
-          isButtonDisabled: true
+          isButtonDisabled: true,
         });
         axios
           .put(
@@ -537,7 +535,7 @@ class Index extends Component {
                 assignedTo: [],
                 q: "",
                 selectSpec: {},
-                isButtonDisabled: false
+                isButtonDisabled: false,
               });
               this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
@@ -549,7 +547,10 @@ class Index extends Component {
             }
           });
       } else {
-        data.house_id = this.props.comesFrom === "Professional" ? this.state.selectedHouse?.value : this.props?.House?.value;
+        data.house_id =
+          this.props.comesFrom === "Professional"
+            ? this.state.selectedHouse?.value
+            : this.props?.House?.value;
         data.done_on = "";
         data.priority = 0;
         data.archived = false;
@@ -566,7 +567,7 @@ class Index extends Component {
           data.due_on = due_on;
         }
         this.setState({
-          isButtonDisabled: true
+          isButtonDisabled: true,
         });
         axios
           .post(
@@ -585,7 +586,7 @@ class Index extends Component {
               q: "",
               selectSpec: {},
               newComment: "",
-              isButtonDisabled: false
+              isButtonDisabled: false,
             });
             this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
@@ -771,7 +772,7 @@ class Index extends Component {
         );
       },
     });
-  }
+  };
 
   DoneA1 = (id) => {
     this.setState({ loaderImage: true });
@@ -786,32 +787,8 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.props.getAddTaskData();
         }
-      })
-  }
-
-  doneTask = (id) => {
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { Something_went_wrong } = translate;
-    axios
-      .put(
-        sitedata.data.path + "/vh/AddTask/" + id,
-        {
-          status: "done",
-          done_on: new Date()
-        },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed) {
-          this.props.getAddTaskData(this.state.tabvalue2);
-        } else {
-          this.setState({ errorMsg: Something_went_wrong });
-        }
       });
-
-  }
-
+  };
   editComment = (index) => {
     this.setState({ editcomment: index });
   };
@@ -1093,7 +1070,6 @@ class Index extends Component {
     });
   };
 
-
   //for delete the Task
   deleteClickTask1(id) {
     this.setState({ loaderImage: true });
@@ -1110,7 +1086,6 @@ class Index extends Component {
       })
       .catch((error) => { });
   }
-
 
   //{Delete} the perticular service confirmation box
   removeTask1 = (id) => {
@@ -1185,7 +1160,6 @@ class Index extends Component {
     });
   };
 
-
   //for delete the Task
   deleteClickTask1(id) {
     this.setState({ loaderImage: true });
@@ -1202,7 +1176,6 @@ class Index extends Component {
       })
       .catch((error) => { });
   }
-
 
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
@@ -1239,7 +1212,8 @@ class Index extends Component {
         );
       },
     });
-  }; h
+  };
+  h;
 
   removeTask2 = (id) => {
     this.setState({ message: null, openTask: false });
@@ -1278,25 +1252,35 @@ class Index extends Component {
   };
 
   updateFilters = (e, name) => {
-    this.setState({ text: '' });
-    if (name === 'task_type') {
+    this.setState({ text: "" });
+    if (name === "task_type") {
       this.setState({ task_type: e });
       if (this.state.houses?.value) {
-        this.FilterByHouse(this.state.houses?.value, true)
+        this.FilterByHouse(this.state.houses?.value, true);
+      } else {
+        this.FilterByType(
+          e,
+          this.props.AllTasks,
+          this.props.DoneTask,
+          this.props.OpenTask,
+          this.props.ArchivedTasks
+        );
       }
-      else {
-        this.FilterByType(e, this.props.AllTasks, this.props.DoneTask, this.props.OpenTask, this.props.ArchivedTasks)
-      }
-    }
-    else {
+    } else {
       this.setState({ houses: e });
-      this.FilterByHouse(e.value, true)
+      this.FilterByHouse(e.value, true);
     }
-  }
+  };
 
   FilterByType = (e, AllTasks, DoneTask, OpenTask, ArchivedTasks) => {
     this.setState({ task_type: e });
-    var TypeCondtion = e.value === 'tasks' ? 'task_name' : TypeCondtion = e.value === 'appointment' ? 'appointment_type' : TypeCondtion = e.value === "assigned_service" ? 'title' : "";
+    var TypeCondtion =
+      e.value === "tasks"
+        ? "task_name"
+        : (TypeCondtion =
+          e.value === "appointment"
+            ? "appointment_type"
+            : (TypeCondtion = e.value === "assigned_service" ? "title" : ""));
     let track1 = AllTasks;
     let FilterFromSearch1 =
       track1 &&
@@ -1332,8 +1316,7 @@ class Index extends Component {
         return TypeCondtion ? obj[TypeCondtion] : obj;
       });
     this.setState({ ArchivedTasks: FilterFromSearch4 });
-
-  }
+  };
   clearFilter3 = () => {
     this.setState({
       AllTasks: this.props.AllTasks,
@@ -1342,9 +1325,9 @@ class Index extends Component {
       ArchivedTasks: this.props.ArchivedTasks,
       task_type: false,
       houses: false,
-      text: ''
-    })
-  }
+      text: "",
+    });
+  };
 
   FilterText = (e) => {
     this.setState({ text: e.target.value, houses: false, task_type: false });
@@ -1352,7 +1335,6 @@ class Index extends Component {
   };
 
   FilterByHouse = (value, comefrom) => {
-
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
       track1 &&
@@ -1362,7 +1344,7 @@ class Index extends Component {
       });
     this.setState({ AllTasks: FilterFromSearch1 });
 
-    let track2 = this.props.DoneTask;;
+    let track2 = this.props.DoneTask;
     let FilterFromSearch2 =
       track2 &&
       track2.length > 0 &&
@@ -1387,14 +1369,18 @@ class Index extends Component {
       track4.filter((obj) => {
         return obj.house_id === value;
       });
-    this.setState({ ArchivedTasks: FilterFromSearch4 },
-      () => {
-        if (comefrom) {
-          this.FilterByType(this.state.task_type, this.state.AllTasks, this.state.DoneTask, this.state.OpenTask, this.state.ArchivedTasks)
-        }
-      });
-
-  }
+    this.setState({ ArchivedTasks: FilterFromSearch4 }, () => {
+      if (comefrom) {
+        this.FilterByType(
+          this.state.task_type,
+          this.state.AllTasks,
+          this.state.DoneTask,
+          this.state.OpenTask,
+          this.state.ArchivedTasks
+        );
+      }
+    });
+  };
   getfilterData = (filterm, comefrom) => {
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 =
@@ -1439,13 +1425,13 @@ class Index extends Component {
           .includes(filterm?.toLowerCase());
       });
     this.setState({ ArchivedTasks: FilterFromSearch4 });
-  }
+  };
   //for delete the Task
   deleteClickTask(id) {
     this.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + "/vh/AddTask/" + id,
+        sitedata.data.path + "/vh/AddTask/" + id+"/"+ this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -1473,37 +1459,40 @@ class Index extends Component {
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
-    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+    var findHouse = this.state.currentList.filter(
+      (itemInArray) => itemInArray.value === data?.house_id
+    );
     var deep = _.cloneDeep(data);
-    this.setState({
-      total_amount: data?.amount,
-      selectedHouse: findHouse[0],
-      service: deep,
-      // OpenTask:true,
-      openAss: true,
-      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
-      calculate_Length: {
-        attach_Length: data?.attachments?.length,
-        comments_Length: data?.comments?.length,
+    this.setState(
+      {
+        total_amount: data?.amount,
+        selectedHouse: findHouse[0],
+        service: deep,
+        // OpenTask:true,
+        openAss: true,
+        Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+        calculate_Length: {
+          attach_Length: data?.attachments?.length,
+          comments_Length: data?.comments?.length,
+        },
+        q: pat1name,
+        //  selectedPat: { label: pat1name, value: data?.patient?._id },
+        selectSpec: {
+          label: data?.speciality?.specialty_name,
+          value: data?.speciality?._id,
+        },
+        fileattach: data.attachments,
+        selectedPat: { label: pat1name, value: data?.patient?._id },
+        selectSpec: {
+          label: data?.speciality?.specialty_name,
+          value: data?.speciality?._id,
+        },
       },
-      q: pat1name,
-      //  selectedPat: { label: pat1name, value: data?.patient?._id },
-      selectSpec: {
-        label: data?.speciality?.specialty_name,
-        value: data?.speciality?._id,
-      },
-      fileattach: data.attachments,
-      selectedPat: { label: pat1name, value: data?.patient?._id },
-      selectSpec: {
-        label: data?.speciality?.specialty_name,
-        value: data?.speciality?._id,
-      },
-    }, () => {
-      this.getProfessionalData(true);
-      this.getPatientData();
-    });
-
-
+      () => {
+        this.getProfessionalData(true);
+        this.getPatientData();
+      }
+    );
 
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
@@ -1554,29 +1543,34 @@ class Index extends Component {
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
-    var findHouse = this.state.currentList.filter(itemInArray => itemInArray.value === data?.house_id);
+    var findHouse = this.state.currentList.filter(
+      (itemInArray) => itemInArray.value === data?.house_id
+    );
     var deep = _.cloneDeep(data);
-    this.setState({
-      selectedHouse: findHouse[0],
-      newTask: deep,
-      fileattach: data.attachments,
-      openTask: true,
-      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
-      calculate_Length: {
-        attach_Length: data?.attachments?.length,
-        comments_Length: data?.comments?.length,
+    this.setState(
+      {
+        selectedHouse: findHouse[0],
+        newTask: deep,
+        fileattach: data.attachments,
+        openTask: true,
+        Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+        calculate_Length: {
+          attach_Length: data?.attachments?.length,
+          comments_Length: data?.comments?.length,
+        },
+        // assignedTo: assignedTo,
+        q: pat1name,
+        selectedPat: { label: pat1name, value: data?.patient?._id },
+        selectSpec: {
+          label: data?.speciality?.specialty_name,
+          value: data?.speciality?._id,
+        },
       },
-      // assignedTo: assignedTo,
-      q: pat1name,
-      selectedPat: { label: pat1name, value: data?.patient?._id },
-      selectSpec: {
-        label: data?.speciality?.specialty_name,
-        value: data?.speciality?._id,
-      },
-    }, () => {
-      this.getProfessionalData(true);
-      this.getPatientData();
-    });
+      () => {
+        this.getProfessionalData(true);
+        this.getPatientData();
+      }
+    );
   };
 
   cretficateTask = (id, patient_id, data) => {
@@ -1598,19 +1592,22 @@ class Index extends Component {
       this.props.stateLoginValueAim.token
     );
     if (data) {
-      this.setState({
-        loaderImage: false,
-        professionalArray: data.professionalArray,
-        professional_id_list: data.professionalList,
-        professional_id_list1: data.professionalList,
-      }, () => {
-        if (fromEdit) {
-          this.selectProf(
-            this.state.newTask?.assinged_to,
-            this.state.professional_id_list
-          );
+      this.setState(
+        {
+          loaderImage: false,
+          professionalArray: data.professionalArray,
+          professional_id_list: data.professionalList,
+          professional_id_list1: data.professionalList,
+        },
+        () => {
+          if (fromEdit) {
+            this.selectProf(
+              this.state.newTask?.assinged_to,
+              this.state.professional_id_list
+            );
+          }
         }
-      });
+      );
     } else {
       this.setState({ loaderImage: false });
     }
@@ -1912,11 +1909,14 @@ class Index extends Component {
 
   SelectAutoAssigned = (fullData) => {
     setTimeout(() => {
-      if (this.props.stateLoginValueAim?.user?.type === "doctor" || this.props.stateLoginValueAim?.user?.type === "nurse") {
+      if (
+        this.props.stateLoginValueAim?.user?.type === "doctor" ||
+        this.props.stateLoginValueAim?.user?.type === "nurse"
+      ) {
         this.updateEntryState3(fullData);
       }
     }, 500);
-  }
+  };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -2074,9 +2074,8 @@ class Index extends Component {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      For_Hospital
-
-
+      For_Hospital,
+      Assign_service,
     } = translate;
 
     const {
@@ -2128,10 +2127,10 @@ class Index extends Component {
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
               {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
-              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
-                </Button>}
+                </Button>} */}
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}
@@ -2152,6 +2151,7 @@ class Index extends Component {
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
             total_amount={this.state.total_amount}
+            currentList={this.state.currentList}
           />
           <Modal
             className={
@@ -2215,22 +2215,25 @@ class Index extends Component {
                         >
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
-                              <>{!this.state.newTask._id &&
-
-                                <Grid>
-                                  <label>{For_Hospital}</label>
-                                  <Select
-                                    name="for_hospital"
-                                    options={this.state.currentList}
-                                    placeholder={Search_Select}
-                                    onChange={(e) => this.updateEntryState5(e)}
-                                    value={this.state.selectedHouse || ""}
-                                    className="addStafSelect"
-                                    isMulti={false}
-                                    isSearchable={true}
-                                  />
-                                </Grid>
-                              }</>
+                              <>
+                                {!this.state.newTask._id && (
+                                  <Grid>
+                                    <label>{For_Hospital}</label>
+                                    <Select
+                                      name="for_hospital"
+                                      options={this.state.currentList}
+                                      placeholder={Search_Select}
+                                      onChange={(e) =>
+                                        this.updateEntryState5(e)
+                                      }
+                                      value={this.state.selectedHouse || ""}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true}
+                                    />
+                                  </Grid>
+                                )}
+                              </>
                             )}
                           </Grid>
                           <Grid item xs={12} md={12}>
@@ -4009,7 +4012,9 @@ class Index extends Component {
                                             <Grid>
                                               <img
                                                 onClick={() => {
-                                                  this.removeTask(this.state.newTask?._id);
+                                                  this.removeTask(
+                                                    this.state.newTask?._id
+                                                  );
                                                 }}
                                                 src={require("assets/virtual_images/deleteNew.png")}
                                                 alt=""
@@ -4018,7 +4023,9 @@ class Index extends Component {
                                               />
                                               <label
                                                 onclick={(id) => {
-                                                  this.removeTask(this.state.newTask?._id);
+                                                  this.removeTask(
+                                                    this.state.newTask?._id
+                                                  );
                                                 }}
                                               >
                                                 {Delete}
@@ -4410,12 +4417,19 @@ class Index extends Component {
                 </AppBar>
               </Grid>
               <Grid item xs={12} sm={6} md={5} className="vwTaskSelectTp">
-                {this.props.comesFrom === 'Professional' &&
+                {this.props.comesFrom === "Professional" && (
                   <Grid className="viewTaskfilter">
-                    <div className="nurse-filter-sec" onClick={() => { this.clearFilter3() }}>Clear filter</div>
+                    <div
+                      className="nurse-filter-sec"
+                      onClick={() => {
+                        this.clearFilter3();
+                      }}
+                    >
+                      Clear filter
+                    </div>
                     <Select
                       name="houses"
-                      onChange={(e) => this.updateFilters(e, 'houses')}
+                      onChange={(e) => this.updateFilters(e, "houses")}
                       value={this.state.houses ? this.state.houses : false}
                       options={this.state.currentList}
                       placeholder={"select"}
@@ -4425,16 +4439,18 @@ class Index extends Component {
                     />
                     <Select
                       name="task_type"
-                      onChange={(e) => this.updateFilters(e, 'task_type')}
-                      value={this.state.task_type ? this.state.task_type : false}
+                      onChange={(e) => this.updateFilters(e, "task_type")}
+                      value={
+                        this.state.task_type ? this.state.task_type : false
+                      }
                       options={this.state.Types}
                       placeholder={"select"}
                       isMulti={false}
                       isSearchable={true}
                       className="vwTaskSelect"
                     />
-
-                  </Grid>}
+                  </Grid>
+                )}
               </Grid>
               <Grid container direction="row" alignItems="center">
                 <Grid item xs={12} sm={12} md={12}>
@@ -4588,12 +4604,21 @@ class Index extends Component {
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4618,12 +4643,21 @@ class Index extends Component {
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4647,12 +4681,21 @@ class Index extends Component {
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4676,12 +4719,21 @@ class Index extends Component {
                   this.state.DeclinedTask.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4705,12 +4757,21 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
@@ -4734,12 +4795,21 @@ class Index extends Component {
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
-                        doneTask={(id) => { this.doneTask(id) }}
-                        DoneAppointment={(id) => { this.DoneAppointment(id) }}
+                        DoneAppointment={(id) => {
+                          this.DoneAppointment(id);
+                        }}
                         removeAddbutton={this.props.removeAddbutton}
                         data={data}
-                        removeTask={(id) => data?.title ? this.removeTask1(id) : this.removeTask(id)}
-                        editTask={(data) => data?.title ? this.editTask1(data) : this.editTask(data)}
+                        removeTask={(id) =>
+                          data?.title
+                            ? this.removeTask1(id)
+                            : this.removeTask(id)
+                        }
+                        editTask={(data) =>
+                          data?.title
+                            ? this.editTask1(data)
+                            : this.editTask(data)
+                        }
                         cretficate={(id, patient_id) =>
                           this.cretficateTask(id, patient_id, data)
                         }
