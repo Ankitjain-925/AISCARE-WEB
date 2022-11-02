@@ -443,6 +443,7 @@ class Index extends Component {
 
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr">
+                      {roles.includes("show_speciality")  && 
                       <Grid container direction="row" spacing={2}>
                         {this.state.specialityData?.length > 0 &&
                           this.state.specialityData.map((data) => (
@@ -516,7 +517,7 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           ))}
-                      </Grid>
+                      </Grid>}
                     </Grid>
                   </Grid>
                 </Grid>
