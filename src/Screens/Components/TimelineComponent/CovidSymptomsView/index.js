@@ -21,6 +21,8 @@ import { pure } from "recompose";
 import PainIntensity from "Screens/Components/PainIntansity/index";
 import Condition from "Screens/Components/Condition/index";
 import PainPoint from "Screens/Components/PointPain/index";
+import { Doctorset } from "Screens/Doctor/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -760,10 +762,20 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { Doctorsetget } = state.Doctorset;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     stateLanguageType,
+    Doctorsetget,
+    stateLoginValueAim,
   };
 };
 export default pure(
-  withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index))
+  withRouter(connect(mapStateToProps, {
+    LanguageFetchReducer,
+    Doctorset,
+    LoginReducerAim,
+  })(Index))
 );
+
