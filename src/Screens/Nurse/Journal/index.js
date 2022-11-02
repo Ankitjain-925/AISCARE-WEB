@@ -1244,13 +1244,13 @@ getMypatientsData() {
                     <Grid className="descpCntntMain">
                       <Grid className="journalAdd">
                         <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
+                          <Grid item xs={11} md={12}>
                             <Grid container direction="row">
                               <Grid item xs={12} md={6}>
                                 <h1>{patient_access_data}</h1>
                               </Grid>
                               <Grid item xs={12} md={6}>
-                                <Grid className="AddEntrynw">
+                                <Grid className="AddEntrynw AddEntrynwSec">
                                   {this.props.Doctorsetget &&
                                     this.props.Doctorsetget.p_id !== null ? (
                                     <a onClick={this.AnotherPatient}>
@@ -1285,7 +1285,7 @@ getMypatientsData() {
                         </Grid>
                       </Grid>
                       {!this.props.Doctorsetget?.p_id &&
-                        <Grid className="docOpinion">
+                        <Grid className="">
                           <Grid className="docOpinionIner">
                             <Table>
                               <Thead>

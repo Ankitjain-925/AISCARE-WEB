@@ -16906,3 +16906,7 @@ color:#FFFFFF
   .authorityvalue { 
    font-size: 20px;
   }
+
+.AddEntrynwSec a:first-child {
+  margin-right: 0px;
+}
