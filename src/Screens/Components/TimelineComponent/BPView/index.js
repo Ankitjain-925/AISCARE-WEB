@@ -211,9 +211,6 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {console.log("1234567", this.props.Doctorsetget?.byhospital)}
-                        {console.log("1234567", this.props.stateLoginValueAim.user.houses)}
-                        
 
                         {this.props.Doctorsetget?.byhospital ? (
                           
