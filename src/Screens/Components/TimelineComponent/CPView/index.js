@@ -17,6 +17,8 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { getLanguage } from "translations/index"
 import { pure } from "recompose";
+import { Doctorset } from "Screens/Doctor/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -514,10 +516,19 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { Doctorsetget } = state.Doctorset;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     stateLanguageType,
+    Doctorsetget,
+    stateLoginValueAim,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, {
+    LanguageFetchReducer,
+    Doctorset,
+    LoginReducerAim,
+  })(Index))
+);

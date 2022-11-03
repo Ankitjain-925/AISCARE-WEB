@@ -272,9 +272,10 @@ class Index extends Component {
                           </Grid> */}
 
                           <Grid className="newServc">
+                          {roles.includes('add_service')&&
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}
-                            </Button>
+                            </Button>}
                             <Modal
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}

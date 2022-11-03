@@ -477,7 +477,7 @@ class Index extends Component {
     var status = data?.status?.value;
     axios
       .delete(
-        sitedata.data.path + '/vh/AddInvoice/' + data,
+        sitedata.data.path + '/vh/AddInvoice/' + data + "/" + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -681,7 +681,7 @@ class Index extends Component {
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                   <LeftMenu currentPage="more" />
-                </Grid>Invoice
+                </Grid>
                 {/* End of Menu */}
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={10}>
@@ -945,6 +945,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {roles.includes("show_invoice") &&
                     <Grid className="billInfoData">
                       <Table>
                         <Thead>
@@ -1266,7 +1267,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid>}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}

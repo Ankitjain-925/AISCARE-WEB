@@ -2136,9 +2136,7 @@ class Index extends Component {
       });
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
-
-      console.log(this.AllTasks)
-
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -2146,7 +2144,12 @@ class Index extends Component {
           <Grid item xs={12} md={12}>
             {/* {this.props.comesFrom !== 'Professional' && ( */}
             <Grid className="addTaskBtn addAssignBtn1">
-              {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
+              {this.props.comesFrom === 'adminstaff' ?
+                <>
+                  {(roles.includes("add_task")) ?
+                    <Button onClick={this.handleOpenTask}>{add_task}</Button> : null}
+                </> : <>   {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
+                </>}
               {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
@@ -2171,7 +2174,6 @@ class Index extends Component {
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
             total_amount={this.state.total_amount}
-            currentList={this.state.currentList}
           />
 
           <Modal
@@ -4619,46 +4621,88 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
-          {tabvalue2 === 0 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.AllTasks?.length > 0 &&
-                  this.state.AllTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        DoneAppointment={(id) => {
-                          this.DoneAppointment(id);
-                        }}
-                        removeAddbutton={this.props.removeAddbutton}
-                        data={data}
-                        removeTask={(id) =>
-                          data?.title
-                            ? this.removeTask1(id)
-                            : this.removeTask(id)
-                        }
-                        editTask={(data) =>
-                          data?.title
-                            ? this.editTask1(data)
-                            : this.editTask(data)
-                        }
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
-                        comesFrom={this.props.comesFrom}
-                        switchStatus={() => { this.switchStatus() }}
-                        houses={this.state.houses}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
+          {this.props.comesFrom === 'adminstaff' ?
+            <>
+              {tabvalue2 === 0 && roles.includes("show_task") && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            DoneAppointment={(id) => {
+                              this.DoneAppointment(id);
+                            }}
+                            removeAddbutton={this.props.removeAddbutton}
+                            data={data}
+                            removeTask={(id) =>
+                              data?.title
+                                ? this.removeTask1(id)
+                                : this.removeTask(id)
+                            }
+                            editTask={(data) =>
+                              data?.title
+                                ? this.editTask1(data)
+                                : this.editTask(data)
+                            }
+                            cretficate={(id, patient_id) =>
+                              this.cretficateTask(id, patient_id, data)
+                            }
+                            declineTask={(id, patient_id) =>
+                              this.declineTask(id, patient_id)
+                            }
+                            handleApprovedDetails={(id, status, data) =>
+                              this.handleApprovedDetails(id, status, data)
+                            }
+                            comesFrom={this.props.comesFrom}
+                            switchStatus={() => { this.switchStatus() }}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+            </> : <>
+              {tabvalue2 === 0 && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            DoneAppointment={(id) => {
+                              this.DoneAppointment(id);
+                            }}
+                            removeAddbutton={this.props.removeAddbutton}
+                            data={data}
+                            removeTask={(id) =>
+                              data?.title
+                                ? this.removeTask1(id)
+                                : this.removeTask(id)
+                            }
+                            editTask={(data) =>
+                              data?.title
+                                ? this.editTask1(data)
+                                : this.editTask(data)
+                            }
+                            cretficate={(id, patient_id) =>
+                              this.cretficateTask(id, patient_id, data)
+                            }
+                            declineTask={(id, patient_id) =>
+                              this.declineTask(id, patient_id)
+                            }
+                            handleApprovedDetails={(id, status, data) =>
+                              this.handleApprovedDetails(id, status, data)
+                            }
+                            comesFrom={this.props.comesFrom}
+                            switchStatus={() => { this.switchStatus() }}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+            </>}
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">

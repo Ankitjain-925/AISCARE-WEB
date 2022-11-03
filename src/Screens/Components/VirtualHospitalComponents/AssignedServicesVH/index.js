@@ -1220,7 +1220,7 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
-  const { House: { roles = [] } = {} } = this.props || {}
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1386,26 +1386,50 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
-          {tabvalue2 === 0 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.AllTasks?.length > 0 &&
-                  this.state.AllTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+          {this.props.comesFrom === 'adminstaff' ?
+            <>
+              {tabvalue2 === 0 && roles.includes("get_assignedservice") && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
 
-                        DoneAppointment={() => { }}
+                            DoneAppointment={() => { }}
 
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+            </> : <>
+              {tabvalue2 === 0 && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
+
+                            DoneAppointment={() => { }}
+
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+            </>}
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
