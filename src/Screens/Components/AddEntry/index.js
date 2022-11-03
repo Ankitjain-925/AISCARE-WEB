@@ -561,7 +561,7 @@ class PointPain extends Component {
 
 
                   )))
-                  : (this.props.Doctorsetget?.byhospital == " " ? (
+                  : (this.props.openBy == "adminstaff" ? (
                    
                       
 
