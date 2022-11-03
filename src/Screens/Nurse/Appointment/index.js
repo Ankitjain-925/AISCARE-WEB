@@ -247,7 +247,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios  
-      .get(sitedata.data.path + "/User/App ointmentByDate",
+      .get(sitedata.data.path + "/User/AppointmentByDate",
         commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) { 
