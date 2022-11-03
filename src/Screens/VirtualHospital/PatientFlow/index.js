@@ -1517,6 +1517,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {roles.includes("show_step_patient")  && 
                     <div className="custom-d-n-d">
                       <Drags
                       updatesQuotes={(data)=>{this.updatesQuotes(data)}}
@@ -1556,7 +1557,7 @@ class Index extends Component {
                         stateLanguageType={this.props.stateLanguageType}
                         roles={roles}
                       />
-                    </div>
+                    </div>}
                   </Grid>
                 </Grid>
               </Grid>

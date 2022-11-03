@@ -383,6 +383,7 @@ class Column extends Component {
                           </label>
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} className="addPatent">
+                       {roles.includes("add_patient") &&
                           <a
                             className="addNwPatnt"
                             onClick={() => {
@@ -390,7 +391,7 @@ class Column extends Component {
                             }}
                           >
                             {AddNewPatient}
-                          </a>
+                          </a>}
                           <Grid className="checkDotsRght">
                             <a className="academy_ul stepTdotupper">
                               <img
@@ -402,6 +403,7 @@ class Column extends Component {
                               <ul>
                                 {!this.state.inneerSec && (
                                   <Grid>
+                                     {roles.includes("rename_step") &&
                                     <li ref={this.list}>
                                       <a
                                         onClick={() => {
@@ -411,7 +413,7 @@ class Column extends Component {
                                         <span></span>
                                         {renameStep}
                                       </a>
-                                    </li>
+                                    </li>}
                                     <li>
                                       <a
                                         onClick={() => {
@@ -428,6 +430,7 @@ class Column extends Component {
                                         {AddPatientStep}
                                       </a>
                                     </li>
+                                    {roles.includes('edit_step')&&
                                     <li>
                                       <a
                                         onClick={() => {
@@ -441,7 +444,7 @@ class Column extends Component {
                                         </span>
                                         {move_step}
                                       </a>
-                                    </li>
+                                    </li>}
                                     <li>
                                       <a
                                         onClick={() => {
@@ -465,6 +468,7 @@ class Column extends Component {
                                         </p>{' '}
                                       </a>
                                     </li>
+                                    {roles.includes("delete_step") &&
                                     <li>
                                       <a
                                         onClick={() => {
@@ -480,7 +484,7 @@ class Column extends Component {
                                         </span>
                                         {deleteStep}
                                       </a>
-                                    </li>
+                                    </li>}
                                   </Grid>
                                 )}
                                 {this.state.inneerSec === 'move_all' && (
@@ -638,13 +642,14 @@ class Column extends Component {
               />
               {this.props.view === 'vertical' && (
                 <Grid className="nwPatentAdd">
+                   {roles.includes("add_patient") &&
                   <Button
                     onClick={() => {
                       this.props.openAddPatient(title);
                     }}
                   >
                     {AddNewPatient}
-                  </Button>
+                  </Button>}
                 </Grid>
               )}
             </Container>
