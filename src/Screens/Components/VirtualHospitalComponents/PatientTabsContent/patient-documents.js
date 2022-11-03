@@ -351,7 +351,7 @@ class Index extends Component {
                   <h1>{DocumentsFiles}</h1>
                 </Grid>
               <Grid item xs={12} md={6} sm={6}>
-              {roles.includes("add_document_files") &&
+              {roles.includes("add_entry") &&
                   <Grid className="AddEntrynw">
                     <a onClick={this.handleOpenNewEn}>+ {add_document}</a>
                   </Grid>}

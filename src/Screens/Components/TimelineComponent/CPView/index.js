@@ -545,5 +545,6 @@ export default pure(
     LoginReducerAim,
     houseSelect,
 
+
   })(Index))
 );

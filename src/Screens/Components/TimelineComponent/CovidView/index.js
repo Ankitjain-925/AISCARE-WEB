@@ -570,7 +570,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
-
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   return {
@@ -578,7 +577,6 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     stateLoginValueAim,
     House,
-
   };
 };
 export default pure(
@@ -590,3 +588,4 @@ export default pure(
 
   })(Index))
 );
+

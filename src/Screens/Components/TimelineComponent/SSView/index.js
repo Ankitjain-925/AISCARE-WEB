@@ -477,6 +477,7 @@ const mapStateToProps = (state) => {
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
 
+
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   return {
@@ -484,6 +485,7 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     stateLoginValueAim,
     House,
+
 
   };
 };
@@ -493,6 +495,7 @@ export default pure(
     Doctorset,
     LoginReducerAim,
     houseSelect,
+
 
   })(Index))
 );

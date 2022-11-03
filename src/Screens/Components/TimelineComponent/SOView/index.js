@@ -21,6 +21,7 @@ import { Doctorset } from "Screens/Doctor/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { houseSelect } from '../../../VirtualHospital/Institutes/selecthouseaction';
 
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -434,6 +435,7 @@ const mapStateToProps = (state) => {
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
 
+
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   return {
@@ -441,6 +443,7 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     stateLoginValueAim,
     House,
+
 
   };
 };
@@ -453,3 +456,4 @@ export default pure(
 
   })(Index))
 );
+

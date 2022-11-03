@@ -798,6 +798,7 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     House,
 
+
   };
 };
 export default pure(

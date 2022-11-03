@@ -434,6 +434,7 @@ const mapStateToProps = (state) => {
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
 
+
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   return {

@@ -357,7 +357,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openApoint}
                                             onClose={this.handleCloseApoint}>
-                                            <Grid className="apontBoxCntnt">
+                                            <Grid className="apontBoxCntnt"> 
                                                 <Grid className="apontCourse">
                                                     <Grid className="apontCloseBtn">
                                                         <a onClick={this.handleCloseApoint}>

@@ -458,7 +458,6 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     stateLoginValueAim,
     House,
-
   };
 };
 export default pure(
@@ -466,7 +465,9 @@ export default pure(
     LanguageFetchReducer,
     Doctorset,
     LoginReducerAim,
+
     houseSelect,
 
   })(Index))
 );
+
