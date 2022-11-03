@@ -477,7 +477,7 @@ class Index extends Component {
     var status = data?.status?.value;
     axios
       .delete(
-        sitedata.data.path + '/vh/AddInvoice/' + data,
+        sitedata.data.path + '/vh/AddInvoice/' + data + "/" + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -658,6 +658,7 @@ class Index extends Component {
       overdueCSS,
       paidCSS,
     } = this.state;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
@@ -693,13 +694,14 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
+                        {roles.includes("add_invoice") &&
                           <Button
                             onClick={() => {
                               this.Invoice('new');
                             }}
                           >
                             {NewInvoice}
-                          </Button>
+                          </Button>}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -943,6 +945,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {roles.includes("show_invoice") &&
                     <Grid className="billInfoData">
                       <Table>
                         <Thead>
@@ -999,6 +1002,7 @@ class Index extends Component {
                                 </Td> */}
                                 <Td>{data?.total_amount} €</Td>
                                 <Td className="billDots">
+                                {(roles.includes("print_invoice") || roles.includes("download_invoice")|| roles.includes("delete_invoice"))  &&
                                   <Button className="downloadDots">
                                     <img
                                       src={require('assets/virtual_images/threeDots.png')}
@@ -1036,6 +1040,7 @@ class Index extends Component {
                                             removeAfterPrint
                                             trigger={() => (
                                               <a>
+                                                  {roles.includes("print_invoice") &&
                                                 <li>
                                                   <img
                                                     src={require('assets/virtual_images/PrintInvoice.png')}
@@ -1043,7 +1048,7 @@ class Index extends Component {
                                                     title=""
                                                   />
                                                   <span>{PrintInvoice}</span>
-                                                </li>
+                                                </li>}
                                               </a>
                                             )}
                                             _id={data._id}
@@ -1124,6 +1129,7 @@ class Index extends Component {
                                               />
                                             )}
                                         </div>
+                                        {roles.includes("download_invoice") &&
                                         <a
                                           onClick={() => {
                                             this.downloadInvoicePdf(data);
@@ -1138,7 +1144,7 @@ class Index extends Component {
                                             />
                                             <span>{DownloadPDF}</span>
                                           </li>
-                                        </a>
+                                        </a>}
                                       </ul>
 
                                       {/* {data?.status?.value != 'paid' && (
@@ -1212,6 +1218,7 @@ class Index extends Component {
                                           )}
                                         </div>
                                       )} */}
+                                          {roles.includes("delete_invoice") &&
                                       <a
                                         onClick={() => {
                                           this.removeBills(data._id);
@@ -1225,9 +1232,10 @@ class Index extends Component {
                                           />
                                           <span>{DeleteInvoice}</span>
                                         </li>
-                                      </a>
+                                      </a>}
                                     </Grid>
                                   </Button>
+                          }
                                 </Td>
                               </Tr>
                             </Tbody>
@@ -1259,7 +1267,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid>}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}

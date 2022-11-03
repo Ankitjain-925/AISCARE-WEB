@@ -272,9 +272,10 @@ class Index extends Component {
                           </Grid> */}
 
                           <Grid className="newServc">
+                          {roles.includes('add_service')&&
                             <Button onClick={() => handleOpenServ(this)}>
                               {newService}
-                            </Button>
+                            </Button>}
                             <Modal
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
@@ -406,6 +407,8 @@ class Index extends Component {
                                     <a>
                                       <Button
                                         onClick={() => handleSubmit(this)}
+                                        disabled={this.state.isButtonDisabled}
+                                        
                                       >
                                         {save_and_close}
                                       </Button>
@@ -450,7 +453,7 @@ class Index extends Component {
                               />
                               <p className="euroamount">€</p>
                             </Grid>
-
+                            {roles.includes('change_sc_amount')&&
                             <Grid>
                               <img
                                 className="pionter"
@@ -463,7 +466,7 @@ class Index extends Component {
                                   });
                                 }}
                               />
-                            </Grid>
+                            </Grid>}
 
                             {/* </a> */}
                           </Grid>

@@ -40,7 +40,7 @@ class Index extends Component {
       loaderImage: false,
       openInvt: false,
       openPharma: false,
-      CheckCurrent: false,
+      CheckCurrent: { current_available: false },
       UpDataDetails: [],
       invitation: {},
       mode: "normal",
@@ -51,7 +51,7 @@ class Index extends Component {
   }
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    socket.on("connection", () => {});
+    socket.on("connection", () => { });
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
@@ -257,9 +257,9 @@ class Index extends Component {
         md={1}
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "MenuLeftUpr MenuLeftDrkUpr"
             : "MenuLeftUpr"
         }
@@ -276,8 +276,8 @@ class Index extends Component {
             name="current_available"
             value={
               this.props.CheckCurrent &&
-              this.props.CheckCurrent?.current_available &&
-              this.props.CheckCurrent?.current_available === true
+                this.props.CheckCurrent?.current_available &&
+                this.props.CheckCurrent?.current_available === true
                 ? false
                 : true
             }
@@ -295,7 +295,6 @@ class Index extends Component {
 
         <Grid className="menuItems">
           <ul>
-          {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager') && 
             <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
@@ -303,9 +302,9 @@ class Index extends Component {
             >
               <a onClick={this.Appointment}>
                 {this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark" ? (
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ? (
                   <img
                     src={require("assets/images/nav-appointments-white.svg")}
                     alt=""
@@ -320,59 +319,31 @@ class Index extends Component {
                 )}
                 <span>{appointments}</span>
               </a>
-            </li>}
+            </li>
             {/* {this.props?.House?.value && (
               <>
-               {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('task_manager') && <li
-                  className={
-                    this.props.currentPage === 'task' ? 'menuActv' : ''
-                  }
-                >
-                  <a onClick={this.handlePTask}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
-                      <img
-                        src={require('assets/virtual_images/rightIcon2.png')}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          this.props.currentPage === 'task'
-                            ? require('assets/virtual_images/rightIcon2.png')
-                            : require('assets/virtual_images/rightpng.png')
-                        }
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{ProfessionalTask}</span>
-                  </a>
-                </li>}
+              
                 <li
                   className={
-                    this.props.currentPage === 'institute' ? 'menuActv' : ''
+                    this.props.currentPage === "institute" ? "menuActv" : ""
                   }
                 >
                   <a onClick={this.NormalView}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === 'dark' ? (
+                    this.props.settings.setting.mode === "dark" ? (
                       <img
-                        src={require('assets/virtual_images/hospitalIcon2.png')}
+                        src={require("assets/virtual_images/hospitalIcon2.png")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === 'institute'
-                            ? require('assets/virtual_images/hospitalIcon2.png')
-                            : require('assets/virtual_images/hospitalIcon.png')
+                          this.props.currentPage === "institute"
+                            ? require("assets/virtual_images/hospitalIcon2.png")
+                            : require("assets/virtual_images/hospitalIcon.png")
                         }
                         alt=""
                         title=""
@@ -383,111 +354,111 @@ class Index extends Component {
                 </li>
               </>
             )} */}
-           
-            {/* {!this.props?.House?.value && ( */}
-              <>
-                <li
-                  className={
-                    this.props.currentPage === "chat" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.Chats}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/images/nav-chat-white.svg")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/nav-chat.svg")}
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{chat_vdocall}</span>
-                  </a>
-                </li>
-                <li
-                  className={
-                    this.props.currentPage === "patient" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.Service}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/images/nav-patients-active.svg")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/patientinfo.png")}
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{capab_Patients}</span>
-                  </a>
-                </li>
-                <li
-                  className={
-                    this.props.currentPage === "inquiries" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.MyDocument}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/images/nav-my-documents-inquiries-active.svg")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/nav-my-documents-inquiries.svg")}
-                        alt=""
-                        title=""
-                      />
-                    )}
-                    <span>{Inquiries}</span>
-                  </a>
-                </li>
-                <li
-                  className={
-                    this.props.currentPage === "tracker" ? "menuActv" : ""
-                  }
-                >
-                  <a onClick={this.Emergency}>
-                    {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ? (
-                      <img
-                        src={require("assets/images/ermerAccess-white.svg")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/ermerAccess.svg")}
-                        alt=""
-                        title=""
-                      />
-                    )}
 
-                    <span>{emegancy_access}</span>
-                  </a>
-                </li>
-                <li
+            {/* {!this.props?.House?.value && ( */}
+            <>
+              <li
+                className={
+                  this.props.currentPage === "chat" ? "menuActv" : ""
+                }
+              >
+                <a onClick={this.Chats}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/images/nav-chat-white.svg")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={require("assets/images/nav-chat.svg")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                  <span>{chat_vdocall}</span>
+                </a>
+              </li>
+              <li
+                className={
+                  this.props.currentPage === "patient" ? "menuActv" : ""
+                }
+              >
+                <a onClick={this.Service}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/images/nav-patients-active.svg")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={require("assets/images/patientinfo.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                  <span>{capab_Patients}</span>
+                </a>
+              </li>
+              <li
+                className={
+                  this.props.currentPage === "inquiries" ? "menuActv" : ""
+                }
+              >
+                <a onClick={this.MyDocument}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/images/nav-my-documents-inquiries-active.svg")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={require("assets/images/nav-my-documents-inquiries.svg")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                  <span>{Inquiries}</span>
+                </a>
+              </li>
+              <li
+                className={
+                  this.props.currentPage === "tracker" ? "menuActv" : ""
+                }
+              >
+                <a onClick={this.Emergency}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/images/ermerAccess-white.svg")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={require("assets/images/ermerAccess.svg")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+
+                  <span>{emegancy_access}</span>
+                </a>
+              </li>
+              {/* <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
                   }
@@ -515,47 +486,14 @@ class Index extends Component {
                     )}
                     <span>{VHS_view}</span>
                   </a>
-                </li>
-               
-               { this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('professional_activity') && 
-             <li
-               className={
-                 this.props.currentPage === "activity" ? "menuActv" : ""
-               }
-             >
-               <a onClick={this.handleActivityTask}>
-                 {this.props.settings &&
-                 this.props.settings.setting &&
-                 this.props.settings.setting.mode &&
-                 this.props.settings.setting.mode === "dark" ? (
-                   <img
-                     src={require("assets/virtual_images/rightIcon2.png")}
-                     alt=""
-                     title=""
-                   />
-                 ) : (
-                   <img
-                     src={
-                       this.props.currentPage === "activity"
-                         ? require("assets/virtual_images/rightIcon2.png")
-                         : require("assets/virtual_images/rightpng.png")
-                     }
-                     alt=""
-                     title=""
-                   />
-                 )}
-                 <span>{professional_activity}</span>
-               </a>
-             </li>
-                 } 
-                
-                {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('earlier_activity') && 
-                <li
+                </li> */}
+
+              {/* <li
                   className={
-                    this.props.currentPage === "Profearliertask" ? "menuActv" : ""
+                    this.props.currentPage === "task" ? "menuActv" : ""
                   }
                 >
-                    <a onClick={() => { this.props.history.push("/doctor/earlier-task") }}>
+                  <a onClick={this.handlePTask}>
                     {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
@@ -568,7 +506,7 @@ class Index extends Component {
                     ) : (
                       <img
                         src={
-                          this.props.currentPage === "Profearliertask"
+                          this.props.currentPage === "task"
                             ? require("assets/virtual_images/rightIcon2.png")
                             : require("assets/virtual_images/rightpng.png")
                         }
@@ -576,125 +514,185 @@ class Index extends Component {
                         title=""
                       />
                     )}
-                    <span>{EarlierActivity}</span>
+                    <span>{ProfessionalTask}</span>
                   </a>
-                </li>}
-                {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('care_questionnary') && 
-                <li
-              className={
-                this.props.currentPage === "questionnary" ? "menuActv" : ""
-              }
-            >
-              <a onClick={() => { this.props.history.push("/doctor/care-questionary") }}>
-                {this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark" ?
-                  (<img
-                    src={require("assets/virtual_images/rightIcon2.png")}
-                    alt=""
-                    title=""
-                  />) : (
+                </li> */}
+
+              <li
+                className={
+                  this.props.currentPage === "activity" ? "menuActv" : ""
+                }
+              >
+                <a onClick={this.handleActivityTask}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
                     <img
-                      src={this.props.currentPage === "questionnary" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                      src={require("assets/virtual_images/rightIcon2.png")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={
+                        this.props.currentPage === "activity"
+                          ? require("assets/virtual_images/rightIcon2.png")
+                          : require("assets/virtual_images/rightpng.png")
+                      }
                       alt=""
                       title=""
                     />
                   )}
-                <span>{Care_Questionnary}</span>
-              </a>
-            </li>}
+                  <span>{professional_activity}</span>
+                </a>
+              </li>
 
-                <li>
-                  <a className="moreMenu">
-                    {this.props.settings &&
+              <li
+                className={
+                  this.props.currentPage === "Profearliertask" ? "menuActv" : ""
+                }
+              >
+                <a onClick={() => { this.props.history.push("/doctor/earlier-task") }}>
+                  {this.props.settings &&
                     this.props.settings.setting &&
                     this.props.settings.setting.mode &&
                     this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/virtual_images/rightIcon2.png")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={
+                        this.props.currentPage === "Profearliertask"
+                          ? require("assets/virtual_images/rightIcon2.png")
+                          : require("assets/virtual_images/rightpng.png")
+                      }
+                      alt=""
+                      title=""
+                    />
+                  )}
+                  <span>{EarlierActivity}</span>
+                </a>
+              </li>
+
+              <li
+                className={
+                  this.props.currentPage === "questionnary" ? "menuActv" : ""
+                }
+              >
+                <a onClick={() => { this.props.history.push("/doctor/care-questionary") }}>
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ?
+                    (<img
+                      src={require("assets/virtual_images/rightIcon2.png")}
+                      alt=""
+                      title=""
+                    />) : (
                       <img
-                        src={require("assets/images/nav-more-white.svg")}
-                        alt=""
-                        title=""
-                      />
-                    ) : (
-                      <img
-                        src={require("assets/images/nav-more.svg")}
+                        src={this.props.currentPage === "questionnary" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
                         alt=""
                         title=""
                       />
                     )}
-                    <span>{more}</span>
-                    <div className="moreMenuList">
-                      <ul>
-                        <li>
-                          <a onClick={this.handleOpenInvt}>
-                            {this.props.settings &&
+                  <span>{Care_Questionnary}</span>
+                </a>
+              </li>
+
+              <li>
+                <a className="moreMenu">
+                  {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ? (
+                    <img
+                      src={require("assets/images/nav-more-white.svg")}
+                      alt=""
+                      title=""
+                    />
+                  ) : (
+                    <img
+                      src={require("assets/images/nav-more.svg")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                  <span>{more}</span>
+                  <div className="moreMenuList">
+                    <ul>
+                      <li>
+                        <a onClick={this.handleOpenInvt}>
+                          {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
                             this.props.settings.setting.mode === "dark" ? (
-                              <img
-                                src={require("assets/images/menudocs-white.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                src={require("assets/images/menudocs.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            {invite_doc}
-                          </a>
-                        </li>
-                        <li>
-                          <a onClick={this.handleOpenPharma}>
-                            {this.props.settings &&
+                            <img
+                              src={require("assets/images/menudocs-white.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              src={require("assets/images/menudocs.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          {invite_doc}
+                        </a>
+                      </li>
+                      <li>
+                        <a onClick={this.handleOpenPharma}>
+                          {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
                             this.props.settings.setting.mode === "dark" ? (
-                              <img
-                                src={require("assets/images/menudocs-white.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                src={require("assets/images/menudocs.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            {pharma_prescription}
-                          </a>
-                        </li>
-                        <li className="doctor-menu">
-                          <a onClick={this.Online}>
-                            {this.props.settings &&
+                            <img
+                              src={require("assets/images/menudocs-white.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              src={require("assets/images/menudocs.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          {pharma_prescription}
+                        </a>
+                      </li>
+                      <li className="doctor-menu">
+                        <a onClick={this.Online}>
+                          {this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
                             this.props.settings.setting.mode === "dark" ? (
-                              <img
-                                src={require("assets/images/menudocs-white.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                src={require("assets/images/menudocs.jpg")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            AIS {online_course}
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </li>
-              </>
-             {/* )}  */}
+                            <img
+                              src={require("assets/images/menudocs-white.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              src={require("assets/images/menudocs.jpg")}
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          AIS {online_course}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </a>
+              </li>
+            </>
+            {/* )} */}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
@@ -711,9 +709,9 @@ class Index extends Component {
                     <li>
                       <a onClick={this.Myprofile}>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
@@ -736,9 +734,9 @@ class Index extends Component {
                         }}
                       >
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
@@ -757,9 +755,9 @@ class Index extends Component {
                     <li>
                       <a>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
@@ -787,9 +785,9 @@ class Index extends Component {
                     <li onClick={this.logOutClick}>
                       <a>
                         {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""

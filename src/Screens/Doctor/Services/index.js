@@ -123,7 +123,7 @@ class Index extends Component {
   //Go to journal direct
   GotoJournal = (currentone) => {
     if (currentone && currentone._id) {
-      this.props.Doctorset(currentone._id, currentone.pin);
+      this.props.Doctorset(currentone._id, currentone.pin, currentone.byhospital);
       this.props.history.push("/doctor/journal");
     }
   };
@@ -868,6 +868,7 @@ class Index extends Component {
                             <Th>{gender}</Th>
                             <Th>{Register_Mobilenumber}</Th>
                             <Th>{patient_id}</Th>
+                            <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
@@ -906,6 +907,9 @@ class Index extends Component {
                                     ? data.alies_id
                                     : not_mentioned}
                                 </Td>
+                                <Td>
+                                        {data?.byhospital && <>{"By Hospital"}</>}
+                                </Td>
                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                   <a>
                                     <img
@@ -939,7 +943,7 @@ class Index extends Component {
                                         />
                                         {personal_info}
                                       </li>
-                                      {data?.byhospital !== true && <li
+                                      {!data?.byhospital && <li
                                         onClick={(e) =>
                                           this.removePatient(data)
                                         }
@@ -1328,7 +1332,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          <Grid className="dataBoxUpr patietnRegister">
+                          <Grid className="dataBoxUpr patietnRegister patientRegSec">
                             <Grid className="registerRow">
                               <Grid>
                                 <label>
@@ -1403,7 +1407,7 @@ class Index extends Component {
                               </Grid>
 
                               {userDetails && userDetails.password ? (
-                                <div className="passInst">
+                                <div className="passInst passInstSec">
                                   <div className="passInstIner">
                                     <p>{Register_Passwordshould}</p>
                                     {/* <img src={require('assets/images/passArrow.png')} alt="" title="" className="passArow" /> */}
@@ -1528,7 +1532,7 @@ class Index extends Component {
                                   </div>
                                 </div>
                               ) : (
-                                <div className="passInst">
+                                <div className="passInst passInstSec">
                                   <div className="passInstIner">
                                     <p>{Register_Passwordshould}</p>
                                     <img

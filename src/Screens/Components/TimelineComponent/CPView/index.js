@@ -17,6 +17,10 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { getLanguage } from "translations/index"
 import { pure } from "recompose";
+import { Doctorset } from "Screens/Doctor/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { houseSelect } from '../../../VirtualHospital/Institutes/selecthouseaction';
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +58,7 @@ class Index extends Component {
     }
   };
 
-  
+
 
   render() {
     var item = this.state.item;
@@ -182,7 +186,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -211,22 +215,58 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget?.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget?.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_condition_pain") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          :  (this.props.comesfrom == "adminstaff" && (
+
+                            this.props.House.roles.includes("edit_condition_pain") ? (
+                              this.props.comesfrom !== "patient" && (
+
+                                <li>
+                                  <a
+                                    onClick={() =>
+                                      this.props.EidtOption(item.type, item)
+                                    }
+                                  >
+                                    <img
+                                      src={require("assets/images/edit-1.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {edit}
+                                  </a>
+                                </li>
+                              ))
+                              : (
+                                " "
+                              )
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -311,10 +351,10 @@ class Index extends Component {
             >
               {
                 <Grid>
-            <Grid container direction="row" className="addSpc conPain_Cntnt">
-              <Grid item xs={12} md={5}>
-              <CreatedBySec data={item} />
-                {/* <Grid className="conPain_Img">
+                  <Grid container direction="row" className="addSpc conPain_Cntnt">
+                    <Grid item xs={12} md={5}>
+                      <CreatedBySec data={item} />
+                      {/* <Grid className="conPain_Img">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -341,140 +381,140 @@ class Index extends Component {
                     </p>
                   </ReactTooltip>
                 </Grid> */}
-              </Grid>
-              <Grid item xs={12} md={7}>
-                {/* <Grid className="conPain_MDCImg">
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                      {/* <Grid className="conPain_MDCImg">
                                             <a><img src={require('assets/images/hLogo.jpg')} alt="" title="" />
                                                 <span>Illinois Masonic Medical Center</span>
                                             </a>
                                         </Grid> */}
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid container direction="row" className="addSpc conPainGraph">
-              <Grid item xs={12} md={5}>
-                <Grid className="conPainLft">
-                  <Grid className="conPainArea">
-                    <label>{pain_areas}</label>
-                  </Grid>
-                  <PainPoint
-                    id={item.track_id}
-                    gender={this.state.gender}
-                    painPoint={item.painPoint}
-                    isView={true}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={7}>
-                <Grid className="conPainRght">
-                  <Grid className="painIntencty">
-                    <PainIntensity
-                      name="pain_intensity"
-                      Forview={true}
-                      onChange={(e) => this.props.updateEntryState(e)}
-                      value={Math.round(item.pain_intensity)}
-                    />
+                    </Grid>
+                    <Grid className="clear"></Grid>
                   </Grid>
 
-                  <Grid className="condIntencty">
-                    <Condition
-                      name="feeling"
-                      Forview={true}
-                      onChange={(e) => this.props.updateEntryState(e)}
-                      value={Math.round(item.feeling)}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid>
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{pain_type}</label>
+                  <Grid container direction="row" className="addSpc conPainGraph">
+                    <Grid item xs={12} md={5}>
+                      <Grid className="conPainLft">
+                        <Grid className="conPainArea">
+                          <label>{pain_areas}</label>
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.pain_type &&
-                              GetShowLabel1(
-                                this.props.paintype,
-                                item.pain_type.value,
-                                this.props.stateLanguageType,
-                                true
-                              )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
+                        <PainPoint
+                          id={item.track_id}
+                          gender={this.state.gender}
+                          painPoint={item.painPoint}
+                          isView={true}
+                        />
                       </Grid>
                     </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{pain_quality}</label>
+                    <Grid item xs={12} md={7}>
+                      <Grid className="conPainRght">
+                        <Grid className="painIntencty">
+                          <PainIntensity
+                            name="pain_intensity"
+                            Forview={true}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={Math.round(item.pain_intensity)}
+                          />
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.pain_quality &&
-                              GetShowLabel1(
-                                this.props.painquality,
-                                item.pain_quality.value,
-                                this.props.stateLanguageType,
-                                true
-                              )}
-                          </span>
+
+                        <Grid className="condIntencty">
+                          <Condition
+                            name="feeling"
+                            Forview={true}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={Math.round(item.feeling)}
+                          />
                         </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Date_of_event}</label>
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid>
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{pain_type}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.pain_type &&
+                                    GetShowLabel1(
+                                      this.props.paintype,
+                                      item.pain_type.value,
+                                      this.props.stateLanguageType,
+                                      true
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{pain_quality}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.pain_quality &&
+                                    GetShowLabel1(
+                                      this.props.painquality,
+                                      item.pain_quality.value,
+                                      this.props.stateLanguageType,
+                                      true
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.event_date &&
-                              getDate(item.event_date, this.state.date_format)}
-                          </span>
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Date_of_event}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.event_date &&
+                                    getDate(item.event_date, this.state.date_format)}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
                         </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid className="clear"></Grid>
+                    </Collapsible>
                   </Grid>
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
-            </Grid>}
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={notes} open="true">
+                      <Grid className="detailCntnt">
+                        <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
+                  </Grid>
+                </Grid>}
             </Collapsible>
           </Grid>
         </Grid>
@@ -485,10 +525,26 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { Doctorsetget } = state.Doctorset;
+  const { House } = state.houseSelect;
+
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     stateLanguageType,
+    Doctorsetget,
+    stateLoginValueAim,
+    House,
+
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, {
+    LanguageFetchReducer,
+    Doctorset,
+    LoginReducerAim,
+    houseSelect,
+
+
+  })(Index))
+);

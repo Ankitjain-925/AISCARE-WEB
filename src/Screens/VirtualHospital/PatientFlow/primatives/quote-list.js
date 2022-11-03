@@ -108,6 +108,7 @@ class InnerQuoteList extends React.Component {
             }}
             setDta={(item) => this.props.setDta(item)}
             professional_id_list={this.props.professional_id_list}
+            professionalArray={this.props.professionalArray}
             updateEntryState3={(e, case_id) => {
               this.props.updateEntryState3(e, case_id);
             }}
@@ -145,6 +146,7 @@ class InnerList extends React.Component {
               this.props.updateEntryState3(e, case_id);
             }}
             professional_id_list={this.props.professional_id_list}
+            professionalArray={this.props.professionalArray}
             moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
             setDta={(item) => this.props.setDta(item)}
             columns={this.props.columns}
@@ -217,6 +219,7 @@ export default class QuoteList extends React.Component {
                   }}
                   setDta={(item) => this.props.setDta(item)}
                   professional_id_list={this.props.professional_id_list}
+                  professionalArray={this.props.professionalArray}
                   updateEntryState3={(e, case_id) => {
                     this.props.updateEntryState3(e, case_id);
                   }}
@@ -245,6 +248,7 @@ export default class QuoteList extends React.Component {
                 }}
                 setDta={(item) => this.props.setDta(item)}
                 professional_id_list={this.props.professional_id_list}
+                professionalArray={this.props.professionalArray}
                 updateEntryState3={(e, case_id) => {
                   this.props.updateEntryState3(e, case_id);
                 }}

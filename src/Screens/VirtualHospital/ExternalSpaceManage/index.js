@@ -228,7 +228,6 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr wardsGrupUpr1">
                       <Grid container direction="row" spacing={2}>
@@ -288,6 +287,7 @@ class Index extends Component {
                                         professional_id_list={
                                           this.state.professional_id_list
                                         }
+                                        professionalArray={this.state.professionalArray}
                                         updateEntryState3={(e, case_id) => {
                                           this.updateEntryState3(e, case_id);
                                         }}
