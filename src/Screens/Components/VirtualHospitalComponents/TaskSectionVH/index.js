@@ -1920,7 +1920,7 @@ class Index extends Component {
           );
         }
       );
-    }
+    } else this.setState({ authErr: false })
 
   };
 
@@ -2236,7 +2236,9 @@ class Index extends Component {
                           alignItems="center"
                         // spacing={1}
                         >
-                          {this.state.authErr && <h6 style={{ color: 'red', textAlign: 'center' }}> No Authority for selected hospital </h6>}
+                          {this.state.authErr &&
+                            <div className="err_message">You dont have authority to selected hospital</div>
+                          }
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
                               <>
