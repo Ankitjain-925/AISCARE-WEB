@@ -622,16 +622,16 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NurseInstitute {...props} />}
             />
-            {/* <Route
+            <Route
               path="/nurse/professional-activity"
-              exact={true}
-              render={(props) => <NursePA {...props} />}
-            /> */}
-              <Route
-              path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
             />
+              {/* <Route
+              path="/nurse/professional-task"
+              exact={true}
+              render={(props) => <NursePT {...props} />}
+            /> */}
             <Route
               path="/nurse/earlier-task"
               exact={true}
