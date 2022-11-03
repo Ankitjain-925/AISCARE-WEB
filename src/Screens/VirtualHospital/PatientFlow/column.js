@@ -162,6 +162,7 @@ class Column extends Component {
                                     {renameStep}
                                   </a>
                                 </li>}
+                                {roles.includes("add_patient") &&
                                 <li>
                                   <a
                                     onClick={() => {
@@ -177,7 +178,7 @@ class Column extends Component {
                                     </span>
                                     {AddPatientStep}
                                   </a>
-                                </li>
+                                </li>}
                                 {roles.includes('edit_step')&&
                                 <li>
                                   <a
@@ -414,6 +415,8 @@ class Column extends Component {
                                         {renameStep}
                                       </a>
                                     </li>}
+                                    {roles.includes("add_patient") &&
+                                    
                                     <li>
                                       <a
                                         onClick={() => {
@@ -429,7 +432,7 @@ class Column extends Component {
                                         </span>
                                         {AddPatientStep}
                                       </a>
-                                    </li>
+                                    </li>}
                                     {roles.includes('edit_step')&&
                                     <li>
                                       <a
