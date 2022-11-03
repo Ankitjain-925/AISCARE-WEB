@@ -139,7 +139,8 @@ class Index extends Component {
       taskData: {},
       specchange: false,
       openAss: false,
-      selectedHouse: {}
+      selectedHouse: {},
+      authErr: null,
     };
   }
 
@@ -1431,7 +1432,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + "/vh/AddTask/" + id+"/"+ this.props?.House?.value,
+        sitedata.data.path + "/vh/AddTask/" + id + "/" + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -1905,6 +1906,22 @@ class Index extends Component {
       this.getPatientData();
       this.SelectAutoAssigned(fullData);
     });
+
+    const { roles = [] } = e || {};
+    if (!roles.includes('add_task')) {
+      this.setState(
+        {
+          authErr: true,
+        },
+        () => {
+          setTimeout(
+            () => this.setState({ openTask: false }),
+            2000
+          );
+        }
+      );
+    }
+
   };
 
   SelectAutoAssigned = (fullData) => {
@@ -1918,6 +1935,7 @@ class Index extends Component {
     }, 500);
   };
   render() {
+    console.log("houses", this.state.houses)
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateCertificate,
@@ -2119,6 +2137,8 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
+      console.log(this.AllTasks)
+
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -2153,6 +2173,7 @@ class Index extends Component {
             total_amount={this.state.total_amount}
             currentList={this.state.currentList}
           />
+
           <Modal
             className={
               this.props.settings &&
@@ -2213,6 +2234,7 @@ class Index extends Component {
                           alignItems="center"
                         // spacing={1}
                         >
+                          {this.state.authErr && <h6 style={{ color: 'red', textAlign: 'center' }}> No Authority for selected hospital </h6>}
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
                               <>
@@ -4630,6 +4652,7 @@ class Index extends Component {
                         }
                         comesFrom={this.props.comesFrom}
                         switchStatus={() => { this.switchStatus() }}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
@@ -4668,6 +4691,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
@@ -4706,6 +4730,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
@@ -4744,6 +4769,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
@@ -4782,6 +4808,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
@@ -4820,6 +4847,7 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        houses={this.state.houses}
                       />
                     </Grid>
                   ))}
