@@ -560,9 +560,9 @@ getMypatientsData() {
     if (this.props.Doctorsetget && this.props.Doctorsetget.p_id) {
       this.GetInfoForPatient();
     }
-    else{
+    // else{
       this.getMypatientsData();
-    }
+    // }
     
   }
   componentDidUpdate = (prevProps) => {
@@ -996,6 +996,7 @@ getMypatientsData() {
 
   //Get the RIGHT INFO
   rightInfo() {
+    console.log('dsfsdfsf', this.props.Doctorsetget.p_id)
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(
@@ -1029,6 +1030,7 @@ getMypatientsData() {
     var user_id = null;
     var pin = null;
     this.props.Doctorset(user_id, pin);
+    this.getMypatientsData();
   };
   //Move to Profile page
   MoveProfile = () => {
@@ -1040,8 +1042,11 @@ getMypatientsData() {
   };
 
   GotoJournal = (data) => {
-    this.props.Doctorset(data?._id, data?.pin);
-    this.GetInfoForPatient();
+    this.props.Doctorset(data?._id, data?.pin, data?.byhospital);
+    setTimeout(()=>{
+      this.GetInfoForPatient();
+    }, 2000)
+
   }
   //For the GetTrack for the patient
   setTrack = () => {
@@ -1244,13 +1249,13 @@ getMypatientsData() {
                     <Grid className="descpCntntMain">
                       <Grid className="journalAdd">
                         <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
+                          <Grid item xs={11} md={12}>
                             <Grid container direction="row">
                               <Grid item xs={12} md={6}>
                                 <h1>{patient_access_data}</h1>
                               </Grid>
                               <Grid item xs={12} md={6}>
-                                <Grid className="AddEntrynw">
+                                <Grid className="AddEntrynw AddEntrynwSec">
                                   {this.props.Doctorsetget &&
                                     this.props.Doctorsetget.p_id !== null ? (
                                     <a onClick={this.AnotherPatient}>
@@ -1285,7 +1290,7 @@ getMypatientsData() {
                         </Grid>
                       </Grid>
                       {!this.props.Doctorsetget?.p_id &&
-                        <Grid className="docOpinion">
+                        <Grid className="">
                           <Grid className="docOpinionIner">
                             <Table>
                               <Thead>

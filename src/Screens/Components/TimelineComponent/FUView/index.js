@@ -13,6 +13,10 @@ import { LanguageFetchReducer } from "Screens/actions";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { getLanguage } from "translations/index"
 import { pure } from "recompose";
+import { Doctorset } from "Screens/Doctor/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { houseSelect } from '../../../VirtualHospital/Institutes/selecthouseaction';
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -229,22 +233,29 @@ class Index extends Component {
                                 )
                             ) : (" ")
                           )))
-                          : (this.props.comesfrom !== "patient" && (
+                          :  (this.props.comesfrom == "adminstaff" && (
 
-                            <li>
-                              <a
-                                onClick={() =>
-                                  this.props.EidtOption(item.type, item)
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/edit-1.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {edit}
-                              </a>
-                            </li>
+                            this.props.House.roles.includes("edit_files_upload") ? (
+                              this.props.comesfrom !== "patient" && (
+
+                                <li>
+                                  <a
+                                    onClick={() =>
+                                      this.props.EidtOption(item.type, item)
+                                    }
+                                  >
+                                    <img
+                                      src={require("assets/images/edit-1.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {edit}
+                                  </a>
+                                </li>
+                              ))
+                              : (
+                                " "
+                              )
                           ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
@@ -414,10 +425,23 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { Doctorsetget } = state.Doctorset;
+  const { House } = state.houseSelect;
+
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     stateLanguageType,
+    Doctorsetget,
+    stateLoginValueAim,
+    House,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, {
+    LanguageFetchReducer,
+    Doctorset,
+    LoginReducerAim,
+    houseSelect,
+  })(Index))
+);
