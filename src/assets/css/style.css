@@ -11479,7 +11479,7 @@ a.barViewnw {
     line-height: 20px;
 }
 .detailQuesSub input {
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
@@ -11487,7 +11487,7 @@ a.barViewnw {
     line-height: 16px;
     text-align: center;
     border-radius: 8px;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     outline: none;
     border: none;
     width: 90%;
@@ -11574,10 +11574,10 @@ a.barViewnw {
 }
 .SuggNwTim input {
     border-radius: 8px;
-    background-color: #E1F7F7;
+    background-color: #E1F7F7 !important;
     border: none;
     outline: none;
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
@@ -16815,7 +16815,7 @@ select:-webkit-autofill:focus {
     height: 30px;
     cursor: pointer;
 }
-.hospitalsLbl ul li:first-child label::after {
+.hospzitalsLbl ul li:first-child label::after {
     bottom: -21px;
 }
 .roomBreadCrumbNw ul li::after {
@@ -17768,4 +17768,8 @@ a:hover{color: #000;}
 
 .setMarginBottom{
     margin : 0px 0px 30px 0px;
+}
+input[type="submit"]:disabled {
+    background-color: aliceblue !important;
+    color: #00abaf !important;
 }
