@@ -16357,3 +16357,11 @@ border-radius: 12px;
 .serviceallSec1 input{
   margin-bottom: 0px;
 }
+@media(max-width: 959px){
+  .allFormSection1{
+    margin-left: 40px!important;
+  }
+}
+.err_message1{
+  text-align: center!important;
+}
