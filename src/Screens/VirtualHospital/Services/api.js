@@ -81,6 +81,9 @@ export const handleSubmit = (current) => {
   }
   else {
     if (current.state.updateTrack._id) {
+      current.setState({
+        isButtonDisabled: true
+      });
       axios
         .put(
           sitedata.data.path + "/vh/AddService/" + current.state.updateTrack._id,
@@ -90,17 +93,24 @@ export const handleSubmit = (current) => {
         .then((responce) => {
           current.setState({
             updateTrack: {},
+            isButtonDisabled: false
           });
           getAllServices(current);
           handleCloseServ(current);
         });
     } else {
       data.house_id = current.props?.House?.value;
+      current.setState({
+        isButtonDisabled: true
+      });
       axios
         .post(sitedata.data.path + "/vh/AddService", data, commonHeader(current.props.stateLoginValueAim.token))
         .then((responce) => {
           getAllServices(current);
           handleCloseServ(current);
+          current.setState({
+            isButtonDisabled: false
+          });
         })
         .catch(function (error) {
           console.log(error);
@@ -153,7 +163,7 @@ export const selectedID = (id, current) => {
 
 export const deleteClickService = (id, current) => {
   axios
-    .delete(sitedata.data.path + "/vh/AddService/" + id, commonHeader(current.props.stateLoginValueAim.token))
+    .delete(sitedata.data.path + "/vh/AddService/" + id+ "/" + current.props?.House?.value, commonHeader(current.props.stateLoginValueAim.token))
     .then((response) => {
       getAllServices(current);
     })

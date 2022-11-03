@@ -68,7 +68,7 @@ class Index extends Component {
   mypatiantandDocSend = ()=>{
     this.setState({ loaderImage: true });
     axios.put(
-      sitedata.data.path + "/cases/addmypatient/" + this.props.match.params.id,
+      sitedata.data.path + "/cases/addmypatient/" + this.props.match.params.id+"/"+this.props.match.params.house_id,
       {  users_id : this.state.users_id,
         fav_doctor : this.state.fav_doctor
       },
@@ -90,7 +90,7 @@ class Index extends Component {
       return {doctor: item?.profile_id,
         profile_id: item?.profile_id,
         user_type:item?.type ,
-        byhospital: true};
+        byhospital: this.props.match.params.house_id};
     })
     let users_id = this.state.professionalArray.map((item)=>{
       return item?.id;
@@ -111,7 +111,7 @@ class Index extends Component {
             last.push({doctor: isProf[0]?.profile_id,
                 profile_id: isProf[0]?.profile_id,
                 user_type:isProf[0]?.type ,
-                byhospital: true})
+                byhospital: this.props.match.params.house_id})
               ;
         }
         return last;

@@ -6,9 +6,9 @@ import {
 import sitedata from "sitedata.js";
 
 const path = sitedata.data.path + "/UserProfile";
-export const Doctorset = (user_id, pin) => {
+export const Doctorset = (user_id, pin, byhos) => {
   return (dispatch) => {
-    let tmp = { p_id: user_id, p_pin: pin };
+    let tmp = { p_id: user_id, p_pin: pin, byhospital: byhos };
     dispatch({ type: GET_PATIENT_SUCCESS, payload: tmp });
   };
 };

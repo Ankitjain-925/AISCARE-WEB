@@ -68,8 +68,12 @@ export const deleteClickDoctor = (doctor, current) => {
                 for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
                     if (response.data.data.fav_doctor[i].doctor) {
                         if(response.data.data.fav_doctor[i]?.user_type === 'nurse'){
-                            // myfavNurse[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
-                            myfavNurse.push(response.data.data?.fav_doctor[i])
+                            let datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor) 
+                            if (datas && datas.length > 0) {
+                                datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
+                               myfavNurse.push(datas[0])
+                            }
+                          
                         }
                         else{
                             var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
@@ -81,7 +85,6 @@ export const deleteClickDoctor = (doctor, current) => {
                                     datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
                                     myfavDoctors.push(datas[0])
                                 }
-                              console.log('datas[0]', datas[0]?._id)  
                             }
                         }
                         current.setState({ loaderImage: false });
@@ -101,7 +104,7 @@ export const deleteClickDoctor = (doctor, current) => {
  //Get the all doctor 
  export const alldocs = (current) => {
     const user_token = current.props.stateLoginValueAim.token;
-    axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',
+    axios.get(sitedata.data.path + '/UserProfile/DocNurses',
         commonHeader(user_token)).then((response) => {
             var images = [], Reccimages = [];
             response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
@@ -121,7 +124,6 @@ export const deleteClickDoctor = (doctor, current) => {
             getUserData(current);
         })
 }
-
 
     //For Add the Doctor
     export const addDoctor = (current) => {

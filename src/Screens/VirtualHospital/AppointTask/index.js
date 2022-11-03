@@ -1333,7 +1333,7 @@ class Index extends Component {
 
                       <Grid item xs={12} sm={5} md={6}>
                         <Grid className="appontTask apponTaskhos">
-                          {roles.includes("Add_appointment") &&
+                          {roles.includes("arrange_appointment") &&
                             <Button onClick={this.handleAllowAccess} >
                               {AddAppointment}
                             </Button>

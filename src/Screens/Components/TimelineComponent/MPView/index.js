@@ -18,6 +18,10 @@ import { pure } from "recompose";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { getLanguage } from "translations/index"
+import { Doctorset } from "Screens/Doctor/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { houseSelect } from '../../../VirtualHospital/Institutes/selecthouseaction';
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -179,7 +183,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -208,22 +212,58 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.props.EidtOption(item.type, item)
-                              }
-                            >
-                              <img
-                                src={require("assets/images/edit-1.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {edit}
-                            </a>
-                          </li>
-                        )}
+                        {this.props.Doctorsetget?.byhospital ? (
+
+                          this.props.stateLoginValueAim.user.houses.map((newmember) => (
+
+                            this.props.Doctorsetget?.byhospital == newmember.value ? (
+                              newmember.roles.includes("edit_marcumar_pass") ? (
+                                this.props.comesfrom !== "patient" && (
+
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(item.type, item)
+                                      }
+                                    >
+                                      <img
+                                        src={require("assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                ))
+                                : (
+                                  " "
+                                )
+                            ) : (" ")
+                          )))
+                          :  (this.props.comesfrom == "adminstaff" && (
+
+                            this.props.House.roles.includes("edit_marcumar_pass") ? (
+                              this.props.comesfrom !== "patient" && (
+
+                                <li>
+                                  <a
+                                    onClick={() =>
+                                      this.props.EidtOption(item.type, item)
+                                    }
+                                  >
+                                    <img
+                                      src={require("assets/images/edit-1.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {edit}
+                                  </a>
+                                </li>
+                              ))
+                              : (
+                                " "
+                              )
+                          ))}
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -304,7 +344,7 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                    <CreatedBySec data={item} />
+                      <CreatedBySec data={item} />
                       {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
@@ -412,10 +452,10 @@ class Index extends Component {
                                     )}{" "}
                                   {item.time_measured &&
                                     ", " +
-                                      getTime(
-                                        new Date(item.time_measured),
-                                        this.state.time_foramt
-                                      )}
+                                    getTime(
+                                      new Date(item.time_measured),
+                                      this.state.time_foramt
+                                    )}
                                 </span>
                               </Grid>
                               <Grid className="clear"></Grid>
@@ -459,10 +499,24 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { Doctorsetget } = state.Doctorset;
+  const { House } = state.houseSelect;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     stateLanguageType,
+    Doctorsetget,
+    stateLoginValueAim,
+    House,
   };
 };
 export default pure(
-  withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index))
+  withRouter(connect(mapStateToProps, {
+    LanguageFetchReducer,
+    Doctorset,
+    LoginReducerAim,
+    houseSelect,
+
+  })(Index))
 );
+
