@@ -64,6 +64,8 @@ class Index extends Component {
     super(props);
     this.state = {
       openSlot: false,
+      disableAppointment: false,
+      suggestNewAppointment: false,
       selectedOption: null,
       myEventsList: [],
       DetialData: {},
@@ -237,18 +239,18 @@ class Index extends Component {
     ) {
       return moment(da1).format("hh:mm a");
     } else {
-      return moment(da1).format("HH:mm");
+       return moment( da1).format("HH:mm");
     }
-  };
-  getEvent = () => {
+  }; 
+  getEvent = () => { 
     var finaldata = [];
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .get(sitedata.data.path + "/User/AppointmentByDate",
+    axios  
+      .get(sitedata.data.path + "/User/App ointmentByDate",
         commonHeader(user_token))
       .then((response) => {
-        if (response.data.hassuccessed) {
+        if (response.data.hassuccessed) { 
           let indexout = 0;
           let appioinmentTimes = [];
           response.data.data &&
@@ -412,10 +414,21 @@ class Index extends Component {
                 }
               }
             });
-          if (this.props?.House?.value) {
-            newAppoint = newAppoint && newAppoint.length > 0 && newAppoint.filter((data) => data.house_id === this.props?.House?.value)
-          }
-          this.setState({ newAppoinments: newAppoint });
+            let filterAppointments = [];
+            newAppoint.forEach(function(element) {
+              this.props.stateLoginValueAim.user.houses.forEach(function(item) {
+                 if (element.house_id === item.value && item.roles.includes('show_appointment')) {
+                      filterAppointments.push(element);
+                 };
+              });
+            }, this)
+          // if (this.props?.House?.value) {
+          //   newAppoint.filter(function(element) {
+          //     return element.house_id === this.props?.House?.value;
+          //   })
+          //   newAppoint = newAppoint && newAppoint.length > 0 && newAppoint.filter((data) => data.house_id === this.props?.House?.value)
+          // }
+          this.setState({ newAppoinments: filterAppointments });
         }
       });
   };
@@ -580,6 +593,20 @@ class Index extends Component {
         },
         () => {
           this.onChange(new Date(data.date));
+          const matchedIndex = this.props.stateLoginValueAim.user.houses.findIndex(
+            function (currentValue, index, arr) {
+              return this.house_id === currentValue.value;
+          }, this.state.appoinmentSelected);
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('approve_appointment')) {
+            this.setState({ disableAppointment: true });
+          } else {
+            this.setState({ disableAppointment: false });
+          }
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('suggest_new_appointment')) {
+            this.setState({ suggestNewAppointment: true });
+          } else {
+            this.setState({ suggestNewAppointment: false });
+          }
         }
       );
     } else if (data.appointment_type == "appointments") {
@@ -590,8 +617,21 @@ class Index extends Component {
         },
         () => {
           this.onChange(new Date(data.date));
-        }
-      );
+          const matchedIndex = this.props.stateLoginValueAim.user.houses.findIndex(
+            function (currentValue, index, arr) {
+              return this.house_id === currentValue.value;
+          }, this.state.appoinmentSelected);
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('approve_appointment')) {
+            this.setState({ disableAppointment: true });
+          } else {
+            this.setState({ disableAppointment: false });
+          }
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('suggest_new_appointment')) {
+            this.setState({ suggestNewAppointment: true });
+          } else {
+            this.setState({ suggestNewAppointment: false });
+          }
+          })
     } else if ((data.appointment_type == "homevisit_appointment")) {
       this.setState(
         {
@@ -600,6 +640,20 @@ class Index extends Component {
         },
         () => {
           this.onChange(new Date(data.date));
+          const matchedIndex = this.props.stateLoginValueAim.user.houses.findIndex(
+            function (currentValue, index, arr) {
+              return this.house_id === currentValue.value;
+          }, this.state.appoinmentSelected);
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('approve_appointment')) {
+            this.setState({ disableAppointment: true });
+          } else {
+            this.setState({ disableAppointment: false });
+          }
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('suggest_new_appointment')) {
+            this.setState({ suggestNewAppointment: true });
+          } else {
+            this.setState({ suggestNewAppointment: false });
+          }
         }
       );
     }
@@ -611,10 +665,26 @@ class Index extends Component {
         },
         () => {
           this.onChange(new Date(data.date));
+          const matchedIndex = this.props.stateLoginValueAim.user.houses.findIndex(
+            function (currentValue, index, arr) {
+              return this.house_id === currentValue.value;
+          }, this.state.appoinmentSelected);
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('approve_appointment')) {
+            this.setState({ disableAppointment: true });
+          } else {
+            this.setState({ disableAppointment: false });
+          }
+          if (!this.props.stateLoginValueAim.user.houses[matchedIndex].roles.includes('suggest_new_appointment')) {
+            this.setState({ suggestNewAppointment: true });
+          } else {
+            this.setState({ suggestNewAppointment: false });
+          }
         }
       );
     }
     this.setState({ openSlot: true });
+    // let selectedItem = this.state.appoinmentSelected;
+    // let props = this.props.stateLoginValueAim.user.houses;
     //
     // const { appioinmentTimes } = this.state;
     // let temptimes = [];
@@ -1187,7 +1257,11 @@ class Index extends Component {
                             </p>
                           </Grid>
                         )}
-                        <Grid className="slotCourse">
+                        {this.state.disableAppointment && 
+                                <div className="err_message">You dont have authority to book appointment</div>}
+                        {this.state.suggestNewAppointment && 
+                                <div className="err_message">You dont have authority to suggest new time</div>}
+                        <Grid className="slotCourse">  
                           <a
                             onClick={this.handleCloseSlot}
                             className="clsSltCal"
@@ -1240,7 +1314,6 @@ class Index extends Component {
                               alignItems="center"
                               justify="center"
                             >
-
                               <Grid className="jmInfoVdo">
                                 <a>
                                   {appoinmentSelected.appointment_type ==
@@ -1304,6 +1377,7 @@ class Index extends Component {
                         <Grid className="detailQuesSub">
                           <input
                             type="submit"
+                            disabled={this.state.disableAppointment}
                             value={book_appointment}
                             onClick={() => {
                               this.updateAppointment(
@@ -1326,7 +1400,7 @@ class Index extends Component {
                                 <label>{date_of_appointment}</label>
                               </Grid>
                               <Grid>
-                                <DatePicker
+                                <DatePicker 
                                   onChange={(e) => this.onChange(e)}
                                   value={this.state.date}
                                 />
@@ -1431,6 +1505,7 @@ class Index extends Component {
                           >
                             <input
                               type="submit"
+                              disabled={this.state.suggestNewAppointment}
                               value={suggest_new_time}
                               onClick={() => this.suggestingTime()}
                             />

@@ -496,12 +496,6 @@ p.regOnlog {
 
 /* Added By ANKITA */
 
-.err_message {
-    text-align: center !important;
-    color: red !important;;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
 .success_message
 {
     text-align: center;
@@ -625,4 +619,5 @@ ul.flag-select__options li {
     text-align: center !important;
     color: red !important;;
     font-weight: 600;
+    padding-top: 10px;
 }
