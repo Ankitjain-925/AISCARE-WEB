@@ -80,11 +80,11 @@ class Index extends Component {
 
       }
       else {
-        this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
+        this.setState({ message: "You have no authority to perform this functionality. Please contact to your hospital admin regarding this" })
       }
     }
     else {
-      this.setState({ message: "Please contact to hospital admin regarding access of this hospital" })
+      this.setState({ message: "You have no authority to perform this functionality. Please contact to your hospital admin regarding this" })
     }
   };
 
