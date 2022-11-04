@@ -61,6 +61,7 @@ class Index extends Component {
             errorMsg: '',
             addservice: {},
             selectedHouse: this.props.selectedHouse,
+            authErr: false,
             disableAssignment: false
 
         };
@@ -458,6 +459,20 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            const { roles = [] } = e || {};
+            if (!roles.includes("add_assigned_services")) {
+                this.setState(
+                    {
+                        authErr: true,
+                    },
+                    () => {
+                        setTimeout(
+                            () => this.setState({ openAss: false }),
+                            2000
+                        );
+                    }
+                );
+            } else this.setState({ authErr: false })
             if (!this.state.selectedHouse.roles.includes('add_assigned_services')) {
                 this.setState({
                     disableAssignment: true
@@ -468,7 +483,6 @@ class Index extends Component {
                 })
             }
         });
-        
     };
 
     updateEntryState5 = (e, name) => {
@@ -707,6 +721,9 @@ class Index extends Component {
                             </Grid>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
+                                    {this.state.authErr &&
+                                        <div className="err_message">You dont have authority to selected hospital</div>
+                                    }
                                     <Grid item xs={12} md={12}>
                                         {this.props.comesFrom === "Professional" && (
                                             <>{!this.state.service._id &&

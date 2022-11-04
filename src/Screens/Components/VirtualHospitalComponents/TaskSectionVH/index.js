@@ -140,6 +140,7 @@ class Index extends Component {
       specchange: false,
       openAss: false,
       selectedHouse: {},
+      authErr: null,
       disableActivity: false
     };
   }
@@ -1915,6 +1916,22 @@ class Index extends Component {
       this.getPatientData();
       this.SelectAutoAssigned(fullData);
     });
+
+    const { roles = [] } = e || {};
+    if (!roles.includes('add_task')) {
+      this.setState(
+        {
+          authErr: true,
+        },
+        () => {
+          setTimeout(
+            () => this.setState({ openTask: false }),
+            2000
+          );
+        }
+      );
+    } else this.setState({ authErr: false })
+
   };
 
   SelectAutoAssigned = (fullData) => {
@@ -1927,6 +1944,15 @@ class Index extends Component {
       }
     }, 500);
   };
+
+  checkAuthority = (id, authority) => {
+
+    if (id) {
+      const { roles = [] } = this.state.currentList?.find(e => e.value === id) || {};
+      return roles.includes(authority);
+    }
+    return true;
+  }
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -2167,6 +2193,7 @@ class Index extends Component {
             comesFrom={this.props.comesFrom}
             total_amount={this.state.total_amount}
           />
+
           <Modal
             className={
               this.props.settings &&
@@ -2229,6 +2256,9 @@ class Index extends Component {
                           alignItems="center"
                         // spacing={1}
                         >
+                          {this.state.authErr &&
+                            <div className="err_message">You dont have authority to selected hospital</div>
+                          }
                           <Grid item xs={12} md={12}>
                             {this.props.comesFrom === "Professional" && (
                               <>
@@ -4660,38 +4690,52 @@ class Index extends Component {
                 <TabContainer>
                   <Grid className="allInerTabs">
                     {this.state.AllTasks?.length > 0 &&
-                      this.state.AllTasks.map((data) => (
-                        <Grid>
-                          <TaskView
-                            DoneAppointment={(id) => {
-                              this.DoneAppointment(id);
-                            }}
-                            removeAddbutton={this.props.removeAddbutton}
-                            data={data}
-                            removeTask={(id) =>
-                              data?.title
-                                ? this.removeTask1(id)
-                                : this.removeTask(id)
-                            }
-                            editTask={(data) =>
-                              data?.title
-                                ? this.editTask1(data)
-                                : this.editTask(data)
-                            }
-                            cretficate={(id, patient_id) =>
-                              this.cretficateTask(id, patient_id, data)
-                            }
-                            declineTask={(id, patient_id) =>
-                              this.declineTask(id, patient_id)
-                            }
-                            handleApprovedDetails={(id, status, data) =>
-                              this.handleApprovedDetails(id, status, data)
-                            }
-                            comesFrom={this.props.comesFrom}
-                            switchStatus={() => { this.switchStatus() }}
-                          />
-                        </Grid>
-                      ))}
+                      this.state.AllTasks.map((data) => {
+
+                        let dataCopy = {
+                          ...data,
+                          edit_professional_activity: this.checkAuthority(data.house_id, "edit_professional_activity"),
+                          delete_professional_activity: this.checkAuthority(data.house_id, "delete_professional_activity")
+                        };
+
+                        return (
+
+                          <Grid>
+                            <TaskView
+                              DoneAppointment={(id) => {
+                                this.DoneAppointment(id);
+                              }}
+                              removeAddbutton={this.props.removeAddbutton}
+                              data={dataCopy}
+                              removeTask={(id) =>
+                                data?.title
+                                  ? this.removeTask1(id)
+                                  : this.removeTask(id)
+                              }
+                              editTask={(data) =>
+                                data?.title
+                                  ? this.editTask1(data)
+                                  : this.editTask(data)
+                              }
+                              cretficate={(id, patient_id) =>
+                                this.cretficateTask(id, patient_id, data)
+                              }
+                              declineTask={(id, patient_id) =>
+                                this.declineTask(id, patient_id)
+                              }
+                              handleApprovedDetails={(id, status, data) =>
+                                this.handleApprovedDetails(id, status, data)
+                              }
+                              comesFrom={this.props.comesFrom}
+                              switchStatus={() => { this.switchStatus() }}
+                              currentList={this.state.currentList}
+
+                            />
+                          </Grid>
+                        )
+
+
+                      })}
                   </Grid>
                 </TabContainer>
               )}
@@ -4728,6 +4772,8 @@ class Index extends Component {
                           this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
+                        currentList={this.state.currentList}
+
                       />
                     </Grid>
                   ))}
@@ -4738,37 +4784,48 @@ class Index extends Component {
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.OpenTask?.length > 0 &&
-                  this.state.OpenTask.map((data) => (
-                    <Grid>
-                      <TaskView
-                        DoneAppointment={(id) => {
-                          this.DoneAppointment(id);
-                        }}
-                        removeAddbutton={this.props.removeAddbutton}
-                        data={data}
-                        removeTask={(id) =>
-                          data?.title
-                            ? this.removeTask1(id)
-                            : this.removeTask(id)
-                        }
-                        editTask={(data) =>
-                          data?.title
-                            ? this.editTask1(data)
-                            : this.editTask(data)
-                        }
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.OpenTask.map((data) => {
+                    let dataCopy = {
+                      ...data,
+                      edit_professional_activity: this.checkAuthority(data.house_id, "edit_professional_activity"),
+                      delete_professional_activity: this.checkAuthority(data.house_id, "delete_professional_activity")
+                    };
+                    return (
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={(id) => {
+                            this.DoneAppointment(id);
+                          }}
+                          removeAddbutton={this.props.removeAddbutton}
+                          data={dataCopy}
+                          removeTask={(id) =>
+                            data?.title
+                              ? this.removeTask1(id)
+                              : this.removeTask(id)
+                          }
+                          editTask={(data) =>
+                            data?.title
+                              ? this.editTask1(data)
+                              : this.editTask(data)
+                          }
+                          cretficate={(id, patient_id) =>
+                            this.cretficateTask(id, patient_id, data)
+                          }
+                          declineTask={(id, patient_id) =>
+                            this.declineTask(id, patient_id)
+                          }
+                          handleApprovedDetails={(id, status, data) =>
+                            this.handleApprovedDetails(id, status, data)
+                          }
+                          comesFrom={this.props.comesFrom}
+                          currentList={this.state.currentList}
+
+                        />
+                      </Grid>
+                    )
+                  }
+
+                  )}
               </Grid>
             </TabContainer>
           )}
@@ -4776,37 +4833,48 @@ class Index extends Component {
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.DeclinedTask?.length > 0 &&
-                  this.state.DeclinedTask.map((data) => (
-                    <Grid>
-                      <TaskView
-                        DoneAppointment={(id) => {
-                          this.DoneAppointment(id);
-                        }}
-                        removeAddbutton={this.props.removeAddbutton}
-                        data={data}
-                        removeTask={(id) =>
-                          data?.title
-                            ? this.removeTask1(id)
-                            : this.removeTask(id)
-                        }
-                        editTask={(data) =>
-                          data?.title
-                            ? this.editTask1(data)
-                            : this.editTask(data)
-                        }
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.DeclinedTask.map((data) => {
+                    let dataCopy = {
+                      ...data,
+                      edit_professional_activity: this.checkAuthority(data.house_id, "edit_professional_activity"),
+                      delete_professional_activity: this.checkAuthority(data.house_id, "delete_professional_activity")
+                    };
+                    return (
+
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={(id) => {
+                            this.DoneAppointment(id);
+                          }}
+                          removeAddbutton={this.props.removeAddbutton}
+                          data={dataCopy}
+                          removeTask={(id) =>
+                            data?.title
+                              ? this.removeTask1(id)
+                              : this.removeTask(id)
+                          }
+                          editTask={(data) =>
+                            data?.title
+                              ? this.editTask1(data)
+                              : this.editTask(data)
+                          }
+                          cretficate={(id, patient_id) =>
+                            this.cretficateTask(id, patient_id, data)
+                          }
+                          declineTask={(id, patient_id) =>
+                            this.declineTask(id, patient_id)
+                          }
+                          handleApprovedDetails={(id, status, data) =>
+                            this.handleApprovedDetails(id, status, data)
+                          }
+                          comesFrom={this.props.comesFrom}
+                          houses={this.state.houses}
+                          currentList={this.state.currentList}
+
+                        />
+                      </Grid>
+                    )
+                  })}
               </Grid>
             </TabContainer>
           )}
@@ -4814,37 +4882,48 @@ class Index extends Component {
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        DoneAppointment={(id) => {
-                          this.DoneAppointment(id);
-                        }}
-                        removeAddbutton={this.props.removeAddbutton}
-                        data={data}
-                        removeTask={(id) =>
-                          data?.title
-                            ? this.removeTask1(id)
-                            : this.removeTask(id)
-                        }
-                        editTask={(data) =>
-                          data?.title
-                            ? this.editTask1(data)
-                            : this.editTask(data)
-                        }
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.ArchivedTasks.map((data) => {
+                    let dataCopy = {
+                      ...data,
+                      edit_professional_activity: this.checkAuthority(data.house_id, "edit_professional_activity"),
+                      delete_professional_activity: this.checkAuthority(data.house_id, "delete_professional_activity")
+                    };
+                    return (
+
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={(id) => {
+                            this.DoneAppointment(id);
+                          }}
+                          removeAddbutton={this.props.removeAddbutton}
+                          data={dataCopy}
+                          removeTask={(id) =>
+                            data?.title
+                              ? this.removeTask1(id)
+                              : this.removeTask(id)
+                          }
+                          editTask={(data) =>
+                            data?.title
+                              ? this.editTask1(data)
+                              : this.editTask(data)
+                          }
+                          cretficate={(id, patient_id) =>
+                            this.cretficateTask(id, patient_id, data)
+                          }
+                          declineTask={(id, patient_id) =>
+                            this.declineTask(id, patient_id)
+                          }
+                          handleApprovedDetails={(id, status, data) =>
+                            this.handleApprovedDetails(id, status, data)
+                          }
+                          comesFrom={this.props.comesFrom}
+                          houses={this.state.houses}
+                          currentList={this.state.currentList}
+
+                        />
+                      </Grid>
+                    )
+                  })}
               </Grid>
             </TabContainer>
           )}
@@ -4852,37 +4931,47 @@ class Index extends Component {
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        DoneAppointment={(id) => {
-                          this.DoneAppointment(id);
-                        }}
-                        removeAddbutton={this.props.removeAddbutton}
-                        data={data}
-                        removeTask={(id) =>
-                          data?.title
-                            ? this.removeTask1(id)
-                            : this.removeTask(id)
-                        }
-                        editTask={(data) =>
-                          data?.title
-                            ? this.editTask1(data)
-                            : this.editTask(data)
-                        }
-                        cretficate={(id, patient_id) =>
-                          this.cretficateTask(id, patient_id, data)
-                        }
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        handleApprovedDetails={(id, status, data) =>
-                          this.handleApprovedDetails(id, status, data)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.ArchivedTasks.map((data) => {
+                    let dataCopy = {
+                      ...data,
+                      edit_professional_activity: this.checkAuthority(data.house_id, "edit_professional_activity"),
+                      delete_professional_activity: this.checkAuthority(data.house_id, "delete_professional_activity")
+                    };
+                    return (
+
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={(id) => {
+                            this.DoneAppointment(id);
+                          }}
+                          removeAddbutton={this.props.removeAddbutton}
+                          data={dataCopy}
+                          removeTask={(id) =>
+                            data?.title
+                              ? this.removeTask1(id)
+                              : this.removeTask(id)
+                          }
+                          editTask={(data) =>
+                            data?.title
+                              ? this.editTask1(data)
+                              : this.editTask(data)
+                          }
+                          cretficate={(id, patient_id) =>
+                            this.cretficateTask(id, patient_id, data)
+                          }
+                          declineTask={(id, patient_id) =>
+                            this.declineTask(id, patient_id)
+                          }
+                          handleApprovedDetails={(id, status, data) =>
+                            this.handleApprovedDetails(id, status, data)
+                          }
+                          comesFrom={this.props.comesFrom}
+                          houses={this.state.houses}
+                          currentList={this.state.currentList}
+                        />
+                      </Grid>
+                    )
+                  })}
               </Grid>
             </TabContainer>
           )}
