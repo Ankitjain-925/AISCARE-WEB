@@ -293,32 +293,62 @@ class Index extends Component {
                             end: new Date(da2).valueOf(),
                           });
                           if (this.props.House?.value) {
-                            if (d1.house_id === this.props.House.value) {
-                              finaldata.push({
-                                id: index,
-                                title:
-                                  d1.patient_info.first_name +
-                                  " " +
-                                  d1.patient_info.last_name,
-                                start: new Date(da1),
-                                end: new Date(da2),
-                                indexout: indexout,
-                                fulldata: [d1],
-                              });
-                            }
+                            this.props.stateLoginValueAim.user.houses.forEach(function(item) {
+                              if (d1.house_id === item.value && item.roles.includes('show_appointment')) {
+                                finaldata.push({
+                                  id: index,
+                                  title:
+                                    d1.patient_info.first_name +
+                                    " " +
+                                    d1.patient_info.last_name,
+                                  start: new Date(da1),
+                                  end: new Date(da2),
+                                  indexout: indexout,
+                                  fulldata: [d1],
+                                });
+                              };
+                            });
+                            // if (d1.house_id === this.props.House.value) {
+                            //   finaldata.push({
+                            //     id: index,
+                            //     title:
+                            //       d1.patient_info.first_name +
+                            //       " " +
+                            //       d1.patient_info.last_name,
+                            //     start: new Date(da1),
+                            //     end: new Date(da2),
+                            //     indexout: indexout,
+                            //     fulldata: [d1],
+                            //   });
+                            // }
                           }
                           else {
-                            finaldata.push({
-                              id: index,
-                              title:
-                                d1.patient_info.first_name +
-                                " " +
-                                d1.patient_info.last_name,
-                              start: new Date(da1),
-                              end: new Date(da2),
-                              indexout: indexout,
-                              fulldata: [d1],
+                            this.props.stateLoginValueAim.user.houses.forEach(function(item) {
+                              if (d1.house_id === item.value && item.roles.includes('show_appointment')) {
+                                finaldata.push({
+                                  id: index,
+                                  title:
+                                    d1.patient_info.first_name +
+                                    " " +
+                                    d1.patient_info.last_name,
+                                  start: new Date(da1),
+                                  end: new Date(da2),
+                                  indexout: indexout,
+                                  fulldata: [d1],
+                                });
+                              };
                             });
+                            // finaldata.push({
+                            //   id: index,
+                            //   title:
+                            //     d1.patient_info.first_name +
+                            //     " " +
+                            //     d1.patient_info.last_name,
+                            //   start: new Date(da1),
+                            //   end: new Date(da2),
+                            //   indexout: indexout,
+                            //   fulldata: [d1],
+                            // });
                           }
                         }
                       });
@@ -414,21 +444,21 @@ class Index extends Component {
                 }
               }
             });
-            let filterAppointments = [];
-            newAppoint.forEach(function(element) {
-              this.props.stateLoginValueAim.user.houses.forEach(function(item) {
-                 if (element.house_id === item.value && item.roles.includes('show_appointment')) {
-                      filterAppointments.push(element);
-                 };
-              });
-            }, this)
-          // if (this.props?.House?.value) {
-          //   newAppoint.filter(function(element) {
-          //     return element.house_id === this.props?.House?.value;
-          //   })
-          //   newAppoint = newAppoint && newAppoint.length > 0 && newAppoint.filter((data) => data.house_id === this.props?.House?.value)
-          // }
-          this.setState({ newAppoinments: filterAppointments });
+            // let filterAppointments = [];
+            // newAppoint.forEach(function(element) {
+            //   this.props.stateLoginValueAim.user.houses.forEach(function(item) {
+            //      if (element.house_id === item.value && item.roles.includes('show_appointment')) {
+            //           filterAppointments.push(element);
+            //      };
+            //   });
+            // }, this)
+          if (this.props?.House?.value) {
+            newAppoint.filter(function(element) {
+              return element.house_id === this.props?.House?.value;
+            })
+            newAppoint = newAppoint && newAppoint.length > 0 && newAppoint.filter((data) => data.house_id === this.props?.House?.value)
+          }
+          this.setState({ newAppoinments: newAppoint });
         }
       });
   };

@@ -60,7 +60,9 @@ class Index extends Component {
             total_amount: this.props.total_amount,
             errorMsg: '',
             addservice: {},
-            selectedHouse: this.props.selectedHouse
+            selectedHouse: this.props.selectedHouse,
+            disableAssignment: false
+
         };
     }
 
@@ -456,7 +458,17 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            if (!this.state.selectedHouse.roles.includes('add_assigned_services')) {
+                this.setState({
+                    disableAssignment: true
+                })
+            } else {
+                this.setState({
+                    disableAssignment: false
+                })
+            }
         });
+        
     };
 
     updateEntryState5 = (e, name) => {
@@ -672,7 +684,8 @@ class Index extends Component {
                         }
                     // className="addServContnt"
                     >
-
+                        {this.state.disableAssignment && 
+                                <div className="err_message">You dont have authority to Assign Service</div>}
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
@@ -1115,7 +1128,9 @@ class Index extends Component {
                                 this.FinalServiceSubmit()
                             }>
                                 <a>
-                                    <Button>
+                                    <Button
+                                    disabled={this.state.disableAssignment}
+                                    >
                                         {save_and_close}
                                     </Button>
                                 </a>
