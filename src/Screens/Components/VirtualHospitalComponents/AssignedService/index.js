@@ -60,7 +60,8 @@ class Index extends Component {
             total_amount: this.props.total_amount,
             errorMsg: '',
             addservice: {},
-            selectedHouse: this.props.selectedHouse
+            selectedHouse: this.props.selectedHouse,
+            authErr: false,
         };
     }
 
@@ -457,6 +458,20 @@ class Index extends Component {
             this.getProfessionalData();
             this.getPatientData();
         });
+        const { roles = [] } = e || {};
+        if (!roles.includes("add_assigned_services")) {
+            this.setState(
+                {
+                    authErr: true,
+                },
+                () => {
+                    setTimeout(
+                        () => this.setState({ openAss: false }),
+                        2000
+                    );
+                }
+            );
+        } else this.setState({ authErr: false })
     };
 
     updateEntryState5 = (e, name) => {
@@ -694,6 +709,9 @@ class Index extends Component {
                             </Grid>
                             <Grid className="enterServMain">
                                 <Grid className="enterSpcl">
+                                    {this.state.authErr &&
+                                        <div className="err_message">You dont have authority to selected hospital</div>
+                                    }
                                     <Grid item xs={12} md={12}>
                                         {this.props.comesFrom === "Professional" && (
                                             <>{!this.state.service._id &&
