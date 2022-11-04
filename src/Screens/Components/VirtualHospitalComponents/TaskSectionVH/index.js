@@ -139,7 +139,8 @@ class Index extends Component {
       taskData: {},
       specchange: false,
       openAss: false,
-      selectedHouse: {}
+      selectedHouse: {},
+      disableActivity: false
     };
   }
 
@@ -317,7 +318,7 @@ class Index extends Component {
       assignedTo: [],
       q: "",
       selectSpec: {},
-      selectedPat: {},
+      selectedPat: {}
     });
     if (this.props.patient) {
       let user = { value: this.props.patient?.user_id };
@@ -1901,6 +1902,15 @@ class Index extends Component {
           email: this.props.stateLoginValueAim?.user?.email,
         },
       ];
+      if (!this.state.selectedHouse.roles.includes('add_task')) {
+        this.setState({
+          disableActivity: true
+        });
+      } else {
+        this.setState({
+          disableActivity: false
+        });
+      }
       this.getProfessionalData();
       this.getPatientData();
       this.SelectAutoAssigned(fullData);
@@ -2171,6 +2181,8 @@ class Index extends Component {
           >
             <Grid className="creatTaskModel">
               <Grid className="creatTaskCntnt">
+              {this.state.disableActivity && 
+                                <div className="err_message">You dont have authority to create a task</div>}
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="addSpeclLbl allAddSpeclLbl">
@@ -2261,7 +2273,7 @@ class Index extends Component {
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
-                            <label className="required">{ForPatient}</label>
+                            <label>{ForPatient}</label>
 
                             {this.props.comesFrom === "detailTask" ? (
                               <h2>
@@ -4289,7 +4301,8 @@ class Index extends Component {
                                     value={this.state.newComment || ""}
                                   ></textarea>
 
-                                  <Button onClick={(e) => this.handleComment()}>
+                                  <Button disabled={this.state.disableActivity}
+                                    onClick={(e) => this.handleComment()}>
                                     {AddComment}
                                   </Button>
                                 </Grid>
@@ -4307,7 +4320,7 @@ class Index extends Component {
                                       this.state.newTask?.task_type
                                     )
                                   }
-                                  disabled={this.state.isButtonDisabled}
+                                  disabled={this.state.isButtonDisabled || this.state.disableActivity}
                                 >
                                   {save_task_and_close}
                                 </Button>
