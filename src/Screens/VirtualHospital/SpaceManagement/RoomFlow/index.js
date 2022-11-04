@@ -249,6 +249,7 @@ class Index extends Component {
       Room,
       Bed,
     } = translate;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
@@ -560,6 +561,7 @@ class Index extends Component {
                                                           </p>
                                                         </Grid>
                                                       </Grid>
+                                                      {roles.includes("drop_down_patient") &&
                                                       <Grid className="room-img-move">
                                                         <img
                                                           onClick={() =>
@@ -571,7 +573,7 @@ class Index extends Component {
                                                           alt=""
                                                           title=""
                                                         />
-                                                      </Grid>
+                                                      </Grid>}
                                                     </Grid>
                                                   ) : (
                                                     <Button variant="contained">
