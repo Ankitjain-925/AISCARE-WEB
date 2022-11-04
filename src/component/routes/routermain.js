@@ -65,7 +65,7 @@ import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
-import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
+// import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
 import DoctorET from "Screens/Doctor/Earlier_Activities/index.js";
 
 //for hospital admin user
@@ -405,11 +405,11 @@ class Routermain extends Component {
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
-            />
+            /> */}
               <Route
               exact
               path="/doctor/video-call"
