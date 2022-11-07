@@ -62,6 +62,8 @@ class Index extends Component {
             addservice: {},
             selectedHouse: this.props.selectedHouse,
             authErr: false,
+            disableAssignment: false
+
         };
     }
 
@@ -457,21 +459,30 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            const { roles = [] } = e || {};
+            if (!roles.includes("add_assigned_services")) {
+                this.setState(
+                    {
+                        authErr: true,
+                    },
+                    () => {
+                        setTimeout(
+                            () => this.setState({ openAss: false }),
+                            2000
+                        );
+                    }
+                );
+            } else this.setState({ authErr: false })
+            if (!this.state.selectedHouse.roles.includes('add_assigned_services')) {
+                this.setState({
+                    disableAssignment: true
+                })
+            } else {
+                this.setState({
+                    disableAssignment: false
+                })
+            }
         });
-        const { roles = [] } = e || {};
-        if (!roles.includes("add_assigned_services")) {
-            this.setState(
-                {
-                    authErr: true,
-                },
-                () => {
-                    setTimeout(
-                        () => this.setState({ openAss: false }),
-                        2000
-                    );
-                }
-            );
-        } else this.setState({ authErr: false })
     };
 
     updateEntryState5 = (e, name) => {
@@ -687,7 +698,8 @@ class Index extends Component {
                         }
                     // className="addServContnt"
                     >
-
+                        {this.state.disableAssignment && 
+                                <div className="err_message">You dont have authority to Assign Service</div>}
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
@@ -1133,7 +1145,9 @@ class Index extends Component {
                                 this.FinalServiceSubmit()
                             }>
                                 <a>
-                                    <Button>
+                                    <Button
+                                    disabled={this.state.disableAssignment}
+                                    >
                                         {save_and_close}
                                     </Button>
                                 </a>
