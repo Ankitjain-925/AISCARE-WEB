@@ -47,8 +47,7 @@ class Index extends Component {
                     demo.splice(index, 1);
                 } 
             })
-            var index1 = demo.indexOf(mainsection);
-            demo.splice(index1, 1)
+            
         }
         else{
             data.map((item, index)=>{
