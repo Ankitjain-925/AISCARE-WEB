@@ -621,3 +621,7 @@ ul.flag-select__options li {
     font-weight: 600;
     padding-top: 10px;
 }
+.saveTasks Button:disabled{
+    background-color: aliceblue !important;
+    cursor: not-allowed !important;
+} 
