@@ -693,7 +693,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="enterServMain">
-                                <Grid className="enterSpcl">
+                                <Grid className="enterSpcl enterSpclSec">
                                     <Grid item xs={12} md={12}>
                                         {this.props.comesFrom === "Professional" && (
                                             <>{!this.state.service._id &&
