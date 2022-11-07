@@ -802,8 +802,8 @@ class Index extends Component {
                   <Grid
                     container
                     direction="row"
-                    justifyContent="center"
-                    className="archvOpinLbl"
+                    justify="center"
+                    className="archvOpinLbl archvOpinLblSec"
                   >
                     <Grid item xs={12} md={6}>
                       <label>{InstituteGroups}</label>
@@ -941,11 +941,11 @@ class Index extends Component {
                               </Grid>
                           </Grid>
                           </Grid>
-                          <Grid className="enterSpclUpr">
+                          <Grid className="enterSpclUpr patietnRegister">
                             <div className="err_message">
                               {this.state.errorMsg}
                             </div>
-                            <Grid className="enterSpclMain">
+                            <Grid className="enterSpclMain enterSpclMainSec">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid
@@ -1160,11 +1160,11 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                           </Grid>
-                          <Grid className="enterSpclUpr">
+                          <Grid className="enterSpclUpr patietnRegister">
                             <div className="err_message">
                               {this.state.errorHospMsg}
                             </div>
-                            <Grid className="enterSpclMain">
+                            <Grid className="enterSpclMain enterSpclMainSec">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid

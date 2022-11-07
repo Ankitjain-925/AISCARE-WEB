@@ -720,7 +720,8 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="enterServMain">
-                                <Grid className="enterSpcl">
+
+                                <Grid className="enterSpcl enterSpclSec">
                                     {this.state.authErr &&
                                         <div className="err_message">You dont have authority to selected hospital</div>
                                     }
