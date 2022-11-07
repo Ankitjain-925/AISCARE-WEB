@@ -6508,6 +6508,17 @@ a.archvDel:hover ul {
 .checkHelthLbl div {
     margin-bottom: 15px;
 }
+
+.se{
+    display: inline-table !important;
+}
+
+.scrol{
+    overflow-y: scroll !important;
+    height: 500px !important;
+    align-items: center;
+    justify-content: center;
+}
 .entryCourse p {
     color: #7F8383;
     font-family: Muli;

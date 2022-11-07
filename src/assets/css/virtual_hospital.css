@@ -16911,6 +16911,7 @@ color:#FFFFFF
 .AddEntrynwSec a:first-child {
   margin-right: 0px;
 }
+
 .allNewReqInfo{
   display: flex;
   align-items: center;
@@ -16922,3 +16923,17 @@ color:#FFFFFF
   color:red;
   text-align: center;
 }
+
+.archvOpinLblSec{
+  justify-content: flex-start!important;
+}
+.enterSpclMainSec{
+  padding-top: 20px;
+}
+.enterSpclSec input{
+  margin-bottom: 0px;
+}
+.enterSpclSec .css-g1d714-ValueContainer{
+  padding: 8px 8px!important;
+}
+

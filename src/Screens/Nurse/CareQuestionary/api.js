@@ -841,23 +841,9 @@ export const FileAttachMulti = (current, Fileadd, name) => {
 };
 
 export const allHouses = (current) => {
-    current.setState({ loaderImage: true });
-    let user_token = current.props.stateLoginValueAim.token;
-    let user_id = current.props.stateLoginValueAim.user._id;
-    axios
-        .get(
-            sitedata.data.path + "/UserProfile/Users/" + user_id,
-            commonHeader(user_token)
-        )
-        .then((response) => {
-            current.setState({ loaderImage: false });
-            current.setState({
-                currentList: response.data.data.houses,
-            });
-        })
-        .catch((error) => {
-            current.setState({ loaderImage: false });
-        });
+    current.setState({
+        currentList: current.props.stateLoginValueAim?.user?.houses ? current.props.stateLoginValueAim?.user?.houses : []
+    })
 };
 
 export const updateEntryState = (current, e) => {

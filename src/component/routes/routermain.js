@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Switch, StaticRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
 // Added By Ankita Patient Component
 import Register from "Screens/Register";
 import Login from "Screens/Login";
@@ -114,13 +116,45 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
+var socket = io(SOCKET_URL);
 class Routermain extends Component {
+  
+  allHouses = () => {
+    var data= this.props.stateLoginValueAim.user.type
+    if(data=="nurse"){
+      socket.on("displaynurse",(data)=>{
+        this.setData(data?.data?.data)
+    })
+    } else if(data=='doctor'){
+     socket.on("displaydoctor",(data)=>{
+      this.setData(data?.data?.data)
+       })
+    }else if(data=='adminstaff'){
+     socket.on("displayadmin",(data)=>{ 
+      this.setData(data?.data?.data)
+       })
+    }
+
+  };
+  setData = (data)=>{
+    let user_token = this.props.stateLoginValueAim.token;
+    var forUpdate = {value: true, token: user_token, user: data}
+    this.props.LoginReducerAim(data?.email, '', user_token, () => {}, forUpdate);
+  }
+
+  componentDidMount() {
+    this.allHouses();
+  }
+
   render() {
     return (
-      <Router basename={"/"}>
+      <Router basename={"/sys-n-authority"}>
         <CallatAllPages />
-
+        {console.log('in router', this.props.stateLoginValueAim)}
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -662,4 +696,15 @@ class Routermain extends Component {
     );
   }
 }
-export default Routermain;
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  return {
+    stateLoginValueAim,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, { LoginReducerAim })(
+    Routermain
+  )
+);
