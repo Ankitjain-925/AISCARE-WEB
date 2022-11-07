@@ -170,6 +170,7 @@ class Index extends Component {
             selectPatient,
             selectService,
             openQues } = this.state;
+            const {roles = []} = selectHouse || {}
         return (
             <Grid
                 className={
@@ -197,6 +198,10 @@ class Index extends Component {
                                         {!openQues ?
                                             <Grid>
                                                 <div className="err_message">{this.state.errorChrMsg1}</div>
+                                                {selectHouse && !roles.includes("add_care_questionnary") &&
+                                                <div className="err_message">You dont have authority to selected hospital</div>
+                                                
+                                                }
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
@@ -1355,7 +1360,9 @@ class Index extends Component {
                                                     type={Submit}
                                                     value={Submit}
                                                     onClick={() => handleSubmit(this)}
-                                                />
+                                                    disabled={selectHouse && !roles.includes("add_care_questionnary")}
+                                                
+                                                   />
                                             </Grid>
                                         </Grid>
                                     </Grid>

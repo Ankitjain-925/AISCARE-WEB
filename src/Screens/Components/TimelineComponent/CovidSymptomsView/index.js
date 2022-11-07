@@ -276,7 +276,7 @@ class Index extends Component {
                                 )
                             ) : (" ")
                           )))
-                          :  (this.props.comesfrom == "adminstaff" && (
+                          :  (this.props.comesfrom == "adminstaff" ? (
 
                             this.props.House.roles.includes("edit_diary") ? (
                               this.props.comesfrom !== "patient" && (
@@ -299,6 +299,24 @@ class Index extends Component {
                               : (
                                 " "
                               )
+                          ):(
+                            this.props.comesfrom !== "patient" && (
+
+                              <li>
+                                <a
+                                  onClick={() =>
+                                    this.props.EidtOption(item.type, item)
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/edit-1.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {edit}
+                                </a>
+                              </li>
+                            )
                           ))}
                         <li>
                           <a
