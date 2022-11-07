@@ -1197,7 +1197,7 @@ class Index extends Component {
                                 className="newRequest"
                                 onClick={() => this.handleOpenSlot(data)}
                               >
-                                <Grid className="newReqInfo">
+                                <Grid className="newReqInfo allNewReqInfo">
                                   <a>
                                     <img
                                       src={
@@ -1216,6 +1216,11 @@ class Index extends Component {
                                       " " +
                                       data.patient_info.last_name}
                                   </a>
+                                  {data.house_id ? (
+                                    <p>{'Adminstaff'}</p>
+                                  ) : (
+                                    <p>{'Patient'}</p>
+                                  )}
                                 </Grid>
                                 <Grid className="newReqInfo">
                                   <a>
