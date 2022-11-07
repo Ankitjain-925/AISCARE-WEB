@@ -1388,7 +1388,7 @@ class Index extends Component {
           </Grid>
           {this.props.comesFrom === 'adminstaff' ?
             <>
-              {tabvalue2 === 0 && roles.includes("get_assignedservice") && (
+              {tabvalue2 === 0 && roles.includes("get_assignedservice") ?
                 <TabContainer>
                   <Grid className="allInerTabs">
                     {this.state.AllTasks?.length > 0 &&
@@ -1407,7 +1407,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-              )}
+              :<p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>

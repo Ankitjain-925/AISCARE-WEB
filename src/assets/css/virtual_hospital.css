@@ -16911,6 +16911,19 @@ color:#FFFFFF
 .AddEntrynwSec a:first-child {
   margin-right: 0px;
 }
+
+.allNewReqInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.authority{
+  font-size: 20px;
+  font-family: muli;
+  color:red;
+  text-align: center;
+}
+
 .archvOpinLblSec{
   justify-content: flex-start!important;
 }
@@ -16923,3 +16936,4 @@ color:#FFFFFF
 .enterSpclSec .css-g1d714-ValueContainer{
   padding: 8px 8px!important;
 }
+

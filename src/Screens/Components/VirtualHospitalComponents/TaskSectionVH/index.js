@@ -4646,7 +4646,7 @@ class Index extends Component {
           </Grid>
           {this.props.comesFrom === 'adminstaff' ?
             <>
-              {tabvalue2 === 0 && roles.includes("show_task") && (
+              {tabvalue2 === 0 && roles.includes("show_task") ?
                 <TabContainer>
                   <Grid className="allInerTabs">
                     {this.state.AllTasks?.length > 0 &&
@@ -4684,7 +4684,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-              )}
+              :<p className='authority'>You have no authority for showing the tasks, Please contact to hospital admin</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>

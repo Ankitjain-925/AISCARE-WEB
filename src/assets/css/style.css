@@ -7640,6 +7640,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .newReqInfo label {
     color: #D9DADA !important;
 }
+.homeBgDrk .newReqInfo p{
+    color: #D9DADA !important;
+}
 .homeBgDrk .newRequestMain h4 {
     color: #D9DADA !important;
 }

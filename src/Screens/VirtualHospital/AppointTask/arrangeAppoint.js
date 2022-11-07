@@ -296,7 +296,8 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} , selectPatDoc: '',
+    errorMsg: ''});
     this.props.handleCloseAllowAccess();
   };
 
