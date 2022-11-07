@@ -1123,7 +1123,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
+                    
                     </Modal>
 
                     <Modal

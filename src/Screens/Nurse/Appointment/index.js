@@ -623,7 +623,7 @@ class Index extends Component {
         },
         () => {
           this.onChange(new Date(data.date));
-          const matchedIndex = this.props.stateLoginValueAim.user.houses.findIndex(
+          const matchedIndex = this.props.stateLoginValueAim?.user?.houses.findIndex(
             function (currentValue, index, arr) {
               return this.house_id === currentValue.value;
           }, this.state.appoinmentSelected);

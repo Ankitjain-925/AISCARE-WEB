@@ -44,7 +44,7 @@ class Index extends Component {
         this.props.history.push("/doctor/professional-task");
       }
       if (data.roles.includes("professional_activity")) {
-        this.props.history.push("/doctor/professional-activity");
+        this.props.history.push("/doctor/professional-task");
       }
       if (data.roles.includes("earlier_activity")) {
         this.props.history.push("/doctor/earlier-task");
