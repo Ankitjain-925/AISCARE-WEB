@@ -1157,7 +1157,7 @@ class Index extends Component {
                                 className="newRequest"
                                 onClick={() => this.handleOpenSlot(data)}
                               >
-                                <Grid className="newReqInfo">
+                                <Grid className="newReqInfo allNewReqInfo">
                                   <a>
                                     <img
                                       src={
@@ -1176,6 +1176,11 @@ class Index extends Component {
                                       " " +
                                       data.patient_info.last_name}
                                   </a>
+                                   {data.house_id ? (
+                                    <p>{'Adminstaff'}</p>
+                                  ) : (
+                                    <p>{'Patient'}</p>
+                                  )}
                                 </Grid>
                                 <Grid className="newReqInfo">
                                   <a>
@@ -1361,7 +1366,7 @@ class Index extends Component {
                             <p>{appoinmentSelected.annotations}</p>
                           </Grid>
                         </Grid>
-                        <Grid className="detailQuesSub">
+                       <Grid className="detailQuesSub">
                           <input
                             type="submit"
                             value={book_appointment}
@@ -1372,7 +1377,7 @@ class Index extends Component {
                                 appoinmentSelected
                               );
                             }}
-                            disabled={this.state.houseID && this.checkAuthority(this.state.houseID, "approve_appointment")}
+                            disabled={this.state.houseID && !this.checkAuthority(this.state.houseID, "approve_appointment")}
                           />
                           {this.checkAuthority(this.state.houseID, 'suggest_new_appointment') &&
                             <span>{or}</span>
