@@ -34,6 +34,10 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
+var socket
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -398,6 +402,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
+              socket.emit("UpdateN",responce.data.data)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -444,6 +449,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        socket.emit("deleteN",responce.data.data)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {
