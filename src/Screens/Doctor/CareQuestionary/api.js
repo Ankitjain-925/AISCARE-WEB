@@ -393,9 +393,7 @@ export const checkValidation = (current, value, item) => {
     }
     else if ((item === "full_anamnesis_o2_saturation")) {
         if (!value) {
-
             current.setState({ errorChrMsg: Please_Enter_O2_saturation })
-
             MoveTop(0);
             return false;
         }

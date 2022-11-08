@@ -95,39 +95,39 @@ class Index extends Component {
 
   allHouses = () => {
     var data= this.props.stateLoginValueAim.user.type
-    console.log("datttt",data)
-    console.log("data=='nusre",data=='nurse')
-    if(data=="nurse"){
-     console.log("1")
-      socket.on("displaynurse",(data)=>{
-        console.log("data12",data)
-          this.setState({ loaderImage: false });
-            this.setState({
-              currentList: data.data.data.houses,
-              currentList2: data.data.data.houses,
-            });
-        })
-    }else if(data=='doctor'){
-     console.log("2")
-     socket.on("displaydoctor",(data)=>{
-       console.log("data12",data)
-         this.setState({ loaderImage: false });
-           this.setState({
-             currentList: data.data.data.houses,
-             currentList2: data.data.data.houses,
-           });
-       })
-    }else if(data=='adminstaff'){
-     console.log("3")
-     socket.on("displayadmin",(data)=>{
-       console.log("data12",data)
-         this.setState({ loaderImage: false });
-           this.setState({
-             currentList: data.data.data.houses,
-             currentList2: data.data.data.houses,
-           });
-       })
-    }
+    // console.log("datttt",data)
+    // console.log("data=='nusre",data=='nurse')
+    // if(data=="nurse"){
+    //  console.log("1")
+    //   socket.on("displaynurse",(data)=>{
+    //     console.log("data12",data)
+    //       this.setState({ loaderImage: false });
+    //         this.setState({
+    //           currentList: data.data.data.houses,
+    //           currentList2: data.data.data.houses,
+    //         });
+    //     })
+    // }else if(data=='doctor'){
+    //  console.log("2")
+    //  socket.on("displaydoctor",(data)=>{
+    //    console.log("data12",data)
+    //      this.setState({ loaderImage: false });
+    //        this.setState({
+    //          currentList: data.data.data.houses,
+    //          currentList2: data.data.data.houses,
+    //        });
+    //    })
+    // }else if(data=='adminstaff'){
+    //  console.log("3")
+    //  socket.on("displayadmin",(data)=>{
+    //    console.log("data12",data)
+    //      this.setState({ loaderImage: false });
+    //        this.setState({
+    //          currentList: data.data.data.houses,
+    //          currentList2: data.data.data.houses,
+    //        });
+    //    })
+    // }
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
