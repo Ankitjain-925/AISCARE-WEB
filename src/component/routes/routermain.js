@@ -124,7 +124,7 @@ var socket = io(SOCKET_URL);
 class Routermain extends Component {
   
   allHouses = () => {
-    var data= this.props.stateLoginValueAim.user.type
+    var data= this.props.stateLoginValueAim?.user?.type
     if(data=="nurse"){
       socket.on("displaynurse",(data)=>{
         this.setData(data?.data?.data)

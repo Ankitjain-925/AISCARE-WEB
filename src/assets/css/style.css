@@ -11532,6 +11532,22 @@ a.barViewnw {
     width: 23px;
     background: #fff;
 }
+.detailQuesSub2{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    text-align: center;
+    width: 23px;
+    background: #fff;
+}
 .slotTimDat {
     padding: 20px 21px 20px 21px;
 }
