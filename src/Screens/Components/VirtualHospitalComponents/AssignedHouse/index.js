@@ -155,10 +155,6 @@ class PointPain extends Component {
 
 
 
-
-
-    console.log("translate", this.state.current_user)
-    console.log("Values", this.state.values)
     return (
       <Grid>
         <Modal
