@@ -344,6 +344,9 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
+              console.log("responce",responce)
+              socket.emit("Update",responce.data.data)
+
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -390,6 +393,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        socket.emit("delete",responce.data.data)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {
