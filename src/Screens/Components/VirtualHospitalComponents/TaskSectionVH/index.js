@@ -2820,7 +2820,7 @@ class Index extends Component {
                               </Grid>
                             )}
                           {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} md={12} className="assignSection">
                               <label>{Assignedto}</label>
                               <Grid>
                                 <Select
@@ -2868,7 +2868,7 @@ class Index extends Component {
                             ))}
                           {this.state.newTask.task_type !== "sick_leave" && this.state.newTask.task_type !== "video_conference" && (
                             <Grid container direction="row" alignItems="center">
-                              <Grid item xs={12} md={12} className="dueOn">
+                              <Grid item xs={12} md={12} className="dueOn dueOnSec">
                                 <label>{Dueon}</label>
                                 <Grid
                                   container
