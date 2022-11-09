@@ -73,7 +73,7 @@ class Index extends Component {
 
   //For Task
   handleActivityTask = () => {
-    this.props.history.push("/doctor/professional-task");
+    this.props.history.push("/doctor/professional-activity");
   };
 
   getSetting = () => {
@@ -250,7 +250,7 @@ class Index extends Component {
 
   //For Task
   handlePTask = () => {
-    this.props.history.push("/doctor/professional-task");
+    this.props.history.push("/doctor/professional-activity");
   };
 
   render() {

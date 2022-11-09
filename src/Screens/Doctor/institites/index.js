@@ -41,10 +41,10 @@ class Index extends Component {
     console.log("data", data)
     if(data.roles){
       if (data.roles.includes("task_manager")) {
-        this.props.history.push("/doctor/professional-task");
+        this.props.history.push("/doctor/professional-activity");
       }
       if (data.roles.includes("professional_activity")) {
-        this.props.history.push("/doctor/professional-task");
+        this.props.history.push("/doctor/professional-activity");
       }
       if (data.roles.includes("earlier_activity")) {
         this.props.history.push("/doctor/earlier-task");

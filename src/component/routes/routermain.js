@@ -66,7 +66,7 @@ import DoctorChats from "Screens/Doctor/Chat/index.js";
 import DoctorEmergency from "Screens/Doctor/Emergency/index.js";
 import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
-import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
+import DoctorProfessionalTask from "Screens/Doctor/ProfessionalActivity/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
 // import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
 import DoctorET from "Screens/Doctor/Earlier_Activities/index.js";
@@ -466,7 +466,7 @@ class Routermain extends Component {
             />
             <Route
               exact
-              path="/doctor/professional-task"
+              path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
             {/* <Route
