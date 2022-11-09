@@ -75,6 +75,8 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
+    socket = io(SOCKET_URL);
+
   }
 
   getallGroups = () => {
@@ -455,7 +457,9 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-              socket.emit("UpdateA",responce.data.data)
+              console.log('UpdateA', responce.data.data)
+              var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              socket.emit("UpdateA",sendSec)
 
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
@@ -502,7 +506,9 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        socket.emit("deleteA",responce.data.data)
+        this.setState({ loaderImage: false });
+        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        socket.emit("deleteA",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {

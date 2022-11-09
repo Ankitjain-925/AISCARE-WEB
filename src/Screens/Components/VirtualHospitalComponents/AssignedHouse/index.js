@@ -85,17 +85,13 @@ class PointPain extends Component {
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
 
        if (responce.data.data.type == "nurse") {
-        console.log('sendSec', sendSec)
           socket.emit("nurse", sendSec)
-
         }
         else if (responce.data.data.type == "doctor") {
           socket.emit("doctor", sendSec)
-
         }
         else if (responce.data.data.type == "adminstaff"){
           socket.emit("adminstaff", sendSec)
-
         }
           this.setState({ values: false });
           

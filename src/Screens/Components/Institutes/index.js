@@ -44,6 +44,12 @@ class Index extends Component {
     this.getSetting();
   };
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+      this.allHouses();
+    }
+  };
+
   redirectSpace = (data) => {
     this.props.houseSelect(data);
     this.props.history.push("/VirtualHospital/space");
@@ -94,59 +100,29 @@ class Index extends Component {
   };
 
   allHouses = () => {
-    var data= this.props.stateLoginValueAim.user.type
-    // console.log("datttt",data)
-    // console.log("data=='nusre",data=='nurse')
-    // if(data=="nurse"){
-    //  console.log("1")
-    //   socket.on("displaynurse",(data)=>{
-    //     console.log("data12",data)
-    //       this.setState({ loaderImage: false });
-    //         this.setState({
-    //           currentList: data.data.data.houses,
-    //           currentList2: data.data.data.houses,
-    //         });
-    //     })
-    // }else if(data=='doctor'){
-    //  console.log("2")
-    //  socket.on("displaydoctor",(data)=>{
-    //    console.log("data12",data)
-    //      this.setState({ loaderImage: false });
-    //        this.setState({
-    //          currentList: data.data.data.houses,
-    //          currentList2: data.data.data.houses,
-    //        });
-    //    })
-    // }else if(data=='adminstaff'){
-    //  console.log("3")
-    //  socket.on("displayadmin",(data)=>{
-    //    console.log("data12",data)
-    //      this.setState({ loaderImage: false });
-    //        this.setState({
-    //          currentList: data.data.data.houses,
-    //          currentList2: data.data.data.houses,
-    //        });
-    //    })
-    // }
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(
-        sitedata.data.path + "/UserProfile/Users/" + user_id,
-        commonHeader(user_token)
-      )
-      .then((response) => {
-        console.log("response1",response)
-        this.setState({ loaderImage: false });
-        this.setState({
-          currentList: response.data.data.houses,
-          currentList2: response.data.data.houses,
-        });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
+    this.setState({
+      currentList: this.props.stateLoginValueAim?.user?.houses,
+      currentList2: this.props.stateLoginValueAim?.user?.houses,
+    })
+    // this.setState({ loaderImage: true });
+    // let user_token = this.props.stateLoginValueAim.token;
+    // let user_id = this.props.stateLoginValueAim.user._id;
+    // axios
+    //   .get(
+    //     sitedata.data.path + "/UserProfile/Users/" + user_id,
+    //     commonHeader(user_token)
+    //   )
+    //   .then((response) => {
+    //     console.log("response1",response)
+    //     this.setState({ loaderImage: false });
+    //     this.setState({
+    //       currentList: response.data.data.houses,
+    //       currentList2: response.data.data.houses,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ loaderImage: false });
+    //   });
   };
 
   SearchFilter = (e) => {

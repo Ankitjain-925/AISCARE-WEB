@@ -360,9 +360,9 @@ Opencare=(data)=>{
     ) {
       return <Redirect to={'/'} />;
     }
-    if (House && House?.value === null) {
-      return <Redirect to={'/VirtualHospital/institutes'} />;
-    }
+     if (House && House?.value === null) {
+         return <Redirect to={'/VirtualHospital/institutes'} />;
+     }
     const { value } = this.state;
     const { valueMob } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);

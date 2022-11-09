@@ -139,7 +139,7 @@ class Routermain extends Component {
 
     } else if(data=='doctor'){
       socket.on("displaydoctor",(data)=>{
-        this.setData(data?.data?.data)
+        this.setData(data)
       })
       socket.on("deletedata",(data)=>{
         this.setData(data)
@@ -170,7 +170,7 @@ class Routermain extends Component {
       if(user && user.type ==='adminstaff'){
         var filterHouse = data?.houses?.length>0 && data?.houses?.filter((data)=> data?.value === this.props?.House?.value)
         if(filterHouse && filterHouse?.length > 0) {
-          this.props.houseSelect(filterHouse[0]);
+          this.props.houseSelect(filterHouse[0], true);
         }
         
       }
