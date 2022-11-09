@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Switch, StaticRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
 // Added By Ankita Patient Component
 import Register from "Screens/Register";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import Login from "Screens/Login";
 import ForgotPass from "Screens/ChangePassword";
 import ChangePass from "Screens/ChangePassword/changepassword";
@@ -65,7 +68,7 @@ import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
-import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
+// import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
 import DoctorET from "Screens/Doctor/Earlier_Activities/index.js";
 
 //for hospital admin user
@@ -114,13 +117,74 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
+var socket = io(SOCKET_URL);
 class Routermain extends Component {
+  
+  allHouses = () => {
+    var data= this.props.stateLoginValueAim?.user?.type
+    if(data=="nurse"){
+      socket.on("displaynurse",(data)=>{
+        this.setData(data)
+      })
+      socket.on("deletedataN",(data)=>{
+        this.setData(data)
+      })
+      socket.on("UpdateddataN",(data)=>{
+        this.setData(data)
+      })
+
+    } else if(data=='doctor'){
+      socket.on("displaydoctor",(data)=>{
+        this.setData(data)
+      })
+      socket.on("deletedata",(data)=>{
+        this.setData(data)
+      })
+      socket.on("Updateddata",(data)=>{
+        this.setData(data)
+      })
+    } else if(data=='adminstaff'){
+      socket.on("displayadmin",(data)=>{ 
+        this.setData(data, 'adminstaff')
+      })
+      socket.on("deletedataA",(data)=>{
+        this.setData(data, 'adminstaff')
+      })
+      socket.on("UpdateddataA",(data)=>{
+        this.setData(data, 'adminstaff')
+      })
+    }
+
+  };
+  setData = (data)=>{
+    if(this.props.stateLoginValueAim?.user?._id === data?._id){
+      let user_token = this.props.stateLoginValueAim.token;
+      let user = this.props.stateLoginValueAim?.user;
+      user['houses'] = data?.houses;
+      var forUpdate = {value: true, token: user_token, user: user}
+      this.props.LoginReducerAim(data?.email, '', user_token, () => {}, forUpdate);
+      if(user && user.type ==='adminstaff'){
+        var filterHouse = data?.houses?.length>0 && data?.houses?.filter((data)=> data?.value === this.props?.House?.value)
+        if(filterHouse && filterHouse?.length > 0) {
+          this.props.houseSelect(filterHouse[0], true);
+        }
+        
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.allHouses();
+  }
+
   render() {
     return (
-      <Router basename={"/"}>
+      <Router basename={"/sys-n-authority"}>
         <CallatAllPages />
-
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -405,11 +469,11 @@ class Routermain extends Component {
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
-            />
+            /> */}
               <Route
               exact
               path="/doctor/video-call"
@@ -662,4 +726,17 @@ class Routermain extends Component {
     );
   }
 }
-export default Routermain;
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { House } = state.houseSelect;
+  return {
+    stateLoginValueAim,
+    House,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, { LoginReducerAim, houseSelect })(
+    Routermain
+  )
+);

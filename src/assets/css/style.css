@@ -6508,6 +6508,17 @@ a.archvDel:hover ul {
 .checkHelthLbl div {
     margin-bottom: 15px;
 }
+
+.se{
+    display: inline-table !important;
+}
+
+.scrol{
+    overflow-y: scroll !important;
+    height: 500px !important;
+    align-items: center;
+    justify-content: center;
+}
 .entryCourse p {
     color: #7F8383;
     font-family: Muli;
@@ -7627,6 +7638,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk .newReqInfo label {
+    color: #D9DADA !important;
+}
+.homeBgDrk .newReqInfo p{
     color: #D9DADA !important;
 }
 .homeBgDrk .newRequestMain h4 {
@@ -11503,6 +11517,22 @@ a.barViewnw {
     position: relative;
 }
 .detailQuesSub span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    text-align: center;
+    width: 23px;
+    background: #fff;
+}
+.detailQuesSub2{
     color: #7F8383;
     font-family: Muli;
     font-size: 14px;

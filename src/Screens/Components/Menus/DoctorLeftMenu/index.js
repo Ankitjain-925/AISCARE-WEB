@@ -154,7 +154,7 @@ class Index extends Component {
 
   //For Task
   handleActivityTask = () => {
-    this.props.history.push("/doctor/professional-activity");
+    this.props.history.push("/doctor/professional-task");
   };
 
   //For change Institutes

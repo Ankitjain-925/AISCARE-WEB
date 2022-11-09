@@ -545,7 +545,7 @@ class Index extends Component {
                             {Billing}
                           </a>
                         </li>}
-                        {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('service_manager') && 
+                        {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('service_manager') &&  this.props?.House?.roles.includes('add_invoice') &&
                         <li>
                           <a onClick={this.Invoice}>
                             {this.props.settings &&

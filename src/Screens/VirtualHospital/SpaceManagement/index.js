@@ -443,7 +443,7 @@ class Index extends Component {
 
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr">
-                      {roles.includes("show_speciality")  && 
+                      {roles.includes("show_speciality")  ?
                       <Grid container direction="row" spacing={2}>
                         {this.state.specialityData?.length > 0 &&
                           this.state.specialityData.map((data) => (
@@ -517,7 +517,7 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           ))}
-                      </Grid>}
+                      </Grid>:<p className='authority'>You have no authority for showing the speciality, Please contact to hospital admin</p>}
                     </Grid>
                   </Grid>
                 </Grid>

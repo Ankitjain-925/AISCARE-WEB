@@ -38,12 +38,15 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
   { value: 'Specialist2', label: 'Specialist2' },
 ];
-
+var socket
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -72,6 +75,8 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
+    socket = io(SOCKET_URL);
+
   }
 
   getallGroups = () => {
@@ -452,6 +457,10 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
+              console.log('UpdateA', responce.data.data)
+              var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              socket.emit("UpdateA",sendSec)
+
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -497,6 +506,9 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        this.setState({ loaderImage: false });
+        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        socket.emit("deleteA",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {

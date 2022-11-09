@@ -82,17 +82,16 @@ class PointPain extends Component {
       .then((responce) => {
         this.props.closeHouse();
         this.setState({ loaderImage: true });
-       if (responce.data.data.type == "nurse") {
-          socket.emit("nurse", responce)
+        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
 
+       if (responce.data.data.type == "nurse") {
+          socket.emit("nurse", sendSec)
         }
         else if (responce.data.data.type == "doctor") {
-          socket.emit("doctor", responce)
-
+          socket.emit("doctor", sendSec)
         }
         else if (responce.data.data.type == "adminstaff"){
-          socket.emit("adminstaff", responce)
-
+          socket.emit("adminstaff", sendSec)
         }
           this.setState({ values: false });
           
@@ -155,10 +154,6 @@ class PointPain extends Component {
 
 
 
-
-
-    console.log("translate", this.state.current_user)
-    console.log("Values", this.state.values)
     return (
       <Grid>
         <Modal

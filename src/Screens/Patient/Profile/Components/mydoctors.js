@@ -207,7 +207,7 @@ class Index extends Component {
                     <Grid className="doctrstCntnt">
                         <Grid className="trstfmlyDoc">
                             <h3>{"Trusted Nurses"}</h3>
-                            <p>{"These Doctors have access to your Journal. "}</p>
+                            <p>{"These Nurses have access to your Journal. "}</p>
                         </Grid>
 
                         {this.state.myfavNurse && this.state.myfavNurse.length > 0 && this.state.myfavNurse.map((index, i) => (
@@ -219,7 +219,8 @@ class Index extends Component {
                                                 <Grid item xs={12} md={5}>
                                                     {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                         : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
-                                                <Grid item xs={12} md={7}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                                <Grid item xs={12} md={4}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                                <Grid item xs={12} md={3}><p>{index?.byhospital && <>{"By Hospital"}</>}</p></Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -249,7 +250,7 @@ class Index extends Component {
                                                     {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                         : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
                                                 <Grid item xs={12} md={5}><p>{index.alies_id && index.alies_id}</p></Grid>
-                                                <Grid item xs={12} md={3}><p>{index?.byhospital == true && <>{"By Hospital"}</>}</p></Grid>
+                                                <Grid item xs={12} md={3}><p>{index?.byhospital && <>{"By Hospital"}</>}</p></Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>

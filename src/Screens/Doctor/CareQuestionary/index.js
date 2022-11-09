@@ -47,13 +47,21 @@ class Index extends Component {
             allQuestionData: {},
             openQues: false,
             errorChrMsg1: '',
-            loaderImage: false
+            loaderImage: false,
+            authorityMsg: false
         }
     }
 
     componentDidMount() {
         allHouses(this);
     }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+            console.log('on adding and removing')
+            allHouses(this);
+        }
+      };
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -170,6 +178,7 @@ class Index extends Component {
             selectPatient,
             selectService,
             openQues } = this.state;
+            const {roles = []} = selectHouse || {}
         return (
             <Grid
                 className={
@@ -183,7 +192,7 @@ class Index extends Component {
             >
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner homeBgIner">
-
+                {console.log('roles', roles, selectHouse, 'selectHouse', this.props.stateLoginValueAim?.user.houses)}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
@@ -196,7 +205,12 @@ class Index extends Component {
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
+                                               
                                                 <div className="err_message">{this.state.errorChrMsg1}</div>
+{!this.state.authorityMsg && 
+                                                <div className="err_message">{this.state.errorChrMsg1}</div>}
+                                                {this.state.authorityMsg && 
+                                                <div className="err_message">You dont have authority to selected hospital</div>}
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
@@ -1355,7 +1369,9 @@ class Index extends Component {
                                                     type={Submit}
                                                     value={Submit}
                                                     onClick={() => handleSubmit(this)}
-                                                />
+                                                    disabled = {this.state.authorityMsg}
+                                                
+                                                   />
                                             </Grid>
                                         </Grid>
                                     </Grid>
