@@ -16923,3 +16923,15 @@ color:#FFFFFF
 .enterSpclSec .css-g1d714-ValueContainer{
   padding: 8px 8px!important;
 }
+.AddEntrynwSec a:last-child {
+  margin-left: 6px;
+}
+.serviceallSec .css-g1d714-ValueContainer{
+  height: 44px;
+}
+.dueOnSec{
+  padding: 0px;
+}
+.assignSection{
+  margin-top: 5px!important;
+}
