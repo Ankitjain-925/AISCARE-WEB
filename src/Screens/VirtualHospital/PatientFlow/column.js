@@ -116,7 +116,7 @@ class Column extends Component {
                   {this.props.view === 'vertical' ? (
                     <div className="checkDots">
                       <Grid>
-                        {this.state.edit === index ? (
+                        {this.state.edit === index && roles.includes("rename_step") ? (
                           <div ref={this.box}>
                             <DebounceInput
                               name="step_name"
@@ -357,7 +357,7 @@ class Column extends Component {
                         <Grid item xs={12} sm={6} md={6}>
                           <label>
                             <Grid>
-                              {this.state.edit === index ? (
+                              {this.state.edit === index && roles.includes("rename_step")  ? (
                                 <div ref={this.box}>
                                   <DebounceInput
                                     name="step_name"
