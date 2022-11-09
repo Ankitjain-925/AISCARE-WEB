@@ -128,6 +128,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+    const { House: { roles = [] } = {} } = this.props || {}
 
     return (
       <Grid
@@ -229,6 +230,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {/* End of Bread Crumb */}
+                    {roles.includes("show_external_space") ?
                     <Grid className="wardsGrupUpr wardsGrupUpr1">
                       <Grid container direction="row" spacing={2}>
                         {externalData &&
@@ -389,7 +391,7 @@ class Index extends Component {
                             </Grid>
                           ))}
                       </Grid>
-                    </Grid>
+                    </Grid>:<p className='authority'>You have no authority for showing the external space management, Please contact to hospital admin</p>}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}
