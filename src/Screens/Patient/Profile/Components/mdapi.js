@@ -64,7 +64,10 @@ export const deleteClickDoctor = (doctor, current) => {
                 })
             }
             current.setState({ family_doc: myFilterData, family_doc1: response.data.data.family_doc })
+            
             if (response.data.data.fav_doctor) {
+                response.data.data.fav_doctor = response.data.data.fav_doctor?.length>0 && response.data.data.fav_doctor.filter((data) => data !== null)
+                console.log('pt', response.data.data.fav_doctor)
                 for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
                     if (response.data.data.fav_doctor[i].doctor) {
                         if(response.data.data.fav_doctor[i]?.user_type === 'nurse'){
@@ -76,7 +79,7 @@ export const deleteClickDoctor = (doctor, current) => {
                           
                         }
                         else{
-                            var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
+                            var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => (response.data.data.fav_doctor[i] && data.profile_id ===  response.data.data.fav_doctor[i]?.doctor))
                             if (datas && datas.length > 0) {
                                 if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
                                     reccomend.push(datas[0])
@@ -84,6 +87,7 @@ export const deleteClickDoctor = (doctor, current) => {
                                 else {
                                     datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
                                     myfavDoctors.push(datas[0])
+                                   
                                 }
                             }
                         }
@@ -91,9 +95,8 @@ export const deleteClickDoctor = (doctor, current) => {
                     }
                 }
 
-                if (response.data.data.fav_doctor.length == 0) {
-                    current.setState({ loaderImage: false });
-                }
+               
+               current.setState({ loaderImage: false });
                 current.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend, myfavNurse: myfavNurse })
             }
         }).catch((error) => {

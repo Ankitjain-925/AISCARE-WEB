@@ -68,6 +68,13 @@ class Index extends Component {
         allHouses(this);
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+            console.log('on adding and removing')
+            allHouses(this);
+        }
+      };
+
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (

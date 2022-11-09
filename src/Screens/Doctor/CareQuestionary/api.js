@@ -393,9 +393,7 @@ export const checkValidation = (current, value, item) => {
     }
     else if ((item === "full_anamnesis_o2_saturation")) {
         if (!value) {
-
             current.setState({ errorChrMsg: Please_Enter_O2_saturation })
-
             MoveTop(0);
             return false;
         }
@@ -728,6 +726,11 @@ export const getPatientData1 = async (current) => {
             { users1: response.PatientList1, users: response.patientArray, loaderImage: false })
     } else {
         current.setState({ loaderImage: false });
+    }
+    if(current.state.selectHouse?.roles.includes('add_care_questionnary')) {
+        current.setState({ authorityMsg: false });
+    } else {
+        current.setState({ authorityMsg: true });
     }
 };
 
