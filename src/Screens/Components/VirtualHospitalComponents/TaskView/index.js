@@ -398,22 +398,7 @@ class PointPain extends Component {
                                 </li> : null}</> : <> <li>
 
 
-                                  {data &&
-                                    data.task_type &&
-                                    data.task_type === 'picture_evaluation' &&
-                                    this.props.comesFrom === 'Professional' ? (
-                                    <a
-                                      onClick={() => {
-                                        this.props.editTask(data);
-                                        console.log('1')
-                                      }}
-                                    >
-                                      <img
-                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                        alt=""
-                                        title=""
-                                      />{edit_picture_evaluation}</a>
-                                  ) : data.task_type &&
+                                  {data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     this.props.comesFrom === 'adminstaff' &&
                                     data.status === 'done' ? (
@@ -445,7 +430,7 @@ class PointPain extends Component {
                                       />{assign_to_doctor}</a>
                                   ) : data.task_type &&
                                     (data.task_type === 'sick_leave' ||
-                                      data.task_type === 'video_conference') && (
+                                      data.task_type === 'video_conference' || data.task_type === 'picture_evaluation') && (
                                       this.props.comesFrom === 'Professional' && data.edit_professional_activity) ? (
                                     <a
                                       onClick={() => {
@@ -531,81 +516,47 @@ class PointPain extends Component {
                                       )}
                                     </a>
                                   </li>
-                                  : null}</> : <>  <li>
+                                  : null}
+                              </> :
+                              <>  <li>
 
 
 
-                                    {data &&
-                                      data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      this.props.comesFrom === 'Professional' ? (
-                                      <a
-                                        onClick={() => {
-                                          this.props.removeTask(data._id);
-                                        }}
-                                      >
-                                        <img
-                                          src={require('assets/virtual_images/deleteNew.png')}
-                                          alt=""
-                                          title=""
-                                        />{edit_picture_evaluation}</a>
-                                    ) : data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      this.props.comesFrom === 'adminstaff' &&
-                                      data.status === 'done' ? (
-                                      <a
-                                        onClick={() => {
-                                          this.props.removeTask(data._id);
-                                        }}
-                                      >
-                                        <img
-                                          src={require('assets/virtual_images/deleteNew.png')}
-                                          alt=""
-                                          title=""
-                                        />{see_details}</a>
-                                    ) : data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      (this.props.comesFrom === 'adminstaff' ||
-                                        this.props.comesFrom === 'detailTask') ? (
-                                      <a
-                                        onClick={() => {
-                                          this.props.removeTask(data._id);
-                                        }}
-                                      >
-                                        <img
-                                          src={require('assets/virtual_images/deleteNew.png')}
-                                          alt=""
-                                          title=""
-                                        />{assign_to_doctor}</a>
-                                    ) : data.task_type &&
-                                      data.task_type === 'sick_leave' &&
-                                      this.props.comesFrom === 'Professional' ? (
-                                      <a
-                                        onClick={() => {
-                                          this.props.removeTask(data._id);
-                                        }}
-                                      >
-                                        <img
-                                          src={require('assets/virtual_images/deleteNew.png')}
-                                          alt=""
-                                          title=""
-                                        />{view_detail}</a>
-                                    ) : (
-                                      data.task_name ? <>
-                                        {data.delete_professional_activity &&
-                                          <a
-                                            onClick={() => {
-                                              this.props.removeTask(data._id);
-                                            }}
-                                          >
-                                            <img
-                                              src={require('assets/virtual_images/deleteNew.png')}
-                                              alt=""
-                                              title=""
-                                            />
-                                            {DeleteTask}
-                                          </a>}</> :
-                                        <a
+                                {data.task_type &&
+                                  data.task_type === 'picture_evaluation' &&
+                                  this.props.comesFrom === 'adminstaff' &&
+                                  data.status === 'done' ? (
+                                  <a
+                                    onClick={() => {
+                                      this.props.removeTask(data._id);
+                                    }}
+                                  >
+                                    <img
+                                      src={require('assets/virtual_images/deleteNew.png')}
+                                      alt=""
+                                      title=""
+                                    />{see_details}</a>
+                                ) : data.task_type &&
+                                  data.task_type === 'picture_evaluation' &&
+                                  (this.props.comesFrom === 'adminstaff' ||
+                                    this.props.comesFrom === 'detailTask') ? (
+                                  <a
+                                    onClick={() => {
+                                      this.props.removeTask(data._id);
+                                    }}
+                                  >
+                                    <img
+                                      src={require('assets/virtual_images/deleteNew.png')}
+                                      alt=""
+                                      title=""
+                                    />{assign_to_doctor}</a>
+                                ) :
+                                  (
+                                    this.props.comesFrom === 'Professional' ?
+                                      data.task_type == 'video_conference' || data.task_type == 'picture_evaluation' || data.task_type == 'sick_leave' ?
+                                        " " :
+
+                                        data.delete_professional_activity && <a
                                           onClick={() => {
                                             this.props.removeTask(data._id);
                                           }}
@@ -614,9 +565,14 @@ class PointPain extends Component {
                                             src={require('assets/virtual_images/deleteNew.png')}
                                             alt=""
                                             title=""
-                                          />{edit_assigned_services}</a>
-                                    )}
-                                  </li></>}
+                                          />
+                                          {DeleteTask}
+                                        </a>
+
+
+                                      : " "
+                                  )}
+                              </li></>}
                             {data &&
                               data.task_type &&
                               data.task_type === 'sick_leave' &&
