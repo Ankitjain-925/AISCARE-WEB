@@ -197,7 +197,7 @@ class PointPain extends Component {
                               </Grid>) : (
                               " ")}
                             <Grid className="clear"></Grid>
-                            {newmember.roles.includes("add_covid_19") ? (
+                            {newmember.roles.includes("add_covid_diary") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("covid_19")}>
@@ -283,7 +283,7 @@ class PointPain extends Component {
                                 </a>
                               </Grid>) : (" ")}
                             <Grid className="clear"></Grid>
-                            {newmember.roles.includes("add_file_upload") ? (
+                            {newmember.roles.includes("add_files_upload") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("file_upload")}>
@@ -296,7 +296,7 @@ class PointPain extends Component {
                                 </a>
                               </Grid>) : (" ")}
                             <Grid className="clear"></Grid>
-                            {newmember.roles.includes("add_hospitalization") ? (
+                            {newmember.roles.includes("add_hospital_visit") ? (
 
                               <>
                                 {this.state.openBy !== "patient" && (
@@ -325,7 +325,7 @@ class PointPain extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Grid className="checkHelthLbl">
-                            {newmember.roles.includes("add_hospitalization") ? (
+                            {newmember.roles.includes("add_hospital_visit") ? (
 
                               <>
                                 {this.state.openBy === "patient" && (
@@ -367,7 +367,7 @@ class PointPain extends Component {
                               </Grid>
                             ) : (" ")}
                             <Grid className="clear"></Grid>
-                            {newmember.roles.includes("add_long_covid") ? (
+                            {newmember.roles.includes("add_long_covid_tool") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("long_covid")}>
@@ -470,7 +470,7 @@ class PointPain extends Component {
                             {this.state.openBy !== "patient" && (
                               <Grid className="clear"></Grid>
                             )}
-                            {newmember.roles.includes("add_sick_certificate") ? (
+                            {newmember.roles.includes("add_sick certificate") ? (
 
                               <>
                                 {this.state.openBy !== "patient" && (
@@ -495,7 +495,7 @@ class PointPain extends Component {
                             {this.state.openBy !== "patient" && (
                               <Grid className="clear"></Grid>
                             )}
-                            {newmember.roles.includes("add_smoking_status") ? (
+                            {newmember.roles.includes("add_smoking status") ? (
 
                               <Grid>
                                 <a
@@ -525,7 +525,7 @@ class PointPain extends Component {
                               </Grid>
                             ) : (" ")}
                             <Grid className="clear"></Grid>
-                            {newmember.roles.includes("add_weight_bmi") ? (
+                            {newmember.roles.includes("add_wieght_bmi") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("weight_bmi")}>
@@ -629,7 +629,7 @@ class PointPain extends Component {
                               </Grid>) : (
                               " ")}
                             <Grid className="clear"></Grid>
-                            {this.props.House.roles.includes("add_covid_19") ? (
+                            {this.props.House.roles.includes("add_covid_diary") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("covid_19")}>
@@ -715,7 +715,7 @@ class PointPain extends Component {
                                 </a>
                               </Grid>) : (" ")}
                             <Grid className="clear"></Grid>
-                            {this.props.House.roles.includes("add_file_upload") ? (
+                            {this.props.House.roles.includes("add_files_upload") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("file_upload")}>
@@ -728,7 +728,7 @@ class PointPain extends Component {
                                 </a>
                               </Grid>) : (" ")}
                             <Grid className="clear"></Grid>
-                            {this.props.House.roles.includes("add_hospitalization") ? (
+                            {this.props.House.roles.includes("add_hospital_visit") ? (
 
                               <>
                                 {this.state.openBy !== "patient" && (
@@ -757,7 +757,7 @@ class PointPain extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Grid className="checkHelthLbl">
-                            {this.props.House.roles.includes("add_hospitalization") ? (
+                            {this.props.House.roles.includes("add_hospital_visit") ? (
 
                               <>
                                 {this.state.openBy === "patient" && (
@@ -799,7 +799,7 @@ class PointPain extends Component {
                               </Grid>
                             ) : (" ")}
                             <Grid className="clear"></Grid>
-                            {this.props.House.roles.includes("add_long_covid") ? (
+                            {this.props.House.roles.includes("add_long_covid_tool") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("long_covid")}>
@@ -902,7 +902,7 @@ class PointPain extends Component {
                             {this.state.openBy !== "patient" && (
                               <Grid className="clear"></Grid>
                             )}
-                            {this.props.House.roles.includes("add_sick_certificate") ? (
+                            {this.props.House.roles.includes("add_sick certificate") ? (
 
                               <>
                                 {this.state.openBy !== "patient" && (
@@ -927,7 +927,7 @@ class PointPain extends Component {
                             {this.state.openBy !== "patient" && (
                               <Grid className="clear"></Grid>
                             )}
-                            {this.props.House.roles.includes("add_smoking_status") ? (
+                            {this.props.House.roles.includes("add_smoking status") ? (
 
                               <Grid>
                                 <a
@@ -957,7 +957,7 @@ class PointPain extends Component {
                               </Grid>
                             ) : (" ")}
                             <Grid className="clear"></Grid>
-                            {this.props.House.roles.includes("add_weight_bmi") ? (
+                            {this.props.House.roles.includes("add_wieght_bmi") ? (
 
                               <Grid>
                                 <a onClick={() => this.handleChangeEntry("weight_bmi")}>
