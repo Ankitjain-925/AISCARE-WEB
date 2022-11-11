@@ -1946,12 +1946,11 @@ class Index extends Component {
   };
 
   checkAuthority = (id, authority) => {
-
     if (id) {
-      const { roles = [] } = this.state.currentList?.find(e => e.value === id) || {};
+      const { roles = [] } = this.props.stateLoginValueAim?.user?.houses?.find(e => e.value === id) || {};
       return roles.includes(authority);
     }
-    return true;
+    return false;
   }
   render() {
     let translate = getLanguage(this.props.stateLanguageType);

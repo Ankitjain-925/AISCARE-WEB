@@ -494,7 +494,8 @@ class Index extends Component {
             axios
               .post(
                 sitedata.data.path + '/UserProfile/AddNewUseradiitional/',
-                savedata
+                savedata,
+                commonHeader(this.props.stateLoginValueAim.token)
               )
               .then((responce) => {
                 this.setState({ loaderImage: false });

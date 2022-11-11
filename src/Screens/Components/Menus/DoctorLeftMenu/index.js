@@ -51,7 +51,7 @@ class Index extends Component {
   }
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    socket.on("connection", () => { });
+    // socket.on("connection", () => { });
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
