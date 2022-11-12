@@ -999,95 +999,6 @@ class Index extends Component {
       });
   };
 
-  //{Delete} the perticular service confirmation box
-  removeTask1 = (id) => {
-    this.setState({ message: null, openTask: false });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
-            }
-          >
-            <h1>{remove_task}</h1>
-            <p>{you_sure_to_remove_task}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.removeTask21(id);
-                  // onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
-
-  removeTask21 = (id) => {
-    this.setState({ message: null, openTask: false });
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
-            }
-          >
-            <h1 class="alert-btn">{RemoveTask}</h1>
-            <p>{really_want_to_remove_task}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  this.deleteClickTask(id);
-                  onClose();
-                }}
-              >
-                {Yes}
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
-
-  //for delete the Task
-  deleteClickTask1(id) {
-    this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/assignservice/Deleteassignservice/" + id,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((response) => {
-        if (response.data.hassuccessed) {
-          this.props.getAddTaskData();
-        }
-        this.setState({ loaderImage: false });
-      })
-      .catch((error) => { });
-  }
 
   //{Delete} the perticular service confirmation box
   removeTask1 = (id) => {
@@ -1149,7 +1060,7 @@ class Index extends Component {
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  this.deleteClickTask(id);
+                  this.deleteClickTask1(id);
                   onClose();
                 }}
               >
@@ -1180,7 +1091,7 @@ class Index extends Component {
   }
 
   //{Delete} the perticular service confirmation box
-  removeTask = (id) => {
+  removeTask = (id, house_id) => {
     this.setState({ message: null, openTask: false });
     let translate = getLanguage(this.props.stateLanguageType);
     let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
@@ -1203,7 +1114,7 @@ class Index extends Component {
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  this.removeTask2(id);
+                  this.removeTask2(id, house_id);
                   // onClose();
                 }}
               >
@@ -1217,7 +1128,7 @@ class Index extends Component {
   };
   h;
 
-  removeTask2 = (id) => {
+  removeTask2 = (id, house_id) => {
     this.setState({ message: null, openTask: false });
     let translate = getLanguage(this.props.stateLanguageType);
     let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
@@ -1235,12 +1146,12 @@ class Index extends Component {
             }
           >
             <h1 class="alert-btn">{RemoveTask}</h1>
-            <p>You dont have access to remove Task</p>
+            <p>{really_want_to_remove_task}</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  this.deleteClickTask(id);
+                  this.deleteClickTask(id, house_id);
                   onClose();
                 }}
               >
@@ -1429,11 +1340,11 @@ class Index extends Component {
     this.setState({ ArchivedTasks: FilterFromSearch4 });
   };
   //for delete the Task
-  deleteClickTask(id) {
+  deleteClickTask(id, house_id) {
     this.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + "/vh/AddTask/" + id + "/" + this.props?.House?.value,
+        sitedata.data.path + "/vh/AddTask/" + id + "/" + house_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -4706,10 +4617,10 @@ class Index extends Component {
                               }}
                               removeAddbutton={this.props.removeAddbutton}
                               data={dataCopy}
-                              removeTask={(id) =>
+                              removeTask={(id, house_id) =>
                                 data?.title
                                   ? this.removeTask1(id)
-                                  : this.removeTask(id)
+                                  : this.removeTask(id, house_id)
                               }
                               editTask={(data) =>
                                 data?.title
