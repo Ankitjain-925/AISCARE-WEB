@@ -1450,12 +1450,14 @@ class Index extends Component {
                                 </a>
 
                                 <a
-                                  onClick={() =>
+                                  onClick={() => {
                                     this.handleOpenFancyVdo(
                                       i,
                                       "homevisit_appointment",
                                       doc.homevisit_appointment[0]
                                     )
+                                  }
+                                    
                                   }
                                 >
                                   <img

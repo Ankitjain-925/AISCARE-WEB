@@ -798,7 +798,7 @@ class PointPain extends Component {
                                 </a>
                               </Grid>
                             ) : (" ")}
-                            <Grid className="clear"></Grid>
+                            <Grid className=""></Grid>
                             {this.props.House.roles.includes("add_long_covid") ? (
 
                               <Grid>
@@ -1331,7 +1331,7 @@ class PointPain extends Component {
                               <p>{vaccination}</p>
                             </a>
                           </Grid>
-                          <Grid className="clear"></Grid>
+                          <Grid className=""></Grid>
 
                           <Grid>
                             <a onClick={() => this.handleChangeEntry("weight_bmi")}>

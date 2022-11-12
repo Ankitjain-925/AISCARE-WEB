@@ -609,7 +609,7 @@ class Index extends Component {
                                           <>
                                             <Grid>
                                               <FormControlLabel
-                                                className="checkboxques"
+                                                className="checkboxques checkboxquesSec"
                                                 control={
                                                   <Checkbox
                                                     name="multiple_answer"
@@ -674,7 +674,7 @@ class Index extends Component {
 
                                             <Grid>
                                               <FormControlLabel
-                                                className="checkboxquestion"
+                                                className="checkboxquestion allCheckboxQue"
                                                 control={
                                                   <Checkbox
                                                     name="other"
@@ -771,7 +771,7 @@ class Index extends Component {
                                     </Grid>
                                   </Grid>
                                 )}
-                                <Grid className="infoSub2">
+                                <Grid className="infoSub2 infoSubBtn">
                                   <Button onClick={() => this.handleSubmit()}>
                                     {save_and_close}
                                   </Button>
