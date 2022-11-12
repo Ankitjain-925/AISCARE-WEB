@@ -558,7 +558,7 @@ class PointPain extends Component {
 
                                         data.delete_professional_activity && <a
                                           onClick={() => {
-                                            this.props.removeTask(data._id);
+                                            this.props.removeTask(data._id, data.house_id);
                                           }}
                                         >
                                           <img
@@ -744,7 +744,7 @@ class PointPain extends Component {
                               <li
                                 onClick={() => {
                                   this.props.removeTask(
-                                    data._id);
+                                    data._id, data.house_id);
                                 }}
                               >
 
