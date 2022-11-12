@@ -48,7 +48,7 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    socket.on("connection", () => { });
+    // socket.on("connection", () => { });
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
@@ -73,7 +73,7 @@ class Index extends Component {
 
   //For Task
   handleActivityTask = () => {
-    this.props.history.push("/doctor/professional-task");
+    this.props.history.push("/doctor/professional-activity");
   };
 
   getSetting = () => {
@@ -250,7 +250,7 @@ class Index extends Component {
 
   //For Task
   handlePTask = () => {
-    this.props.history.push("/doctor/professional-task");
+    this.props.history.push("/doctor/professional-activity");
   };
 
   render() {
