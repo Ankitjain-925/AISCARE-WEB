@@ -176,6 +176,9 @@ class Index extends Component {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
       this.getMetadata();
     }
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+      this.allHouses();
+  }
   };
 
   handleOpenAss = () => {
@@ -315,8 +318,10 @@ class Index extends Component {
     this.setState({
       professional_id_list1: this.state.professional_id_list,
       openTask: true,
+      selectedHouse:{},
       newTask: {},
       assignedTo: [],
+      authErr: false,
       q: "",
       selectSpec: {},
       selectedPat: {}
@@ -1863,23 +1868,26 @@ class Index extends Component {
   };
 
   allHouses = () => {
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(
-        sitedata.data.path + "/UserProfile/Users/" + user_id,
-        commonHeader(user_token)
-      )
-      .then((response) => {
-        this.setState({ loaderImage: false });
-        this.setState({
-          currentList: response.data.data.houses,
-        });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
+    this.setState({
+      currentList: this.props.stateLoginValueAim?.user?.houses ? this.props.stateLoginValueAim?.user?.houses : []
+    })
+    // this.setState({ loaderImage: true });
+    // let user_token = this.props.stateLoginValueAim.token;
+    // let user_id = this.props.stateLoginValueAim.user._id;
+    // axios
+    //   .get(
+    //     sitedata.data.path + "/UserProfile/Users/" + user_id,
+    //     commonHeader(user_token)
+    //   )
+    //   .then((response) => {
+    //     this.setState({ loaderImage: false });
+    //     this.setState({
+    //       currentList: response.data.data.houses,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ loaderImage: false });
+    //   });
   };
 
   updateEntryState5 = (e) => {
@@ -1923,12 +1931,12 @@ class Index extends Component {
         {
           authErr: true,
         },
-        () => {
-          setTimeout(
-            () => this.setState({ openTask: false }),
-            2000
-          );
-        }
+        // () => {
+        //   setTimeout(
+        //     () => this.setState({ openTask: false }),
+        //     2000
+        //   );
+        // }
       );
     } else this.setState({ authErr: false })
 
@@ -2207,8 +2215,8 @@ class Index extends Component {
           >
             <Grid className="creatTaskModel">
               <Grid className="creatTaskCntnt">
-              {this.state.disableActivity && 
-                                <div className="err_message">You dont have authority to create a task</div>}
+              {/* {this.state.disableActivity && 
+                                <div className="err_message">You dont have authority to create a task</div>} */}
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="addSpeclLbl allAddSpeclLbl">
