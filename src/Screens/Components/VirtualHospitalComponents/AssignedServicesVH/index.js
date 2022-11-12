@@ -1503,8 +1503,6 @@ class Index extends Component {
 
                         <TaskView
                           DoneAppointment={() => { }}
-
-
                           data={data}
                           removeTask={(id) => this.removeTask(id)}
                           editTask={(data) => this.editTask(data)}
