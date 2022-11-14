@@ -1220,7 +1220,7 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
-    const { House: { roles = [] } = {} } = this.props || {}
+    const  roles = this.props.House?.roles || [];
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1479,8 +1479,6 @@ class Index extends Component {
                   {this.state.ArchivedTasks?.length > 0 &&
                     this.state.ArchivedTasks.map((data) => (
                       <Grid>
-
-
                         <TaskView
                           DoneAppointment={() => { }}
 
@@ -1505,8 +1503,6 @@ class Index extends Component {
 
                         <TaskView
                           DoneAppointment={() => { }}
-
-
                           data={data}
                           removeTask={(id) => this.removeTask(id)}
                           editTask={(data) => this.editTask(data)}

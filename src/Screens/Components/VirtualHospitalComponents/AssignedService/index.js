@@ -91,10 +91,10 @@ class Index extends Component {
         }
         if (prevProps.openAss !== this.props.openAss) {
             if (this.props.comesFrom !== 'Professional') {
-                this.setState({ openAss: this.props.openAss, professional_id_list1: this.state.professional_id_list });
+                this.setState({ openAss: this.props.openAss, authErr: false, professional_id_list1: this.state.professional_id_list });
             }
             else {
-                this.setState({ openAss: this.props.openAss })
+                this.setState({ openAss: this.props.openAss, selectedHouse: {}, authErr: false })
             }
         }
         // if (prevProps.selectedHouse !== this.props.selectedHouse) {
@@ -466,10 +466,10 @@ class Index extends Component {
                         authErr: true,
                     },
                     () => {
-                        setTimeout(
-                            () => this.setState({ openAss: false }),
-                            2000
-                        );
+                        // setTimeout(
+                        //     () => this.setState({ openAss: false }),
+                        //     2000
+                        // );
                     }
                 );
             } else this.setState({ authErr: false })
@@ -698,8 +698,8 @@ class Index extends Component {
                         }
                     // className="addServContnt"
                     >
-                        {this.state.disableAssignment && 
-                                <div className="err_message">You dont have authority to Assign Service</div>}
+                        {/* {this.state.disableAssignment && 
+                                <div className="err_message">You dont have authority to Assign Service</div>} */}
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>

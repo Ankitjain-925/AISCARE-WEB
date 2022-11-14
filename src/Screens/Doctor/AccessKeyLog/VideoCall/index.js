@@ -394,7 +394,7 @@ class VideoCallPat extends Component {
               <Grid
                 className="backFlow backFlow34 adhsjs"
                 onClick={() => {
-                  this.props.history.push("/doctor/professional-task")
+                  this.props.history.push("/doctor/professional-activity")
                 }}
               >
                 <a>

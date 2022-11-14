@@ -521,7 +521,7 @@ class Index extends Component {
       });
   };
   render() {
-    if (this.props.stateLoginValueAim.user.type != 'hospitaladmin') {
+    if (this.props.stateLoginValueAim?.user?.type !== 'hospitaladmin') {
       this.props.history.push('/');
     }
     let translate = getLanguage(this.props.stateLanguageType);
