@@ -361,7 +361,7 @@ class Index extends Component {
                                       <label className="specbutton1">
                                         {speciality}
                                       </label>
-                                      <Grid className="sevicessection serviceallSec">
+                                      <Grid className="sevicessection">
                                         <Select
                                           onChange={(e) =>
                                             onFieldChange(e, this)
