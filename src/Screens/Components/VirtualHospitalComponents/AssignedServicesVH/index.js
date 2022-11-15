@@ -1419,9 +1419,7 @@ class Index extends Component {
                             data={data}
                             removeTask={(id) => this.removeTask(id)}
                             editTask={(data) => this.editTask(data)}
-
                             DoneAppointment={() => { }}
-
                             comesFrom={this.props.comesFrom}
                           />
                         </Grid>
@@ -1438,9 +1436,7 @@ class Index extends Component {
                     <Grid>
                       <TaskView
                         data={data}
-
                         DoneAppointment={() => { }}
-
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1456,10 +1452,8 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-
                       <TaskView
                         DoneAppointment={() => { }}
-
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1500,7 +1494,6 @@ class Index extends Component {
                   {this.state.ArchivedTasks?.length > 0 &&
                     this.state.ArchivedTasks.map((data) => (
                       <Grid>
-
                         <TaskView
                           DoneAppointment={() => { }}
                           data={data}

@@ -478,7 +478,7 @@ class PointPain extends Component {
                                 </li></>}
                             {this.props.comesFrom === 'adminstaff' ?
                               <>
-                                {roles.includes("delete_task") ?
+                                {/* {roles.includes("delete_task") ?
                                   <li>
                                     <a
                                       onClick={() => {
@@ -512,11 +512,12 @@ class PointPain extends Component {
                                         this.props.comesFrom === 'Professional' ? (
                                         <>{view_detail}</>
                                       ) : (
-                                        data.task_name ? <>{DeleteTask}</> : <>{edit_assigned_services}</>
+                                        data.task_name && <>{DeleteTask}</> 
+                                        // : <>{edit_assigned_services}</>
                                       )}
                                     </a>
                                   </li>
-                                  : null}
+                                  : null} */}
                               </> :
                               <>  <li>
 
@@ -566,7 +567,8 @@ class PointPain extends Component {
                                             alt=""
                                             title=""
                                           />
-                                          {DeleteTask}
+                                          {data.task_name
+                                        ? DeleteTask : delete_assigned_services }
                                         </a>
 
 
