@@ -1289,7 +1289,7 @@ class PointPain extends Component {
                           )}
 
                           {this.state.openBy !== "patient" && (
-                            <Grid>
+                            <Grid> 
                               <a
                                 onClick={() =>
                                   this.handleChangeEntry("sick_certificate")
@@ -1333,7 +1333,7 @@ class PointPain extends Component {
                               <p>{vaccination}</p>
                             </a>
                           </Grid>
-                          <Grid className=""></Grid>
+                          <Grid className="clear"></Grid>
 
                           <Grid>
                             <a onClick={() => this.handleChangeEntry("weight_bmi")}>

@@ -14146,7 +14146,7 @@ input:-webkit-autofill:active{
 }
 
 .assiHospDet {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .pateintInfoUser {
@@ -16918,7 +16918,7 @@ color:#FFFFFF
   justify-content: space-between;
 }
 .authority{
-  font-size: 15px;
+  font-size: 20px;
   font-family: muli;
   color:red;
   text-align: center;
@@ -16939,7 +16939,7 @@ color:#FFFFFF
 .AddEntrynwSec a:last-child {
   margin-left: 6px;
 }
-.serviceallSec .css-g1d714-ValueContainer{
+.speServiceSec .css-g1d714-ValueContainer{
   height: 44px;
 }
 .dueOnSec{
@@ -16957,4 +16957,33 @@ color:#FFFFFF
 }
 .allCheckboxQue{
   margin-top:15px!important;
+}
+.stndQuesPart label{
+  font-size: 15px;
+  font-weight: bold;
+  color:#00abaf;
+  letter-spacing: 0;
+  font-family: Muli;
+  line-height: 12px;
+}
+.stndQuesPart p{
+  color: #000808;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 14px;
+  margin-bottom: 12px;
+}
+.stndQuesPart span{
+  font-size: 18px;
+  font-weight: bold;
+  color:#00abaf;
+  /* margin-bottom: 8px; */
+}
+.allStndQues{
+  margin-top: 18px;
+}
+.darkTheme .stndQuesPart label{
+  color:#00abaf!important;
 }
