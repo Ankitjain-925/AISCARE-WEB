@@ -14,10 +14,10 @@ import { getLanguage } from "translations/index";
 import { LoginReducerAim } from "Screens/Login/actions";
 import NewRole from "Screens/VirtualHospital/New Role/index";
 import { commonHeader } from "component/CommonHeader/index";
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 const SOCKET_URL = GetSocketUrl();
-console.log("SOCKET_URL", SOCKET_URL)
+console.log("SOCKET_URL", SOCKET_URL);
 var socket;
 class PointPain extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class PointPain extends Component {
   }
 
   updateEntryState1 = (value, name) => {
-    console.log('selectRole',this.state.selectRole)
+    console.log("selectRole", this.state.selectRole);
     this.setState({
       alredyExist: false,
       assignedhouse: false,
@@ -72,8 +72,8 @@ class PointPain extends Component {
     axios
       .put(
         sitedata.data.path +
-        "/UserProfile/Users/update/" +
-        this.state.current_user?._id,
+          "/UserProfile/Users/update/" +
+          this.state.current_user?._id,
         {
           houses: getHouse,
         },
@@ -82,19 +82,19 @@ class PointPain extends Component {
       .then((responce) => {
         this.props.closeHouse();
         this.setState({ loaderImage: true });
-        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var sendSec = {
+          _id: responce.data.data?._id,
+          houses: responce.data.data?.houses,
+        };
 
-       if (responce.data.data.type == "nurse") {
-          socket.emit("nurse", sendSec)
+        if (responce.data.data.type == "nurse") {
+          socket.emit("nurse", sendSec);
+        } else if (responce.data.data.type == "doctor") {
+          socket.emit("doctor", sendSec);
+        } else if (responce.data.data.type == "adminstaff") {
+          socket.emit("adminstaff", sendSec);
         }
-        else if (responce.data.data.type == "doctor") {
-          socket.emit("doctor", sendSec)
-        }
-        else if (responce.data.data.type == "adminstaff"){
-          socket.emit("adminstaff", sendSec)
-        }
-          this.setState({ values: false });
-          
+        this.setState({ values: false });
       });
   };
   //on adding new data
@@ -130,9 +130,8 @@ class PointPain extends Component {
   };
 
   componentDidMount = () => {
-    socket.on('connection', () => {
-    });
-    console.log("socket12", socket)
+    socket.on("connection", () => {});
+    console.log("socket12", socket);
   };
 
   render() {
@@ -149,10 +148,8 @@ class PointPain extends Component {
       Please_select_authority_first,
       Give_Authority_User,
       Manage_Authority,
-      Change_Authority
+      Change_Authority,
     } = translate;
-
-
 
     return (
       <Grid>
@@ -164,14 +161,14 @@ class PointPain extends Component {
           }}
           className={
             this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
               ? "addSpeclModel darkTheme"
               : "addSpeclModel"
           }
         >
-          <Grid className="addSpeclContnt setDiffwidth">
+          <Grid className="addSpeclContnt">
             <Grid className="addSpeclContntIner formscrool">
               <Grid className="addSpeclLbl">
                 <Grid className="addSpeclClose">
@@ -193,152 +190,157 @@ class PointPain extends Component {
                 </Grid>
               </Grid>
               <Grid className="enterSpclUpr">
-                <Grid className="enterSpclMain">
-                  <Grid className="enterSpcl">
-                    <Grid container direction="row">
-                      {this.state.assignedhouse && (
-                        <div className="success_message">
-                          {House_assigned_to_user}
-                        </div>
-                      )}
-                      {/* {this.state.deleteHouses && (
+                <Grid className="enterSpclMain allEnterSpclSec">
+                  {/* <Grid className="enterSpcl"> */}
+                  <Grid container direction="row">
+                    {this.state.assignedhouse && (
+                      <div className="success_message">
+                        {House_assigned_to_user}
+                      </div>
+                    )}
+                    {/* {this.state.deleteHouses && (
                     <div className="success_message">
                       House id deleted from the User
                     </div>
                   )} */}
-                      {this.state.alredyExist && (
-                        <div className="err_message">
-                          {House_alread_exist_to_user}
-                        </div>
-                      )}
-                      {this.state.selectRole && (
-                        <div className="err_message">
-                          {Please_select_authority_first}
-                        </div>
-                      )}
-                      {this.state.blankerror && (
-                        <div className="err_message">
-                          {Select_atleast_one_house}
-                        </div>
-                      )}
-                      <Grid item xs={10} md={12}>
+                    {this.state.alredyExist && (
+                      <div className="err_message">
+                        {House_alread_exist_to_user}
+                      </div>
+                    )}
+                    {this.state.selectRole && (
+                      <div className="err_message">
+                        {Please_select_authority_first}
+                      </div>
+                    )}
+                    {this.state.blankerror && (
+                      <div className="err_message">
+                        {Select_atleast_one_house}
+                      </div>
+                    )}
+                    <Grid item sm={12} xs={12} md={12}>
+                      <Grid className="enterSpclSec">
                         <SelectField
                           isSearchable={true}
                           name="houses"
                           option={this.state.Housesoptions}
                           onChange={(e) => this.updateEntryState1(e, "houses")}
                           value={this.state.currentHouses}
-                        // isMulti={true}
+                          // isMulti={true}
                         />
                       </Grid>
-                      {this.state.values === true && (
-                        <>
-                          {this.state.checkboxdata && this.state.checkboxdata && (
-                            <Grid item xs={10} md={12} className='authorityvalue'>
-                              <b>{Give_Authority_User}</b>
-                              <Grid container direction="row">
+                    </Grid>
+                    {this.state.values === true && (
+                      <>
+                        {this.state.checkboxdata && this.state.checkboxdata && (
+                          <Grid item xs={10} md={12} className="authorityvalue">
+                            <b>{Give_Authority_User}</b>
+                            <Grid container direction="row">
                               <Grid item xs={12} md={12}>
-                                <div >
-                                
+                                <div>
                                   <NewRole
                                     finalArray={(data) => this.finalArray(data)}
                                     data={this.state.checkboxdata}
                                     demo={this.state.finalArray}
-                                    
                                   />
-                                 
                                 </div>
-                                </Grid>
                               </Grid>
                             </Grid>
-                          )}
-                        </>
-                      )}
-                      <Grid item xs={10} md={12}>
-                        <b  className='authorityvalue'>{AssignedHouses}</b>
-                        <Grid container direction="row">
-                          {this.state.current_user?.houses?.length > 0 &&
-                            this.state.current_user?.houses.map(
-                              (item, index) => (
-                                <>
-                                  <Grid container direction="row">
-                                    <Grid item xs={7} md={7}>
-                                      {item.group_name} - {item.label} (
-                                      {item.value})
-                                      {/* <Button onClick={()=>{this.newrole()}} >Next</Button> */}
-                                    </Grid>
-                                    <Grid item xs={2} md={2}>
-                                      <a
-                                        className="delet-house"
-                                        onClick={() => {
-                                          this.props.deleteHouse(item.value);
-                                        }}
-                                      >
-                                        {Delete}
-                                      </a>
-                                    </Grid>
-                                    <Grid item xs={3} md={3}>
-                                      <a
-                                        className="manage-authority"
-                                        onClick={() => {
-                                          this.setState({
-                                            values: item.value,
-                                            finalArray: item.roles,
-                                          });
-                                        }}
-                                      >
-                                        {Manage_Authority}
-                                      </a>
-                                    </Grid>
-                                  </Grid>
-                                  <Grid container direction="row">
-                                    {this.state.values === item.value && (
-                                      <Grid item xs={12} md={12}>
-                                        <div >
-                                          <NewRole
-                                            finalArray={(data) =>
-                                              this.finalArray(data)
-                                            }
-                                            data={this.state.checkboxdata}
-                                            demo={this.state.finalArray}
-                                          />
-
-                                          <Button
-                                            className="manage-authority-btn"
-                                            onClick={() => {
-                                              this.UpdateAuthorityHouse(
-                                                item.value,
-                                                index
-                                              );
-                                            }}
-                                          >
-                                            {Change_Authority}
-                                          </Button>
-                                        </div>
+                          </Grid>
+                        )}
+                      </>
+                    )}
+                    <Grid item xs={12} md={12}>
+                      <b className="authorityvalue">{AssignedHouses}</b>
+                      <Grid container direction="row">
+                        {this.state.current_user?.houses?.length > 0 &&
+                          this.state.current_user?.houses.map((item, index) => (
+                            <>
+                              <Grid container direction="row" justify="center">
+                                <Grid item xs={12} md={12}>
+                                  <Grid className="allMngAutSec">
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      justify="center"
+                                    >
+                                      <Grid item xs={12} sm={7} md={7}>
+                                        {item.group_name} - {item.label} (
+                                        {item.value})
+                                        {/* <Button onClick={()=>{this.newrole()}} >Next</Button> */}
                                       </Grid>
-                                    )}
+                                      <Grid item xs={6} sm={2} md={2}>
+                                        <a
+                                          className="delet-house"
+                                          onClick={() => {
+                                            this.props.deleteHouse(item.value);
+                                          }}
+                                        >
+                                          {Delete}
+                                        </a>
+                                      </Grid>
+                                      <Grid item xs={6} sm={3} md={3}>
+                                        <a
+                                          className="manage-authority"
+                                          onClick={() => {
+                                            this.setState({
+                                              values: item.value,
+                                              finalArray: item.roles,
+                                            });
+                                          }}
+                                        >
+                                          {Manage_Authority}
+                                        </a>
+                                      </Grid>
+                                    </Grid>
                                   </Grid>
-                                </>
-                              )
-                            )}
-                        </Grid>
-                      </Grid>
-                      <Grid className="spclSaveBtn saveNclose">
-                        {this.state.alredyExist === false &&
-                          this.state.values === true && (
-                            <Button
-                              onClick={() =>
-                                this.props.SaveAssignHouse(
-                                  this.state.finalArray
-                                )
-                              }
-                            >
-                              {Save}
-                            </Button>
-                          )}
+                                </Grid>
+                              </Grid>
+                              <Grid container direction="row">
+                                {this.state.values === item.value && (
+                                  <Grid item xs={12} md={12}>
+                                    <div>
+                                      <NewRole
+                                        finalArray={(data) =>
+                                          this.finalArray(data)
+                                        }
+                                        data={this.state.checkboxdata}
+                                        demo={this.state.finalArray}
+                                      />
+
+                                      <Button
+                                        className="manage-authority-btn"
+                                        onClick={() => {
+                                          this.UpdateAuthorityHouse(
+                                            item.value,
+                                            index
+                                          );
+                                        }}
+                                      >
+                                        {Change_Authority}
+                                      </Button>
+                                    </div>
+                                  </Grid>
+                                )}
+                              </Grid>
+                            </>
+                          ))}
                       </Grid>
                     </Grid>
+                    <Grid className="spclSaveBtn saveNclose">
+                      {this.state.alredyExist === false &&
+                        this.state.values === true && (
+                          <Button
+                            onClick={() =>
+                              this.props.SaveAssignHouse(this.state.finalArray)
+                            }
+                          >
+                            {Save}
+                          </Button>
+                        )}
+                    </Grid>
                   </Grid>
+                  {/* </Grid> */}
                 </Grid>
               </Grid>
             </Grid>

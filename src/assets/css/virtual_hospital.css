@@ -16839,9 +16839,7 @@ overflow: auto
     margin-bottom: 10px;
   }
 }
-.setDiffwidth {
-  Width: 800px !important;
-}
+
 .collap{
   border: 1px #00ABAF solid;
   background: #e2e4e6;
@@ -16986,4 +16984,10 @@ color:#FFFFFF
 }
 .darkTheme .stndQuesPart label{
   color:#00abaf!important;
+}
+.allMngAutSec{
+  margin:10px 0px;
+}
+.allEnterSpclSec{
+  padding-top: 12px;
 }
