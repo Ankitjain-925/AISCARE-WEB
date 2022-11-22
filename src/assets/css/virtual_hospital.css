@@ -16356,6 +16356,7 @@ border-radius: 12px;
 .passInstSec{
   top: -25px;
 }
+
 .profileIdRght{
   margin-bottom: 0px;
   display: flex;
@@ -16991,3 +16992,19 @@ color:#FFFFFF
 .allEnterSpclSec{
   padding-top: 12px;
 }
+
+.enterSpclSec input{
+  min-height: 38px;
+}
+.serviceallSec1 input{
+  margin-bottom: 0px;
+}
+@media(max-width: 959px){
+  .allFormSection1{
+    margin-left: 40px!important;
+  }
+}
+.err_message1{
+  text-align: center!important;
+}
+

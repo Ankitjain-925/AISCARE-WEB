@@ -329,7 +329,7 @@ class Index extends Component {
                                   </Grid>
 
                                   <Grid className="enterServMain">
-                                    <Grid className="enterSpcl">
+                                    <Grid className="enterSpcl enterSpclSec">
                                       <Grid>
                                         <VHfield
                                           label={Servicename}
@@ -358,10 +358,12 @@ class Index extends Component {
                                         />
                                       </Grid>
 
+                                          
                                       <label className="specbutton1">
                                         {speciality}
                                       </label>
-                                      <Grid className="sevicessection speServiceSec">
+
+                                      <Grid className="sevicessection serviceallSec serviceallSec1">
                                         <Select
                                           onChange={(e) =>
                                             onFieldChange(e, this)
