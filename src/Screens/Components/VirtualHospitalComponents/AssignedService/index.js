@@ -1137,7 +1137,7 @@ class Index extends Component {
 
                             </Grid>
                             <a>
-                                <div className="err_message">
+                                <div className="err_message err_message1">
                                     {this.state.errorMsg}
                                 </div>
                             </a>
