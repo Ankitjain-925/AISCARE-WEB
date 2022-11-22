@@ -123,7 +123,7 @@ class Index extends Component {
   //Go to journal direct
   GotoJournal = (currentone) => {
     if (currentone && currentone._id) {
-      this.props.Doctorset(currentone._id, currentone.pin);
+      this.props.Doctorset(currentone._id, currentone.pin, currentone.byhospital);
       this.props.history.push("/doctor/journal");
     }
   };
@@ -480,6 +480,18 @@ class Index extends Component {
     });
   };
 
+  // checkByHospital = (fav_doctor) => {
+  //   console.log('fav_doctor', fav_doctor)
+  //   return true;
+  //   // if(fav_doctor?.length>0 && fav_doctor.indexOf(this.props.stateLoginValueAim?.user?.profile_id)>-1){
+  //   //   let indexing = fav_doctor.indexOf(this.props.stateLoginValueAim?.user?.profile_id);
+  //   //   console.log('fav_doctor[indexing]?.byhospital', fav_doctor[indexing])
+  //   //   return fav_doctor[indexing]?.byhospital ? true: false
+  //   // }
+  //   // else{
+  //   //   return false;
+  //   // }
+  // }
   handleOpenNewPatient = () => {
     this.setState({ openNew: true });
   };
@@ -856,6 +868,7 @@ class Index extends Component {
                             <Th>{gender}</Th>
                             <Th>{Register_Mobilenumber}</Th>
                             <Th>{patient_id}</Th>
+                            <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
@@ -894,6 +907,9 @@ class Index extends Component {
                                     ? data.alies_id
                                     : not_mentioned}
                                 </Td>
+                                <Td>
+                                        {data?.byhospital && <>{"By Hospital"}</>}
+                                </Td>
                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                   <a>
                                     <img
@@ -927,7 +943,7 @@ class Index extends Component {
                                         />
                                         {personal_info}
                                       </li>
-                                      <li
+                                      {!data?.byhospital && <li
                                         onClick={(e) =>
                                           this.removePatient(data)
                                         }
@@ -938,7 +954,7 @@ class Index extends Component {
                                           title=""
                                         />
                                         {remove_patient}
-                                      </li>
+                                      </li>}
                                     </ul>
                                   </a>
                                 </Td>

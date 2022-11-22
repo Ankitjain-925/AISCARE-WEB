@@ -1336,7 +1336,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid className="editCloseBtn">
+                {/* <Grid className="editCloseBtn">
                   <a onClick={() => this.handlePinClose('chngPinOpen')}>
                     <img
                       src={require('assets/images/close-search.svg')}
@@ -1347,7 +1347,7 @@ class Index extends Component {
                 </Grid>
                 <Grid>
                   <label>{edit_id_or_pin}</label>
-                </Grid>
+                </Grid> */}
 
               </Grid>
               <Grid className="editPinform">

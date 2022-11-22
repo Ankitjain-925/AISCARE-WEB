@@ -21,6 +21,7 @@ import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
 import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
 import VideoDemo from "Screens/Components/VideoDemo/index";
+import ShowPrevQues from 'Screens/Components/ShowPrevQues/index'
 import {
   mySorter,
   SortByEntry,
@@ -101,6 +102,7 @@ class Index extends Component {
       Allsituation: [],
       Allsmoking_status: [],
       Allreminder: [],
+      ModalDataCare: {},
       AllreminderV: [],
       AllSpecialty: [],
       Allsubstance1: [],
@@ -117,6 +119,7 @@ class Index extends Component {
       allTrack2: [],
       Sort: "diagnosed_time",
       isGraph: false,
+      QueryDetail: false,
       current_Graph: "",
       upcoming_appointment: [],
       SARS: [],
@@ -155,7 +158,7 @@ class Index extends Component {
   CloseGraph = () => {
     this.rightInfo();
     this.getTrack();
-    this.setState({ isGraph: false });
+    this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
   };
 
   //For Close the Graphs
@@ -400,6 +403,9 @@ class Index extends Component {
     }
   };
 
+  Opencare=(data)=>{
+    this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
+  }
   //Update Archive Track State
   updateArchiveTrack = (data) => {
     data.archive = true;
@@ -1195,6 +1201,7 @@ class Index extends Component {
                           <div>
                             {this.state.allTrack.map((item, index) => (
                               <ViewTimeline
+                              Opencare={(data)=>this.Opencare(data)}  
                                 settings={this.props.settings}
                                 indexTimeline={index}
                                 lrp={AllL_Ps.AllL_Ps.english}
@@ -2158,7 +2165,15 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-              {this.state.isGraph && (
+             {this.state.isGraph && (
+                this.state.QueryDetail ? 
+                <ShowPrevQues
+                closeFullQues={() => this.CloseGraph()}
+                item={this.state.ModalDataCare}
+                comesFrom="PatientEnd"
+              />
+                :
+
                 <GraphView
                   date_format={
                     this.props.settings &&

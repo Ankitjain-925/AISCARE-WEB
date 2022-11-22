@@ -404,7 +404,7 @@ export function GetSocketUrl() {
     }
     let SOCKET_URL;
     if (env === "Local") {
-      SOCKET_URL = "http://localhost:5000/";
+      SOCKET_URL = "http://localhost:5001/";
     } else if (env === "Virtualhospital") {
       SOCKET_URL = "https://virtualhospital.aidoc.io/";
     } else if (env === "Aimedix") {

@@ -16,6 +16,11 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
 import { Button } from "@material-ui/core/index";
 import _ from "lodash";
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
+console.log("SOCKET_URL",SOCKET_URL)
+var socket;
 
 class Index extends Component {
   constructor(props) {
@@ -28,11 +33,21 @@ class Index extends Component {
       showRename: false,
       txtName: {},
       showinput: false,
+      loaderImage: false,
     };
+    socket = io(SOCKET_URL);
   }
   componentDidMount = () => {
+    socket.on('connection', () => {
+    });
     this.allHouses();
     this.getSetting();
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+      this.allHouses();
+    }
   };
 
   redirectSpace = (data) => {
@@ -85,24 +100,29 @@ class Index extends Component {
   };
 
   allHouses = () => {
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(
-        sitedata.data.path + "/UserProfile/Users/" + user_id,
-        commonHeader(user_token)
-      )
-      .then((response) => {
-        this.setState({ loaderImage: false });
-        this.setState({
-          currentList: response.data.data.houses,
-          currentList2: response.data.data.houses,
-        });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
+    this.setState({
+      currentList: this.props.stateLoginValueAim?.user?.houses,
+      currentList2: this.props.stateLoginValueAim?.user?.houses,
+    })
+    // this.setState({ loaderImage: true });
+    // let user_token = this.props.stateLoginValueAim.token;
+    // let user_id = this.props.stateLoginValueAim.user._id;
+    // axios
+    //   .get(
+    //     sitedata.data.path + "/UserProfile/Users/" + user_id,
+    //     commonHeader(user_token)
+    //   )
+    //   .then((response) => {
+    //     console.log("response1",response)
+    //     this.setState({ loaderImage: false });
+    //     this.setState({
+    //       currentList: response.data.data.houses,
+    //       currentList2: response.data.data.houses,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ loaderImage: false });
+    //   });
   };
 
   SearchFilter = (e) => {
@@ -352,6 +372,12 @@ class Index extends Component {
           </Grid>
         </Grid>
         {/* End of Bread Crumb */}
+        {this.props.message && (
+              <div className="err_message">
+                {this.props.message}
+              </div>
+            )
+            }
 
         <Grid className="wardsGrupUpr">
           <Grid container direction="row">

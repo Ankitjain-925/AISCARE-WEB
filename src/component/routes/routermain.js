@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, StaticRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
 // Added By Ankita Patient Component
 import Register from "Screens/Register";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import Login from "Screens/Login";
 import ForgotPass from "Screens/ChangePassword";
 import ChangePass from "Screens/ChangePassword/changepassword";
@@ -63,9 +66,9 @@ import DoctorChats from "Screens/Doctor/Chat/index.js";
 import DoctorEmergency from "Screens/Doctor/Emergency/index.js";
 import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
-import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
+import DoctorProfessionalTask from "Screens/Doctor/ProfessionalActivity/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
-import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
+// import DoctorProfessionalActivity from "Screens/Doctor/ProfessionalActivity/index.js";
 import DoctorET from "Screens/Doctor/Earlier_Activities/index.js";
 
 //for hospital admin user
@@ -103,6 +106,7 @@ import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js";
 import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
+// import NursePA from "Screens/Nurse/ProfessionalActivity/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 import NurseET from "Screens/Nurse/Earlier_Activity/index";
 import NurseAppointment from "Screens/Nurse/Appointment/index.js";
@@ -111,13 +115,76 @@ import CareQuestionary from "Screens/Nurse/CareQuestionary";
 import DoctorCareQuestionnary from "Screens/Doctor/CareQuestionary";
 import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.js";
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
+import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
+import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
+var socket = io(SOCKET_URL);
 class Routermain extends Component {
+  
+  allHouses = () => {
+    var data= this.props.stateLoginValueAim?.user?.type
+    if(data=="nurse"){
+      socket.on("displaynurse",(data)=>{
+        this.setData(data)
+      })
+      socket.on("deletedataN",(data)=>{
+        this.setData(data)
+      })
+      socket.on("UpdateddataN",(data)=>{
+        this.setData(data)
+      })
+
+    } else if(data=='doctor'){
+      socket.on("displaydoctor",(data)=>{
+        this.setData(data)
+      })
+      socket.on("deletedata",(data)=>{
+        this.setData(data)
+      })
+      socket.on("Updateddata",(data)=>{
+        this.setData(data)
+      })
+    } else if(data=='adminstaff'){
+      socket.on("displayadmin",(data)=>{ 
+        this.setData(data, 'adminstaff')
+      })
+      socket.on("deletedataA",(data)=>{
+        this.setData(data, 'adminstaff')
+      })
+      socket.on("UpdateddataA",(data)=>{
+        this.setData(data, 'adminstaff')
+      })
+    }
+
+  };
+  setData = (data)=>{
+    if(this.props.stateLoginValueAim?.user?._id === data?._id){
+      let user_token = this.props.stateLoginValueAim.token;
+      let user = this.props.stateLoginValueAim?.user;
+      user['houses'] = data?.houses;
+      var forUpdate = {value: true, token: user_token, user: user}
+      this.props.LoginReducerAim(data?.email, '', user_token, () => {}, forUpdate);
+      if(user && user.type ==='adminstaff'){
+        var filterHouse = data?.houses?.length>0 && data?.houses?.filter((data)=> data?.value === this.props?.House?.value)
+        if(filterHouse && filterHouse?.length > 0) {
+          this.props.houseSelect(filterHouse[0], true);
+        }
+        
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.allHouses();
+  }
+
   render() {
     return (
-      <Router basename={"/"}>
+      <Router basename={"/sys-n-authority"}>
         <CallatAllPages />
-
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -399,13 +466,26 @@ class Routermain extends Component {
             />
             <Route
               exact
-              path="/doctor/professional-task"
+              path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/doctor/professional-activity"
               render={(props) => <DoctorProfessionalActivity {...props} />}
+
+            /> */}
+              <Route
+
+              exact
+              path="/doctor/video-call"
+              render={(props) => <VideoCall {...props} />}
+            />
+
+            <Route
+              exact
+              path="/doctor/access-key"
+              render={(props) => <AccessKeyLog {...props} />}
             />
             <Route
               exact
@@ -613,6 +693,11 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NursePT {...props} />}
             />
+              {/* <Route
+              path="/nurse/professional-task"
+              exact={true}
+              render={(props) => <NursePT {...props} />}
+            /> */}
             <Route
               path="/nurse/earlier-task"
               exact={true}
@@ -620,7 +705,7 @@ class Routermain extends Component {
             />
 
             <Route
-              path="/approveHospital/:id"
+              path="/approveHospital/:id/:house_id"
               exact={true}
               render={(props) => <ApproveHospital {...props} />}
             />
@@ -643,4 +728,17 @@ class Routermain extends Component {
     );
   }
 }
-export default Routermain;
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { House } = state.houseSelect;
+  return {
+    stateLoginValueAim,
+    House,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, { LoginReducerAim, houseSelect })(
+    Routermain
+  )
+);

@@ -17,6 +17,7 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import Button from "@material-ui/core/Button";
 import Loader from "Screens/Components/Loader/index";
+import { houseSelect } from "../Institutes/selecthouseaction";
 
 
 
@@ -101,7 +102,7 @@ class Index extends Component {
         const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let { Apply, Applied, ViewDemo } = translate;
-
+const { House: { roles = [] } = {} } = this.props || {}
         return (
             <Grid className={
                 this.props.settings &&
@@ -121,7 +122,8 @@ class Index extends Component {
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="more" />
                                 </Grid>
-                                <Grid item xs={12} md={11} className="colorbtn">
+                             <Grid item xs={12} md={11} className="colorbtn">
+                                {roles.includes('change_invoice_pattern')&&
                                     <Grid className="tskOverView tskOverView2">
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(1)}><Button className={this.state.invoice_pattern === 1 && "appliedbutton"}>A</Button></a>
@@ -148,7 +150,7 @@ class Index extends Component {
                                             <a onClick={() => this.demo_pattern(5)}>{ViewDemo} E</a>
                                             <a onClick={() => this.invoice_pattern(5)}>{this.state.invoice_pattern === 5 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
-                                    </Grid>
+                                    </Grid>}
 
                                     <Grid item xs={12} md={12}>
                                         <Grid className="demOverView">
@@ -216,6 +218,7 @@ const mapStateToProps = (state) => {
     } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { House } = state.houseSelect;
     const { verifyCode } = state.authy;
     const { metadata } = state.OptionList;
     return {
@@ -225,6 +228,7 @@ const mapStateToProps = (state) => {
         settings,
         verifyCode,
         metadata,
+        House
     };
 };
 export default withRouter(
@@ -234,6 +238,7 @@ export default withRouter(
         LanguageFetchReducer,
         Settings,
         authy,
+        houseSelect
 
     })(Index)
 );
