@@ -115,6 +115,7 @@ class Index extends Component {
     } = translate;
     const { stateLoginValueAim, House } = this.props;
     const { externalData } = this.state;
+    {console.log('externalData',this.state.externalData)}
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -228,7 +229,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-
+                    {console.log('externalData',this.state.externalData)}
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr wardsGrupUpr1">
                       <Grid container direction="row" spacing={2}>

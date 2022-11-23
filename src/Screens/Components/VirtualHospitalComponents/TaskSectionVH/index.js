@@ -4574,6 +4574,7 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
+              {  console.log('this.state.AllTasks',this.state.AllTasks)}
                 {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>

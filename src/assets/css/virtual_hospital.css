@@ -16767,3 +16767,17 @@ overflow: auto
   margin-bottom: 0px !important;
   margin-top: 40px;
 }
+.seletDrop{
+  margin-top: 10px;
+}
+
+.darkTheme .error_message,
+.homeBgDrk .error_message{
+  color: #ff6262 !important;
+}
+.error_message{
+  text-align: center;
+  color: red !important;;
+  font-weight: 600;
+ 
+}

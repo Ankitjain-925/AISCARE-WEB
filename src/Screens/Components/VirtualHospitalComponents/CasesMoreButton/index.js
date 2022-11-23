@@ -15,6 +15,9 @@ import SpecialityButton from "Screens/Components/VirtualHospitalComponents/Speci
 import axios from "axios";
 import Select from "react-select";
 import sitedata from "sitedata";
+import SelectByTwo from 'Screens/Components/SelectbyTwo/index';
+import _ from 'lodash';
+import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
@@ -49,6 +52,9 @@ class Index extends React.Component {
       assignedTo: [],
       professional_id_list: [],
       setSec: false,
+      updateQues: {},
+    options:[{label:"Individual",value:"individual"},{label:"Group",value:"group"}],
+  
     };
   }
 
@@ -89,6 +95,13 @@ class Index extends React.Component {
     );
     this.setState({ AllRoom: AllRoom });
     this.GetAllBed();
+  };
+  updateAllEntrySec = (e, name,index) => {
+    var state = this.state.updateQues;
+      state = [{}];
+      state[index][name] = e.value;
+      this.setState({ openOpti: e.value && true });
+      this.setState({ updateQues: state });
   };
 
   //Remove the Step
@@ -241,6 +254,13 @@ class Index extends React.Component {
       }
     });
   };
+    //get the selected value of type of question
+    SelectedValue = (value) => {
+      var selected =
+        this.state.options?.length > 0 && this.state.options.filter((e) => e.value === value);
+      if (selected?.length > 0) return selected[0];
+      return {};
+    };
 
   setsRoom = (e) => {
     this.setState({ loaderImage: true });
@@ -517,9 +537,10 @@ class Index extends React.Component {
   };
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
+    console.log('hello',this.state.updateQues)
+   let translate = getLanguage(this.props.stateLanguageType)
     let { add_assign_service, AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, Add_Appointment, change_staff, move_patient_to,
-      assign_to_speciality,move_internal_space, assign_to_room, RemovePatientfromFlow, remove_patient, DischargePatient, Please_assign_speciality_first, Search_Select, Wards, Room, Bed } = translate;
+      assign_to_speciality,move_internal_space, assign_to_room, situation, remove_patient, DischargePatient, Please_assign_speciality_first, Search_Select, Wards, Room, Bed } = translate;
     return (
       <>
         {this.state.loaderImage && <Loader />}
@@ -628,6 +649,7 @@ class Index extends React.Component {
                           setSec: false,
                           firstsec: true,
                           changeStaffsec: false,
+                          openOpti:false
                         })
                       }
                     >
@@ -640,21 +662,34 @@ class Index extends React.Component {
                   </Grid>
                 </Grid>
                 <Grid className="positionDrop">
-                  <Select
-                    name="professional"
-                    onChange={(e) => this.updateEntryState3(e)}
-                    value={this.state.assignedTo}
-                    options={this.state.professional_id_list}
-                    placeholder={Search_Select}
-                    className="addStafSelect"
-                    isMulti={true}
-                    autoBlur={true}
-                    closeMenuOnSelect={false}
-                    isSearchable={true}
-                  />
+                  <SelectByTwo
+                  name="staff"
+                  options={this.state.options}
+                  onChange={(e) =>
+                    this.updateAllEntrySec(e,"staff",  0)
+                    
+                  } 
+                  value={ this.SelectedValue( GetShowLabel1( this.state.options,this.state.updateQues[0]?.staff,
+              ))}
+                
+                />
                 </Grid>
+          
+                {this.state.openOpti=== true && <>
+                 <Grid className="seletDrop">
+                 <label>{this.state.updateQues[0]?.staff}</label>
+                      <Select
+                      name="name"
+                     className="addStafSelect"
+                    
+                      
+                    />
+                          </Grid>
+                          </> }
+               
               </div>
             )}
+           
             {this.state.assignroom && (
               <div>
                 <Grid className="movHead">
