@@ -119,6 +119,7 @@ import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
 import io from "socket.io-client";
 import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+import TryCaptcha from "Screens/TryCaptch"
 const SOCKET_URL = GetSocketUrl()
 
 var socket = io(SOCKET_URL);
@@ -189,6 +190,11 @@ class Routermain extends Component {
           <Switch>
             {/* Added by Ankita */}
             <Route exact path="/" render={(props) => <Login {...props} />} />
+            <Route
+              exact
+              path="/try"
+              render={(props) => <TryCaptcha {...props} />}
+            />
             <Route
               exact
               path="/register"

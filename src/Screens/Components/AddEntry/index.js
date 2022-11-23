@@ -998,10 +998,6 @@ class PointPain extends Component {
                     
                       <Grid item xs={12} sm={6} md={6}>
                         <Grid className="checkHelthLbl 111">
-
-
-
-
                           {this.state.openBy !== "patient" && (
                             <Grid>
                               <a onClick={() => this.handleChangeEntry("anamnesis")}>
