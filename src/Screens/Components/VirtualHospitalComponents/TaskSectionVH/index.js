@@ -49,6 +49,7 @@ import { OptionList } from "Screens/Login/metadataaction";
 import PainPoint from "Screens/Components/PointPain/index";
 import Certificate from "./certificate";
 import AssignedService from "Screens/Components/VirtualHospitalComponents/AssignedService";
+import CreateTherapy from "Screens/Components/VirtualHospitalComponents/CreateTherapy";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -184,7 +185,9 @@ class Index extends Component {
   handleOpenAss = () => {
     this.setState({ openAss: true, professional_id_list1: this.state.professional_id_list, selectedHouse: {} });
   };
-
+  handleOpenCT = () => {
+    this.setState({ openCT: true, professional_id_list1: this.state.professional_id_list });
+  };
   // onDropDown = (tabvalue2) => {
   //   const { AllTasks1 } = this.state;
   //   if (tabvalue2.label == 'Task') {
@@ -235,8 +238,12 @@ class Index extends Component {
   };
 
   handleCloseAss = () => {
-    this.setState({ openAss: false, selectedHouse: {} });
-  };
+    this.setState({ openAss: false, selectedHouse: {} })
+  }
+  handleCloseCT = () => {
+    this.setState({ openCT: false, selectedHouse: {} })
+  }
+
 
   componentDidMount() {
     this.changeLanguageState();
@@ -2090,6 +2097,10 @@ class Index extends Component {
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
                 </Button>}
+                {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+                <Button onClick={() => this.handleOpenCT()} >
+                  {"Create Therapy Protocal"}
+                </Button>}
               {/* <label>{filterbedge}</label> */}
             </Grid>
             {/* )} */}
@@ -2100,6 +2111,23 @@ class Index extends Component {
             openAss={this.state.openAss}
             handleOpenAss={() => this.handleOpenAss()}
             handleCloseAss={() => this.handleCloseAss()}
+            service={this.state.service}
+            removeTask={(id) => this.removeTask1(id)}
+            editTask={(data) => this.editTask1(data)}
+            getAddTaskData={(tabvalue2) => {
+              this.props.getAddTaskData(tabvalue2);
+            }}
+            selectedHouse={this.state.selectedHouse}
+            patient={this.props.patient}
+            comesFrom={this.props.comesFrom}
+            total_amount={this.state.total_amount}
+          />
+
+          <CreateTherapy
+            currentList={this.state.currentList}
+            openCT={this.state.openCT}
+            handleOpeCT={() => this.handleOpenCT()}
+            handleCloseCT={() => this.handleCloseCT()}
             service={this.state.service}
             removeTask={(id) => this.removeTask1(id)}
             editTask={(data) => this.editTask1(data)}
