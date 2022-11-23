@@ -679,10 +679,9 @@ class Index extends React.Component {
                  <Grid className="seletDrop">
                  <label>{this.state.updateQues[0]?.staff}</label>
                       <Select
-                      // value={selectNurData || ''}
-                      // onChange={this.handleNurSelect}
-                      // options={this.state.filterNurse}
-                      // placeholder={`${select} Nurse`}
+                      name="name"
+                     className="addStafSelect"
+                    
                       
                     />
                           </Grid>

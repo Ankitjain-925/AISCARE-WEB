@@ -25,7 +25,6 @@ import {
     updateEntryState1,
     onFieldChange,
     selectedID,
-    handleSubmit,
 } from "../../VirtualHospital/Services/api";
 import { getLanguage } from "translations/index";
 
@@ -53,8 +52,29 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        
+
     }
+
+      //For adding the New therapy
+    handleSubmit = () => { 
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {} = translate;
+    this.setState({ errorMsg: '' })
+    var data = this.state.updateTrack;
+    if (!data.title || (data && data?.title && data?.title.length < 1)) {
+      this.setState({ errorMsg: "please enter therapy name" })
+    }
+    else if (!data.description) {
+     this.setState({ errorMsg: "please enter therapy description" })
+    }
+    else if (!data.testing) {
+        this.setState({ errorMsg: "please enter therapy testing" })
+       }
+    else {
+     console.log('no value')
+     handleCloseServ(this);
+    }
+  };
 
 
     render() {
@@ -72,7 +92,8 @@ class Index extends Component {
             EntertherapyTesting,
             Therapyshortdescription,
             Therapyname,
-         } = translate;
+            Search
+        } = translate;
         const { services_data } = this.state;
         const { stateLoginValueAim, House } = this.props;
         if (
@@ -122,148 +143,146 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <Grid className="openAssser"> <Grid className="newServc">
-                                                        <Button onClick={() => handleOpenServ(this)}>
-                                                            {addtherapy}
-                                                        </Button>
-                                                        <Modal
-                                                            open={this.state.openServ}
-                                                            onClose={() => handleCloseServ(this)}
+                                                    <Button onClick={() => handleOpenServ(this)}>
+                                                        {addtherapy}
+                                                    </Button>
+                                                    <Modal
+                                                        open={this.state.openServ}
+                                                        onClose={() => handleCloseServ(this)}
+                                                        className={
+                                                            this.props.settings.setting &&
+                                                                this.props.settings.setting.mode &&
+                                                                this.props.settings.setting.mode === "dark"
+                                                                ? "darkTheme addSpeclModel"
+                                                                : "addSpeclModel"
+                                                        }
+                                                    >
+                                                        <Grid
                                                             className={
-                                                                this.props.settings.setting &&
+                                                                this.props.settings &&
+                                                                    this.props.settings.setting &&
                                                                     this.props.settings.setting.mode &&
                                                                     this.props.settings.setting.mode === "dark"
-                                                                    ? "darkTheme addSpeclModel"
-                                                                    : "addSpeclModel"
+                                                                    ? "darkTheme addSpeclContnt"
+                                                                    : "addServContnt"
                                                             }
+                                                        // className="addServContnt"
                                                         >
-                                                            <Grid
-                                                                className={
-                                                                    this.props.settings &&
-                                                                        this.props.settings.setting &&
-                                                                        this.props.settings.setting.mode &&
-                                                                        this.props.settings.setting.mode === "dark"
-                                                                        ? "darkTheme addSpeclContnt"
-                                                                        : "addServContnt"
-                                                                }
-                                                            // className="addServContnt"
-                                                            >
-                                                                <Grid className="addSpeclContntIner">
-                                                                    <Grid className="addSpeclLbl">
-                                                                        <Grid
-                                                                            container
-                                                                            direction="row"
-                                                                            justify="center"
-                                                                        >
-                                                                            <Grid item xs={8} md={8} lg={8}>
-                                                                                <label>{Addnewtherapy}</label>
-                                                                            </Grid>
-                                                                            <Grid item xs={4} md={4} lg={4}>
-                                                                                <Grid>
-                                                                                    <Grid className="entryCloseBtn">
-                                                                                        <a
-                                                                                            onClick={() =>
-                                                                                                handleCloseServ(this)
-                                                                                            }
-                                                                                        >
-                                                                                            <img
-                                                                                                src={require("assets/images/close-search.svg")}
-                                                                                                alt=""
-                                                                                                title=""
-                                                                                            />
-                                                                                        </a>
-                                                                                    </Grid>
+                                                            <Grid className="addSpeclContntIner">
+                                                                <Grid className="addSpeclLbl">
+                                                                    <Grid
+                                                                        container
+                                                                        direction="row"
+                                                                        justify="center"
+                                                                    >
+                                                                        <Grid item xs={8} md={8} lg={8}>
+                                                                            <label>{Addnewtherapy}</label>
+                                                                        </Grid>
+                                                                        <Grid item xs={4} md={4} lg={4}>
+                                                                            <Grid>
+                                                                                <Grid className="entryCloseBtn">
+                                                                                    <a
+                                                                                        onClick={() =>
+                                                                                            handleCloseServ(this)
+                                                                                        }
+                                                                                    >
+                                                                                        <img
+                                                                                            src={require("assets/images/close-search.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                    </a>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-
-                                                                    <Grid className="enterServMain">
-                                                                        <Grid className="enterSpcl">
-                                                                            <Grid>
-                                                                                <VHfield
-                                                                                    label={Therapyname}
-                                                                                    name="title"
-                                                                                    placeholder={EnterTherapyname}
-                                                                                    onChange={(e) =>
-                                                                                        updateEntryState1(e, this)
-                                                                                    }
-                                                                                    value={this.state.updateTrack.title}
-                                                                                />
-                                                                            </Grid>
-
-                                                                            <Grid>
-                                                                                <VHfield
-                                                                                    label={Therapyshortdescription}
-                                                                                    name="description"
-                                                                                    placeholder={
-                                                                                        Entertherapyshortdescription
-                                                                                    }
-                                                                                    onChange={(e) =>
-                                                                                        updateEntryState1(e, this)
-                                                                                    }
-                                                                                    value={
-                                                                                        this.state.updateTrack.description
-                                                                                    }
-                                                                                />
-                                                                            </Grid>
-
-                                                                            <label className="specbutton1">
-                                                                                {speciality}
-                                                                            </label>
-                                                                            <Grid className="sevicessection serviceallSec">
-                                                                                <Select
-                                                                                    onChange={(e) =>
-                                                                                        onFieldChange(e, this)
-                                                                                    }
-                                                                                    options={this.state.AllSpeciality}
-                                                                                    name="specialty_name"
-                                                                                    isSearchable={true}
-                                                                                    className="min_section minall_sec"
-                                                                                    isMulti={true}
-                                                                                    value={selectedID(
-                                                                                        this.state.updateTrack.specialty_id,
-                                                                                        this
-                                                                                    )}
-                                                                                />
-                                                                            </Grid>
-
-                                                                            <Grid
-                                                                                item
-                                                                                xs={12}
-                                                                                md={12}
-                                                                                className="enterPricePart1"
-                                                                            >
-                                                                                <VHfield
-                                                                                    label={therapyTesting}
-                                                                                    name="testing"
-                                                                                    placeholder={EntertherapyTesting}
-                                                                                    onChange={(e) =>
-                                                                                        updateEntryState1(e, this)
-                                                                                    }
-                                                                                    value={
-                                                                                        this.state.updateTrack.testing
-                                                                                    }
-                                                                                />
-                                                                            </Grid>
+                                                                </Grid>
+                                                                <div className="error_message">
+                                                                        {this.state.errorMsg}
+                                                                    </div>
+                                                                <Grid className="enterServMain">
+                                                                    <Grid className="enterSpcl">
+                                                                        <Grid>
+                                                                            <VHfield
+                                                                                label={Therapyname}
+                                                                                name="title"
+                                                                                placeholder={EnterTherapyname}
+                                                                                onChange={(e) =>
+                                                                                    updateEntryState1(e, this)
+                                                                                }
+                                                                                value={this.state.updateTrack.title}
+                                                                            />
                                                                         </Grid>
 
-                                                                        <div className="err_message">
-                                                                            {this.state.errorMsg}
-                                                                        </div>
-                                                                    </Grid>
-                                                                    <Grid className="servSaveBtn">
-                                                                        <a>
-                                                                            <Button
-                                                                            onClick={() => handleSubmit(this)}
-                                                                            >
-                                                                                {save_and_close}
-                                                                            </Button>
-                                                                        </a>
+                                                                        <Grid>
+                                                                            <VHfield
+                                                                                label={Therapyshortdescription}
+                                                                                name="description"
+                                                                                placeholder={
+                                                                                    Entertherapyshortdescription
+                                                                                }
+                                                                                onChange={(e) =>
+                                                                                    updateEntryState1(e, this)
+                                                                                }
+                                                                                value={
+                                                                                    this.state.updateTrack.description
+                                                                                }
+                                                                            />
+                                                                        </Grid>
+
+                                                                        <label className="specbutton1">
+                                                                            {speciality}
+                                                                        </label>
+                                                                        <Grid className="sevicessection serviceallSec">
+                                                                            <Select
+                                                                                onChange={(e) =>
+                                                                                    onFieldChange(e, this)
+                                                                                }
+                                                                                options={this.state.AllSpeciality}
+                                                                                name="specialty_name"
+                                                                                isSearchable={true}
+                                                                                className="addStafSelect"
+                                                                                isMulti={true}
+                                                                                value={selectedID(
+                                                                                    this.state.updateTrack.specialty_id,
+                                                                                    this
+                                                                                )}
+                                                                            />
+                                                                        </Grid>
+
+                                                                        <Grid
+                                                                            item
+                                                                            xs={12}
+                                                                            md={12}
+                                                                            className="enterPricePart1"
+                                                                        >
+                                                                            <VHfield
+                                                                                label={therapyTesting}
+                                                                                name="testing"
+                                                                                placeholder={EntertherapyTesting}
+                                                                                onChange={(e) =>
+                                                                                    updateEntryState1(e, this)
+                                                                                }
+                                                                                value={
+                                                                                    this.state.updateTrack.testing
+                                                                                }
+                                                                            />
+                                                                        </Grid>
                                                                     </Grid>
                                                                 </Grid>
+                                                                <Grid className="servSaveBtn">
+                                                                    <a>
+                                                                        <Button
+                                                                        onClick={() => this.handleSubmit()}
+                                                                        >
+                                                                            {save_and_close}
+                                                                        </Button>
+                                                                    </a>
+                                                                </Grid>
                                                             </Grid>
-                                                        </Modal>
-                                                    </Grid>
+                                                        </Grid>
+                                                    </Modal>
+                                                </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -283,7 +302,42 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <Grid className="settingInfo">
-
+                                                        {this.state.showinput && (
+                                                            <input
+                                                                name="Search"
+                                                                placeholder={Search}
+                                                                value={this.state.SearchValue}
+                                                                className="serchInput"
+                                                            // onChange={(e) => searchFilter(e, this)}
+                                                            />
+                                                        )}
+                                                        <a>
+                                                            {!this.state.showinput ? (
+                                                                <img
+                                                                    src={require("assets/virtual_images/search-entries.svg")}
+                                                                    alt=""
+                                                                    title=""
+                                                                    onClick={() => {
+                                                                        this.setState({
+                                                                            showinput: !this.state.showinput,
+                                                                        });
+                                                                    }}
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src={require("assets/images/close-search.svg")}
+                                                                    alt=""
+                                                                    title=""
+                                                                    onClick={() => {
+                                                                        this.setState({
+                                                                            showinput: !this.state.showinput,
+                                                                            SearchValue: "",
+                                                                        });
+                                                                        // getAllServices(this);
+                                                                    }}
+                                                                />
+                                                            )}
+                                                        </a>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -302,7 +356,7 @@ class Index extends Component {
                                                 >
                                                     {all}
                                                 </Button>
-                          
+
                                             </Grid>
                                         </Grid>
 

@@ -19,13 +19,13 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import {
-    onChangePage,
-    handleOpenServ,
-    handleCloseServ,
-    updateEntryState1,
-    onFieldChange,
-    selectedID,
-    getSpecialty,
+  onChangePage,
+  handleOpenServ,
+  handleCloseServ,
+  updateEntryState1,
+  onFieldChange,
+  selectedID,
+  getSpecialty,
 } from "../../VirtualHospital/Services/api";
 
 import { getLanguage } from "translations/index";
@@ -53,26 +53,49 @@ class Index extends Component {
     };
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     getSpecialty(this);
   }
+
+ 
+  //For adding the New staff 
+handleSubmit = () => {
+  let translate = getLanguage(this.props.stateLanguageType);
+  let {} = translate;
+  this.setState({ errorMsg: '' })
+  var data = this.state.updateTrack;
+  if (!data.title || (data && data?.title && data?.title.length < 1)) {
+    this.setState({ errorMsg: "please enter title name" })
+  }
+  else if (!data.description) {
+   this.setState({ errorMsg: "please enter description" })
+  }
+  else if (!data.ward) {
+    this.setState({ errorMsg: "please enter ward name" })
+   }
+  else {
+   console.log('no value')
+   handleCloseServ(this);
+  }
+};
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-        StaffGroup,
-        newstaffGroup,
-        AddnewstaffGroup,
-        speciality,
+      StaffGroup,
+      newstaffGroup,
+      AddnewstaffGroup,
+      speciality,
       save_and_close,
-        Ward,
-        Grouptitle,
-        EnterGroupname,
-        Entergroupshortdescription,
-        Groupshortdescription,
-        nurselist,
-        staffgrouptitle,
-        staffgroupname
+      Ward,
+      Grouptitle,
+      EnterGroupname,
+      Entergroupshortdescription,
+      Groupshortdescription,
+      nurselist,
+      staffgrouptitle,
+      staffgroupname,
+      Search
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -93,9 +116,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -118,11 +141,11 @@ class Index extends Component {
                   <Grid className="topLeftSpc">
                     <Grid container direction="row">
                       <Grid item xs={6} md={6}>
-                      
+
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                        
+
 
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
@@ -179,8 +202,10 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
                                   </Grid>
-
-                                  <Grid className="enterServMain">
+                                  <div className="error_message">
+                                      {this.state.errorMsg}
+                                    </div>
+                                    <Grid className="enterServMain">
                                     <Grid className="enterSpcl">
                                       <Grid>
                                         <VHfield
@@ -209,26 +234,28 @@ class Index extends Component {
                                           }
                                         />
                                       </Grid>
-
-                                      <label className="specbutton1">
-                                        {speciality}
-                                      </label>
-                                      <Grid className="sevicessection serviceallSec">
-                                        <Select
-                                          onChange={(e) =>
+                                      <Grid className="enterSpcl">
+                                        <Grid className="customservicetitle">
+                                          <label>{speciality}</label>
+                                        </Grid>
+                                        <Grid className="sevicessection serviceallSec">
+                                          <Select
+                                           onChange={(e) =>
                                             onFieldChange(e, this)
                                           }
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
-                                          className="min_section minall_sec"
+                                          className="addStafSelect"
                                           isMulti={true}
                                           value={selectedID(
                                             this.state.updateTrack.specialty_id,
                                             this
                                           )}
-                                        />
+                                          />
+                                        </Grid>
                                       </Grid>
+
 
                                       <Grid
                                         item
@@ -247,29 +274,25 @@ class Index extends Component {
                                             this.state.updateTrack.ward
                                           }
                                         />
-                                      
+
                                       </Grid>
                                       <label className="enterSpcl">
                                         {nurselist}
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                         name="specialty_name"
+                                          name="specialty_name"
                                           isSearchable={true}
-                                          className="min_section minall_sec"
+                                          className="addStafSelect"
                                           isMulti={true}
-                                         />
+                                        />
                                       </Grid>
                                     </Grid>
-
-                                    <div className="err_message">
-                                      {this.state.errorMsg}
-                                    </div>
                                   </Grid>
                                   <Grid className="servSaveBtn">
                                     <a>
                                       <Button
-                                        // onClick={() => handleSubmit(this)}
+                                      onClick={() => this.handleSubmit()}
                                       >
                                         {save_and_close}
                                       </Button>
@@ -300,13 +323,48 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                           
+                          {this.state.showinput && (
+                              <input
+                                name="Search"
+                                 placeholder={Search}
+                                value={this.state.SearchValue}
+                                className="serchInput"
+                                // onChange={(e) => searchFilter(e, this)}
+                              />
+                            )}
+                            <a>
+                              {!this.state.showinput ? (
+                                <img
+                                  src={require("assets/virtual_images/search-entries.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={() => {
+                                    this.setState({
+                                      showinput: !this.state.showinput,
+                                    });
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={() => {
+                                    this.setState({
+                                      showinput: !this.state.showinput,
+                                      SearchValue: "",
+                                    });
+                                    // getAllServices(this);
+                                  }}
+                                />
+                              )}
+                            </a>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                     {/* End of Bread Crumb */}
-                 
+
 
                     {/* service price content */}
                     <Grid className="srvcTable3">
