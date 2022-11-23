@@ -1220,6 +1220,7 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
+    const  roles = this.props.House?.roles || [];
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1227,9 +1228,11 @@ class Index extends Component {
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid className="newServc newServicAllSec">
-              <Button onClick={() => this.handleOpenAss()} >
-                {"+ Assign service"}
-              </Button>
+              {roles.includes("add_assignedservice") &&
+                <Button onClick={() => this.handleOpenAss()}>
+                  {"+ Assign service"}
+                </Button>
+              }
 
               <AssignedService
                 openAss={this.state.openAss}
@@ -1383,26 +1386,48 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
-          {tabvalue2 === 0 && (
-            <TabContainer>
-              <Grid className="allInerTabs">
-                {this.state.AllTasks?.length > 0 &&
-                  this.state.AllTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+          {this.props.comesFrom === 'adminstaff' ?
+            <>
+              {tabvalue2 === 0 && roles.includes("get_assignedservice") ?
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
 
-                        DoneAppointment={() => { }}
+                            DoneAppointment={() => { }}
 
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </TabContainer>
-          )}
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              :<p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
+            </> : <>
+              {tabvalue2 === 0 && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
+                            DoneAppointment={() => { }}
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+            </>}
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
@@ -1411,9 +1436,7 @@ class Index extends Component {
                     <Grid>
                       <TaskView
                         data={data}
-
                         DoneAppointment={() => { }}
-
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
                         comesFrom={this.props.comesFrom}
@@ -1429,10 +1452,8 @@ class Index extends Component {
                 {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
-
                       <TaskView
                         DoneAppointment={() => { }}
-
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
@@ -1452,8 +1473,6 @@ class Index extends Component {
                   {this.state.ArchivedTasks?.length > 0 &&
                     this.state.ArchivedTasks.map((data) => (
                       <Grid>
-
-
                         <TaskView
                           DoneAppointment={() => { }}
 
@@ -1475,11 +1494,8 @@ class Index extends Component {
                   {this.state.ArchivedTasks?.length > 0 &&
                     this.state.ArchivedTasks.map((data) => (
                       <Grid>
-
                         <TaskView
                           DoneAppointment={() => { }}
-
-
                           data={data}
                           removeTask={(id) => this.removeTask(id)}
                           editTask={(data) => this.editTask(data)}

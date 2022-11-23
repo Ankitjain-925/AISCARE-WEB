@@ -50,6 +50,7 @@ export const deleteClickDoctor = (doctor, current) => {
   export const getUserData = (current) => {
     current.setState({ loaderImage: true });
     var myfavDoctors = [];
+    var myfavNurse = [];
     var reccomend = [];
     let user_token = current.props.stateLoginValueAim.token
     let user_id = current.props.stateLoginValueAim.user._id
@@ -63,26 +64,40 @@ export const deleteClickDoctor = (doctor, current) => {
                 })
             }
             current.setState({ family_doc: myFilterData, family_doc1: response.data.data.family_doc })
+            
             if (response.data.data.fav_doctor) {
+                response.data.data.fav_doctor = response.data.data.fav_doctor?.length>0 && response.data.data.fav_doctor.filter((data) => data !== null)
+                console.log('pt', response.data.data.fav_doctor)
                 for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
                     if (response.data.data.fav_doctor[i].doctor) {
-                        var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
-                        if (datas && datas.length > 0) {
-                            if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
-                                reccomend.push(datas[0])
+                        if(response.data.data.fav_doctor[i]?.user_type === 'nurse'){
+                            let datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor) 
+                            if (datas && datas.length > 0) {
+                                datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
+                               myfavNurse.push(datas[0])
                             }
-                            else {
-                                myfavDoctors.push(datas[0])
+                          
+                        }
+                        else{
+                            var datas = current.state.allDocData1 && current.state.allDocData1.length > 0 && current.state.allDocData1.filter(data => (response.data.data.fav_doctor[i] && data.profile_id ===  response.data.data.fav_doctor[i]?.doctor))
+                            if (datas && datas.length > 0) {
+                                if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
+                                    reccomend.push(datas[0])
+                                }
+                                else {
+                                    datas[0]['byhospital'] = response.data.data.fav_doctor[i]?.byhospital
+                                    myfavDoctors.push(datas[0])
+                                   
+                                }
                             }
                         }
                         current.setState({ loaderImage: false });
                     }
                 }
 
-                if (response.data.data.fav_doctor.length == 0) {
-                    current.setState({ loaderImage: false });
-                }
-                current.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend })
+               
+               current.setState({ loaderImage: false });
+                current.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend, myfavNurse: myfavNurse })
             }
         }).catch((error) => {
             current.setState({ loaderImage: false });
@@ -92,7 +107,7 @@ export const deleteClickDoctor = (doctor, current) => {
  //Get the all doctor 
  export const alldocs = (current) => {
     const user_token = current.props.stateLoginValueAim.token;
-    axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',
+    axios.get(sitedata.data.path + '/UserProfile/DocNurses',
         commonHeader(user_token)).then((response) => {
             var images = [], Reccimages = [];
             response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
@@ -113,100 +128,99 @@ export const deleteClickDoctor = (doctor, current) => {
         })
 }
 
-
-    //For Add the Doctor
-    export const addDoctor = (current) => {
-        current.setState({ already: false, SelectUser: false })
-        if ((current.state.doctorId.doctor_id === '' || !current.state.doctorId.doctor_id) && (current.state.selectedUser === '')) {
-            current.setState({ SelectUser: true })
+//For Add the Doctor
+export const addDoctor = (current) => {
+    current.setState({ already: false, SelectUser: false })
+    if ((current.state.doctorId.doctor_id === '' || !current.state.doctorId.doctor_id) && (current.state.selectedUser === '')) {
+        current.setState({ SelectUser: true })
+    } else {
+        var doctor_id
+        if (current.state.doctorId.doctor_id != '' && current.state.selectedUser != '' && current.state.doctorId.doctor_id != undefined) {
+            doctor_id = current.state.doctorId.doctor_id
+            // profile_id= current.state.selectedprofile
         } else {
-            var doctor_id
-            if (current.state.doctorId.doctor_id != '' && current.state.selectedUser != '' && current.state.doctorId.doctor_id != undefined) {
+            if (current.state.doctorId.doctor_id != '' && current.state.doctorId.doctor_id != undefined) {
                 doctor_id = current.state.doctorId.doctor_id
                 // profile_id= current.state.selectedprofile
-            } else {
-                if (current.state.doctorId.doctor_id != '' && current.state.doctorId.doctor_id != undefined) {
-                    doctor_id = current.state.doctorId.doctor_id
-                    // profile_id= current.state.selectedprofile
-                }
-                if (current.state.selectedUser != '' && current.state.selectedUser != undefined) {
-                    doctor_id = current.state.selectedUser
-                    // profile_id= current.state.selectedprofile
-                }
             }
-            const user_token = current.props.stateLoginValueAim.token;
-            if (doctor_id != '' && doctor_id != undefined) {
-                current.setState({ loaderImage: true })
-                axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
-                    doctor: doctor_id,
-                    profile_id: current.state.selectedprofile,
-                }, commonHeader(user_token)).then((responce) => {
-                    current.setState({ loaderImage: false, q: '', filteredUsers: [] })
-                    if (responce.data.hassuccessed == true) {
-                        current.setState({ succset: true });
-                        setTimeout(() => { current.setState({ succset: false }) }, 5000)
-                        axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
-                            profile_id: current.props.stateLoginValueAim.user.profile_id
-                        },
-                            commonHeader(user_token)).then((responce) => { })
-                        current.setState({ selectedUser: '', })
-                        getUserData(current);
-                    } else {
-                        current.setState({ selectedUser: '' })
-                        current.setState({ already: true })
-                        getUserData(current);
-                    }
-                })
+            if (current.state.selectedUser != '' && current.state.selectedUser != undefined) {
+                doctor_id = current.state.selectedUser
+                // profile_id= current.state.selectedprofile
             }
         }
-    }
-
-    //For add/edit family doctor
-    export const AddFmilyDoc = (current) => {
-        if (current.state.family_doc1 && current.state.family_doc1.length > 0) {
-            current.setState({ Nodoc: false, loaderImage: true })
-            var myFilterData = current.state.family_doc_list1 && current.state.family_doc_list1.length > 0 && current.state.family_doc_list1.filter((ind) =>
-                ind.value === current.state.family_doc.value);
-            if (myFilterData && myFilterData.length > 0 && myFilterData[0] && myFilterData[0].profile_id) {
-                AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, current.props.stateLoginValueAim.token, current.props.stateLoginValueAim.user.profile_id);
-            }
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                family_doc: current.state.family_doc1
-            }, commonHeader(current.props.stateLoginValueAim.token)).then((responce) => {
-                if (current.props.comesFrom) {
-                    current.props.EditFamilyDoc();
-                }
-                getUserData(current);
-                current.setState({ PassDone: true, loaderImage: false })
-                setTimeout(() => { current.setState({ PassDone: false }) }, 5000)
-
-            })
-        } else {
-            current.setState({ Nodoc: true })
-        }
-    }
-
-    //Send doctor reccomendation to trusted doctor 
-    export const  UpdateDoc = (id, current) => {
-        current.setState({ recAdd: false, already1: false, loaderImage: true })
         const user_token = current.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
-            doctor: id,
-            profile_id: id,
-        }, commonHeader(user_token)).then((responce) => {
-            current.setState({ loaderImage: false, q: '', filteredUsers: [] });
-            if (responce.data.hassuccessed == true) {
-                current.setState({ recAdd: true })
-                setTimeout(() => { current.setState({ recAdd: false }) }, 5000)
-                axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + id, {
-                    profile_id: current.props.stateLoginValueAim.user.profile_id
-                }, commonHeader(user_token)).then((responce) => { })
-                current.setState({ selectedUser: '', })
-                getUserData(current);
-            } else {
-                current.setState({ already1: true })
-                current.setState({ selectedUser: '' })
-                getUserData(current);
-            }
-        })
+        if (doctor_id != '' && doctor_id != undefined) {
+            current.setState({ loaderImage: true })
+            axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
+                doctor: doctor_id,
+                profile_id: current.state.selectedprofile,
+            }, commonHeader(user_token)).then((responce) => {
+                current.setState({ loaderImage: false, q: '', filteredUsers: [] })
+                if (responce.data.hassuccessed == true) {
+                    current.setState({ succset: true });
+                    setTimeout(() => { current.setState({ succset: false }) }, 5000)
+                    axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
+                        profile_id: current.props.stateLoginValueAim.user.profile_id
+                    },
+                        commonHeader(user_token)).then((responce) => { })
+                    current.setState({ selectedUser: '', })
+                    getUserData(current);
+                } else {
+                    current.setState({ selectedUser: '' })
+                    current.setState({ already: true })
+                    getUserData(current);
+                }
+            })
+        }
     }
+}
+
+//For add/edit family doctor
+export const AddFmilyDoc = (current) => {
+    if (current.state.family_doc1 && current.state.family_doc1.length > 0) {
+        current.setState({ Nodoc: false, loaderImage: true })
+        var myFilterData = current.state.family_doc_list1 && current.state.family_doc_list1.length > 0 && current.state.family_doc_list1.filter((ind) =>
+            ind.value === current.state.family_doc.value);
+        if (myFilterData && myFilterData.length > 0 && myFilterData[0] && myFilterData[0].profile_id) {
+            AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, current.props.stateLoginValueAim.token, current.props.stateLoginValueAim.user.profile_id);
+        }
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+            family_doc: current.state.family_doc1
+        }, commonHeader(current.props.stateLoginValueAim.token)).then((responce) => {
+            if (current.props.comesFrom) {
+                current.props.EditFamilyDoc();
+            }
+            getUserData(current);
+            current.setState({ PassDone: true, loaderImage: false })
+            setTimeout(() => { current.setState({ PassDone: false }) }, 5000)
+
+        })
+    } else {
+        current.setState({ Nodoc: true })
+    }
+}
+
+//Send doctor reccomendation to trusted doctor 
+export const  UpdateDoc = (id, current) => {
+    current.setState({ recAdd: false, already1: false, loaderImage: true })
+    const user_token = current.props.stateLoginValueAim.token;
+    axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
+        doctor: id,
+        profile_id: id,
+    }, commonHeader(user_token)).then((responce) => {
+        current.setState({ loaderImage: false, q: '', filteredUsers: [] });
+        if (responce.data.hassuccessed == true) {
+            current.setState({ recAdd: true })
+            setTimeout(() => { current.setState({ recAdd: false }) }, 5000)
+            axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + id, {
+                profile_id: current.props.stateLoginValueAim.user.profile_id
+            }, commonHeader(user_token)).then((responce) => { })
+            current.setState({ selectedUser: '', })
+            getUserData(current);
+        } else {
+            current.setState({ already1: true })
+            current.setState({ selectedUser: '' })
+            getUserData(current);
+        }
+    })
+}

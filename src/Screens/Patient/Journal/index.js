@@ -187,7 +187,7 @@ class Index extends Component {
       }
     );
   };
- 
+
   isThisAvilabel = (object, text) => {
     if (object && typeof object == "object") {
       if (
@@ -1202,7 +1202,7 @@ class Index extends Component {
                             {this.state.allTrack.map((item, index) => (
                               <ViewTimeline
                               Opencare={(data)=>this.Opencare(data)}  
-                              settings={this.props.settings}
+                                settings={this.props.settings}
                                 indexTimeline={index}
                                 lrp={AllL_Ps.AllL_Ps.english}
                                 PromotionType={this.state.PromotionType}
@@ -2165,7 +2165,7 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-              {this.state.isGraph && (
+             {this.state.isGraph && (
                 this.state.QueryDetail ? 
                 <ShowPrevQues
                 closeFullQues={() => this.CloseGraph()}

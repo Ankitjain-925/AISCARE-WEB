@@ -27,7 +27,7 @@ class Pain extends Component {
       prevProps.value !== this.props.value &&
       this.props.Forview
     ) {
-        this.setState({ value: this.props.value })   
+      this.setState({ value: this.props.value })
   }
   else if(this.props.value == 0){
     this.setState({ value: this.props.value })

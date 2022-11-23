@@ -4499,16 +4499,19 @@ button.onlogyBtn {
   letter-spacing: 0;
   line-height: 12px;
 }
-.medcalFZCntnt {
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-  min-height: 196px;
-  padding: 12px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+  .medcalFZCntnt {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    min-height: 196px;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 8px;
+
 }
 .medcalFZCntnt a {
   display: block;
@@ -9373,7 +9376,10 @@ button.crdoLghtBlu2 {
   margin-right: 20px;
   border-radius: 4px;
 }
-
+.required:after {
+  content:" *";
+  color: red;
+}
 .checkboxprop label {
   margin-left: 0px !important;
 }
@@ -12361,7 +12367,7 @@ ul.patientHint li {
 }
 .darkTheme .insrnceTbl table th {
   color: #00abaf;
-  font-size: 15px;
+  /* font-size: 15px; */
 }
 .darkTheme .insrnceTbl table td {
   color: #bfc1c1;
@@ -13589,6 +13595,7 @@ input:-moz-autofill:active{
   }
   .vwTaskSelect {
     margin-bottom: 3px;
+    cursor: pointer;
   }
 }
 @media (max-width: 452px) {
@@ -14139,7 +14146,7 @@ input:-webkit-autofill:active{
 }
 
 .assiHospDet {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .pateintInfoUser {
@@ -15929,11 +15936,9 @@ width: 90px!important;
     font-family: Muli !important;
     }
     
-    .homeBgDrk .stndQues p {
-      color: #fff;
-    }
+
     .allQuestionShow{
-      margin: 0px 30px 30px 30px;
+      margin-left: 21px;
     }
     .allQuestionShow1{
       margin-bottom: 15px;
@@ -16021,6 +16026,7 @@ width: 90px!important;
       text-align: center;
       color: #ffffff;
       margin-right: 5px;
+      cursor: pointer;
   }
 
 
@@ -16084,9 +16090,9 @@ width: 90px!important;
     margin-top: 12px;
     margin-bottom: 2px;
   }
-  .dataBoxUpr.patietnRegister .registerRow {
+  /* .dataBoxUpr.patietnRegister .registerRow {
     margin-bottom: 0px;
-  }
+  } */
   .infoCourse .shPatientProfile .userDetail {
     margin-top: 0px;
   }
@@ -16141,9 +16147,9 @@ width: 90px!important;
   .careQuestionTabUpr {
     border-radius: 12px;
     background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
     padding: 20px 20px;
     margin: 34px 0px 30px;
-    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
   }
   .darkTheme .careQuestionTabUpr {
     background-color: #404646;
@@ -16246,7 +16252,7 @@ width: 90px!important;
     height: 362px !important;
 }
 
-/* .creatTaskModel3{
+.creatTaskModel3{
 width: 580px;
 background: #fff;
 margin: 0 auto;
@@ -16262,13 +16268,13 @@ border-radius: 12px;
 }
 .darkTheme .creatTaskModel3 {
   background-color: #404646 !important;
-} */
+}
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   .creatTaskModel3 {
     width: 98% !important;
   }
-} */
+}
 .selectOptionCmn label{
   color:grey;
 }
@@ -16291,7 +16297,65 @@ border-radius: 12px;
   overflow-y: scroll;
 }
 
+.getAllCalSec .rbc-calendar{
+  min-height: 1055px!important;
+  }
 
+
+
+.profileIdRghtSec{
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media screen and (max-width:959px) {
+  .profileIdRghtSec{
+    padding-top: 10px;
+    padding-bottom: 8px;
+  }
+}
+.profileIdRghtPart a {
+  color: #00ABAF !important;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 12px;
+  cursor: pointer;
+}
+.profileIdRghtPart {
+  text-align: right;
+  margin-bottom: 14px;
+}
+.darkTheme .profileIdRghtPart a {
+  color: #00ABAF;
+}
+@media(max-width: 959px){
+  .profileIdRghtPart {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+.editCourse1 label{
+  font-size: 16px;
+  line-height: 25px;
+}
+@media (max-width: 959px){
+.editCourse1 label {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}}
+
+.homeBgDrk .allTimeSelnw .css-1uccc91-singleValue{
+  margin-left: 4px!important;
+}
+.patientRegSec label{
+  margin-bottom: 0px;
+}
+.passInstSec{
+  top: -25px;
+}
 
 .profileIdRght{
   margin-bottom: 0px;
@@ -16767,3 +16831,180 @@ overflow: auto
   margin-bottom: 0px !important;
   margin-top: 40px;
 }
+
+.addSpeclClose {
+  text-align: right;
+}
+@media (max-width: 568px) {
+ .addSpeclClose {
+    margin-bottom: 10px;
+  }
+}
+
+.collap{
+  border: 1px #00ABAF solid;
+  background: #e2e4e6;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.darkTheme .collap{
+background: #647484 !important;
+}
+.manage-authority-btn {   
+  background: #00abaf !important;
+  margin: 10px 0px !important;
+}
+.manage-authority{
+  font-weight: bold;
+  cursor: pointer;
+  color: #00ABAF !important;
+}
+
+.innerAuthority{
+  margin-left: 35px;
+}
+
+.authoirty :hover {
+  background: linear-gradient(33deg, aqua, transparent);
+}
+
+.authoirty .MuiTypography-body1{
+  font-size: 0.9rem !important;
+  font-weight: 600;
+}
+
+.sel{
+background: #04a5a9;
+margin-bottom: 10px;
+  font-size: 1rem;
+  padding-left: 8px;
+
+}
+.formscrool {
+  height: 537px;
+  overflow-y: scroll;
+}
+.headsize2 {
+  font-size: 15px;
+  font-family: muli;
+  margin-bottom: 20px;
+ 
+}
+
+.darkTheme .headsize2{
+background-color: #192020!important;
+color:#FFFFFF
+}
+.darkTheme .valuesuggest2{ 
+  background-color: #404646!important;
+  color:#FFFFFF
+  }
+
+  .authorityvalue { 
+   font-size: 20px;
+  }
+
+  
+.AddEntrynwSec a:first-child {
+  margin-right: 0px;
+}
+
+.allNewReqInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.authority{
+  font-size: 20px;
+  font-family: muli;
+  color:red;
+  text-align: center;
+}
+
+.archvOpinLblSec{
+  justify-content: flex-start!important;
+}
+.enterSpclMainSec{
+  padding-top: 20px;
+}
+.enterSpclSec input{
+  margin-bottom: 0px;
+}
+.enterSpclSec .css-g1d714-ValueContainer{
+  padding: 8px 8px!important;
+}
+.AddEntrynwSec a:last-child {
+  margin-left: 6px;
+}
+.speServiceSec .css-g1d714-ValueContainer{
+  height: 44px;
+}
+.dueOnSec{
+  padding: 0px;
+}
+.assignSection{
+  margin-top: 5px!important;
+}
+.checkboxquesSec{
+  margin-top:0px!important;
+  margin-bottom:15px!important;
+}
+.infoSubBtn{
+  margin-top: 35px;
+}
+.allCheckboxQue{
+  margin-top:15px!important;
+}
+.stndQuesPart label{
+  font-size: 15px;
+  font-weight: bold;
+  color:#00abaf;
+  letter-spacing: 0;
+  font-family: Muli;
+  line-height: 12px;
+}
+.stndQuesPart p{
+  color: #000808;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 14px;
+  margin-bottom: 12px;
+}
+.stndQuesPart span{
+  font-size: 18px;
+  font-weight: bold;
+  color:#00abaf;
+  /* margin-bottom: 8px; */
+}
+.allStndQues{
+  margin-top: 18px;
+}
+.darkTheme .stndQuesPart label{
+  color:#00abaf!important;
+}
+.allMngAutSec{
+  margin:10px 0px;
+}
+.allEnterSpclSec{
+  padding-top: 12px;
+}
+
+.enterSpclSec input{
+  min-height: 38px;
+}
+.serviceallSec1 input{
+  margin-bottom: 0px;
+}
+@media(max-width: 959px){
+  .allFormSection1{
+    margin-left: 40px!important;
+  }
+}
+.err_message1{
+  text-align: center!important;
+}
+

@@ -1126,7 +1126,7 @@ class Index extends Component {
                                 className="fancyBoxModel"
                               >
                                 <div className="fancyBoxCncl">
-                                  <div className="cnclCourse">
+                                  <div className="cnclCourse"> 
                                     <div className="handleCnclBtn">
                                       <a onClick={this.handleCloseFancy}>
                                         <img

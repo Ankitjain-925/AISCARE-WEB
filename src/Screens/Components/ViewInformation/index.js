@@ -122,7 +122,7 @@ class Index extends Component {
                             <Grid><label>{patient_info && patient_info?.first_name && patient_info?.first_name} {patient_info && patient_info?.last_name && patient_info?.last_name}</label></Grid>
                         </Grid> */}
                         <Grid className="detailPrescp">
-                            <Grid className="stndQues">
+                            <Grid className="stndQues stndQuesPart">
                                 <Grid><span>{personal_info}</span></Grid>
                                 <Grid>
                                     <Grid><label>{profile_id}</label></Grid>
@@ -144,18 +144,18 @@ class Index extends Component {
                                     </>}
                                 </Grid>
                             </Grid>
-                            {patient_info && patient_info?.type && patient_info?.type === 'doctor' && <Grid className="stndQues">
+                            {patient_info && patient_info?.type && patient_info?.type === 'doctor' && <Grid className="stndQues stndQuesPart allStndQues">
                                 <Grid><span>{Liscence}</span></Grid>
                                 <Grid className="pointThis" onClick={() => GetUrlImage(patient_info?.licence && patient_info?.licence && patient_info?.licence.length > 0 && patient_info?.licence[0].url && patient_info?.licence[0].url)}>{patient_info?.licence && patient_info?.licence.length > 0 && patient_info?.licence[0].url && (patient_info?.licence[0].url.split('registration/')[1]).split("&bucket=")[0]}</Grid>
                             </Grid>}
-                            <Grid className="stndQues">
+                            <Grid className="stndQues stndQuesPart allStndQues">
                                 <Grid><span>{kyc}</span></Grid>
                                 <Grid className="pointThis" onClick={() => GetUrlImage(KYC_LICENSE)}>{KYC_LICENSE && (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
                                 <Grid className="pointThis" onClick={() => GetUrlImage(KYC_ID)}>{KYC_ID && (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
                             </Grid>
 
 
-                            <Grid className="stndQues">
+                            <Grid className="stndQues stndQuesPart allStndQues">
                                 <Grid><span>{details}</span></Grid>
                                 <Grid>
                                     <Grid><label>{terms_Country}</label></Grid>
