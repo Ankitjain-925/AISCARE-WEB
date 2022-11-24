@@ -55,26 +55,26 @@ class Index extends Component {
 
     }
 
-      //For adding the New therapy
-    handleSubmit = () => { 
-    let translate = getLanguage(this.props.stateLanguageType);
-    let {} = translate;
-    this.setState({ errorMsg: '' })
-    var data = this.state.updateTrack;
-    if (!data.title || (data && data?.title && data?.title.length < 1)) {
-      this.setState({ errorMsg: "please enter therapy name" })
-    }
-    else if (!data.description) {
-     this.setState({ errorMsg: "please enter therapy description" })
-    }
-    else if (!data.testing) {
-        this.setState({ errorMsg: "please enter therapy testing" })
-       }
-    else {
-     console.log('no value')
-     handleCloseServ(this);
-    }
-  };
+    //For adding the New therapy
+    handleSubmit = () => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { } = translate;
+        this.setState({ errorMsg: '' })
+        var data = this.state.updateTrack;
+        if (!data.title || (data && data?.title && data?.title.length < 1)) {
+            this.setState({ errorMsg: "please enter therapy name" })
+        }
+        else if (!data.description) {
+            this.setState({ errorMsg: "please enter therapy description" })
+        }
+        else if (!data.testing) {
+            this.setState({ errorMsg: "please enter therapy testing" })
+        }
+        else {
+            console.log('no value')
+            handleCloseServ(this);
+        }
+    };
 
 
     render() {
@@ -88,6 +88,14 @@ class Index extends Component {
             all,
             therapyTesting,
             EnterTherapyname,
+            newTherapy,
+            editTherapy,
+            viewTherapy,
+            deleteTherapy,
+            assign_to_patient,
+            DiseaseName,
+            therapy_name,
+            total_task_or_services,
             Entertherapyshortdescription,
             EntertherapyTesting,
             Therapyshortdescription,
@@ -109,6 +117,13 @@ class Index extends Component {
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
+        const data = [
+            { name: "Interpersonal therapy", disease: 'Dengue', total_tasks: "2" },
+            { name: "Exposure therapy", disease: 'Babesiosis', total_tasks: "3" },
+            { name: "Psychodynamic therapy", disease: 'Campylobacteriosis', total_tasks: "4" },
+            { name: "Animal-assisted therapy", disease: 'Chickenpox', total_tasks: "8" },
+            { name: "Cognitive-behavioral therapy", disease: 'Giardiasis', total_tasks: "9" },
+        ];
         return (
             <Grid
                 className={
@@ -198,8 +213,8 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                                 <div className="error_message">
-                                                                        {this.state.errorMsg}
-                                                                    </div>
+                                                                    {this.state.errorMsg}
+                                                                </div>
                                                                 <Grid className="enterServMain">
                                                                     <Grid className="enterSpcl">
                                                                         <Grid>
@@ -273,9 +288,146 @@ class Index extends Component {
                                                                 <Grid className="servSaveBtn">
                                                                     <a>
                                                                         <Button
-                                                                        onClick={() => this.handleSubmit()}
+                                                                            onClick={() => this.handleSubmit()}
                                                                         >
                                                                             {save_and_close}
+                                                                        </Button>
+                                                                    </a>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Modal>
+                                                    <Modal
+                                                        open={this.state.viewTher}
+                                                        // onClose={() => handleCloseServ(this)}
+                                                        onClose={() => this.setState({ viewTher: false })}
+                                                        className={
+                                                            this.props.settings.setting &&
+                                                                this.props.settings.setting.mode &&
+                                                                this.props.settings.setting.mode === "dark"
+                                                                ? "darkTheme addSpeclModel"
+                                                                : "addSpeclModel"
+                                                        }
+                                                    >
+                                                        <Grid
+                                                            className={
+                                                                this.props.settings &&
+                                                                    this.props.settings.setting &&
+                                                                    this.props.settings.setting.mode &&
+                                                                    this.props.settings.setting.mode === "dark"
+                                                                    ? "darkTheme addSpeclContnt"
+                                                                    : "addServContnt"
+                                                            }
+                                                        // className="addServContnt"
+                                                        >
+                                                            <Grid className="addSpeclContntIner">
+                                                                <Grid className="addSpeclLbl">
+                                                                    <Grid
+                                                                        container
+                                                                        direction="row"
+                                                                        justify="center"
+                                                                    >
+                                                                        <Grid item xs={8} md={8} lg={8}>
+                                                                            {/* <label>{Addnewservice}</label> */}
+                                                                            <label>View Therapy</label>
+
+                                                                        </Grid>
+                                                                        <Grid item xs={4} md={4} lg={4}>
+                                                                            <Grid>
+                                                                                <Grid className="entryCloseBtn">
+                                                                                    <a
+                                                                                        // onClick={() =>
+                                                                                        //   handleCloseServ(this)
+                                                                                        // }
+                                                                                        onClick={() => this.setState({ viewTher: false })}
+
+                                                                                    >
+                                                                                        <img
+                                                                                            src={require("assets/images/close-search.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                    </a>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+
+                                                                <Grid className="enterServMain">
+                                                                    <Grid className="enterSpcl">
+                                                                        <Grid>
+                                                                            <label className="specbutton1">
+                                                                                Therapy Name
+                                                                            </label>
+                                                                            <div style={{ paddingBottom: 8 }}>Interpersonal therapy</div>
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <label className="specbutton1">
+                                                                                Therapy description
+                                                                            </label>
+                                                                            <div style={{ paddingBottom: 8 }}>Fever	</div>
+
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <label className="specbutton1">
+                                                                                Disease name
+                                                                            </label>
+                                                                            <div style={{ paddingBottom: 8 }}>Dengue	</div>
+
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <label className="specbutton1">
+                                                                                Assigned To
+                                                                            </label>
+                                                                            <div style={{ paddingBottom: 8 }}>Vibhav	</div>
+
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <label className="specbutton1">
+                                                                                Sequence of Tasks/ Assigned services
+
+                                                                            </label>
+                                                                            <div style={{ paddingBottom: 8 }}>-	</div>
+
+                                                                        </Grid>
+                                                                        <Grid className="srvcTable3">
+                                                                            <Table>
+                                                                                <Thead>
+                                                                                    <Tr>
+                                                                                        <Th></Th>
+                                                                                        <Th>Type</Th>
+                                                                                        <Th>Title of type </Th>
+                                                                                        <Th>Description of Type</Th>
+                                                                                    </Tr>
+                                                                                </Thead>
+                                                                                <Tbody>
+                                                                                    <Tr>
+
+                                                                                        <Td>1</Td>
+                                                                                        <Td>-</Td>
+                                                                                        <Td>-</Td>
+                                                                                        <Td>-</Td>
+                                                                                    </Tr>
+                                                                                </Tbody>
+                                                                            </Table>
+                                                                        </Grid>
+
+                                                                    </Grid>
+
+                                                                    <div className="err_message">
+                                                                        {this.state.errorMsg}
+                                                                    </div>
+                                                                </Grid>
+                                                                <Grid className="servSaveBtn">
+                                                                    <a>
+                                                                        <Button
+                                                                            //onClick={() => handleSubmit(this)}
+                                                                            disabled={this.state.isButtonDisabled}
+
+                                                                        >
+                                                                            {/* {save_and_close} */}
+                                                                            Close
                                                                         </Button>
                                                                     </a>
                                                                 </Grid>
@@ -362,6 +514,89 @@ class Index extends Component {
 
                                         {/* service price content */}
                                         <Grid className="srvcTable3">
+                                            <Table>
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>{therapy_name}</Th>
+                                                        <Th>{DiseaseName}</Th>
+                                                        <Th>{total_task_or_services}</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
+                                                    {data.map((item) => (
+
+                                                        <Tr key={item.name}>
+                                                            <Td>{item.name}</Td>
+                                                            <Td>{item.disease}</Td>
+                                                            <Td>{item.total_tasks}</Td>
+                                                            <Td className="srvcDots">
+                                                                <Grid
+                                                                    item
+                                                                    xs={6}
+                                                                    md={6}
+                                                                    className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
+                                                                >
+                                                                    <a className="openScndhrf">
+                                                                        <img
+                                                                            src={require("assets/images/three_dots_t.png")}
+                                                                            alt=""
+                                                                            title=""
+                                                                            className="openScnd specialuty-more"
+                                                                        />
+
+                                                                        <ul>
+                                                                            <li onClick={() => this.setState({ viewTher: true })}
+                                                                            >
+                                                                                <a>
+                                                                                    <img
+                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    {viewTherapy}
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a>
+                                                                                    <img
+                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    {assign_to_patient}
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a>
+                                                                                    <img
+                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    {editTherapy}
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a>
+                                                                                    <img
+                                                                                        src={require("assets/images/cancel-request.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    {deleteTherapy}
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </a>
+
+                                                                </Grid>
+                                                            </Td>
+                                                        </Tr>
+                                                    ))}
+                                                </Tbody>
+                                            </Table>
+
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
@@ -390,6 +625,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         {/* end of service price content */}
+
                                     </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
