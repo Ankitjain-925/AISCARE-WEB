@@ -752,7 +752,7 @@ class Index extends Component {
                                                                         label={Patient_remebmer_Family_Memer}
                                                                     />
                                                                 </FormControl>
-                                                            </Grid>
+                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="anamneSecMid">
                                                             <p>{Sanitary_Situation}</p>
