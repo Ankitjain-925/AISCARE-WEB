@@ -238,6 +238,7 @@ class Index extends Component {
   };
 
   showDataCalendar = (response) => {
+    const { House: { roles = [] } = {} } = this.props || {}
     let indexout = 0;
     let appioinmentTimes = [];
     var taskdata = [],
@@ -313,10 +314,11 @@ class Index extends Component {
               fulldata: [data],
             });
             indexout++;
+            {roles.includes('show_task') &&
             this.setState({
               taskEventList: taskdata,
               appioinmentTimes: appioinmentTimes,
-            });
+            });}
           }
           // this.setState({ loaderImage: false });
           // this.handleCloseFil();
@@ -365,9 +367,16 @@ class Index extends Component {
           // this.handleCloseFil();
         }
         indexout++;
+        {roles.includes('show_calendar_data') &&
+          this.setState({
+           appioinmentEventList: appioinmentdata,
+         
+          });
+        
+        }
         this.setState({
           myEventsList: [...taskdata, ...appioinmentdata],
-          appioinmentEventList: appioinmentdata,
+          // appioinmentEventList: appioinmentdata,
           appioinmentTimes: appioinmentTimes,
         });
         // this.handleCloseFil();
