@@ -209,11 +209,11 @@ class Index extends Component {
                 ],
             },
         ]
-
+        const { House: { roles = [] } = {} } = this.props
         return (
             <Grid>
                 {/* Model setup */}
-                <Modal
+                {/* <Modal
                     open={this.state.openModal}
                     onClose={() => this.closeFullQues()}
                     className={
@@ -224,11 +224,11 @@ class Index extends Component {
                             ? 'darkTheme'
                             : ''
                     }
-                >
-                    <Grid className="creatTaskModel3 creatTaskModel11">
-                        <Grid className="creatTaskCntnt">
+                > */}
+                    <Grid className=" creatTaskModel11">
+                        <Grid >
                             <Grid>
-                                <Grid container direction="row" justify="center" className="addSpeclLbl">
+                                {/* <Grid container direction="row" justify="center" className="addSpeclLbl">
                                     <Grid item xs={8} md={8} lg={8}>
                                         <label>{Details}</label>
                                     </Grid>
@@ -245,13 +245,15 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                                </Grid> */}
+                            
                                 <Grid
                                     container
                                     direction="row"
                                     className="setDetail-eval"
                                 >
                                     <Grid item xs={12} md={12} className="taskDescp">
+                                 
                                         <Grid className="stndQues stndQues1 allQuestionShow">
                                             {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
                                                 <Grid className=" selectOptionCmn">
@@ -1003,13 +1005,12 @@ class Index extends Component {
                                                         {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid>
                                                     <Grid>
-                                                        {console.log("item?.daily_diameter_leg", item?.daily_diameter_leg)}
                                                         <Grid>
                                                             <h1>{Thrombose_Situation}</h1>
                                                         </Grid>
                                                         {item?.questionnaire_answers?.daily_anamnesis_diameter_leg ?
                                                             <Grid container xs={12} md={12}>
-                                                                <Grid xs={6} md={6}>
+                                                            <Grid xs={6} md={6}>
                                                                     <label>{Measure_diameter_Leg}</label>
                                                                     <p>
                                                                         {item?.questionnaire_answers?.daily_anamnesis_diameter_leg}
@@ -1342,7 +1343,7 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                </Modal>
+                {/* </Modal> */}
                 {/* End of Model setup */}
             </Grid>
         )

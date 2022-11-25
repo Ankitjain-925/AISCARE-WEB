@@ -496,7 +496,8 @@ class Index extends Component {
               .post(
                 sitedata.data.path + '/UserProfile/AddNewUseradiitional/',
                 savedata,
-                commonHeader(user_token)
+                commonHeader(this.props.stateLoginValueAim.token)
+
               )
               .then((responce) => {
                 this.setState({ loaderImage: false });

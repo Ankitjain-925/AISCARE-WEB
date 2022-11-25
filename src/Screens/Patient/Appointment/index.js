@@ -1924,7 +1924,7 @@ class Index extends Component {
                                         className="openScnd"
                                       />
                                     )}
-                                    <Grid className="cancelAppoint">
+                                    <Grid className="cancelAppoint cancelAppointSec">
                                       <a
                                         onClick={() => {
                                           this.handleOpenApoint(apoint);

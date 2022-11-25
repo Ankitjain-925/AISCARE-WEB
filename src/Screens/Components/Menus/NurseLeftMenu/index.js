@@ -48,6 +48,7 @@ class Index extends Component {
   };
     //For Appointmet
     Appointment = () => {
+      debugger;
       this.props.history.push("/nurse/appointment");
     };
 

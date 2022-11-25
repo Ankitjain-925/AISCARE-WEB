@@ -38,7 +38,31 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-    this.props.history.push("/doctor/professional-task");
+    console.log("data", data)
+    if(data.roles){
+      if (data.roles.includes("task_manager")) {
+        this.props.history.push("/doctor/professional-activity");
+      }
+      if (data.roles.includes("professional_activity")) {
+        this.props.history.push("/doctor/professional-activity");
+      }
+      if (data.roles.includes("earlier_activity")) {
+        this.props.history.push("/doctor/earlier-task");
+      }
+      if (data.roles.includes("care_questionnary")) {
+        this.props.history.push("/doctor/care-questionary");
+
+      }
+      if (data.roles.includes("appointment_manager")) {
+        this.props.history.push("/doctor/appointment");
+      }
+      else {
+        this.setState({ message: "You have no authority to perform this functionality. Please contact to your hospital admin regarding this" })
+      }
+    }
+    else {
+      this.setState({ message: "You have no authority to perform this functionality. Please contact to your hospital admin regarding this" })
+    }
   };
 
   render() {
@@ -76,7 +100,7 @@ class Index extends Component {
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
-                    <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)}/>
+                <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
                 </Grid>
               </Grid>
             </Grid>

@@ -296,7 +296,8 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} , selectPatDoc: '',
+    errorMsg: ''});
     this.props.handleCloseAllowAccess();
   };
 
@@ -1449,12 +1450,14 @@ class Index extends Component {
                                 </a>
 
                                 <a
-                                  onClick={() =>
+                                  onClick={() => {
                                     this.handleOpenFancyVdo(
                                       i,
                                       "homevisit_appointment",
                                       doc.homevisit_appointment[0]
                                     )
+                                  }
+                                    
                                   }
                                 >
                                   <img

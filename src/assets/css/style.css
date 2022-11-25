@@ -6508,6 +6508,17 @@ a.archvDel:hover ul {
 .checkHelthLbl div {
     margin-bottom: 15px;
 }
+
+.se{
+    display: inline-table !important;
+}
+
+.scrol{
+    overflow-y: scroll !important;
+    height: 500px !important;
+    align-items: center;
+    justify-content: center;
+}
 .entryCourse p {
     color: #7F8383;
     font-family: Muli;
@@ -7627,6 +7638,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk .newReqInfo label {
+    color: #D9DADA !important;
+}
+.homeBgDrk .newReqInfo p{
     color: #D9DADA !important;
 }
 .homeBgDrk .newRequestMain h4 {
@@ -8750,7 +8764,7 @@ a.visibleAllShw:hover .visibleAll{
     min-height: 100vh;
 }
 .presurInner a label {
-    color: #7F8383;
+    color: #7F8383 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -8768,7 +8782,7 @@ a.visibleAllShw:hover .visibleAll{
     margin-bottom: 2px;
 }
 .presurInner a p {
-    color: #7F8383;
+    color: #7F8383 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -11479,7 +11493,7 @@ a.barViewnw {
     line-height: 20px;
 }
 .detailQuesSub input {
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
@@ -11487,7 +11501,7 @@ a.barViewnw {
     line-height: 16px;
     text-align: center;
     border-radius: 8px;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     outline: none;
     border: none;
     width: 90%;
@@ -11503,6 +11517,22 @@ a.barViewnw {
     position: relative;
 }
 .detailQuesSub span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    text-align: center;
+    width: 23px;
+    background: #fff;
+}
+.detailQuesSub2{
     color: #7F8383;
     font-family: Muli;
     font-size: 14px;
@@ -11574,10 +11604,10 @@ a.barViewnw {
 }
 .SuggNwTim input {
     border-radius: 8px;
-    background-color: #E1F7F7;
+    background-color: #E1F7F7 !important;
     border: none;
     outline: none;
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
@@ -16815,7 +16845,7 @@ select:-webkit-autofill:focus {
     height: 30px;
     cursor: pointer;
 }
-.hospitalsLbl ul li:first-child label::after {
+.hospzitalsLbl ul li:first-child label::after {
     bottom: -21px;
 }
 .roomBreadCrumbNw ul li::after {
@@ -17625,6 +17655,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .vwTaskSelect {
     width: 100%;
     margin-right: 5px;
+    cursor: pointer;
 }
 .darkTheme .vwTaskSelect {
     border: 1px solid #939393;
@@ -17767,4 +17798,8 @@ a:hover{color: #000;}
 
 .setMarginBottom{
     margin : 0px 0px 30px 0px;
+}
+input[type="submit"]:disabled {
+    background-color: aliceblue !important;
+    color: #00abaf !important;
 }

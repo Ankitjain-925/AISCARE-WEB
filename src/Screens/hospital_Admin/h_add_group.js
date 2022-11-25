@@ -126,8 +126,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'dark-confirm deleteStep'
                   : 'deleteStep'
               }
@@ -193,9 +193,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -247,7 +247,7 @@ class Index extends Component {
           axios
             .delete(
               sitedata.data.path +
-                `/hospitaladmin/AddGroup/${institute_id}/${id}`,
+              `/hospitaladmin/AddGroup/${institute_id}/${id}`,
               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
@@ -278,8 +278,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'dark-confirm deleteStep'
                   : 'deleteStep'
               }
@@ -338,9 +338,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -501,7 +501,7 @@ class Index extends Component {
           axios
             .put(
               sitedata.data.path +
-                `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
+              `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
               data,
               commonHeader(this.props.stateLoginValueAim.token)
             )
@@ -614,9 +614,8 @@ class Index extends Component {
             hospitalObject.house_description;
           housesArray[objIndex].house_logo = hospitalObject.house_logo;
         } else {
-          hospitalObject['house_id'] = `${
-            this.state.instituteId
-          }-${date.getTime()}`;
+          hospitalObject['house_id'] = `${this.state.instituteId
+            }-${date.getTime()}`;
           housesArray.push(this.state.hospitalData);
         }
         var state = this.state.institute_groups;
@@ -702,9 +701,9 @@ class Index extends Component {
                 this.updateHospitalState(obj);
               }
             })
-            .catch((error) => {});
+            .catch((error) => { });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       let translate = getLanguage(this.props.stateLanguageType);
       let { plz_upload_png_jpeg, ok } = translate;
@@ -714,8 +713,8 @@ class Index extends Component {
             <div
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'dark-confirm react-confirm-alert-body'
                   : 'react-confirm-alert-body'
               }
@@ -744,7 +743,7 @@ class Index extends Component {
   };
 
   render() {
-    if (this.props.stateLoginValueAim.user.type != 'hospitaladmin') {
+    if (this.props.stateLoginValueAim?.user?.type !== 'hospitaladmin') {
       this.props.history.push('/');
     }
     let translate = getLanguage(this.props.stateLanguageType);
@@ -778,9 +777,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -802,8 +801,8 @@ class Index extends Component {
                   <Grid
                     container
                     direction="row"
-                    justifyContent="center"
-                    className="archvOpinLbl"
+                    justify="center"
+                    className="archvOpinLbl archvOpinLblSec"
                   >
                     <Grid item xs={12} md={6}>
                       <label>{InstituteGroups}</label>
@@ -819,7 +818,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            // onClick={() => this.EditInstitute(item._id)}
+                          // onClick={() => this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -912,9 +911,9 @@ class Index extends Component {
                       onClose={this.closeInstitute}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark'
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark'
                           ? 'addSpeclModel darkTheme'
                           : 'addSpeclModel'
                       }
@@ -922,30 +921,31 @@ class Index extends Component {
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
                         <Grid className="addSpeclContntIner">
                           <Grid className="addSpeclLbl">
-                          <Grid container direction="row" justify="center">
+                            <Grid container direction="row" justify="center">
                               <Grid item xs={8} md={8} lg={8}>
-                                  <label>{AddInstitution}</label>
+                                <label>{AddInstitution}</label>
                               </Grid>
                               <Grid item xs={4} md={4} lg={4}>
-                                  <Grid>
+                                <Grid>
                                   <Grid className="entryCloseBtn">
-                                      <a onClick={this.closeInstitute}>
+                                    <a onClick={this.closeInstitute}>
                                       <img
-                                          src={require("assets/images/close-search.svg")}
-                                          alt=""
-                                          title=""
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
                                       />
-                                      </a>
+                                    </a>
                                   </Grid>
-                                  </Grid>
+                                </Grid>
                               </Grid>
+                            </Grid>
                           </Grid>
                           </Grid>
-                          <Grid className="enterSpclUpr">
+                          <Grid className="enterSpclUpr patietnRegister">
                             <div className="err_message">
                               {this.state.errorMsg}
                             </div>
-                            <Grid className="enterSpclMain">
+                            <Grid className="enterSpclMain enterSpclMainSec">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid
@@ -1123,7 +1123,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
+                    
                     </Modal>
 
                     <Modal
@@ -1131,9 +1131,9 @@ class Index extends Component {
                       onClose={this.closeHospitalModal}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark'
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark'
                           ? 'addSpeclModel darkTheme'
                           : 'addSpeclModel'
                       }
@@ -1141,30 +1141,30 @@ class Index extends Component {
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
                         <Grid className="addSpeclContntIner">
                           <Grid className="addSpeclLbl">
-                          <Grid container direction="row" justify="center">
-                            <Grid item xs={8} md={8} lg={8}>
+                            <Grid container direction="row" justify="center">
+                              <Grid item xs={8} md={8} lg={8}>
                                 <label>{AddHospital}</label>
-                            </Grid>
-                            <Grid item xs={4} md={4} lg={4}>
+                              </Grid>
+                              <Grid item xs={4} md={4} lg={4}>
                                 <Grid>
-                                <Grid className="entryCloseBtn">
+                                  <Grid className="entryCloseBtn">
                                     <a onClick={this.closeHospitalModal}>
-                                    <img
+                                      <img
                                         src={require("assets/images/close-search.svg")}
                                         alt=""
                                         title=""
-                                    />
+                                      />
                                     </a>
+                                  </Grid>
                                 </Grid>
-                                </Grid>
+                              </Grid>
                             </Grid>
-                        </Grid>
                           </Grid>
-                          <Grid className="enterSpclUpr">
+                          <Grid className="enterSpclUpr patietnRegister">
                             <div className="err_message">
                               {this.state.errorHospMsg}
                             </div>
-                            <Grid className="enterSpclMain">
+                            <Grid className="enterSpclMain enterSpclMainSec">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid

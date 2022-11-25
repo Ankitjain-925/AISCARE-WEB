@@ -163,7 +163,7 @@ export const selectedID = (id, current) => {
 
 export const deleteClickService = (id, current) => {
   axios
-    .delete(sitedata.data.path + "/vh/AddService/" + id, commonHeader(current.props.stateLoginValueAim.token))
+    .delete(sitedata.data.path + "/vh/AddService/" + id+ "/" + current.props?.House?.value, commonHeader(current.props.stateLoginValueAim.token))
     .then((response) => {
       getAllServices(current);
     })
@@ -219,9 +219,6 @@ export const EditAssignedService = (data, current) => {
   var deep = _.cloneDeep(data);
   current.setState({ updateTrack: deep, openAss: true });
 };  
-
-
-
 export const  getAmount = (current) => {
   current.setState({ loaderImage: true });
  axios

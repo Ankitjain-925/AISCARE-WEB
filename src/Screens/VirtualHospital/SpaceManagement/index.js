@@ -191,6 +191,8 @@ class Index extends Component {
       return <Redirect to={'/VirtualHospital/institutes'} />;
     }
 
+    const {House:{roles=[]}={}} = this.props || {}
+
     return (
       <Grid
         className={
@@ -232,9 +234,12 @@ class Index extends Component {
                           <h1>{SpaceManagement}</h1>
                         </Grid>
                       </Grid>
+                      {roles.includes("add_speciality")  &&                      
                       <Grid item xs={12} sm={6} md={6} className="addFlowRght">
                         <a onClick={this.handleOpenSpecl}>{addNewSpeciality}</a>
                       </Grid>
+                      
+                      }
                     </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
@@ -438,6 +443,7 @@ class Index extends Component {
 
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr">
+                      {roles.includes("show_speciality")  ?
                       <Grid container direction="row" spacing={2}>
                         {this.state.specialityData?.length > 0 &&
                           this.state.specialityData.map((data) => (
@@ -511,7 +517,7 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           ))}
-                      </Grid>
+                      </Grid>:<p className='authority'>You have no authority for showing the speciality, Please contact to hospital admin</p>}
                     </Grid>
                   </Grid>
                 </Grid>
