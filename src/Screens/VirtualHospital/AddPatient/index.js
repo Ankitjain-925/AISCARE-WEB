@@ -314,23 +314,23 @@ class Index extends Component {
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.gender &&
-        this.state.allMetadata.gender.length > 0 &&
-        this.state.allMetadata.gender,
+      this.state.allMetadata.gender &&
+      this.state.allMetadata.gender.length > 0 &&
+      this.state.allMetadata.gender,
       this.props.stateLanguageType
     );
     var rhesusgroup = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.rhesus &&
-        this.state.allMetadata.rhesus.length > 0 &&
-        this.state.allMetadata.rhesus,
+      this.state.allMetadata.rhesus &&
+      this.state.allMetadata.rhesus.length > 0 &&
+      this.state.allMetadata.rhesus,
       this.props.stateLanguageType
     );
     let AllMaritalOption = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.maritalStatus &&
-        this.state.allMetadata.maritalStatus.length > 0 &&
-        this.state.allMetadata.maritalStatus,
+      this.state.allMetadata.maritalStatus &&
+      this.state.allMetadata.maritalStatus.length > 0 &&
+      this.state.allMetadata.maritalStatus,
       this.props.stateLanguageType
     );
     this.setState({
@@ -426,6 +426,7 @@ class Index extends Component {
   };
   //Save the User profile
   saveUserData = () => {
+    const user_token = this.props.stateLoginValueAim?.token;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       plz_fill_mob_number,
@@ -494,7 +495,9 @@ class Index extends Component {
             axios
               .post(
                 sitedata.data.path + '/UserProfile/AddNewUseradiitional/',
-                savedata
+                savedata,
+                commonHeader(this.props.stateLoginValueAim.token)
+
               )
               .then((responce) => {
                 this.setState({ loaderImage: false });
@@ -530,7 +533,7 @@ class Index extends Component {
                       },
                       commonCometHeader()
                     )
-                    .then((res) => {});
+                    .then((res) => { });
                   if (this.state.newemail && !savedata.mobile) {
                     this.props.history.push({
                       pathname: '/virtualHospital/print_approval',
@@ -571,7 +574,7 @@ class Index extends Component {
                   });
                 }
               })
-              .catch((err) => {});
+              .catch((err) => { });
             // }
             // else {
             //     this.setState({ regisError: Plz_fill_the_recaptcha });
@@ -930,9 +933,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme homeBgDrk'
             : 'homeBg'
         }
@@ -990,34 +993,34 @@ class Index extends Component {
                           onClose={() => this.handlePinClose('getIDPIN')}
                           className={
                             this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode === 'dark'
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode === 'dark'
                               ? 'darkTheme editBoxModel'
                               : 'editBoxModel'
                           }
                         >
                           <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
-                            <Grid container direction="row" justify="center">
-                              <Grid item xs={8} md={8} lg={8}>
+                              <Grid container direction="row" justify="center">
+                                <Grid item xs={8} md={8} lg={8}>
                                   <label>{created_user_id_and_pin}</label>
-                              </Grid>
-                              <Grid item xs={4} md={4} lg={4}>
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={4}>
                                   <Grid>
-                                  <Grid className="entryCloseBtn">
+                                    <Grid className="entryCloseBtn">
                                       <a onClick={() =>
-                                                              this.handlePinClose('getIDPIN')
-                                                            }>
-                                      <img
+                                        this.handlePinClose('getIDPIN')
+                                      }>
+                                        <img
                                           src={require("assets/images/close-search.svg")}
                                           alt=""
                                           title=""
-                                      />
+                                        />
                                       </a>
+                                    </Grid>
                                   </Grid>
-                                  </Grid>
+                                </Grid>
                               </Grid>
-                          </Grid>
                             </Grid>
                             <Grid className="editPinform">
                               <Grid className="editField">
@@ -1120,7 +1123,7 @@ class Index extends Component {
                                 </Grid>
 
                                 {this.state.UpDataDetails &&
-                                this.state.UpDataDetails.password ? (
+                                  this.state.UpDataDetails.password ? (
                                   <div className="passInst">
                                     <div className="passInstIner">
                                       <p>{Register_Passwordshould}</p>
@@ -1129,26 +1132,26 @@ class Index extends Component {
                                         <li>
                                           {this.state.UpDataDetails?.password
                                             ?.length > 8 && (
-                                            <a>
-                                              <img
-                                                src={require('assets/images/CheckCircle.svg')}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {Register_characters}
-                                            </a>
-                                          )}
+                                              <a>
+                                                <img
+                                                  src={require('assets/images/CheckCircle.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {Register_characters}
+                                              </a>
+                                            )}
                                           {this.state.UpDataDetails?.password
                                             ?.length <= 8 && (
-                                            <a>
-                                              <img
-                                                src={require('assets/images/CloseCircle.svg')}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {Register_characters}
-                                            </a>
-                                          )}
+                                              <a>
+                                                <img
+                                                  src={require('assets/images/CloseCircle.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {Register_characters}
+                                              </a>
+                                            )}
                                         </li>
                                         <li>
                                           {this.state.UpDataDetails?.password &&
@@ -1371,8 +1374,8 @@ class Index extends Component {
                                         value={
                                           this.state.UpDataDetails.birthday
                                             ? new Date(
-                                                this.state.UpDataDetails.birthday
-                                              )
+                                              this.state.UpDataDetails.birthday
+                                            )
                                             : new Date()
                                         }
                                         onChange={this.onChange}
@@ -1394,7 +1397,7 @@ class Index extends Component {
                                         className={
                                           this.state.UpDataDetails.sex &&
                                           this.state.UpDataDetails.sex ===
-                                            'male' &&
+                                          'male' &&
                                           'SelectedGender'
                                         }
                                       >
@@ -1407,7 +1410,7 @@ class Index extends Component {
                                         className={
                                           this.state.UpDataDetails.sex &&
                                           this.state.UpDataDetails.sex ===
-                                            'female' &&
+                                          'female' &&
                                           'SelectedGender'
                                         }
                                       >
@@ -1420,7 +1423,7 @@ class Index extends Component {
                                         className={
                                           this.state.UpDataDetails.sex &&
                                           this.state.UpDataDetails.sex ===
-                                            'other' &&
+                                          'other' &&
                                           'SelectedGender'
                                         }
                                       >
@@ -1524,7 +1527,7 @@ class Index extends Component {
                                         value={
                                           this.state.UpDataDetails.pastal_code
                                             ? this.state.UpDataDetails
-                                                .pastal_code
+                                              .pastal_code
                                             : ''
                                         }
                                       />
@@ -1896,34 +1899,34 @@ class Index extends Component {
                             }
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode === 'dark'
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode === 'dark'
                                 ? 'darkTheme editBoxModel'
                                 : 'editBoxModel'
                             }
                           >
                             <Grid className="editBoxCntnt">
                               <Grid className="editCourse">
-                              <Grid container direction="row" justify="center">
-                                <Grid item xs={8} md={8} lg={8}>
+                                <Grid container direction="row" justify="center">
+                                  <Grid item xs={8} md={8} lg={8}>
                                     <label>{add_more} {insurance}</label>
-                                </Grid>
-                                <Grid item xs={4} md={4} lg={4}>
+                                  </Grid>
+                                  <Grid item xs={4} md={4} lg={4}>
                                     <Grid>
-                                    <Grid className="entryCloseBtn">
-                                        <a  onClick={() =>
-                                                                  this.handlePinClose('addInsuranceOpen')
-                                                                }>
-                                        <img
+                                      <Grid className="entryCloseBtn">
+                                        <a onClick={() =>
+                                          this.handlePinClose('addInsuranceOpen')
+                                        }>
+                                          <img
                                             src={require("assets/images/close-search.svg")}
                                             alt=""
                                             title=""
-                                        />
+                                          />
                                         </a>
+                                      </Grid>
                                     </Grid>
-                                    </Grid>
+                                  </Grid>
                                 </Grid>
-                            </Grid>
 
                               </Grid>
                               <Grid className="editPinform">
@@ -2083,34 +2086,34 @@ class Index extends Component {
                             }
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode === 'dark'
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode === 'dark'
                                 ? 'darkTheme editBoxModel'
                                 : 'editBoxModel'
                             }
                           >
                             <Grid className="editBoxCntnt">
                               <Grid className="editCourse">
-                              <Grid container direction="row" justify="center">
+                                <Grid container direction="row" justify="center">
                                   <Grid item xs={8} md={8} lg={8}>
-                                  <label> {edit} {insurance} </label>
+                                    <label> {edit} {insurance} </label>
                                   </Grid>
                                   <Grid item xs={4} md={4} lg={4}>
-                                      <Grid>
+                                    <Grid>
                                       <Grid className="entryCloseBtn">
-                                          <a onClick={() =>
-                                      this.handlePinClose('editInsuranceOpen')
-                                    }>
+                                        <a onClick={() =>
+                                          this.handlePinClose('editInsuranceOpen')
+                                        }>
                                           <img
-                                              src={require("assets/images/close-search.svg")}
-                                              alt=""
-                                              title=""
+                                            src={require("assets/images/close-search.svg")}
+                                            alt=""
+                                            title=""
                                           />
-                                          </a>
+                                        </a>
                                       </Grid>
-                                      </Grid>
+                                    </Grid>
                                   </Grid>
-                              </Grid>
+                                </Grid>
                               </Grid>
                               <Grid className="editPinform">
                                 <Grid className="editField">
@@ -2131,13 +2134,13 @@ class Index extends Component {
                                     <Select
                                       value={
                                         datas &&
-                                        datas[editIndex] &&
-                                        datas[editIndex].insurance_country
+                                          datas[editIndex] &&
+                                          datas[editIndex].insurance_country
                                           ? this.filterCountry1(
-                                              datas[editIndex] &&
-                                                datas[editIndex]
-                                                  .insurance_country
-                                            )
+                                            datas[editIndex] &&
+                                            datas[editIndex]
+                                              .insurance_country
+                                          )
                                           : ''
                                       }
                                       onChange={(event) =>
@@ -2164,10 +2167,10 @@ class Index extends Component {
                                       type="text"
                                       value={
                                         datas &&
-                                        datas[editIndex] &&
-                                        datas[editIndex].insurance
+                                          datas[editIndex] &&
+                                          datas[editIndex].insurance
                                           ? datas[editIndex] &&
-                                            datas[editIndex].insurance
+                                          datas[editIndex].insurance
                                           : ''
                                       }
                                       name="insurance"
@@ -2198,10 +2201,10 @@ class Index extends Component {
                                       type="text"
                                       value={
                                         datas &&
-                                        datas[editIndex] &&
-                                        datas[editIndex].insurance_number
+                                          datas[editIndex] &&
+                                          datas[editIndex].insurance_number
                                           ? datas[editIndex] &&
-                                            datas[editIndex].insurance_number
+                                          datas[editIndex].insurance_number
                                           : ''
                                       }
                                       name="insurance_number"

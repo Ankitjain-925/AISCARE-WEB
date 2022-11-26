@@ -680,6 +680,7 @@ class Index extends Component {
                       ' ' +
                       responce.data.data?.last_name
                       : responce.data.data?.first_name;
+                      senddata.house_id = this.props.House?.value;
                     axios
                       .post(
                         sitedata.data.path + '/vh/linkforAccepthospital',
@@ -1209,7 +1210,8 @@ class Index extends Component {
             {user.label} ( {user.profile_id} )
           </li>
         );
-      });
+      });    
+      const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
@@ -1246,19 +1248,28 @@ class Index extends Component {
                           md={8}
                           className="addFlowRght addFlowBtnSec"
                         >
-                          <a onClick={() => this.newPatient()}>
-                            {CreateNewPatient}
-                          </a>
-                          <a onClick={() => this.openAddPatient()}>
-                            {AddPatient}
-                          </a>
-                          <a
-                            onClick={() => {
-                              this.AddStep();
-                            }}
-                          >
-                            {AddStep}
-                          </a>
+                          {roles.includes("add_user") &&
+
+                            <a onClick={() => this.newPatient()}>
+                              {CreateNewPatient}
+                            </a>
+                          }
+                          {roles.includes("add_patient") &&
+
+                            <a onClick={() => this.openAddPatient()}>
+                              {AddPatient}
+                            </a>
+                          }
+                          {roles.includes("add_step") &&
+
+                            <a
+                              onClick={() => {
+                                this.AddStep();
+                              }}
+                            >
+                              {AddStep}
+                            </a>
+                          }
                         </Grid>
                       </Grid>
                     </Grid>
@@ -1506,9 +1517,10 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {roles.includes("show_step_patient")  && 
                     <div className="custom-d-n-d">
                       <Drags
-                       updatesQuotes={(data)=>{this.updatesQuotes(data)}}
+                      updatesQuotes={(data)=>{this.updatesQuotes(data)}}
                         moveDetial={(id, case_id) =>
                           this.moveDetial(id, case_id)
                         }
@@ -1530,6 +1542,7 @@ class Index extends Component {
                         }}
                         setDta={(item) => this.setDta(item)}
                         professional_id_list={this.state.professional_id_list}
+                        professionalArray={this.state.professionalArray}
                         updateEntryState3={(e, case_id) => {
                           this.updateEntryState3(e, case_id);
                         }}
@@ -1542,8 +1555,9 @@ class Index extends Component {
                         mode={this.props?.settings?.setting?.mode}
                         socket={socket}
                         stateLanguageType={this.props.stateLanguageType}
+                        roles={roles}
                       />
-                    </div>
+                    </div>}
                   </Grid>
                 </Grid>
               </Grid>

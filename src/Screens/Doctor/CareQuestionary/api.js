@@ -197,7 +197,7 @@ export const checkValidation = (current, value, item) => {
             return false;
         } else if (!Valid) {
             current.setState({
-                errorChrMsg: diastolic_in_number,
+                 errorChrMsg: diastolic_in_number,
             });
             MoveTop(0);
             return false;
@@ -393,9 +393,7 @@ export const checkValidation = (current, value, item) => {
     }
     else if ((item === "full_anamnesis_o2_saturation")) {
         if (!value) {
-
             current.setState({ errorChrMsg: Please_Enter_O2_saturation })
-
             MoveTop(0);
             return false;
         }
@@ -703,23 +701,9 @@ export const FileAttachMulti = (current, Fileadd, name) => {
 };
 
 export const allHouses = (current) => {
-    current.setState({ loaderImage: true });
-    let user_token = current.props.stateLoginValueAim.token;
-    let user_id = current.props.stateLoginValueAim.user._id;
-    axios
-        .get(
-            sitedata.data.path + "/UserProfile/Users/" + user_id,
-            commonHeader(user_token)
-        )
-        .then((response) => {
-            current.setState({ loaderImage: false });
-            current.setState({
-                currentList: response.data.data.houses,
-            });
-        })
-        .catch((error) => {
-            current.setState({ loaderImage: false });
-        });
+    current.setState({
+        currentList: current.props.stateLoginValueAim?.user?.houses ? current.props.stateLoginValueAim?.user?.houses : []
+    })
 };
 
 export const updateEntryState = (current, e) => {
@@ -742,6 +726,11 @@ export const getPatientData1 = async (current) => {
             { users1: response.PatientList1, users: response.patientArray, loaderImage: false })
     } else {
         current.setState({ loaderImage: false });
+    }
+    if(current.state.selectHouse?.roles.includes('add_care_questionnary')) {
+        current.setState({ authorityMsg: false });
+    } else {
+        current.setState({ authorityMsg: true });
     }
 };
 

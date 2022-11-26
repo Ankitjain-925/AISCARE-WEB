@@ -153,8 +153,8 @@ class Index extends Component {
       axios
         .put(
           sitedata.data.path +
-            '/questionaire/Question/' +
-            this.state.perticular_id,
+          '/questionaire/Question/' +
+          this.state.perticular_id,
           {
             questions: myQuestions,
           },
@@ -238,8 +238,8 @@ class Index extends Component {
     axios
       .put(
         sitedata.data.path +
-          '/questionaire/Question/' +
-          this.state.perticular_id,
+        '/questionaire/Question/' +
+        this.state.perticular_id,
         {
           questions: AllQuestion,
         },
@@ -259,7 +259,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/questionaire/GetQuestionaire/${this.props?.House?.value}`,
+        `/questionaire/GetQuestionaire/${this.props?.House?.value}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -306,9 +306,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -346,9 +346,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -396,8 +396,8 @@ class Index extends Component {
     axios
       .put(
         sitedata.data.path +
-          '/questionaire/Question/' +
-          this.state.perticular_id,
+        '/questionaire/Question/' +
+        this.state.perticular_id,
         {
           questions: QuesAy,
         },
@@ -484,13 +484,15 @@ class Index extends Component {
       return <Redirect to={'/VirtualHospital/institutes'} />;
     }
     var placeholders = 'Enter choice 1';
+
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -519,17 +521,20 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc que-mbottom">
-                          <Button onClick={this.handleOpenQues}>
-                            {NewQuestion}
-                          </Button>
+                          {roles.includes("add_questionnaire") &&
+                            <Button onClick={this.handleOpenQues}
+                            >
+                              {NewQuestion}
+                            </Button>
+                          }
                           <Modal
                             open={this.state.openQues}
                             onClose={this.handleCloseQues}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === 'dark'
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === 'dark'
                                 ? 'addSpeclModel darkTheme'
                                 : 'addSpeclModel'
                             }
@@ -537,26 +542,26 @@ class Index extends Component {
                             <Grid className="addSpeclContnt">
                               <Grid className="addSpeclContntIner scrollvalue">
                                 <Grid className="addSpeclLbl">
-                                <Grid container direction="row" justify="center">
-                                  <Grid item xs={8} md={8} lg={8}>
+                                  <Grid container direction="row" justify="center">
+                                    <Grid item xs={8} md={8} lg={8}>
                                       <label>{AddQuestionnaire}</label>
-                                  </Grid>
-                                  <Grid item xs={4} md={4} lg={4}>
+                                    </Grid>
+                                    <Grid item xs={4} md={4} lg={4}>
                                       <Grid>
-                                      <Grid className="entryCloseBtn">
+                                        <Grid className="entryCloseBtn">
                                           <a onClick={this.handleCloseQues}>
-                                          <img
+                                            <img
                                               src={require("assets/images/close-search.svg")}
                                               alt=""
                                               title=""
-                                          />
+                                            />
                                           </a>
+                                        </Grid>
                                       </Grid>
-                                      </Grid>
+                                    </Grid>
                                   </Grid>
-                              </Grid>
                                   {/* <Grid className="nwDiaCloseBtn"> */}
-                                    {/* <a onClick={this.handleCloseQues}>
+                                  {/* <a onClick={this.handleCloseQues}>
                                       <img
                                         src={require('assets/images/close-search.svg')}
                                         alt=""
@@ -595,16 +600,16 @@ class Index extends Component {
                                                 'anamnesis'
                                               )
                                             )}
-                                            // value={this.SelectedValue(
-                                            //   this.state.myQuestions[0]?.type
-                                            // )}
+                                          // value={this.SelectedValue(
+                                          //   this.state.myQuestions[0]?.type
+                                          // )}
                                           />
                                         </Grid>
                                         {this.state.openOpti ? (
                                           <>
                                             <Grid>
                                               <FormControlLabel
-                                                className="checkboxques"
+                                                className="checkboxques checkboxquesSec"
                                                 control={
                                                   <Checkbox
                                                     name="multiple_answer"
@@ -669,7 +674,7 @@ class Index extends Component {
 
                                             <Grid>
                                               <FormControlLabel
-                                                className="checkboxquestion"
+                                                className="checkboxquestion allCheckboxQue"
                                                 control={
                                                   <Checkbox
                                                     name="other"
@@ -766,7 +771,7 @@ class Index extends Component {
                                     </Grid>
                                   </Grid>
                                 )}
-                                <Grid className="infoSub2">
+                                <Grid className="infoSub2 infoSubBtn">
                                   <Button onClick={() => this.handleSubmit()}>
                                     {save_and_close}
                                   </Button>
@@ -780,9 +785,9 @@ class Index extends Component {
                             onClose={this.handleEditCloseQues}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === 'dark'
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === 'dark'
                                 ? 'addSpeclModel darkTheme'
                                 : 'addSpeclModel'
                             }
@@ -790,24 +795,24 @@ class Index extends Component {
                             <Grid className="addSpeclContnt">
                               <Grid className="addSpeclContntIner">
                                 <Grid className="addSpeclLbl">
-                                <Grid container direction="row" justify="center">
+                                  <Grid container direction="row" justify="center">
                                     <Grid item xs={8} md={8} lg={8}>
-                                        <label>{EditQuestionnaire}</label>
+                                      <label>{EditQuestionnaire}</label>
                                     </Grid>
                                     <Grid item xs={4} md={4} lg={4}>
-                                        <Grid>
+                                      <Grid>
                                         <Grid className="entryCloseBtn">
-                                            <a onClick={this.handleEditCloseQues}>
+                                          <a onClick={this.handleEditCloseQues}>
                                             <img
-                                                src={require("assets/images/close-search.svg")}
-                                                alt=""
-                                                title=""
+                                              src={require("assets/images/close-search.svg")}
+                                              alt=""
+                                              title=""
                                             />
-                                            </a>
+                                          </a>
                                         </Grid>
-                                        </Grid>
+                                      </Grid>
                                     </Grid>
-                                </Grid>
+                                  </Grid>
                                 </Grid>
                                 {this.state.myQuestions && (
                                   <Grid>
@@ -1013,51 +1018,55 @@ class Index extends Component {
                                       : '-'}
                                   </Td>
                                   <Td className="presEditDot scndOptionIner">
-                                    <a className="openScndhrf">
-                                      <Button>
-                                        <img
-                                          src={require('assets/images/three_dots_t.png')}
-                                          alt=""
-                                          title=""
-                                          className="openScnd"
-                                        />
-                                      </Button>
-                                      <ul>
-                                        <li>
-                                          <a
-                                            onClick={() => {
-                                              this.editQuestion(data, data._id);
-                                            }}
-                                          >
-                                            <img
-                                              src={require('assets/images/details.svg')}
-                                              alt=""
-                                              title=""
-                                            />
-                                            {EditQuestion}
-                                          </a>
-                                        </li>
-                                        {data.status !== 'remove' && (
-                                          <li
-                                            onClick={() => {
-                                              this.removeQuestions(
-                                                'remove',
-                                                data._id
-                                              );
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require('assets/images/cancel-request.svg')}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {DeleteQuestion}
-                                            </a>
-                                          </li>
-                                        )}
-                                      </ul>
-                                    </a>
+                                    {(roles.includes("edit_questionnaire") || roles.includes("delete_questionnaire")) &&
+                                      <a className="openScndhrf">
+                                        <Button>
+                                          <img
+                                            src={require('assets/images/three_dots_t.png')}
+                                            alt=""
+                                            title=""
+                                            className="openScnd"
+                                          />
+                                        </Button>
+                                        <ul>
+                                          {roles.includes("edit_questionnaire") &&
+                                            <li>
+                                              <a
+                                                onClick={() => {
+                                                  this.editQuestion(data, data._id);
+                                                }}
+                                              >
+                                                <img
+                                                  src={require('assets/images/details.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {EditQuestion}
+                                              </a>
+                                            </li>
+                                          }
+                                          {(data.status !== 'remove' && roles.includes("delete_questionnaire")) && (
+                                            <li
+                                              onClick={() => {
+                                                this.removeQuestions(
+                                                  'remove',
+                                                  data._id
+                                                );
+                                              }}
+                                            >
+                                              <a>
+                                                <img
+                                                  src={require('assets/images/cancel-request.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {DeleteQuestion}
+                                              </a>
+                                            </li>
+                                          )}
+                                        </ul>
+                                      </a>
+                                    }
                                   </Td>
                                 </Tr>
                               </>

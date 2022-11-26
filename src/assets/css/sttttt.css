@@ -10947,7 +10947,7 @@ a.barViewnw {
     line-height: 16px;
     text-align: center;
     border-radius: 8px;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     outline: none;
     border: none;
     width: 90%;

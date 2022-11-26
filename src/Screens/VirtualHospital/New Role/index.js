@@ -1,17 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
-import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
-import ColorSelection from "Screens/Components/VirtualHospitalComponents/ColorSelection/index";
-import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
-import AddRoom from "Screens/Components/VirtualHospitalComponents/AddRoom/index";
-import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/index";
-import Loader from "Screens/Components/Loader/index";
-import { confirmAlert } from "react-confirm-alert";
 import { withRouter } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -19,212 +8,140 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Speciality } from "Screens/Login/speciality.js";
-import MenuItem from '@material-ui/core/MenuItem';
-// import Select from '@material-ui/core/Select';
 import Collapsible from 'react-collapsible';
-import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
-import { getLanguage } from "translations/index"
-import Select from "react-select";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import FormGroup from '@material-ui/core/FormGroup';
+
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loaderImage: false,
-            openSpecl: false,
-            openSpecl2: false,
-            openSpecl3: false,
-            openWard: false,
-            openRoom: false,
-            specialityColor: false,
-            openSpecl4: false,
-            speciality: {},
-            ward: {},
-            specialityData: [],
-            specialityData2: [],
-            isEditWrd: false,
-            deleteId: false,
-            SearchValue: '',
-            errorMsg2: '',
-            errorMsg: '',
-            errorStatus: false,
-            openHouse1: this.props.openHouse1,
             weoffer: this.props.data,
-            weoffer1: {},
-            buttonCall: true,
-            heading: this.props.label,
-            value1: this.props.value,
-            demo: [],
-            newTsk: {},
-            mainOptions:false
+            demo: this.props.demo || [],
         };
     }
 
-
-    componentDidUpdate = (prevProps) => {
-        if (prevProps.openHouse1 !== this.props.openHouse1 || prevProps.weoffer !== this.props.data || prevProps.heading !== this.props.label
-            || prevProps.value1 !== this.props.value) {
+    componentDidUpdate = (prevProps, prevState)=>{
+        if(prevProps.demo !== this.props.demo || prevProps.data !== this.props.data){
             this.setState({
-                openHouse1: this.props.openHouse1,
                 weoffer: this.props.data,
-                heading: this.props.label,
-                value1: this.props.value
+                demo: this.props.demo || [],
             });
         }
-    };
+    }
 
-    handleOpenSpecl = () => {
-        this.setState({ openSpecl: true });
-    };
+    SelectAll = (data, type, mainsection)=>{
+        var demo = this.state.demo;
+        if(type === 'deselect'){
+            data.map((item)=>{
+                const index = demo.indexOf(item.value);
+                if (index > -1) {
+                    demo.splice(index, 1);
+                } 
+            })
+            var index1 = demo.indexOf(mainsection);
+            delete demo[index1]
+            
+        }
+        else{
+            data.map((item, index)=>{
+                demo.push(item.value)
+                demo.push(mainsection)
+            })
+        }
+        demo = [...new Set(demo)];
+        this.setState({demo: demo})
+        this.props.finalArray(demo)
+    }
 
-
-
-    handleweoffer = (e, index) => {
-        // console.log('on change', e);
-        var { weoffer } = this.state
+    handleweoffer = (e, mainSection, Maindata) => {
         var state = this.state.demo
-        // console.log('hii',this.state.newTsk)
         var data = state ? state : []
-
         if (e.target.checked) {
             data.push(e.target.value);
-            console.log("data", data)
-            if (data.length === weoffer.length) {
-                this.handleChange(data)
-            }
-
+            data.push(mainSection)
         }
         else {
             var index = data.indexOf(e.target.value)
             data.splice(index, 1);
+            var splicethis = true;
+            Maindata.map((item)=>{
+                const index = data.indexOf(item.value);
+                if (index > -1) {
+                    splicethis = false; 
+                } 
+            })
+            if(splicethis){
+                var index1 = data.indexOf(mainSection)
+                data.splice(index1, 1)
+            }
         }
+        data = [...new Set(data)];
+        this.setState({demo: data})
+        this.props.finalArray(data)
     };
-
-
-    handleChange = (e ,name,data) => {
-        // console.log('e',e.target.value,e.target.name)
-        var state = this.state.newTsk;
-        if(e.target.value==true){
-            state[name] = e.target.value == "true" ? true : false;
-        }else{
-        state[name] = e.target.value == "false" ? false : true;
-        }
-console.log("state",state)
-            // this.setState({newTsk:state})
-        // }
-        // var data = state ? state : {}
-
-     
-        // var data2=[]
-        // data2.push(data)
-        // state[name] = e.target?.value;
-        // if (e.target.checked) {
-        //     data.value = e.target.value
-        //     console.log("data_forapp", data)
-        // }
-        // else {
-        //    var index= data.findIndex(obj => obj.e.target.value === e.target.value);
-        //     // var index = data.indexOf(e.target.value)
-        //     data.splice(index, 1);
-        // }
-
-    };
-
 
 
     render() {
-        var { openHouse1, weoffer, weoffer1 } = this.state
+        var { weoffer } = this.state
         return (
-            <Grid>
-
-                <Grid className="line">
-
-                    <Grid item xs={12} md={12}>
-                        <Grid className="newrole">
-                            <Grid className="headsize">
-                                {weoffer && weoffer.map((item) => (
-                                    <Collapsible
-                                        trigger={
-                                            <>
-                                                {/* {console.log("item.value", item.value, "item.name", item.name)} */}
-                                                <span>
-                                                    <Checkbox
-                                                        value={this.state.newTsk.mainOptions && this.state.newTsk.mainOptions== true ? false : true}
-                                                        name={item.label}
-                                                        checked={this.state.newTsk.mainOptions} 
-                                                        onChange={(e) => this.handleChange(e,"mainOption")}
-
-
-
-                                                    />
-                                                </span>
-                                                {item.label}<span className="hosFstSec"><ExpandMoreIcon /></span>
-
-
-
-
-                                            </>}
-
-                                        triggerWhenOpen={
-                                            <>
-                                                <span>
-                                                    <Checkbox
-                                                        value={this.state.newTsk.mainOptions&&this.state.newTsk.mainOptions  == false ? true : false}
-                                                        name={item.label}
-                                                        checked={this.state.newTsk.mainOptions}
-                                                        onChange={(e) => this.handleChange(e, "mainOption")}
-
-                                                    />
-                                                </span>
-                                                {item.label}  <span className="hosFstSec"><ExpandLessIcon /></span>
-
-
-                                            </>}
-                                    >
-                                        {
-                                            item.data.map((item) => (
-                                                <Grid >
-
-                                                    <FormControlLabel
-                                                        control={<Checkbox
-                                                            value={item.value}
-                                                            checked={this.state.demo.options}
-                                                            onChange={(e) => this.handleweoffer(e)
-
-                                                            }
-
-                                                        />}
-                                                        label={item.label}
-                                                    />
-                                                </Grid>
-                                            ))
-                                        }
-
-                                    </Collapsible>
-                                ))
-                                }
-
-
-
-                            </Grid>
-                            {/* <Grid>
-                                                {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :
-                                                    <p onClick={() => { this.handleweoffer4("uncheck") }}> Check All / UnCheck All</p>}
-                                            </Grid> */}
-                        </Grid>
+            <Grid className="line">
+                <Grid item xs={12} md={12}>
+                    <Grid className="headsize2">
+                        {weoffer && weoffer.map((item) => (
+                           <Accordion >
+                           <AccordionSummary
+                             expandIcon={<ExpandMoreIcon />}
+                             aria-controls="panel1bh-content"
+                             id="panel1bh-header"
+                             className='headsize2'
+                           >
+                             <b>
+                             {item.label}
+                             </b>
+                           </AccordionSummary>
+                           <div className='valuesuggest2'>
+                           <div className="sel">
+                            <a onClick={()=>{this.SelectAll(item?.data, 'select', item.value )}}>Select All </a>/ 
+                            <a onClick={()=>{this.SelectAll(item?.data, 'deselect', item.value)}}>Deselect All</a>
+                            </div>
+                           {item.data.map((item1) => (
+                           <AccordionDetails>
+                          
+                             <Typography>
+                               <FormControlLabel
+                                 control={
+                                    <Checkbox
+                                    value={item1.value}
+                                    checked={this.state?.demo?.indexOf(item1.value)>-1}
+                                    onChange={(e) => this.handleweoffer(e, item.value, item?.data)
+                
+                                    }
+                                   
+                
+                                />
+                                 }
+                                 label={item1.label}
+                               />
+                             
+                             </Typography>
+                            
+                           </AccordionDetails>
+                            ))
+                        }
+                         </div>
+                         </Accordion>
+                        ))}
                     </Grid>
-
                 </Grid>
-                {/* </Grid>
-                        </Grid>
-
-                    </Grid>  */}
-                {/* </Modal> */}
             </Grid>
         )
     }
