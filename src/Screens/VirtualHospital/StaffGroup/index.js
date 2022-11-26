@@ -26,7 +26,11 @@ import {
   onFieldChange,
   selectedID,
   getSpecialty,
+  teamstaff
 } from "../../VirtualHospital/Services/api";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
 
 import { getLanguage } from "translations/index";
 
@@ -55,6 +59,7 @@ class Index extends Component {
 
   componentDidMount() {
     getSpecialty(this);
+    teamstaff(this)
   }
 
  
@@ -74,14 +79,27 @@ handleSubmit = () => {
     this.setState({ errorMsg: "please enter ward name" })
    }
   else {
-   console.log('no value')
-   handleCloseServ(this);
+    data.house_id = this.props?.House?.value;
+    axios
+      .post(sitedata.data.path + "/AddTeam", data, commonHeader(this.props.stateLoginValueAim.token))
+      .then((responce) => {
+        handleCloseServ(this);
+      })
+      .catch(function (error) {
+        console.log(error);
+       this.setState({ errorMsg: "Something_went_wrong" })
+
+      });
+  console.log('no value')
+  //  handleCloseServ(this);
   }
 };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      editstaff,
+      deleteStaff,
       StaffGroup,
       newstaffGroup,
       AddnewstaffGroup,
@@ -377,6 +395,68 @@ handleSubmit = () => {
                           </Tr>
                         </Thead>
                         <Tbody>
+                        {/* {services_data?.length > 0 &&
+                            services_data.map((data) => ( */}
+                              <>
+                                <Tr>
+                                  <Td>
+                                    <label>staffgrouptitle</label>
+                                  
+                                  </Td>
+                                  <Td>staffgroupname</Td>
+                                  {/* <Td className="srvcDots"> */}
+                                  <Td>
+                                    <Grid
+                                      item
+                                      xs={6}
+                                      md={6}
+                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
+                                    >
+                                      <a className="openScndhrf">
+                                        <img
+                                          src={require("assets/images/three_dots_t.png")}
+                                          alt=""
+                                          title=""
+                                          className="openScnd specialuty-more"
+                                        />
+                                        <ul>
+                                          <li
+                                            // onClick={() => {
+                                            //   EditService(data, this);
+                                            // }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/virtual_images/pencil-1.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {editstaff}
+                                            </a>
+                                          </li>
+
+                                          <li
+                                            // onClick={() => {
+                                            //   this.removeServices(data._id);
+                                            // }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/images/cancel-request.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {deleteStaff}
+                                            </a>
+                                          </li>
+                                      
+                                        </ul>
+                                      </a>
+                                    </Grid>
+                                  </Td>
+                                </Tr>
+                              </>
+                            {/* ))} */}
                         </Tbody>
                       </Table>
 

@@ -2100,7 +2100,9 @@
      "Therapyshortdescription":"Therapy short description",
      "Entertherapyshortdescription":"Enter therapy short description",
      "therapyTesting":"Doctor according therapy testing",
-     "EntertherapyTesting":"Enter according therapy testing"
+     "EntertherapyTesting":"Enter according therapy testing",
+     "deleteStaff":"Delete Staff",
+     "editstaff":"Edit Staff"
     }
 
 

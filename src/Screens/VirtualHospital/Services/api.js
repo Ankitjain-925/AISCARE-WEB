@@ -229,6 +229,25 @@ export const  getAmount = (current) => {
     });
 };
 
+export const  teamstaff = (current) => {
+  current.setState({ loaderImage: true });
+ axios
+    .get(
+      sitedata.data.path + "/GetTeam/" + current.props?.House?.value,
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      console.log('responce1234',responce)
+     if (responce.data.hassuccessed && responce.data.data) {
+      // let data=responce.data.sickleave_certificate_amount
+      //   current.setState({ sickamount1:{amount:data} });
+      }
+      current.setState({ loaderImage: false });
+    });
+};
+
+
+
 
 
 
