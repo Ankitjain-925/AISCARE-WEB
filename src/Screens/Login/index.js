@@ -24,6 +24,7 @@ import { getLanguage } from "translations/index"
 import { commonNoTokentHeader } from "component/CommonHeader/index";
 import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
 import { Doctorset } from "Screens/Doctor/actions";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import * as actions from "Screens/Components/CometChat/store/action";
 import Toggle from "react-toggle";
 import queryString from "query-string";
@@ -84,6 +85,7 @@ class Index extends Component {
     CometChat.logout().then(
       console.log('loggedout from cometchat11')
     )
+    this.props.houseSelect('loggedOut');
     this.props.OptionList(false);
     this.props.authy(false);
     this.props.Invoices(false);
@@ -154,6 +156,8 @@ class Index extends Component {
             this.props.OptionList(true, () => {
               this.props.authy(true);
             });
+            this.props.houseSelect('loggedOut');
+
           } else if (this.props.stateLoginValueAim.token === 450 || this.props.stateLoginValueAim.token === 401) {
             this.setState({ thisverify: false });
           } else {
@@ -186,6 +190,8 @@ class Index extends Component {
           this.props.OptionList(true, () => {
             this.props.authy(true);
           });
+          this.props.houseSelect('loggedOut');
+
         } else {
           this.setState({ loginError1: true });
         }
@@ -652,6 +658,8 @@ const mapStateToProps = (state) => {
   const { Emergencysetget } = state.EmergencySet;
   const { Doctorsetget } = state.Doctorset;
   const { invoices } = state.Invoices;
+  const { House } = state.houseSelect;
+
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -662,7 +670,9 @@ const mapStateToProps = (state) => {
     Emergencysetget,
     doctorarray,
     metadata,
-    invoices
+    invoices,
+    House,
+
   };
 };
 
@@ -676,4 +686,6 @@ export default connect(mapStateToProps, {
   Settings,
   OptionList,
   Invoices,
+  houseSelect,
+
 })(Index);
