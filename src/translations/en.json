@@ -1383,6 +1383,14 @@
     "newService": "+ New Service",
     "editService": "Edit Service",
     "deleteService": "Delete Service",
+    "newTherapy":"+ New Therapy",
+		"editTherapy":"Edit Therapy",
+		"viewTherapy":"View Therapy",
+		"deleteTherapy":"Delete Therapy",
+		"assign_to_patient":"Assign to Patient",
+    "DiseaseName":"Disease Name",
+		"therapy_name":"Therapy Name",
+		"total_task_or_services":"Total tasks/Services",
     "Move_patient_here": "Move patient here ",
     "deleteSpeciality": "Delete Speciality?",
     "really_want_to_delete_speciality": "Are you really want to delete this Speciality?",
@@ -2080,7 +2088,31 @@
     "Please_select_authority_first":"Please select some authority for the user first",
 		"Give_Authority_User":"Give Authority of Task to the User",
      "Manage_Authority":"Manage Authority",
-     "Change_Authority":"Change Authority"
+     "Change_Authority":"Change Authority",
+
+    
+    
+     "CreateStaffgroup":"Create Staff Group",
+     "StaffGroup":"Staff Group",
+     "newstaffGroup":"+ Create Staff Group",
+     "AddnewstaffGroup":"Add new staff group",
+     "Grouptitle":"Group Title",
+     "EnterGroupname":"Enter Group name",
+     "Groupshortdescription":"Group short description",
+     "Entergroupshortdescription":"Enter group short description",
+     "nurselist":"Nurse list for creating group",
+     "AssignTherapy":"Assign Therapy",
+     "staffgrouptitle":"Staff Group Title",
+     "staffgroupname":"Staff Group Name",
+     "Therapy":"Therapy",
+     "addtherapy":"+ Add Therapy",
+     "Addnewtherapy":"Add new therapy",
+     "Therapyname":"Therapy name",
+     "EnterTherapyname":"Enter Therapy name",
+     "Therapyshortdescription":"Therapy short description",
+     "Entertherapyshortdescription":"Enter therapy short description",
+     "therapyTesting":"Doctor according therapy testing",
+     "EntertherapyTesting":"Enter according therapy testing"
 
     }
 }

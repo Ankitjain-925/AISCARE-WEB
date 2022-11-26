@@ -146,6 +146,13 @@ class Index extends Component {
   Questionaires = () => {
     this.props.history.push("/virtualHospital/questionnaire");
   };
+
+  Staffgroup = () => {
+    this.props.history.push("/virtualHospital/staff-group");
+  };
+  AssignTherapy = () => {
+    this.props.history.push("/virtualHospital/assign-therapy");
+  };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -169,6 +176,8 @@ class Index extends Component {
       InvoicePattern,
       Questionnaire,
       assigned_services,
+      CreateStaffgroup,
+      AssignTherapy
     } = translate;
     return (
       <Grid
@@ -596,6 +605,50 @@ class Index extends Component {
                                 </a>
                               </li>}
                               {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('questionnaire') &&
+                              <li>
+                          <a onClick={this.Staffgroup}>
+                            {this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark" ? (
+                              <img
+                                src={require("assets/images/menudocs-white.jpg")}
+                                alt=""
+                                title=""
+                              />
+                            ) : (
+                              <img
+                                src={require("assets/virtual_images/menudocs.jpg")}
+                                alt=""
+                                title=""
+                              />
+                            )}
+
+                            {CreateStaffgroup}
+                          </a>
+                        </li>
+                        <li>
+                          <a onClick={this.AssignTherapy}>
+                            {this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark" ? (
+                              <img
+                                src={require("assets/images/menudocs-white.jpg")}
+                                alt=""
+                                title=""
+                              />
+                            ) : (
+                              <img
+                                src={require("assets/virtual_images/menudocs.jpg")}
+                                alt=""
+                                title=""
+                              />
+                            )}
+
+                            {AssignTherapy}
+                          </a>
+                        </li>
                               <li>
                                 <a onClick={this.Questionaires}>
                                   {this.props.settings &&

@@ -4686,6 +4686,7 @@ class Index extends Component {
                 </TabContainer>
               )}
             </>}
+
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
