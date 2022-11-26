@@ -184,7 +184,7 @@ class Routermain extends Component {
 
   render() {
     return (
-      <Router basename={"/sys-n-authority"}>
+      <Router basename={"/"}>
         <CallatAllPages />
         <Grid>
           <Switch>

@@ -47,6 +47,8 @@ class Index extends Component {
                     demo.splice(index, 1);
                 } 
             })
+            var index1 = demo.indexOf(mainsection);
+            delete demo[index1]
             
         }
         else{

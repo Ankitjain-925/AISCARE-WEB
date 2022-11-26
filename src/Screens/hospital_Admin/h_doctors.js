@@ -344,9 +344,8 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-              console.log('Update', responce.data.data)
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
-              socket.emit("Update",sendSec)
+              socket.emit("Updated",sendSec)
 
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
