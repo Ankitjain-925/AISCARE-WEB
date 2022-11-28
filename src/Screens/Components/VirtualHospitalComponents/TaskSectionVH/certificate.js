@@ -202,7 +202,7 @@ class Index extends Component {
 
                 <Grid className="certificateBg">
                     <Grid className="headerHeight">
-                        <Grid container direction="row" justifyContent="center">
+                        <Grid container direction="row" >
                             <Grid item xs={12} sm={12} md={12}>
                                 <Grid container direction="row" spacing={5}>
                                     <Grid item xs={12} sm={8} md={8}>
@@ -417,7 +417,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12}>
-                                <Grid container direction="row" justifyContent="center">
+                                <Grid container direction="row" >
                                     <Grid item xs={12} sm={8} md={8}>
                                         <Grid container direction="row" alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={7} md={7}>
@@ -481,7 +481,7 @@ class Index extends Component {
                                     <Grid item xs={12} sm={8} md={8}>
                                         <Grid container direction="row" alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={7} md={7}>
-                                                <Grid >
+                                                <Grid  >
                                                     <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
                                                         <label>{detected_at}</label>
                                                     </Grid>

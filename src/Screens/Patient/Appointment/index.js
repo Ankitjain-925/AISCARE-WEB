@@ -196,7 +196,7 @@ class Index extends Component {
   getUpcomingAppointment() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat",commonHeader(user_token))
+      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", commonHeader(user_token))
       .then(async (response) => {
         var upcomingData =
           response.data.data &&
@@ -246,14 +246,15 @@ class Index extends Component {
     }
   };
 
-  handleOpenFancyVdo = (i, type, data) => {
+  handleOpenFancyVdo = (i, type, data, doctor) => {
     this.setState({
+      doctorData: doctor,
       openFancyVdo: true,
       appointmentData: data,
       doc_select: i,
       appointType: type,
     });
-    setTimeout(()=>this.onChange(new Date()), 200)
+    setTimeout(() => this.onChange(new Date()), 200)
     // this.onChange()
   };
   handleCloseFancyVdo = () => {
@@ -299,20 +300,26 @@ class Index extends Component {
 
   // findAppointment
   findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+    let [start, end] = this.state.allSlotes[iA]?.slot.split("-");
     apointType = apointType.replace(/['"]+/g, "");
     this.setState({
       currentSelected: iA,
       findDoc: tab,
       selectedDoc: this.state.allDocData[doc_select],
+      // mypoint: {
+      //   start:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+      //   end:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+      //   type: apointType,
+      // },
       mypoint: {
-        start:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA],
-        end:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+        start: start,
+        end: end,
         type: apointType,
       },
     });
@@ -699,15 +706,74 @@ class Index extends Component {
       Object.entries(appointmentData).map(([key, value]) => {
         if (key == days) {
           appointDate = value;
+          this.setState({ appointDate: appointDate });
+
+          let DoctorSlot = [];
+          appointDate.map((item, i) => {
+            if (i < appointDate?.length - 1) {
+              DoctorSlot.push(appointDate[i] + "-" + appointDate[i + 1])
+            }
+          })
+
+          var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
+          var id = this.state.doctorData?._id;
+          axios
+            .post(
+              sitedata.data.path + '/vchat/getSlotTime',
+              {
+                date: localDateTime,
+                doctor_id: id
+              },
+              commonHeader(this.props.stateLoginValueAim?.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                let bookedSlot = [];
+                responce && responce.data && responce.data.data && responce.data.data.map((item) => {
+                  bookedSlot.push(item?.starttime + "-" + item?.endtime)
+                })
+                this.calBookedSlot(DoctorSlot, bookedSlot);
+                this.setState({ loaderImage: false })
+              }
+              this.setState({ loaderImage: false })
+            })
+            .catch(function (error) {
+              this.setState({ loaderImage: false })
+            });
         }
       });
     }
-    this.setState({
-      appointDate: appointDate,
-      apointDay: days,
-      selectedDate: date1,
-    });
+    this.setState({ apointDay: days, selectedDate: date1 });
   };
+
+  // Find booked slots 
+  calBookedSlot = (ts, booked) => {
+    var slot;
+    var isBooked;
+    let isAlreadyExist;
+    var allSlotes = [];
+    var curTime = moment().add(30, 'minutes').format("HH:mm");
+    var curDate = moment();
+    ts.map(item => {
+      const [start, end] = item.split('-')
+      if (moment(this.state.date).isSame(curDate, 'date', 'month', 'year')) {
+        isAlreadyExist = !(curTime <= start) ? true : false;
+      } else {
+        isAlreadyExist = false;
+      }
+      // isAlreadyExist = !(curTime <= start)
+      isBooked = !booked
+        .map(item => item.split('-'))
+        .every(([bookedStart, bookedEnd]) =>
+          (bookedStart >= end || bookedEnd <= start)
+        )
+      slot = `${start}-${end}`
+      if (!isBooked && !isAlreadyExist) {
+        allSlotes.push({ slot: slot, isBooked: isBooked, isAlreadyExist: isAlreadyExist })
+      }
+    })
+    this.setState({ allSlotes: allSlotes })
+  }
 
   EventComponent = (data) => {
     return (
@@ -790,7 +856,7 @@ class Index extends Component {
     event,
   }) => {
     let translate = getLanguage(this.props.stateLanguageType);
-   
+
     let {
       DetailsQuestions,
       consultancy_appintment,
@@ -1101,7 +1167,7 @@ class Index extends Component {
                                       <span>{holiday}!</span>
                                     </Grid> :
 
-                                    (this.state.appointDate.map((data, iA) => {
+                                    (this.state.allSlotes && this.state.allSlotes.map((data, iA) => {
                                       if (
                                         this.Isintime(
                                           this.state.appointDate[iA],
@@ -1134,9 +1200,7 @@ class Index extends Component {
                                                 );
                                               }}
                                             >
-                                              {this.state.appointDate[iA] +
-                                                " - " +
-                                                this.state.appointDate[iA + 1]}
+                                              {data?.slot}
                                             </a>
                                           ) : (
                                             this.state.appointDate[iA + 1] &&
@@ -1159,9 +1223,7 @@ class Index extends Component {
                                                   );
                                                 }}
                                               >
-                                                {this.state.appointDate[iA] +
-                                                  " - " +
-                                                  this.state.appointDate[iA + 1]}
+                                                {data?.slot}
                                               </a>
                                             )
                                           )}
@@ -1221,30 +1283,32 @@ class Index extends Component {
                       this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
-                  }
-                >
+                  }>
                   <Grid className="apontBoxCntnt">
-                    <Grid className="apontCourse">
-                    <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-        <label>{cancel_apointmnt}</label>
-        <p>{plz_write_short_explnation}</p>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseApoint}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
-                      <Grid className="apontCloseBtn">
+                    <Grid className="apontCourse 555">
+
+                      <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
+                          <label>{cancel_apointmnt}</label>
+                          {/* <p>{plz_write_short_explnation}</p> */}
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                          <Grid>
+                            <Grid className="entryCloseBtn">
+                              <a onClick={this.handleCloseApoint}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <p>{plz_write_short_explnation}</p>
+                      </Grid>
+
+                      {/* <Grid className="apontCloseBtn">
                         <a onClick={this.handleCloseApoint}>
                           <img
                             src={require("assets/images/close-search.svg")}
@@ -1256,7 +1320,7 @@ class Index extends Component {
                       <Grid>
                         <label>{cancel_apointmnt}</label>
                       </Grid>
-                      <p>{plz_write_short_explnation}</p>
+                      <p>{plz_write_short_explnation}</p> */}
                     </Grid>
                     <Grid className="apontDragCntnt">
                       <Grid>
@@ -1602,7 +1666,8 @@ class Index extends Component {
                                           this.handleOpenFancyVdo(
                                             i,
                                             "online_appointment",
-                                            doc.online_appointment[0]
+                                            doc.online_appointment[0],
+                                            doc.data
                                           )
                                         }
                                       >
@@ -1620,7 +1685,8 @@ class Index extends Component {
                                           this.handleOpenFancyVdo(
                                             i,
                                             "appointments",
-                                            doc.appointments[0]
+                                            doc.appointments[0],
+                                            doc.data
                                           )
                                         }
                                       >
@@ -1641,7 +1707,8 @@ class Index extends Component {
                                         this.handleOpenFancyVdo(
                                           i,
                                           "practice_days",
-                                          doc.practice_days[0]
+                                          doc.practice_days[0],
+                                          doc.data
                                         )
                                       }
                                       className="addClnder"
@@ -1736,7 +1803,7 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <a>
-                                
+
                                   {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
@@ -1857,7 +1924,7 @@ class Index extends Component {
                                         className="openScnd"
                                       />
                                     )}
-                                    <Grid className="cancelAppoint">
+                                    <Grid className="cancelAppoint cancelAppointSec">
                                       <a
                                         onClick={() => {
                                           this.handleOpenApoint(apoint);

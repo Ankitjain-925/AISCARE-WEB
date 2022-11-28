@@ -124,6 +124,7 @@ class Index extends Component {
     })
     this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData, nurseData: nurseData1, filterNurse: nurseData });
   }
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.openAllowAccess !== this.props.openAllowAccess) {
@@ -201,7 +202,6 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec });
   };
-
 
   getSpecialities() {
     this.setState({
@@ -296,7 +296,8 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} });
+    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} , selectPatDoc: '',
+    errorMsg: ''});
     this.props.handleCloseAllowAccess();
   };
 
@@ -304,6 +305,7 @@ class Index extends Component {
   getlocation() {
     let radius, Latitude, longitude;
     if (this.state.searchDetails && this.state.searchDetails.radius) {
+
       radius = this.state.searchDetails.radius + "000";
     } else {
       radius = 20 + "000";
@@ -412,11 +414,12 @@ class Index extends Component {
         { nurse_id: this.props.stateLoginValueAim?.user?._id },
         commonHeader(this.props.stateLoginValueAim.token)
       ).then((response) => {
-        console.log("response", response)
       })
   }
 
   handleAllowLoc = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { please_select, first, Please_select_doctor_nurse, Please_select_patient_first } = translate;
     this.setState({ errorMsg: "" });
     const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
     if (Object.keys(selectedPatient).length !== 0) {
@@ -446,13 +449,13 @@ class Index extends Component {
           this.props.handleCloseAllowAccess();
         } else {
           var item = selectPatDoc === "yes" ? "Doctor" : "Nurse";
-          this.setState({ errorMsg: "Please select" + " " + item + " " + "first" });
+          this.setState({ errorMsg: please_select + " " + item + " " + first });
         }
       } else {
-        this.setState({ errorMsg: "Please select either dotor or nurse" });
+        this.setState({ errorMsg: Please_select_doctor_nurse });
       }
     } else
-      this.setState({ errorMsg: "Please select patient first" });
+      this.setState({ errorMsg: Please_select_patient_first });
   };
 
   handleCloseAllowLoc = () => {
@@ -460,6 +463,7 @@ class Index extends Component {
   };
 
   onChange = (date) => {
+    this.setState({ loaderImage: true });
     this.setState({ date: date });
     var day_num;
     var Month, date1;
@@ -503,32 +507,98 @@ class Index extends Component {
       Object.entries(appointmentData).map(([key, value]) => {
         if (key == days) {
           appointDate = value;
+          this.setState({ appointDate: appointDate });
+
+          let DoctorSlot = [];
+          appointDate.map((item, i) => {
+            if (i < appointDate?.length - 1) {
+              DoctorSlot.push(appointDate[i] + "-" + appointDate[i + 1])
+            }
+          })
+
+          var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
+          var id = this.state.selectDocData?.value;
+          this.setState({ loaderImage: true });
+          axios
+            .post(
+              sitedata.data.path + '/vchat/getSlotTime',
+              {
+                date: localDateTime,
+                doctor_id: id
+              },
+              commonHeader(this.props.stateLoginValueAim?.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                let bookedSlot = [];
+                responce && responce.data && responce.data.data && responce.data.data.map((item) => {
+                  bookedSlot.push(item?.starttime + "-" + item?.endtime)
+                })
+                this.calBookedSlot(DoctorSlot, bookedSlot);
+                this.setState({ loaderImage: false })
+              }
+              this.setState({ loaderImage: false })
+            })
+            .catch(function (error) {
+              this.setState({ loaderImage: false })
+            });
         }
       });
     }
-    this.setState({
-      appointDate: appointDate,
-      apointDay: days,
-      selectedDate: date1,
-    });
+    this.setState({ apointDay: days, selectedDate: date1 });
   };
+
+  // Find booked slots 
+  calBookedSlot = (ts, booked) => {
+    var slot;
+    var isBooked;
+    let isAlreadyExist;
+    var allSlotes = [];
+    var curTime = moment().add(30, 'minutes').format("HH:mm");
+    var curDate = moment();
+    ts.map(item => {
+      const [start, end] = item.split('-')
+      if (moment(this.state.date).isSame(curDate, 'date', 'month', 'year')) {
+        isAlreadyExist = !(curTime <= start) ? true : false;
+      } else {
+        isAlreadyExist = false;
+      }
+      // isAlreadyExist = !(curTime <= start)
+      isBooked = !booked
+        .map(item => item.split('-'))
+        .every(([bookedStart, bookedEnd]) =>
+          (bookedStart >= end || bookedEnd <= start)
+        )
+      slot = `${start}-${end}`
+      if (!isBooked && !isAlreadyExist) {
+        allSlotes.push({ slot: slot, isBooked: isBooked, isAlreadyExist: isAlreadyExist })
+      }
+    })
+    this.setState({ allSlotes: allSlotes })
+  }
 
   // findAppointment
   findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+    let [start, end] = this.state.allSlotes[iA]?.slot.split("-");
     apointType = apointType.replace(/['"]+/g, "");
     this.setState({
       currentSelected: iA,
       findDoc: tab,
       selectedDoc: this.state.allDocData[doc_select],
+      // mypoint: {
+      //   start:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+      //   end:
+      //     this.state.allDocData[doc_select] &&
+      //     this.state.allDocData[doc_select][apointType][0] &&
+      //     this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+      //   type: apointType,
+      // },
       mypoint: {
-        start:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA],
-        end:
-          this.state.allDocData[doc_select] &&
-          this.state.allDocData[doc_select][apointType][0] &&
-          this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+        start: start,
+        end: end,
         type: apointType,
       },
     });
@@ -751,7 +821,7 @@ class Index extends Component {
       vdo_call, All, Open, done,
       capab_Doctors1,
       Nurse,
-      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit } =
+      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit, Ok, Cancel } =
       translate;
 
     const { tabvalue, patNotSelected,
@@ -826,8 +896,8 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         }
-                        <Button onClick={this.UpdatePatientList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearPatientList}>{"Cancel"}</Button>
+                        <Button onClick={this.UpdatePatientList}>{Ok}</Button>
+                        <Button onClick={this.ClearPatientList}>{Cancel}</Button>
                       </div>)}
                     <label>{Patient}
                       <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ plistfilter: true }) }} />
@@ -861,8 +931,8 @@ class Index extends Component {
                               isSearchable={true} />
                           </Grid>
                         </Grid>
-                        <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
-                        <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
+                        <Button onClick={this.UpdateDocList}>{Ok}</Button>
+                        <Button onClick={this.ClearDocList}>{Cancel}</Button>
                       </div>)}
                     {/* <label>{capab_Doctors}
                       <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
@@ -886,8 +956,8 @@ class Index extends Component {
                         control={
                           <Radio className="radioPat" />
                         }
-                        label={capab_Doctors1} 
-                        />
+                        label={capab_Doctors1}
+                      />
                       <FormControlLabel
                         value="no"
                         name="selectPatDoc"
@@ -914,7 +984,7 @@ class Index extends Component {
                         />
                       </Grid></>}
                     {this.state.selectPatDoc === 'no' && <>
-                      <label>Nurse
+                      <label>{Nurse}
                         {/* <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} /> */}
                       </label>
                       <Grid>
@@ -998,37 +1068,37 @@ class Index extends Component {
           <div className="alowLocAces1">
             <div className="alowLocAces1Inner">
               <div className="accessCourse">
-              <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
                     <Grid
-                  className="backFlow backFlow34"
-                  onClick={() => {
-                    this.setState({ openAllowLoc: false, openAllowAccess: true });
-                  }}
-                >
-                  <a>
-                    <img
-                      src={require('assets/virtual_images/rightArrow.png')}
-                      alt=""
-                      title=""
-                    />
-                    Back
-                  </a>
-                </Grid>
+                      className="backFlow backFlow34"
+                      onClick={() => {
+                        this.setState({ openAllowLoc: false, openAllowAccess: true });
+                      }}
+                    >
+                      <a>
+                        <img
+                          src={require('assets/virtual_images/rightArrow.png')}
+                          alt=""
+                          title=""
+                        />
+                        Back
+                      </a>
                     </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
-                        <Grid>
-                        <Grid className="entryCloseBtn">
-                            <a onClick={this.handleCloseAllowLoc}>
-                            <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                            />
-                            </a>
-                        </Grid>
-                        </Grid>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseAllowLoc}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
                     </Grid>
+                  </Grid>
                 </Grid>
                 {/* <div className="handleAccessBtn">
                   <a onClick={this.handleCloseAllowLoc}>
@@ -1091,7 +1161,7 @@ class Index extends Component {
                       />
                     </>}
                     {this.state.selectPatDoc === 'no' && <>
-                      <Grid><label>Nurse</label></Grid>
+                      <Grid><label>{Nurse}</label></Grid>
                       <Select
                         value={selectNurData || ''}
                         onChange={this.handleNurSelect}
@@ -1172,39 +1242,39 @@ class Index extends Component {
                 {this.state.personalinfo &&
                   // allDocData.length > 0 &&
                   // allDocData.map((doc, i) => (
-                    <div className="allowAvailListIner">
-                      <Grid container direction="row" spacing={1}>
-                        <Grid item xs={12} md={3}>
-                          <Grid className="spclistDr">
-                            {this.state.personalinfo?.new_image ? (
-                              <img
-                                className="doctor_pic"
-                                src={this.state.personalinfo?.new_image}
-                                alt=""
-                                title=""
-                              />
-                            ) : (
-                              <img
-                                className="doctor_pic"
-                                src={require("assets/images/avatar.png")}
-                                alt=""
-                                title=""
-                              />
-                            )}
-                            <a>
-                              {/* <img src={doc.data.image} alt="" title="" /> */}
-                              {this.state.personalinfo?.first_name &&
-                                this.state.personalinfo?.first_name}{" "}
-                              {this.state.personalinfo?.last_name &&
-                                this.state.personalinfo?.last_name}{" "}
-                              {/* (
+                  <div className="allowAvailListIner">
+                    <Grid container direction="row" spacing={1}>
+                      <Grid item xs={12} md={3}>
+                        <Grid className="spclistDr">
+                          {this.state.personalinfo?.new_image ? (
+                            <img
+                              className="doctor_pic"
+                              src={this.state.personalinfo?.new_image}
+                              alt=""
+                              title=""
+                            />
+                          ) : (
+                            <img
+                              className="doctor_pic"
+                              src={require("assets/images/avatar.png")}
+                              alt=""
+                              title=""
+                            />
+                          )}
+                          <a>
+                            {/* <img src={doc.data.image} alt="" title="" /> */}
+                            {this.state.personalinfo?.first_name &&
+                              this.state.personalinfo?.first_name}{" "}
+                            {this.state.personalinfo?.last_name &&
+                              this.state.personalinfo?.last_name}{" "}
+                            {/* (
                               {doc.data &&
                                 doc.data.title &&
                                 doc.data.title}
                               ) */}
-                            </a>
-                          </Grid>
-                          {/* <Grid className="nuroDr">
+                          </a>
+                        </Grid>
+                        {/* <Grid className="nuroDr">
                             <label>
                               {doc.data &&
                                 doc.data.speciality &&
@@ -1224,22 +1294,22 @@ class Index extends Component {
                                 )}
                             </p>
                           </Grid> */}
-                        </Grid>
-                        <Grid item xs={12} md={5}>
-                          <Grid className="srvcTagsCntnt">
-                            <Grid className="srvcTags">
-                              <a
-                                className={
-                                  this.state.show_type === "contact" &&
-                                  "currentTab"
-                                }
-                                onClick={() => {
-                                  this.setState({ show_type: "contact" });
-                                }}
-                              >
-                                {Contact}
-                              </a>
-                              {/* <a
+                      </Grid>
+                      <Grid item xs={12} md={5}>
+                        <Grid className="srvcTagsCntnt">
+                          <Grid className="srvcTags">
+                            <a
+                              className={
+                                this.state.show_type === "contact" &&
+                                "currentTab"
+                              }
+                              onClick={() => {
+                                this.setState({ show_type: "contact" });
+                              }}
+                            >
+                              {Contact}
+                            </a>
+                            {/* <a
                                 className={
                                   this.state.show_type === "service" &&
                                   "currentTab"
@@ -1263,53 +1333,53 @@ class Index extends Component {
                               >
                                 {latest_info}
                               </a> */}
+                          </Grid>
+                          {this.state.show_type === "contact" && (
+                            <Grid className="srvcTagsLoc">
+                              <a>
+                                <img
+                                  src={require("assets/images/location-pin.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.city &&
+                                  this.state.personalinfo?.city}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/phone.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.mobile &&
+                                  this.state.personalinfo?.mobile}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/email.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.email &&
+                                  this.state.personalinfo?.email}
+                              </a>
+                              <a>
+                                <img
+                                  src={require("assets/images/language.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {this.state.personalinfo &&
+                                  this.state.personalinfo?.language &&
+                                  this.state.personalinfo?.language.length > 0 &&
+                                  this.state.personalinfo?.language.join(", ")}
+                              </a>
                             </Grid>
-                            {this.state.show_type === "contact" && (
-                              <Grid className="srvcTagsLoc">
-                                <a>
-                                  <img
-                                    src={require("assets/images/location-pin.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo &&
-                                    this.state.personalinfo?.city &&
-                                    this.state.personalinfo?.city}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/phone.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo  &&
-                                    this.state.personalinfo?.mobile &&
-                                    this.state.personalinfo?.mobile}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/email.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo  &&
-                                    this.state.personalinfo?.email &&
-                                    this.state.personalinfo?.email}
-                                </a>
-                                <a>
-                                  <img
-                                    src={require("assets/images/language.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {this.state.personalinfo &&
-                                    this.state.personalinfo?.language &&
-                                    this.state.personalinfo?.language.length > 0 &&
-                                    this.state.personalinfo?.language.join(", ")}
-                                </a>
-                              </Grid>
-                            )}
-                            {/* {this.state.show_type === "service" && (
+                          )}
+                          {/* {this.state.show_type === "service" && (
                               <Grid className="srvcTagsLoc">
                                 <a>
                                   {doc.data &&
@@ -1331,16 +1401,16 @@ class Index extends Component {
                                 </a>
                               </Grid>
                             )} */}
-                          </Grid>
                         </Grid>
-                        <Grid item xs={12} md={4}>
-                      {allDocData?.length > 0 &&
-                      allDocData.map((doc, i) => (
-                          <Grid className="avlablDates">
-                            <h3>{see_avlbl_date}:</h3>
-                            <Grid>
-                              {/* {this.state.video_call && ( */}
-                              {/* <a
+                      </Grid>
+                      <Grid item xs={12} md={4}>
+                        {allDocData?.length > 0 &&
+                          allDocData.map((doc, i) => (
+                            <Grid className="avlablDates">
+                              <h3>{see_avlbl_date}:</h3>
+                              <Grid>
+                                {/* {this.state.video_call && ( */}
+                                {/* <a
                                         onClick={() =>
                                           this.handleOpenFancyVdo(
                                             i,
@@ -1356,47 +1426,49 @@ class Index extends Component {
                                         />
                                         {vdo_call}
                                       </a> */}
-                              {/* )} */}
-                              {/* {this.state.office_visit && ( */}
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "appointments",
-                                    doc.appointments[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {doc.appointments &&
-                                  doc.appointments.length > 0 &&
-                                  doc.appointments[0].custom_text
-                                  ? doc.appointments[0].custom_text
-                                  : office_visit}
-                              </a>
-                              
-                              <a
-                                onClick={() =>
-                                  this.handleOpenFancyVdo(
-                                    i,
-                                    "homevisit_appointment",
-                                    doc.homevisit_appointment[0]
-                                  )
-                                }
-                              >
-                                <img
-                                  src={require("assets/images/ShapeCopy2.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                
+                                {/* )} */}
+                                {/* {this.state.office_visit && ( */}
+                                <a
+                                  onClick={() =>
+                                    this.handleOpenFancyVdo(
+                                      i,
+                                      "appointments",
+                                      doc.appointments[0]
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/ShapeCopy2.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {doc.appointments &&
+                                    doc.appointments.length > 0 &&
+                                    doc.appointments[0].custom_text
+                                    ? doc.appointments[0].custom_text
+                                    : office_visit}
+                                </a>
+
+                                <a
+                                  onClick={() => {
+                                    this.handleOpenFancyVdo(
+                                      i,
+                                      "homevisit_appointment",
+                                      doc.homevisit_appointment[0]
+                                    )
+                                  }
+                                    
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/ShapeCopy2.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+
                                   {Home_visit}
-                              </a>
-                              {/* )}
+                                </a>
+                                {/* )}
                                     <a
                                       onClick={() =>
                                         this.handleOpenFancyVdo(
@@ -1414,12 +1486,12 @@ class Index extends Component {
                                       />
                                       {consultancy_cstm_calnder}
                                     </a> */}
+                              </Grid>
                             </Grid>
-                          </Grid>
-                      ))}
-                        </Grid>
+                          ))}
                       </Grid>
-                    </div>
+                    </Grid>
+                  </div>
                   // ))}
                 }
               </div>
@@ -1481,54 +1553,29 @@ class Index extends Component {
                             <Grid>
                               <span>{holiday}!</span>
                             </Grid> :
-
-                            (this.state.appointDate.map((data, iA) => {
-                              if (
-                                this.Isintime(
-                                  this.state.appointDate[iA],
-                                  this.state.appointmentData.breakslot_start,
-                                  this.state.appointmentData.breakslot_end,
-                                  this.state.appointmentData.holidays_start,
-                                  this.state.appointmentData.holidays_end,
+                            (
+                              this.state.allSlotes && this.state.allSlotes.map((data, iA) => {
+                                if (
+                                  this.Isintime(
+                                    this.state.appointDate[iA],
+                                    this.state.appointmentData.breakslot_start,
+                                    this.state.appointmentData.breakslot_end,
+                                    this.state.appointmentData.holidays_start,
+                                    this.state.appointmentData.holidays_end,
+                                  )
                                 )
-                              )
-                                return;
+                                  return;
 
-                              return (
-                                <Grid>
-                                  {this.state.appointDate[iA + 1] &&
-                                    this.state.appointDate[iA + 1] !==
-                                    "undefined" &&
-                                    iA === 0 ? (
-                                    <a
-                                      className={
-                                        this.state.currentSelected === 0 &&
-                                        "current_selected"
-                                      }
-                                      onClick={() => {
-                                        this.findAppointment(
-                                          "tab3",
-                                          doc_select,
-                                          appointType,
-                                          apointDay,
-                                          iA
-                                        );
-                                      }}
-                                    >
-                                      {this.state.appointDate[iA] +
-                                        " - " +
-                                        this.state.appointDate[iA + 1]}
-                                    </a>
-                                  ) : (
-                                    this.state.appointDate[iA + 1] &&
-                                    this.state.appointDate[iA + 1] !==
-                                    "undefined" && (
+                                return (
+                                  <Grid>
+                                    {this.state.appointDate[iA + 1] &&
+                                      this.state.appointDate[iA + 1] !==
+                                      "undefined" &&
+                                      iA === 0 ? (
                                       <a
                                         className={
-                                          this.state.currentSelected &&
-                                            this.state.currentSelected === iA
-                                            ? "current_selected"
-                                            : ""
+                                          this.state.currentSelected === 0 &&
+                                          "current_selected"
                                         }
                                         onClick={() => {
                                           this.findAppointment(
@@ -1540,15 +1587,36 @@ class Index extends Component {
                                           );
                                         }}
                                       >
-                                        {this.state.appointDate[iA] +
-                                          " - " +
-                                          this.state.appointDate[iA + 1]}
+                                        {data?.slot}
                                       </a>
-                                    )
-                                  )}
-                                </Grid>
-                              );
-                            })
+                                    ) : (
+                                      this.state.appointDate[iA + 1] &&
+                                      this.state.appointDate[iA + 1] !==
+                                      "undefined" && (
+                                        <a
+                                          className={
+                                            this.state.currentSelected &&
+                                              this.state.currentSelected === iA
+                                              ? "current_selected"
+                                              : ""
+                                          }
+                                          onClick={() => {
+                                            this.findAppointment(
+                                              "tab3",
+                                              doc_select,
+                                              appointType,
+                                              apointDay,
+                                              iA
+                                            );
+                                          }}
+                                        >
+                                          {data?.slot}
+                                        </a>
+                                      )
+                                    )}
+                                  </Grid>
+                                );
+                              })
                             )
 
 
@@ -1565,6 +1633,7 @@ class Index extends Component {
                       )}
                   </Grid>
                 </Grid>
+                <Grid>{this.state.allSlotes?.slot}</Grid>
                 <Grid className="delQues">
                   <Grid>
                     <label>

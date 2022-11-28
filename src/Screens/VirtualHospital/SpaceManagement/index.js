@@ -76,12 +76,12 @@ class Index extends Component {
     this.setState({ openSpecl: true });
   };
   handleCloseSpecl = () => {
-    this.setState({errorMsg:""})
+    this.setState({ errorMsg: "" })
     this.setState({
       openSpecl: false,
       ward: {},
       speciality: {},
-      errorMsg:false
+      errorMsg: false
     });
 
     this.setState({
@@ -101,46 +101,46 @@ class Index extends Component {
       this.state.roomDel &&
       this.state.patDel &&
       this.state.deleteId
-    ){
-    handleCloseWarn(this);
-    let translate = getLanguage(this.props.stateLanguageType);
-    let { deleteSpeciality, really_want_to_delete_speciality, No, Yes } =
-      translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1 class="alert-btn">{deleteSpeciality}</h1>
+    ) {
+      handleCloseWarn(this);
+      let translate = getLanguage(this.props.stateLanguageType);
+      let { deleteSpeciality, really_want_to_delete_speciality, No, Yes } =
+        translate;
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === 'dark'
+                  ? 'dark-confirm react-confirm-alert-body'
+                  : 'react-confirm-alert-body'
+              }
+            >
+              <h1 class="alert-btn">{deleteSpeciality}</h1>
 
-            <p>{really_want_to_delete_speciality}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
-                onClick={() => {
-                  deleteClick(this);
-                  onClose();
-                }}
-              >
-                {Yes}
-              </button>
+              <p>{really_want_to_delete_speciality}</p>
+              <div className="react-confirm-alert-button-group">
+                <button onClick={onClose}>{No}</button>
+                <button
+                  onClick={() => {
+                    deleteClick(this);
+                    onClose();
+                  }}
+                >
+                  {Yes}
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      },
-    });
-  }
-  else{
-    this.setState({ showError: true });
-  }
+          );
+        },
+      });
+    }
+    else {
+      this.setState({ showError: true });
+    }
   };
 
   render() {
@@ -191,13 +191,15 @@ class Index extends Component {
       return <Redirect to={'/VirtualHospital/institutes'} />;
     }
 
+    const {House:{roles=[]}={}} = this.props || {}
+
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -232,9 +234,12 @@ class Index extends Component {
                           <h1>{SpaceManagement}</h1>
                         </Grid>
                       </Grid>
+                      {roles.includes("add_speciality")  &&                      
                       <Grid item xs={12} sm={6} md={6} className="addFlowRght">
                         <a onClick={this.handleOpenSpecl}>{addNewSpeciality}</a>
                       </Grid>
+                      
+                      }
                     </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
@@ -306,38 +311,38 @@ class Index extends Component {
                       onClose={() => handleCloseWarn(this)}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark'
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark'
                           ? 'darkTheme addWrnModel'
                           : 'addWrnModel'
                       }
                     >
                       <Grid className="addWrnContnt">
                         <Grid className="addWrnIner">
-                        <Grid container direction="row" justify="center" className="addWrnLbl">
-                        <Grid item xs={8} md={8} lg={8}>
-                            <label>{DeleteSpeciality}</label>
-                        </Grid>
-                        <Grid item xs={4} md={4} lg={4}>
-                            <Grid>
-                            <Grid className="entryCloseBtn">
-                                <a onClick={() => handleCloseWarn(this)}>
-                                <img
-                                    src={require("assets/images/close-search.svg")}
-                                    alt=""
-                                    title=""
-                                />
-                                </a>
+                          <Grid container direction="row" justify="center" className="addWrnLbl">
+                            <Grid item xs={8} md={8} lg={8}>
+                              <label>{DeleteSpeciality}</label>
                             </Grid>
+                            <Grid item xs={4} md={4} lg={4}>
+                              <Grid>
+                                <Grid className="entryCloseBtn">
+                                  <a onClick={() => handleCloseWarn(this)}>
+                                    <img
+                                      src={require("assets/images/close-search.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                  </a>
+                                </Grid>
+                              </Grid>
                             </Grid>
-                        </Grid>
-                        {this.state.showError && (
+                            {this.state.showError && (
                               <div className="err_message">
                                 {select_all_conditions_to_delete_speciality}
                               </div>
                             )}
-                        </Grid>
+                          </Grid>
                           {/* <Grid className="addWrnLbl">
                             <Grid className="addWrnClose">
                               <a onClick={() => handleCloseWarn(this)}>
@@ -421,7 +426,7 @@ class Index extends Component {
                                 <Button
                                   className="selWarnBtn"
                                   onClick={() => {
-                                 this.removeSpeciality()
+                                    this.removeSpeciality()
                                   }}
                                 >
                                   {yesDeleteSpeciality}
@@ -438,6 +443,7 @@ class Index extends Component {
 
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr">
+                      {roles.includes("show_speciality")  ?
                       <Grid container direction="row" spacing={2}>
                         {this.state.specialityData?.length > 0 &&
                           this.state.specialityData.map((data) => (
@@ -511,7 +517,7 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           ))}
-                      </Grid>
+                      </Grid>:<p className='authority'>You have no authority for showing the speciality, Please contact to hospital admin</p>}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -526,9 +532,9 @@ class Index extends Component {
           onClose={this.handleCloseSpecl}
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === 'dark'
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
               ? 'darkTheme addSpeclModel'
               : 'addSpeclModel'
           }
@@ -536,37 +542,37 @@ class Index extends Component {
           <Grid className="addSpeclContnt">
             <Grid className="addSpeclContntIner">
               <Grid className="addSpeclLbl">
-              <Grid container direction="row" justify="center">
-                <Grid item xs={8} md={8} lg={8}>
-                {this.state.speciality._id ? (
-                  <label>
-                    {edit}{' '}
-                    <span
-                      className="spacemanageDel"
-                      onClick={() =>
-                        handleOpenWarn(this.state.speciality._id, this)
-                      }
-                    >
-                      <span className="deleteimg"></span> {DeleteSpeciality}
-                    </span>
-                  </label>
-                ) : (
-                  <label>{AddSpeciality}</label>
-                )}
-                </Grid>
-                <Grid item xs={4} md={4} lg={4}>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                    {this.state.speciality._id ? (
+                      <label>
+                        {edit}{' '}
+                        <span
+                          className="spacemanageDel"
+                          onClick={() =>
+                            handleOpenWarn(this.state.speciality._id, this)
+                          }
+                        >
+                          <span className="deleteimg"></span> {DeleteSpeciality}
+                        </span>
+                      </label>
+                    ) : (
+                      <label>{AddSpeciality}</label>
+                    )}
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
                     <Grid>
-                    <Grid className="entryCloseBtn">
+                      <Grid className="entryCloseBtn">
                         <a onClick={this.handleCloseSpecl}>
-                        <img
+                          <img
                             src={require("assets/images/close-search.svg")}
                             alt=""
                             title=""
-                        />
+                          />
                         </a>
+                      </Grid>
                     </Grid>
-                    </Grid>
-                </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
               {/* <Grid className="enterSpclUpr"> */}
@@ -588,7 +594,7 @@ class Index extends Component {
                       <Grid className="colorBtnUpr">
                         <Grid>
                           <ColorSelection
-                          stateLanguageType={this.props.stateLanguageType}
+                            stateLanguageType={this.props.stateLanguageType}
                             label={Color}
                             updateEntryState1={(name, value) =>
                               updateEntryState1(name, value, this)

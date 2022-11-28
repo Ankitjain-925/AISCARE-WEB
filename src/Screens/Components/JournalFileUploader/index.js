@@ -48,22 +48,28 @@ class ImageUploderView extends Component {
   };
   updateImages = (attachfile) => {
     var images = [];
-    attachfile &&
-      attachfile.length > 0 &&
-      attachfile.map((data, index) => {
-        var find = data && data.filename && data.filename;
-        if (find) {
-          var find1 = find.split(".com/")[1];
-          axios
-            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-            .then((response2) => {
-              if (response2.data.hassuccessed) {
-                images.push({ image: find, new_image: response2.data.data });
-                this.setState({ images: images });
-              }
-            });
-        }
-      });
+    if (attachfile && attachfile.length > 0) {
+      attachfile &&
+        attachfile.length > 0 &&
+        attachfile.map((data, index) => {
+          var find = data && data.filename && data.filename;
+          if (find) {
+            var find1 = find.split(".com/")[1];
+            axios
+              .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+              .then((response2) => {
+                if (response2.data.hassuccessed) {
+                  images.push({ image: find, new_image: response2.data.data });
+                  this.setState({ images: images });
+                }
+              });
+          }
+        });
+    }
+    else {
+      this.setState({ attachfile: this.props.attachfile })
+    }
+
   };
   getFileName = (file) => {
     if (file && file.filename) {
@@ -86,7 +92,6 @@ class ImageUploderView extends Component {
       this.state.attachfile.length > 0 &&
       this.state.attachfile.filter((item) => item.filename !== file);
     this.setState({ attachfile: data });
-    console.log('data', data)
     this.props.fileUpload(data, this.props.name);
   };
   //For upload and image previews
@@ -101,95 +106,94 @@ class ImageUploderView extends Component {
         } else {
           var Fileadd = this.state.attachfile;
           this.setState({ ismore_five: false, file_type: false });
-           for (var i = 0; i < event.length; i++) {
-          let file = event[i];
-              let fileParts = file.name.split(".");
-              let fileName = fileParts[0];
-              let fileType = fileParts[1];
-              let bucket = this.props.cur_one && this.props.cur_one.bucket;
-              this.setState({ loaderImage: true });
-              axios
-                .post(sitedata.data.path + "/aws/sign_s3", {
-                  fileName: fileName,
-                  fileType: fileType,
-                  folders:
-                    this.props.cur_one &&
-                    this.props.cur_one.profile_id + "/Trackrecord/",
-                  bucket: bucket,
-                })
-                .then((response) => {
-                  Fileadd.push({
-                    filename:
-                      response.data.data.returnData.url + "&bucket=" + bucket,
-                    filetype: fileType,
-                  });
-                  setTimeout(() => {
-                    this.setState({ fileupods: false });
-                  }, 3000);
-                  let returnData = response.data.data.returnData;
-                  let signedRequest = returnData.signedRequest;
-                  let url = returnData.url;
-                  if (fileType === "pdf") {
-                    fileType = "application/pdf";
-                  }
-                  // Put the fileType in the headers for the upload
-                  var options = {
-                    headers: {
-                      "Content-Type": fileType,
-                    },
-                  };
-                  axios
-                    .put(signedRequest, file, options)
-                    .then((result) => { })
-                    .catch((error) => { });
+          for (var i = 0; i < event.length; i++) {
+            let file = event[i];
+            let fileParts = file.name.split(".");
+            let fileName = fileParts[0];
+            let fileType = fileParts[1];
+            let bucket = this.props.cur_one && this.props.cur_one.bucket;
+            this.setState({ loaderImage: true });
+            axios
+              .post(sitedata.data.path + "/aws/sign_s3", {
+                fileName: fileName,
+                fileType: fileType,
+                folders:
+                  this.props.cur_one &&
+                  this.props.cur_one.profile_id + "/Trackrecord/",
+                bucket: bucket,
+              })
+              .then((response) => {
+                Fileadd.push({
+                  filename:
+                    response.data.data.returnData.url + "&bucket=" + bucket,
+                  filetype: fileType,
+                });
+                setTimeout(() => {
+                  this.setState({ fileupods: false });
+                }, 3000);
+                let returnData = response.data.data.returnData;
+                let signedRequest = returnData.signedRequest;
+                let url = returnData.url;
+                if (fileType === "pdf") {
+                  fileType = "application/pdf";
+                }
+                // Put the fileType in the headers for the upload
+                var options = {
+                  headers: {
+                    "Content-Type": fileType,
+                  },
+                };
+                axios
+                  .put(signedRequest, file, options)
+                  .then((result) => { })
+                  .catch((error) => { });
 
-                  let previes = URL.createObjectURL(file);
-                  if (fileType === "mp4") {
-                    previes = require("assets/images/videoIcon.png");
-                  }
-                  if (fileType === "pdf" || fileType === "application/pdf") {
-                    previes = require("assets/images/pdfimg.png");
-                  } else if (
-                    fileType === "doc" ||
-                    fileType === "docx" ||
-                    fileType === "xml" ||
-                    fileType === "txt"
-                  ) {
-                    previes = require("assets/images/txt1.png");
-                  } else if (
-                    fileType === "xls" ||
-                    fileType === "xlsx" ||
-                    fileType === "xml"
-                  ) {
-                    previes = require("assets/images/xls1.svg");
-                  } else if (fileType === "csv") {
-                    previes = require("assets/images/csv1.png");
-                  } else if (
-                    fileType === "dcm" ||
-                    fileType === "DCM" ||
-                    fileType === "DICOM" ||
-                    fileType === "dicom"
-                  ) {
-                    previes = require("assets/images/dcm1.png");
-                  } else {
-                    previes = URL.createObjectURL(file);
-                  }
-                  let images = this.state.images;
-                  images.push({
-                    image:
-                      response.data.data.returnData.url + "&bucket=" + bucket,
-                    new_image: previes,
-                  });
-                  this.setState({ images: images });
-                  //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
-                })
-                .catch((error) => { });
+                let previes = URL.createObjectURL(file);
+                if (fileType === "mp4") {
+                  previes = require("assets/images/videoIcon.png");
+                }
+                if (fileType === "pdf" || fileType === "application/pdf") {
+                  previes = require("assets/images/pdfimg.png");
+                } else if (
+                  fileType === "doc" ||
+                  fileType === "docx" ||
+                  fileType === "xml" ||
+                  fileType === "txt"
+                ) {
+                  previes = require("assets/images/txt1.png");
+                } else if (
+                  fileType === "xls" ||
+                  fileType === "xlsx" ||
+                  fileType === "xml"
+                ) {
+                  previes = require("assets/images/xls1.svg");
+                } else if (fileType === "csv") {
+                  previes = require("assets/images/csv1.png");
+                } else if (
+                  fileType === "dcm" ||
+                  fileType === "DCM" ||
+                  fileType === "DICOM" ||
+                  fileType === "dicom"
+                ) {
+                  previes = require("assets/images/dcm1.png");
+                } else {
+                  previes = URL.createObjectURL(file);
+                }
+                let images = this.state.images;
+                images.push({
+                  image:
+                    response.data.data.returnData.url + "&bucket=" + bucket,
+                  new_image: previes,
+                });
+                this.setState({ images: images });
+                //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
+              })
+              .catch((error) => { });
 
-              this.setState({ loaderImage: false, attachfile: Fileadd });
-              console.log('inside Props', Fileadd)
-              this.props.fileUpload(Fileadd, this.props.name);
-            }
-         }
+            this.setState({ loaderImage: false, attachfile: Fileadd });
+            this.props.fileUpload(Fileadd, this.props.name);
+          }
+        }
       }
     }
   };
@@ -206,11 +210,11 @@ class ImageUploderView extends Component {
           this.setState({ ismore_five: false, file_type: false });
           var getNotSupport = false;
           for (var i = 0; i < event.length; i++) {
-         const eventType = event[i].name.split(".")[1];
-            if (eventType === "png" || 
-                eventType === "jpeg"||
-                eventType === "jpg" ||
-                eventType === "svg") {
+            const eventType = event[i].name.split(".")[1];
+            if (eventType === "png" ||
+              eventType === "jpeg" ||
+              eventType === "jpg" ||
+              eventType === "svg") {
               this.setState({ error: false })
               let file = event[i];
               let fileParts = file.name.split(".");
@@ -296,7 +300,6 @@ class ImageUploderView extends Component {
                 .catch((error) => { });
 
               this.setState({ loaderImage: false, attachfile: Fileadd });
-              console.log('inside Props', Fileadd)
               this.props.fileUpload(Fileadd, this.props.name);
             }
             else {

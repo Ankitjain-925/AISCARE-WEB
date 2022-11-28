@@ -38,12 +38,15 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
   { value: 'Specialist2', label: 'Specialist2' },
 ];
-
+var socket
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -72,6 +75,8 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
+    socket = io(SOCKET_URL);
+
   }
 
   getallGroups = () => {
@@ -437,47 +442,60 @@ class Index extends Component {
     this.setState({ house: value });
   };
 
-  SaveAssignHouse = () => {
+  SaveAssignHouse = (authority) => {
     var userid = this.state.current_user._id;
     var housevalue = this.state.house;
-    this.setState({ loaderImage: true });
-    if (housevalue && housevalue?.value) {
-      axios
-        .put(
-          sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
-          this.state.house,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({
-              assignedhouse: true,
-              blankerror: false,
-              house: {},
+    if (housevalue.value) {
+        housevalue.roles = authority;
+        if(authority?.length>0){
+            this.setState({ blankerror: false, selectRole: false,  assignedhouse: false , loaderImage: true})
+            axios
+            .put(
+                sitedata.data.path +
+                `/hospitaladmin/assignedHouse/${userid}`,
+                this.state.house,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              console.log('UpdateA', responce.data.data)
+              var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              socket.emit("UpdateA",sendSec)
+
+                if (responce.data.hassuccessed) {
+                    this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                    this.getallGroups();
+                    this.getAdminstaff(true);
+                    setTimeout(() => {
+                        this.setState({ assignedhouse: false, house: {} })
+                    }, 5000)
+                    this.getallGroups();
+                    this.getAdminstaff(this.state.current_user._id);
+                }
+                // else {
+                //     this.setState({ alredyExist: true })
+                //     setTimeout(() => {
+                //         this.setState({ alredyExist: false })
+                //     }, 5000)
+                // }
+                this.setState({ loaderImage: false });
             });
+        }
+        else{
+            this.setState({ blankerror: false, selectRole: true,  assignedhouse: false })  
             setTimeout(() => {
-              this.setState({ assignedhouse: false, house: {} });
-            }, 5000);
-            this.getallGroups();
-            this.getAdminstaff(this.state.current_user._id);
-          }
-          // else {
-          //   this.setState({ alredyExist: true })
-          //   setTimeout(() => {
-          //     this.setState({ alredyExist: false })
-          //   }, 3000)
-          // }
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({ blankerror: true, assignedhouse: false });
-      setTimeout(() => {
-        this.setState({ blankerror: false });
-      }, 5000);
+                this.setState({ selectRole: false })
+            }, 5000)
+        }
+    }
+    else {
+        this.setState({ blankerror: true, assignedhouse: false })
+        setTimeout(() => {
+            this.setState({ blankerror: false })
+        }, 5000)
     }
     this.setState({ loaderImage: false });
-    // /assignedHouse/:
-  };
+   
+}
   deleteHouse = (deleteId) => {
     var userid = this.state.current_user._id;
     this.setState({ loaderImage: true });
@@ -488,6 +506,9 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        this.setState({ loaderImage: false });
+        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        socket.emit("deleteA",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {
@@ -500,7 +521,7 @@ class Index extends Component {
       });
   };
   render() {
-    if (this.props.stateLoginValueAim.user.type != 'hospitaladmin') {
+    if (this.props.stateLoginValueAim?.user?.type !== 'hospitaladmin') {
       this.props.history.push('/');
     }
     let translate = getLanguage(this.props.stateLanguageType);
@@ -524,6 +545,7 @@ class Index extends Component {
       ManageHouse,
       Findaadminstaff,
       see_detail,
+      admin_staff,
     } = translate;
 
     return (
@@ -564,11 +586,11 @@ class Index extends Component {
                     className="archvOpinLbl"
                   >
                     <Grid item xs={12} md={6}>
-                      <label>{'Admin staff'}</label>
+                      <label>{admin_staff}</label>
                     </Grid>
                     <Grid item xs={12} md={6} className="archvOpinRght">
                       <a onClick={this.handleOpenCreate}>
-                        + {add_new} {'Admin staff'}
+                        + {add_new} {admin_staff}
                       </a>
                     </Grid>
                   </Grid>
@@ -777,7 +799,7 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
-                    // checkboxdata={this.state.checkboxdata}
+                    checkboxdata={this.state.checkboxdata}
                   />
                   {/* <Modal
                     open={this.state.openHouse}

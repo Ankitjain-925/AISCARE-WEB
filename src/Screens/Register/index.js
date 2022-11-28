@@ -20,7 +20,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
 import { updateCometUser } from "Screens/Components/CommonApi/index";
-import { commonCometHeader } from "component/CommonHeader/index";
+import { commonCometHeader, commonHeader } from "component/CommonHeader/index";
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -129,13 +129,16 @@ class Index extends Component {
                         bucket: getBucket[0].bucket,
                         token: this.state.recaptcha,
                         Aimedis_health_newletter:
-                        this.state.userDetails.Aimedis_health_newletter,
-                      newsletter_last_update_date:
-                        this.state.userDetails.newsletter_last_update_date,
+                          this.state.userDetails.Aimedis_health_newletter,
+                        newsletter_last_update_date:
+                          this.state.userDetails.newsletter_last_update_date,
                       })
                       .then((responce) => {
                         this.setState({ loaderImage: false });
                         if (responce.data.hassuccessed === true) {
+                          if (responce.data?.data?.Aimedis_health_newletter) {
+                            this.activatenewsLetter(responce);
+                          }
                           axios
                             .post(
                               "https://api-eu.cometchat.io/v2.0/users",
@@ -210,9 +213,9 @@ class Index extends Component {
                           bucket: getBucket[0].bucket,
                           token: this.state.recaptcha,
                           Aimedis_health_newletter:
-                          this.state.userDetails.Aimedis_health_newletter,
-                        newsletter_last_update_date:
-                          this.state.userDetails.newsletter_last_update_date,
+                            this.state.userDetails.Aimedis_health_newletter,
+                          newsletter_last_update_date:
+                            this.state.userDetails.newsletter_last_update_date,
                         })
                         .then((responce) => {
                           this.setState({ loaderImage: false });
@@ -282,7 +285,7 @@ class Index extends Component {
     if (
       (e.target.name === 'terms_and_conditions' ||
         e.target.name === 'license_of_practice',
-      e.target.name === 'is2fa')
+        e.target.name === 'is2fa')
     ) {
       state[e.target.name] = e.target.checked;
     } else if (e.target.name === 'Aimedis_health_newletter') {
@@ -414,9 +417,9 @@ class Index extends Component {
         bucket: getBucket[0].bucket,
         token: this.state.recaptcha,
         Aimedis_health_newletter:
-        this.state.userDetails.Aimedis_health_newletter,
-      newsletter_last_update_date:
-        this.state.userDetails.newsletter_last_update_date,
+          this.state.userDetails.Aimedis_health_newletter,
+        newsletter_last_update_date:
+          this.state.userDetails.newsletter_last_update_date,
       })
       .then((responce) => {
         this.setState({ loaderImage: false, FilesUp: [] });
@@ -481,6 +484,22 @@ class Index extends Component {
     this.setState({ mode: mode }, () => {
       this.props.Settings("loggedOut", mode);
     });
+  };
+  // for activate marketing user
+  activatenewsLetter = (response) => {
+    var data = {
+      first_name: response.data.data.first_name,
+      last_name: response.data.data.last_name,
+      email: response.data.data.email,
+    };
+    axios
+      .post(
+        sitedata.data.path + '/UserProfile/marketing_user',
+        data,
+        commonHeader(response.data.data.usertoken)
+      )
+      .then((responce) => { })
+      .catch(() => { });
   };
 
   render() {
@@ -1087,20 +1106,20 @@ class Index extends Component {
                       className="regMob"
                       control={
                         <Checkbox
-                        value={
-                          this.state.userDetails &&
-                          this.state.userDetails?.Aimedis_health_newletter &&
-                          this.state.userDetails?.Aimedis_health_newletter ==
-                            true
-                            ? false
-                            : true
-                        }
-                        checked={
-                          this.state.userDetails?.Aimedis_health_newletter
-                        }
-                        name="Aimedis_health_newletter"
-                        onChange={this.handleChange}
-                      />
+                          value={
+                            this.state.userDetails &&
+                              this.state.userDetails?.Aimedis_health_newletter &&
+                              this.state.userDetails?.Aimedis_health_newletter ==
+                              true
+                              ? false
+                              : true
+                          }
+                          checked={
+                            this.state.userDetails?.Aimedis_health_newletter
+                          }
+                          name="Aimedis_health_newletter"
+                          onChange={this.handleChange}
+                        />
                       }
                       label={Register_want_register}
                     />

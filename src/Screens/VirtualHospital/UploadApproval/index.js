@@ -214,6 +214,7 @@ class Index extends Component {
                 senddata.mobile = this.state.patinfo?.mobile;
               }
               senddata.case_id = responce1.data?.data;
+              senddata.house_id = this.props.House?.value;
               senddata.patient = this.state.patinfo._id;
               senddata.patient_name = this.state.patinfo.last_name
                 ? this.state.patinfo.first_name +
@@ -405,7 +406,7 @@ class Index extends Component {
 
                         <Grid container direction="row" justifyContent="center">
                           <Grid item xs={12} md={8} lg={8}>
-                            <Grid className="aaa">
+                            <Grid className="services-head">
                               <Grid className="headerCountTxt infoSubInpSection">
                                 <input
                                   type="submit"

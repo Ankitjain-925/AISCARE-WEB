@@ -97,6 +97,7 @@ class Index extends Component {
       logout,
       DarkMode,
       InstituteGroups,
+      admin_staff,
     } = translate;
 
     return (
@@ -179,7 +180,7 @@ class Index extends Component {
                         alt=""
                         title=""
                       />
-                      <span>{'Admin Staff'}</span>
+                      <span>{admin_staff}</span>
                     </a>
                   </li>
                   <li

@@ -2,8 +2,9 @@ import { getLanguage } from 'translations/index';
 import axios from 'axios';
 import sitedata from 'sitedata';
 import { commonHeader } from 'component/CommonHeader/index';
-import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import _ from 'lodash';
+
 
 export const handleChangeForm = (current, value) => {
     if (value === 1) {
@@ -39,11 +40,22 @@ export const updateAllEntrySec1 = (current, e, name) => {
 }
 
 export const checkValidation2 = (current, item, fulldata) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {
+        please_select,
+        with_yes_and_no,
+        Diameter_Leg,
+        please_enter_Diameter_leg,
+        Please_select_better_and_worse_for_condition,
+        Sick,
+        Please_enter_Weight,
+        Your_form_data_successfully_submitted
+    } = translate;
     current.setState({ errorChrMsg: '' })
     if (item === 'full_diameter_leg') {
         if (!fulldata.full_diameter_leg) {
             current.setState({
-                errorChrMsg: 'please select' + ' ' + "Diameter leg" + ' ' + 'with yes and no',
+                errorChrMsg: please_select + ' ' + Diameter_Leg + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
@@ -51,7 +63,7 @@ export const checkValidation2 = (current, item, fulldata) => {
 
             if (!fulldata.full_anamnesis_diameter_leg) {
                 current.setState({
-                    errorChrMsg: 'please enter Diameter leg',
+                    errorChrMsg: please_enter_Diameter_leg,
                 });
                 MoveTop(0);
                 return false;
@@ -59,7 +71,7 @@ export const checkValidation2 = (current, item, fulldata) => {
             }
             else if (!fulldata.full_anamnesis_condition) {
                 current.setState({
-                    errorChrMsg: 'Please select better and worse for condition',
+                    errorChrMsg: Please_select_better_and_worse_for_condition,
                 });
                 MoveTop(0);
                 return false;
@@ -73,7 +85,7 @@ export const checkValidation2 = (current, item, fulldata) => {
     if (item === 'full_Sick') {
         if (!fulldata.full_Sick) {
             current.setState({
-                errorChrMsg: 'Please select' + ' ' + "Sick" + ' ' + 'with yes and no',
+                errorChrMsg: please_select + ' ' + Sick + ' ' + with_yes_and_no,
             });
             MoveTop(0);
             return false;
@@ -81,7 +93,7 @@ export const checkValidation2 = (current, item, fulldata) => {
 
             if (!fulldata.full_anamnesis_weight) {
                 current.setState({
-                    errorChrMsg: 'Please enter Weight',
+                    errorChrMsg: Please_enter_Weight,
                 });
                 MoveTop(0);
                 return false;
@@ -130,7 +142,10 @@ export const checkValidation = (current, value, item) => {
         Stairs,
         On_and_off_Toilet,
         Bowels,
-        please_select
+        please_select,
+        Please_Enter_O2_saturation,
+        Situation_files,
+        Bladder
 
     } = translate;
 
@@ -182,7 +197,7 @@ export const checkValidation = (current, value, item) => {
             return false;
         } else if (!Valid) {
             current.setState({
-                errorChrMsg: diastolic_in_number,
+                 errorChrMsg: diastolic_in_number,
             });
             MoveTop(0);
             return false;
@@ -378,9 +393,7 @@ export const checkValidation = (current, value, item) => {
     }
     else if ((item === "full_anamnesis_o2_saturation")) {
         if (!value) {
-
-            current.setState({ errorChrMsg: "Please Enter O2 saturation" })
-
+            current.setState({ errorChrMsg: Please_Enter_O2_saturation })
             MoveTop(0);
             return false;
         }
@@ -437,7 +450,7 @@ export const checkValidation = (current, value, item) => {
         if (!value) {
 
             current.setState({
-                errorChrMsg: "Please select" + " " + currentItem + " " + "Situation files"
+                errorChrMsg: please_select + " " + currentItem + " " + Situation_files
             })
 
             MoveTop(0);
@@ -474,7 +487,7 @@ export const checkValidation = (current, value, item) => {
                                     ? On_and_off_Toilet
                                     : item === "full_bowels"
                                         ? Bowels
-                                        : "Bladder"
+                                        : Bladder
         if (!value) {
             current.setState({ errorChrMsg: please_select + " " + currentItem })
             MoveTop(0);
@@ -509,6 +522,7 @@ export const handleSubmit = (current) => {
         if (selectHouse && selectHouse?.value) {
             if (selectPatient && selectPatient?.value) {
                 current.setState({ openQues: true });
+                prevQuestData(current);
             } else {
                 current.setState({ errorChrMsg1: please_select + " " + Patient_first })
             }
@@ -545,14 +559,14 @@ export const handleSubmit = (current) => {
                                                                                             if (checkValidation(current, data?.full_pneunomie_o2_sound_recording, "full_pneunomie_o2_sound_recording")) {
                                                                                                 if (checkValidation(current, data?.full_nutrition_situation_fruits, "full_nutrition_situation_fruits")) {
                                                                                                     if (checkValidation(current, data?.full_nutrition_situation_protein, "full_nutrition_situation_protein")) {
-                                                                                                        if (checkValidation(current, data?.full_feeding, "full_feeding")) {
-                                                                                                            if (checkValidation(current, data?.full_chair_bed_transfer, "full_chair_bed_transfer")) {
-                                                                                                                if (checkValidation(current, data?.full_ambulation, "full_ambulation")) {
-                                                                                                                    if (checkValidation(current, data?.full_wheelchair_management, "full_wheelchair_management")) {
-                                                                                                                        if (checkValidation(current, data?.full_stairs, "full_stairs")) {
-                                                                                                                            if (checkValidation(current, data?.full_on_and_off_toilet, "full_on_and_off_toilet")) {
-                                                                                                                                if (checkValidation(current, data?.full_bowels, "full_bowels")) {
-                                                                                                                                    if (checkValidation(current, data?.full_bladder, "full_bladder")) {
+                                                                                                        if (checkValidation(current, data?.full_feeding?.value, "full_feeding")) {
+                                                                                                            if (checkValidation(current, data?.full_chair_bed_transfer?.value, "full_chair_bed_transfer")) {
+                                                                                                                if (checkValidation(current, data?.full_ambulation?.value, "full_ambulation")) {
+                                                                                                                    if (checkValidation(current, data?.full_wheelchair_management?.value, "full_wheelchair_management")) {
+                                                                                                                        if (checkValidation(current, data?.full_stairs?.value, "full_stairs")) {
+                                                                                                                            if (checkValidation(current, data?.full_on_and_off_toilet?.value, "full_on_and_off_toilet")) {
+                                                                                                                                if (checkValidation(current, data?.full_bowels?.value, "full_bowels")) {
+                                                                                                                                    if (checkValidation(current, data?.full_bladder?.value, "full_bladder")) {
                                                                                                                                         CallApi(current, data);
                                                                                                                                     }
                                                                                                                                 }
@@ -594,6 +608,10 @@ export const handleSubmit = (current) => {
 
 
 export const CallApi = (current, data) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {
+        Your_form_data_successfully_submitted
+    } = translate;
     const { allQuestionData, allPatientData, selectHouse } = current.state;
     var nurse_id = current.props.stateLoginValueAim?.user?._id;
     var data = {
@@ -652,10 +670,11 @@ export const CallApi = (current, data) => {
                             // openQues: false,
                             errorChrMsg1: '',
                             loaderImage: false,
-                            successMsg: "Your form data successfully submitted"
+                            successMsg: Your_form_data_successfully_submitted
                         });
                         setTimeout(() => { current.setState({ successMsg: "" }) }, 5000)
                         MoveTop(0);
+                        prevQuestData(current);
                         // }
                         // else {
                         //     current.setState({ loaderImage: false })
@@ -679,31 +698,12 @@ export const FileAttachMulti = (current, Fileadd, name) => {
         fileupods: true,
         allQuestionData: state
     })
-    // current.setState({
-    //     valueof: name === "daily_decubitus_picture_with_scale" ||
-    //         name === "day_decubitus_picture_with_scale" ||
-    //         name === "week_decubitus_picture_with_scale" ? 1 : 2
-    // })
 };
 
 export const allHouses = (current) => {
-    current.setState({ loaderImage: true });
-    let user_token = current.props.stateLoginValueAim.token;
-    let user_id = current.props.stateLoginValueAim.user._id;
-    axios
-        .get(
-            sitedata.data.path + "/UserProfile/Users/" + user_id,
-            commonHeader(user_token)
-        )
-        .then((response) => {
-            current.setState({ loaderImage: false });
-            current.setState({
-                currentList: response.data.data.houses,
-            });
-        })
-        .catch((error) => {
-            current.setState({ loaderImage: false });
-        });
+    current.setState({
+        currentList: current.props.stateLoginValueAim?.user?.houses ? current.props.stateLoginValueAim?.user?.houses : []
+    })
 };
 
 export const updateEntryState = (current, e) => {
@@ -712,25 +712,6 @@ export const updateEntryState = (current, e) => {
         getPatientData1(current);
     });
 }
-
-// Get the Professional data
-// export const getProfessionalData1 = async (current) => {
-//     current.setState({ loaderImage: true });
-//     var data = await getProfessionalData(
-//         current.state.selectHouse?.value,
-//         current.props.stateLoginValueAim?.token
-//     );
-//     if (data) {
-//         current.setState({
-//             loaderImage: false,
-//             professionalArray: data.professionalArray,
-//             professional_id_list: data.professionalList,
-//             professional_id_list1: data.professionalList,
-//         });
-//     } else {
-//         current.setState({ loaderImage: false });
-//     }
-// };
 
 // Get the Patient data
 export const getPatientData1 = async (current) => {
@@ -746,6 +727,11 @@ export const getPatientData1 = async (current) => {
     } else {
         current.setState({ loaderImage: false });
     }
+    if(current.state.selectHouse?.roles.includes('add_care_questionnary')) {
+        current.setState({ authorityMsg: false });
+    } else {
+        current.setState({ authorityMsg: true });
+    }
 };
 
 export const updateEntryState1 = (current, e) => {
@@ -754,4 +740,32 @@ export const updateEntryState1 = (current, e) => {
         return el?.user_id === e?.value;
     });
     current.setState({ allPatientData: newArray });
+}
+
+export const updateAllEntrySec0 = (current, e) => {
+    const state = current.state.allQuestionData;
+    state[e.name] = e.z;
+    current.setState({ allQuestionData: state });
+}
+
+export const prevQuestData = (current) => {
+    current.setState({ loaderImage: true });
+    let user_token = current.props.stateLoginValueAim.token;
+    let user_id = current.state.selectPatient?.value;
+    axios
+        .get(
+            sitedata.data.path + "/vc/GetUserQuerstionair/" + user_id,
+            commonHeader(user_token)
+        )
+        .then((response) => {
+            current.setState({ prevData: response.data.data, loaderImage: false });
+        })
+        .catch((error) => {
+            current.setState({ loaderImage: false });
+        });
+};
+
+export const showHouseValue = (current, house_id) => {
+    const house_name = _.filter(current.state.currentList, (item) => item.value === house_id).map((obj) => obj.label)
+    return house_name[0];
 }

@@ -34,6 +34,10 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
+var socket
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -66,9 +70,11 @@ class Index extends Component {
       house: {},
       type: 'nurse',
       checkboxdata: '',
+      selectRole: false
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
+    socket = io(SOCKET_URL);
   }
   getallGroups = () => {
     var institute_id =
@@ -382,48 +388,59 @@ class Index extends Component {
     this.setState({ house: value });
   };
 
-  SaveAssignHouse = () => {
+  SaveAssignHouse = (authority) => {
     var userid = this.state.current_user._id;
     var housevalue = this.state.house;
-    this.setState({ loaderImage: true });
-    if (housevalue && housevalue?.value) {
-      axios
-        .put(
-          sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
-          this.state.house,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({ assignedhouse: true, house: {} });
+    if (housevalue.value) {
+        housevalue.roles = authority;
+        if(authority?.length>0){
+            this.setState({ blankerror: false, selectRole: false,  assignedhouse: false , loaderImage: true})
+            axios
+            .put(
+                sitedata.data.path +
+                `/hospitaladmin/assignedHouse/${userid}`,
+                this.state.house,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              console.log('UpdateN', responce.data.data)
+              var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              socket.emit("UpdateN",sendSec)
+                if (responce.data.hassuccessed) {
+                    this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                    this.getallGroups();
+                    this.getNurses(true);
+                    setTimeout(() => {
+                        this.setState({ assignedhouse: false, house: {} })
+                    }, 5000)
+                    this.getallGroups();
+                    this.getNurses(this.state.current_user._id);
+                }
+                // else {
+                //     this.setState({ alredyExist: true })
+                //     setTimeout(() => {
+                //         this.setState({ alredyExist: false })
+                //     }, 5000)
+                // }
+                this.setState({ loaderImage: false });
+            });
+        }
+        else{
+            this.setState({ blankerror: false, selectRole: true,  assignedhouse: false })  
             setTimeout(() => {
-              this.setState({ assignedhouse: false });
-            }, 5000);
-            this.getallGroups();
-            this.getNurses(this.state.current_user._id);
-          }
-          // else {
-          //     this.setState({ alredyExist: true })
-          //     setTimeout(() => {
-          //         this.setState({ alredyExist: false })
-          //     }, 5000)
-          // }
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({
-        blankerror: true,
-        assignedhouse: false,
-        loaderImage: false,
-        alredyExist: false,
-      });
-      setTimeout(() => {
-        this.setState({ blankerror: false });
-      }, 5000);
+                this.setState({ selectRole: false })
+            }, 5000)
+        }
+    }
+    else {
+        this.setState({ blankerror: true, assignedhouse: false })
+        setTimeout(() => {
+            this.setState({ blankerror: false })
+        }, 5000)
     }
     this.setState({ loaderImage: false });
-    // /assignedHouse/:
-  };
+   
+}
 
   deleteHouse = (deleteId) => {
     var userid = this.state.current_user._id;
@@ -435,8 +452,10 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        socket.emit("deleteN",sendSec)
         if (responce.data.hassuccessed) {
-          this.setState({ deleteHouses: true });
+          this.setState({ deleteHouses: true  });
           setTimeout(() => {
             this.setState({ deleteHouses: false });
           }, 5000);
@@ -448,7 +467,7 @@ class Index extends Component {
   };
 
   render() {
-    if (this.props.stateLoginValueAim.user.type != 'hospitaladmin') {
+    if (this.props.stateLoginValueAim?.user?.type !== 'hospitaladmin') {
       this.props.history.push('/');
     }
     let translate = getLanguage(this.props.stateLanguageType);
@@ -733,6 +752,7 @@ class Index extends Component {
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
                     checkboxdata={this.state.checkboxdata}
+                    selectRole={this.state.selectRole}
                   />
                   <ViewDetail
                     openDetial={this.state.openDetial}

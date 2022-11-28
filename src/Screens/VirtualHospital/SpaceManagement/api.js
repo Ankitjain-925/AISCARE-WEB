@@ -161,7 +161,7 @@ export const deleteClick = (current) => {
     current.setState({ loaderImage: true });
     axios
       .delete(
-        sitedata.data.path + '/vh/AddSpecialty/' + current.state.deleteId,
+        sitedata.data.path + '/vh/AddSpecialty/' + current.state.deleteId+"/"+current.props?.House?.value,
         commonHeader(current.props.stateLoginValueAim.token)
       )
       .then((responce) => {

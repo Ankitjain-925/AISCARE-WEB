@@ -125,49 +125,23 @@ class Index extends Component {
               return e.due_on.time
             }
           });
-          let today = new Date().setHours(0, 0, 0, 0);
-          let ttime = moment().format("HH:mm");
       var Done =
         services?.length > 0 && 
         services.filter((item) => { 
           if(item.task_name){
-            return item.status === "done" 
+            return item.status === "done"
           }
           else 
           {
-            let data_end = moment(item.end_time).format("HH:mm");
-            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
-           
-          if(item?.end_time && (moment(today).isAfter(data_d)|| (moment(today).isSame(data_d) && data_end <= ttime) )){
-           console.log('wefwerw erwe')
-            return item
-          }else{
-          return item.status ==="done"
+            return item.status ==="done"
           }
-
-        }
         });
       
       var Open =
-        response.data.data?.length > 0 &&
-        response.data.data.filter((item) => { 
-          if(item.task_name){
-            return item.status === "open" 
-          }
-          else 
-          {
-            let data_end = moment(item.end_time).format("HH:mm");
-            let data_d = new Date(item.date).setHours(0, 0, 0, 0)
-            console.log('dfrew5555')
-          if(item?.end_time && ( moment(today).isBefore(data_d)|| (moment(today).isSame(data_d) ) )){
-            console.log('sdsdfdsf dsf')
-            return item
-          }else{
-            return item.status ==="open"
-          }
-
-        }
-        });
+        services?.length > 0 &&  
+        services.filter(
+          (item) => item.status !== "done" || (item.appointment_type && item.status !== "done") && item?.archived === false
+        );
           var ArchivedTask  = services?.length > 0 &&
           services.filter((item) => item.archived);
           this.setState({
@@ -202,7 +176,7 @@ class Index extends Component {
     } else {
         return false
     }
-}
+  }
   // getAddTaskData1 = (tabvalue2, goArchive) => {
   //   var nurse_id = this.props.stateLoginValueAim?.user?._id
   //   this.setState({ loaderImage: true });
@@ -245,7 +219,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { } = translate;
+    let {Professional_activities } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -293,7 +267,7 @@ class Index extends Component {
                           <Grid item xs={11} md={11}>
                             <Grid container direction="row">
                               <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{"Professional activities"}</h1>
+                                <h1>{Professional_activities}</h1>
                               </Grid>
                             </Grid>
                           </Grid>

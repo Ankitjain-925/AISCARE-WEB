@@ -96,6 +96,7 @@ class Index extends Component {
       DarkMode,
       archive,
       InstituteGroups,
+      admin_staff,
     } = translate;
 
     if (
@@ -182,7 +183,7 @@ class Index extends Component {
                   alt=""
                   title=""
                 />
-                <span>{'Admin Staff'}</span>
+                <span>{admin_staff}</span>
               </a>
             </li>
             <li
