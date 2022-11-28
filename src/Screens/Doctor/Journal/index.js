@@ -154,6 +154,7 @@ class Index extends Component {
   Opencare=(data)=>{
     this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
   }
+
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
@@ -1310,81 +1311,8 @@ class Index extends Component {
                                       <p>
                                         {New} {entry}
                                       </p>
-                                      <Grid className="nwDiaSel">
-                                        <select
-                                          onChange={(e) =>
-                                            this.SelectOption(e.target.value)
-                                          }
-                                          value={this.state.current_select}
-                                        >
-                                          <option value="anamnesis">
-                                            {anamnesis}
-                                          </option>
-                                          <option value="blood_pressure">
-                                            {blood_pressure}
-                                          </option>
-                                          <option value="blood_sugar">
-                                            {blood_sugar}
-                                          </option>
-                                          <option value="condition_pain">
-                                            {condition_pain}
-                                          </option>
-                                          <option value="covid_19">
-                                            {covid_diary}
-                                          </option>
-                                          <option value="vaccination_trial">
-                                            {VaccinationTrial}
-                                          </option>
-                                          <option value="diagnosis">
-                                            {diagnosis}
-                                          </option>
-                                          <option value="diary">{diary}</option>
-                                          <option value="doctor_visit">
-                                            {doc_visit}
-                                          </option>
-                                          <option value="family_anamnesis">
-                                            {family_anmnies}
-                                          </option>
-                                          <option value="file_upload">
-                                            {file_uplod}
-                                          </option>
-                                          <option value="hospitalization">
-                                            {hosp_visit}
-                                          </option>
-                                          <option value="laboratory_result">
-                                            {lab_result}
-                                          </option>
-                                          <option value="long_covid">
-                                            {long_covid}
-                                          </option>
-                                          <option value="marcumar_pass">
-                                            {marcumar_pass}
-                                          </option>
-                                          <option value="medication">
-                                            {medication}
-                                          </option>
-                                          <option value="prescription">
-                                            {prescription}
-                                          </option>
-                                          <option value="second_opinion">
-                                            {secnd_openion}
-                                          </option>
-                                          <option value="sick_certificate">
-                                            {sick_cert}
-                                          </option>
-                                          <option value="smoking_status">
-                                            {smoking_status}
-                                          </option>
-                                          <option value="vaccination">
-                                            {vaccination}
-                                          </option>
-                                          <option value="weight_bmi">
-                                            {weight_bmi}
-                                          </option>
-                                          <option value="respiration">
-                                            {respiration}
-                                          </option>
-                                        </select>
+                                      <Grid className="nwDiaSel1">
+                                      {this.state.current_select}
                                       </Grid>
                                     </div>
                                   ) : (
@@ -2166,7 +2094,7 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-               {this.state.isGraph && (
+              {this.state.isGraph && (
                 this.state.QueryDetail ? 
                 <ShowPrevQues
                 closeFullQues={() => this.CloseGraph()}

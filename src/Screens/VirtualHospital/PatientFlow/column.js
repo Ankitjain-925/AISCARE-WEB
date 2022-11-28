@@ -8,6 +8,14 @@ import { getLanguage } from 'translations/index';
 import { grid, borderRadius } from './constants';
 import Button from '@material-ui/core/Button';
 import Title from './primatives/title';
+import { withRouter } from 'react-router-dom';
+import { authy } from 'Screens/Login/authy.js';
+import { connect } from 'react-redux';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { houseSelect } from '../Institutes/selecthouseaction';
+import { Speciality } from 'Screens/Login/speciality.js';
 
 const Container = styled.div`
   margin: ${grid}px;
@@ -24,7 +32,7 @@ const Header = styled.div`
   background-color: ${({ isDragging }) => isDragging && '#00abaf'};
 `;
 
-export default class Column extends Component {
+class Column extends Component {
   constructor(props) {
     super(props);
 
@@ -90,6 +98,7 @@ export default class Column extends Component {
       AddNewPatient,
       deleteStep,
     } = translate;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <div className="detailInfo">
         <Draggable draggableId={title} index={index}>
@@ -107,7 +116,7 @@ export default class Column extends Component {
                   {this.props.view === 'vertical' ? (
                     <div className="checkDots">
                       <Grid>
-                        {this.state.edit === index ? (
+                        {this.state.edit === index && roles.includes("rename_step") ? (
                           <div ref={this.box}>
                             <DebounceInput
                               name="step_name"
@@ -142,6 +151,7 @@ export default class Column extends Component {
                           <ul>
                             {!this.state.inneerSec && (
                               <Grid>
+                              {roles.includes("rename_step") &&
                                 <li ref={this.list}>
                                   <a
                                     onClick={() => {
@@ -151,7 +161,8 @@ export default class Column extends Component {
                                     <span></span>
                                     {renameStep}
                                   </a>
-                                </li>
+                                </li>}
+                                {roles.includes("add_patient") &&
                                 <li>
                                   <a
                                     onClick={() => {
@@ -167,7 +178,8 @@ export default class Column extends Component {
                                     </span>
                                     {AddPatientStep}
                                   </a>
-                                </li>
+                                </li>}
+                                {roles.includes('edit_step')&&
                                 <li>
                                   <a
                                     onClick={() => {
@@ -179,7 +191,7 @@ export default class Column extends Component {
                                     </span>
                                     {move_step}
                                   </a>
-                                </li>
+                                </li>}
                                 <li>
                                   <a
                                     onClick={() => {
@@ -201,6 +213,7 @@ export default class Column extends Component {
                                     </p>{' '}
                                   </a>
                                 </li>
+                                {roles.includes("delete_step") &&
                                 <li>
                                   <a
                                     onClick={() => {
@@ -216,7 +229,7 @@ export default class Column extends Component {
                                     </span>
                                     {deleteStep}
                                   </a>
-                                </li>
+                                </li>}
                               </Grid>
                             )}
                             {this.state.inneerSec === 'move_all' && (
@@ -344,7 +357,7 @@ export default class Column extends Component {
                         <Grid item xs={12} sm={6} md={6}>
                           <label>
                             <Grid>
-                              {this.state.edit === index ? (
+                              {this.state.edit === index && roles.includes("rename_step")  ? (
                                 <div ref={this.box}>
                                   <DebounceInput
                                     name="step_name"
@@ -371,6 +384,7 @@ export default class Column extends Component {
                           </label>
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} className="addPatent">
+                       {roles.includes("add_patient") &&
                           <a
                             className="addNwPatnt"
                             onClick={() => {
@@ -378,7 +392,7 @@ export default class Column extends Component {
                             }}
                           >
                             {AddNewPatient}
-                          </a>
+                          </a>}
                           <Grid className="checkDotsRght">
                             <a className="academy_ul stepTdotupper">
                               <img
@@ -390,6 +404,7 @@ export default class Column extends Component {
                               <ul>
                                 {!this.state.inneerSec && (
                                   <Grid>
+                                     {roles.includes("rename_step") &&
                                     <li ref={this.list}>
                                       <a
                                         onClick={() => {
@@ -399,7 +414,9 @@ export default class Column extends Component {
                                         <span></span>
                                         {renameStep}
                                       </a>
-                                    </li>
+                                    </li>}
+                                    {roles.includes("add_patient") &&
+                                    
                                     <li>
                                       <a
                                         onClick={() => {
@@ -415,7 +432,8 @@ export default class Column extends Component {
                                         </span>
                                         {AddPatientStep}
                                       </a>
-                                    </li>
+                                    </li>}
+                                    {roles.includes('edit_step')&&
                                     <li>
                                       <a
                                         onClick={() => {
@@ -429,7 +447,7 @@ export default class Column extends Component {
                                         </span>
                                         {move_step}
                                       </a>
-                                    </li>
+                                    </li>}
                                     <li>
                                       <a
                                         onClick={() => {
@@ -453,6 +471,7 @@ export default class Column extends Component {
                                         </p>{' '}
                                       </a>
                                     </li>
+                                    {roles.includes("delete_step") &&
                                     <li>
                                       <a
                                         onClick={() => {
@@ -468,7 +487,7 @@ export default class Column extends Component {
                                         </span>
                                         {deleteStep}
                                       </a>
-                                    </li>
+                                    </li>}
                                   </Grid>
                                 )}
                                 {this.state.inneerSec === 'move_all' && (
@@ -592,7 +611,7 @@ export default class Column extends Component {
               </Header>
 
               <QuoteList
-              updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+               updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
                 ordered={this.props.ordered}
                 listId={title}
                 listType="QUOTE"
@@ -610,6 +629,7 @@ export default class Column extends Component {
                 }}
                 setDta={(item) => this.props.setDta(item)}
                 professional_id_list={this.props.professional_id_list}
+                professionalArray={this.props.professionalArray}
                 updateEntryState3={(e, case_id) => {
                   this.props.updateEntryState3(e, case_id);
                 }}
@@ -625,13 +645,14 @@ export default class Column extends Component {
               />
               {this.props.view === 'vertical' && (
                 <Grid className="nwPatentAdd">
+                   {roles.includes("add_patient") &&
                   <Button
                     onClick={() => {
                       this.props.openAddPatient(title);
                     }}
                   >
                     {AddNewPatient}
-                  </Button>
+                  </Button>}
                 </Grid>
               )}
             </Container>
@@ -641,3 +662,31 @@ export default class Column extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
+  const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
+    verifyCode,
+    House,
+    speciality,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    authy,
+    houseSelect,
+    Speciality,
+  })(Column)
+);

@@ -59,13 +59,21 @@ class Index extends Component {
             loaderImage: false,
             FileAttach: [],
             successMsg: '',
-            openModal: false
+            openModal: false,
+            authorityMsg: false
         }
     }
 
     componentDidMount() {
         allHouses(this);
     }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+            console.log('on adding and removing')
+            allHouses(this);
+        }
+      };
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -226,8 +234,10 @@ class Index extends Component {
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>
-
+                                                {!this.state.authorityMsg && 
+                                                <div className="err_message">{this.state.errorChrMsg1}</div>}
+                                                {this.state.authorityMsg && 
+                                                <div className="err_message">You dont have authority to selected hospital</div>}
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
@@ -2627,6 +2637,7 @@ class Index extends Component {
                                         <Grid item xs={12} sm={9} md={6}>
                                             <Grid className="infoShwSave3">
                                                 <input
+                                                    disabled = {this.state.authorityMsg}
                                                     type={Submit}
                                                     value={Submit}
                                                     onClick={() => handleSubmit(this)}

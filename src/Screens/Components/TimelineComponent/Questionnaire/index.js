@@ -69,6 +69,9 @@ class Index extends Component {
     // this.setState({ openModal: true, ModalData: data });
   }
 
+  closeFullInfo = () => {
+    this.setState({ openModal: false });
+  }
 
   capitalizeFirstLetter = (string) => {
     return string && string.charAt(0).toUpperCase() + string.slice(1);
@@ -1785,12 +1788,12 @@ class Index extends Component {
 
         {/* End of Model setup */}
 
-        {/* <ShowPrevQues
+        <ShowPrevQues
           closeFullQues={() => this.closeFullInfo()}
           openModal={this.state.openModal}
           item={this.state.ModalData}
           comesFrom="PatientEnd"
-        /> */}
+        />
       </Grid>
 
     );

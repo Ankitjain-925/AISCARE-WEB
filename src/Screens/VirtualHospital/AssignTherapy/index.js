@@ -25,7 +25,11 @@ import {
     updateEntryState1,
     onFieldChange,
     selectedID,
+    getSpecialty
 } from "../../VirtualHospital/Services/api";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 
 class Index extends Component {
@@ -52,7 +56,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        getSpecialty(this);
     }
 
     //For adding the New therapy
@@ -71,7 +75,17 @@ class Index extends Component {
             this.setState({ errorMsg: "please enter therapy testing" })
         }
         else {
-            console.log('no value')
+            axios
+            .post(sitedata.data.path + "/Addtherapy", commonHeader(this.props.stateLoginValueAim.token))
+            .then((responce) => {
+              handleCloseServ(this);
+            })
+            .catch(function (error) {
+              console.log(error);
+             this.setState({ errorMsg: "Something_went_wrong" })
+      
+            });
+        console.log('no value')
             handleCloseServ(this);
         }
     };

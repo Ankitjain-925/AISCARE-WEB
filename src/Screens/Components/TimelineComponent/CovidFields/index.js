@@ -69,7 +69,6 @@ class Index extends Component {
             <Grid className="fillDia">
               <Temprature
                 name="temprature"
-                name="temprature"
                 valueType={this.state.updateTrack.temprature_type}
                 value={this.state.updateTrack.temprature}
                 Options={this.state.options2}

@@ -180,7 +180,7 @@ class Index extends Component {
 
   };
   otheranswer = (value) => {
-   this.setState({ otherField: value ,Checked:true})
+    this.setState({ otherField: value ,Checked:true})
   }
 
   updateEntry2 = (e, name, id, type, index) => {
@@ -368,7 +368,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                           <Grid className="onlineBox">
-                                                            {data1?.options.map((data3, index3) => (
+                                                          {data1?.options.map((data3, index3) => (
                                                               <>
                                                                 <Grid><FormControlLabel
                                                                   control={<Checkbox
@@ -385,14 +385,12 @@ class Index extends Component {
                                                               <Grid className="otherBrdrUpr">
                                                                 <FormControlLabel
                                                                   control={<Checkbox
-                                                                    name="checkedB"
+                                                                    name="other"
                                                                     color="primary"
-
-                                                                    checked={this.state.newTask.other}
+                                                                    checked={this.state.newTask.other ? this.state.newTask.other : null}
                                                                     onChange={(e) =>
                                                                       this.otheranswer(e.target.checked, "value", data1._id, data1.type, index1)
                                                                     }
-                                                                  
                                                                     value="checkedB"
                                                                   />
                                                                   }

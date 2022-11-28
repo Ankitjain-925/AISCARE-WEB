@@ -115,7 +115,6 @@ class Index extends Component {
     } = translate;
     const { stateLoginValueAim, House } = this.props;
     const { externalData } = this.state;
-    {console.log('externalData',this.state.externalData)}
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -129,6 +128,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+    const { House: { roles = [] } = {} } = this.props || {}
 
     return (
       <Grid
@@ -229,8 +229,8 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {console.log('externalData',this.state.externalData)}
                     {/* End of Bread Crumb */}
+                    {roles.includes("show_external_space") ?
                     <Grid className="wardsGrupUpr wardsGrupUpr1">
                       <Grid container direction="row" spacing={2}>
                         {externalData &&
@@ -289,6 +289,7 @@ class Index extends Component {
                                         professional_id_list={
                                           this.state.professional_id_list
                                         }
+                                        professionalArray={this.state.professionalArray}
                                         updateEntryState3={(e, case_id) => {
                                           this.updateEntryState3(e, case_id);
                                         }}
@@ -390,7 +391,7 @@ class Index extends Component {
                             </Grid>
                           ))}
                       </Grid>
-                    </Grid>
+                    </Grid>:<p className='authority'>You have no authority for showing the external space management, Please contact to hospital admin</p>}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}
