@@ -75,17 +75,7 @@ class Index extends Component {
             this.setState({ errorMsg: "please enter therapy testing" })
         }
         else {
-            axios
-            .post(sitedata.data.path + "/Addtherapy", commonHeader(this.props.stateLoginValueAim.token))
-            .then((responce) => {
-              handleCloseServ(this);
-            })
-            .catch(function (error) {
-              console.log(error);
-             this.setState({ errorMsg: "Something_went_wrong" })
-      
-            });
-        console.log('no value')
+            console.log('no value')
             handleCloseServ(this);
         }
     };

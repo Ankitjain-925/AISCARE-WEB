@@ -26,8 +26,9 @@ import {
   onFieldChange,
   selectedID,
   getSpecialty,
-  teamstaff
-} from "../../VirtualHospital/Services/api";
+  teamstaff,
+  handleSubmit
+} from "./api";
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
@@ -52,8 +53,10 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
-      openAss: false
-
+      openAss: false,
+      teamstaff:[],
+      staff_data: [],
+      AllStaff:[]
     };
   }
 
@@ -62,38 +65,7 @@ class Index extends Component {
     teamstaff(this)
   }
 
- 
-  //For adding the New staff 
-handleSubmit = () => {
-  let translate = getLanguage(this.props.stateLanguageType);
-  let {} = translate;
-  this.setState({ errorMsg: '' })
-  var data = this.state.updateTrack;
-  if (!data.title || (data && data?.title && data?.title.length < 1)) {
-    this.setState({ errorMsg: "please enter title name" })
-  }
-  else if (!data.description) {
-   this.setState({ errorMsg: "please enter description" })
-  }
-  else if (!data.ward) {
-    this.setState({ errorMsg: "please enter ward name" })
-   }
-  else {
-    data.house_id = this.props?.House?.value;
-    axios
-      .post(sitedata.data.path + "/AddTeam", data, commonHeader(this.props.stateLoginValueAim.token))
-      .then((responce) => {
-        handleCloseServ(this);
-      })
-      .catch(function (error) {
-        console.log(error);
-       this.setState({ errorMsg: "Something_went_wrong" })
 
-      });
-  console.log('no value')
-  //  handleCloseServ(this);
-  }
-};
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -112,10 +84,11 @@ handleSubmit = () => {
       Groupshortdescription,
       nurselist,
       staffgrouptitle,
-      staffgroupname,
+      staffname,
+      staffmembers,
       Search
     } = translate;
-    const { services_data } = this.state;
+    const { services_data ,staff_data} = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -228,28 +201,12 @@ handleSubmit = () => {
                                       <Grid>
                                         <VHfield
                                           label={Grouptitle}
-                                          name="title"
+                                          name="team_name"
                                           placeholder={EnterGroupname}
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.title}
-                                        />
-                                      </Grid>
-
-                                      <Grid>
-                                        <VHfield
-                                          label={Groupshortdescription}
-                                          name="description"
-                                          placeholder={
-                                            Entergroupshortdescription
-                                          }
-                                          onChange={(e) =>
-                                            updateEntryState1(e, this)
-                                          }
-                                          value={
-                                            this.state.updateTrack.description
-                                          }
+                                          value={this.state.updateTrack.team_name}
                                         />
                                       </Grid>
                                       <Grid className="enterSpcl">
@@ -262,12 +219,12 @@ handleSubmit = () => {
                                             onFieldChange(e, this)
                                           }
                                           options={this.state.AllSpeciality}
-                                          name="specialty_name"
+                                          name="speciality_id"
                                           isSearchable={true}
                                           className="addStafSelect"
                                           isMulti={true}
                                           value={selectedID(
-                                            this.state.updateTrack.specialty_id,
+                                            this.state.updateTrack.speciality_id,
                                             this
                                           )}
                                           />
@@ -283,13 +240,13 @@ handleSubmit = () => {
                                       >
                                         <VHfield
                                           label={Ward}
-                                          name="ward"
+                                          name="ward_id"
                                           placeholder="enter ward"
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
                                           value={
-                                            this.state.updateTrack.ward
+                                            this.state.updateTrack.ward_id
                                           }
                                         />
 
@@ -299,10 +256,14 @@ handleSubmit = () => {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          name="specialty_name"
+                                        options={this.state.teamstaff}
+                                          name="staff"
                                           isSearchable={true}
                                           className="addStafSelect"
                                           isMulti={true}
+                                          value={
+                                            this.state.updateTrack.staff
+                                          }
                                         />
                                       </Grid>
                                     </Grid>
@@ -310,7 +271,7 @@ handleSubmit = () => {
                                   <Grid className="servSaveBtn">
                                     <a>
                                       <Button
-                                      onClick={() => this.handleSubmit()}
+                                      onClick={() =>handleSubmit(this)}
                                       >
                                         {save_and_close}
                                       </Button>
@@ -389,21 +350,23 @@ handleSubmit = () => {
                       <Table>
                         <Thead>
                           <Tr>
-                            <Th>{staffgrouptitle}</Th>
-                            <Th>{staffgroupname}</Th>
+                            <Th>{staffname}</Th>
+                            <Th>{staffmembers}</Th>
                             <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
-                        {/* {services_data?.length > 0 &&
-                            services_data.map((data) => ( */}
+                        {  console.log('staff_data',staff_data)}
+                        {staff_data?.length > 0 &&
+                            staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>staffgrouptitle</label>
+                                    <label>{data.team_name}</label>
                                   
                                   </Td>
-                                  <Td>staffgroupname</Td>
+                                
+                                  <Td>{data.staff}</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
@@ -456,7 +419,7 @@ handleSubmit = () => {
                                   </Td>
                                 </Tr>
                               </>
-                            {/* ))} */}
+                            ))}
                         </Tbody>
                       </Table>
 
