@@ -79,8 +79,8 @@ class Index extends Component {
 
   allHouses = () => {
     this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim?.token;
-    let user_id = this.props.stateLoginValueAim?.user?._id;
+    let user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
     axios
       .get(
         sitedata.data.path + "/UserProfile/Users/" + user_id,
@@ -211,7 +211,6 @@ class Index extends Component {
       )
       .then((response) => {
         this.setState({ AllTasks: response.data.data });
-        console.log('response', response)
         if (response.data.hassuccessed) {
           if (response?.data?.data) {
             var patientForFilterArr = filterPatient(response.data.data);

@@ -496,12 +496,6 @@ p.regOnlog {
 
 /* Added By ANKITA */
 
-.err_message {
-    text-align: left !important;
-    color: red !important;;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
 .success_message
 {
     text-align: center;
@@ -639,3 +633,14 @@ table {
   }
 
 /*End By Ankita*/
+
+.err_message {
+    text-align: center !important;
+    color: red !important;;
+    font-weight: 600;
+    padding-top: 10px;
+}
+.saveTasks Button:disabled{
+    background-color: aliceblue !important;
+    cursor: not-allowed !important;
+} 

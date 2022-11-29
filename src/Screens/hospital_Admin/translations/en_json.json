@@ -222,7 +222,7 @@
 		"next": "Next",
 		"add_new": "Add new",
 		"entry": "entry",
-		"ManageHouse":"Manage Hostipal",          
+		"ManageHouse":"Manage Hospital",          
 		"slct_time_slot": "Select time slot",
 		"my_profile": "My Profile",
 		"find_patient": "Find a patient...",
@@ -407,7 +407,12 @@
 		"Currentpassword": "Current password",
 		"Confirm_your_password": "Confirm your password",
 		"First_name": "First name",
-		"Last_name": "Last name"
+		"Last_name": "Last name",
+
+		"Please_select_authority_first":"Please select some authority for the user first",
+		"Give_Authority_User":"Give Authority of Task to the User",
+		"Manage_Authority":"Manage Authority",
+		"Change_Authority":"Change Authority"
 	
 	}
 }

@@ -209,7 +209,7 @@ class Index extends Component {
                 ],
             },
         ]
-
+        const { House: { roles = [] } = {} } = this.props
         return (
             <Grid>
                 {/* Model setup */}
@@ -225,17 +225,16 @@ class Index extends Component {
                             : ''
                     }
                 > */}
-
-                    <Grid className="creatTaskModel11">
-                        <Grid>
+                    <Grid className=" creatTaskModel11">
+                        <Grid >
                             <Grid>
-                                {/* <Grid container direction="row" justify="center" className="DetailHead">
+                                {/* <Grid container direction="row" justify="center" className="addSpeclLbl">
                                     <Grid item xs={8} md={8} lg={8}>
                                         <label>{Details}</label>
                                     </Grid>
                                     <Grid item xs={4} md={4} lg={4}>
                                         <Grid>
-                                            <Grid className="entryCloseBtn DetailHead-close">
+                                            <Grid className="entryCloseBtn">
                                                 <a onClick={() => this.closeFullQues()}>
                                                     <img
                                                         src={require("assets/images/close-search.svg")}
@@ -247,12 +246,14 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                 </Grid> */}
+                            
                                 <Grid
                                     container
                                     direction="row"
                                     className="setDetail-eval"
                                 >
                                     <Grid item xs={12} md={12} className="taskDescp">
+                                 
                                         <Grid className="stndQues stndQues1 allQuestionShow">
                                             {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
                                                 <Grid className=" selectOptionCmn">
@@ -1004,13 +1005,12 @@ class Index extends Component {
                                                         {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid>
                                                     <Grid>
-                                                        {console.log("item?.daily_diameter_leg", item?.daily_diameter_leg)}
                                                         <Grid>
                                                             <h1>{Thrombose_Situation}</h1>
                                                         </Grid>
                                                         {item?.questionnaire_answers?.daily_anamnesis_diameter_leg ?
                                                             <Grid container xs={12} md={12}>
-                                                                <Grid xs={6} md={6}>
+                                                            <Grid xs={6} md={6}>
                                                                     <label>{Measure_diameter_Leg}</label>
                                                                     <p>
                                                                         {item?.questionnaire_answers?.daily_anamnesis_diameter_leg}

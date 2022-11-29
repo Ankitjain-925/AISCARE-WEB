@@ -214,6 +214,7 @@ class Index extends Component {
                 senddata.mobile = this.state.patinfo?.mobile;
               }
               senddata.case_id = responce1.data?.data;
+              senddata.house_id = this.props.House?.value;
               senddata.patient = this.state.patinfo._id;
               senddata.patient_name = this.state.patinfo.last_name
                 ? this.state.patinfo.first_name +
