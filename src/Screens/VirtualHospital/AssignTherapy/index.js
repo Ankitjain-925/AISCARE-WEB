@@ -25,7 +25,11 @@ import {
     updateEntryState1,
     onFieldChange,
     selectedID,
+    getSpecialty
 } from "../../VirtualHospital/Services/api";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 
 class Index extends Component {
@@ -52,7 +56,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        getSpecialty(this);
     }
 
     //For adding the New therapy

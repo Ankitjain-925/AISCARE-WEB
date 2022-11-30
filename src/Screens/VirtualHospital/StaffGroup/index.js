@@ -26,7 +26,12 @@ import {
   onFieldChange,
   selectedID,
   getSpecialty,
-} from "../../VirtualHospital/Services/api";
+  teamstaff,
+  handleSubmit
+} from "./api";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
 
 import { getLanguage } from "translations/index";
 
@@ -48,40 +53,25 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
-      openAss: false
-
+      openAss: false,
+      teamstaff:[],
+      staff_data: [],
+      AllStaff:[]
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
+    teamstaff(this)
   }
 
- 
-  //For adding the New staff 
-handleSubmit = () => {
-  let translate = getLanguage(this.props.stateLanguageType);
-  let {} = translate;
-  this.setState({ errorMsg: '' })
-  var data = this.state.updateTrack;
-  if (!data.title || (data && data?.title && data?.title.length < 1)) {
-    this.setState({ errorMsg: "please enter title name" })
-  }
-  else if (!data.description) {
-   this.setState({ errorMsg: "please enter description" })
-  }
-  else if (!data.ward) {
-    this.setState({ errorMsg: "please enter ward name" })
-   }
-  else {
-   console.log('no value')
-   handleCloseServ(this);
-  }
-};
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      editstaff,
+      deleteStaff,
       StaffGroup,
       newstaffGroup,
       AddnewstaffGroup,
@@ -94,10 +84,11 @@ handleSubmit = () => {
       Groupshortdescription,
       nurselist,
       staffgrouptitle,
-      staffgroupname,
+      staffname,
+      staffmembers,
       Search
     } = translate;
-    const { services_data } = this.state;
+    const { services_data ,staff_data} = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -210,28 +201,12 @@ handleSubmit = () => {
                                       <Grid>
                                         <VHfield
                                           label={Grouptitle}
-                                          name="title"
+                                          name="team_name"
                                           placeholder={EnterGroupname}
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.title}
-                                        />
-                                      </Grid>
-
-                                      <Grid>
-                                        <VHfield
-                                          label={Groupshortdescription}
-                                          name="description"
-                                          placeholder={
-                                            Entergroupshortdescription
-                                          }
-                                          onChange={(e) =>
-                                            updateEntryState1(e, this)
-                                          }
-                                          value={
-                                            this.state.updateTrack.description
-                                          }
+                                          value={this.state.updateTrack.team_name}
                                         />
                                       </Grid>
                                       <Grid className="enterSpcl">
@@ -244,12 +219,12 @@ handleSubmit = () => {
                                             onFieldChange(e, this)
                                           }
                                           options={this.state.AllSpeciality}
-                                          name="specialty_name"
+                                          name="speciality_id"
                                           isSearchable={true}
                                           className="addStafSelect"
                                           isMulti={true}
                                           value={selectedID(
-                                            this.state.updateTrack.specialty_id,
+                                            this.state.updateTrack.speciality_id,
                                             this
                                           )}
                                           />
@@ -265,13 +240,13 @@ handleSubmit = () => {
                                       >
                                         <VHfield
                                           label={Ward}
-                                          name="ward"
+                                          name="ward_id"
                                           placeholder="enter ward"
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
                                           value={
-                                            this.state.updateTrack.ward
+                                            this.state.updateTrack.ward_id
                                           }
                                         />
 
@@ -281,10 +256,14 @@ handleSubmit = () => {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          name="specialty_name"
+                                        options={this.state.teamstaff}
+                                          name="staff"
                                           isSearchable={true}
                                           className="addStafSelect"
                                           isMulti={true}
+                                          value={
+                                            this.state.updateTrack.staff
+                                          }
                                         />
                                       </Grid>
                                     </Grid>
@@ -292,7 +271,7 @@ handleSubmit = () => {
                                   <Grid className="servSaveBtn">
                                     <a>
                                       <Button
-                                      onClick={() => this.handleSubmit()}
+                                      onClick={() =>handleSubmit(this)}
                                       >
                                         {save_and_close}
                                       </Button>
@@ -371,12 +350,76 @@ handleSubmit = () => {
                       <Table>
                         <Thead>
                           <Tr>
-                            <Th>{staffgrouptitle}</Th>
-                            <Th>{staffgroupname}</Th>
+                            <Th>{staffname}</Th>
+                            <Th>{staffmembers}</Th>
                             <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
+                        {  console.log('staff_data',staff_data)}
+                        {staff_data?.length > 0 &&
+                            staff_data.map((data) => (
+                              <>
+                                <Tr>
+                                  <Td>
+                                    <label>{data.team_name}</label>
+                                  
+                                  </Td>
+                                
+                                  <Td>{data.staff}</Td>
+                                  {/* <Td className="srvcDots"> */}
+                                  <Td>
+                                    <Grid
+                                      item
+                                      xs={6}
+                                      md={6}
+                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
+                                    >
+                                      <a className="openScndhrf">
+                                        <img
+                                          src={require("assets/images/three_dots_t.png")}
+                                          alt=""
+                                          title=""
+                                          className="openScnd specialuty-more"
+                                        />
+                                        <ul>
+                                          <li
+                                            // onClick={() => {
+                                            //   EditService(data, this);
+                                            // }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/virtual_images/pencil-1.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {editstaff}
+                                            </a>
+                                          </li>
+
+                                          <li
+                                            // onClick={() => {
+                                            //   this.removeServices(data._id);
+                                            // }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/images/cancel-request.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {deleteStaff}
+                                            </a>
+                                          </li>
+                                      
+                                        </ul>
+                                      </a>
+                                    </Grid>
+                                  </Td>
+                                </Tr>
+                              </>
+                            ))}
                         </Tbody>
                       </Table>
 
