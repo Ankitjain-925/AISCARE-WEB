@@ -2100,7 +2100,7 @@
      "EnterGroupname":"Enter Group name",
      "Groupshortdescription":"Group short description",
      "Entergroupshortdescription":"Enter group short description",
-     "nurselist":"Nurse list for creating group",
+     "nurselist":"Professional List",
      "AssignTherapy":"Assign Therapy",
      "staffgrouptitle":"Staff Group Title",
      "staffgroupname":"Staff Group Name",
@@ -2116,7 +2116,12 @@
      "deleteStaff":"Delete Staff",
      "editstaff":"Edit Staff",
      "staffname":"Staff Name",
-     "staffmembers":"Staff Members"
+     "staffmembers":"Staff Members",
+     "yes_deleteStaff":"Yes Delete Staff",
+     "cancel_keepStaff":"Cancel Keep Staff",
+     "removeStaff":"Remove Staff",
+    "really_want_to_remove_staff":"really want to remove staff"
+    
      
     }
 

@@ -3,6 +3,10 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import _ from 'lodash';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -22,16 +26,7 @@ export const getSpecialty = (current) => {
     });
 };
 
-export const selectedID = (id, current) => {
-  if (!id) return [];
-  else {
-    var data = current.state.AllSpeciality.length > 0 && current.state.AllSpeciality.filter((item) => id?.includes(item.value))
-    if (data && data.length > 0) {
-      return data;
-    }
-    return [];
-  }
-}
+
 
 export const onChangePage = (pageNumber, current) => {
   current.setState({
@@ -46,14 +41,14 @@ export const onChangePage = (pageNumber, current) => {
 //On Changing the specialty id 
 export const onFieldChange = (e, current) => {
   const state = current.state.updateTrack;
-  state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
+  state['speciality_id'] = e?.length > 0 && e.map((data) => { return data.value });
   current.setState({ updateTrack: state });
 }
 
 //Modal Open
 export const handleOpenServ = (current) => {
   if (current.state.speciality_id && current.state.speciality_id !== 'general') {
-    current.setState({ openServ: true, updateTrack: { specialty_id: [current.state.speciality_id] } });
+    current.setState({ openServ: true, updateTrack: { speciality_id: [current.state.speciality_id] } });
   }
   else {
     current.setState({ openServ: true, updateTrack: {} });
@@ -63,7 +58,7 @@ export const handleOpenServ = (current) => {
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false, updateTrack: {} ,errorMsg:false});
+  current.setState({ openServ: false, updateTrack: {} ,selectSpec2:'',selectWard: '',  wardList: [],errorMsg:false});
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
@@ -112,29 +107,130 @@ export const teamstaff = (current) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let {} = translate;
     current.setState({ errorMsg: '' })
-    var data = current.state.updateTrack;
-    if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
-        current.setState({ errorMsg: "please enter title name" })
-    }
-    else if (!data.ward_id) {
-        current.setState({ errorMsg: "please enter ward name" })
-     }
-    else {
-      data.house_id = current.props?.House?.value;
-      axios
-        .post(sitedata.data.path + "/teammember/AddGroup", data, commonHeader(current.props.stateLoginValueAim.token))
-        .then((responce) => {
-          handleCloseServ(current);
-        })
-        .catch(function (error) {
-          console.log(error);
-          current.setState({ errorMsg: "Something_went_wrong" })
+      // data.house_id = current.props?.House?.value;
+      // axios
+      //   .post(sitedata.data.path + "/teammember/AddGroup", data, commonHeader(current.props.stateLoginValueAim.token))
+      //   .then((responce) => {
+      //     handleCloseServ(current);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //     current.setState({ errorMsg: "Something_went_wrong" })
   
-        });
+      //   });
     console.log('no value')
-    //  handleCloseServ(this);
+   
     }
+
+
+    //Delete the Staff
+    export const  DeleteStaff = (current) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+      let {
+        deleteStaff,
+        yes_deleteStaff,
+        are_you_sure,
+        cancel_keepStaff,
+      } = translate;
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid
+              className={
+                current.props.settings &&
+                  current.props.settings.setting &&
+                  current.props.settings.setting.mode === 'dark'
+                  ? 'dark-confirm deleteStep'
+                  : 'deleteStep'
+              }
+            >
+              <Grid className="deleteStepLbl">
+                <Grid>
+                  <a
+                    onClick={() => {
+                      onClose();
+                    }}
+                  >
+                    <img
+                      src={require('assets/images/close-search.svg')}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                </Grid>
+                <label>{deleteStaff}</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <label>{are_you_sure}</label>
+                <Grid>
+                  <label></label>
+                </Grid>
+                <Grid>
+                  <Button
+                    onClick={() => {
+                    removestaff(current);
+                    }}
+                  >
+                    {yes_deleteStaff}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      onClose();
+                    }}
+                  >
+                    {cancel_keepStaff}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        },
+      });
+   
   };
 
+  export const removestaff = (current) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              current.props.settings &&
+                current.props.settings.setting &&
+                current.props.settings.setting.mode &&
+                current.props.settings.setting.mode === 'dark'
+                ? 'dark-confirm react-confirm-alert-body'
+                : 'react-confirm-alert-body'
+            }
+          >
+            <h1 class="alert-btn">{removeStaff}</h1>
+            <p>{really_want_to_remove_staff}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  DeleteStaffOk(current);
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+ 
 
-
+  export const DeleteStaffOk = (id,current) => {
+    // axios
+    // .delete(sitedata.data.path + ""+ id+ "/" + current.props?.House?.value,
+    //  commonHeader(current.props.stateLoginValueAim.token))
+    // .then((response) => {
+    //   })
+    // .catch((error) => { });
+  };
+ 
