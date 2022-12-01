@@ -17028,3 +17028,51 @@ color:#FFFFFF
  
 }
 
+.service-head{
+  padding-bottom: 12px;
+  padding-Top: 0px
+}
+
+.addSpeclContntIner1 {
+  height: 472px;
+  /* overflow-y: auto; */
+}
+
+.addSpeclContntIner1 {
+  overflow: auto;
+  /* height: 100%; */
+  padding-bottom: 5px;
+}
+
+.setEditDelBut{
+  display: flex !important;
+}
+
+.addSrvcBtn3 h3{   
+   font-size: 16px;
+  font-weight: 500;
+  color: #00abaf
+}
+
+.darkTheme .addSrvcBtn3 h3{   
+  font-size: 16px!important;
+ font-weight: 500!important;
+ color: #00abaf!important;
+}
+
+.specbutton1 label{
+  font-size: 16px;
+  font-weight: 500;
+  color: #00abaf
+}
+
+.darkTheme .specbutton1 label{   
+  font-size: 16px!important;
+ font-weight: 500!important;
+ color: #00abaf!important;
+}
+
+.addSpeclabcIner{
+  overflow: auto;
+  height: 510px;
+}

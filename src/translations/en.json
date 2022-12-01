@@ -2101,7 +2101,7 @@
      "Groupshortdescription":"Group short description",
      "Entergroupshortdescription":"Enter group short description",
      "nurselist":"Nurse list for creating group",
-     "AssignTherapy":"Assign Therapy",
+     "AssignTherapy":"Add Therapy",
      "staffgrouptitle":"Staff Group Title",
      "staffgroupname":"Staff Group Name",
      "Therapy":"Therapy",
@@ -2112,7 +2112,14 @@
      "Therapyshortdescription":"Therapy short description",
      "Entertherapyshortdescription":"Enter therapy short description",
      "therapyTesting":"Doctor according therapy testing",
-     "EntertherapyTesting":"Enter according therapy testing"
-
+     "EntertherapyTesting":"Enter according therapy testing",
+     "Enterdiseasename":"Enter Disease name",
+     "removeTherapy": "Remove Therapy",
+     "really_want_to_remove_therapy":"Really want to remove Therapy ?",
+     "yes_deletetherapy":"Yes Delete Therapy",
+     "cancel_keeptherapy":"Cancel Keep Therapy",
+     "from_therapy":"from Therapy?",
+    "sure_remove_service":"Are you sure to remove this service",
+     "sure_remove_task":"Are you sure to remove this task"
     }
 }
