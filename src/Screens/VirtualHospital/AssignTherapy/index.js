@@ -25,6 +25,9 @@ import {
     selectedID,
     getSpecialty
 } from "../../VirtualHospital/Services/api";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import {
     handleSubmit,
@@ -307,7 +310,7 @@ class Index extends Component {
                                                                                     <Grid container direction="row">
                                                                                         <Grid item xs={12} md={12} className="services-head">
                                                                                             {/* <b>Tasks</b> */}
-                                                                                            <table>
+                                                                                            <table border="0">
                                                                                                 <thead>
                                                                                                     <tr>
                                                                                                         <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
@@ -371,7 +374,7 @@ class Index extends Component {
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
-                                                                                    placeholder="Select Type"
+                                                                                    placeholder={Search_Select}
                                                                                     onChange={(e) => taskSelection(this, e)}
                                                                                     value={this.state.taskName}
                                                                                     className="addStafSelect"

@@ -2100,8 +2100,8 @@
      "EnterGroupname":"Enter Group name",
      "Groupshortdescription":"Group short description",
      "Entergroupshortdescription":"Enter group short description",
-     "nurselist":"Nurse list for creating group",
      "AssignTherapy":"Add Therapy",
+     "nurselist":"Professional List",
      "staffgrouptitle":"Staff Group Title",
      "staffgroupname":"Staff Group Name",
      "Therapy":"Therapy",
@@ -2120,6 +2120,20 @@
      "cancel_keeptherapy":"Cancel Keep Therapy",
      "from_therapy":"from Therapy?",
     "sure_remove_service":"Are you sure to remove this service",
-     "sure_remove_task":"Are you sure to remove this task"
+     "sure_remove_task":"Are you sure to remove this task",
+     "deleteStaff":"Delete Staff",
+     "editstaff":"Edit Staff",
+     "staffname":"Staff Name",
+     "staffmembers":"Staff Members",
+     "yes_deleteStaff":"Yes Delete Staff",
+     "cancel_keepStaff":"Cancel Keep Staff",
+     "removeStaff":"Remove Staff",
+    "really_want_to_remove_staff":"really want to remove staff"
+    
+     
     }
-}
+
+     
+
+    }
+
