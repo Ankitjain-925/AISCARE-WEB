@@ -123,8 +123,8 @@ export const teamstaff = (current) => {
     }
 
 
-    //Delete the Step
-    export const  DeleteStep = (current) => {
+    //Delete the Staff
+    export const  DeleteStaff = (current) => {
     let translate = getLanguage(current.props.stateLanguageType);
       let {
         deleteStaff,
@@ -168,7 +168,7 @@ export const teamstaff = (current) => {
                 <Grid>
                   <Button
                     onClick={() => {
-                    removestep2(current);
+                    removestaff(current);
                     }}
                   >
                     {yes_deleteStaff}
@@ -189,7 +189,7 @@ export const teamstaff = (current) => {
    
   };
 
-  export const removestep2 = (current) => {
+  export const removestaff = (current) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
     confirmAlert({

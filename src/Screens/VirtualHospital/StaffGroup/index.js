@@ -26,7 +26,7 @@ import {
   getSpecialty,
   teamstaff,
   handleSubmit,
-  DeleteStep
+  DeleteStaff
 
 } from "./api";
 import SelectField from "Screens/Components/Select/index";
@@ -448,7 +448,7 @@ class Index extends Component {
 
                                           <li
                                           onClick={() => {
-                                            DeleteStep(this);
+                                            DeleteStaff(this);
                                           }}
                                           >
                                             <a>
