@@ -26,6 +26,7 @@ import {
   getSpecialty,
   teamstaff,
   handleSubmit,
+  DeleteStep
 
 } from "./api";
 import SelectField from "Screens/Components/Select/index";
@@ -404,16 +405,16 @@ class Index extends Component {
                         </Thead>
                         <Tbody>
                           {console.log('staff_data', staff_data)}
-                          {staff_data?.length > 0 &&
-                            staff_data.map((data) => (
+                          {/* {staff_data?.length > 0 &&
+                            staff_data.map((data) => ( */}
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>{data.team_name}</label>
+                                    <label>data.team_name</label>
 
                                   </Td>
 
-                                  <Td>{data.staff}</Td>
+                                  <Td>data.staff</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
@@ -446,9 +447,9 @@ class Index extends Component {
                                           </li>
 
                                           <li
-                                          // onClick={() => {
-                                          //   this.removeServices(data._id);
-                                          // }}
+                                          onClick={() => {
+                                            DeleteStep(this);
+                                          }}
                                           >
                                             <a>
                                               <img
@@ -466,7 +467,7 @@ class Index extends Component {
                                   </Td>
                                 </Tr>
                               </>
-                            ))}
+                            {/* // ))} */}
                         </Tbody>
                       </Table>
 

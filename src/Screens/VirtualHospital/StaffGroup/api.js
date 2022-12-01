@@ -3,6 +3,10 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import _ from 'lodash';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -117,5 +121,116 @@ export const teamstaff = (current) => {
     console.log('no value')
    
     }
+
+
+    //Delete the Step
+    export const  DeleteStep = (current) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+      let {
+        deleteStaff,
+        yes_deleteStaff,
+        are_you_sure,
+        cancel_keepStaff,
+      } = translate;
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid
+              className={
+                current.props.settings &&
+                  current.props.settings.setting &&
+                  current.props.settings.setting.mode === 'dark'
+                  ? 'dark-confirm deleteStep'
+                  : 'deleteStep'
+              }
+            >
+              <Grid className="deleteStepLbl">
+                <Grid>
+                  <a
+                    onClick={() => {
+                      onClose();
+                    }}
+                  >
+                    <img
+                      src={require('assets/images/close-search.svg')}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                </Grid>
+                <label>{deleteStaff}</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <label>{are_you_sure}</label>
+                <Grid>
+                  <label></label>
+                </Grid>
+                <Grid>
+                  <Button
+                    onClick={() => {
+                    removestep2(current);
+                    }}
+                  >
+                    {yes_deleteStaff}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      onClose();
+                    }}
+                  >
+                    {cancel_keepStaff}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        },
+      });
+   
+  };
+
+  export const removestep2 = (current) => {
+    let translate = getLanguage(current.props.stateLanguageType);
+    let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              current.props.settings &&
+                current.props.settings.setting &&
+                current.props.settings.setting.mode &&
+                current.props.settings.setting.mode === 'dark'
+                ? 'dark-confirm react-confirm-alert-body'
+                : 'react-confirm-alert-body'
+            }
+          >
+            <h1 class="alert-btn">{removeStaff}</h1>
+            <p>{really_want_to_remove_staff}</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{No}</button>
+              <button
+                onClick={() => {
+                  DeleteStaffOk(current);
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
  
+
+  export const DeleteStaffOk = (id,current) => {
+    // axios
+    // .delete(sitedata.data.path + ""+ id+ "/" + current.props?.House?.value,
+    //  commonHeader(current.props.stateLoginValueAim.token))
+    // .then((response) => {
+    //   })
+    // .catch((error) => { });
+  };
  
