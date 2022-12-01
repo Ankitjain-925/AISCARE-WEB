@@ -38,16 +38,18 @@ export const handleSubmit = (current) => {
     }
     else {
         current.setState({ loaderImage: true });
-        if (data?.id) {
+        if (data?._id) {
             axios
                 .put(
-                    sitedata.data.path + "/vh/Updatetherapy/" + current.state.updateTrack._id,
+                    sitedata.data.path + "/vt/Updatetherapy/" + current.state.updateTrack._id,
                     data,
-                    commonHeader(current.props.stateLoginValueAim.token)
+                    commonHeader(current.props.stateLoginValueAim?.token)
                 )
                 .then((responce) => {
+                    getAllTherpy(current);
                     current.setState({
                         updateTrack: {},
+                        loaderImage: false
                     });
                     handleCloseServ(current);
                 })
@@ -108,7 +110,13 @@ export const getAllTherpy = (current) => {
 // For editing the therapy
 export const EditTherapy = (current, data) => {
     var deep = _.cloneDeep(data);
-    current.setState({ openServ: true, updateTrack: deep });
+    console.log("deep", deep);
+    current.setState({
+        openServ: true,
+        updateTrack: deep,
+        assignedTo: deep?.assinged_to,
+        seqItems: deep?.sequence_list
+    });
 }
 
 // For deleting the therapy
@@ -221,8 +229,14 @@ export const DeleteTherapyOk = (current, data) => {
             commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+            if (responce.data.hassuccessed) {
+                getAllTherpy(current);
+                current.setState({ loaderImage: false });
+            }
+        })
+        .catch(() => {
             current.setState({ loaderImage: false });
-        });
+        })
 }
 
 // Get the Professional data
@@ -235,20 +249,12 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
+        console.log("data.professionalList", data.professionalList)
         current.setState(
             {
                 loaderImage: false,
                 professional_id_list1: data.professionalList,
-            },
-            () => {
-                //   if (fromEdit) {
-                //     current.selectProf(
-                //       current.state.newTask?.assinged_to,
-                //       current.state.professional_id_list
-                //     );
-                //   }
-            }
-        );
+            });
     } else {
         current.setState({ loaderImage: false });
     }

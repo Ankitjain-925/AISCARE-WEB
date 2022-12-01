@@ -6,7 +6,6 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
-import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 import { withRouter } from "react-router-dom";
 import { Redirect, Route } from "react-router-dom";
@@ -21,13 +20,8 @@ import Select from "react-select";
 import {
     onChangePage,
     updateEntryState1,
-    onFieldChange,
-    selectedID,
     getSpecialty
 } from "../../VirtualHospital/Services/api";
-import axios from "axios";
-import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import {
     handleSubmit,
@@ -47,41 +41,25 @@ import {
 } from "./api"
 // import AssignPatient from "./AssignPatient";
 import ViewTherapy from "./ViewTherapy";
+import FilterTherapyDiases from "./FilterTherapyDiases";
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             openServ: false,
-            title: "",
-            description: "",
-            price: "",
-            house_id: "",
-            speciality_id: false,
-            services_data: [],
-            AllServices: [],
             updateTrack: {},
-            AllSpeciality: [],
             errorMsg: "",
             SearchValue: "",
-            sickamount: true,
-            sickamount1: {},
-            openAss: false,
             AddTaskSection: [
                 { value: 'task', label: 'Task' },
                 { value: 'assign_service', label: 'Assign Service' }
             ],
             allSequence: {},
             seqItems: [],
-            indexForUpdate: 0
+            indexForUpdate: 0,
         };
     }
-
-    // updateEntry = (e) => {
-    //     const state = this.state.allSequence;
-    //     state[e.target.name] = e.target.value;
-    //     this.setState({ allSequence: state });
-    // }
 
     componentDidMount() {
         getSpecialty(this);
@@ -93,11 +71,18 @@ class Index extends Component {
         this.setState({ openAssPat: true });
     }
 
+    // Closing View Therapy
     closeFullQues = () => {
         this.setState({ viewTher: false });
     }
 
+    // Closing Filter
+    closeFullFilter = () => {
+        this.setState({ openFilter: false });
+    }
+
     render() {
+        console.log("assignedTo", this.state.assignedTo)
         let translate = getLanguage(this.props.stateLanguageType);
         let {
             viewData,
@@ -128,7 +113,7 @@ class Index extends Component {
             Enterserviceprice,
             Search
         } = translate;
-        const { AllTherpy, assignTask, taskName, viewAllData } = this.state;
+        const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss } = this.state;
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -575,6 +560,23 @@ class Index extends Component {
                                                                 />
                                                             )}
                                                         </a>
+
+                                                        <a>
+                                                            <img
+                                                                src={
+                                                                    AllTaskCss === 'filterApply'
+                                                                        ? require('assets/virtual_images/sort-active.png')
+                                                                        : require('assets/virtual_images/sort.png')
+                                                                }
+                                                                alt=""
+                                                                title=""
+                                                                onClick={() => {
+                                                                    this.setState({
+                                                                        AllTaskCss: "filterApply", openFilter: true
+                                                                    });
+                                                                }}
+                                                            />
+                                                        </a>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -593,28 +595,27 @@ class Index extends Component {
                                                 >
                                                     {all}
                                                 </Button>
-
                                             </Grid>
                                         </Grid>
 
                                         {/* service price content */}
                                         <Grid className="srvcTable3">
-                                            <Table>
-                                                <Thead>
-                                                    <Tr>
-                                                        <Th>{therapy_name}</Th>
-                                                        <Th>{DiseaseName}</Th>
-                                                        <Th>{total_task_or_services}</Th>
-                                                        <Th></Th>
-                                                    </Tr>
-                                                </Thead>
-                                                <Tbody>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th><label>{therapy_name}</label></th>
+                                                        <th>{DiseaseName}</th>
+                                                        <th>{total_task_or_services}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     {AllTherpy && AllTherpy.length > 0 && AllTherpy.map((item, index) => (
-                                                        <Tr key={index}>
-                                                            <Td>{item?.therapy_name}</Td>
-                                                            <Td>{item?.disease_name}</Td>
-                                                            <Td>{item?.sequence_list?.length}</Td>
-                                                            <Td className="srvcDots">
+                                                        <tr key={index}>
+                                                            <td>{item?.therapy_name}</td>
+                                                            <td>{item?.disease_name}</td>
+                                                            <td>{item?.sequence_list?.length}</td>
+                                                            <td className="srvcDots">
                                                                 <Grid
                                                                     item
                                                                     xs={6}
@@ -630,6 +631,16 @@ class Index extends Component {
                                                                         />
 
                                                                         <ul>
+                                                                            <li onClick={() => EditTherapy(this, item)}>
+                                                                                <a>
+                                                                                    <img
+                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    {editTherapy}
+                                                                                </a>
+                                                                            </li>
                                                                             <li onClick={() => this.setState({ viewTher: true, viewAllData: item })}
                                                                             >
                                                                                 <a>
@@ -651,7 +662,7 @@ class Index extends Component {
                                                                                     {assign_to_patient}
                                                                                 </a>
                                                                             </li>
-                                                                            <li onClick={() => EditTherapy(this, item)}>
+                                                                            {/* <li onClick={() => EditTherapy(this, item)}>
                                                                                 <a>
                                                                                     <img
                                                                                         src={require("assets/virtual_images/pencil-1.svg")}
@@ -660,7 +671,7 @@ class Index extends Component {
                                                                                     />
                                                                                     {editTherapy}
                                                                                 </a>
-                                                                            </li>
+                                                                            </li> */}
                                                                             <li onClick={() => DeleteTherapy(this, item)}>
                                                                                 <a>
                                                                                     <img
@@ -675,16 +686,20 @@ class Index extends Component {
                                                                     </a>
 
                                                                 </Grid>
-                                                            </Td>
-                                                        </Tr>
+                                                            </td>
+                                                        </tr>
                                                     ))}
-                                                </Tbody>
-                                            </Table>
-                                            {/* <AssignPatient /> */}
+                                                </tbody>
+                                            </table>
+
                                             <ViewTherapy
                                                 viewTher={this.state.viewTher}
                                                 item={viewAllData}
                                                 closeFullQues={() => this.closeFullQues()}
+                                            />
+                                            <FilterTherapyDiases
+                                                openFilter={this.state.openFilter}
+                                                closeFullFilter={() => this.closeFullFilter()}
                                             />
 
                                             <Grid className="tablePagNum">

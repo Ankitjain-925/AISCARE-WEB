@@ -2128,7 +2128,9 @@
      "yes_deleteStaff":"Yes Delete Staff",
      "cancel_keepStaff":"Cancel Keep Staff",
      "removeStaff":"Remove Staff",
-    "really_want_to_remove_staff":"really want to remove staff"
+    "really_want_to_remove_staff":"really want to remove staff",
+    "FilterbyTherapyname":"Filter by Therapy",
+    "FilterbyDisease":"Filter by Disease"
     
      
     }
