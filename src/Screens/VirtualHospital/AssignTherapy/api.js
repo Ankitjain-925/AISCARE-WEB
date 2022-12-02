@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 
+
 //For adding the New therapy
 export const handleSubmit = (current) => {
     const { assignedTo, seqItems, assinged_to } = current.state;
@@ -133,17 +134,25 @@ export const getAllTherpy = (current) => {
 
 // For editing the therapy
 export const EditTherapy = (current, data) => {
+
     var deep = _.cloneDeep(data);
-    // console.log("deep?.assinged_to", deep?.assinged_to)
-    // var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
-    //     var name = item?.first_name + item?.last_name;
-    //     return ({ label: name, value: item._id })
-    // })
+    console.log("deep", deep)
+    var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
+        var name = item?.first_name + item?.last_name;
+        let a = [];
+        a.push({ label: name, value: item._id })
+        return a;
+    })
+
     current.setState({
         openServ: true,
         updateTrack: deep,
-        // assignedTo: deep?.assinged_to,
-        seqItems: deep?.sequence_list
+        assignedTo: newArray,
+        seqItems: deep?.sequence_list,
+        selectSpec: {
+            label: deep?.speciality?.specialty_name,
+            value: deep?.speciality?._id,
+        },
     });
 }
 
@@ -277,6 +286,7 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
+        console.log("data.professionalList", data.professionalList, "data.professionalArray", data.professionalArray)
         current.setState(
             {
                 loaderImage: false,
@@ -289,8 +299,9 @@ export const GetProfessionalData = async (current, fromEdit) => {
 };
 
 export const updateEntryState3 = (current, e) => {
+    console.log("e", e)
     var res = current.state.professionalArray1.filter(el => {
-        return e.find(element => {
+        return e && e.find(element => {
             return element?.value === el?.user_id;
         });
     });
@@ -440,23 +451,26 @@ export const removeTaskSer = (current, index) => {
 }
 // For searching data
 export const searchFilter = (e, current) => {
-    current.setState({ SearchValue: e.target.value, loaderImage: true });
-    axios
-        .get(
-            sitedata.data.path + "/vt/Gettherapy_search/" + current.props?.House?.value + "/" + e.target.value,
-            commonHeader(current.props.stateLoginValueAim?.token)
-        )
-        .then((res) => {
-            if (res.data.hassuccessed) {
-                current.setState({
-                    AllTherpy: res?.data?.data,
-                    loaderImage: false
-                });
-            }
-        })
-        .catch(() => {
-            current.setState({ loaderImage: false });
-        })
+    current.setState({ SearchValue: e.target.value });
+    if (current.state.showinput && e.target.value) {
+        axios
+            .get(
+                sitedata.data.path + "/vt/Gettherapy_search/" + current.props?.House?.value + "/" + e.target.value,
+                commonHeader(current.props.stateLoginValueAim?.token)
+            )
+            .then((res) => {
+                if (res.data.hassuccessed) {
+                    current.setState({
+                        AllTherpy: res?.data?.data,
+                    });
+                }
+            })
+            .catch(() => {
+            })
+    }
+    else {
+        getAllTherpy(current);
+    }
 }
 
 export const onChangePage = (pageNumber, current) => {
@@ -467,4 +481,33 @@ export const onChangePage = (pageNumber, current) => {
         ),
         currentPage: pageNumber,
     });
+};
+
+//to get the speciality list
+export const specailityList = (current) => {
+    var spec =
+        current.props.speciality?.SPECIALITY &&
+        current.props?.speciality?.SPECIALITY.length > 0 &&
+        current.props?.speciality?.SPECIALITY.map((data) => {
+            return { label: data.specialty_name, value: data._id };
+        });
+    current.setState({ specilaityList: spec });
+};
+
+export const onFieldChange = (current, e) => {
+    const state = current.state.updateTrack;
+    current.setState({ selectSpec: e });
+    var speciality =
+        current.props.speciality?.SPECIALITY &&
+        current.props?.speciality?.SPECIALITY.length > 0 &&
+        current.props?.speciality?.SPECIALITY.filter((data) => data._id === e.value);
+    if (speciality && speciality.length > 0) {
+        state["speciality"] = {
+            background_color: speciality[0]?.background_color,
+            color: speciality[0]?.color,
+            specialty_name: speciality[0]?.specialty_name,
+            _id: speciality[0]?._id,
+        };
+        current.setState({ updateTrack: state });
+    }
 };

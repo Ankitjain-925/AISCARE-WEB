@@ -37,11 +37,14 @@ import {
     editTaskSer,
     removeServices,
     onChangePage,
-    searchFilter
+    searchFilter,
+    specailityList,
+    onFieldChange
 } from "./api"
 import AssignPatient from "./AssignPatient";
 import ViewTherapy from "./ViewTherapy";
 import FilterTherapyDiases from "./FilterTherapyDiases";
+import { Speciality } from "Screens/Login/speciality.js";
 
 class Index extends Component {
     constructor(props) {
@@ -59,7 +62,7 @@ class Index extends Component {
             seqItems: [],
             indexForUpdate: 0,
             error_section: 0,
-            assignedTo: {}
+            assignedTo: []
         };
     }
 
@@ -67,6 +70,7 @@ class Index extends Component {
         getSpecialty(this);
         getAllTherpy(this);
         GetProfessionalData(this);
+        specailityList(this);
     }
 
     clearFilter = () => {
@@ -107,6 +111,7 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let {
             viewData,
+            Speciallity,
             Assignedto,
             Search_Select,
             Addnewtherapy,
@@ -300,6 +305,21 @@ class Index extends Component {
                                                                                     className="addStafSelect"
                                                                                     isMulti={true}
                                                                                     isSearchable={true}
+                                                                                />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <label>{Speciallity}</label>
+                                                                            <Grid className="specialFor">
+                                                                                <Select
+                                                                                    onChange={(e) => onFieldChange(this, e)}
+                                                                                    options={this.state.specilaityList}
+                                                                                    name="specialty_name"
+                                                                                    isSearchable={true}
+                                                                                    className="addStafSelect"
+                                                                                    value={
+                                                                                        this.state.selectSpec
+                                                                                    }
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
@@ -581,6 +601,7 @@ class Index extends Component {
                                                                             showinput: !this.state.showinput,
                                                                             SearchValue: "",
                                                                         });
+                                                                        getAllTherpy(this);
                                                                     }}
                                                                 />
                                                             )}
@@ -770,6 +791,7 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect;
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { speciality } = state.Speciality;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -777,6 +799,7 @@ const mapStateToProps = (state) => {
         settings,
         verifyCode,
         House,
+        speciality,
     };
 };
 export default withRouter(
@@ -786,5 +809,6 @@ export default withRouter(
         Settings,
         authy,
         houseSelect,
+        Speciality,
     })(Index)
 );

@@ -17104,3 +17104,7 @@ color:#FFFFFF
 
 .darkTheme .srvcTable365
 {background: #192020}
+
+.srvcTable365{
+  overflow: auto;
+}

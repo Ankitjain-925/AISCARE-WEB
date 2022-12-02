@@ -327,9 +327,12 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
       } else if (response.data?.data[i]?.first_name) {
         name = response.data?.data[i]?.first_name;
       }
+      else if (response.data?.data[i]?.team_name) {
+        name = response.data?.data[i]?.team_name;
+      }
       if (comesFrom === 'appoint') {
         professionalArray.push(response.data?.data[i]);
-      } else {
+      } else if (response.data?.data[i].first_name) {
         professionalArray.push({
           first_name: response.data?.data[i].first_name,
           last_name: response.data?.data[i].last_name,
@@ -340,11 +343,13 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
           type: response.data?.data[i].type,
           title: response.data?.data[i].title,
         });
+      } else {
+        professionalArray.push(response.data?.data[i]);
       }
       professionalList.push({
         value: response.data?.data[i]._id,
         label: name,
-        email: response.data.data[i].email,
+        email: response.data.data[i].email ? response.data.data[i].email : '',
       });
       // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
     }

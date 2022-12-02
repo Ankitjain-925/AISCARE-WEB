@@ -179,7 +179,7 @@ class Index extends Component {
     }
     if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
       this.allHouses();
-  }
+    }
   };
 
   handleOpenAss = () => {
@@ -318,6 +318,7 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
+    console.log("spec", spec)
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
@@ -325,7 +326,7 @@ class Index extends Component {
     this.setState({
       professional_id_list1: this.state.professional_id_list,
       openTask: true,
-      selectedHouse:{},
+      selectedHouse: {},
       newTask: {},
       assignedTo: [],
       authErr: false,
@@ -2097,7 +2098,7 @@ class Index extends Component {
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
                 </Button>}
-                {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenCT()} >
                   {"Create Therapy Protocal"}
                 </Button>}
@@ -2154,7 +2155,7 @@ class Index extends Component {
           >
             <Grid className="creatTaskModel">
               <Grid className="creatTaskCntnt">
-              {/* {this.state.disableActivity && 
+                {/* {this.state.disableActivity && 
                                 <div className="err_message">You dont have authority to create a task</div>} */}
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
@@ -4630,7 +4631,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-              :<p className='authority'>You have no authority for showing the tasks, Please contact to hospital admin</p>}
+                : <p className='authority'>You have no authority for showing the tasks, Please contact to hospital admin</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>
