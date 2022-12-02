@@ -76,7 +76,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' });
+    this.setState({ selectWard: '' });
     let specialityList =
       this.props.speciality?.SPECIALITY &&
       this.props.speciality?.SPECIALITY.length > 0 &&
@@ -91,31 +91,21 @@ class Index extends Component {
       wardsFullData.map((item) => {
         return { label: item.ward_name, value: item._id };
       });
+      var state = this.state.updateTrack
+      state['speciality_id'] = e?.value;
+      
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
       allWards: wardsFullData,
+      updateTrack: state
     });
   };
   // ward Change
   onWardChange = (e) => {
-    this.setState({ selectRoom: '' });
-    let { allWards } = this.state;
-    let wardDetails =
-      allWards &&
-      allWards.length > 0 &&
-      allWards.filter((item) => {
-        return item && item._id == e.value;
-      });
-    let roomsData =
-      wardDetails && wardDetails.length > 0 && wardDetails[0].rooms;
-    let rooms =
-      roomsData &&
-      roomsData.length > 0 &&
-      roomsData.map((item) => {
-        return { label: item.room_name, value: item._id };
-      });
-    this.setState({ selectWard: e, roomList: rooms });
+    var state = this.state.updateTrack;
+    state['ward_id']= e.value;
+    this.setState({ selectWard: e, updateTrack: state });
   };
 
   //to get the speciality list
@@ -301,7 +291,7 @@ class Index extends Component {
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.team_name}
+                                          value={this.state.team_name}
                                         />
                                       </Grid>
                                       <label className="enterSpcl">

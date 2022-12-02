@@ -62,7 +62,13 @@ export const handleCloseServ = (current) => {
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
-  state[e.target.name] = e.target.value;
+  if(e.target.name === 'team_name'){
+    current.setState({team_name: e.target.value})
+    state['team_name'] = current.state.selectSpec2?.label+'-'+current.state.selectWard?.label+'-'+e.target.value; 
+  }
+  else{
+    state[e.target.name] = e.target.value;
+  }
   current.setState({ updateTrack: state });
 };
 
@@ -111,10 +117,6 @@ export const teamstaff = (current) => {
     var data = current.state.updateTrack;
     current.setState({ errorMsg: '' })
       data.house_id = current.props?.House?.value;
-      data.speciality_id = selectSpec2;
-      data.ward_id = selectWard;
-      data.staff=[staffslct]
-      console.log('data.staffhgy',staffslct)
       if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
         current.setState({ errorMsg: "Please select speciality id" })
     }  else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
@@ -146,11 +148,10 @@ else{
               handleCloseServ(current);
           })
   }else{
-    console.log("data", data);
       axios
-        // .post(sitedata.data.path + "/teammember/AddGroup",
-        //  data, 
-        //  commonHeader(current.props.stateLoginValueAim.token))
+        .post(sitedata.data.path + "/teammember/AddGroup",
+         data, 
+         commonHeader(current.props.stateLoginValueAim.token))
         .then((responce) => {
           current.setState({ loaderImage: false });
           teamstaff(current);
@@ -159,7 +160,6 @@ else{
         .catch(function (error) {
           current.setState({ loaderImage: false });
            handleCloseServ(current);
-  
         });
       }
       }
@@ -291,17 +291,25 @@ else{
         console.log('responce',responce.data.data)
        if (responce.data.hassuccessed && responce.data.data) {
       var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          let label= item?.first_name + item?.last_name
-          return ([item.profile_id])
+          let name= item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
+          return ({label: name , value: item?.profile_id})
         })
-        current.setState({ teamstaff: newArray });
+        current.setState({ teamstaff: newArray, teamstaff1: responce.data?.data});
         }
         current.setState({ loaderImage: false });
       });
   };
 
   export const stffchange = (e, current) => {
-   current.setState({ staffslct: e});
+    var state = current.state.updateTrack;
+    var staff = [];
+    staff = e?.length>0 && e.map((item)=> {
+      return item?.value;
+    })
+    state['staff'] = staff;
+   current.setState({ staffslct: e, updateTrack: state}, ()=>{
+    console.log('updateTrack', current.state.updateTrack)
+   });
     }
 
   // Open Edit Model
