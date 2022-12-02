@@ -14,6 +14,14 @@ const FilterTherapyDiases = (props) => {
         props.closeFullFilter();
     }
 
+    const clearFilter = () => {
+        props.clearFilter();
+    }
+
+    const applyFilter = () => {
+        props.applyFilter();
+    }
+
     let translate = getLanguage(props.stateLanguageType);
     let { filters,
         clear_all_filters,
@@ -62,15 +70,15 @@ const FilterTherapyDiases = (props) => {
 
                         </Grid>
 
-                        {/* <Grid className="fltrForm">
+                        <Grid className="fltrForm">
                             <Grid className="fltrInput">
                                 <label>{Therapyname}</label>
                                 <Grid className="addInput">
                                     <Select
-                                        name="professional"
-                                        onChange={(e) => updateTherapyFilter(e)}
-                                        value={this.state.FilterData}
-                                        options={this.state.patientForFilter}
+                                        name="therapy_name"
+                                        // onChange={(e) => updateTherapyFilter(e)}
+                                        // value={this.state.FilterData}
+                                        // options={this.state.patientForFilter}
                                         placeholder={FilterbyTherapyname}
                                         className="addStafSelect"
                                         isMulti={true}
@@ -82,10 +90,10 @@ const FilterTherapyDiases = (props) => {
                                 <label>{DiseaseName}</label>
                                 <Grid className="addInput">
                                     <Select
-                                        name="professional"
-                                        onChange={(e) => this.updateEntryState4(e)}
-                                        value={this.state.assignedTo2}
-                                        options={this.state.professional_id_list}
+                                        name="disease_name"
+                                        // onChange={(e) => this.updateEntryState4(e)}
+                                        // value={this.state.assignedTo2}
+                                        // options={this.state.professional_id_list}
                                         placeholder={FilterbyDisease}
                                         className="addStafSelect"
                                         isMulti={true}
@@ -93,63 +101,18 @@ const FilterTherapyDiases = (props) => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid className="fltrInput">
-                                <label>{speciality}</label>
-                                <Grid className="addInput">
-                                    <Select
-                                        onChange={(e) => this.onFieldChange2(e)}
-                                        options={this.state.specilaityList}
-                                        name="specialty_name"
-                                        value={this.state.selectSpec2}
-                                        placeholder={FilterbySpeciality}
-                                        isMulti={false}
-                                        className="addStafSelect"
-                                        isSearchable={true}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid className="fltrInput">
-                                <label>{Ward}</label>
-                                <Grid className="addInput">
-                                    <Select
-                                        onChange={(e) => this.onWardChange(e)}
-                                        options={this.state.wardList}
-                                        name="ward_name"
-                                        value={this.state.selectWard}
-                                        placeholder={FilterbyWard}
-                                        isMulti={false}
-                                        className="addStafSelect"
-                                        isSearchable={true}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid className="fltrInput">
-                                <label>{Room}</label>
-                                <Grid className="addInput">
-                                    <Select
-                                        onChange={(e) => this.onRoomChange(e)}
-                                        options={this.state.roomList}
-                                        name="room_name"
-                                        value={this.state.selectRoom}
-                                        placeholder={FilterbyRoom}
-                                        isMulti={false}
-                                        className="addStafSelect"
-                                        isSearchable={true}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Grid> */}
+                        </Grid>
                         <Grid className="aplyFltr">
                             <Grid className="aplyLft">
                                 <label className="filterCursor"
-                                // onClick={this.clearFilter}
+                                    onClick={() => clearFilter()}
                                 >
                                     {clear_all_filters}
                                 </label>
                             </Grid>
                             <Grid className="aplyRght">
                                 <Button
-                                // onClick={this.applyFilter}
+                                    onClick={() => applyFilter()}
                                 >
                                     {applyFilters}</Button>
                             </Grid>

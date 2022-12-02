@@ -341,7 +341,6 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
           title: response.data?.data[i].title,
         });
       }
-      console.log("professionalArray", professionalArray)
       professionalList.push({
         value: response.data?.data[i]._id,
         label: name,

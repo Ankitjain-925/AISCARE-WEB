@@ -17082,3 +17082,25 @@ color:#FFFFFF
   font-size: 10px;
 }
 
+.services-head th{    color: #7f8383;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 12px;}
+
+  .presImg11 img
+  {border-radius: 27px;
+    height: 21px;
+    width: 22px;
+    margin: 2px 5px 7px 2px;}
+    
+.AddMarginTo{
+    margin-bottom: 10px
+}
+
+.srvcTable3656 th, .srvcTable3656 td{
+  padding: 30px 24px;
+}
+
+.darkTheme .srvcTable365
+{background: #192020}
