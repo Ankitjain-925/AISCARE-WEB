@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import { S3Image } from 'Screens/Components/GetS3Images/index';
 import Modal from "@material-ui/core/Modal";
 import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting'
 
@@ -89,14 +88,16 @@ const ViewTherapy = (props) => {
                                     </label>
                                     <div style={{ paddingBottom: 8 }}>{props?.item?.disease_name}</div>
                                 </Grid>
-                                <Grid>
+                                <Grid className="AddMarginTo">
                                     <label className="specbutton1">
                                         Assigned To
                                     </label>
                                     {props?.item?.assinged_to &&
                                         props?.item?.assinged_to?.length > 0 &&
                                         props?.item?.assinged_to.map((data) => (
-                                            <div style={{ paddingBottom: 8 }}>{data?.label}</div>
+                                            <div className="presImg11">
+                                                {data && data?.image && <S3Image imgUrl={data?.image} />}
+                                                {data?.first_name} {' '} {data?.last_name}</div>
                                         ))}
 
                                 </Grid>
@@ -108,29 +109,31 @@ const ViewTherapy = (props) => {
                                     {/* <div style={{ paddingBottom: 8 }}>-	</div> */}
 
                                 </Grid>
-                                <Grid className="srvcTable3">
-                                    <Table>
-                                        <Thead>
-                                            <Tr>
-                                                <Th>No.</Th>
-                                                <Th>Type</Th>
-                                                <Th>Title of type </Th>
-                                                <Th>Description of Type</Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                            {props?.item?.sequence_list &&
-                                                props?.item?.sequence_list?.length > 0 &&
-                                                props?.item?.sequence_list.map((data, index) => (
-                                                    <Tr>
-                                                        <Td key={index}>{index}</Td>
-                                                        <Td>{data?.type}</Td>
-                                                        <Td>{data?.task_name || data?.service_name}</Td>
-                                                        <Td>{data?.task_description || data?.service_description}</Td>
-                                                    </Tr>
-                                                ))}
-                                        </Tbody>
-                                    </Table>
+                                <Grid className="srvcTable3656">
+                                    <Grid className="srvcTable3 srvcTable365">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
+                                                    <th style={{ "width": "30%", "text-align": "left" }}>Type</th>
+                                                    <th style={{ "width": "40%", "text-align": "left" }}>Title of type </th>
+                                                    <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {props?.item?.sequence_list &&
+                                                    props?.item?.sequence_list?.length > 0 &&
+                                                    props?.item?.sequence_list.map((data, index) => (
+                                                        <tr>
+                                                            <td key={index}>{index}</td>
+                                                            <td>{data?.type === "task" ? "Task" : "Assign Service"}</td>
+                                                            <td>{data?.task_name || data?.service_name}</td>
+                                                            <td>{data?.task_description || data?.service_description}</td>
+                                                        </tr>
+                                                    ))}
+                                            </tbody>
+                                        </table>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
