@@ -452,6 +452,7 @@ class Index extends Component {
             </li>
             {this.props?.House?.value && (
               <>
+
                 {this.props?.House?.roles?.length > 0 && (this.props?.House?.roles.includes('service_manager') || this.props?.House?.roles.includes('questionnaire')) &&
                   <li
                     className={
