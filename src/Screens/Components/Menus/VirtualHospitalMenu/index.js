@@ -601,6 +601,7 @@ class Index extends Component {
                           </a>
                         </li>}
                         {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('questionnaire') &&
+                        <>
                         <li>
                           <a onClick={this.Staffgroup}>
                             {this.props.settings &&
@@ -666,7 +667,8 @@ class Index extends Component {
 
                             {Questionnaire}
                           </a>
-                        </li>}
+                        </li>
+                        </>}
                       </ul>
                     </div>
                   </a>
