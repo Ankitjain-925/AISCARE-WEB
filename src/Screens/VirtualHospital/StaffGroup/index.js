@@ -23,11 +23,15 @@ import {
   handleOpenServ,
   handleCloseServ,
   updateEntryState1,
-  onFieldChange,
-  selectedID,
   getSpecialty,
-} from "../../VirtualHospital/Services/api";
+  teamstaff,
+  handleSubmit,
+  DeleteStaff
 
+} from "./api";
+import SelectField from "Screens/Components/Select/index";
+
+import { Speciality } from 'Screens/Login/speciality.js';
 import { getLanguage } from "translations/index";
 
 class Index extends Component {
@@ -48,40 +52,83 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
-      openAss: false
-
+      openAss: false,
+      teamstaff: [],
+      staff_data: [],
+      AllStaff: [],
+      specilaityList: [],
+      selectSpec2: '',
+      wardList: [],
+      selectWard: '',
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
+    teamstaff(this);
+    this.specailityList();
   }
 
- 
-  //For adding the New staff 
-handleSubmit = () => {
-  let translate = getLanguage(this.props.stateLanguageType);
-  let {} = translate;
-  this.setState({ errorMsg: '' })
-  var data = this.state.updateTrack;
-  if (!data.title || (data && data?.title && data?.title.length < 1)) {
-    this.setState({ errorMsg: "please enter title name" })
-  }
-  else if (!data.description) {
-   this.setState({ errorMsg: "please enter description" })
-  }
-  else if (!data.ward) {
-    this.setState({ errorMsg: "please enter ward name" })
-   }
-  else {
-   console.log('no value')
-   handleCloseServ(this);
-  }
-};
+  //On Changing the specialty id
+  onFieldChange2 = (e) => {
+    this.setState({ selectRoom: '', selectWard: '' });
+    let specialityList =
+      this.props.speciality?.SPECIALITY &&
+      this.props.speciality?.SPECIALITY.length > 0 &&
+      this.props.speciality?.SPECIALITY.filter((item) => {
+        return item && item._id == e.value;
+      });
+    let wardsFullData =
+      specialityList && specialityList.length > 0 && specialityList[0].wards;
+    let wards_data =
+      wardsFullData &&
+      wardsFullData.length > 0 &&
+      wardsFullData.map((item) => {
+        return { label: item.ward_name, value: item._id };
+      });
+    this.setState({
+      selectSpec2: e,
+      wardList: wards_data,
+      allWards: wardsFullData,
+    });
+  };
+  // ward Change
+  onWardChange = (e) => {
+    this.setState({ selectRoom: '' });
+    let { allWards } = this.state;
+    let wardDetails =
+      allWards &&
+      allWards.length > 0 &&
+      allWards.filter((item) => {
+        return item && item._id == e.value;
+      });
+    let roomsData =
+      wardDetails && wardDetails.length > 0 && wardDetails[0].rooms;
+    let rooms =
+      roomsData &&
+      roomsData.length > 0 &&
+      roomsData.map((item) => {
+        return { label: item.room_name, value: item._id };
+      });
+    this.setState({ selectWard: e, roomList: rooms });
+  };
+
+  //to get the speciality list
+  specailityList = () => {
+    var spec =
+      this.props.speciality?.SPECIALITY &&
+      this.props?.speciality?.SPECIALITY.length > 0 &&
+      this.props?.speciality?.SPECIALITY.map((data) => {
+        return { label: data.specialty_name, value: data._id };
+      });
+    this.setState({ specilaityList: spec });
+  };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      editstaff,
+      deleteStaff,
       StaffGroup,
       newstaffGroup,
       AddnewstaffGroup,
@@ -94,10 +141,11 @@ handleSubmit = () => {
       Groupshortdescription,
       nurselist,
       staffgrouptitle,
-      staffgroupname,
+      staffname,
+      staffmembers,
       Search
     } = translate;
-    const { services_data } = this.state;
+    const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -203,88 +251,67 @@ handleSubmit = () => {
                                     </Grid>
                                   </Grid>
                                   <div className="error_message">
-                                      {this.state.errorMsg}
-                                    </div>
-                                    <Grid className="enterServMain">
+                                    {this.state.errorMsg}
+                                  </div>
+                                  <Grid className="enterServMain">
                                     <Grid className="enterSpcl">
+                                      <label>{speciality}</label>
+                                    <Grid className="addInput">
+                                      <Select
+                                        onChange={(e) => this.onFieldChange2(e)}
+                                        options={this.state.specilaityList}
+                                        name="speciality_id"
+                                        value={this.state.selectSpec2}
+                                        className="addStafSelect"
+                                        isMulti={false}
+                                        isSearchable={true}
+                                      />
+                                    </Grid>
+                                    </Grid>
+
+                                    {this.state.wardList &&
+                                      this.state.wardList.length > 0 && (
+                                        <Grid className="enterSpcl">
+                                          <label>{Ward}</label>
+                                          <Grid className="addInput">
+                                            <Select
+                                              onChange={(e) => this.onWardChange(e)}
+                                              options={this.state.wardList}
+                                              name="ward_name"
+                                              value={this.state.selectWard}
+                                              isMulti={false}
+                                              className="addStafSelect"
+                                              isSearchable={true}
+                                            />
+                                          </Grid>
+                                        </Grid>
+                                      )}
+
+                               <Grid className="enterSpcl">
                                       <Grid>
                                         <VHfield
                                           label={Grouptitle}
-                                          name="title"
+                                          name="team_name"
                                           placeholder={EnterGroupname}
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.title}
+                                          value={this.state.updateTrack.team_name}
                                         />
-                                      </Grid>
-
-                                      <Grid>
-                                        <VHfield
-                                          label={Groupshortdescription}
-                                          name="description"
-                                          placeholder={
-                                            Entergroupshortdescription
-                                          }
-                                          onChange={(e) =>
-                                            updateEntryState1(e, this)
-                                          }
-                                          value={
-                                            this.state.updateTrack.description
-                                          }
-                                        />
-                                      </Grid>
-                                      <Grid className="enterSpcl">
-                                        <Grid className="customservicetitle">
-                                          <label>{speciality}</label>
-                                        </Grid>
-                                        <Grid className="sevicessection serviceallSec">
-                                          <Select
-                                           onChange={(e) =>
-                                            onFieldChange(e, this)
-                                          }
-                                          options={this.state.AllSpeciality}
-                                          name="specialty_name"
-                                          isSearchable={true}
-                                          className="addStafSelect"
-                                          isMulti={true}
-                                          value={selectedID(
-                                            this.state.updateTrack.specialty_id,
-                                            this
-                                          )}
-                                          />
-                                        </Grid>
-                                      </Grid>
-
-
-                                      <Grid
-                                        item
-                                        xs={12}
-                                        md={12}
-                                        className="enterPricePart1"
-                                      >
-                                        <VHfield
-                                          label={Ward}
-                                          name="ward"
-                                          placeholder="enter ward"
-                                          onChange={(e) =>
-                                            updateEntryState1(e, this)
-                                          }
-                                          value={
-                                            this.state.updateTrack.ward
-                                          }
-                                        />
-
                                       </Grid>
                                       <label className="enterSpcl">
                                         {nurselist}
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          name="specialty_name"
+                                          options={this.state.teamstaff}
+                                          name="staff"
                                           isSearchable={true}
                                           className="addStafSelect"
                                           isMulti={true}
+                                          value={
+                                            this.state.updateTrack.staff
+                                          }
                                         />
                                       </Grid>
                                     </Grid>
@@ -292,7 +319,7 @@ handleSubmit = () => {
                                   <Grid className="servSaveBtn">
                                     <a>
                                       <Button
-                                      onClick={() => this.handleSubmit()}
+                                        onClick={() => handleSubmit(this)}
                                       >
                                         {save_and_close}
                                       </Button>
@@ -323,13 +350,13 @@ handleSubmit = () => {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                          {this.state.showinput && (
+                            {this.state.showinput && (
                               <input
                                 name="Search"
-                                 placeholder={Search}
+                                placeholder={Search}
                                 value={this.state.SearchValue}
                                 className="serchInput"
-                                // onChange={(e) => searchFilter(e, this)}
+                              // onChange={(e) => searchFilter(e, this)}
                               />
                             )}
                             <a>
@@ -371,12 +398,76 @@ handleSubmit = () => {
                       <Table>
                         <Thead>
                           <Tr>
-                            <Th>{staffgrouptitle}</Th>
-                            <Th>{staffgroupname}</Th>
+                            <Th>{staffname}</Th>
+                            <Th>{staffmembers}</Th>
                             <Th></Th>
                           </Tr>
                         </Thead>
                         <Tbody>
+                          {console.log('staff_data', staff_data)}
+                          {/* {staff_data?.length > 0 &&
+                            staff_data.map((data) => ( */}
+                              <>
+                                <Tr>
+                                  <Td>
+                                    <label>data.team_name</label>
+
+                                  </Td>
+
+                                  <Td>data.staff</Td>
+                                  {/* <Td className="srvcDots"> */}
+                                  <Td>
+                                    <Grid
+                                      item
+                                      xs={6}
+                                      md={6}
+                                      className="spcMgntRght7 presEditDot scndOptionIner scndOptionInerPart"
+                                    >
+                                      <a className="openScndhrf">
+                                        <img
+                                          src={require("assets/images/three_dots_t.png")}
+                                          alt=""
+                                          title=""
+                                          className="openScnd specialuty-more"
+                                        />
+                                        <ul>
+                                          <li
+                                          // onClick={() => {
+                                          //   EditService(data, this);
+                                          // }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/virtual_images/pencil-1.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {editstaff}
+                                            </a>
+                                          </li>
+
+                                          <li
+                                          onClick={() => {
+                                            DeleteStaff(this);
+                                          }}
+                                          >
+                                            <a>
+                                              <img
+                                                src={require("assets/images/cancel-request.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {deleteStaff}
+                                            </a>
+                                          </li>
+
+                                        </ul>
+                                      </a>
+                                    </Grid>
+                                  </Td>
+                                </Tr>
+                              </>
+                            {/* // ))} */}
                         </Tbody>
                       </Table>
 
@@ -426,6 +517,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -433,6 +525,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
+    speciality,
   };
 };
 export default withRouter(
@@ -442,5 +535,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    Speciality,
   })(Index)
 );

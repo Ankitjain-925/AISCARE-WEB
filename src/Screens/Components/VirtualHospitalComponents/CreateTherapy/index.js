@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { getLanguage } from "translations/index";
 import Modal from "@material-ui/core/Modal";
-import DateFormat from "Screens/Components/DateFormat/index";
-import TimeFormat from "Screens/Components/TimeFormat/index";
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -25,8 +21,6 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Speciality } from "Screens/Login/speciality.js";
 import { confirmAlert } from "react-confirm-alert";
 import _ from "lodash";
-import moment from "moment";
-import { ConsoleCustom } from "Screens/Components/BasicMethod/index";
 
 const customStyles = {
   control: (base) => ({
@@ -55,22 +49,43 @@ class Index extends Component {
       newspeciality: [],
       items: [],
       editServ: false,
+      editTask: false,
+      newTaskIndex: false,
       newServiceIndex: false,
       error: "",
       total_amount: this.props.total_amount,
       errorMsg: "",
-      addservice: {},
+      addService: {},
+      addTask: {},
       selectedHouse: this.props.selectedHouse,
+      AddTaskSection:  [
+        { value: 'Task', label: 'Task' },
+        { value: 'Assign Service', label: 'Assign Service' }
+      ],
+      taskValue: "",
+      enableTask: false,
+      enableService: false,
+      assignTask: false,
+      taskName: "",
+      taskDesc: "",
+      taskData: [],
+      serviceData: [],
+      allServData: [],
+      servicesDataObj: [],
+      serviceName: "",
+      serviceDesc: "",
+      assignedService: [],
+      errorTaskName: "",
+      errorTaskDesc: "",
+      errorServiceName: "",
+      errorServiceDesc: "",
+      errorServices: "",
+      editTaskName: "",
+      editTaskDesc: "",
+      editServiceName: "",
+      editServiceDesc: "",
+      editServices: ""
     };
-  }
-
-  componentDidMount() {
-    if (this.props?.House?.value) {
-      this.getPatientData();
-      this.getProfessionalData(true);
-    }
-    this.getAssignService();
-    this.specailityList();
   }
 
   createDuplicate = (data) => {
@@ -141,6 +156,16 @@ class Index extends Component {
         items: [],
         total_amount: 0,
         showError: "",
+        taskName: "",
+        taskDesc: "",
+        serviceName: "",
+        serviceDesc: "",
+        errorTaskName: "",
+        errorTaskDesc: "",
+        errorServiceName: "",
+        errorServiceDesc: "",
+        errorTaskDesc: "",
+        errorServices: ""
       },
       () => {
         if (this.props.comesFrom === "detailTask") {
@@ -194,6 +219,20 @@ class Index extends Component {
     this.setState({ service: state, addservice: state1 });
   };
 
+  taskSelection = (e) => {
+    if (e.value === 'Task') {
+      this.setState({ enableTask: true });
+      this.setState({ enableService: false });
+    } else if (e.value === 'Assign Service') {
+      this.setState({ enableTask: false });
+      this.setState({ enableService: true });
+    } else {
+      this.setState({ enableTask: false });
+      this.setState({ enableService: false });
+    }
+    this.setState({ taskValue: e });
+  }
+
   assignedTo = (e) => {
     this.setState({ assignedTo: e }, () => {
       var data =
@@ -219,7 +258,31 @@ class Index extends Component {
       });
     });
   };
-
+  assignedServices = (e) => {
+    this.setState({ assignedService: e }, () => {
+      var data =
+        e?.length > 0 &&
+        e.reduce((last, current, index) => {
+          let isProf =
+            this.state.serviceData?.length > 0 &&
+            this.state.serviceData.filter(
+              (data, index) => data.user_id === current.value
+            );
+          if (isProf && isProf.length > 0) {
+            last.push(isProf[0]);
+          }
+          return last;
+        }, []);
+      const state = this.state.service;
+      state["assinged_service"] = data;
+      this.setState({ service: state }, () => {
+        this.selectProf(
+          this.state.serviceData?.assinged_to,
+          this.state.serviceData
+        );
+      });
+    });
+  };
   // manage assign to list
   selectProf = (listing, data) => {
     var showdata = data;
@@ -318,16 +381,16 @@ class Index extends Component {
     }
   };
   //Switch status done / open
-  switchStatus = (alrady) => {
-    if (!alrady) {
-      const state = this.state.service;
-      state["status"] = state.status === "done" ? "open" : "done";
-      if (state.status === "done") {
-        state["done_on"] = new Date();
-      }
-      this.setState({ service: state });
-    }
-  };
+  // switchStatus = (alrady) => {
+  //   if (!alrady) {
+  //     const state = this.state.service;
+  //     state["status"] = state.status === "done" ? "open" : "done";
+  //     if (state.status === "done") {
+  //       state["done_on"] = new Date();
+  //     }
+  //     this.setState({ service: state });
+  //   }
+  // };
 
   updateEntryState2 = (user) => {
     var user1 =
@@ -381,30 +444,19 @@ class Index extends Component {
       Please_add_atleast_one_service,
     } = translate;
     var data = this.state.service;
-    data.assign_service = this.state.items;
-    data.amount = this.state.total_amount;
-    data.status = data.status ? data.status : "open";
+    data.assign_service = this.state.serviceData;
+    data.assign_task = this.state.taskData;
     data.created_at = new Date();
-    if (!data.title || data.title === "") {
-      this.setState({ errorMsg: pleaseEntertitle });
-    } else if (
-      !data.patient ||
-      (data && data.patient && data.patient.length < 1)
-    ) {
-      this.setState({ errorMsg: plz_select_patient });
-    } else if (!data.assinged_to) {
-      this.setState({ errorMsg: Plz_select_a_staff });
-    } else if (!data.due_on?.date || !data.due_on?.time) {
-      this.setState({ errorMsg: please_enter_dueon });
-    } else if (!data.assign_service || data.assign_service?.length === 0) {
-      this.setState({ errorMsg: Please_add_atleast_one_service });
+    var length = (data && data.assign_service?.length) + (data && data.assign_task?.length)
+    if (length < 2) {
+      this.setState({ errorMsg: 'Please add atleast two sequences' });
     } else {
       this.setState({ loaderImage: true });
       if (data?._id) {
         axios
           .put(
             sitedata.data.path +
-            "/assignservice/Updateassignservice/" +
+            "/api/v4/vt/Addtherapy/" +
             data?._id,
             data,
             commonHeader(this.props.stateLoginValueAim.token)
@@ -421,7 +473,7 @@ class Index extends Component {
         data.house_id = this.state.selectedHouse.value;
         axios
           .post(
-            sitedata.data.path + "/assignservice/Addassignservice",
+            sitedata.data.path + "/api/v4/vt/Addtherapy/",
             data,
             commonHeader(this.props.stateLoginValueAim.token)
           )
@@ -444,7 +496,7 @@ class Index extends Component {
       .get(
         sitedata.data.path +
         "/vh/GetService/" +
-        this.props?.House?.value,
+        this.state.selectedHouse?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -453,22 +505,32 @@ class Index extends Component {
           serviceList1.push(this.state.allServData[i]);
           serviceList.push({
             price: this.state.allServData[i].price,
-            // description: this.state.allServData[i].description,
-            // value: this.state.allServData[i]._id,
+            description: this.state.allServData[i].description,
+            value: this.state.allServData[i]._id,
             label: this.state.allServData[i]?.title,
           });
         }
         // var addCustom = <div className="addCustom">+ add custom service</div>;
         // serviceList = [{ value: 'custom', label: addCustom }, ...serviceList];
         this.setState({
-          service_id_list: serviceList,
+          servicesDataObj: serviceList,
           serviceList1: serviceList1,
         });
       });
   };
+  handleCloseTask = () => {
+    if (this.state.addTask.taskName.length === 0 || this.state.addTask.taskDesc.length === 0) {
+      return;
+    }
+    this.setState({ editTask: false, addTask: {} });
+  };
 
   handleCloseServ = () => {
-    this.setState({ editServ: false, addservice: {} });
+    if (this.state.addService.serviceName.length === 0 || this.state.addService.serviceDesc.length === 0
+      || this.state.addService.services.length === 0) {
+      return;
+    }
+    this.setState({ editServ: false, addService: {} });
   };
   // Set the state of quantity and price_per_quantity
   updateEntryState1 = (e, name) => {
@@ -477,66 +539,64 @@ class Index extends Component {
     this.setState({ service: state });
   };
 
-  //   updateEntryState5 = (e, name) => {
-  //     const state = this.state.addservice;
-  //     state[name] = e.target.value;
-  //     this.setState({ addservice: state });    
-  //   };
+  // For edit task
+  editTask = (data, index) => {
+    var deep = _.cloneDeep(data);
+    this.setState({ addTask: deep, newTaskIndex: index, editTask: true });
+  };
 
   // For edit service
   editService = (data, index) => {
     var deep = _.cloneDeep(data);
-    this.setState({ addservice: deep, newServiceIndex: index, editServ: true });
+    this.setState({ addService: deep, newServiceIndex: index, editServ: true });
   };
 
-  //Add the services
-  handleAddSubmit = () => {
-    if (
-      this.state.addservice?.service &&
-      this.state.addservice?.quantity &&
-      this.state?.addservice?.price_per_quantity
-    ) {
-      let translate = getLanguage(this.props.stateLanguageType);
-      let {
-        Ser_already_exists,
-        Please_enter_valid_price,
-        Custom_service_title_cant_be_empty,
-      } = translate;
-      this.setState({ error: "", showError: "" });
-      var newService = this.state.addservice;
-      var a =
-        this.state.items &&
-        this.state.items?.length > 0 &&
-        this.state.items.map((element) => {
-          return element?.service;
-        });
-      var b =
-        a?.length > 0 && a.includes(this.state.addservice?.service?.label);
-      if (b == true) {
-        this.setState({ error: Ser_already_exists });
-      } else {
-        newService.price =
-          newService?.price_per_quantity * newService?.quantity;
-        newService.service = this.state.addservice?.service?.label;
-        // newService.service = this.state.service?.title;
-        let items = this.state.items ? [...this.state.items] : [];
-        items.push(newService);
-        this.setState({ items, addservice: {} }, () => {
-          this.updateTotalPrize();
-        });
-      }
-    } else {
-      this.setState({ showError: true });
-    }
-  };
+  //Add the Sequnces of Tasks and Services
+  // handleAddSubmit = () => {
+  //   if (
+  //     this.state.addservice?.service &&
+  //     this.state.addservice?.quantity &&
+  //     this.state?.addservice?.price_per_quantity
+  //   ) {
+  //     let translate = getLanguage(this.props.stateLanguageType);
+  //     let {
+  //       Ser_already_exists,
+  //       Please_enter_valid_price,
+  //       Custom_service_title_cant_be_empty,
+  //     } = translate;
+  //     this.setState({ error: "", showError: "" });
+  //     var newService = this.state.addservice;
+  //     var a =
+  //       this.state.items &&
+  //       this.state.items?.length > 0 &&
+  //       this.state.items.map((element) => {
+  //         return element?.service;
+  //       });
+  //     var b =
+  //       a?.length > 0 && a.includes(this.state.addservice?.service?.label);
+  //     if (b == true) {
+  //       this.setState({ error: Ser_already_exists });
+  //     } else {
+  //       newService.price =
+  //         newService?.price_per_quantity * newService?.quantity;
+  //       newService.service = this.state.addservice?.service?.label;
+  //       // newService.service = this.state.service?.title;
+  //       let items = this.state.items ? [...this.state.items] : [];
+  //       items.push(newService);
+  //       this.setState({ items, addservice: {} }, () => {
+  //         this.updateTotalPrize();
+  //       });
+  //     }
+  //   } else {
+  //     this.setState({ showError: true });
+  //   }
+  // };
  
   assignIndividual = () => {
-    debugger;
     this.setState({assignGroup: false});
     this.setState({assignIndividual: true});
   };
   assignGroup = () => {
-    debugger;
     this.setState({assignGroup: true});
     this.setState({assignIndividual: false});
   };
@@ -551,26 +611,103 @@ class Index extends Component {
     this.setState({ total_amount: total });
   };
 
-  //Update the services
-  handleAddUpdate = () => {
-    var newService = this.state.addservice;
-    newService.price = newService?.price_per_quantity * newService?.quantity;
-    var index = this.state.newServiceIndex;
-    var array = this.state.items;
-    array[index].price = newService?.price;
-    array[index].quantity = newService?.quantity;
-    this.setState({ items: array }, () => {
-      this.updateTotalPrize();
-      this.setState({
-        addservice: {},
-        newServiceIndex: false,
-        editServ: false,
-      });
-    });
+  // Update the tasks
+  handleTaskUpdate = () => {
+    if (this.state.addTask.taskName.length === 0) {
+      this.setState ({
+        editTaskName : "Please enter Task Name"
+      })
+    } else {
+      this.setState ({
+        editTaskName : ""
+      })
+    }
+    if (this.state.addTask.taskDesc.length === 0) {
+      this.setState ({
+        editTaskDesc : "Please enter Task Description"
+      })
+    } else {
+      this.setState ({
+        editTaskDesc : ""
+      })
+    }
+
+    if (this.state.addTask.taskName.length === 0 || this.state.addTask.taskDesc.length === 0) {
+      return;
+    }
+    let data = {
+      taskName: this.state.addTask.taskName,
+      taskDesc: this.state.addTask.taskDesc
+    };
+    let index = this.state.newTaskIndex;
+    this.state.taskData[index] = data;
+    this.setState({taskData: this.state.taskData});
+  };
+  // Update the service
+  handleServiceUpdate = () => {
+    if (this.state.addService.serviceName.length === 0) {
+      this.setState ({
+        editServiceName : "Please enter Service Name"
+      })
+    } else {
+      this.setState ({
+        editServiceName : ""
+      })
+    }
+    if (this.state.addService.serviceDesc.length === 0) {
+      this.setState ({
+        editServiceDesc : "Please enter Service Description"
+      })
+    } else {
+      this.setState ({
+        editServiceDesc : ""
+      })
+    }
+
+    if (this.state.addService.services.length === 0) {
+      this.setState ({
+        editServices : "Please enter Services"
+      })
+    } else {
+      this.setState ({
+        editServices : ""
+      })
+    }
+
+    if (this.state.addService.serviceName.length === 0 || this.state.addService.serviceDesc.length === 0
+      || this.state.addService.services.length === 0) {
+      return;
+    }
+    let data = {
+      serviceName: this.state.addService.serviceName,
+      serviceDesc: this.state.addService.serviceDesc,
+      services: this.state.addService.services
+    };
+    let index = this.state.newServiceIndex;
+    this.state.serviceData[index] = data;
+    this.setState({serviceData: this.state.serviceData});
   };
 
+  //Update the services
+  // handleAddUpdate = () => {
+  //   var newService = this.state.addservice;
+  //   newService.price = newService?.price_per_quantity * newService?.quantity;
+  //   var index = this.state.newServiceIndex;
+  //   var array = this.state.items;
+  //   array[index].price = newService?.price;
+  //   array[index].quantity = newService?.quantity;
+  //   this.setState({ items: array }, () => {
+  //     this.updateTotalPrize();
+  //     this.setState({
+  //       addservice: {},
+  //       newServiceIndex: false,
+  //       editServ: false,
+  //     });
+  //   });
+  // };
+
   //Delete the perticular service confirmation box
-  removeServices = (id) => {
+  removeService = (id) => {
     this.props.handleCloseCT();
     this.setState({
       message: null,
@@ -591,15 +728,58 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>{RemoveService}</h1>
+            <h1>Delete service</h1>
 
-            <p>{sure_remove_service_from_assigned}</p>
+            <p>Are you sure you want to delete the service?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={() => onClose()}>{No}</button>
               <button
                 onClick={() => {
                   onClose();
-                  this.deleteClickService(id);
+                  this.state.serviceData.splice(id, 1);
+                }}
+              >
+                {Yes}
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  //Delete the perticular task confirmation box
+  removeTask = (id) => {
+    this.props.handleCloseCT();
+    this.setState({
+      message: null,
+    });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveService, sure_remove_service_from_assigned, No, Yes } =
+      translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>Delete Task</h1>
+
+            <p>Are you sure you want to delete the task?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={() => onClose()}>{No}</button>
+              <button
+                onClick={() => {
+                  onClose();
+                  this.state.taskData.splice(id, 1);
+                  // this.deleteClickService(id);
                 }}
               >
                 {Yes}
@@ -634,25 +814,155 @@ class Index extends Component {
       ];
       this.getProfessionalData();
       this.getPatientData();
+      this.getAssignService();
     });
   };
-
-  deleteClickService(id) {
-    this.props.handleOpenCT();
-    // delete this.state.items[id]
-    this.state.items.splice(id, 1);
-    this.setState({ items: this.state.items, loaderImage: true });
-    var newService = this.state.addservice;
-    newService.price = newService?.price_per_quantity * newService?.quantity;
-    newService.service = this.state.addservice?.service?.label;
-    let items = [...this.state.items];
-    this.setState({ items, addservice: {} }, () => {
-      this.setState({ loaderImage: false });
-      this.updateTotalPrize();
-    });
-
-    // this.finishInvoice();
+  handleAddTask= () => {
+    this.setState({assignTask: true});
   }
+  onTaskNameChange= (data, id) => {
+    this.setState({taskName: data});
+  }
+  onTaskDescChange= (data, id) => {
+    this.setState({taskDesc: data});
+  }
+  onTaskNameEdit= (data, id) => {
+    var updatedTask = {
+      taskName: data,
+      taskDesc: this.state.addTask.taskDesc
+    }
+    this.setState({ addTask: updatedTask });
+  }
+  onTaskDescEdit= (data, id) => {
+    var updatedTask = {
+      taskName: this.state.addTask.taskName,
+      taskDesc: data
+    }
+    this.setState({ addTask: updatedTask });
+  }
+  onServiceNameEdit = (data, id) => {
+    var updatedService = {
+      serviceName: data,
+      serviceDesc: this.state.addService.serviceDesc,
+      services: this.state.addService.services
+    }
+    this.setState({ addService: updatedService });
+  }
+  onServiceDescEdit = (data, id) => {
+    var updatedService = {
+      serviceName: this.state.addService.serviceName,
+      serviceDesc: data,
+      services: this.state.addService.services
+    }
+    this.setState({ addService: updatedService });
+  }
+  onServicesEdit = (data, id) => {
+    var updatedService = {
+      serviceName: this.state.addService.serviceName,
+      serviceDesc: this.state.addService.serviceDesc,
+      services: data
+    }
+    this.setState({ addService: updatedService });
+  }
+  handleAddTasks= () => {
+    if (this.state.taskName.length === 0) {
+      this.setState ({
+        errorTaskName : "Please enter Task Name"
+      })
+    } else {
+      this.setState ({
+        errorTaskName : ""
+      })
+    }
+    if (this.state.taskDesc.length === 0) {
+      this.setState ({
+        errorTaskDesc : "Please enter Task Description"
+      })
+    } else {
+      this.setState ({
+        errorTaskDesc : ""
+      })
+    }
+
+    if (this.state.taskName.length === 0 || this.state.taskDesc.length === 0) {
+      return;
+    }
+    let data = {
+      taskName: this.state.taskName,
+      taskDesc: this.state.taskDesc
+    };
+    this.state.taskData.push(data);
+    this.setState({taskData: this.state.taskData});
+    this.setState({taskName: ""});
+    this.setState({taskDesc: ""});
+  }
+  onServiceNameChange= (data, id) => {
+    this.setState({serviceName: data});
+  }
+  onServiceDescChange= (data, id) => {
+    this.setState({serviceDesc: data});
+  }
+  onServiceChanges= (data, id) => {
+    this.setState({assignedService: data});
+  }
+  handleAddServices= () => {
+    if (this.state.serviceName.length === 0) {
+      this.setState ({
+        errorServiceName : "Please enter Service Name"
+      })
+    } else {
+      this.setState ({
+        errorServiceName : ""
+      })
+    }
+    if (this.state.serviceDesc.length === 0) {
+      this.setState ({
+        errorServiceDesc : "Please enter Service Description"
+      })
+    } else {
+      this.setState ({
+        errorServiceDesc : ""
+      })
+    }
+    if (this.state.assignedService.length === 0) {
+      this.setState ({
+        errorServices : "Please select atleast one Service"
+      })
+    } else {
+      this.setState ({
+        errorServices : ""
+      })
+    }
+    if (this.state.serviceName.length === 0 || this.state.serviceDesc.length === 0 || this.state.assignedService.length === 0) {
+      return;
+    }
+    let data = {
+      serviceName: this.state.serviceName,
+      serviceDesc: this.state.serviceDesc,
+      services: this.state.assignedService
+    };
+    this.state.serviceData.push(data);
+    this.setState({serviceData: this.state.serviceData});
+    this.setState({serviceName: ""});
+    this.setState({serviceDesc: ""});
+    this.setState({assignedService: []});
+  }
+  // deleteClickService(id) {
+  //   this.props.handleOpenCT();
+  //   // delete this.state.items[id]
+  //   this.state.items.splice(id, 1);
+  //   this.setState({ items: this.state.items, loaderImage: true });
+  //   var newService = this.state.addservice;
+  //   newService.price = newService?.price_per_quantity * newService?.quantity;
+  //   newService.service = this.state.addservice?.service?.label;
+  //   let items = [...this.state.items];
+  //   this.setState({ items, addservice: {} }, () => {
+  //     this.setState({ loaderImage: false });
+  //     this.updateTotalPrize();
+  //   });
+
+  //   // this.finishInvoice();
+  // }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -694,6 +1004,7 @@ class Index extends Component {
       Quantity,
       Enterquantity,
     } = translate;
+    
     return (
       <>
         {this.state.loaderImage && <Loader />}
@@ -844,10 +1155,197 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
+              <Grid className="addSrvcBtn3" >
+                    <h3 style={{"padding": "30px","paddingTop": "0px"}} className="service-head">Task / Assigned Services
+                    <a onClick={this.handleAddTask}>Add Sequences</a>
+                    </h3>
+              </Grid>
+              {/* <Grid container direction="row" spacing={2}> */}
+                <Grid item xs={12} md={12}>
+                  <Grid className="wardsGrup3">
+                    {this.state.taskData?.length > 0 &&
+                        <Grid className="roomsNum3" style={{"paddingLeft": "30px","paddingRight": "30px"}}>
+                          <Grid container direction="row">
+                            <Grid item xs={12} md={12} className="services-head">
+                              <b>Tasks</b>
+                              <table>
+                                <thead>
+                                <tr>
+                                  <th style={{"width": "5%"}}>No.</th>
+                                  <th style={{"width": "30%"}}>Task Name</th>
+                                  <th style={{"width": "47%"}}>Task Description</th>
+                                  <th style={{"width": "20%"}}>Edit / Delete</th>
+                                </tr>
+                                </thead>
+                                {this.state.taskData.map((row, index) => {
+                                  return <tbody>
+                                          <tr>
+                                          <td style={{"maxWidth": "10px"}} key={index}>{index+1}</td>
+                                          <td style={{"maxWidth": "50px"}} key={index}>{row?.taskName}</td>
+                                          <td style={{"maxWidth": "100px"}} key={index}>{row?.taskDesc}</td>
+                                          <td style={{"maxWidth": "40px"}} key={index}>
+                                          <img
+                                            style={{"padding": "7px", "cursor": "pointer"}}
+                                            onClick={() => {
+                                              this.editTask(row, index);
+                                            }}
+                                            src={require("assets/virtual_images/pencil-1.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          <img
+                                            style={{"padding": "7px", "cursor": "pointer"}}
+                                            onClick={() => {
+                                              this.removeTask(index);
+                                            }}
+                                            src={require("assets/virtual_images/bin.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          </td>
+                                          </tr>
+                                      </tbody>
+                                })}
+                              </table>
+                            </Grid>
+                          </Grid>
+                        </Grid>}
+                        {this.state.serviceData?.length > 0 &&
+                        <Grid className="roomsNum3" style={{"paddingLeft": "30px","paddingRight": "30px"}}>
+                          <Grid container direction="row">
+                            <Grid item xs={12} md={12} className="services-head">
+                              <b>Services</b>
+                              <table>
+                                <thead>
+                                <tr>
+                                  <th style={{"width": "5%"}}>No.</th>
+                                  <th style={{"width": "30%"}}>Service Name</th>
+                                  <th style={{"width": "47%"}}>Service Description</th>
+                                  <th style={{"width": "20%"}}>Edit / Delete</th>
+                                </tr>
+                                </thead>
+                                {this.state.serviceData.map((row, index) => {
+                                  return <tbody>
+                                          <tr>
+                                          <td style={{"maxWidth": "10px"}} key={index}>{index+1}</td>
+                                          <td style={{"maxWidth": "50px"}} key={index}>{row?.serviceName}</td>
+                                          <td style={{"maxWidth": "100px"}} key={index}>{row?.serviceDesc}</td>
+                                          <td style={{"maxWidth": "40px"}} key={index}>
+                                          <img
+                                            style={{"padding": "7px", "cursor": "pointer"}}
+                                            onClick={() => {
+                                              this.editService(row, index);
+                                            }}
+                                            src={require("assets/virtual_images/pencil-1.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          <img
+                                            style={{"padding": "7px", "cursor": "pointer"}}
+                                            onClick={() => {
+                                              this.removeService(index);
+                                            }}
+                                            src={require("assets/virtual_images/bin.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          </td>
+                                          </tr>
+                                      </tbody>
+                                })}
+                              </table>
+                            </Grid>
+                          </Grid>
+                        </Grid>}
+                  </Grid>
+                </Grid>
+              {/* </Grid> */}
+              {this.state.assignTask &&
+              <Grid style={{"padding": "30px","paddingTop": "0px"}}>
+                  <label>Type</label>
+                  <Select
+                    name="for_Task"
+                    options={this.state.AddTaskSection}
+                    placeholder= "Select Type"
+                    onChange={(e) => this.taskSelection(e, "for_Task")}
+                    value={this.state.taskValue}
+                    className="addStafSelect"
+                    isMulti={false}
+                    isSearchable={true}
+                  />
+                </Grid>}
+                {this.state.enableTask &&
+                <Grid style={{"padding": "30px","paddingTop": "0px"}}>
+                  <VHfield
+                      label= "Task Name"
+                      name="taskName"
+                      placeholder= "Task Name"
+                      onChange={(e) =>
+                        this.onTaskNameChange(e.target.value, "taskName")
+                      }
+                      value={this.state?.taskName || ""}
+                    />
+                  <p className="err_message">{this.state.errorTaskName}</p>
+                  <VHfield
+                      label= "Task Description"
+                      name="taskDesc"
+                      placeholder= "Task Description"
+                      onChange={(e) =>
+                        this.onTaskDescChange(e.target.value, "taskDesc")
+                      }
+                      value={this.state?.taskDesc || ""}
+                    />
+                    <p className="err_message">{this.state.errorTaskDesc}</p>
+                    <Grid className="addSrvcBtn3" >
+                    <h3 style={{"padding": "30px","paddingTop": "0px"}} className="service-head">
+                    <a onClick={this.handleAddTasks}>Add Tasks</a>
+                    </h3>
+              </Grid>
+                </Grid>}
+                {this.state.enableService &&
+                <Grid style={{"padding": "30px","paddingTop": "0px"}}>
+                  <VHfield
+                      label= "Service Name"
+                      name="serviceName"
+                      placeholder= "Service Name"
+                      onChange={(e) =>
+                        this.onServiceNameChange(e.target.value, "serviceName")
+                      }
+                      value={this.state?.serviceName || ""}
+                    />
+                  <p className="err_message">{this.state.errorServiceName}</p>
+                  <VHfield
+                      label= "Service Description"
+                      name="serviceDesc"
+                      placeholder= "Service Description"
+                      onChange={(e) =>
+                        this.onServiceDescChange(e.target.value, "serviceDesc")
+                      }
+                      value={this.state?.serviceDesc || ""}
+                    />
+                  <p className="err_message">{this.state.errorServiceDesc}</p>
+                  <label>Services</label>
+                  <Select
+                    name="services"
+                    onChange={(e) => this.onServiceChanges(e, "services")}
+                    value={this.state?.assignedService || []}
+                    options={this.state.servicesDataObj}
+                    placeholder="Select Services"
+                    className="addStafSelect"
+                    isMulti={true}
+                    isSearchable={true}
+                  />
+                  <p className="err_message">{this.state.errorServices}</p>
+                  <Grid className="addSrvcBtn3" >
+                    <h3 style={{"padding": "30px","paddingTop": "0px"}} className="service-head">
+                    <a onClick={this.handleAddServices}>Add Services</a>
+                    </h3>
+              </Grid>
+                </Grid>}
               <a>
                 <div className="err_message err_message1">{this.state.errorMsg}</div>
               </a>
-
+              
               <Grid
                 className="servSaveBtn"
                 onClick={() => this.FinalServiceSubmit()}
@@ -856,6 +1354,84 @@ class Index extends Component {
                   <Button>{save_and_close}</Button>
                 </a>
               </Grid>
+              <Modal
+                open={this.state.editTask}
+                onClose={this.handleCloseTask}
+                className={
+                  this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "darkTheme addSpeclModel"
+                    : "addSpeclModel"
+                }
+              >
+                <Grid className="addServContnt">
+                  <Grid className="addSpeclLbl">
+                    <Grid container direction="row" justify="center">
+                      <Grid item xs={8} md={8} lg={8}>
+                        <label>Edit Task</label>
+                      </Grid>
+                      <Grid item xs={4} md={4} lg={4}>
+                        <Grid>
+                          <Grid className="entryCloseBtn">
+                            <a onClick={this.handleCloseTask}>
+                              <img
+                                src={require("assets/images/close-search.svg")}
+                                alt=""
+                                title=""
+                              />
+                            </a>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid className="enterServMain">
+                    <Grid className="enterSpcl">
+                      <Grid>
+                        <VHfield
+                          label="Task Name"
+                          name="editTaskName"
+                          placeholder="Task Name"
+                          onChange={(e) =>
+                            this.onTaskNameEdit(e.target.value, "editTaskName")
+                          }
+                          disabled={false}
+                          value={this.state.addTask?.taskName}
+                        />
+                      <p className="err_message">{this.state.editTaskName}</p>
+                      </Grid>
+                      <Grid>
+                        <VHfield
+                          label="Task Description"
+                          name="editTaskDesc"
+                          onChange={(e) =>
+                            this.onTaskDescEdit(e.target.value, "editTaskDesc")
+                          }
+                          placeholder="Task Description"
+                          disabled={false}
+                          value={this.state.addTask?.taskDesc}
+                        />
+                      <p className="err_message">{this.state.editTaskDesc}</p>
+                      </Grid>
+                      <Grid>
+                      </Grid>
+                      <Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={12} className="saveTasks"></Grid>
+                  <Grid className="servSaveBtn">
+                    <a onClick={this.handleCloseTask}>
+                      <Button onClick={() => this.handleTaskUpdate()}>
+                        {save_and_close}
+                      </Button>
+                    </a>
+                  </Grid>
+                </Grid>
+              </Modal>
               <Modal
                 open={this.state.editServ}
                 onClose={this.handleCloseServ}
@@ -872,7 +1448,7 @@ class Index extends Component {
                   <Grid className="addSpeclLbl">
                     <Grid container direction="row" justify="center">
                       <Grid item xs={8} md={8} lg={8}>
-                        <label>{Editservice}</label>
+                        <label>Edit Service</label>
                       </Grid>
                       <Grid item xs={4} md={4} lg={4}>
                         <Grid>
@@ -894,12 +1470,43 @@ class Index extends Component {
                     <Grid className="enterSpcl">
                       <Grid>
                         <VHfield
-                          label={Servicename}
-                          name="service"
-                          placeholder={EnterTitlename}
-                          disabled={true}
-                          value={this.state.addservice?.service}
+                          label="Service Name"
+                          name="editServiceName"
+                          placeholder="Service Name"
+                          onChange={(e) =>
+                            this.onServiceNameEdit(e.target.value, "editServiceName")
+                          }
+                          disabled={false}
+                          value={this.state.addService?.serviceName}
                         />
+                      <p className="err_message">{this.state.editServiceName}</p>
+                      </Grid>
+                      <Grid>
+                        <VHfield
+                          label="Service Description"
+                          name="editServiceDesc"
+                          onChange={(e) =>
+                            this.onServiceDescEdit(e.target.value, "editServiceDesc")
+                          }
+                          placeholder="Service Description"
+                          disabled={false}
+                          value={this.state.addService?.serviceDesc}
+                        />
+                      <p className="err_message">{this.state.editServiceDesc}</p>
+                         <Grid>
+                      <label>Services</label>
+                        <Select
+                          name="services"
+                          onChange={(e) => this.onServicesEdit(e, "services")}
+                          value={this.state.addService?.services}
+                          options={this.state.servicesDataObj}
+                          placeholder="Select Services"
+                          className="addStafSelect"
+                          isMulti={true}
+                          isSearchable={true}
+                        />
+                        <p className="err_message">{this.state.editServices}</p>
+                      </Grid>
                       </Grid>
                       <Grid>
                       </Grid>
@@ -910,7 +1517,7 @@ class Index extends Component {
                   <Grid item xs={12} md={12} className="saveTasks"></Grid>
                   <Grid className="servSaveBtn">
                     <a onClick={this.handleCloseServ}>
-                      <Button onClick={() => this.handleAddUpdate()}>
+                      <Button onClick={() => this.handleServiceUpdate()}>
                         {save_and_close}
                       </Button>
                     </a>
