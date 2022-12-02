@@ -626,11 +626,11 @@ table {
     border: 1px solid  gray;
   } */
 
-  table td {
+  /* table td {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
+  } */
 
 /*End By Ankita*/
 

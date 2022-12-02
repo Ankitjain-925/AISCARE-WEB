@@ -67,11 +67,9 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        this.getAssignService();
-        this.getPatientData();
-        this.getProfessionalData();
-        this.specailityList();
-        this.therapylist();
+        // this.getPatientData();
+        // this.getProfessionalData();
+        // this.therapylist();
     }
 
     createDuplicate = (data) => {
@@ -93,31 +91,6 @@ class Index extends Component {
             //     this.setState({ openAss: this.props.openAss, selectedHouse: {}, authErr: false })
             // }
         }
-        // if (prevProps.selectedHouse !== this.props.selectedHouse) {
-        //     this.setState({ selectedHouse: this.props.selectedHouse },()=>{
-
-        //     });
-        // }
-        // if (prevProps.service !== this.props.service) {
-        //     this.setState({
-        //         addservice: {}, service: this.props.service, items: this.props.service?.assign_service,
-        //         selectSpec: { label: this.props.service?.speciality?.specialty_name, value: this.props.service?.speciality?._id },
-        //     },
-        //         () => {
-        //             if (this.props.comesFrom !== 'Professional') {
-        //                 this.selectProf(
-        //                     this.state.service?.assinged_to,
-        //                     this.state.professional_id_list
-        //                 );
-        //                 let user = { value: this.state.service?.patient?.user_id };
-        //                 this.updateEntryState2(user);
-        //             }
-        //             else {
-        //                 this.getProfessionalData(true)
-        //             }
-        //         })
-
-        // }
     };
 
     handleCloseAss = () => {
@@ -181,7 +154,6 @@ class Index extends Component {
     };
 
     assignedTo = (e) => {
-        console.log("e",e)
         this.setState({ assignedTo: e }, () => {
             var data =
                 e?.length > 0 &&
@@ -275,9 +247,7 @@ class Index extends Component {
                             this.state.users1.filter(
                                 (user) => user.value === this.props.location?.state?.user.value
                             );
-                        // if (user?.length > 0) {
-                        //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
-                        // }
+                     
                         this.updateEntryState2(this.props.location?.state?.user);
                     }
                 }
@@ -339,96 +309,21 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
+    
     FinalServiceSubmit = () => {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let { Something_went_wrong, pleaseEntertitle, please_enter_dueon, plz_select_patient, Plz_select_a_staff, Please_add_atleast_one_service } = translate;
-        var data = this.state.service;
-        data.assign_service = this.state.items;
-        data.amount = this.state.total_amount;
-        data.status = data.status ? data.status : "open";
-        data.created_at = new Date();
-        if (!data.title || data.title === '') {
-            this.setState({ errorMsg: pleaseEntertitle });
-        } else if (!data.patient ||
-            (data && data.patient && data.patient.length < 1)
-        ) {
-            this.setState({ errorMsg: plz_select_patient });
-        }
-        else if (!data.assinged_to) {
-            this.setState({ errorMsg: Plz_select_a_staff });
-        }
-        else if (!data.due_on?.date || !data.due_on?.time) {
-            this.setState({ errorMsg: please_enter_dueon });
-        }
-        else if (!data.assign_service || data.assign_service?.length === 0) {
-            this.setState({ errorMsg: Please_add_atleast_one_service });
-        }
-        else {
-            this.setState({ loaderImage: true })
-            if (data?._id) {
-                // data.house_id = this.state.selectedHouse?.value;
-                axios
-                    .put(
-                        sitedata.data.path + "/assignservice/Updateassignservice/" + data?._id,
-                        data,
-                        commonHeader(this.props.stateLoginValueAim.token)
-                    )
-                    .then((responce) => {
-                        this.setState({ loaderImage: false, service: {} });
-                        this.props.getAddTaskData();
-                        this.handleCloseAss();
+      
 
-                    }).catch((error) => {
-                        this.setState({ errorMsg: Something_went_wrong })
-                    });
-            }
-            else {
-                data.house_id = this.props?.House?.value || this.state.selectedHouse?.value;
-                axios
-                    .post(
-                        sitedata.data.path + "/assignservice/Addassignservice",
-                        data,
-                        commonHeader(this.props.stateLoginValueAim.token)
-                    )
-                    .then((responce) => {
-                        this.setState({ loaderImage: false, service: {} });
-                        this.props.getAddTaskData();
-                        this.handleCloseAss();
+    }
 
-                    }).catch((error) => {
-                        this.setState({ errorMsg: Something_went_wrong })
-                    });
-            }
+    settherapy = (value)=>{
+        var state = this.state.service;
+        console.log('value', value)
+        var datas = this.state.serviceList?.length>0 && this.state.serviceList.filter((item)=>item?._id===value?.value)
+        if(datas?.length>0){
+            this.setState({})
         }
     }
-    //get services list
-    getAssignService = () => {
-        var serviceList = [],
-            serviceList1 = [];
-        axios
-            .get(
-                sitedata.data.path + '/vh/GetService/' + "60fabfe5b3394533f7f9a6dc-1654919887767",
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                this.setState({ allServData: response.data.data });
-                for (let i = 0; i < this.state.allServData.length; i++) {
-                    serviceList1.push(this.state.allServData[i]);
-                    serviceList.push({
-                        price: this.state.allServData[i].price,
-                        // description: this.state.allServData[i].description,
-                        // value: this.state.allServData[i]._id,
-                        label: this.state.allServData[i]?.title,
-                    });
-                }
-                // var addCustom = <div className="addCustom">+ add custom service</div>;
-                // serviceList = [{ value: 'custom', label: addCustom }, ...serviceList];
-                this.setState({
-                    service_id_list: serviceList,
-                    serviceList1: serviceList1,
-                });
-            });
-    };
+  
     //to get the speciality list
     specailityList = () => {
         var spec =
@@ -444,22 +339,24 @@ class Index extends Component {
     therapylist = () => {
         var serviceList = [],
             serviceList1 = [];
-            console.log("1",this.state.selectedHouse)
+        var house_id = this.props?.House?.value ? this.props?.House?.value : this.state.selectedHouse?.value;
         axios
             .get(
-                sitedata.data.path + '/vt/GettherapyHouse/' +'60fabfe5b3394533f7f9a6dc-1654919887767',
+                sitedata.data.path + '/vt/GettherapyHouse/'+ house_id,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response",response)
-                this.setState({ allServData: response.data.data });
-                for (let i = 0; i < this.state.allServData.length; i++) {
-                   
-                }
+                if(response.data?.hassuccessed){
+                    response?.data?.data &&
+                        response.data.data.map((element)=>{
+                        serviceList.push(element);
+                        serviceList1.push({label: element?.therapy_name, value: element?._id})
+                    })
                 this.setState({
                     service_id_list: serviceList,
                     serviceList1: serviceList1,
-                });
+                }); 
+                }
             });
     };
 
@@ -477,6 +374,7 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            this.therapylist();
             const { roles = [] } = e || {};
     
                 this.setState(
@@ -586,9 +484,7 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
                                    
-                                    <Grid item xs={12} md={12}>
-                                       
-                                         
+                                    <Grid item xs={12} md={12}>\
                                                 <Grid>
                                                     <label>{For_Hospital}</label>
                                                     <Select
@@ -602,7 +498,6 @@ class Index extends Component {
                                                         isSearchable={true}
                                                     />
                                                 </Grid>
-                                            
                                        
                                     </Grid>
                                     <Grid item xs={12} md={12}>
@@ -639,13 +534,13 @@ class Index extends Component {
                                         <label>Therapy</label>
                                         <Grid>
                                             <Select
-                                                name="professional"
-                                                onChange={(e) => this.assignedTo(e, 'professional')}
-                                                value={this.state.assignedTo}
-                                                options={this.state.professional_id_list1}
+                                                name="therapy"
+                                                onChange={(e) => this.settherapy(e, 'therapy')}
+                                                value={this.state.therapies}
+                                                options={this.state.serviceList1}
                                                 placeholder={Search_Select}
                                                 className="addStafSelect"
-                                                isMulti={true}
+                                                isMulti={false}
                                                 isSearchable={true}
 
                                             />
@@ -657,18 +552,25 @@ class Index extends Component {
                                         <Grid>
                                             <Select
                                                 name="professional"
-                                                onChange={(e) => this.assignedTo(e, 'professional')}
-                                                value={this.state.assignedTo}
+                                                // onChange={(e) => this.assignedTo(e, 'professional')}
+                                                value={this.state.therapy_assignedto}
                                                 options={this.state.professional_id_list1}
                                                 placeholder={Search_Select}
                                                 className="addStafSelect"
                                                 isMulti={true}
                                                 isSearchable={true}
+                                                disabled={true}
 
                                             />
                                         </Grid>
                                     </Grid>
-                                    <Grid container direction="row" alignItems="center">
+                                    {this.state.therapy_sequence?.length>0 && 
+                                    this.state.therapy_sequence.map((element)=>(
+                                        <>
+                                        <p>
+                                            {element?.tpye}
+                                        </p>
+                                        <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={12} className="dueOn creatInfoIner">
                                             <label>{Dueon}</label>
                                             <Grid
@@ -757,114 +659,9 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    {this.state.service?._id &&
-                                        <Grid className="assignSecUpr">
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} sm={12} md={12}>
-                                                    <Grid className="assignSec">
-                                                        <>
-                                                            <Grid
-                                                                onClick={() => {
-                                                                    this.createDuplicate(
-                                                                        this.state.service
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <img
-                                                                    src={require("assets/virtual_images/assign-to.svg")}
-                                                                    alt=""
-                                                                    title=""
-                                                                />
-                                                                <label>{Duplicate}</label>
-                                                            </Grid>
-                                                            <Grid
-                                                                onClick={() => {
-                                                                    this.switchStatus();
-                                                                }}
-                                                                className="markDone"
-                                                            >
-                                                                {this.state.service?.status ===
-                                                                    "done" ? (
-                                                                    <Grid className="revwFiles ">
-                                                                        <Grid className="activeOntask">
-                                                                            <img
-                                                                                src={require("assets/virtual_images/greyImg.png")}
-                                                                                alt=""
-                                                                                title=""
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                ) : (
-                                                                    <Grid className="revwFiles">
-                                                                        <Grid>
-                                                                            <img
-                                                                                src={require("assets/virtual_images/greyImg.png")}
-                                                                                alt=""
-                                                                                title=""
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                )}
-                                                                <label>{Markasdone}</label>
-                                                            </Grid>
-                                                            {this.state.service?.archived ==
-                                                                true ? (
-                                                                <Grid
-                                                                    onClick={() => {
-                                                                        this.updateEntry(
-                                                                            false,
-                                                                            "archived"
-                                                                        );
-                                                                    }}
-                                                                    className="activeOntask"
-                                                                >
-                                                                    <img
-                                                                        src={require("assets/images/archive-white.svg")}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                    <label>{Archive}</label>
-                                                                </Grid>
-                                                            ) : (
-                                                                <Grid
-                                                                    onClick={() => {
-                                                                        this.updateEntry(
-                                                                            true,
-                                                                            "archived"
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={require("assets/images/archive.svg")}
-                                                                        alt=""
-                                                                        title=""
-                                                                    />
-                                                                    <label>{Archive}</label>
-                                                                </Grid>
-                                                            )}
-                                                            <Grid>
-                                                                <img
-                                                                    onClick={() => {
-                                                                        this.props.removeTask(this.state.service?._id);
-                                                                    }}
-                                                                    src={require("assets/virtual_images/deleteNew.png")}
-                                                                    alt=""
-                                                                    title=""
-                                                                    className="manage-size"
-                                                                />
-                                                                <label
-                                                                    onclick={() => {
-                                                                        this.props.removeTask(this.state.service?._id);
-                                                                    }}
-                                                                >
-                                                                    {Delete}
-                                                                </label>
-                                                            </Grid>
-                                                        </>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>}
+                                    </>
+                                    ))
+                                    }
                                 </Grid>
 
 
