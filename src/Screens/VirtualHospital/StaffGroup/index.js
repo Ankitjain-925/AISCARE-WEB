@@ -27,6 +27,10 @@ import {
   teamstaff,
   handleSubmit,
   DeleteStaff,
+  stffchange,
+  GetProfessionalwstaff,
+  editStaff
+
 } from "./api";
 
 import { Speciality } from 'Screens/Login/speciality.js';
@@ -58,24 +62,20 @@ class Index extends Component {
       selectSpec2: '',
       wardList: [],
       selectWard: '',
-      reqPayload:{
-        team_name:"",
-        speciality:"",
-        ward_id:"",
-        staff:[]
-      }
+      staffslct: []
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
     teamstaff(this);
+    GetProfessionalwstaff(this);
     this.specailityList();
   }
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' });
+    this.setState({ selectWard: '' });
     let specialityList =
       this.props.speciality?.SPECIALITY &&
       this.props.speciality?.SPECIALITY.length > 0 &&
@@ -90,37 +90,21 @@ class Index extends Component {
       wardsFullData.map((item) => {
         return { label: item.ward_name, value: item._id };
       });
+    var state = this.state.updateTrack
+    state['speciality_id'] = e?.value;
 
-      const stateCopy = {...this.state.reqPayload}
-      stateCopy['specialty_id'] = e.value
     this.setState({
       selectSpec2: e,
-      reqPayload: stateCopy,
       wardList: wards_data,
       allWards: wardsFullData,
+      updateTrack: state
     });
   };
   // ward Change
   onWardChange = (e) => {
-    this.setState({ selectRoom: '' });
-    let { allWards } = this.state;
-    let wardDetails =
-      allWards &&
-      allWards.length > 0 &&
-      allWards.filter((item) => {
-        return item && item._id == e.value;
-      });
-    let roomsData =
-      wardDetails && wardDetails.length > 0 && wardDetails[0].rooms;
-    let rooms =
-      roomsData &&
-      roomsData.length > 0 &&
-      roomsData.map((item) => {
-        return { label: item.room_name, value: item._id };
-      });
-      const stateCopy = {...this.state.reqPayload}
-      stateCopy['ward_id'] = e.value
-    this.setState({ selectWard: e,reqPayload:stateCopy, roomList: rooms });
+    var state = this.state.updateTrack;
+    state['ward_id'] = e.value;
+    this.setState({ selectWard: e, updateTrack: state });
   };
 
   //to get the speciality list
@@ -268,17 +252,17 @@ class Index extends Component {
                                   <Grid className="enterServMain">
                                     <Grid className="enterSpcl">
                                       <label>{speciality}</label>
-                                    <Grid className="addInput">
-                                      <Select
-                                        onChange={(e) => this.onFieldChange2(e)}
-                                        options={this.state.specilaityList}
-                                        name="speciality_id"
-                                        value={this.state.selectSpec2}
-                                        className="addStafSelect"
-                                        isMulti={false}
-                                        isSearchable={true}
-                                      />
-                                    </Grid>
+                                      <Grid className="addInput">
+                                        <Select
+                                          onChange={(e) => this.onFieldChange2(e)}
+                                          options={this.state.specilaityList}
+                                          name="speciality_id"
+                                          value={this.state.selectSpec2}
+                                          className="addStafSelect"
+                                          isMulti={false}
+                                          isSearchable={true}
+                                        />
+                                      </Grid>
                                     </Grid>
 
                                     {this.state.wardList &&
@@ -299,7 +283,7 @@ class Index extends Component {
                                         </Grid>
                                       )}
 
-                               <Grid className="enterSpcl">
+                                    <Grid className="enterSpcl">
                                       <Grid>
                                         <VHfield
                                           label={Grouptitle}
@@ -308,7 +292,7 @@ class Index extends Component {
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.team_name}
+                                          value={this.state.team_name}
                                         />
                                       </Grid>
                                       <label className="enterSpcl">
@@ -316,14 +300,15 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
+                                          onChange={(e) =>
+                                            stffchange(e, this)
+                                          }
                                           options={this.state.teamstaff}
                                           name="staff"
                                           isSearchable={true}
-                                          className="addStafSelect"
                                           isMulti={true}
-                                          value={
-                                            this.state.updateTrack.staff
-                                          }
+                                          className="addStafSelect"
+                                          value={this.state.staffslct}
                                         />
                                       </Grid>
                                     </Grid>
@@ -416,17 +401,16 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {console.log('staff_data', staff_data)}
-                          {/* {staff_data?.length > 0 &&
-                            staff_data.map((data) => ( */}
+                          {staff_data?.length > 0 &&
+                            staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>data.team_name</label>
+                                    <label>{data.team_name}</label>
 
                                   </Td>
 
-                                  <Td>data.staff</Td>
+                                  <Td>{data.staff}</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
@@ -445,7 +429,7 @@ class Index extends Component {
                                         <ul>
                                           {/* <li
                                           onClick={() => {
-                                            EditService(data, this);
+                                            editStaff(data, this);
                                           }}
                                           >
                                             <a>
@@ -459,9 +443,9 @@ class Index extends Component {
                                           </li> */}
 
                                           <li
-                                          onClick={() => {
-                                            DeleteStaff(this, 1);
-                                          }}
+                                            onClick={() => {
+                                              DeleteStaff(this, data);
+                                            }}
                                           >
                                             <a>
                                               <img
@@ -479,7 +463,7 @@ class Index extends Component {
                                   </Td>
                                 </Tr>
                               </>
-                            {/* // ))} */}
+                            ))}
                         </Tbody>
                       </Table>
 

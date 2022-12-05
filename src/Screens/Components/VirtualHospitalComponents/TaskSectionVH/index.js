@@ -50,6 +50,8 @@ import PainPoint from "Screens/Components/PointPain/index";
 import Certificate from "./certificate";
 import AssignedService from "Screens/Components/VirtualHospitalComponents/AssignedService";
 import CreateTherapy from "Screens/Components/VirtualHospitalComponents/CreateTherapy";
+import Therapy from "Screens/Components/VirtualHospitalComponents/Therapy/index";
+
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -140,6 +142,7 @@ class Index extends Component {
       taskData: {},
       specchange: false,
       openAss: false,
+      openAss1: false,
       selectedHouse: {},
       authErr: null,
       disableActivity: false
@@ -179,7 +182,7 @@ class Index extends Component {
     }
     if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
       this.allHouses();
-  }
+    }
   };
 
   handleOpenAss = () => {
@@ -188,6 +191,13 @@ class Index extends Component {
   handleOpenCT = () => {
     this.setState({ openCT: true, professional_id_list1: this.state.professional_id_list });
   };
+  handleOpenAss1 = () => {
+    this.setState({ openAss1: true, professional_id_list1: this.state.professional_id_list, selectedHouse: {} });
+  };
+
+  handleTherapy = () => {
+    this.setState({ openAss1: true });
+  }
   // onDropDown = (tabvalue2) => {
   //   const { AllTasks1 } = this.state;
   //   if (tabvalue2.label == 'Task') {
@@ -239,6 +249,9 @@ class Index extends Component {
 
   handleCloseAss = () => {
     this.setState({ openAss: false, selectedHouse: {} })
+  }
+  handleCloseAss1 = () => {
+    this.setState({ openAss1: false, selectedHouse: {} })
   }
   handleCloseCT = () => {
     this.setState({ openCT: false, selectedHouse: {} })
@@ -318,6 +331,7 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
+    console.log("spec", spec)
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
@@ -325,7 +339,7 @@ class Index extends Component {
     this.setState({
       professional_id_list1: this.state.professional_id_list,
       openTask: true,
-      selectedHouse:{},
+      selectedHouse: {},
       newTask: {},
       assignedTo: [],
       authErr: false,
@@ -2097,11 +2111,14 @@ class Index extends Component {
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
                 </Button>}
-                {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenCT()} >
                   {"Create Therapy Protocal"}
-                </Button>}
+                </Button>} */}
               {/* <label>{filterbedge}</label> */}
+              <Button onClick={() => this.handleOpenAss1()} >
+                Therapy
+              </Button>
             </Grid>
             {/* )} */}
           </Grid>
@@ -2137,7 +2154,23 @@ class Index extends Component {
             selectedHouse={this.state.selectedHouse}
             patient={this.props.patient}
             comesFrom={this.props.comesFrom}
-            total_amount={this.state.total_amount}
+
+          />
+          <Therapy
+            currentList={this.state.currentList}
+            openAss1={this.state.openAss1}
+            handleOpenAss={() => this.handleOpenAss1()}
+            handleCloseAss={() => this.handleCloseAss1()}
+            service={this.state.service}
+            removeTask={(id) => this.removeTask1(id)}
+            editTask={(data) => this.editTask1(data)}
+            getAddTaskData={(tabvalue2) => {
+              this.props.getAddTaskData(tabvalue2);
+            }}
+            selectedHouse={this.state.selectedHouse}
+            patient={this.props.patient}
+            comesFrom={this.props.comesFrom}
+
           />
 
           <Modal
@@ -2154,7 +2187,7 @@ class Index extends Component {
           >
             <Grid className="creatTaskModel">
               <Grid className="creatTaskCntnt">
-              {/* {this.state.disableActivity && 
+                {/* {this.state.disableActivity && 
                                 <div className="err_message">You dont have authority to create a task</div>} */}
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
@@ -4630,7 +4663,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-              :<p className='authority'>You have no authority for showing the tasks, Please contact to hospital admin</p>}
+                : <p className='authority'>You have no authority for showing the tasks, Please contact to hospital admin</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>

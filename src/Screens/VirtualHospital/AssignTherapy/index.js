@@ -6,7 +6,6 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
-import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 import { withRouter } from "react-router-dom";
 import { Redirect, Route } from "react-router-dom";
@@ -19,15 +18,9 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import {
-    onChangePage,
     updateEntryState1,
-    onFieldChange,
-    selectedID,
     getSpecialty
 } from "../../VirtualHospital/Services/api";
-import axios from "axios";
-import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
 import {
     handleSubmit,
@@ -43,64 +36,82 @@ import {
     handleAddData,
     editTaskSer,
     removeServices,
-    closeFullQues
+    onChangePage,
+    searchFilter,
+    specailityList,
+    onFieldChange
 } from "./api"
-// import AssignPatient from "./AssignPatient";
+import AssignPatient from "./AssignPatient";
 import ViewTherapy from "./ViewTherapy";
+import FilterTherapyDiases from "./FilterTherapyDiases";
+import { Speciality } from "Screens/Login/speciality.js";
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             openServ: false,
-            title: "",
-            description: "",
-            price: "",
-            house_id: "",
-            speciality_id: false,
-            services_data: [],
-            AllServices: [],
             updateTrack: {},
-            AllSpeciality: [],
             errorMsg: "",
             SearchValue: "",
-            sickamount: true,
-            sickamount1: {},
-            openAss: false,
             AddTaskSection: [
                 { value: 'task', label: 'Task' },
                 { value: 'assign_service', label: 'Assign Service' }
             ],
             allSequence: {},
             seqItems: [],
-            indexForUpdate: 0
+            indexForUpdate: 0,
+            error_section: 0,
+            assignedTo: []
         };
     }
-
-    // updateEntry = (e) => {
-    //     const state = this.state.allSequence;
-    //     state[e.target.name] = e.target.value;
-    //     this.setState({ allSequence: state });
-    // }
 
     componentDidMount() {
         getSpecialty(this);
         getAllTherpy(this);
         GetProfessionalData(this);
+        specailityList(this);
+    }
+
+    clearFilter = () => {
+        this.setState({
+            AllTaskCss: "",
+            openFilter: false
+        });
+    }
+
+    closeFullPatient = () => {
+        this.setState({
+            openAssPat: false
+        });
+    }
+
+    applyFilter = () => {
+        this.setState({
+            AllTaskCss: "filterApply",
+            openFilter: false
+        });
     }
 
     handleOpenAssPat = () => {
         this.setState({ openAssPat: true });
     }
 
+    // Closing View Therapy
     closeFullQues = () => {
         this.setState({ viewTher: false });
+    }
+
+    // Closing Filter
+    closeFullFilter = () => {
+        this.setState({ openFilter: false });
     }
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let {
             viewData,
+            Speciallity,
             Assignedto,
             Search_Select,
             Addnewtherapy,
@@ -128,7 +139,7 @@ class Index extends Component {
             Enterserviceprice,
             Search
         } = translate;
-        const { AllTherpy, assignTask, taskName, viewAllData } = this.state;
+        const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section } = this.state;
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -232,9 +243,10 @@ class Index extends Component {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <div className="error_message">
-                                                                    {this.state.errorMsg}
-                                                                </div>
+                                                                {error_section === 1 &&
+                                                                    <div className="error_message">
+                                                                        {this.state.errorMsg}
+                                                                    </div>}
                                                                 <Grid className="enterServMain">
                                                                     <Grid className="enterSpcl">
                                                                         <Grid>
@@ -287,7 +299,7 @@ class Index extends Component {
                                                                                 <Select
                                                                                     name="professional"
                                                                                     onChange={(e) => updateEntryState3(this, e)}
-                                                                                    value={this.state.assignedTo}
+                                                                                    value={this.state.assignedTo || ''}
                                                                                     options={this.state.professional_id_list1}
                                                                                     placeholder={Search_Select}
                                                                                     className="addStafSelect"
@@ -296,12 +308,30 @@ class Index extends Component {
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <label>{Speciallity}</label>
+                                                                            <Grid className="specialFor">
+                                                                                <Select
+                                                                                    onChange={(e) => onFieldChange(this, e)}
+                                                                                    options={this.state.specilaityList}
+                                                                                    name="specialty_name"
+                                                                                    isSearchable={true}
+                                                                                    className="addStafSelect"
+                                                                                    value={
+                                                                                        this.state.selectSpec
+                                                                                    }
+                                                                                />
+                                                                            </Grid>
+                                                                        </Grid>
 
 
                                                                         <Grid className="addSrvcBtn3" >
                                                                             <h3 className="service-head">Sequence of Task / Assigned Services</h3>
                                                                         </Grid>
-
+                                                                        {error_section === 2 &&
+                                                                            <div className="error_message">
+                                                                                {this.state.errorMsg}
+                                                                            </div>}
 
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid className="wardsGrup3">
@@ -364,9 +394,10 @@ class Index extends Component {
                                                                                 <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {} }) }}>Add Sequences</a>
                                                                             </h3>
                                                                         </Grid>
-                                                                        <div className="error_message">
-                                                                            {this.state.errorMsg1}
-                                                                        </div>
+                                                                        {error_section === 3 &&
+                                                                            <div className="error_message">
+                                                                                {this.state.errorMsg}
+                                                                            </div>}
 
                                                                         {assignTask &&
                                                                             <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
@@ -545,7 +576,7 @@ class Index extends Component {
                                                                 placeholder={Search}
                                                                 value={this.state.SearchValue}
                                                                 className="serchInput"
-                                                            // onChange={(e) => searchFilter(e, this)}
+                                                                onChange={(e) => searchFilter(e, this)}
                                                             />
                                                         )}
                                                         <a>
@@ -570,10 +601,27 @@ class Index extends Component {
                                                                             showinput: !this.state.showinput,
                                                                             SearchValue: "",
                                                                         });
-                                                                        // getAllServices(this);
+                                                                        getAllTherpy(this);
                                                                     }}
                                                                 />
                                                             )}
+                                                        </a>
+
+                                                        <a>
+                                                            <img
+                                                                src={
+                                                                    AllTaskCss === 'filterApply'
+                                                                        ? require('assets/virtual_images/sort-active.png')
+                                                                        : require('assets/virtual_images/sort.png')
+                                                                }
+                                                                alt=""
+                                                                title=""
+                                                                onClick={() => {
+                                                                    this.setState({
+                                                                        openFilter: true
+                                                                    });
+                                                                }}
+                                                            />
                                                         </a>
                                                     </Grid>
                                                 </Grid>
@@ -593,28 +641,27 @@ class Index extends Component {
                                                 >
                                                     {all}
                                                 </Button>
-
                                             </Grid>
                                         </Grid>
 
                                         {/* service price content */}
                                         <Grid className="srvcTable3">
-                                            <Table>
-                                                <Thead>
-                                                    <Tr>
-                                                        <Th>{therapy_name}</Th>
-                                                        <Th>{DiseaseName}</Th>
-                                                        <Th>{total_task_or_services}</Th>
-                                                        <Th></Th>
-                                                    </Tr>
-                                                </Thead>
-                                                <Tbody>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th><label>{therapy_name}</label></th>
+                                                        <th>{DiseaseName}</th>
+                                                        <th>{total_task_or_services}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     {AllTherpy && AllTherpy.length > 0 && AllTherpy.map((item, index) => (
-                                                        <Tr key={index}>
-                                                            <Td>{item?.therapy_name}</Td>
-                                                            <Td>{item?.disease_name}</Td>
-                                                            <Td>{item?.sequence_list?.length}</Td>
-                                                            <Td className="srvcDots">
+                                                        <tr key={index}>
+                                                            <td>{item?.therapy_name}</td>
+                                                            <td>{item?.disease_name}</td>
+                                                            <td>{item?.sequence_list?.length}</td>
+                                                            <td className="srvcDots">
                                                                 <Grid
                                                                     item
                                                                     xs={6}
@@ -675,18 +722,28 @@ class Index extends Component {
                                                                     </a>
 
                                                                 </Grid>
-                                                            </Td>
-                                                        </Tr>
+                                                            </td>
+                                                        </tr>
                                                     ))}
-                                                </Tbody>
-                                            </Table>
-                                            {/* <AssignPatient /> */}
+                                                </tbody>
+                                            </table>
+
+                                            <AssignPatient
+                                                openAssPat={this.state.openAssPat}
+                                                closeFullPatient={() => this.closeFullPatient()}
+                                            />
+
                                             <ViewTherapy
                                                 viewTher={this.state.viewTher}
                                                 item={viewAllData}
                                                 closeFullQues={() => this.closeFullQues()}
                                             />
-
+                                            <FilterTherapyDiases
+                                                openFilter={this.state.openFilter}
+                                                closeFullFilter={() => this.closeFullFilter()}
+                                                clearFilter={() => { this.clearFilter() }}
+                                                applyFilter={() => { this.applyFilter() }}
+                                            />
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
@@ -734,6 +791,7 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect;
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { speciality } = state.Speciality;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -741,6 +799,7 @@ const mapStateToProps = (state) => {
         settings,
         verifyCode,
         House,
+        speciality,
     };
 };
 export default withRouter(
@@ -750,5 +809,6 @@ export default withRouter(
         Settings,
         authy,
         houseSelect,
+        Speciality,
     })(Index)
 );

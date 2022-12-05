@@ -5723,7 +5723,7 @@ button.downloadPDF:hover {
 }
 .srvcTable3 th,
 .srvcTable3 td {
-  padding: 30px 42px;
+  padding: 18px 18px;
 }
 .srvcTable3 thead tr {
   border-bottom: 1px solid #d9dada;
@@ -17075,4 +17075,36 @@ color:#FFFFFF
 .addSpeclabcIner{
   overflow: auto;
   height: 510px;
+}
+
+.setFilterCss
+{margin-left: 34px;
+  font-size: 10px;
+}
+
+.services-head th{    color: #7f8383;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 12px;}
+
+  .presImg11 img
+  {border-radius: 27px;
+    height: 21px;
+    width: 22px;
+    margin: 2px 5px 7px 2px;}
+    
+.AddMarginTo{
+    margin-bottom: 10px
+}
+
+.srvcTable3656 th, .srvcTable3656 td{
+  padding: 30px 24px;
+}
+
+.darkTheme .srvcTable365
+{background: #192020}
+
+.srvcTable365{
+  overflow: auto;
 }

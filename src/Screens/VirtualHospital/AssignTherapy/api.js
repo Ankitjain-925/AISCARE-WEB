@@ -10,44 +10,47 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 
+
 //For adding the New therapy
 export const handleSubmit = (current) => {
-    const { assignedTo, seqItems } = current.state;
+    const { assignedTo, seqItems, assinged_to } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
     let { } = translate;
     current.setState({ errorMsg: '' })
     var data = current.state.updateTrack;
     data.house_id = current.props?.House?.value;
-    data.assinged_to = assignedTo;
+    data.assinged_to = assinged_to;
     data.sequence_list = seqItems;
 
     if (!data.therapy_name || (data && data?.therapy_name && data?.therapy_name.length < 1)) {
-        current.setState({ errorMsg: "Please enter therapy name" })
+        current.setState({ error_section: 1, errorMsg: "Please enter therapy name" })
     }
     else if (!data.therapy_description) {
-        current.setState({ errorMsg: "Please enter therapy description" })
+        current.setState({ error_section: 1, errorMsg: "Please enter therapy description" })
     }
     else if (!data.disease_name) {
-        current.setState({ errorMsg: "Please enter disease name" })
+        current.setState({ error_section: 1, errorMsg: "Please enter disease name" })
     }
     else if (!data.assinged_to || ((data && data?.assinged_to && data?.assinged_to.length < 1))) {
-        current.setState({ errorMsg: "Please selete Doctor/Staff" })
+        current.setState({ error_section: 1, errorMsg: "Please selete Doctor/Staff" })
     }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
-        current.setState({ errorMsg: "Atleast select two sequence from Task/Service" })
+        current.setState({ error_section: 2, errorMsg: "Atleast select two sequence from Task/Service" })
     }
     else {
         current.setState({ loaderImage: true });
-        if (data?.id) {
+        if (data?._id) {
             axios
                 .put(
-                    sitedata.data.path + "/vh/Updatetherapy/" + current.state.updateTrack._id,
+                    sitedata.data.path + "/vt/Updatetherapy/" + current.state.updateTrack._id,
                     data,
-                    commonHeader(current.props.stateLoginValueAim.token)
+                    commonHeader(current.props.stateLoginValueAim?.token)
                 )
                 .then((responce) => {
+                    getAllTherpy(current);
                     current.setState({
                         updateTrack: {},
+                        loaderImage: false
                     });
                     handleCloseServ(current);
                 })
@@ -95,20 +98,62 @@ export const getAllTherpy = (current) => {
             sitedata.data.path + "/vt/GettherapyHouse/" + current.props?.House?.value,
             commonHeader(current.props.stateLoginValueAim.token)
         )
-        .then((responce) => {
-            if (responce.data.hassuccessed) {
-                current.setState({ AllTherpy: responce?.data?.data, loaderImage: false });
-            } else {
-                current.setState({ loaderImage: false });
-            }
-        });
+        .then((response) => {
+            // if (responce.data.hassuccessed) {
+            //     current.setState({ AllTherpy: responce?.data?.data, loaderImage: false });
+            // } else {
+            //     current.setState({ loaderImage: false });
+            // }
 
+            var totalPage = Math.ceil(response.data.data.length / 10);
+            current.setState(
+                {
+                    AllTherpy1: response.data.data,
+                    loaderImage: false,
+                    totalPage: totalPage,
+                    currentPage: 1,
+                },
+                () => {
+                    current.setState({ loaderImage: false });
+                    if (totalPage > 1) {
+                        var pages = [];
+                        for (var i = 1; i <= current.state.totalPage; i++) {
+                            pages.push(i);
+                        }
+                        current.setState({
+                            AllTherpy: current.state.AllTherpy1.slice(0, 10),
+                            pages: pages,
+                        });
+                    } else {
+                        current.setState({ AllTherpy: current.state.AllTherpy1 });
+                    }
+                }
+            );
+        });
 };
 
 // For editing the therapy
 export const EditTherapy = (current, data) => {
+
     var deep = _.cloneDeep(data);
-    current.setState({ openServ: true, updateTrack: deep });
+    console.log("deep", deep)
+    var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
+        var name = item?.first_name + item?.last_name;
+        let a = [];
+        a.push({ label: name, value: item._id })
+        return a;
+    })
+
+    current.setState({
+        openServ: true,
+        updateTrack: deep,
+        assignedTo: newArray,
+        seqItems: deep?.sequence_list,
+        selectSpec: {
+            label: deep?.speciality?.specialty_name,
+            value: deep?.speciality?._id,
+        },
+    });
 }
 
 // For deleting the therapy
@@ -221,8 +266,14 @@ export const DeleteTherapyOk = (current, data) => {
             commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+            if (responce.data.hassuccessed) {
+                getAllTherpy(current);
+                current.setState({ loaderImage: false });
+            }
+        })
+        .catch(() => {
             current.setState({ loaderImage: false });
-        });
+        })
 }
 
 // Get the Professional data
@@ -235,30 +286,29 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
+        console.log("data.professionalList", data.professionalList, "data.professionalArray", data.professionalArray)
         current.setState(
             {
                 loaderImage: false,
                 professional_id_list1: data.professionalList,
-            },
-            () => {
-                //   if (fromEdit) {
-                //     current.selectProf(
-                //       current.state.newTask?.assinged_to,
-                //       current.state.professional_id_list
-                //     );
-                //   }
-            }
-        );
+                professionalArray1: data.professionalArray
+            });
     } else {
         current.setState({ loaderImage: false });
     }
 };
 
 export const updateEntryState3 = (current, e) => {
-    current.setState({ assignedTo: e })
+    console.log("e", e)
+    var res = current.state.professionalArray1.filter(el => {
+        return e && e.find(element => {
+            return element?.value === el?.user_id;
+        });
+    });
+    current.setState({ assignedTo: e, assinged_to: res })
 };
 
-export const taskSelection = (current, e, name) => {
+export const taskSelection = (current, e) => {
     current.setState({ taskName: e, allSequence: { "type": e?.value } });
 }
 
@@ -270,13 +320,14 @@ export const updateEntry = (current, e) => {
 
 export const handleAddData = (current) => {
     const { indexForUpdate, allSequence, taskName } = current.state;
-    current.setState({ errorMsg1: "" })
+    current.setState({ errorMsg: "" })
     if ((taskName?.value === "task" &&
         !allSequence?.task_name) ||
         (taskName?.value === "assign_service" &&
             !allSequence?.service_name)) {
         current.setState({
-            errorMsg1: taskName?.value === "task" ?
+            error_section: 3,
+            errorMsg: taskName?.value === "task" ?
                 "Please enter Task name" :
                 "Please enter Service name"
         });
@@ -286,7 +337,8 @@ export const handleAddData = (current) => {
         taskName?.value === "assign_service" &&
         !allSequence?.service_description) {
         current.setState({
-            errorMsg1: taskName?.value === "task" ?
+            error_section: 3,
+            errorMsg: taskName?.value === "task" ?
                 "Please enter Task description" :
                 "Please enter Service description"
         });
@@ -387,13 +439,75 @@ export const removeServices = (current, index, data) => {
         });
     }
     else {
-        current.setState({ errorMsg: "Atleast select two sequence from Task/Service" })
+        current.setState({ error_section: 2, errorMsg: "Atleast select two sequence from Task/Service" })
     }
 };
 
+//Delete Listing from Array
 export const removeTaskSer = (current, index) => {
     const { seqItems } = current.state;
     seqItems.splice(index, 1);
     current.setState({ seqItems });
 }
+// For searching data
+export const searchFilter = (e, current) => {
+    current.setState({ SearchValue: e.target.value });
+    if (current.state.showinput && e.target.value) {
+        axios
+            .get(
+                sitedata.data.path + "/vt/Gettherapy_search/" + current.props?.House?.value + "/" + e.target.value,
+                commonHeader(current.props.stateLoginValueAim?.token)
+            )
+            .then((res) => {
+                if (res.data.hassuccessed) {
+                    current.setState({
+                        AllTherpy: res?.data?.data,
+                    });
+                }
+            })
+            .catch(() => {
+            })
+    }
+    else {
+        getAllTherpy(current);
+    }
+}
 
+export const onChangePage = (pageNumber, current) => {
+    current.setState({
+        AllTherpy: current.state.AllTherpy1.slice(
+            (pageNumber - 1) * 10,
+            pageNumber * 10
+        ),
+        currentPage: pageNumber,
+    });
+};
+
+//to get the speciality list
+export const specailityList = (current) => {
+    var spec =
+        current.props.speciality?.SPECIALITY &&
+        current.props?.speciality?.SPECIALITY.length > 0 &&
+        current.props?.speciality?.SPECIALITY.map((data) => {
+            return { label: data.specialty_name, value: data._id };
+        });
+    current.setState({ specilaityList: spec });
+};
+
+export const onFieldChange = (current, e) => {
+    const state = current.state.updateTrack;
+    current.setState({ selectSpec: e });
+    var speciality =
+        current.props.speciality?.SPECIALITY &&
+        current.props?.speciality?.SPECIALITY.length > 0 &&
+        current.props?.speciality?.SPECIALITY.filter((data) => data._id === e.value);
+    if (speciality && speciality.length > 0) {
+        state["speciality"] = {
+            background_color: speciality[0]?.background_color,
+            color: speciality[0]?.color,
+            specialty_name: speciality[0]?.specialty_name,
+            _id: speciality[0]?._id,
+        };
+        current.setState({ updateTrack: state });
+    }
+};
