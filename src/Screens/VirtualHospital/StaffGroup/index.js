@@ -63,7 +63,8 @@ class Index extends Component {
       selectSpec2: '',
       wardList: [],
       selectWard: '',
-      staffslct:[]
+      staffslct:[],
+    
     };
   }
 
@@ -72,6 +73,7 @@ class Index extends Component {
     teamstaff(this);
     GetProfessionalwstaff(this);
     this.specailityList();
+    console.log('1',this.props.stateLanguageType)
   }
 
   //On Changing the specialty id
@@ -104,6 +106,7 @@ class Index extends Component {
   // ward Change
   onWardChange = (e) => {
     var state = this.state.updateTrack;
+    console.log('e',e)
     state['ward_id']= e.value;
     this.setState({ selectWard: e, updateTrack: state });
   };
@@ -189,7 +192,7 @@ class Index extends Component {
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
 
-
+{console.log('updateTrack',this.state.updateTrack)}
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newstaffGroup}
@@ -264,8 +267,8 @@ class Index extends Component {
                                     </Grid>
                                     </Grid>
 
-                                    {this.state.wardList &&
-                                      this.state.wardList.length > 0 && (
+                                    {/* {this.state.wardList &&
+                                      this.state.wardList.length > 0 && ( */}
                                         <Grid className="enterSpcl">
                                           <label>{Ward}</label>
                                           <Grid className="addInput">
@@ -280,7 +283,7 @@ class Index extends Component {
                                             />
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      {/* )} */}
 
                                <Grid className="enterSpcl">
                                       <Grid>
@@ -403,13 +406,13 @@ class Index extends Component {
                           {staff_data?.length > 0 &&
                             staff_data.map((data) => (
                               <>
-                                <Tr>
+                                   <Tr>
                                   <Td>
-                                    <label>{data.team_name}</label>
+                                    <label>{data?.team_name}</label>
 
                                   </Td>
 
-                                  <Td>{data.staff}</Td>
+                                  <Td>{data?.staff?.length}</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
@@ -426,7 +429,7 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          {/* <li
+                                          <li
                                           onClick={() => {
                                             editStaff(data, this);
                                           }}
@@ -439,11 +442,11 @@ class Index extends Component {
                                               />
                                               {editstaff}
                                             </a>
-                                          </li> */}
+                                          </li>
 
                                           <li
                                           onClick={() => {
-                                            DeleteStaff(this,data);
+                                            DeleteStaff(data,this);
                                           }}
                                           >
                                             <a>
