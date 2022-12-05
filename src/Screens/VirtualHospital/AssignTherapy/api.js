@@ -60,7 +60,7 @@ export const handleSubmit = (current) => {
                 })
         }
         else {
-            console.log("data", data);
+            console.log("At the time of posting data", data);
             axios
                 .post(
                     sitedata.data.path + "/vt/AddTherapy",
@@ -134,15 +134,13 @@ export const getAllTherpy = (current) => {
 
 // For editing the therapy
 export const EditTherapy = (current, data) => {
-
+    selectProf(current, data?.assinged_to, current.state.professional_id_list1);
     var deep = _.cloneDeep(data);
-    console.log("deep", deep)
     var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
         var name = item?.first_name + item?.last_name;
-        let a = [];
-        a.push({ label: name, value: item._id })
-        return a;
+        return ({ label: name, value: item._id })
     })
+
 
     current.setState({
         openServ: true,
@@ -153,6 +151,7 @@ export const EditTherapy = (current, data) => {
             label: deep?.speciality?.specialty_name,
             value: deep?.speciality?._id,
         },
+        alerady_Assigned: newArray
     });
 }
 
@@ -286,7 +285,6 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
-        console.log("data.professionalList", data.professionalList, "data.professionalArray", data.professionalArray)
         current.setState(
             {
                 loaderImage: false,
@@ -299,7 +297,6 @@ export const GetProfessionalData = async (current, fromEdit) => {
 };
 
 export const updateEntryState3 = (current, e) => {
-    console.log("e", e)
     var res = current.state.professionalArray1.filter(el => {
         return e && e.find(element => {
             return element?.value === el?.user_id;
@@ -510,4 +507,25 @@ export const onFieldChange = (current, e) => {
         };
         current.setState({ updateTrack: state });
     }
+};
+
+// manage assign to list
+export const selectProf = (current, listing, data) => {
+    var showdata = data;
+    var alredyAssigned =
+        listing &&
+        listing?.length > 0 &&
+        listing.map((item) => {
+            return item.user_id;
+        });
+    if (alredyAssigned && alredyAssigned.length > 0) {
+        showdata =
+            data?.length > 0 &&
+            data.filter((item) => !alredyAssigned.includes(item.value));
+        var assignedto =
+            data?.length > 0 &&
+            data.filter((item) => alredyAssigned.includes(item.value));
+        current.setState({ assignedTo: assignedto });
+    }
+    current.setState({ professional_id_list1: showdata });
 };

@@ -39,7 +39,8 @@ import {
     onChangePage,
     searchFilter,
     specailityList,
-    onFieldChange
+    onFieldChange,
+    selectProf
 } from "./api"
 import AssignPatient from "./AssignPatient";
 import ViewTherapy from "./ViewTherapy";
@@ -677,7 +678,7 @@ class Index extends Component {
                                                                         />
 
                                                                         <ul>
-                                                                            <li onClick={() => this.setState({ viewTher: true, viewAllData: item })}
+                                                                            {/* <li onClick={() => this.setState({ viewTher: true, viewAllData: item })}
                                                                             >
                                                                                 <a>
                                                                                     <img
@@ -697,7 +698,7 @@ class Index extends Component {
                                                                                     />
                                                                                     {assign_to_patient}
                                                                                 </a>
-                                                                            </li>
+                                                                            </li> */}
                                                                             <li onClick={() => EditTherapy(this, item)}>
                                                                                 <a>
                                                                                     <img
