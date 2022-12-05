@@ -58,11 +58,17 @@ export const handleOpenServ = (current) => {
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false, updateTrack: {} ,selectSpec2:'',selectWard: '',  wardList: [],errorMsg:false});
+  current.setState({ openServ: false, updateTrack: {} ,selectSpec2:'',selectWard: '', staffslct:[], wardList: [],errorMsg:false});
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
-  state[e.target.name] = e.target.value;
+  if(e.target.name === 'team_name'){
+    current.setState({team_name: e.target.value})
+    state['team_name'] = current.state.selectSpec2?.label+'-'+current.state.selectWard?.label+'-'+e.target.value; 
+  }
+  else{
+    state[e.target.name] = e.target.value;
+  }
   current.setState({ updateTrack: state });
 };
 
@@ -104,27 +110,64 @@ export const teamstaff = (current) => {
 
  //For adding the New staff 
  export const handleSubmit = (current) => {
+  
+  const { selectSpec2, selectWard,staffslct } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
     let {} = translate;
+    var data = current.state.updateTrack;
     current.setState({ errorMsg: '' })
-      // data.house_id = current.props?.House?.value;
-      // axios
-      //   .post(sitedata.data.path + "/teammember/AddGroup", data, commonHeader(current.props.stateLoginValueAim.token))
-      //   .then((responce) => {
-      //     handleCloseServ(current);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //     current.setState({ errorMsg: "Something_went_wrong" })
-  
-      //   });
-    console.log('no value')
-   
+      data.house_id = current.props?.House?.value;
+      if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
+        current.setState({ errorMsg: "Please select speciality id" })
+    }  else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
+      current.setState({ errorMsg: "Please select ward id" })
+  }
+  else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
+    current.setState({ errorMsg: "Please enter team name" })
+}
+// else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
+//   current.setState({ errorMsg: "Please select staff name" })
+// } 
+else{
+  current.setState({ loaderImage: true });
+  if (data?.id) {
+      axios
+          .put(
+              // sitedata.data.path + "/teammember/UpdateTeam/",data, + current.state.updateTrack._id,
+              data,
+              commonHeader(current.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+              current.setState({
+                  updateTrack: {},
+              });
+              handleCloseServ(current);
+          })
+          .catch(() => {
+              current.setState({ loaderImage: false });
+              handleCloseServ(current);
+          })
+  }else{
+      axios
+        .post(sitedata.data.path + "/teammember/AddGroup",
+         data, 
+         commonHeader(current.props.stateLoginValueAim.token))
+        .then((responce) => {
+          current.setState({ loaderImage: false });
+          teamstaff(current);
+          handleCloseServ(current);
+        })
+        .catch(function (error) {
+          current.setState({ loaderImage: false });
+           handleCloseServ(current);
+        });
+      }
+      }
     }
 
 
     //Delete the Staff
-    export const  DeleteStaff = (current) => {
+    export const  DeleteStaff = (current,data) => {
     let translate = getLanguage(current.props.stateLanguageType);
       let {
         deleteStaff,
@@ -168,7 +211,7 @@ export const teamstaff = (current) => {
                 <Grid>
                   <Button
                     onClick={() => {
-                    removestaff(current);
+                    removestaff(current,data);
                     }}
                   >
                     {yes_deleteStaff}
@@ -189,7 +232,7 @@ export const teamstaff = (current) => {
    
   };
 
-  export const removestaff = (current) => {
+  export const removestaff = (current,data) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
     confirmAlert({
@@ -211,7 +254,7 @@ export const teamstaff = (current) => {
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  DeleteStaffOk(current);
+                  DeleteStaffOk(current,data);
                   onClose();
                 }}
               >
@@ -225,12 +268,52 @@ export const teamstaff = (current) => {
   };
  
 
-  export const DeleteStaffOk = (id,current) => {
-    // axios
-    // .delete(sitedata.data.path + ""+ id+ "/" + current.props?.House?.value,
-    //  commonHeader(current.props.stateLoginValueAim.token))
-    // .then((response) => {
-    //   })
-    // .catch((error) => { });
+  export const DeleteStaffOk = (data,current) => {
+    current.setState({ loaderImage: true });
+    axios
+        .delete(
+            sitedata.data.path + "/teammember/DeleteTeam/"+ current.props?.House?.value +"/"+ data?._id,
+            commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+            current.setState({ loaderImage: false });
+        });
   };
  
+  export const  GetProfessionalwstaff = (current) => {
+    current.setState({ loaderImage: true });
+   axios
+      .get(
+        sitedata.data.path + "/hospitaladmin/GetProfessionalwstaff/" + current.props?.House?.value,
+        commonHeader(current.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        console.log('responce',responce.data.data)
+       if (responce.data.hassuccessed && responce.data.data) {
+      var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          let name= item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
+          return ({label: name , value: item?.profile_id})
+        })
+        current.setState({ teamstaff: newArray, teamstaff1: responce.data?.data});
+        }
+        current.setState({ loaderImage: false });
+      });
+  };
+
+  export const stffchange = (e, current) => {
+    var state = current.state.updateTrack;
+    var staff = [];
+    staff = e?.length>0 && e.map((item)=> {
+      return item?.value;
+    })
+    state['staff'] = staff;
+   current.setState({ staffslct: e, updateTrack: state}, ()=>{
+    console.log('updateTrack', current.state.updateTrack)
+   });
+    }
+
+  // Open Edit Model
+export const editStaff = (data, current) => {
+  var deep = _.cloneDeep(data);
+  current.setState({ updateTrack: deep, openServ: true });
+}; 

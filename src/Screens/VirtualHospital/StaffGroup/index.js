@@ -26,7 +26,10 @@ import {
   getSpecialty,
   teamstaff,
   handleSubmit,
-  DeleteStaff
+  DeleteStaff,
+  stffchange,
+  GetProfessionalwstaff,
+  editStaff
 
 } from "./api";
 import SelectField from "Screens/Components/Select/index";
@@ -60,18 +63,20 @@ class Index extends Component {
       selectSpec2: '',
       wardList: [],
       selectWard: '',
+      staffslct:[]
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
     teamstaff(this);
+    GetProfessionalwstaff(this);
     this.specailityList();
   }
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' });
+    this.setState({ selectWard: '' });
     let specialityList =
       this.props.speciality?.SPECIALITY &&
       this.props.speciality?.SPECIALITY.length > 0 &&
@@ -86,31 +91,21 @@ class Index extends Component {
       wardsFullData.map((item) => {
         return { label: item.ward_name, value: item._id };
       });
+      var state = this.state.updateTrack
+      state['speciality_id'] = e?.value;
+      
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
       allWards: wardsFullData,
+      updateTrack: state
     });
   };
   // ward Change
   onWardChange = (e) => {
-    this.setState({ selectRoom: '' });
-    let { allWards } = this.state;
-    let wardDetails =
-      allWards &&
-      allWards.length > 0 &&
-      allWards.filter((item) => {
-        return item && item._id == e.value;
-      });
-    let roomsData =
-      wardDetails && wardDetails.length > 0 && wardDetails[0].rooms;
-    let rooms =
-      roomsData &&
-      roomsData.length > 0 &&
-      roomsData.map((item) => {
-        return { label: item.room_name, value: item._id };
-      });
-    this.setState({ selectWard: e, roomList: rooms });
+    var state = this.state.updateTrack;
+    state['ward_id']= e.value;
+    this.setState({ selectWard: e, updateTrack: state });
   };
 
   //to get the speciality list
@@ -296,7 +291,7 @@ class Index extends Component {
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
                                           }
-                                          value={this.state.updateTrack.team_name}
+                                          value={this.state.team_name}
                                         />
                                       </Grid>
                                       <label className="enterSpcl">
@@ -304,14 +299,15 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
+                                            onChange={(e) =>
+                                              stffchange(e, this)
+                                            }
                                           options={this.state.teamstaff}
                                           name="staff"
                                           isSearchable={true}
-                                          className="addStafSelect"
                                           isMulti={true}
-                                          value={
-                                            this.state.updateTrack.staff
-                                          }
+                                          className="addStafSelect"
+                                          value={this.state.staffslct}
                                         />
                                       </Grid>
                                     </Grid>
@@ -393,8 +389,8 @@ class Index extends Component {
                     {/* End of Bread Crumb */}
 
 
-                    {/* service price content */}
-                    <Grid className="srvcTable3">
+                      {/* service price content */}
+                      <Grid className="srvcTable3">
                       <Table>
                         <Thead>
                           <Tr>
@@ -404,17 +400,16 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {console.log('staff_data', staff_data)}
-                          {/* {staff_data?.length > 0 &&
-                            staff_data.map((data) => ( */}
+                          {staff_data?.length > 0 &&
+                            staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>data.team_name</label>
+                                    <label>{data.team_name}</label>
 
                                   </Td>
 
-                                  <Td>data.staff</Td>
+                                  <Td>{data.staff}</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
@@ -431,10 +426,10 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          <li
-                                          // onClick={() => {
-                                          //   EditService(data, this);
-                                          // }}
+                                          {/* <li
+                                          onClick={() => {
+                                            editStaff(data, this);
+                                          }}
                                           >
                                             <a>
                                               <img
@@ -444,11 +439,11 @@ class Index extends Component {
                                               />
                                               {editstaff}
                                             </a>
-                                          </li>
+                                          </li> */}
 
                                           <li
                                           onClick={() => {
-                                            DeleteStaff(this);
+                                            DeleteStaff(this,data);
                                           }}
                                           >
                                             <a>
@@ -467,7 +462,7 @@ class Index extends Component {
                                   </Td>
                                 </Tr>
                               </>
-                            {/* // ))} */}
+                    ))}  
                         </Tbody>
                       </Table>
 
