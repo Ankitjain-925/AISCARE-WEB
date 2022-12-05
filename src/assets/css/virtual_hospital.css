@@ -17108,3 +17108,12 @@ color:#FFFFFF
 .srvcTable365{
   overflow: auto;
 }
+
+.creatLbl22 label{
+  font-size: 17px!important;
+    font-weight: 500!important;
+    letter-spacing: 0!important;
+    /* line-height: 32px!important; */
+    font-family: "Mulish", sans-serif!important;
+    margin-top: 10px!important;
+}

@@ -82,12 +82,22 @@ export const handleSubmit = (current) => {
 
 // Modal Close
 export const handleCloseServ = (current) => {
-    current.setState({ openServ: false, updateTrack: {}, errorMsg: false, assignedTo: {}, seqItems: [] });
+    current.setState({
+        openServ: false,
+        updateTrack: {},
+        selectSpec: {},
+        errorMsg: false,
+        assignedTo: [],
+        seqItems: []
+    });
 };
 
 //Modal Open
 export const handleOpenServ = (current) => {
-    current.setState({ openServ: true, updateTrack: {} });
+    current.setState({
+        openServ: true,
+        updateTrack: {}
+    });
 };
 
 //For getting the therapies
@@ -137,7 +147,7 @@ export const EditTherapy = (current, data) => {
     selectProf(current, data?.assinged_to, current.state.professional_id_list1);
     var deep = _.cloneDeep(data);
     var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
-        var name = item?.first_name + item?.last_name;
+        var name = item?.first_name && item?.last_name ? item?.first_name + item?.last_name : item?.first_name ? item?.first_name : item?.team_name;
         return ({ label: name, value: item._id })
     })
 
@@ -146,6 +156,7 @@ export const EditTherapy = (current, data) => {
         openServ: true,
         updateTrack: deep,
         assignedTo: newArray,
+        // assinged_to: newArray,
         seqItems: deep?.sequence_list,
         selectSpec: {
             label: deep?.speciality?.specialty_name,
@@ -299,7 +310,7 @@ export const GetProfessionalData = async (current, fromEdit) => {
 export const updateEntryState3 = (current, e) => {
     var res = current.state.professionalArray1.filter(el => {
         return e && e.find(element => {
-            return element?.value === el?.user_id;
+            return element?.value === el?.user_id || element?.value === el?._id;
         });
     });
     current.setState({ assignedTo: e, assinged_to: res })

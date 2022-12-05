@@ -304,6 +304,7 @@ class Index extends Component {
 
   // manage assign to list
   selectProf = (listing, data) => {
+    console.log("listing", listing, "data", data)
     var showdata = data;
     var alredyAssigned =
       listing &&

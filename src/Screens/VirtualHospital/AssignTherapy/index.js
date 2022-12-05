@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
@@ -42,7 +42,6 @@ import {
     onFieldChange,
     selectProf
 } from "./api"
-import AssignPatient from "./AssignPatient";
 import ViewTherapy from "./ViewTherapy";
 import FilterTherapyDiases from "./FilterTherapyDiases";
 import { Speciality } from "Screens/Login/speciality.js";
@@ -63,7 +62,8 @@ class Index extends Component {
             seqItems: [],
             indexForUpdate: 0,
             error_section: 0,
-            assignedTo: []
+            assignedTo: [],
+            selectSpec: {}
         };
     }
 
@@ -106,6 +106,16 @@ class Index extends Component {
     // Closing Filter
     closeFullFilter = () => {
         this.setState({ openFilter: false });
+    }
+
+    // Open Show staff Modal
+    showData = (data) => {
+        this.setState({ openStaff: true, AllStaffData: data });
+    }
+
+    // Closing Show staff Modal
+    closeStaffInfo = () => {
+        this.setState({ openStaff: false });
     }
 
     render() {
@@ -316,6 +326,7 @@ class Index extends Component {
                                                                                     onChange={(e) => onFieldChange(this, e)}
                                                                                     options={this.state.specilaityList}
                                                                                     name="specialty_name"
+                                                                                    placeholder={Search_Select}
                                                                                     isSearchable={true}
                                                                                     className="addStafSelect"
                                                                                     value={
@@ -654,6 +665,7 @@ class Index extends Component {
                                                         <th>{DiseaseName}</th>
                                                         <th>{total_task_or_services}</th>
                                                         <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -662,6 +674,14 @@ class Index extends Component {
                                                             <td>{item?.therapy_name}</td>
                                                             <td>{item?.disease_name}</td>
                                                             <td>{item?.sequence_list?.length}</td>
+                                                            <td>
+                                                                <Grid className="setAssignedToupper">
+                                                                    <Assigned
+                                                                        assigned_to={item?.assinged_to}
+                                                                        comesFrom="TherapySection"
+                                                                    />
+                                                                </Grid>
+                                                            </td>
                                                             <td className="srvcDots">
                                                                 <Grid
                                                                     item
@@ -678,7 +698,7 @@ class Index extends Component {
                                                                         />
 
                                                                         <ul>
-                                                                            {/* <li onClick={() => this.setState({ viewTher: true, viewAllData: item })}
+                                                                            <li onClick={() => this.setState({ viewTher: true, viewAllData: item })}
                                                                             >
                                                                                 <a>
                                                                                     <img
@@ -698,7 +718,7 @@ class Index extends Component {
                                                                                     />
                                                                                     {assign_to_patient}
                                                                                 </a>
-                                                                            </li> */}
+                                                                            </li>
                                                                             <li onClick={() => EditTherapy(this, item)}>
                                                                                 <a>
                                                                                     <img
@@ -729,15 +749,19 @@ class Index extends Component {
                                                 </tbody>
                                             </table>
 
-                                            <AssignPatient
+                                            {/* <AssignPatient
                                                 openAssPat={this.state.openAssPat}
                                                 closeFullPatient={() => this.closeFullPatient()}
-                                            />
+                                            /> */}
 
                                             <ViewTherapy
                                                 viewTher={this.state.viewTher}
                                                 item={viewAllData}
                                                 closeFullQues={() => this.closeFullQues()}
+                                                showData={(data) => this.showData(data)}
+                                                openStaff={this.state.openStaff}
+                                                closeStaffInfo={() => this.closeStaffInfo()}
+                                                AllStaffData={this.state.AllStaffData}
                                             />
                                             <FilterTherapyDiases
                                                 openFilter={this.state.openFilter}
