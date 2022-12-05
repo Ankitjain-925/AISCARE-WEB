@@ -26,10 +26,8 @@ import {
   getSpecialty,
   teamstaff,
   handleSubmit,
-  DeleteStaff
-
+  DeleteStaff,
 } from "./api";
-import SelectField from "Screens/Components/Select/index";
 
 import { Speciality } from 'Screens/Login/speciality.js';
 import { getLanguage } from "translations/index";
@@ -60,6 +58,12 @@ class Index extends Component {
       selectSpec2: '',
       wardList: [],
       selectWard: '',
+      reqPayload:{
+        team_name:"",
+        speciality:"",
+        ward_id:"",
+        staff:[]
+      }
     };
   }
 
@@ -86,8 +90,12 @@ class Index extends Component {
       wardsFullData.map((item) => {
         return { label: item.ward_name, value: item._id };
       });
+
+      const stateCopy = {...this.state.reqPayload}
+      stateCopy['specialty_id'] = e.value
     this.setState({
       selectSpec2: e,
+      reqPayload: stateCopy,
       wardList: wards_data,
       allWards: wardsFullData,
     });
@@ -110,7 +118,9 @@ class Index extends Component {
       roomsData.map((item) => {
         return { label: item.room_name, value: item._id };
       });
-    this.setState({ selectWard: e, roomList: rooms });
+      const stateCopy = {...this.state.reqPayload}
+      stateCopy['ward_id'] = e.value
+    this.setState({ selectWard: e,reqPayload:stateCopy, roomList: rooms });
   };
 
   //to get the speciality list
@@ -160,6 +170,8 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
+    console.log(this.state.reqPayload)
     return (
       <Grid
         className={
@@ -431,10 +443,10 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          <li
-                                          // onClick={() => {
-                                          //   EditService(data, this);
-                                          // }}
+                                          {/* <li
+                                          onClick={() => {
+                                            EditService(data, this);
+                                          }}
                                           >
                                             <a>
                                               <img
@@ -444,11 +456,11 @@ class Index extends Component {
                                               />
                                               {editstaff}
                                             </a>
-                                          </li>
+                                          </li> */}
 
                                           <li
                                           onClick={() => {
-                                            DeleteStaff(this);
+                                            DeleteStaff(this, 1);
                                           }}
                                           >
                                             <a>
@@ -511,6 +523,8 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
+
+  console.log("=============state=====================>", state)
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;

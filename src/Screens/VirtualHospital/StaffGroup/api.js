@@ -27,6 +27,42 @@ export const getSpecialty = (current) => {
 };
 
 
+export const AddGroupStaff = (current, params)=>{
+  console.log(current)
+  axios.post(
+    sitedata.data.path + "/vh/AddGroup/" + current.props?.House?.value, current.state.reqPayload, 
+    commonHeader(current.props.stateLoginValueAim.token)
+  )
+  .then((responce) => {
+    console.log("responce", responce)
+    if (responce.data.hassuccessed && responce.data.data) {
+      var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+        return ({ label: item.specialty_name, value: item._id })
+      })
+      current.setState({ AllSpeciality: newArray });
+    }
+    current.setState({ loaderImage: false });
+  });
+}
+
+export const DeleteGroupStaff = (current, params)=>{
+  console.log(sitedata.data.path)
+  axios.post(
+    sitedata.data.path + "/vh/DeleteTeam/" + current.props?.House?.value,
+    commonHeader(current.props.stateLoginValueAim.token)
+  )
+  .then((responce) => {
+    if (responce.data.hassuccessed && responce.data.data) {
+      var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+        return ({ label: item.specialty_name, value: item._id })
+      })
+      current.setState({ AllSpeciality: newArray });
+    }
+    current.setState({ loaderImage: false });
+  });
+}
+
+
 
 export const onChangePage = (pageNumber, current) => {
   current.setState({
@@ -61,9 +97,11 @@ export const handleCloseServ = (current) => {
   current.setState({ openServ: false, updateTrack: {} ,selectSpec2:'',selectWard: '',  wardList: [],errorMsg:false});
 };
 export const updateEntryState1 = (e, current) => {
+ const reqPayload = {...current.state.reqPayload}
   const state = current.state.updateTrack;
+  reqPayload['team_name'] = e.target.value;
   state[e.target.name] = e.target.value;
-  current.setState({ updateTrack: state });
+  current.setState({ updateTrack: state, reqPayload:reqPayload  });
 };
 
 // For getting the staff and implement Pagination
@@ -104,9 +142,30 @@ export const teamstaff = (current) => {
 
  //For adding the New staff 
  export const handleSubmit = (current) => {
+  console.log(current);
     let translate = getLanguage(current.props.stateLanguageType);
     let {} = translate;
     current.setState({ errorMsg: '' })
+
+    axios.post(
+      sitedata.data.path + "/vh/AddGroup/" + current.props?.House?.value, current.state.reqPayload, 
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      console.log("responce", responce)
+      if (responce.data.hassuccessed && responce.data.data) {
+        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          return ({ label: item.specialty_name, value: item._id })
+        })
+        current.setState({ AllSpeciality: newArray });
+      }
+      current.setState({ loaderImage: false });
+    });
+
+
+    // return;
+
+    AddGroupStaff(current, )
       // data.house_id = current.props?.House?.value;
       // axios
       //   .post(sitedata.data.path + "/teammember/AddGroup", data, commonHeader(current.props.stateLoginValueAim.token))
@@ -124,7 +183,8 @@ export const teamstaff = (current) => {
 
 
     //Delete the Staff
-    export const  DeleteStaff = (current) => {
+    export const  DeleteStaff = (current, id) => {
+      console.log("Id", id)
     let translate = getLanguage(current.props.stateLanguageType);
       let {
         deleteStaff,
@@ -168,7 +228,8 @@ export const teamstaff = (current) => {
                 <Grid>
                   <Button
                     onClick={() => {
-                    removestaff(current);
+                      console.log("======current====", current, "ID===>", id)
+                    removestaff(current, id);
                     }}
                   >
                     {yes_deleteStaff}
@@ -189,7 +250,8 @@ export const teamstaff = (current) => {
    
   };
 
-  export const removestaff = (current) => {
+  export const removestaff = (current, id) => {
+    console.log("removestaff===>", current, "Id0", id)
     let translate = getLanguage(current.props.stateLanguageType);
     let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
     confirmAlert({
@@ -211,7 +273,7 @@ export const teamstaff = (current) => {
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  DeleteStaffOk(current);
+                  DeleteStaffOk(current, id);
                   onClose();
                 }}
               >
@@ -225,12 +287,14 @@ export const teamstaff = (current) => {
   };
  
 
-  export const DeleteStaffOk = (id,current) => {
-    // axios
-    // .delete(sitedata.data.path + ""+ id+ "/" + current.props?.House?.value,
-    //  commonHeader(current.props.stateLoginValueAim.token))
-    // .then((response) => {
-    //   })
-    // .catch((error) => { });
+  export const DeleteStaffOk = (current, id) => {
+    console.log("DeleteStaffOk", id, current)
+    axios
+    .delete(sitedata.data.path + "/vh/DeleteTeam/"+ id+ "/" + current.props?.House?.value,
+     commonHeader(current.props.stateLoginValueAim.token))
+    .then((response) => {
+      console.log("Response", response)
+      })
+    .catch((error) => { });
   };
  

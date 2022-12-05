@@ -621,10 +621,10 @@ table {
     padding-top: 0px;
     border-collapse: collapse;
   }
-  td, th {
+  /* td, th {
     padding: 3px;
     border: 1px solid  gray;
-  }
+  } */
 
   table td {
     white-space: nowrap;
