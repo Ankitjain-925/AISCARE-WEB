@@ -484,7 +484,7 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
                                    
-                                    <Grid item xs={12} md={12}>\
+                                    <Grid item xs={12} md={12}>
                                                 <Grid>
                                                     <label>{For_Hospital}</label>
                                                     <Select
