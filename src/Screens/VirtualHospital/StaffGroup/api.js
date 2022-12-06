@@ -110,8 +110,7 @@ export const teamstaff = (current) => {
 
  //For adding the New staff 
  export const handleSubmit = (current) => {
-  
-  const { selectSpec2, selectWard,staffslct } = current.state;
+   const { selectSpec2, selectWard,staffslct } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
     let {} = translate;
     var data = current.state.updateTrack;
@@ -125,21 +124,23 @@ export const teamstaff = (current) => {
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
     current.setState({ errorMsg: "Please enter team name" })
 }
-// else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
-//   current.setState({ errorMsg: "Please select staff name" })
-// } 
+else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
+  current.setState({ errorMsg: "Please select staff name" })
+} 
 else{
   current.setState({ loaderImage: true });
-  if (data?.id) {
+   if (data?._id) {
       axios
           .put(
-              // sitedata.data.path + "/teammember/UpdateTeam/",data, + current.state.updateTrack._id,
-              data,
+              sitedata.data.path + "/teammember/UpdateTeam/",+ data +"/"+ data?.staff_id,
               commonHeader(current.props.stateLoginValueAim.token)
           )
           .then((responce) => {
+            teamstaff(current);
               current.setState({
                   updateTrack: {},
+                  selectSpec2:'',
+                  selectWard:[]
               });
               handleCloseServ(current);
           })
@@ -147,7 +148,8 @@ else{
               current.setState({ loaderImage: false });
               handleCloseServ(current);
           })
-  }else{
+  }
+  else{
       axios
         .post(sitedata.data.path + "/teammember/AddGroup",
          data, 
@@ -162,12 +164,12 @@ else{
            handleCloseServ(current);
         });
       }
-      }
+       }
     }
 
 
     //Delete the Staff
-    export const  DeleteStaff = (current,data) => {
+    export const  DeleteStaff = (data,current) => {
     let translate = getLanguage(current.props.stateLanguageType);
       let {
         deleteStaff,
@@ -211,7 +213,7 @@ else{
                 <Grid>
                   <Button
                     onClick={() => {
-                    removestaff(current,data);
+                    removestaff(data,current);
                     }}
                   >
                     {yes_deleteStaff}
@@ -232,7 +234,7 @@ else{
    
   };
 
-  export const removestaff = (current,data) => {
+  export const removestaff = (data,current) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
     confirmAlert({
@@ -254,11 +256,13 @@ else{
               <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  DeleteStaffOk(current,data);
+                  DeleteStaffOk(data,current);
                   onClose();
                 }}
               >
+               
                 {Yes}
+         
               </button>
             </div>
           </div>
@@ -271,12 +275,17 @@ else{
   export const DeleteStaffOk = (data,current) => {
     current.setState({ loaderImage: true });
     axios
-        .delete(
-            sitedata.data.path + "/teammember/DeleteTeam/"+ current.props?.House?.value +"/"+ data?._id,
-            commonHeader(current.props.stateLoginValueAim.token)
+   .delete(
+            sitedata.data.path + "/teammember/DeleteTeam/"+ current.props?.House?.value +"/"+ data?.staff_id,
+          commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+          if (responce.data.hassuccessed) {
+            console.log('delete',responce)
+            teamstaff(current);
             current.setState({ loaderImage: false });
+        }
+           
         });
   };
  
@@ -314,6 +323,19 @@ else{
 
   // Open Edit Model
 export const editStaff = (data, current) => {
+  console.log('data',data)
   var deep = _.cloneDeep(data);
-  current.setState({ updateTrack: deep, openServ: true });
+  var a =deep.team_name.split("-");
+  var spe = {label: a[0] ,value: deep?.speciality_id,}
+  var ward = {label: a[1], value: deep?.ward_id, }
+  var nurse = {label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name,value: deep.staff_id}
+  var teamname =  a[2] 
+  console.log('deep',a)
+  current.setState({ updateTrack: deep,
+    selectSpec2:spe,
+    selectWard:ward,
+    team_name:teamname,
+    staffslct:nurse,
+     openServ: true });
+   
 }; 
