@@ -15479,9 +15479,8 @@ a.joinmeetingtab {
   min-width: 215px;
 }
 
-.addAssignBtn1 button:last-child {
-  /* min-width: 215px; */
-  margin-left: 20px;
+.addAssignBtn1 button {
+  margin-left: 13px;
 }
 .addAssignBtn1 {
   display: flex;
@@ -17126,6 +17125,9 @@ color:#FFFFFF
   margin-right: 3px;
 }
 
-.presImg11{
-  padding:4px;
+.allStaffRghtSec{
+  margin-left: 10px;
+}
+.addStaffPart{
+  min-height:537px;
 }

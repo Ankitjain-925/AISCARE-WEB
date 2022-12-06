@@ -27,6 +27,8 @@ import { confirmAlert } from 'react-confirm-alert';
 import _ from 'lodash';
 import moment from "moment";
 import { ConsoleCustom } from "Screens/Components/BasicMethod/index";
+import { ConversationListManager } from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatConversationList/controller";
+import { initStateWithPrevTab } from "redux-state-sync";
 
 const customStyles = {
     control: (base) => ({
@@ -85,7 +87,7 @@ class Index extends Component {
         }
         if (prevProps.openAss1 !== this.props.openAss1) {
             // if (this.props.comesFrom !== 'Professional') {
-                this.setState({ openAss: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
+            this.setState({ openAss: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
             // }
             // else {
             //     this.setState({ openAss: this.props.openAss, selectedHouse: {}, authErr: false })
@@ -247,7 +249,7 @@ class Index extends Component {
                             this.state.users1.filter(
                                 (user) => user.value === this.props.location?.state?.user.value
                             );
-                     
+
                         this.updateEntryState2(this.props.location?.state?.user);
                     }
                 }
@@ -309,21 +311,21 @@ class Index extends Component {
         this.setState({ service: state });
 
     };
-    
+
     FinalServiceSubmit = () => {
-      
+
 
     }
 
-    settherapy = (value)=>{
+    settherapy = (value) => {
         var state = this.state.service;
-        console.log('value', value)
-        var datas = this.state.serviceList?.length>0 && this.state.serviceList.filter((item)=>item?._id===value?.value)
-        if(datas?.length>0){
-            this.setState({})
+        var datas = this.state.service_id_list?.length > 0 && this.state.service_id_list.filter((item) => item?._id === value?.value)
+        if (datas?.length > 0) {
+            console.log('datas', datas)
+            this.setState({ therapy_assignedto: datas[0]?.assinged_to, therapy_sequence: datas[0]?.sequence_list })
         }
     }
-  
+
     //to get the speciality list
     specailityList = () => {
         var spec =
@@ -342,20 +344,20 @@ class Index extends Component {
         var house_id = this.props?.House?.value ? this.props?.House?.value : this.state.selectedHouse?.value;
         axios
             .get(
-                sitedata.data.path + '/vt/GettherapyHouse/'+ house_id,
+                sitedata.data.path + '/vt/GettherapyHouse/' + house_id,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                if(response.data?.hassuccessed){
+                if (response.data?.hassuccessed) {
                     response?.data?.data &&
-                        response.data.data.map((element)=>{
-                        serviceList.push(element);
-                        serviceList1.push({label: element?.therapy_name, value: element?._id})
-                    })
-                this.setState({
-                    service_id_list: serviceList,
-                    serviceList1: serviceList1,
-                }); 
+                        response.data.data.map((element) => {
+                            serviceList.push(element);
+                            serviceList1.push({ label: element?.therapy_name, value: element?._id })
+                        })
+                    this.setState({
+                        service_id_list: serviceList,
+                        serviceList1: serviceList1,
+                    });
                 }
             });
     };
@@ -376,20 +378,20 @@ class Index extends Component {
             this.getPatientData();
             this.therapylist();
             const { roles = [] } = e || {};
-    
-                this.setState(
-                    {
-                        authErr: true,
-                    },
-                    () => {
-                        // setTimeout(
-                        //     () => this.setState({ openAss: false }),
-                        //     2000
-                        // );
-                    }
-                );
-           
-            
+
+            this.setState(
+                {
+                    authErr: true,
+                },
+                () => {
+                    // setTimeout(
+                    //     () => this.setState({ openAss: false }),
+                    //     2000
+                    // );
+                }
+            );
+
+
         });
     };
 
@@ -483,22 +485,22 @@ class Index extends Component {
                             <Grid className="enterServMain">
 
                                 <Grid className="enterSpcl enterSpclSec">
-                                   
-                                    <Grid item xs={12} md={12}>\
-                                                <Grid>
-                                                    <label>{For_Hospital}</label>
-                                                    <Select
-                                                        name="for_hospital"
-                                                        options={this.props.currentList}
-                                                        placeholder={Search_Select}
-                                                        onChange={(e) => this.updateEntryState7(e)}
-                                                        value={this.state.selectedHouse || ""}
-                                                        className="addStafSelect"
-                                                        isMulti={false}
-                                                        isSearchable={true}
-                                                    />
-                                                </Grid>
-                                       
+
+                                    <Grid item xs={12} md={12}>
+                                        <Grid>
+                                            <label>{For_Hospital}</label>
+                                            <Select
+                                                name="for_hospital"
+                                                options={this.props.currentList}
+                                                placeholder={Search_Select}
+                                                onChange={(e) => this.updateEntryState7(e)}
+                                                value={this.state.selectedHouse || ""}
+                                                className="addStafSelect"
+                                                isMulti={false}
+                                                isSearchable={true}
+                                            />
+                                        </Grid>
+
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
@@ -559,109 +561,119 @@ class Index extends Component {
                                                 className="addStafSelect"
                                                 isMulti={true}
                                                 isSearchable={true}
-                                                disabled={true}
+                                                isDisabled={true}
 
                                             />
                                         </Grid>
-                                    </Grid>
-                                    {this.state.therapy_sequence?.length>0 && 
-                                    this.state.therapy_sequence.map((element)=>(
-                                        <>
-                                        <p>
-                                            {element?.tpye}
-                                        </p>
-                                        <Grid container direction="row" alignItems="center">
-                                        <Grid item xs={12} md={12} className="dueOn creatInfoIner">
-                                            <label>{Dueon}</label>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                alignItems="center"
-                                                className="timeTask"
-                                            >
-                                                <Grid item xs={8} md={8}>
-                                                    {/* {this.state.openDate ? ( */}
-                                                    <DateFormat
-                                                        name="date"
-                                                        value={
-                                                            this.state.service?.due_on?.date
-                                                                ? new Date(
-                                                                    this.state.service?.due_on?.date
-                                                                )
-                                                                : new Date()
-                                                        }
-                                                        notFullBorder
-                                                        date_format={this.state.date_format}
-                                                        onChange={(e) =>
-                                                            this.updateEntry(e, 'date')
-                                                        }
+                                        <Grid item xs={12} md={12} className="customservicetitle">
+                                        <label>{"Sequence of Tasks / Assigned services"}</label>
+                                            {this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
+                                                <>
+                                                    <label>{index + 1}</label>
+                                                    <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
+                                                    {item?.type === 'task' ? <div>
+                                                        <label>Task Name : </label> {item.task_name}
+                                                        <label>Task Description : </label> {item.task_description}
 
-                                                    // disabled={
-                                                    //   this.props.comesFrom === 'Professional'
-                                                    //     ? true
-                                                    //     : false
-                                                    // }
-                                                    />
-
-                                                </Grid>
-                                                <Grid
-                                                    item
-                                                    xs={4}
-                                                    md={4}
-                                                    className={
-                                                        this.state.openDate
-                                                            ? 'addTimeTask'
-                                                            : 'addTimeTask1'
-                                                    }
-                                                >
-                                                    {this.state.openDate ? (
-                                                        <Button
-                                                            onClick={() => {
-                                                                this.openTaskTime();
-                                                            }}
+                                                    </div>
+                                                    :<div>
+                                                          <label>Assign Title : </label> {item.title}
+                                                          <label>Services : </label> 
+                                                          <div>{item.services.map((cont)=>(
+                                                            <>
+                                                                <label>Service Name</label> <span>{cont?.service_name}</span>
+                                                                <label>Service Amount</label> <span>{cont?.amount}</span>
+                                                                <label>Quantity</label> <span>{cont?.quantity}</span>
+                                                            </>
+                                                          ))}</div>
+                                                    </div>}
+                                                    <Grid item xs={12} md={12} className="dueOn creatInfoIner">
+                                                        <label>{Dueon}</label>
+                                                        <Grid
+                                                            container
+                                                            direction="row"
+                                                            alignItems="center"
+                                                            className="timeTask"
                                                         >
-                                                            {Addtime}
-                                                        </Button>
-                                                    ) : (
-                                                        <>
-                                                            <TimeFormat
-                                                                className="timeFormatTask"
-                                                                name="time"
-                                                                value={
-                                                                    this.state.service?.due_on?.time
-                                                                        ? new Date(
-                                                                            this.state.service?.due_on?.time
-                                                                        )
-                                                                        : new Date()
+                                                            <Grid item xs={8} md={8}>
+                                                                {/* {this.state.openDate ? ( */}
+                                                                <DateFormat
+                                                                    name="date"
+                                                                    value={
+                                                                        item?.due_on?.date
+                                                                            ? new Date(
+                                                                                item?.due_on?.date
+                                                                            )
+                                                                            : new Date()
+                                                                    }
+                                                                    notFullBorder
+                                                                    date_format={this.state.date_format}
+                                                                    onChange={(e) =>
+                                                                        this.updateEntry(e, 'date', index)
+                                                                    }
+
+                                                                // disabled={
+                                                                //   this.props.comesFrom === 'Professional'
+                                                                //     ? true
+                                                                //     : false
+                                                                // }
+                                                                />
+
+                                                            </Grid>
+                                                            <Grid
+                                                                item
+                                                                xs={4}
+                                                                md={4}
+                                                                className={
+                                                                    this.state.openDate
+                                                                        ? 'addTimeTask'
+                                                                        : 'addTimeTask1'
                                                                 }
-                                                                time_format={this.state.time_format}
-                                                                onChange={(e) =>
-                                                                    this.updateEntry(e, 'time')
-                                                                }
-                                                            // disabled={
-                                                            //   this.props.comesFrom ===
-                                                            //     'Professional'
-                                                            //     ? true
-                                                            //     : false
-                                                            // }
-                                                            />
-                                                            <span
-                                                                className="addTimeTask1span"
-                                                                onClick={() => {
-                                                                    this.setState({ openDate: true });
-                                                                }}
                                                             >
-                                                                {remove_time}
-                                                            </span>
-                                                        </>
-                                                    )}
-                                                </Grid>
-                                            </Grid>
+                                                                {this.state.openDate ? (
+                                                                    <Button
+                                                                        onClick={() => {
+                                                                            this.openTaskTime();
+                                                                        }}
+                                                                    >
+                                                                        {Addtime}
+                                                                    </Button>
+                                                                ) : (
+                                                                    <>
+                                                                        <TimeFormat
+                                                                            className="timeFormatTask"
+                                                                            name="time"
+                                                                            value={
+                                                                                item?.due_on?.time
+                                                                                    ? new Date(
+                                                                                        item?.due_on?.time
+                                                                                    )
+                                                                                    : new Date()
+                                                                            }
+                                                                            time_format={this.state.time_format}
+                                                                            onChange={(e) =>
+                                                                                this.updateEntry(e, 'time', index)
+                                                                            }
+                                                                        />
+                                                                        <span
+                                                                            className="addTimeTask1span"
+                                                                            onClick={() => {
+                                                                                this.setState({ openDate: true });
+                                                                            }}
+                                                                        >
+                                                                            {remove_time}
+                                                                        </span>
+                                                                    </>
+                                                                )}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            ))}
                                         </Grid>
                                     </Grid>
-                                    </>
-                                    ))
-                                    }
+                                    {console.log('therapy_sequence', this.state.therapy_sequence)}
+
                                 </Grid>
 
 
@@ -677,13 +689,13 @@ class Index extends Component {
                             }>
                                 <a>
                                     <Button
-                                    disabled={this.state.disableAssignment}
+                                        disabled={this.state.disableAssignment}
                                     >
                                         {save_and_close}
                                     </Button>
                                 </a>
                             </Grid>
-                            
+
 
                         </Grid>
                     </Grid>
