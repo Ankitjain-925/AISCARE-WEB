@@ -1220,7 +1220,7 @@ class Index extends Component {
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
 
-    const  roles = this.props.House?.roles || [];
+    const roles = this.props.House?.roles || [];
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1407,7 +1407,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-              :<p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
+                : <p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>
