@@ -15479,9 +15479,8 @@ a.joinmeetingtab {
   min-width: 215px;
 }
 
-.addAssignBtn1 button:last-child {
-  /* min-width: 215px; */
-  margin-left: 20px;
+.addAssignBtn1 button {
+  margin-left: 13px;
 }
 .addAssignBtn1 {
   display: flex;

@@ -405,11 +405,11 @@ class Index extends Component {
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>{data.team_name}</label>
+                                    <label>{data?.team_name}</label>
 
                                   </Td>
 
-                                  <Td>{data.staff}</Td>
+                                  <Td>{data?.staff?.length}</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
