@@ -248,7 +248,22 @@ class Index extends Component {
         } 
         if (name === 'assinged_to1') {
             state[index][name] = value;
-        }
+
+            var data =
+          value?.length > 0 &&
+           value.reduce((last, e, index) => {
+                let isProf =
+                    this.state.professionalArray?.length > 0 &&
+                    this.state.professionalArray.filter(
+                        (data, index) => data.user_id === value.value || data._id === value.value
+                    );
+                if (isProf && isProf.length > 0) {
+                    last.push(isProf[0]);
+                }
+                return last;
+            }, []);
+            state[index]['assinged_to'] = data;
+        }   
         else {
             state[name] = value;
         }
@@ -267,17 +282,16 @@ class Index extends Component {
         if (datas?.length > 0) {
             state['therapy_id'] = datas[0]?._id;
             state['therapy_name'] = datas[0]?.therapy_name;
-            if(datas[0]?.assinged_to && datas[0]?.assinged_to?.length>0){
+            if(datas[0]?.assinged_to){
                 var data =
                 datas[0]?.assinged_to?.length > 0 &&
                 datas[0]?.assinged_to.reduce((last, e, index) => {
                     let isProf =
-                        this.state.professionalList?.length > 0 &&
-                        this.state.professionalList.filter(
+                        this.state.professional_id_list?.length > 0 &&
+                        this.state.professional_id_list.filter(
                             (data, index) => data.value === e.user_id || data.value === e._id
                         );
                     if (isProf && isProf.length > 0) {
-                        console.log('isProf[0]', isProf[0])
                         last.push(isProf[0]);
                     }
                     return last;
