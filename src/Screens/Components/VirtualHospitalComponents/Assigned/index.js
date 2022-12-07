@@ -122,15 +122,13 @@ class Index extends React.Component {
                               {this.props.assigned_to?.length > 0 &&
                                 this.props.assigned_to.map((data, index) => (<>
                                   {data?.staff && data?.staff?.length > 0 ? <>
-
-
-                                    <Grid className="allInfo allInfo2 tasklistName">
+                                    <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                       <Grid>
                                         <img src={this.props.settings.setting &&
                                           this.props.settings.setting.mode &&
                                           this.props.settings.setting.mode === "dark" ?
-                                          require("assets/virtual_images/groupicon.jpg")
-                                          : require("assets/virtual_images/groupicon-black.jpg")}></img>
+                                          require("assets/virtual_images/groupicon-black.jpg")
+                                          : require("assets/virtual_images/groupicon.jpg")}></img>
                                       </Grid>
                                       <Grid className="allInfoRght">
                                         <Grid className="creatLbl22">
@@ -141,31 +139,24 @@ class Index extends React.Component {
                                         <p>{data?.staff_id}</p>
                                       </Grid>
                                     </Grid>
-
-
-                                    {/* <Grid className="creatLbl22 tasklistName">
-                                      <img src={this.props.settings.setting &&
-                                        this.props.settings.setting.mode &&
-                                        this.props.settings.setting.mode === "dark" ?
-                                        require("assets/virtual_images/groupicon.jpg")
-                                        : require("assets/virtual_images/groupicon-black.jpg")}></img><Grid><Grid> <label>{data?.team_name}  {' -'} {"(Staff)"}
-                                        </label> </Grid> {data?.staff_id}</Grid>
-                                    </Grid> */}
                                     {data?.staff.map((data1, index) => (
                                       <div className="showAllAssignedInner">
-                                        <Grid className="allInfo allInfo2 tasklistName">
-                                          <Grid>
-                                            <S3Image imgUrl={data1?.image} />
-                                          </Grid>
-                                          <Grid className="allInfoRght">
-                                            <Grid>
-                                              <label>
-                                                {data1?.first_name} {data1?.last_name}
-                                              </label>
+                                        <ol>
+                                          <li>
+                                            <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                              <Grid>
+                                                <S3Image imgUrl={data1?.image} />
+                                              </Grid>
+                                              <Grid className="allInfoRght">
+                                                <Grid>
+                                                  <label>
+                                                    {data1?.first_name} {data1?.last_name}
+                                                  </label>
+                                                </Grid>
+                                                <p>{data1?.profile_id}</p>
+                                              </Grid>
                                             </Grid>
-                                            <p>{data1?.profile_id}</p>
-                                          </Grid>
-                                        </Grid>
+                                          </li>  </ol>
                                       </div>
                                     ))}
                                   </> :
@@ -198,10 +189,18 @@ class Index extends React.Component {
             {viewImage?.length > 0 &&
               viewImage.map((data, index) => (
                 <div className="setAssignedTo">
-                  <span>
-                    {data?.first_name} {data?.last_name} - ({data?.profile_id})
-                  </span>
-                  <S3Image imgUrl={data.image} />
+                  {data?.first_name ?
+                    <span>
+                      {data?.first_name} {data?.last_name} - ({data?.profile_id})
+                    </span> :
+                    <span>
+                      {data?.team_name} {" "} {"(Staff)"}
+                    </span>}
+                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <img src={this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark" ?
+                    require("assets/virtual_images/groupicon-black.jpg")
+                    : require("assets/virtual_images/groupicon.jpg")}></img>}
                 </div>
               ))}
             {count > 0 && <a onClick={() => this.ViewPopup()}>+{count}</a>}
