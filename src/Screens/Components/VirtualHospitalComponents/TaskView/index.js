@@ -362,7 +362,6 @@ class PointPain extends Component {
                                   <a
                                     onClick={() => {
                                       this.props.editTask(data);
-                                      console.log('1')
                                     }}
                                   >
                                     <img
@@ -405,7 +404,6 @@ class PointPain extends Component {
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -420,7 +418,6 @@ class PointPain extends Component {
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -435,7 +432,6 @@ class PointPain extends Component {
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -449,7 +445,6 @@ class PointPain extends Component {
                                         <a
                                           onClick={() => {
                                             this.props.editTask(data);
-                                            console.log('1')
                                           }}
                                         >
                                           <img
@@ -464,7 +459,6 @@ class PointPain extends Component {
                                       <a
                                         onClick={() => {
                                           this.props.editTask(data);
-                                          console.log('1')
                                         }}
                                       >
                                         <img
@@ -568,7 +562,7 @@ class PointPain extends Component {
                                             title=""
                                           />
                                           {data.task_name
-                                        ? DeleteTask : delete_assigned_services }
+                                            ? DeleteTask : delete_assigned_services}
                                         </a>
 
 

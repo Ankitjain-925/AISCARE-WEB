@@ -304,6 +304,7 @@ class Index extends Component {
 
   // manage assign to list
   selectProf = (listing, data) => {
+    console.log("listing", listing, "data", data)
     var showdata = data;
     var alredyAssigned =
       listing &&
@@ -2115,9 +2116,10 @@ class Index extends Component {
                   {"Create Therapy Protocal"}
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
+              {(this.props.comesFrom == "Professional" &&
               <Button onClick={() => this.handleOpenAss1()} >
-                Therapy
-              </Button>
+                {"+ Assign Therapy"}
+              </Button>)}
             </Grid>
             {/* )} */}
           </Grid>

@@ -2,7 +2,8 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { S3Image } from 'Screens/Components/GetS3Images/index';
 import Modal from "@material-ui/core/Modal";
-import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting'
+import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting';
+import ShowStaffData from "./ShowStaffData";
 
 const ViewTherapy = (props) => {
     const settings = useAllSetting();
@@ -94,12 +95,20 @@ const ViewTherapy = (props) => {
                                     </label>
                                     {props?.item?.assinged_to &&
                                         props?.item?.assinged_to?.length > 0 &&
-                                        props?.item?.assinged_to.map((data) => (
-                                            <div className="presImg11">
-                                                {data && data?.image && <S3Image imgUrl={data?.image} />}
-                                                {data?.first_name} {' '} {data?.last_name}</div>
-                                        ))}
+                                        props?.item?.assinged_to.map((data) => (<>
+                                            {data?.first_name ?
+                                                <div className="presImg11">
+                                                    {data && data?.image && <S3Image imgUrl={data?.image} />}
+                                                    {data?.first_name} {' '} {data?.last_name}</div>
+                                                : <a onClick={() => props.showData(data)}><div className="presImg11">
 
+                                                    <img src={settings.setting &&
+                                                        settings.setting.mode &&
+                                                        settings.setting.mode === "dark" ?
+                                                        require("assets/virtual_images/groupicon-black.jpg")
+                                                        : require("assets/virtual_images/groupicon.jpg")}></img>
+
+                                                    {data?.team_name} {' '} {"(Staff)"}</div></a>}      </>))}
                                 </Grid>
                                 <Grid className="specbutton1">
                                     <label>
@@ -140,6 +149,11 @@ const ViewTherapy = (props) => {
                     </Grid>
                 </Grid>
             </Modal>
+            <ShowStaffData
+                openStaff={props.openStaff}
+                closeStaffInfo={() => props.closeStaffInfo()}
+                AllStaffData={props.AllStaffData}
+            />
         </div>
     );
 }

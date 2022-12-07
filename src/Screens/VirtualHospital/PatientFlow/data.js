@@ -328,7 +328,7 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
         name = response.data?.data[i]?.first_name;
       }
       else if (response.data?.data[i]?.team_name) {
-        name = response.data?.data[i]?.team_name;
+        name = response.data?.data[i]?.team_name + " " + "(Staff)";
       }
       if (comesFrom === 'appoint') {
         professionalArray.push(response.data?.data[i]);
@@ -343,15 +343,31 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
           type: response.data?.data[i].type,
           title: response.data?.data[i].title,
         });
-      } else {
+      } else if (response.data?.data[i].team_name) {
+        professionalArray.push({
+          team_name: response.data?.data[i].team_name,
+          staff: response.data?.data[i].staff,
+          _id: response.data?.data[i]._id,
+          speciality_id: response.data?.data[i].speciality_id,
+          staff_id: response.data?.data[i].staff_id,
+          ward_id: response.data?.data[i].ward_id,
+        });
+      }
+      else {
         professionalArray.push(response.data?.data[i]);
       }
-      professionalList.push({
-        value: response.data?.data[i]._id,
-        label: name,
-        email: response.data.data[i].email ? response.data.data[i].email : '',
-      });
-      // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
+      if (response.data?.data[i].first_name) {
+        professionalList.push({
+          value: response.data?.data[i]._id,
+          label: name,
+          email: response.data.data[i].email,
+        });
+      } else {
+        professionalList.push({
+          value: response.data?.data[i]._id,
+          label: name,
+        });
+      }
     }
     return {
       professionalArray: professionalArray,
