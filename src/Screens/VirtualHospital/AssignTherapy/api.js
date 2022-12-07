@@ -33,11 +33,11 @@ export const handleSubmit = (current) => {
     else if (!data.assinged_to || ((data && data?.assinged_to && data?.assinged_to.length < 1))) {
         current.setState({ error_section: 1, errorMsg: "Please selete Doctor/Staff" })
     }
-    // else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
-    //     current.setState({ error_section: 1, errorMsg: "Please Select Speciality" })
-    // }
+    else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
+        current.setState({ error_section: 1, errorMsg: "Please Select Speciality" })
+    }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
-        current.setState({ error_section: 2, errorMsg: "Atleast select two sequence from Task/Service" })
+        current.setState({ error_section: 2, errorMsg: "Please select atleast two sequences from Task/Service" })
     }
     else {
         current.setState({ loaderImage: true });
@@ -296,7 +296,6 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
-        console.log("data.professionalArray", data.professionalArray, "data.professionalList", data.professionalList)
         current.setState(
             {
                 loaderImage: false,
@@ -371,7 +370,6 @@ export const handleAddData = (current) => {
                 "Please enter Service name"
         });
     }
-
     else if ((taskName?.value === "task" &&
         !allSequence?.task_description) ||
         (taskName?.value === "assign_service" &&
@@ -391,7 +389,7 @@ export const handleAddData = (current) => {
                 array[index].task_description = allSequence?.task_description;
             } else {
                 array[index].service_name = allSequence?.service_name;
-                array[index].service_description = allSequence?.service_description;
+                // array[index].service_description = allSequence?.service_description;
                 // array[index].service_price = allSequence?.service_price;
             }
             current.setState({
@@ -426,7 +424,12 @@ export const editTaskSer = (current, data, index) => {
             { label: 'Assign Service', value: 'assign_service' },
         allSequence: deep,
         assignTask: true,
-        indexForUpdate: index + 1
+        indexForUpdate: index + 1,
+        ForButton: "Edit",
+        allSequence1: {
+            label: data?.service_name,
+            price: data?.service_price
+        }
     });
 }
 
@@ -597,9 +600,8 @@ export const getAssignService = (current) => {
         });
 };
 
-//Set Service data
+// Add Service
 export const onFieldChange1 = (current, e, name) => {
-    var total = 0;
     const state = current.state.updateTrack;
     const state1 = current.state.allSequence;
     if (name === 'service_name') {
@@ -608,31 +610,34 @@ export const onFieldChange1 = (current, e, name) => {
         } else {
             current.setState({ viewCutom: false });
         }
+
         state1['service_price'] = e.price;
         state1['service_qty'] = 1;
-        state1[name] = e.label;
-
+        state1[name] = e?.label;
     } else if (name === 'service_qty') {
         state1['service_qty'] = parseInt(e);
     }
     else {
         state[name] = e;
     }
-    // var Quantity = e ? e : 1
-    // console.log("service_qty", state1)
-    // total = total + parseInt(e.price) * state1?.service_qty;
-    // console.log("e.price", total)
-    // current.setState({ total_amount: total });
-    current.setState({ updateTrack: state, allSequence: state1, addService: e });
+    current.setState({ updateTrack: state, allSequence: state1, allSequence1: e });
 };
 
-// export const updateTotalPrize = (current) => {
-//     var total = 0;
-//     current.state.seqItems?.length > 0 &&
-//         current.state.seqItems.map((data, i) => {
-//             if (data && data?.service_price) {
-//                 total = total + parseInt(data?.service_price);
-//             }
-//         });
-//     current.setState({ total_amount: total });
-// };
+export const GetStaffListing = (current, data, team_name) => {
+    var staff = { staff: data.staff };
+    current.setState({ loaderImage: true });
+    axios
+        .post(
+            sitedata.data.path + "/teammember/GetTeamStaff",
+            staff,
+            commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+            if (responce.data.hassuccessed) {
+                current.setState({ loaderImage: false, AllStaffData: { AllStaffData1: responce?.data?.data, team_name: team_name }, openStaff: true });
+            }
+        })
+        .catch(() => {
+            current.setState({ loaderImage: false });
+        })
+}
