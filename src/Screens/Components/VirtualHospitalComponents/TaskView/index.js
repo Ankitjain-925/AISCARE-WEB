@@ -313,7 +313,9 @@ class PointPain extends Component {
                     </Grid>
                   </Grid>
                   <Grid className="setAssignedToupper">
-                    <Assigned assigned_to={data.assinged_to} />
+                    <Assigned
+                      assigned_to={data.assinged_to}
+                    />
                   </Grid>
                   {(!this.props.removeAddbutton) &&
                     <Grid className="spcMgntRght7 presEditDot scndOptionIner">

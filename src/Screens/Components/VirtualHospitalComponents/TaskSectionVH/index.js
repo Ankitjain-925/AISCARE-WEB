@@ -2116,9 +2116,9 @@ class Index extends Component {
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
               {(this.props.comesFrom == "Professional" &&
-              <Button onClick={() => this.handleOpenAss1()} >
-                {"+ Assign Therapy"}
-              </Button>)}
+                <Button onClick={() => this.handleOpenAss1()} >
+                  {"+ Assign Therapy"}
+                </Button>)}
             </Grid>
             {/* )} */}
           </Grid>
