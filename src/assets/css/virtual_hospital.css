@@ -15479,9 +15479,8 @@ a.joinmeetingtab {
   min-width: 215px;
 }
 
-.addAssignBtn1 button:last-child {
-  /* min-width: 215px; */
-  margin-left: 20px;
+.addAssignBtn1 button {
+  margin-left: 13px;
 }
 .addAssignBtn1 {
   display: flex;
@@ -17090,9 +17089,9 @@ color:#FFFFFF
 
   .presImg11 img
   {border-radius: 27px;
-    height: 21px;
-    width: 22px;
-    margin: 2px 5px 7px 2px;}
+    height: 25px;
+    width: 25px;
+    margin: 2px 5px 7px 9px}
     
 .AddMarginTo{
     margin-bottom: 10px
@@ -17107,4 +17106,28 @@ color:#FFFFFF
 
 .srvcTable365{
   overflow: auto;
+}
+
+.creatLbl22 label{
+  font-size: 17px!important;
+    font-weight: 500!important;
+    letter-spacing: 0!important;
+    /* line-height: 32px!important; */
+    font-family: "Mulish", sans-serif!important;
+    margin-top: 10px!important;
+}
+
+.tasklistName1{
+  margin-top: 12px;
+}
+
+.tasklistName1 img{
+  margin-right: 3px;
+}
+
+.allStaffRghtSec{
+  margin-left: 10px;
+}
+.addStaffPart{
+  min-height:537px;
 }

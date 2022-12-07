@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component } from 'react';
+import React from 'react';
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 
 
-//For adding the New therapy
+//For adding the New and Updating therapy
 export const handleSubmit = (current) => {
     const { assignedTo, seqItems, assinged_to } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
@@ -19,7 +19,6 @@ export const handleSubmit = (current) => {
     current.setState({ errorMsg: '' })
     var data = current.state.updateTrack;
     data.house_id = current.props?.House?.value;
-    data.assinged_to = assinged_to;
     data.sequence_list = seqItems;
 
     if (!data.therapy_name || (data && data?.therapy_name && data?.therapy_name.length < 1)) {
@@ -34,6 +33,9 @@ export const handleSubmit = (current) => {
     else if (!data.assinged_to || ((data && data?.assinged_to && data?.assinged_to.length < 1))) {
         current.setState({ error_section: 1, errorMsg: "Please selete Doctor/Staff" })
     }
+    // else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
+    //     current.setState({ error_section: 1, errorMsg: "Please Select Speciality" })
+    // }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
         current.setState({ error_section: 2, errorMsg: "Atleast select two sequence from Task/Service" })
     }
@@ -60,7 +62,6 @@ export const handleSubmit = (current) => {
                 })
         }
         else {
-            console.log("data", data);
             axios
                 .post(
                     sitedata.data.path + "/vt/AddTherapy",
@@ -82,12 +83,23 @@ export const handleSubmit = (current) => {
 
 // Modal Close
 export const handleCloseServ = (current) => {
-    current.setState({ openServ: false, updateTrack: {}, errorMsg: false, assignedTo: {}, seqItems: [] });
+    current.setState({
+        openServ: false,
+        updateTrack: {},
+        selectSpec: {},
+        errorMsg: false,
+        assignedTo: [],
+        seqItems: []
+    });
 };
 
 //Modal Open
 export const handleOpenServ = (current) => {
-    current.setState({ openServ: true, updateTrack: {} });
+    current.setState({
+        professional_id_list1: current.state.professional_id_list,
+        openServ: true,
+        updateTrack: {}
+    });
 };
 
 //For getting the therapies
@@ -99,12 +111,6 @@ export const getAllTherpy = (current) => {
             commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((response) => {
-            // if (responce.data.hassuccessed) {
-            //     current.setState({ AllTherpy: responce?.data?.data, loaderImage: false });
-            // } else {
-            //     current.setState({ loaderImage: false });
-            // }
-
             var totalPage = Math.ceil(response.data.data.length / 10);
             current.setState(
                 {
@@ -134,26 +140,29 @@ export const getAllTherpy = (current) => {
 
 // For editing the therapy
 export const EditTherapy = (current, data) => {
-
+    selectProf(current, data?.assinged_to, current.state.professional_id_list1);
     var deep = _.cloneDeep(data);
-    console.log("deep", deep)
-    var newArray = deep?.assinged_to?.length > 0 && deep?.assinged_to.map((item) => {
-        var name = item?.first_name + item?.last_name;
-        let a = [];
-        a.push({ label: name, value: item._id })
-        return a;
-    })
+    var Assigned_Aready =
+        data &&
+        data?.assinged_to &&
+        data?.assinged_to?.length > 0 &&
+        data?.assinged_to.map((item) => {
+            return item?.user_id;
+        });
 
     current.setState({
         openServ: true,
         updateTrack: deep,
-        assignedTo: newArray,
         seqItems: deep?.sequence_list,
         selectSpec: {
             label: deep?.speciality?.specialty_name,
             value: deep?.speciality?._id,
         },
-    });
+        Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
+    },
+        () => {
+            GetProfessionalData(current, true);
+        });
 }
 
 // For deleting the therapy
@@ -222,7 +231,7 @@ export const DeleteTherapy = (current, data) => {
 
 };
 
-
+// Second Deleting Pop up
 export const RemoveTherapy = (current, data) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let { removeTherapy, really_want_to_remove_therapy, No, Yes } = translate;
@@ -258,6 +267,7 @@ export const RemoveTherapy = (current, data) => {
     });
 };
 
+// Deleting Therapy
 export const DeleteTherapyOk = (current, data) => {
     current.setState({ loaderImage: true });
     axios
@@ -286,26 +296,55 @@ export const GetProfessionalData = async (current, fromEdit) => {
         current.props.stateLoginValueAim.token
     );
     if (data) {
-        console.log("data.professionalList", data.professionalList, "data.professionalArray", data.professionalArray)
+        console.log("data.professionalArray", data.professionalArray, "data.professionalList", data.professionalList)
         current.setState(
             {
                 loaderImage: false,
+                professionalArray: data.professionalArray,
+                professional_id_list: data.professionalList,
                 professional_id_list1: data.professionalList,
-                professionalArray1: data.professionalArray
-            });
+            },
+            () => {
+                if (fromEdit) {
+                    selectProf(
+                        current,
+                        current.state.updateTrack?.assinged_to,
+                        current.state.professional_id_list
+                    );
+                }
+            }
+        );
     } else {
         current.setState({ loaderImage: false });
     }
 };
 
-export const updateEntryState3 = (current, e) => {
-    console.log("e", e)
-    var res = current.state.professionalArray1.filter(el => {
-        return e && e.find(element => {
-            return element?.value === el?.user_id;
+// Set State of Assined To
+export const updateEntryState3 = (e, current) => {
+    current.setState({ assignedTo: e }, () => {
+        var data =
+            e?.length > 0 &&
+            e.reduce((last, e, index) => {
+                let isProf =
+                    current.state.professionalArray?.length > 0 &&
+                    current.state.professionalArray.filter(
+                        (data, index) => data.user_id === e.value || data._id === e.value
+                    );
+                if (isProf && isProf.length > 0) {
+                    last.push(isProf[0]);
+                }
+                return last;
+            }, []);
+        const state = current.state.updateTrack;
+        state["assinged_to"] = data;
+        current.setState({ updateTrack: state }, () => {
+            selectProf(
+                current,
+                current.state.updateTrack?.assinged_to,
+                current.state.professional_id_list
+            );
         });
     });
-    current.setState({ assignedTo: e, assinged_to: res })
 };
 
 export const taskSelection = (current, e) => {
@@ -332,15 +371,15 @@ export const handleAddData = (current) => {
                 "Please enter Service name"
         });
     }
+
     else if ((taskName?.value === "task" &&
         !allSequence?.task_description) ||
-        taskName?.value === "assign_service" &&
-        !allSequence?.service_description) {
+        (taskName?.value === "assign_service" &&
+            0)) {
         current.setState({
             error_section: 3,
-            errorMsg: taskName?.value === "task" ?
-                "Please enter Task description" :
-                "Please enter Service description"
+            errorMsg: taskName?.value === "task" &&
+                "Please enter Task description"
         });
     }
     else {
@@ -491,7 +530,7 @@ export const specailityList = (current) => {
         current.props?.speciality?.SPECIALITY.map((data) => {
             return { label: data.specialty_name, value: data._id };
         });
-    current.setState({ specilaityList: spec });
+    current.setState({ specilaityList: spec ? spec : [] });
 };
 
 export const onFieldChange = (current, e) => {
@@ -511,3 +550,89 @@ export const onFieldChange = (current, e) => {
         current.setState({ updateTrack: state });
     }
 };
+
+// Manage assign to list
+export const selectProf = (current, listing, data) => {
+    var showdata = data;
+    var alredyAssigned =
+        listing &&
+        listing?.length > 0 &&
+        listing.map((item) => {
+            return item.user_id || item._id;
+        });
+    if (alredyAssigned && alredyAssigned.length > 0) {
+        showdata =
+            data?.length > 0 &&
+            data.filter((item) => !alredyAssigned.includes(item.value));
+        var assignedto =
+            data?.length > 0 &&
+            data.filter((item) => alredyAssigned.includes(item.value));
+        current.setState({ assignedTo: assignedto });
+    }
+    current.setState({ professional_id_list1: showdata });
+};
+
+//get services list
+export const getAssignService = (current) => {
+    var serviceList = [],
+        serviceList1 = [];
+    axios
+        .get(
+            sitedata.data.path + '/vh/GetService/' + current.props?.House?.value,
+            commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+            current.setState({ allServData: response.data.data });
+            for (let i = 0; i < current.state.allServData.length; i++) {
+                serviceList1.push(current.state.allServData[i]);
+                serviceList.push({
+                    price: current.state.allServData[i].price,
+                    label: current.state.allServData[i]?.title,
+                });
+            }
+            current.setState({
+                service_id_list: serviceList,
+                serviceList1: serviceList1,
+            });
+        });
+};
+
+//Set Service data
+export const onFieldChange1 = (current, e, name) => {
+    var total = 0;
+    const state = current.state.updateTrack;
+    const state1 = current.state.allSequence;
+    if (name === 'service_name') {
+        if (e.value === 'custom') {
+            current.setState({ viewCutom: true });
+        } else {
+            current.setState({ viewCutom: false });
+        }
+        state1['service_price'] = e.price;
+        state1['service_qty'] = 1;
+        state1[name] = e.label;
+
+    } else if (name === 'service_qty') {
+        state1['service_qty'] = parseInt(e);
+    }
+    else {
+        state[name] = e;
+    }
+    // var Quantity = e ? e : 1
+    // console.log("service_qty", state1)
+    // total = total + parseInt(e.price) * state1?.service_qty;
+    // console.log("e.price", total)
+    // current.setState({ total_amount: total });
+    current.setState({ updateTrack: state, allSequence: state1, addService: e });
+};
+
+// export const updateTotalPrize = (current) => {
+//     var total = 0;
+//     current.state.seqItems?.length > 0 &&
+//         current.state.seqItems.map((data, i) => {
+//             if (data && data?.service_price) {
+//                 total = total + parseInt(data?.service_price);
+//             }
+//         });
+//     current.setState({ total_amount: total });
+// };
