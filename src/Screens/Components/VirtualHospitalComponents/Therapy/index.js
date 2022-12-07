@@ -277,8 +277,33 @@ class Index extends Component {
     };
 
     FinalServiceSubmit = () => {
+        var data = this.state.service;
+        this.setState({ errorMsg: '' })
+        console.log("data1234", data)
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {
+            plz_enter_time,
+            plz_enter_date
 
+        } = translate;
 
+        if ((!this.state.selectedHouse) || (this.state.selectedHouse && !this.state.selectedHouse.value)) {
+            this.setState({ errorMsg: "Not selected hospital" })
+        }
+        else if(!this.state.users){
+            this.setState({errorMsg: "Patient not selected"})
+        }
+        else if(!this.state.service){
+            this.setState({errorMsg: "Therapy not selected"})
+        }
+        else if (!data?.due_on?.time) {
+            this.setState({ errorMsg: plz_enter_time })
+        } else if (!data?.due_on?.date) {
+            this.setState({ errorMsg: plz_enter_date })
+        }
+        else {
+            console.log("1")
+        }
     }
 
     settherapy = (value) => {
@@ -328,6 +353,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
+                console.log("reppp", response)
                 if (response.data?.hassuccessed) {
                     response?.data?.data &&
                         response.data.data.map((element) => {
@@ -344,6 +370,7 @@ class Index extends Component {
 
 
     updateEntryState7 = (e) => {
+        console.log("e",e)
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
@@ -457,7 +484,6 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
 
-
                                     <Grid item xs={12} md={12}>
                                         <Grid>
                                             <label>{For_Hospital}</label>
@@ -472,7 +498,6 @@ class Index extends Component {
                                                 isSearchable={true}
                                             />
                                         </Grid>
-
 
                                     </Grid>
                                     <Grid item xs={12} md={12}>
@@ -540,8 +565,8 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                         <Grid item xs={12} md={12} className="customservicetitle">
-                                        <label>{"Sequence of Tasks / Assigned services"}</label>
-                                            {this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
+                                            <label>{"Sequence of Tasks / Assigned services"}</label>
+                                            {this.state.therapy_sequence && this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
                                                 <>
                                                     <label>{index + 1}</label>
                                                     <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
