@@ -12,7 +12,7 @@ import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { LoginReducerAim } from "Screens/Login/actions";
-
+import Loader from "Screens/Components/Loader/index";
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -99,6 +99,7 @@ class Index extends React.Component {
               onClose={this.removePopup}
             >
               <Grid className="creatTaskModel " >
+                {this.state.loaderImage && <Loader />}
                 <Grid className="creatTaskCntnt">
                   <Grid container direction="row">
                     <Grid container direction="row" justify="center" className="creatLbl" >
