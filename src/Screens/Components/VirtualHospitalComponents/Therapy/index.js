@@ -282,7 +282,10 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let {
             plz_enter_time,
-            plz_enter_date
+            plz_enter_date,
+            Not_selected_hospital,
+            Patient_not_selected,
+            Therapy_not_selected
 
         } = translate;
         var house_id= this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
@@ -402,39 +405,15 @@ class Index extends Component {
         let { Searchserviceoraddcustominput,
             Addservice,
             For_Hospital,
-            Customservicedescription,
-            Customservicetitle,
-            ForPatient,
+           ForPatient,
             Search_Select,
-            Entertitle,
-            Assignedtitle,
-            Assignedto,
-            Price,
-            speciality,
-            Archive,
-            Delete,
-            Enterserviceprice,
-            FilterbySpeciality,
-            Duplicate,
-            Dueon,
+           Assignedto,
+           Assign_Therapy,
+             Dueon,
             Addtime,
             save_and_close,
             remove_time,
-            assignService,
-            Addnewservice,
-            Services,
-            srvc,
-            qty,
-            Add,
-            Markasdone,
-            ServiceAmount,
-            Editservice,
-            Servicename,
-            EnterTitlename,
-            Add_assigned_services,
-            Please_select_atlest,
-            Quantity,
-            Enterquantity
+            Therapy
         } = translate;
         return (
 
@@ -468,7 +447,7 @@ class Index extends Component {
                         <Grid className="addSpeclContntIner2">
                             <Grid container direction="row" justify="center" className="addSpeclLbl">
                                 <Grid item xs={8} md={8} lg={8}>
-                                    <label>Assign Therapy</label>
+                                    <label>{Assign_Therapy}</label>
                                 </Grid>
                                 <Grid item xs={4} md={4} lg={4}>
                                     <Grid>
@@ -535,7 +514,7 @@ class Index extends Component {
                                                 </Grid>}
                                     </Grid>
                                     <Grid item xs={12} md={12} className="customservicetitle">
-                                        <label>Therapy</label>
+                                        <label>{Therapy}</label>
                                         <Grid>
                                             <Select
                                                 name="therapy"

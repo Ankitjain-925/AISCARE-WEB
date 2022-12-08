@@ -96,54 +96,53 @@ class Index extends Component {
         "/vc/PresentFutureTask/" + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
-      .then( async (response) => {
+      .then(async (response) => {
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
           var services = await this.getAddTaskData1();
-          services = [... services.data.data, ...response.data.data]
+          services = [...services.data.data, ...response.data.data]
           if (response?.data?.data) {
             var patientForFilterArr = filterPatient(services);
             this.setState({ patientForFilter: patientForFilterArr });
           }
-        
+
           services = _.sortBy((
             _.sortBy(
-            services, 
+              services,
+              (e) => {
+                if (e.appointment_type) {
+                  return e.date
+                }
+                else {
+                  return e.due_on.date
+                }
+              })),
             (e) => {
-              if(e.appointment_type){
-                return e.date
+              if (e.appointment_type) {
+                return e.start_time
               }
-              else{
-                return e.due_on.date
+              else {
+                return e.due_on.time
               }
-            })),
-            (e) => {
-            if(e.appointment_type){
-              return e.start_time
-            }
-            else{
-              return e.due_on.time
-            }
-          });
-      var Done =
-        services?.length > 0 && 
-        services.filter((item) => { 
-          if(item.task_name){
-            return item.status === "done"
-          }
-          else 
-          {
-            return item.status ==="done"
-          }
-        });
-      
-      var Open =
-        services?.length > 0 &&  
-        services.filter(
-          (item) => item.status !== "done" || (item.appointment_type && item.status !== "done") && item?.archived === false
-        );
-          var ArchivedTask  = services?.length > 0 &&
-          services.filter((item) => item.archived);
+            });
+          var Done =
+            services?.length > 0 &&
+            services.filter((item) => {
+              if (item.task_name) {
+                return item.status === "done"
+              }
+              else {
+                return item.status === "done"
+              }
+            });
+
+          var Open =
+            services?.length > 0 &&
+            services.filter(
+              (item) => item.status !== "done" || (item.appointment_type && item.status !== "done") && item?.archived === false
+            );
+          var ArchivedTask = services?.length > 0 &&
+            services.filter((item) => item.archived);
           this.setState({
             AllTasks: services,
             DoneTask: Done,
@@ -164,17 +163,21 @@ class Index extends Component {
 
   //get Add task data
   getAddTaskData1 = async (uid, data) => {
-    var nurse_id = this.props.stateLoginValueAim?.user?._id
+    var nurse_id = this.props.stateLoginValueAim?.user?._id;
+    var profile_id = this.props.stateLoginValueAim?.user?.profile_id;
     let response = await axios
-    .post(
-      sitedata.data.path + "/vc/nurseafter",
-      { nurse_id: nurse_id },
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
+      .post(
+        sitedata.data.path + "/vc/nurseafter",
+        {
+          nurse_id: nurse_id,
+          profile_id: profile_id
+        },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
     if (response.data.hassuccessed) {
-        return response
+      return response
     } else {
-        return false
+      return false
     }
   }
   // getAddTaskData1 = (tabvalue2, goArchive) => {
@@ -219,7 +222,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Professional_activities } = translate;
+    let { Professional_activities } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -262,21 +265,21 @@ class Index extends Component {
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
-                <Grid className="topLeftSpc">
+                  <Grid className="topLeftSpc">
+                    <Grid container direction="row">
+                      <Grid item xs={11} md={11}>
                         <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{Professional_activities}</h1>
-                              </Grid>
-                            </Grid>
+                          <Grid item xs={12} md={6} className="spcMgntH1">
+                            <h1>{Professional_activities}</h1>
                           </Grid>
                         </Grid>
                       </Grid>
+                    </Grid>
+                  </Grid>
                   <Grid container direction="row">
-                    
+
                     <Grid item xs={12} md={12}>
-                      
+
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
