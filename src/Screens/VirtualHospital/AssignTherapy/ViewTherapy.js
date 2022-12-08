@@ -5,6 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting';
 import ShowStaffData from "./ShowStaffData";
 
+
 const ViewTherapy = (props) => {
     const settings = useAllSetting();
 
@@ -97,18 +98,47 @@ const ViewTherapy = (props) => {
                                         props?.item?.assinged_to?.length > 0 &&
                                         props?.item?.assinged_to.map((data) => (<>
                                             {data?.first_name ?
-                                                <div className="presImg11">
-                                                    {data && data?.image && <S3Image imgUrl={data?.image} />}
-                                                    {data?.first_name} {' '} {data?.last_name}</div>
-                                                : <a onClick={() => props.showData(data)}><div className="presImg11">
+                                                // <div className="presImg11">
+                                                //     {data && data?.image && <S3Image imgUrl={data?.image} />}
+                                                //     {data?.first_name} {' '} {data?.last_name}</div>
 
-                                                    <img src={settings.setting &&
-                                                        settings.setting.mode &&
-                                                        settings.setting.mode === "dark" ?
-                                                        require("assets/virtual_images/groupicon-black.jpg")
-                                                        : require("assets/virtual_images/groupicon.jpg")}></img>
-
-                                                    {data?.team_name} {' '} {"(Staff)"}</div></a>}      </>))}
+                                                <div className="showAllAssignedInner">
+                                                    <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                                        <Grid>
+                                                            {data && data?.image && <S3Image imgUrl={data?.image} />}
+                                                        </Grid>
+                                                        <Grid className="allInfoRght">
+                                                            <Grid>
+                                                                <label>
+                                                                    {data?.first_name} {' '} {data?.last_name}
+                                                                </label>
+                                                            </Grid>
+                                                            <p>{data?.profile_id}</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                                :
+                                                <a onClick={() => props.showData(data, data?.team_name)}>   <div className="showAllAssignedInner">
+                                                    <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                                        <Grid>
+                                                            <img src={settings.setting &&
+                                                                settings.setting.mode &&
+                                                                settings.setting.mode === "dark" ?
+                                                                require("assets/virtual_images/groupicon-black.jpg")
+                                                                : require("assets/virtual_images/groupicon.jpg")}></img>
+                                                        </Grid>
+                                                        <Grid className="allInfoRght">
+                                                            <Grid>
+                                                                <label>
+                                                                    {data?.team_name} {' '} {"(Staff)"}
+                                                                </label>
+                                                            </Grid>
+                                                            <p>{data?.staff_id}</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                                </a>}
+                                        </>))}
                                 </Grid>
                                 <Grid className="specbutton1">
                                     <label>
@@ -124,9 +154,9 @@ const ViewTherapy = (props) => {
                                             <thead>
                                                 <tr>
                                                     <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
-                                                    <th style={{ "width": "30%", "text-align": "left" }}>Type</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>Title of type </th>
-                                                    <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th>
+                                                    <th style={{ "width": "40%", "text-align": "left" }}>Type</th>
+                                                    <th style={{ "width": "40%", "text-align": "left" }}>Name</th>
+                                                    {/* <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -134,10 +164,10 @@ const ViewTherapy = (props) => {
                                                     props?.item?.sequence_list?.length > 0 &&
                                                     props?.item?.sequence_list.map((data, index) => (
                                                         <tr>
-                                                            <td key={index}>{index}</td>
+                                                            <td key={index}>{index + 1}</td>
                                                             <td>{data?.type === "task" ? "Task" : "Assign Service"}</td>
                                                             <td>{data?.task_name || data?.service_name}</td>
-                                                            <td>{data?.task_description || data?.service_description}</td>
+                                                            {/* <td>{data?.task_description || data?.service_description}</td> */}
                                                         </tr>
                                                     ))}
                                             </tbody>

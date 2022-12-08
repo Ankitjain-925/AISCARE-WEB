@@ -304,13 +304,12 @@ class Index extends Component {
 
   // manage assign to list
   selectProf = (listing, data) => {
-    console.log("listing", listing, "data", data)
     var showdata = data;
     var alredyAssigned =
       listing &&
       listing?.length > 0 &&
       listing.map((item) => {
-        return item.user_id;
+        return item.user_id || item._id;;
       });
     if (alredyAssigned && alredyAssigned.length > 0) {
       showdata =
@@ -332,7 +331,6 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
-    console.log("spec", spec)
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
@@ -931,7 +929,7 @@ class Index extends Component {
           let isProf =
             this.state.professionalArray?.length > 0 &&
             this.state.professionalArray.filter(
-              (data, index) => data.user_id === current.value
+              (data, index) => data.user_id === current.value || data._id === current.value
             );
           if (isProf && isProf.length > 0) {
             last.push(isProf[0]);
@@ -1397,7 +1395,7 @@ class Index extends Component {
       data?.assinged_to &&
       data?.assinged_to?.length > 0 &&
       data?.assinged_to.map((item) => {
-        return item?.user_id;
+        return item?.user_id || item?._id;
       });
     var findHouse = this.state.currentList.filter(
       (itemInArray) => itemInArray.value === data?.house_id
@@ -2118,9 +2116,9 @@ class Index extends Component {
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
               {(this.props.comesFrom == "Professional" &&
-              <Button onClick={() => this.handleOpenAss1()} >
-                {"+ Assign Therapy"}
-              </Button>)}
+                <Button onClick={() => this.handleOpenAss1()} >
+                  {"+ Assign Therapy"}
+                </Button>)}
             </Grid>
             {/* )} */}
           </Grid>

@@ -16,11 +16,11 @@ const AssignPatient = (props) => {
     // +++++++++++++++
     // +  View       +
     // +   Staff     +
-    // +     Listint +
+    // +     Listing +
     // +++++++++++++++
     return (
-        <div>
 
+        < div >
             <Modal
                 open={props.openStaff}
                 onClose={() => props.closeStaffInfo()}
@@ -42,7 +42,7 @@ const AssignPatient = (props) => {
                             : "addServContnt"
                     }
                 >
-                    <Grid className="addSpeclContntIner">
+                    <Grid className="addSpeclContntIner addSpeclabcIner">
                         <Grid className="addSpeclLbl">
                             <Grid
                                 container
@@ -50,7 +50,7 @@ const AssignPatient = (props) => {
                                 justify="center"
                             >
                                 <Grid item xs={8} md={8} lg={8}>
-                                    <label>{props?.AllStaffData?.team_name}</label>
+                                    <label>{props?.AllStaffData?.team_name} {' '} {"(Staff)"}</label>
                                 </Grid>
                                 <Grid item xs={4} md={4} lg={4}>
                                     <Grid>
@@ -75,16 +75,28 @@ const AssignPatient = (props) => {
                         <Grid className="enterServMain">
                             <Grid className="enterSpcl enterSpclSec">
                                 <Grid className="AddMarginTo">
-                                    <label className="specbutton1">
+                                    {/* <label className="specbutton1">
                                         {staff_members}
-                                    </label>
+                                    </label> */}
                                     {props?.AllStaffData &&
-                                        props?.AllStaffData?.staff &&
-                                        props?.AllStaffData?.staff?.length > 0 &&
-                                        props?.AllStaffData?.staff.map((data) => (<>
-                                            <div className="presImg11">
-                                                {data && data?.image && <S3Image imgUrl={data?.image} />}
-                                                {data?.first_name} {' '} {data?.last_name}</div>
+                                        props?.AllStaffData?.AllStaffData1 &&
+                                        props?.AllStaffData?.AllStaffData1?.length > 0 &&
+                                        props?.AllStaffData?.AllStaffData1.map((data) => (<>
+                                            <div className="showAllAssignedInner">
+                                                <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                                    <Grid>
+                                                        {data && data?.image && <S3Image imgUrl={data?.image} />}
+                                                    </Grid>
+                                                    <Grid className="allInfoRght">
+                                                        <Grid>
+                                                            <label>
+                                                                {data?.first_name} {' '} {data?.last_name}
+                                                            </label>
+                                                        </Grid>
+                                                        <p>{data?.profile_id}</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
                                         </>))}
                                 </Grid>
                             </Grid>
