@@ -15,29 +15,32 @@ import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 export const handleSubmit = (current) => {
     const { assignedTo, seqItems, assinged_to } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
-    let { } = translate;
+    let {Please_enter_therapy_name,Please_enter_therapy_description,Please_enter_disease_name,Please_selete_Doctor_Staff,
+        Please_select_speciality,
+        Please_select_Task_Service
+     } = translate;
     current.setState({ errorMsg: '' })
     var data = current.state.updateTrack;
     data.house_id = current.props?.House?.value;
     data.sequence_list = seqItems;
 
     if (!data.therapy_name || (data && data?.therapy_name && data?.therapy_name.length < 1)) {
-        current.setState({ error_section: 1, errorMsg: "Please enter therapy name" })
+        current.setState({ error_section: 1, errorMsg: Please_enter_therapy_name })
     }
     else if (!data.therapy_description) {
-        current.setState({ error_section: 1, errorMsg: "Please enter therapy description" })
+        current.setState({ error_section: 1, errorMsg: Please_enter_therapy_description })
     }
     else if (!data.disease_name) {
-        current.setState({ error_section: 1, errorMsg: "Please enter disease name" })
+        current.setState({ error_section: 1, errorMsg:Please_enter_disease_name })
     }
     else if (!data.assinged_to || ((data && data?.assinged_to && data?.assinged_to.length < 1))) {
-        current.setState({ error_section: 1, errorMsg: "Please selete Doctor/Staff" })
+        current.setState({ error_section: 1, errorMsg: Please_selete_Doctor_Staff})
     }
     else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
-        current.setState({ error_section: 1, errorMsg: "Please Select Speciality" })
+        current.setState({ error_section: 1, errorMsg: Please_select_speciality })
     }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
-        current.setState({ error_section: 2, errorMsg: "Please select atleast two sequences from Task/Service" })
+        current.setState({ error_section: 2, errorMsg:Please_select_Task_Service })
     }
     else {
         current.setState({ loaderImage: true });

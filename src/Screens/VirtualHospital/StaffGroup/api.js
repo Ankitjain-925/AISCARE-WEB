@@ -112,20 +112,20 @@ export const teamstaff = (current) => {
  export const handleSubmit = (current) => {
    const { selectSpec2, selectWard,staffslct } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
-    let {} = translate;
+    let {Please_select_speciality,Please_select_ward,Please_enter_team_name,Please_select_staff_name} = translate;
     var data = current.state.updateTrack;
     current.setState({ errorMsg: '' })
       data.house_id = current.props?.House?.value;
       if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
-        current.setState({ errorMsg: "Please select speciality id" })
+        current.setState({ errorMsg: Please_select_speciality })
     }  else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
-      current.setState({ errorMsg: "Please select ward id" })
+      current.setState({ errorMsg: Please_select_ward})
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
-    current.setState({ errorMsg: "Please enter team name" })
+    current.setState({ errorMsg: Please_enter_team_name })
 }
 else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
-  current.setState({ errorMsg: "Please select staff name" })
+  current.setState({ errorMsg: Please_select_staff_name })
 } 
 else{
   current.setState({ loaderImage: true });
