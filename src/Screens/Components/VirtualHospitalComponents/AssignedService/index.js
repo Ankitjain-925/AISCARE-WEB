@@ -192,7 +192,7 @@ class Index extends Component {
                     let isProf =
                         this.state.professionalArray?.length > 0 &&
                         this.state.professionalArray.filter(
-                            (data, index) => data.user_id === current.value
+                            (data, index) => data.user_id === current.value || data._id === current.value
                         );
                     if (isProf && isProf.length > 0) {
                         last.push(isProf[0]);
@@ -218,7 +218,7 @@ class Index extends Component {
             listing &&
             listing?.length > 0 &&
             listing.map((item) => {
-                return item.user_id;
+                return item.user_id || item._id;
             });
         if (alredyAssigned && alredyAssigned.length > 0) {
             showdata =
@@ -1147,7 +1147,7 @@ class Index extends Component {
                             }>
                                 <a>
                                     <Button
-                                    disabled={this.state.disableAssignment}
+                                        disabled={this.state.disableAssignment}
                                     >
                                         {save_and_close}
                                     </Button>

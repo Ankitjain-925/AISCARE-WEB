@@ -17089,9 +17089,9 @@ color:#FFFFFF
 
   .presImg11 img
   {border-radius: 27px;
-    height: 21px;
-    width: 22px;
-    margin: 2px 5px 7px 2px;}
+    height: 25px;
+    width: 25px;
+    margin: 2px 5px 7px 9px}
     
 .AddMarginTo{
     margin-bottom: 10px
@@ -17116,6 +17116,15 @@ color:#FFFFFF
     font-family: "Mulish", sans-serif!important;
     margin-top: 10px!important;
 }
+
+.tasklistName1{
+  margin-top: 12px;
+}
+
+.tasklistName1 img{
+  margin-right: 3px;
+}
+
 .allStaffRghtSec{
   margin-left: 10px;
 }

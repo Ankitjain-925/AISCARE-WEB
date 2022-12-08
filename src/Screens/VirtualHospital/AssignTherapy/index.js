@@ -40,7 +40,9 @@ import {
     searchFilter,
     specailityList,
     onFieldChange,
-    selectProf
+    getAssignService,
+    onFieldChange1,
+    GetStaffListing
 } from "./api"
 import ViewTherapy from "./ViewTherapy";
 import FilterTherapyDiases from "./FilterTherapyDiases";
@@ -63,7 +65,8 @@ class Index extends Component {
             indexForUpdate: 0,
             error_section: 0,
             assignedTo: [],
-            selectSpec: {}
+            selectSpec: {},
+            ForButton: ""
         };
     }
 
@@ -72,6 +75,7 @@ class Index extends Component {
         getAllTherpy(this);
         GetProfessionalData(this);
         specailityList(this);
+        getAssignService(this);
     }
 
     clearFilter = () => {
@@ -109,8 +113,8 @@ class Index extends Component {
     }
 
     // Open Show staff Modal
-    showData = (data) => {
-        this.setState({ openStaff: true, AllStaffData: data });
+    showData = (data, team_name) => {
+        GetStaffListing(this, data, team_name);
     }
 
     // Closing Show staff Modal
@@ -121,6 +125,13 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let {
+            Edit,
+            Add,
+            ServiceAmount,
+            Quantity,
+            Enterquantity,
+            Addservice,
+            Searchserviceoraddcustominput,
             viewData,
             Speciallity,
             Assignedto,
@@ -150,7 +161,7 @@ class Index extends Component {
             Enterserviceprice,
             Search
         } = translate;
-        const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section } = this.state;
+        const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section, ForButton } = this.state;
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -309,7 +320,7 @@ class Index extends Component {
                                                                             <Grid>
                                                                                 <Select
                                                                                     name="professional"
-                                                                                    onChange={(e) => updateEntryState3(this, e)}
+                                                                                    onChange={(e) => updateEntryState3(e, this)}
                                                                                     value={this.state.assignedTo || ''}
                                                                                     options={this.state.professional_id_list1}
                                                                                     placeholder={Search_Select}
@@ -356,8 +367,8 @@ class Index extends Component {
                                                                                                 <thead>
                                                                                                     <tr>
                                                                                                         <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
-                                                                                                        <th style={{ "width": "30%", "text-align": "left" }}>Name</th>
-                                                                                                        <th style={{ "width": "40%", "text-align": "left" }}>Description</th>
+                                                                                                        <th style={{ "width": "30%", "text-align": "left" }}>Type</th>
+                                                                                                        <th style={{ "width": "40%", "text-align": "left" }}>Name</th>
                                                                                                         <th style={{ "width": "10%", "text-align": "left" }}>Edit/Delete</th>
                                                                                                     </tr>
                                                                                                 </thead>
@@ -365,8 +376,8 @@ class Index extends Component {
                                                                                                     return <tbody>
                                                                                                         <tr>
                                                                                                             <td style={{ "maxWidth": "30px" }} key={index}>{index + 1}</td>
-                                                                                                            <td style={{ "maxWidth": "50px" }} key={index}>{item?.task_name || item?.service_name}</td>
-                                                                                                            <td style={{ "maxWidth": "100px" }} key={index}>{item?.task_description || item?.service_description}</td>
+                                                                                                            <td style={{ "maxWidth": "50px" }} key={index}>{item?.type === "task" ? "Task" : "Assign Service"}</td>
+                                                                                                            <td style={{ "maxWidth": "100px" }} key={index}>{item?.task_name || item?.service_name}</td>
                                                                                                             <td style={{ "maxWidth": "40px" }} key={index}>
                                                                                                                 <Grid className="setEditDelBut">
                                                                                                                     <img
@@ -403,7 +414,7 @@ class Index extends Component {
 
                                                                         <Grid className="addSrvcBtn3" >
                                                                             <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
-                                                                                <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {} }) }}>Add Sequences</a>
+                                                                                <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {}, ForButton: Add, allSequence1: {} }) }}>Add Sequences</a>
                                                                             </h3>
                                                                         </Grid>
                                                                         {error_section === 3 &&
@@ -445,109 +456,73 @@ class Index extends Component {
                                                                                     value={this.state?.allSequence?.task_description || ""}
                                                                                 />
                                                                                 <p className="err_message">{this.state.errorTaskDesc}</p>
-                                                                                {/* <Grid className="addSrvcBtn3" >
-                                                                                    <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
-                                                                                        <a onClick={this.handleAddTasks}>Add Tasks</a>
-                                                                                    </h3>
-                                                                                </Grid> */}
                                                                             </Grid>}
                                                                         {taskName?.value === "assign_service" &&
                                                                             <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
-                                                                                <VHfield
-                                                                                    label="Service Name"
+                                                                                <label>{Addservice}</label>
+                                                                                <Select
                                                                                     name="service_name"
-                                                                                    placeholder="Service Name"
                                                                                     onChange={(e) =>
-                                                                                        updateEntry(this, e)
+                                                                                        onFieldChange1(this, e, 'service_name')
                                                                                     }
-                                                                                    value={this.state?.allSequence?.service_name || ""}
-                                                                                />
-                                                                                <p className="err_message">{this.state.errorServiceName}</p>
-                                                                                <VHfield
-                                                                                    label="Service Description"
-                                                                                    name="service_description"
-                                                                                    placeholder="Service Description"
-                                                                                    onChange={(e) =>
-                                                                                        updateEntry(this, e)
-                                                                                    }
-                                                                                    value={this.state?.allSequence?.service_description || ""}
-                                                                                />
-                                                                                <p className="err_message">{this.state.errorServiceDesc}</p>
-                                                                                {/* <label>Services</label> */}
-                                                                                {/* <Select
-                                                                                    name="services"
-                                                                                    onChange={(e) => this.onServiceChanges(e, "services")}
-                                                                                    value={this.state?.assignedService || []}
-                                                                                    options={this.state.servicesDataObj}
-                                                                                    placeholder="Select Services"
-                                                                                    className="addStafSelect"
-                                                                                    isMulti={true}
-                                                                                    isSearchable={true}
-                                                                                /> */}
+                                                                                    value={this.state.allSequence1 || ''}
 
-                                                                                {/* <VHfield
-                                                                                    label={Price}
-                                                                                    name="service_price"
-                                                                                    placeholder={Enterserviceprice}
-                                                                                    onChange={(e) =>
-                                                                                        updateEntry(this, e)
-                                                                                    }
-                                                                                    value={
-                                                                                        this.state.allSequence.service_price || 0
-                                                                                    }
-                                                                                /> */}
-                                                                                <p className="err_message">{this.state.errorServices}</p>
-                                                                                {/* <Grid className="addSrvcBtn3" >
-                                                                                    <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
-                                                                                        <a onClick={this.handleAddServices}>Add Services</a>
-                                                                                    </h3>
+                                                                                    className="addStafSelect"
+                                                                                    options={this.state.service_id_list}
+                                                                                    placeholder={Searchserviceoraddcustominput}
+                                                                                    isSearchable={true}
+                                                                                />
+                                                                                <Grid item xs={12} md={12} className="customservicetitle">
+                                                                                    <VHfield
+                                                                                        label={Quantity}
+                                                                                        name="service_qty"
+                                                                                        placeholder={Enterquantity}
+                                                                                        onChange={(e) =>
+                                                                                            onFieldChange1(this, e.target.value, 'service_qty')
+                                                                                        }
+                                                                                        value={this.state.allSequence?.service_qty || 0}
+                                                                                    />
+                                                                                </Grid>
+
+                                                                                <Grid
+                                                                                    item
+                                                                                    xs={12}
+                                                                                    md={12}
+                                                                                    className="enterPricePart1 customservicetitle"
+                                                                                >
+                                                                                    <VHfield
+                                                                                        label={Price}
+                                                                                        name="service_price"
+                                                                                        placeholder={Enterserviceprice}
+                                                                                        onChange={(e) =>
+                                                                                            onFieldChange1(
+                                                                                                this,
+                                                                                                e.target.value,
+                                                                                                'service_price'
+                                                                                            )
+                                                                                        }
+                                                                                        value={
+                                                                                            this.state?.allSequence?.service_price || 0
+                                                                                        }
+                                                                                        disabled={true}
+                                                                                    />
+                                                                                    <p className="enterPricePart3">€</p>
+                                                                                </Grid>
+
+                                                                                {/* <Grid className="totalamount">
+                                                                                    <p>{ServiceAmount}</p>
+                                                                                    <label>{this.state?.total_amount} €</label>
+
                                                                                 </Grid> */}
-                                                                            </Grid>}
+                                                                            </Grid>
+
+
+                                                                        }
                                                                         {taskName?.value && <Grid className="addSrvcBtn3" >
                                                                             <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
-                                                                                <a onClick={() => { handleAddData(this) }}>{taskName?.value === "task" ? "Add Task" : "Add Service"}</a>
+                                                                                <a onClick={() => { handleAddData(this) }}>{taskName?.value === "task" ? `${ForButton} Task` : `${ForButton} Service`}</a>
                                                                             </h3>
                                                                         </Grid>}
-
-
-                                                                        {/* <label className="specbutton1">
-                                                                            {speciality}
-                                                                        </label>
-                                                                        <Grid className="sevicessection serviceallSec">
-                                                                            <Select
-                                                                                onChange={(e) =>
-                                                                                    onFieldChange(e, this)
-                                                                                }
-                                                                                options={this.state.AllSpeciality}
-                                                                                name="specialty_name"
-                                                                                isSearchable={true}
-                                                                                className="addStafSelect"
-                                                                                isMulti={true}
-                                                                                value={selectedID(
-                                                                                    this.state.updateTrack.specialty_id,
-                                                                                    this
-                                                                                )}
-                                                                            />
-                                                                        </Grid> */}
-
-                                                                        {/* <Grid
-                                                                            item
-                                                                            xs={12}
-                                                                            md={12}
-                                                                            className="enterPricePart1"
-                                                                        >
-                                                                            <VHfield
-                                                                                label={therapyTesting}
-                                                                                name="testing"
-                                                                                placeholder={EntertherapyTesting}
-                                                                                onChange={(e) =>
-                                                                                    updateEntryState1(e, this)
-                                                                                }
-                                                                                value={
-                                                                                    this.state.updateTrack.testing
-                                                                                }
-                                                                            />
-                                                                        </Grid> */}
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="servSaveBtn">
@@ -678,6 +653,9 @@ class Index extends Component {
                                                                 <Grid className="setAssignedToupper">
                                                                     <Assigned
                                                                         assigned_to={item?.assinged_to}
+                                                                        AllStaffData={this.state.AllStaffData}
+                                                                        showData={(data, team_name) => this.showData(data, team_name)}
+                                                                        openStaff={this.state.openStaff}
                                                                         comesFrom="TherapySection"
                                                                     />
                                                                 </Grid>
@@ -749,16 +727,11 @@ class Index extends Component {
                                                 </tbody>
                                             </table>
 
-                                            {/* <AssignPatient
-                                                openAssPat={this.state.openAssPat}
-                                                closeFullPatient={() => this.closeFullPatient()}
-                                            /> */}
-
                                             <ViewTherapy
                                                 viewTher={this.state.viewTher}
                                                 item={viewAllData}
                                                 closeFullQues={() => this.closeFullQues()}
-                                                showData={(data) => this.showData(data)}
+                                                showData={(data, team_name) => this.showData(data, team_name)}
                                                 openStaff={this.state.openStaff}
                                                 closeStaffInfo={() => this.closeStaffInfo()}
                                                 AllStaffData={this.state.AllStaffData}
@@ -797,7 +770,6 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         {/* end of service price content */}
-
                                     </Grid>
                                 </Grid>
                                 {/* End of Right Section */}

@@ -132,7 +132,7 @@ else{
    if (data?._id) {
       axios
           .put(
-              sitedata.data.path + "/teammember/UpdateTeam/",+ data +"/"+ data?.staff_id,
+              sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" +  data?.staff_id, data,
               commonHeader(current.props.stateLoginValueAim.token)
           )
           .then((responce) => {
@@ -317,7 +317,7 @@ else{
     })
     state['staff'] = staff;
    current.setState({ staffslct: e, updateTrack: state}, ()=>{
-    console.log('updateTrack', current.state.updateTrack)
+    // console.log('updateTrack', current.state.updateTrack)
    });
     }
 
