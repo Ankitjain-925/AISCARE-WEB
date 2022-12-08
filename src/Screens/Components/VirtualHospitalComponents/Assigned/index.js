@@ -7,6 +7,11 @@ import { getLanguage } from 'translations/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Settings } from 'Screens/Login/setting';
+import ShowStaffData from "../../../VirtualHospital/AssignTherapy/ShowStaffData";
+import axios from "axios";
+import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index";
+import { LoginReducerAim } from "Screens/Login/actions";
 
 class Index extends React.Component {
   constructor(props) {
@@ -23,6 +28,32 @@ class Index extends React.Component {
   removePopup = () => {
     this.setState({ showAll: false });
   };
+
+  // Closing Show staff Modal
+  closeStaffInfo = () => {
+    this.setState({ openStaff: false });
+  }
+
+  GetStaffListing = (data, team_name) => {
+    var staff = { staff: data.staff };
+    this.setState({ loaderImage: true });
+    axios
+      .post(
+        sitedata.data.path + "/teammember/GetTeamStaff",
+        staff,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          this.setState({ loaderImage: false, AllStaffData: { AllStaffData1: responce?.data?.data, team_name: team_name }, openStaff: true });
+        }
+      })
+      .catch(() => {
+        this.setState({ loaderImage: false });
+      })
+  }
+
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -121,8 +152,9 @@ class Index extends React.Component {
                             <Grid item xs={12} md={12}>
                               {this.props.assigned_to?.length > 0 &&
                                 this.props.assigned_to.map((data, index) => (<>
+                                  {console.log("data", data)}
                                   {data?.staff && data?.staff?.length > 0 ? <>
-                                    <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                    <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                       <Grid>
                                         <img src={this.props.settings.setting &&
                                           this.props.settings.setting.mode &&
@@ -131,15 +163,15 @@ class Index extends React.Component {
                                           : require("assets/virtual_images/groupicon.jpg")}></img>
                                       </Grid>
                                       <Grid className="allInfoRght">
-                                        <Grid className="creatLbl22">
+                                        <Grid>
                                           <label>
                                             {data?.team_name}  {' -'} {"(Staff)"}
                                           </label>
                                         </Grid>
                                         <p>{data?.staff_id}</p>
                                       </Grid>
-                                    </Grid>
-                                    {data?.staff.map((data1, index) => (
+                                    </Grid></a>
+                                    {/* {data?.staff.map((data1, index) => (
                                       <div className="showAllAssignedInner">
                                         <ol>
                                           <li>
@@ -158,7 +190,7 @@ class Index extends React.Component {
                                             </Grid>
                                           </li>  </ol>
                                       </div>
-                                    ))}
+                                    ))} */}
                                   </> :
                                     <div className="showAllAssignedInner">
                                       <Grid className="allInfo allInfo2 tasklistName">
@@ -196,30 +228,41 @@ class Index extends React.Component {
                     <span>
                       {data?.team_name} {" "} {"(Staff)"}
                     </span>}
-                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <img src={this.props.settings.setting &&
+                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={this.props.settings.setting &&
                     this.props.settings.setting.mode &&
                     this.props.settings.setting.mode === "dark" ?
                     require("assets/virtual_images/groupicon-black.jpg")
-                    : require("assets/virtual_images/groupicon.jpg")}></img>}
+                    : require("assets/virtual_images/groupicon.jpg")}></img></a>}
                 </div>
               ))}
             {count > 0 && <a onClick={() => this.ViewPopup()}>+{count}</a>}
           </Grid>
-        )}
+        )
+        }
+        <ShowStaffData
+          openStaff={this.state.openStaff}
+          closeStaffInfo={() => this.closeStaffInfo()}
+          AllStaffData={this.state.AllStaffData}
+        />
       </>
     );
   }
 }
 const mapStateToProps = (state) => {
   const { settings } = state.Settings;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   return {
     settings,
+    stateLoginValueAim,
   };
 };
 export default pure(
   withRouter(
     connect(mapStateToProps, {
       Settings,
+      LoginReducerAim,
     })(Index)
   )
 );
+

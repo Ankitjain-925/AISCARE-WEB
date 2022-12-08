@@ -243,12 +243,15 @@ class Index extends Component {
         var due_on = this.state.therapy_sequence?.[index]?.due_on ? this.state.therapy_sequence?.[index]?.due_on : { date: new Date(), time: new Date() };
         const state = this.state.therapy_sequence;
         if (name === 'date' || name === 'time') {
+            console.log('dsfdsfsf')
             due_on[name] = value;
             state[index]['due_on'] = due_on;
         } 
-        if (name === 'assinged_to1') {
+        else if (name === 'assinged_to1') {
+            console.log('dsfdsfsf111')
+            console.log('state[index]1', state[index])
             state[index][name] = value;
-
+            console.log('state[index]2', state[index])
             var data =
           value?.length > 0 &&
            value.reduce((last, e, index) => {
@@ -263,16 +266,17 @@ class Index extends Component {
                 return last;
             }, []);
             state[index]['assinged_to'] = data;
+            console.log('state[index]3', state[index])
         }   
         else {
             state[name] = value;
         }
-        this.setState({ service: state });
+        this.setState({ therapy_sequence: state })
+            // ()=> console.log('therapy_sequence', this.state.therapy_sequence));
 
     };
 
-    FinalServiceSubmit = () => {  
-        console.log("therapy_sequence", this.state.therapy_sequence)
+    FinalServiceSubmit = () => {
         var data = this.state.service;
         this.setState({ errorMsg: '' })
         console.log("data1234", data)
@@ -366,6 +370,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
+                console.log("reppp", response)
                 if (response.data?.hassuccessed) {
                     response?.data?.data &&
                         response.data.data.map((element) => {
@@ -382,7 +387,8 @@ class Index extends Component {
 
 
     updateEntryState7 = (e) => {
-        this.setState({ selectedHouse: e, errorMsg:'' }, () => {
+        console.log("e",e)
+        this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
             this.therapylist();
@@ -495,7 +501,6 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
 
-
                                     <Grid item xs={12} md={12}>
                                         <Grid>
                                             <label>{For_Hospital}</label>
@@ -510,7 +515,6 @@ class Index extends Component {
                                                 isSearchable={true}
                                             />
                                         </Grid>
-
 
                                     </Grid>
                                     <Grid item xs={12} md={12}>
@@ -578,8 +582,8 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                         <Grid item xs={12} md={12} className="customservicetitle">
-                                        <label>{"Sequence of Tasks / Assigned services"}</label>
-                                            {this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
+                                            <label>{"Sequence of Tasks / Assigned services"}</label>
+                                            {this.state.therapy_sequence && this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
                                                 <>
                                                     <label>{index + 1}</label>
                                                     <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
@@ -683,12 +687,12 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
-                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assigned_to1', index)}}>{"Same as therapy"}</Grid>
+                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}}>{"Same as therapy"}</Grid>
                                         <Grid>
                                             <Select
                                                 name="professional"
                                                 onChange={(e) => this.updateEntry(e, 'assinged_to1', index)}
-                                                value={item.assignedTo}
+                                                value={item.assinged_to1}
                                                 options={this.state.professional_id_list1}
                                                 placeholder={Assignedto}
                                                 className="addStafSelect"

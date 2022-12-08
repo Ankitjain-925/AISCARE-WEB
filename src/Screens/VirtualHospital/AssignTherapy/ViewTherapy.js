@@ -5,6 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting';
 import ShowStaffData from "./ShowStaffData";
 
+
 const ViewTherapy = (props) => {
     const settings = useAllSetting();
 
@@ -117,7 +118,7 @@ const ViewTherapy = (props) => {
                                                     </Grid>
                                                 </div>
                                                 :
-                                                <a onClick={() => props.showData(data)}>   <div className="showAllAssignedInner">
+                                                <a onClick={() => props.showData(data, data?.team_name)}>   <div className="showAllAssignedInner">
                                                     <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                                         <Grid>
                                                             <img src={settings.setting &&
@@ -153,9 +154,9 @@ const ViewTherapy = (props) => {
                                             <thead>
                                                 <tr>
                                                     <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
-                                                    <th style={{ "width": "30%", "text-align": "left" }}>Type</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>Title of type </th>
-                                                    <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th>
+                                                    <th style={{ "width": "40%", "text-align": "left" }}>Type</th>
+                                                    <th style={{ "width": "40%", "text-align": "left" }}>Name</th>
+                                                    {/* <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -166,7 +167,7 @@ const ViewTherapy = (props) => {
                                                             <td key={index}>{index + 1}</td>
                                                             <td>{data?.type === "task" ? "Task" : "Assign Service"}</td>
                                                             <td>{data?.task_name || data?.service_name}</td>
-                                                            <td>{data?.task_description || data?.service_description}</td>
+                                                            {/* <td>{data?.task_description || data?.service_description}</td> */}
                                                         </tr>
                                                     ))}
                                             </tbody>

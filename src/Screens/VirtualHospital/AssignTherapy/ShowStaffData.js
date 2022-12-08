@@ -19,8 +19,8 @@ const AssignPatient = (props) => {
     // +     Listing +
     // +++++++++++++++
     return (
-        <div>
 
+        < div >
             <Modal
                 open={props.openStaff}
                 onClose={() => props.closeStaffInfo()}
@@ -79,11 +79,9 @@ const AssignPatient = (props) => {
                                         {staff_members}
                                     </label> */}
                                     {props?.AllStaffData &&
-                                        props?.AllStaffData?.staff &&
-                                        props?.AllStaffData?.staff?.length > 0 &&
-                                        props?.AllStaffData?.staff.map((data) => (<>
-
-
+                                        props?.AllStaffData?.AllStaffData1 &&
+                                        props?.AllStaffData?.AllStaffData1?.length > 0 &&
+                                        props?.AllStaffData?.AllStaffData1.map((data) => (<>
                                             <div className="showAllAssignedInner">
                                                 <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                                     <Grid>
