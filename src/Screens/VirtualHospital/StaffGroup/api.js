@@ -117,9 +117,9 @@ export const teamstaff = (current) => {
     current.setState({ errorMsg: '' })
       data.house_id = current.props?.House?.value;
       if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
-        current.setState({ errorMsg: "Please select speciality id" })
+        current.setState({ errorMsg: "Please select speciality" })
     }  else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
-      current.setState({ errorMsg: "Please select ward id" })
+      current.setState({ errorMsg: "Please select ward" })
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
     current.setState({ errorMsg: "Please enter team name" })
