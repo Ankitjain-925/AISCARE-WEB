@@ -309,7 +309,7 @@ class Index extends Component {
       listing &&
       listing?.length > 0 &&
       listing.map((item) => {
-        return item.user_id;
+        return item.user_id || item._id;;
       });
     if (alredyAssigned && alredyAssigned.length > 0) {
       showdata =
@@ -331,7 +331,6 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
-    console.log("spec", spec)
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
@@ -930,7 +929,7 @@ class Index extends Component {
           let isProf =
             this.state.professionalArray?.length > 0 &&
             this.state.professionalArray.filter(
-              (data, index) => data.user_id === current.value
+              (data, index) => data.user_id === current.value || data._id === current.value
             );
           if (isProf && isProf.length > 0) {
             last.push(isProf[0]);
@@ -1396,7 +1395,7 @@ class Index extends Component {
       data?.assinged_to &&
       data?.assinged_to?.length > 0 &&
       data?.assinged_to.map((item) => {
-        return item?.user_id;
+        return item?.user_id || item?._id;
       });
     var findHouse = this.state.currentList.filter(
       (itemInArray) => itemInArray.value === data?.house_id
@@ -2068,7 +2067,7 @@ class Index extends Component {
       selectedOption,
       specialitiesList,
     } = this.state;
-
+    const { House: { roles = [] } = {} } = this.props || {}
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -2093,7 +2092,6 @@ class Index extends Component {
       });
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
-    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -2116,9 +2114,10 @@ class Index extends Component {
                   {"Create Therapy Protocal"}
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
+              {(this.props.comesFrom == "Professional" &&
               <Button onClick={() => this.handleOpenAss1()} >
-                Therapy
-              </Button>
+                {"+ Assign Therapy"}
+              </Button>)}
             </Grid>
             {/* )} */}
           </Grid>
@@ -4034,6 +4033,8 @@ class Index extends Component {
                                                 <label>{Archive}</label>
                                               </Grid>
                                             )}
+                                            {
+                                            (roles.includes("delete_task"))&&
                                             <Grid>
                                               <img
                                                 onClick={() => {
@@ -4056,6 +4057,8 @@ class Index extends Component {
                                                 {Delete}
                                               </label>
                                             </Grid>
+                                            }
+
                                           </>
                                         )
                                       ) : this.state.newTask?.task_type ===

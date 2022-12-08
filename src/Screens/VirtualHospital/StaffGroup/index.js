@@ -18,6 +18,7 @@ import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import {
   onChangePage,
   handleOpenServ,
@@ -29,11 +30,10 @@ import {
   DeleteStaff,
   stffchange,
   GetProfessionalwstaff,
-  editStaff
-
+  editStaff,
 } from "./api";
 
-import { Speciality } from 'Screens/Login/speciality.js';
+import { Speciality } from "Screens/Login/speciality.js";
 import { getLanguage } from "translations/index";
 
 class Index extends Component {
@@ -59,10 +59,12 @@ class Index extends Component {
       staff_data: [],
       AllStaff: [],
       specilaityList: [],
-      selectSpec2: '',
+      selectSpec2: "",
       wardList: [],
-      selectWard: '',
-      staffslct: []
+      selectWard: "",
+      staffslct: [],
+      openServSec: false,
+      showStaff: [],
     };
   }
 
@@ -71,11 +73,12 @@ class Index extends Component {
     teamstaff(this);
     GetProfessionalwstaff(this);
     this.specailityList();
+    console.log("1", this.props.stateLanguageType);
   }
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectWard: '' });
+    this.setState({ selectWard: "" });
     let specialityList =
       this.props.speciality?.SPECIALITY &&
       this.props.speciality?.SPECIALITY.length > 0 &&
@@ -90,20 +93,21 @@ class Index extends Component {
       wardsFullData.map((item) => {
         return { label: item.ward_name, value: item._id };
       });
-    var state = this.state.updateTrack
-    state['speciality_id'] = e?.value;
+    var state = this.state.updateTrack;
+    state["speciality_id"] = e?.value;
 
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
       allWards: wardsFullData,
-      updateTrack: state
+      updateTrack: state,
     });
   };
   // ward Change
   onWardChange = (e) => {
     var state = this.state.updateTrack;
-    state['ward_id'] = e.value;
+    console.log("e", e);
+    state["ward_id"] = e.value;
     this.setState({ selectWard: e, updateTrack: state });
   };
 
@@ -116,6 +120,13 @@ class Index extends Component {
         return { label: data.specialty_name, value: data._id };
       });
     this.setState({ specilaityList: spec });
+  };
+
+  handleOpenServSec = (item) => {
+    this.setState({ openServSec: true, showStaff: item });
+  };
+  handleCloseServSec = () => {
+    this.setState({ openServSec: false });
   };
 
   render() {
@@ -137,7 +148,8 @@ class Index extends Component {
       staffgrouptitle,
       staffname,
       staffmembers,
-      Search
+      Search,
+      staff_members,
     } = translate;
     const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -160,9 +172,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -184,13 +196,10 @@ class Index extends Component {
                 <Grid item xs={12} md={10}>
                   <Grid className="topLeftSpc">
                     <Grid container direction="row">
-                      <Grid item xs={6} md={6}>
-
-                      </Grid>
+                      <Grid item xs={6} md={6}></Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-
-
+                          {console.log("updateTrack", this.state.updateTrack)}
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newstaffGroup}
@@ -200,8 +209,8 @@ class Index extends Component {
                               onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -209,13 +218,13 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                              // className="addServContnt"
+                                // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
@@ -254,7 +263,9 @@ class Index extends Component {
                                       <label>{speciality}</label>
                                       <Grid className="addInput">
                                         <Select
-                                          onChange={(e) => this.onFieldChange2(e)}
+                                          onChange={(e) =>
+                                            this.onFieldChange2(e)
+                                          }
                                           options={this.state.specilaityList}
                                           name="speciality_id"
                                           value={this.state.selectSpec2}
@@ -265,23 +276,23 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
 
-                                    {this.state.wardList &&
-                                      this.state.wardList.length > 0 && (
-                                        <Grid className="enterSpcl">
-                                          <label>{Ward}</label>
-                                          <Grid className="addInput">
-                                            <Select
-                                              onChange={(e) => this.onWardChange(e)}
-                                              options={this.state.wardList}
-                                              name="ward_name"
-                                              value={this.state.selectWard}
-                                              isMulti={false}
-                                              className="addStafSelect"
-                                              isSearchable={true}
-                                            />
-                                          </Grid>
-                                        </Grid>
-                                      )}
+                                    {/* {this.state.wardList &&
+                                      this.state.wardList.length > 0 && ( */}
+                                    <Grid className="enterSpcl">
+                                      <label>{Ward}</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          onChange={(e) => this.onWardChange(e)}
+                                          options={this.state.wardList}
+                                          name="ward_name"
+                                          value={this.state.selectWard}
+                                          isMulti={false}
+                                          className="addStafSelect"
+                                          isSearchable={true}
+                                        />
+                                      </Grid>
+                                    </Grid>
+                                    {/* )} */}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
@@ -300,9 +311,7 @@ class Index extends Component {
                                       </label>
                                       <Grid className="sevicessection serviceallSec">
                                         <Select
-                                          onChange={(e) =>
-                                            stffchange(e, this)
-                                          }
+                                          onChange={(e) => stffchange(e, this)}
                                           options={this.state.teamstaff}
                                           name="staff"
                                           isSearchable={true}
@@ -330,7 +339,6 @@ class Index extends Component {
                       </Grid>
                     </Grid>
 
-
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -353,7 +361,7 @@ class Index extends Component {
                                 placeholder={Search}
                                 value={this.state.SearchValue}
                                 className="serchInput"
-                              // onChange={(e) => searchFilter(e, this)}
+                                // onChange={(e) => searchFilter(e, this)}
                               />
                             )}
                             <a>
@@ -389,7 +397,6 @@ class Index extends Component {
                     </Grid>
                     {/* End of Bread Crumb */}
 
-
                     {/* service price content */}
                     <Grid className="srvcTable3">
                       <Table>
@@ -406,12 +413,108 @@ class Index extends Component {
                               <>
                                 <Tr>
                                   <Td>
-                                    <label>{data.team_name}</label>
-
+                                    <label>{data?.team_name}</label>
                                   </Td>
 
-                                  <Td>{data.staff}</Td>
+                                  <Td
+                                    onClick={() => {
+                                      this.handleOpenServSec(data?.staff);
+                                    }}
+                                  >
+                                    {data?.staff?.length}
+                                  </Td>
+
+                                  <Grid className="newServc">
+                                    <Modal
+                                      open={this.state.openServSec}
+                                      onClose={this.handleCloseServSec}
+                                      className={
+                                        this.props.settings.setting &&
+                                        this.props.settings.setting.mode &&
+                                        this.props.settings.setting.mode ===
+                                          "dark"
+                                          ? "darkTheme addSpeclModel"
+                                          : "addSpeclModel"
+                                      }
+                                    >
+                                      <Grid
+                                        className={
+                                          this.props.settings &&
+                                          this.props.settings.setting &&
+                                          this.props.settings.setting.mode &&
+                                          this.props.settings.setting.mode ===
+                                            "dark"
+                                            ? "darkTheme addSpeclContnt addStaffPart"
+                                            : "addServContnt addStaffPart"
+                                        }
+                                      >
+                                        <Grid className="addSpeclContntIner">
+                                          <Grid className="addSpeclLbl">
+                                            <Grid
+                                              container
+                                              direction="row"
+                                              justify="center"
+                                            >
+                                              <Grid item xs={8} md={8} lg={8}>
+                                                <label>{staff_members}</label>
+                                              </Grid>
+                                              <Grid item xs={4} md={4} lg={4}>
+                                                <Grid>
+                                                  <Grid className="entryCloseBtn">
+                                                    <a
+                                                      onClick={
+                                                        this.handleCloseServSec
+                                                      }
+                                                    >
+                                                      <img
+                                                        src={require("assets/images/close-search.svg")}
+                                                        alt=""
+                                                        title=""
+                                                      />
+                                                    </a>
+                                                  </Grid>
+                                                </Grid>
+                                              </Grid>
+                                            </Grid>
+                                          </Grid>
+
+                                          <Grid className="enterServMain">
+                                            {this.state.showStaff &&
+                                              this.state.showStaff.length > 0 &&
+                                              this.state.showStaff.map(
+                                                (item) => {
+                                                  return (
+                                                    <Grid className="creatDetail">
+                                                      <Grid className="creatInfoIner tasklistName allInfo">
+                                                        <Grid>
+                                                          <S3Image
+                                                            imgUrl={item?.image}
+                                                          />
+                                                        </Grid>
+                                                        <Grid className="allStaffRghtSec">
+                                                          <Grid>
+                                                            <label>
+                                                              {item.first_name}{" "}
+                                                              {item.last_name}
+                                                            </label>
+                                                          </Grid>
+                                                          <p>
+                                                            {item.profile_id}
+                                                          </p>
+                                                        </Grid>
+                                                      </Grid>
+                                                    </Grid>
+                                                  );
+                                                }
+                                              )}
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Modal>
+                                  </Grid>
+
                                   {/* <Td className="srvcDots"> */}
+
                                   <Td>
                                     <Grid
                                       item
@@ -427,10 +530,10 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          {/* <li
-                                          onClick={() => {
-                                            editStaff(data, this);
-                                          }}
+                                          <li
+                                            onClick={() => {
+                                              editStaff(data, this);
+                                            }}
                                           >
                                             <a>
                                               <img
@@ -440,11 +543,11 @@ class Index extends Component {
                                               />
                                               {editstaff}
                                             </a>
-                                          </li> */}
+                                          </li>
 
                                           <li
                                             onClick={() => {
-                                              DeleteStaff(this, data);
+                                              DeleteStaff(data, this);
                                             }}
                                           >
                                             <a>
@@ -456,7 +559,6 @@ class Index extends Component {
                                               {deleteStaff}
                                             </a>
                                           </li>
-
                                         </ul>
                                       </a>
                                     </Grid>
