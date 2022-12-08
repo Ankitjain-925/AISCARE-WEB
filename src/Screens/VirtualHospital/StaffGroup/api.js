@@ -125,7 +125,7 @@ export const teamstaff = (current) => {
     current.setState({ errorMsg: "Please enter team name" })
 }
 else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
-  current.setState({ errorMsg: "Please select staff name" })
+  current.setState({ errorMsg: "Please select atleast one professional" })
 } 
 else{
   current.setState({ loaderImage: true });
@@ -148,6 +148,7 @@ else{
               current.setState({ loaderImage: false });
               handleCloseServ(current);
           })
+      console.log("kumar",data?._id);
   }
   else{
       axios
