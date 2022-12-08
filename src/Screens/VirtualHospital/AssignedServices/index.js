@@ -77,8 +77,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          "/assignservice/getAssignedServices/" +
-          this.props?.House?.value,
+        "/assignservice/getAssignedServices/" +
+        this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -89,7 +89,7 @@ class Index extends Component {
             this.setState({ patientForFilter: patientForFilterArr });
           }
           var Archived = response.data.data?.length > 0 &&
-          response.data.data.filter((item) => item.archived === true);
+            response.data.data.filter((item) => item.archived === true);
           var Done =
             response.data.data?.length > 0 &&
             response.data.data.filter((item) => item.status === "done");
@@ -123,7 +123,6 @@ class Index extends Component {
             tabvalue2: tabvalue2 ? tabvalue2 : 0,
           });
         }
-
         this.setState({ loaderImage: false });
       });
   };
@@ -154,9 +153,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }

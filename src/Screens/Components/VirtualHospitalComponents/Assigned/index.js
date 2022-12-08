@@ -53,8 +53,6 @@ class Index extends React.Component {
       })
   }
 
-
-
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Assignedto } = translate;
@@ -152,45 +150,25 @@ class Index extends React.Component {
                             <Grid item xs={12} md={12}>
                               {this.props.assigned_to?.length > 0 &&
                                 this.props.assigned_to.map((data, index) => (<>
-                                  {console.log("data", data)}
                                   {data?.staff && data?.staff?.length > 0 ? <>
-                                    <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <Grid className="allInfo allInfo2 tasklistName tasklistName1">
-                                      <Grid>
-                                        <img src={this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode === "dark" ?
-                                          require("assets/virtual_images/groupicon-black.jpg")
-                                          : require("assets/virtual_images/groupicon.jpg")}></img>
-                                      </Grid>
-                                      <Grid className="allInfoRght">
+                                    <a onClick={() => this.GetStaffListing(data, data?.team_name)} >
+                                      <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                         <Grid>
-                                          <label>
-                                            {data?.team_name}  {' -'} {"(Staff)"}
-                                          </label>
+                                          <img src={this.props.settings.setting &&
+                                            this.props.settings.setting.mode &&
+                                            this.props.settings.setting.mode === "dark" ?
+                                            require("assets/virtual_images/groupicon-black.jpg")
+                                            : require("assets/virtual_images/groupicon.jpg")}></img>
                                         </Grid>
-                                        <p>{data?.staff_id}</p>
-                                      </Grid>
-                                    </Grid></a>
-                                    {/* {data?.staff.map((data1, index) => (
-                                      <div className="showAllAssignedInner">
-                                        <ol>
-                                          <li>
-                                            <Grid className="allInfo allInfo2 tasklistName tasklistName1">
-                                              <Grid>
-                                                <S3Image imgUrl={data1?.image} />
-                                              </Grid>
-                                              <Grid className="allInfoRght">
-                                                <Grid>
-                                                  <label>
-                                                    {data1?.first_name} {data1?.last_name}
-                                                  </label>
-                                                </Grid>
-                                                <p>{data1?.profile_id}</p>
-                                              </Grid>
-                                            </Grid>
-                                          </li>  </ol>
-                                      </div>
-                                    ))} */}
+                                        <Grid className="allInfoRght">
+                                          <Grid>
+                                            <label>
+                                              {data?.team_name}  {' -'} {"(Staff)"}
+                                            </label>
+                                          </Grid>
+                                          <p>{data?.staff_id}</p>
+                                        </Grid>
+                                      </Grid></a>
                                   </> :
                                     <div className="showAllAssignedInner">
                                       <Grid className="allInfo allInfo2 tasklistName">

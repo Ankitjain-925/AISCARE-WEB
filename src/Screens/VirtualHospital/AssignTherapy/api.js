@@ -98,7 +98,10 @@ export const handleOpenServ = (current) => {
     current.setState({
         professional_id_list1: current.state.professional_id_list,
         openServ: true,
-        updateTrack: {}
+        updateTrack: {},
+        taskName: {},
+        allSequence1: {},
+        assignTask: false,
     });
 };
 
@@ -358,6 +361,7 @@ export const updateEntry = (current, e) => {
 
 export const handleAddData = (current) => {
     const { indexForUpdate, allSequence, taskName } = current.state;
+    var newService = allSequence;
     current.setState({ errorMsg: "" })
     if ((taskName?.value === "task" &&
         !allSequence?.task_name) ||
@@ -381,6 +385,7 @@ export const handleAddData = (current) => {
         });
     }
     else {
+
         if (indexForUpdate > 0) {
             var index = indexForUpdate - 1;
             var array = current.state.seqItems;
@@ -388,9 +393,12 @@ export const handleAddData = (current) => {
                 array[index].task_name = allSequence?.task_name;
                 array[index].task_description = allSequence?.task_description;
             } else {
-                array[index].service_name = allSequence?.service_name;
-                // array[index].service_description = allSequence?.service_description;
-                // array[index].service_price = allSequence?.service_price;
+                newService.total_price =
+                    newService?.service_price * newService?.service_qty;
+                array[index].service_name = allSequence?.service_name?.label;
+                array[index].service_price = allSequence?.service_price;
+                array[index].service_qty = allSequence?.service_qty;
+                array[index].total_price = newService.total_price;
             }
             current.setState({
                 seqItems: array,
@@ -401,10 +409,17 @@ export const handleAddData = (current) => {
             });
         }
         else {
+            if (taskName?.value === "assign_service") {
+                newService.total_price =
+                    newService?.service_price * newService?.service_qty;
+                newService.service_name = current.state.allSequence?.service_name?.label;
+            }
             var seqItems = current.state.seqItems ?
                 [...current.state.seqItems] :
                 [];
-            seqItems.push(current.state.allSequence)
+            current.state.allSequence.type === "task" ?
+                seqItems.push(current.state.allSequence) :
+                seqItems.push(newService)
             current.setState({
                 seqItems,
                 allSequence: {},
@@ -419,18 +434,30 @@ export const handleAddData = (current) => {
 export const editTaskSer = (current, data, index) => {
     var deep = _.cloneDeep(data);
     current.setState({
-        taskName: data?.type === "task" ?
-            { value: "task", label: "Task" } :
-            { label: 'Assign Service', value: 'assign_service' },
-        allSequence: deep,
         assignTask: true,
         indexForUpdate: index + 1,
         ForButton: "Edit",
-        allSequence1: {
-            label: data?.service_name,
-            price: data?.service_price
-        }
-    });
+        taskName: data?.type === "task" ?
+            { value: "task", label: "Task" } :
+            { label: 'Assign Service', value: 'assign_service' }
+    })
+    if (data?.type === "assign_service") {
+        current.setState({
+            allSequence: {
+                service_name: {
+                    label: data?.service_name,
+                    price: data?.service_price
+                },
+                service_price: data?.service_price,
+                total_price: data?.total_price,
+                service_qty: data?.service_qty
+            },
+        })
+    } else {
+        current.setState({
+            allSequence: deep,
+        });
+    }
 }
 
 export const removeServices = (current, index, data) => {
@@ -610,17 +637,16 @@ export const onFieldChange1 = (current, e, name) => {
         } else {
             current.setState({ viewCutom: false });
         }
-
         state1['service_price'] = e.price;
         state1['service_qty'] = 1;
-        state1[name] = e?.label;
+        state1[name] = e;
     } else if (name === 'service_qty') {
         state1['service_qty'] = parseInt(e);
     }
     else {
         state[name] = e;
     }
-    current.setState({ updateTrack: state, allSequence: state1, allSequence1: e });
+    current.setState({ updateTrack: state, allSequence: state1 });
 };
 
 export const GetStaffListing = (current, data, team_name) => {
