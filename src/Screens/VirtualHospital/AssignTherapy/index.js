@@ -159,7 +159,13 @@ class Index extends Component {
             Therapyname,
             Price,
             Enterserviceprice,
-            Search
+            Search,
+            Sequence_Task_Assigned_Services,
+            No,
+            Type,
+            Name,
+            Edit_Delete,
+            Add_Sequences
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section, ForButton } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -349,7 +355,7 @@ class Index extends Component {
 
 
                                                                         <Grid className="addSrvcBtn3" >
-                                                                            <h3 className="service-head">Sequence of Task / Assigned Services</h3>
+                                                                            <h3 className="service-head">{Sequence_Task_Assigned_Services}</h3>
                                                                         </Grid>
                                                                         {error_section === 2 &&
                                                                             <div className="error_message">
@@ -366,10 +372,10 @@ class Index extends Component {
                                                                                             <table border="0">
                                                                                                 <thead>
                                                                                                     <tr>
-                                                                                                        <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
-                                                                                                        <th style={{ "width": "30%", "text-align": "left" }}>Type</th>
-                                                                                                        <th style={{ "width": "40%", "text-align": "left" }}>Name</th>
-                                                                                                        <th style={{ "width": "10%", "text-align": "left" }}>Edit/Delete</th>
+                                                                                                        <th style={{ "width": "20%", "text-align": "left" }}>{No}</th>
+                                                                                                        <th style={{ "width": "30%", "text-align": "left" }}>{Type}</th>
+                                                                                                        <th style={{ "width": "40%", "text-align": "left" }}>{Name}</th>
+                                                                                                        <th style={{ "width": "10%", "text-align": "left" }}>{Edit_Delete}</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 {this.state.seqItems.map((item, index) => {
@@ -414,7 +420,7 @@ class Index extends Component {
 
                                                                         <Grid className="addSrvcBtn3" >
                                                                             <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
-                                                                                <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {}, ForButton: Add, allSequence1: {} }) }}>Add Sequences</a>
+                                                                                <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {}, ForButton: Add, allSequence1: {} }) }}>{Add_Sequences}</a>
                                                                             </h3>
                                                                         </Grid>
                                                                         {error_section === 3 &&
