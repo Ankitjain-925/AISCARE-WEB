@@ -84,14 +84,9 @@ export const LoginReducerAim = (email, password, logintoken, SendCallback = () =
               response.data.token
             )
           );
-         
-           dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
-           SendCallback();
-          // CometChat.login(
           //   response.data.user.profile_id,
           //   COMETCHAT_CONSTANTS.AUTH_KEY
           // )
-          //   .then(
           //     (user) => {
           //       updateCometUser(user);
           //       dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });

@@ -654,7 +654,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
-                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}}>
+                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}} className="allThrapySec">
                                        <label>{"Same as therapy"}</label></Grid>
                                         <Grid>
                                             <Select
