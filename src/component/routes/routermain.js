@@ -187,7 +187,7 @@ class Routermain extends Component {
   render() {
     return (
       <Router basename={"/"}>
-        <CallatAllPages />
+        {/* <CallatAllPages /> */}
         <Grid>
           <Switch>
             {/* Added by Ankita */}

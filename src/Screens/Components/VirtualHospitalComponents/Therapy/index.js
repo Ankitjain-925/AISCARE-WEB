@@ -248,8 +248,6 @@ class Index extends Component {
             state[index]['due_on'] = due_on;
         } 
         else if (name === 'assinged_to1') {
-            console.log('dsfdsfsf111')
-            console.log('state[index]1', state[index])
             state[index][name] = value;
             console.log('state[index]2', state[index])
             var data =
@@ -548,11 +546,14 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                         <Grid item xs={12} md={12} className="customservicetitle">
-                                            <label>{"Sequence of Tasks / Assigned services"}</label>
+                                             <Grid className="allCustomService">
+                                            <p>{"Sequence of Tasks / Assigned services"}</p>
                                             {this.state.therapy_sequence && this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
                                                 <>
-                                                    <label>{index + 1}</label>
+                                                  <Grid className="tskSrvsPart">
+                                                    <p>{index + 1}</p>
                                                     <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
+                                                    </Grid>
                                                     {item?.type === 'task' ? <div>
                                                         <label>Task Name : </label> {item.task_name}
                                                         <label>Task Description : </label> {item.task_description}
@@ -570,7 +571,7 @@ class Index extends Component {
                                                             </>
                                                           ))}</div>
                                                     </div>}
-                                                    <Grid item xs={12} md={12} className="dueOn creatInfoIner">
+                                                    <Grid item xs={12} md={12} className="dueOn creatInfoIner allCreatInfo">
                                                         <label>{Dueon}</label>
                                                         <Grid
                                                             container
@@ -653,7 +654,8 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
-                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}}>{"Same as therapy"}</Grid>
+                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}}>
+                                       <label>{"Same as therapy"}</label></Grid>
                                         <Grid>
                                             <Select
                                                 name="professional"
@@ -668,11 +670,12 @@ class Index extends Component {
                                         </Grid>
                                         
                                         </Grid>
+                                      
                                                 </>
                                             ))}
                                         </Grid>
-                           
-                                   
+                                                                        
+                                   </Grid>
 
                                 </Grid>
 

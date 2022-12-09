@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { stack as Menu } from "react-burger-menu";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -13,14 +13,10 @@ import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
-import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
 import sitedata from "sitedata";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import axios from "axios";
-import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
-import Loader from "Screens/Components/Loader/index";
-import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 
 class Index extends Component {
@@ -132,7 +128,7 @@ class Index extends Component {
                          <li onClick={()=>{this.moveSpace()}}><a href="" className={this.props.currentPage === "space"? "active-menu":""}><img src={require('assets/virtual_images/bed.png')} alt="" title="" /></a></li>
                          <li><a href=""><img src={require('assets/virtual_images/hospitalIcon.png')} alt="" title="" /></a></li>
                          <li>
-                            <a className="moreMenu" className={this.props.currentPage === "more"? "active-menu":""}>
+                            <a className={this.props.currentPage === "more"? "moreMenu active-menu":"moreMenu"}>
                                 <img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" />
                                 <div className="moreMenuList">
                                 <ul>
