@@ -2162,14 +2162,7 @@ class Index extends Component {
             handleOpenAss={() => this.handleOpenAss1()}
             handleCloseAss={() => this.handleCloseAss1()}
             service={this.state.service}
-            removeTask={(id) => this.removeTask1(id)}
-            editTask={(data) => this.editTask1(data)}
-            getAddTaskData={(tabvalue2) => {
-              this.props.getAddTaskData(tabvalue2);
-            }}
-            selectedHouse={this.state.selectedHouse}
-            patient={this.props.patient}
-            comesFrom={this.props.comesFrom}
+            comesFrom={'Professional'}
 
           />
 

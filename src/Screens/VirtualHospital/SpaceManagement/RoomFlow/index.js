@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
 import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { withRouter } from 'react-router-dom';
 import { authy } from 'Screens/Login/authy.js';
 import axios from 'axios';

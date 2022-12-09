@@ -82,9 +82,9 @@ class Index extends Component {
   };
 
   logoutUser = () => {
-    CometChat.logout().then(
-      console.log('loggedout from cometchat11')
-    )
+    // CometChat.logout().then(
+    //   console.log('loggedout from cometchat11')
+    // )
     this.props.houseSelect('loggedOut');
     this.props.OptionList(false);
     this.props.authy(false);
