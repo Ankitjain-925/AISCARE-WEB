@@ -17155,3 +17155,10 @@ color:#FFFFFF
 .allCustomService label{
   margin-top:5px;
 }
+.allThrapySec{
+  text-align: right;
+}
+.allThrapySec label{
+  font-weight: bold;
+  color: #00abaf;
+}

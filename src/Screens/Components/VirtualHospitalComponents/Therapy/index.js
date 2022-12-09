@@ -717,7 +717,7 @@ class Index extends Component {
                                 }}
                               ></Grid>
                               <Grid>
-                                <Grid>
+                                <Grid className="allThrapySec">
                                   <label>{"Same as therapy"}</label>
                                 </Grid>
                                 <Select
