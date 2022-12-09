@@ -248,8 +248,6 @@ class Index extends Component {
             state[index]['due_on'] = due_on;
         } 
         else if (name === 'assinged_to1') {
-            console.log('dsfdsfsf111')
-            console.log('state[index]1', state[index])
             state[index][name] = value;
             console.log('state[index]2', state[index])
             var data =
@@ -279,7 +277,6 @@ class Index extends Component {
     FinalServiceSubmit = () => {
         var data = this.state.service;
         this.setState({ errorMsg: '' })
-        console.log("data1234", data)
         let translate = getLanguage(this.props.stateLanguageType);
         let {
             plz_enter_time,
@@ -289,24 +286,42 @@ class Index extends Component {
             Therapy_not_selected
 
         } = translate;
-
-        if ((!this.state.selectedHouse) || (this.state.selectedHouse && !this.state.selectedHouse.value)) {
-            this.setState({ errorMsg: Not_selected_hospital})
+        var house_id= this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
+        if (!house_id) {
+            this.setState({ errorMsg: "Please select the hospital" })
         }
-        else if(!this.state.users){
-            this.setState({errorMsg:Patient_not_selected})
+        else if(!data.patient_id){
+            this.setState({errorMsg: "Please select the patient"})
         }
-        else if(!this.state.service){
-            this.setState({errorMsg: Therapy_not_selected})
+        else if(!data?.therapy_id){
+            this.setState({errorMsg: "Please select therapy"})
         }
-        else if (!data?.due_on?.time) {
-            this.setState({ errorMsg: plz_enter_time })
-        } else if (!data?.due_on?.date) {
-            this.setState({ errorMsg: plz_enter_date })
+        else{
+            var sequence = this.state.therapy_sequence;
+            var gotall = true;
+            if(sequence?.length>0){
+                sequence.map((item) => {
+                    if(!item?.assinged_to?.legnth>0 && !item?.due_on?.date && !item?.due_on?.time){
+                        gotall= false;
+                    }
+                })
+                if(!gotall){
+                    this.setState({errorMsg: "Please fill due on date/time and professional for each sequence"})
+                }
+                else{
+                    console.log('final api call')
+                }
+            }
+            console.log('no error click')
         }
-        else {
-            console.log("1")
-        }
+        // else if (!data?.due_on?.time) {
+        //     this.setState({ errorMsg: plz_enter_time })
+        // } else if (!data?.due_on?.date) {
+        //     this.setState({ errorMsg: plz_enter_date })
+        // }
+        // else {
+        //     console.log("1")
+        // }
     }
 
     settherapy = (value) => {
@@ -379,20 +394,7 @@ class Index extends Component {
             this.getPatientData();
             this.therapylist();
             const { roles = [] } = e || {};
-
-            this.setState(
-                {
-                    authErr: true,
-                },
-                () => {
-                    // setTimeout(
-                    //     () => this.setState({ openAss: false }),
-                    //     2000
-                    // );
-                }
-            );
-
-
+            this.setState({ authErr: true,});
         });
     };
 
@@ -544,11 +546,14 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                         <Grid item xs={12} md={12} className="customservicetitle">
-                                            <label>{"Sequence of Tasks / Assigned services"}</label>
+                                             <Grid className="allCustomService">
+                                            <p>{"Sequence of Tasks / Assigned services"}</p>
                                             {this.state.therapy_sequence && this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
                                                 <>
-                                                    <label>{index + 1}</label>
+                                                  <Grid className="tskSrvsPart">
+                                                    <p>{index + 1}</p>
                                                     <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
+                                                    </Grid>
                                                     {item?.type === 'task' ? <div>
                                                         <label>Task Name : </label> {item.task_name}
                                                         <label>Task Description : </label> {item.task_description}
@@ -566,7 +571,7 @@ class Index extends Component {
                                                             </>
                                                           ))}</div>
                                                     </div>}
-                                                    <Grid item xs={12} md={12} className="dueOn creatInfoIner">
+                                                    <Grid item xs={12} md={12} className="dueOn creatInfoIner allCreatInfo">
                                                         <label>{Dueon}</label>
                                                         <Grid
                                                             container
@@ -649,7 +654,8 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid item xs={12} md={12} className="customservicetitle">
                                         <label>{Assignedto}</label>
-                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}}>{"Same as therapy"}</Grid>
+                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}} className="allThrapySec">
+                                       <label>{"Same as therapy"}</label></Grid>
                                         <Grid>
                                             <Select
                                                 name="professional"
@@ -664,11 +670,12 @@ class Index extends Component {
                                         </Grid>
                                         
                                         </Grid>
+                                      
                                                 </>
                                             ))}
                                         </Grid>
-                           
-                                   
+                                                                        
+                                   </Grid>
 
                                 </Grid>
 

@@ -17,7 +17,7 @@ import {
   blockClick,
 } from 'Screens/Components/BasicMethod/index';
 import { OptionList } from 'Screens/Login/metadataaction';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from 'Screens/Components/Select/index';
 import { getLanguage } from './translations/index';
 import H_LeftMenu from 'Screens/Components/Menus/H_leftMenu/index';

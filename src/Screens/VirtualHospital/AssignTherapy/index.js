@@ -471,7 +471,7 @@ class Index extends Component {
                                                                                     onChange={(e) =>
                                                                                         onFieldChange1(this, e, 'service_name')
                                                                                     }
-                                                                                    value={this.state.allSequence1 || ''}
+                                                                                    value={this.state.allSequence?.service_name || ''}
 
                                                                                     className="addStafSelect"
                                                                                     options={this.state.service_id_list}
@@ -600,7 +600,7 @@ class Index extends Component {
                                                             )}
                                                         </a>
 
-                                                        <a>
+                                                        {/* <a>
                                                             <img
                                                                 src={
                                                                     AllTaskCss === 'filterApply'
@@ -615,17 +615,17 @@ class Index extends Component {
                                                                     });
                                                                 }}
                                                             />
-                                                        </a>
+                                                        </a> */}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         {/* End of Bread Crumb */}
-                                        <Grid className="cardioGrup">
+                                        {/* <Grid className="cardioGrup">
                                             <Grid className="cardioGrupBtn">
                                                 <Button
                                                     onClick={() => {
-                                                        // getSpecialtyData(false, this);
+                                                        getSpecialtyData(false, this);
                                                     }}
                                                     className={
                                                         !this.state.speciality_id ? "cardioActv" : ""
@@ -635,7 +635,7 @@ class Index extends Component {
                                                     {all}
                                                 </Button>
                                             </Grid>
-                                        </Grid>
+                                        </Grid> */}
 
                                         {/* service price content */}
                                         <Grid className="srvcTable3">
