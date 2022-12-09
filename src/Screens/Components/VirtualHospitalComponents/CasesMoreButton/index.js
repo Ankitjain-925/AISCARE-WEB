@@ -54,7 +54,8 @@ class Index extends React.Component {
       professionalArray : [],
       setSec: false,
       updateQues: {},
-    options:[{label:"Individual",value:"individual"},{label:"Group",value:"group"}],
+      options:[{label:"Individual",value:"individual"},{label:"Group",value:"group"}],
+      // options: []
   
     };
   }
@@ -273,7 +274,11 @@ class Index extends React.Component {
     });
   };
     //get the selected value of type of question
-    SelectedValue = (value) => {
+    SelectedValue = async (value) => {
+      // var data = await getProfessionalData(
+      //   this.state.selectedHouse?.value,
+      //   this.props.stateLoginValueAim?.token
+      // );
       var selected =
         this.state.options?.length > 0 && this.state.options.filter((e) => e.value === value);
       if (selected?.length > 0) return selected[0];
@@ -695,18 +700,29 @@ class Index extends React.Component {
                 />
                 </Grid>
           
-                {this.state.openOpti=== true && <>
-                 <Grid className="seletDrop">
-                 <label>{this.state.updateQues[0]?.staff}</label>
+                  {(this.state.openOpti === true && this.state.updateQues[0]?.staff=== "individual") && <>
+                    <Grid className="seletDrop">
+                      <label>{this.state.updateQues[0]?.staff}</label>
                       <Select
-                      name="name"
-                     className="addStafSelect"
+                        name="name"
+                        className="addStafSelect"
+                        options={this.state.professional_id_list}
+                        isMulti={false}
+                      />
+                    </Grid>
+                  </>}
                     
-                      
-                    />
-                          </Grid>
-                          </> }
-               
+                  {(this.state.openOpti === true && this.state.updateQues[0]?.staff=== "group") && <>
+                    <Grid className="seletDrop">
+                      <label>{this.state.updateQues[0]?.staff}</label>
+                      <Select
+                        name="name"
+                        className="addStafSelect"
+                        options={this.state.professional_id_list}
+                        isMulti={true}
+                      />
+                    </Grid>
+                  </>}
               </div>
             )}
            

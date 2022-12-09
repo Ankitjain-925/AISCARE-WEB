@@ -17131,3 +17131,27 @@ color:#FFFFFF
 .addStaffPart{
   min-height:537px;
 }
+
+
+
+.tskSrvsPart{
+  display: inline-flex;
+}
+.allCreatInfo{
+  margin:15px 0px!important;
+}
+.allCustomService p {
+  color: #000808;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  /* line-height: 12px; */
+  font-family: Muli;
+  display: block;
+}
+.allCustomService p:nth-child(2){
+  margin-left: 10px;
+}
+.allCustomService label{
+  margin-top:5px;
+}
