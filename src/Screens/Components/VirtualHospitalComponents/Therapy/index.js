@@ -40,26 +40,16 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openAss: this.props.openAss1 ? this.props.openAss1 : false,
+            openAss1: this.props.openAss1 ? this.props.openAss1 : false,
             service: this.props.service || {},
             serviceList1: [],
             users1: {},
             selectedPat: {},
             professional_id_list1: [],
-            assignedTo: [],
             date_format: this.props.date_format,
             time_format: this.props.time_format,
-            openDate: false,
             openIndex: false,
-            AllSpeciality: [],
-            specilaityList: [],
-            newspeciality: [],
-            items: [],
-            editServ: false,
-            newServiceIndex: false,
-            error: '',
             errorMsg: '',
-            addservice: {},
             selectedHouse: this.props.selectedHouse,
             authErr: false,
             disableAssignment: false
@@ -68,23 +58,24 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        // this.getPatientData();
-        // this.getProfessionalData();
-        // this.therapylist();
+        this.getPatientData();
+        this.getProfessionalData();
     }
 
     componentDidUpdate = (prevProps) => {
-        if (prevProps.patient !== this.props.patient) {
-            let user = { value: this.props.patient?.patient_id };
-            this.updateEntryState2(user);
-        }
         if (prevProps.openAss1 !== this.props.openAss1) {
-            // if (this.props.comesFrom !== 'Professional') {
-            this.setState({ openAss: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
-            // }
-            // else {
-            //     this.setState({ openAss: this.props.openAss, selectedHouse: {}, authErr: false })
-            // }
+            console.log('111')
+            if (this.props.comesFrom !== 'Professional') {
+            this.setState({ openAss1: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
+            }
+            else {
+                console.log('222')
+                this.setState({ openAss1: this.props.openAss1, selectedHouse: {}, authErr: false })
+            }
+        }
+        if(prevProps.therapy !== this.props.therapy){
+            console.log('this.props.therapy', this.props.therapy)
+            this.settherapy(this.props.therapy)
         }
     };
 
@@ -92,8 +83,8 @@ class Index extends Component {
         this.setState({
             service: {},
             selectedPat: {},
-            assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-            items: [], total_amount: 0, showError: '',
+            showError: '',
+            selectedHouse:{},
 
         }, () => {
             if (this.props.comesFrom === 'detailTask') {
@@ -163,10 +154,13 @@ class Index extends Component {
 
     // Get the Professional data
     getProfessionalData = async (fromEdit) => {
+        if( this.props?.House?.value || this.state.selectedHouse?.value){
+
+        
         this.setState({ loaderImage: true });
         var data = await getProfessionalData(
             this.props.comesFrom === "Professional"
-                ? this.state.service?.house_id || this.state.selectedHouse?.value
+                ? this.state.selectedHouse?.value
                 : this.props?.House?.value,
             this.props.stateLoginValueAim.token
         );
@@ -180,10 +174,12 @@ class Index extends Component {
         } else {
             this.setState({ loaderImage: false });
         }
+    }
     };
 
     // Get the Patient data
     getPatientData = async () => {
+        if( this.props?.House?.value || this.state.selectedHouse?.value){
         this.setState({ loaderImage: true });
         let response = await getPatientData(
             this.props.stateLoginValueAim.token,
@@ -208,6 +204,7 @@ class Index extends Component {
         } else {
             this.setState({ loaderImage: false });
         }
+    }
     };
   
     updateEntryState2 = (user) => {
@@ -350,15 +347,15 @@ class Index extends Component {
     }
 
     //to get the speciality list
-    specailityList = () => {
-        var spec =
-            this.props.speciality?.SPECIALITY &&
-            this.props?.speciality?.SPECIALITY.length > 0 &&
-            this.props?.speciality?.SPECIALITY.map((data) => {
-                return { label: data.specialty_name, value: data._id };
-            });
-        this.setState({ specilaityList: spec });
-    };
+    // specailityList = () => {
+    //     var spec =
+    //         this.props.speciality?.SPECIALITY &&
+    //         this.props?.speciality?.SPECIALITY.length > 0 &&
+    //         this.props?.speciality?.SPECIALITY.map((data) => {
+    //             return { label: data.specialty_name, value: data._id };
+    //         });
+    //     this.setState({ specilaityList: spec });
+    // };
 
     //get therapy list
     therapylist = () => {
@@ -416,9 +413,10 @@ class Index extends Component {
         return (
 
             <>
+            {console.log('123', this.state.openAss1)}
                 {this.state.loaderImage && <Loader />}
                 <Modal
-                    open={this.state.openAss}
+                    open={this.state.openAss1}
                     onClose={() => this.handleCloseAss()}
                     className={
                         this.props.settings &&
@@ -465,7 +463,7 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
 
-                                    <Grid item xs={12} md={12}>
+                                    {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                                         <Grid>
                                             <label>{For_Hospital}</label>
                                             <Select
@@ -479,8 +477,7 @@ class Index extends Component {
                                                 isSearchable={true}
                                             />
                                         </Grid>
-
-                                    </Grid>
+                                    </Grid>}
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
 

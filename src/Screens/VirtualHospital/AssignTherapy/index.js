@@ -47,6 +47,7 @@ import {
 import ViewTherapy from "./ViewTherapy";
 import FilterTherapyDiases from "./FilterTherapyDiases";
 import { Speciality } from "Screens/Login/speciality.js";
+import Therapy from "Screens/Components/VirtualHospitalComponents/Therapy/index";
 
 class Index extends Component {
     constructor(props) {
@@ -66,7 +67,9 @@ class Index extends Component {
             error_section: 0,
             assignedTo: [],
             selectSpec: {},
-            ForButton: ""
+            ForButton: "",
+            currentTherapy: {},
+            openAss1: false
         };
     }
 
@@ -97,6 +100,14 @@ class Index extends Component {
             openFilter: false
         });
     }
+    handleOpenAss1 = (currentTherapy) => {
+        console.log('Here')
+        this.setState({ openAss1: true, currentTherapy: currentTherapy });
+      };
+
+      handleCloseAss1 = () => {
+        this.setState({ openAss1: false, currentTherapy:{} })
+      }
 
     handleOpenAssPat = () => {
         this.setState({ openAssPat: true });
@@ -198,6 +209,12 @@ class Index extends Component {
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
+                        <Therapy
+                            openAss1={this.state.openAss1}
+                            handleCloseAss={() => this.handleCloseAss1()}
+                            comesFrom={'adminstaff'}
+                            therapy={this.state.currentTherapy}
+                        />
                             {/* Mobile menu */}
                             <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
@@ -531,6 +548,7 @@ class Index extends Component {
                                                                         </Grid>}
                                                                     </Grid>
                                                                 </Grid>
+                                                            
                                                                 <Grid className="servSaveBtn">
                                                                     <a>
                                                                         <Button
@@ -693,7 +711,7 @@ class Index extends Component {
                                                                                     {viewTherapy}
                                                                                 </a>
                                                                             </li>
-                                                                            <li onClick={() => { this.handleOpenAssPat() }}>
+                                                                            <li onClick={() => { this.handleOpenAss1({value: item?._id, label: item?.therapy_name}) }}>
                                                                                 <a>
                                                                                     <img
                                                                                         src={require("assets/virtual_images/pencil-1.svg")}
