@@ -231,9 +231,9 @@ class Index extends Component {
     this.props.history.push("/doctor/profile");
   };
   //For Chat
-  Chats = () => {
-    this.props.history.push("/doctor/chats");
-  };
+  // Chats = () => {
+  //   this.props.history.push("/doctor/chats");
+  // };
 
   //For Emergency
   Emergency = () => {
