@@ -165,7 +165,9 @@ class Index extends Component {
             Type,
             Name,
             Edit_Delete,
-            Add_Sequences
+            Add_Sequences,
+            Task_Name,
+            Task_Description
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section, ForButton } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -430,7 +432,7 @@ class Index extends Component {
 
                                                                         {assignTask &&
                                                                             <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
-                                                                                <label>Type</label>
+                                                                                <label>{Type}</label>
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
@@ -447,17 +449,17 @@ class Index extends Component {
                                                                         {taskName?.value === "task" &&
                                                                             <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
                                                                                 <VHfield
-                                                                                    label="Task Name"
+                                                                                    label={Task_Name}
                                                                                     name="task_name"
-                                                                                    placeholder="Task Name"
+                                                                                    placeholder={Task_Name}
                                                                                     onChange={(e) => updateEntry(this, e)}
                                                                                     value={this.state?.allSequence?.task_name || ""}
                                                                                 />
                                                                                 <p className="err_message">{this.state.errorTaskName}</p>
                                                                                 <VHfield
-                                                                                    label="Task Description"
+                                                                                    label={Task_Description}
                                                                                     name="task_description"
-                                                                                    placeholder="Task Description"
+                                                                                    placeholder={Task_Description}
                                                                                     onChange={(e) => updateEntry(this, e)}
                                                                                     value={this.state?.allSequence?.task_description || ""}
                                                                                 />
