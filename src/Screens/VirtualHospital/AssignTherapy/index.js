@@ -102,7 +102,6 @@ class Index extends Component {
         });
     }
     handleOpenAss1 = (currentTherapy) => {
-        console.log("currentTherapy", currentTherapy)
         this.setState({ openAss1: true, currentTherapy: currentTherapy });
     };
 

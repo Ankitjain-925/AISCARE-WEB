@@ -53,27 +53,38 @@ class Index extends Component {
             selectedHouse: this.props.selectedHouse,
             authErr: false,
             disableAssignment: false
-
         };
     }
 
     componentDidMount() {
         this.getPatientData();
         this.getProfessionalData();
+        if (this.props?.House?.value) {
+            this.therapylist();
+        }
     }
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.openAss1 !== this.props.openAss1) {
             if (this.props.comesFrom !== 'Professional') {
-                this.setState({ openAss1: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    authErr: false, professional_id_list1:
+                        this.state.professional_id_list
+                });
             }
             else {
-                this.setState({ openAss1: this.props.openAss1, selectedHouse: {}, authErr: false })
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    selectedHouse: {},
+                    authErr: false
+                })
             }
         }
         if (prevProps.therapy !== this.props.therapy) {
             this.settherapy(this.props.therapy)
         }
+
     };
 
     handleCloseAss = () => {
@@ -333,6 +344,7 @@ class Index extends Component {
                         return last;
                     }, []);
             }
+
             this.setState({ service: state, therapy_assignedto1: data, therapy_assignedto: datas[0]?.assinged_to, therapy_sequence: datas[0]?.sequence_list })
         }
     }
@@ -502,13 +514,14 @@ class Index extends Component {
                                             <Select
                                                 name="therapy"
                                                 onChange={(e) => this.settherapy(e, 'therapy')}
-                                                value={this.state.therapies}
+                                                // value={this.state.therapies}
+                                                value={this.props.therapy}
                                                 options={this.state.serviceList1}
                                                 placeholder={Search_Select}
                                                 className="addStafSelect"
                                                 isMulti={false}
                                                 isSearchable={true}
-
+                                                isDisabled={true}
                                             />
                                         </Grid>
                                     </Grid>
@@ -550,7 +563,7 @@ class Index extends Component {
                                                             <label>Services : </label>
                                                             <div>{item.services?.length > 0 && item.services.map((cont) => (
                                                                 <>
-                                                                    <label>Service Name</label> <span>{cont?.service_name}</span>
+                                                                    <label>Service Name</label> <span>{cont?.service}</span>
                                                                     <label>Service Amount</label> <span>{cont?.amount}</span>
                                                                     <label>Quantity</label> <span>{cont?.quantity}</span>
                                                                 </>
