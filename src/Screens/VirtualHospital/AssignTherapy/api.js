@@ -373,7 +373,15 @@ export const updateEntry = (current, e) => {
 }
 
 export const handleAddData = (current) => {
-    const { indexForUpdate, allSequence, taskName, allSequence1, allSequence2 } = current.state;
+
+    let translate = getLanguage(current.props.stateLanguageType);
+    let {Please_enter_Task_name,
+        Plz_enter_Service_Name,
+        Please_enter_Task_description
+        
+    } = translate;
+    const { indexForUpdate, allSequence,  taskName, allSequence1, allSequence2 } = current.state;
+
     var newService = allSequence;
 
     current.setState({ errorMsg: "" })
@@ -384,8 +392,9 @@ export const handleAddData = (current) => {
         current.setState({
             error_section: 3,
             errorMsg: taskName?.value === "task" ?
-                "Please enter Task name" :
-                "Please enter Assigned Title"
+                {Please_enter_Task_name} :
+               {Plz_enter_Service_Name}
+
         });
     }
     else if ((taskName?.value === "task" &&
@@ -395,8 +404,9 @@ export const handleAddData = (current) => {
         current.setState({
             error_section: 3,
             errorMsg: taskName?.value === "task" ?
-                "Please enter Task description" :
-                "Please Select Service"
+                {Please_enter_Task_description} : 
+                 "Please Select Service"
+
         });
     }
     else {
@@ -492,7 +502,7 @@ export const editTaskSer = (current, data, index) => {
 
 export const removeServices = (current, index, data) => {
     let translate = getLanguage(current.props.stateLanguageType);
-    let { RemoveService, RemoveTask, sure_remove_task, sure_remove_service, from_therapy, No, Yes } =
+    let { RemoveService, RemoveTask, sure_remove_task, sure_remove_service, from_therapy, No, Yes,Atleast_select_two_sequence } =
         translate;
     const { seqItems } = current.state;
     current.setState({ errorMsg: "" });
@@ -538,7 +548,7 @@ export const removeServices = (current, index, data) => {
         });
     }
     else {
-        current.setState({ error_section: 2, errorMsg: "Atleast select two sequence from Task/Service" })
+        current.setState({ error_section: 2, errorMsg: Atleast_select_two_sequence })
     }
 };
 

@@ -267,6 +267,7 @@ class Index extends Component {
                     return last;
                 }, []);
             state[index]['assinged_to'] = data;
+
         }
         else {
             state[name] = value;
@@ -310,6 +311,9 @@ class Index extends Component {
                     this.setState({ errorMsg: "Please fill due on date/time and professional for each sequence" })
                 }
                 else {
+
+                    console.log('final api call')
+
                 }
             }
         }
@@ -387,6 +391,7 @@ class Index extends Component {
 
 
     updateEntryState7 = (e) => {
+
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
@@ -409,7 +414,15 @@ class Index extends Component {
             Addtime,
             save_and_close,
             remove_time,
-            Therapy
+            Therapy,
+            Task_Name,
+            Task_Description,
+            Assign_Title,
+            TotalAmount,
+            Services,
+            ServiceName,
+            Service_Amount,
+            Quantity
         } = translate;
         return (
 
@@ -553,19 +566,20 @@ class Index extends Component {
                                                         <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
                                                     </Grid>
                                                     {item?.type === 'task' ? <div>
-                                                        <label>Task Name : </label> {item.task_name}
-                                                        <label>Task Description : </label> {item.task_description}
+                                                        <label>{Task_Name} : </label> {item.task_name}
+                                                        <label>{Task_Description} : </label> {item.task_description}
 
                                                     </div>
                                                         : <div>
-                                                            <label>Assign Title : </label> {item.title}
-                                                            <label>Total amount : </label> {item.total_amount}
-                                                            <label>Services : </label>
+
+                                                            <label>{Assign_Title} : </label> {item.title}
+                                                            <label>{TotalAmount} : </label> {item.total_amount}
+                                                            <label>{Services} : </label>
                                                             <div>{item.services?.length > 0 && item.services.map((cont) => (
                                                                 <>
-                                                                    <label>Service Name</label> <span>{cont?.service}</span>
-                                                                    <label>Service Amount</label> <span>{cont?.amount}</span>
-                                                                    <label>Quantity</label> <span>{cont?.quantity}</span>
+                                                                    <label>{ServiceName}</label>  <span>{cont?.service}</span>
+                                                                    <label>{Service_Amount}</label> <span>{cont?.amount}</span>
+                                                                    <label>{Quantity}</label>  <span>{cont?.quantity}</span>
                                                                 </>
                                                             ))}</div>
                                                         </div>}
