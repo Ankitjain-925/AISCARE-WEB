@@ -15,10 +15,10 @@ import { getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data";
 export const handleSubmit = (current) => {
     const { assignedTo, seqItems, assinged_to } = current.state;
     let translate = getLanguage(current.props.stateLanguageType);
-    let {Please_enter_therapy_name,Please_enter_therapy_description,Please_enter_disease_name,Please_selete_Doctor_Staff,
+    let { Please_enter_therapy_name, Please_enter_therapy_description, Please_enter_disease_name, Please_selete_Doctor_Staff,
         Please_select_speciality,
         Please_select_Task_Service
-     } = translate;
+    } = translate;
     current.setState({ errorMsg: '' })
     var data = current.state.updateTrack;
     data.house_id = current.props?.House?.value;
@@ -31,16 +31,16 @@ export const handleSubmit = (current) => {
         current.setState({ error_section: 1, errorMsg: Please_enter_therapy_description })
     }
     else if (!data.disease_name) {
-        current.setState({ error_section: 1, errorMsg:Please_enter_disease_name })
+        current.setState({ error_section: 1, errorMsg: Please_enter_disease_name })
     }
     else if (!data.assinged_to || ((data && data?.assinged_to && data?.assinged_to.length < 1))) {
-        current.setState({ error_section: 1, errorMsg: Please_selete_Doctor_Staff})
+        current.setState({ error_section: 1, errorMsg: Please_selete_Doctor_Staff })
     }
     else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
         current.setState({ error_section: 1, errorMsg: Please_select_speciality })
     }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
-        current.setState({ error_section: 2, errorMsg:Please_select_Task_Service })
+        current.setState({ error_section: 2, errorMsg: Please_select_Task_Service })
     }
     else {
         current.setState({ loaderImage: true });
@@ -364,12 +364,13 @@ export const updateEntry = (current, e) => {
 
 export const handleAddData = (current) => {
     const { indexForUpdate, allSequence, taskName } = current.state;
+    console.log("allSequence", allSequence)
     var newService = allSequence;
     current.setState({ errorMsg: "" })
     if ((taskName?.value === "task" &&
         !allSequence?.task_name) ||
         (taskName?.value === "assign_service" &&
-            !allSequence?.service_name)) {
+            !allSequence?.service)) {
         current.setState({
             error_section: 3,
             errorMsg: taskName?.value === "task" ?
@@ -396,12 +397,12 @@ export const handleAddData = (current) => {
                 array[index].task_name = allSequence?.task_name;
                 array[index].task_description = allSequence?.task_description;
             } else {
-                newService.total_price =
-                    newService?.service_price * newService?.service_qty;
-                array[index].service_name = allSequence?.service_name?.label;
-                array[index].service_price = allSequence?.service_price;
-                array[index].service_qty = allSequence?.service_qty;
-                array[index].total_price = newService.total_price;
+                // newService.total_price =
+                //     newService?.price_per_quantity * newService?.quantity;
+                array[index].service = allSequence?.service?.label;
+                array[index].price_per_quantity = allSequence?.price_per_quantity;
+                array[index].quantity = allSequence?.quantity;
+                // array[index].total_price = newService.total_price;
             }
             current.setState({
                 seqItems: array,
@@ -414,8 +415,8 @@ export const handleAddData = (current) => {
         else {
             if (taskName?.value === "assign_service") {
                 newService.total_price =
-                    newService?.service_price * newService?.service_qty;
-                newService.service_name = current.state.allSequence?.service_name?.label;
+                    newService?.price_per_quantity * newService?.quantity;
+                newService.service = current.state.allSequence?.service?.label;
             }
             var seqItems = current.state.seqItems ?
                 [...current.state.seqItems] :
@@ -447,13 +448,13 @@ export const editTaskSer = (current, data, index) => {
     if (data?.type === "assign_service") {
         current.setState({
             allSequence: {
-                service_name: {
-                    label: data?.service_name,
-                    price: data?.service_price
+                service: {
+                    label: data?.service,
+                    price: data?.price_per_quantity
                 },
-                service_price: data?.service_price,
+                price_per_quantity: data?.price_per_quantity,
                 total_price: data?.total_price,
-                service_qty: data?.service_qty
+                quantity: data?.quantity
             },
         })
     } else {
@@ -634,17 +635,17 @@ export const getAssignService = (current) => {
 export const onFieldChange1 = (current, e, name) => {
     const state = current.state.updateTrack;
     const state1 = current.state.allSequence;
-    if (name === 'service_name') {
+    if (name === 'service') {
         if (e.value === 'custom') {
             current.setState({ viewCutom: true });
         } else {
             current.setState({ viewCutom: false });
         }
-        state1['service_price'] = e.price;
-        state1['service_qty'] = 1;
+        state1['price_per_quantity'] = e.price;
+        state1['quantity'] = 1;
         state1[name] = e;
-    } else if (name === 'service_qty') {
-        state1['service_qty'] = parseInt(e);
+    } else if (name === 'quantity') {
+        state1['quantity'] = parseInt(e);
     }
     else {
         state[name] = e;
