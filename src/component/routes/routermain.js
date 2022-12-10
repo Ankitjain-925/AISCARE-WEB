@@ -272,11 +272,11 @@ class Routermain extends Component {
               path="/patient/Timelinecomponents"
               render={(props) => <PatientTimeLine1 {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/patient/chats"
               render={(props) => <PatientChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/patient/blockchain"
@@ -298,11 +298,11 @@ class Routermain extends Component {
               path="/paramedic/profile"
               render={(props) => <ParamedicProfile {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/paramedic/chats"
               render={(props) => <ParamedicChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/paramedic/online-course"
@@ -324,11 +324,11 @@ class Routermain extends Component {
               path="/insurance/profile"
               render={(props) => <InsuranceProfile {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/insurance/chats"
               render={(props) => <InsuranceChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/insurance/online-course"
@@ -340,11 +340,11 @@ class Routermain extends Component {
               render={(props) => <PaitnetViewCourses {...props} />}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/nurse"
               render={(props) => <NurseChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/nurse/profile"
@@ -371,11 +371,11 @@ class Routermain extends Component {
               render={(props) => <PaitnetViewCourses {...props} />}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/pharmacy"
               render={(props) => <PharmaChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/pharmacy/profile"
@@ -462,11 +462,11 @@ class Routermain extends Component {
               path="/doctor/view-course"
               render={(props) => <PaitnetViewCourses {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/doctor/chats"
               render={(props) => <DoctorChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/doctor/journal"
