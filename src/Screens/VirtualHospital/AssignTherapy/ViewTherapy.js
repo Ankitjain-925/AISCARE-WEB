@@ -32,7 +32,7 @@ const ViewTherapy = (props) => {
         No,
         Type,
         Name
-     
+
     } = translate;
     return (
         <div>
@@ -94,7 +94,7 @@ const ViewTherapy = (props) => {
                                 </Grid>
                                 <Grid>
                                     <label className="specbutton1">
-                                       {Therapydescription}
+                                        {Therapydescription}
                                     </label>
                                     <div style={{ paddingBottom: 8 }}>{props?.item?.therapy_description}	</div>
 
@@ -157,7 +157,7 @@ const ViewTherapy = (props) => {
                                 </Grid>
                                 <Grid className="specbutton1">
                                     <label>
-                                       {Sequence_Task_Assigned_Services}
+                                        {Sequence_Task_Assigned_Services}
 
                                     </label>
                                     {/* <div style={{ paddingBottom: 8 }}>-	</div> */}
@@ -181,7 +181,7 @@ const ViewTherapy = (props) => {
                                                         <tr>
                                                             <td key={index}>{index + 1}</td>
                                                             <td>{data?.type === "task" ? "Task" : "Assign Service"}</td>
-                                                            <td>{data?.task_name || data?.service_name}</td>
+                                                            <td>{data?.task_name || data?.title}</td>
                                                             {/* <td>{data?.task_description || data?.service_description}</td> */}
                                                         </tr>
                                                     ))}
@@ -201,6 +201,6 @@ const ViewTherapy = (props) => {
             />
         </div>
     );
-    
+
 }
 export default ViewTherapy;
