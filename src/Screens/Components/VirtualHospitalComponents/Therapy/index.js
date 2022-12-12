@@ -115,11 +115,11 @@ class Index extends Component {
     //     this.setState({ assignedTo: e }, () => {
     //         var data =
     //             e?.length > 0 &&
-    //             e.reduce((last, current, index) => {
+    //             e.reduce((last, this, index) => {
     //                 let isProf =
     //                     this.state.professionalArray?.length > 0 &&
     //                     this.state.professionalArray.filter(
-    //                         (data, index) => data.user_id === current.value
+    //                         (data, index) => data.user_id === this.value
     //                     );
     //                 if (isProf && isProf.length > 0) {
     //                     last.push(isProf[0]);
@@ -252,6 +252,7 @@ class Index extends Component {
             state[index]['due_on'] = due_on;
         }
         else if (name === 'assinged_to1') {
+
             state[index][name] = value;
             var data =
                 value?.length > 0 &&
@@ -259,7 +260,8 @@ class Index extends Component {
                     let isProf =
                         this.state.professionalArray?.length > 0 &&
                         this.state.professionalArray.filter(
-                            (data, index) => data.user_id === value.value || data._id === value.value
+
+                            (data, index) => data.user_id === value?.value
                         );
                     if (isProf && isProf.length > 0) {
                         last.push(isProf[0]);
@@ -269,15 +271,16 @@ class Index extends Component {
             state[index]['assinged_to'] = data;
 
         }
-        else {
-            state[name] = value;
-        }
+        // else {
+        //     state[name] = value;
+        // }
         this.setState({ therapy_sequence: state })
 
     };
 
     FinalServiceSubmit = () => {
         var data = this.state.service;
+
         this.setState({ errorMsg: '' })
         let translate = getLanguage(this.props.stateLanguageType);
         let {
@@ -289,6 +292,7 @@ class Index extends Component {
 
         } = translate;
         var house_id = this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
+        data.house_id = house_id;
         if (!house_id) {
             this.setState({ errorMsg: "Please select the hospital" })
         }
@@ -325,6 +329,22 @@ class Index extends Component {
         // else {
         //     console.log("1")
         // }
+
+        console.log("data", data)
+        axios
+            .post(
+                sitedata.data.path + "/vt/SaveTherapy",
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                this.setState({
+                    loaderImage: false,
+                });
+            })
+            .catch(() => {
+                this.setState({ loaderImage: false });
+            })
     }
 
     settherapy = (value) => {
@@ -481,7 +501,7 @@ class Index extends Component {
                                             <label>{For_Hospital}</label>
                                             <Select
                                                 name="for_hospital"
-                                                options={this.props.currentList}
+                                                options={this.props.thisList}
                                                 placeholder={Search_Select}
                                                 onChange={(e) => this.updateEntryState7(e)}
                                                 value={this.state.selectedHouse || ""}
