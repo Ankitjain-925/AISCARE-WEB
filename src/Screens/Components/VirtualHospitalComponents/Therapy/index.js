@@ -253,15 +253,16 @@ class Index extends Component {
         }
         else if (name === 'assinged_to1') {
 
-            state[index][name] = value;
+            // state[index][name] = value;
             var data =
                 value?.length > 0 &&
-                value.reduce((last, e, index) => {
+                value.reduce((last, value, index) => {
                     let isProf =
                         this.state.professionalArray?.length > 0 &&
                         this.state.professionalArray.filter(
 
-                            (data, index) => data.user_id === value?.value
+                            (data, index) =>
+                                data.user_id === value?.value || data._id === value?.value
                         );
                     if (isProf && isProf.length > 0) {
                         last.push(isProf[0]);
@@ -271,15 +272,25 @@ class Index extends Component {
             state[index]['assinged_to'] = data;
 
         }
-        // else {
-        //     state[name] = value;
-        // }
+        else {
+            state[name] = value;
+        }
         this.setState({ therapy_sequence: state })
 
     };
 
     FinalServiceSubmit = () => {
         var data = this.state.service;
+        var house_id = this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
+        var sequence = this.state.therapy_sequence;
+        var finalData = {};
+        finalData.patient = data?.patient;
+        finalData.therapy_id = data?.therapy_id;
+        finalData.therapy_name = data?.therapy_name;
+        finalData.speciality = data?.speciality;
+        finalData.house_id = house_id;
+        finalData.status = "open";
+        finalData.sequence_list = sequence;
 
         this.setState({ errorMsg: '' })
         let translate = getLanguage(this.props.stateLanguageType);
@@ -291,8 +302,7 @@ class Index extends Component {
             Therapy_not_selected
 
         } = translate;
-        var house_id = this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
-        data.house_id = house_id;
+
         if (!house_id) {
             this.setState({ errorMsg: "Please select the hospital" })
         }
@@ -315,9 +325,23 @@ class Index extends Component {
                     this.setState({ errorMsg: "Please fill due on date/time and professional for each sequence" })
                 }
                 else {
-
-                    console.log('final api call')
-
+                    this.setState({
+                        loaderImage: true
+                    });
+                    axios
+                        .post(
+                            sitedata.data.path + "/vt/SaveTherapy",
+                            finalData,
+                            commonHeader(this.props.stateLoginValueAim.token)
+                        )
+                        .then((responce) => {
+                            this.setState({
+                                loaderImage: false, openAss1: false
+                            });
+                        })
+                        .catch(() => {
+                            this.setState({ loaderImage: false });
+                        })
                 }
             }
         }
@@ -329,22 +353,6 @@ class Index extends Component {
         // else {
         //     console.log("1")
         // }
-
-        console.log("data", data)
-        axios
-            .post(
-                sitedata.data.path + "/vt/SaveTherapy",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({
-                    loaderImage: false,
-                });
-            })
-            .catch(() => {
-                this.setState({ loaderImage: false });
-            })
     }
 
     settherapy = (value) => {
@@ -620,7 +628,7 @@ class Index extends Component {
                                                                             ? new Date(
                                                                                 item?.due_on?.date
                                                                             )
-                                                                            : new Date()
+                                                                            : new Date() || {}
                                                                     }
                                                                     notFullBorder
                                                                     date_format={this.state.date_format}
