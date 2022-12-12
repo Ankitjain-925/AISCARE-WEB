@@ -2154,7 +2154,14 @@
     "Therapy":"Therapy",
     "Not_selected_hospital":"Not selected hospital",
     "Patient_not_selected":"Patient not selected",
-    "Therapy_not_selected":"Therapy not selected"
+    "Therapy_not_selected":"Therapy not selected",
+    "Please_enter_Task_name":"Please enter Task name",
+    "Please_enter_Task_description":"Please enter Task description",
+    "Atleast_select_two_sequence":"Atleast select two sequence from Task/Service",
+    "Task_Name":"Task Name",
+    "Task_Description":"Task Description",
+    "Assign_Title":"Assign Title",
+    "Service_Amount":"Service Amount"
    
     
      

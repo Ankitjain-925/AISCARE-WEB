@@ -72,9 +72,9 @@ class Index extends Component {
     this.props.history.push("/pharmacy/prescriptions");
   };
   //For chat
-  Chats = () => {
-    this.props.history.push("/pharmacy");
-  };
+  // Chats = () => {
+  //   this.props.history.push("/pharmacy");
+  // };
   //fOR Archive prescription
   ArchivePrescription = () => {
     this.props.history.push("/pharmacy/prescription-archive");
