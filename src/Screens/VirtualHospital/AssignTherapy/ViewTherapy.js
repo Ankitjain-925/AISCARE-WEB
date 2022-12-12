@@ -90,20 +90,20 @@ const ViewTherapy = (props) => {
                                     <label className="specbutton1">
                                         {Therapyname}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.therapy_name}</div>
+                                    <div className="addCssTherNamDes">{props?.item?.therapy_name}</div>
                                 </Grid>
                                 <Grid>
                                     <label className="specbutton1">
                                         {Therapydescription}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.therapy_description}	</div>
+                                    <div className="addCssTherNamDes">{props?.item?.therapy_description}</div>
 
                                 </Grid>
                                 <Grid>
                                     <label className="specbutton1">
                                         {DiseaseName}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.disease_name}</div>
+                                    <div className="addCssTherNamDes">{props?.item?.disease_name}</div>
                                 </Grid>
                                 <Grid className="AddMarginTo">
                                     <label className="specbutton1">
@@ -160,7 +160,7 @@ const ViewTherapy = (props) => {
                                         {Sequence_Task_Assigned_Services}
 
                                     </label>
-                                    {/* <div style={{ paddingBottom: 8 }}>-	</div> */}
+                                    {/* <div>-	</div> */}
 
                                 </Grid>
                                 <Grid className="srvcTable3656">
@@ -168,10 +168,10 @@ const ViewTherapy = (props) => {
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th style={{ "width": "20%", "text-align": "left" }}>{No}</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>{Type}</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>{Name}</th>
-                                                    {/* <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th> */}
+                                                    <th className="noNameType1">{No}</th>
+                                                    <th className="noNameType">{Type}</th>
+                                                    <th className="noNameType">{Name}</th>
+                                                    {/* <th>Description of Type</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
