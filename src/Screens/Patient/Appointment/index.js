@@ -90,6 +90,7 @@ class Index extends Component {
       cancelsuccess: false,
       message: "",
       cancelNable: false,
+      disablebt: false
     };
   }
 
@@ -332,6 +333,7 @@ class Index extends Component {
   };
 
   bookAppointment = () => {
+    this.setState({ disablebt: true });
     var insurance_no =
       this.state.personalinfo?.insurance &&
         this.state.personalinfo?.insurance.length > 0 &&
@@ -400,6 +402,7 @@ class Index extends Component {
         this.setState({ loaderImage: false });
         if (responce.data.hassuccessed === true) {
           this.setState({
+            disablebt: false,
             successfull: true,
             openAllowAccess: false,
             openAllowLoc: false,
@@ -1261,7 +1264,7 @@ class Index extends Component {
                             ></textarea>
                           </Grid>
                           <Grid className="delQuesBook">
-                            <a onClick={this.bookAppointment}>{book}</a>
+                            <button disabled = {this.state.disablebt} onClick={this.bookAppointment}>{book}</button>
                             <a
                               onClick={this.handleCloseFancyVdo}>
                               {cancel}
