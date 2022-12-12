@@ -12392,6 +12392,12 @@ img.MenuImg {
     display: inline-block;
     text-align: center;
 }
+.delQuesBook button {
+    cursor: pointer;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}
 .delQuesBook a:first-child {
     color: #FFFFFF;
     font-family: Muli;
@@ -12404,6 +12410,20 @@ img.MenuImg {
     background-color: #00ABAF;
 }
 .delQuesBook a:first-child {
+    margin-right: 5px;
+}
+.delQuesBook button {
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 5px;
+    letter-spacing: 0;
+    line-height: 16px;
+    border-radius: 8px;
+    background-color: #00ABAF;
+}
+.delQuesBook button {
     margin-right: 5px;
 }
 .delQuesBook a:last-child {
@@ -14330,6 +14350,9 @@ ul.insuranceHint1 li {
     background-color: #705a29 !important;
 }
 .darkTheme .delQuesBook a {
+    color:#fff!important;
+}
+.darkTheme .delQuesBook button {
     color:#fff!important;
 }
 .darkTheme .react-calendar {
@@ -16343,6 +16366,9 @@ select:-webkit-autofill:focus {
     margin-top: 10px !important;
   }
   .delQuesBook a:first-child{
+    margin-right: 3px;
+  }
+  .delQuesBook button{
     margin-right: 3px;
   }
   .delQuesBook a:last-child{
