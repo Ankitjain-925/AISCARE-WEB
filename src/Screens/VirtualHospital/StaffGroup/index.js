@@ -164,13 +164,14 @@ handleOpenServSec = (item) => {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -195,18 +196,18 @@ handleOpenServSec = (item) => {
                       <Grid item xs={6} md={6}></Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                          {console.log("updateTrack", this.state.updateTrack)}
                           <Grid className="newServc">
-                            <Button onClick={() => handleOpenServ(this)}>
-                              {newstaffGroup}
-                            </Button>
+                            {roles.includes('add_group_staff') &&
+                              <Button onClick={() => handleOpenServ(this)}>
+                                {newstaffGroup}
+                              </Button>}
                             <Modal
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -214,13 +215,13 @@ handleOpenServSec = (item) => {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                                // className="addServContnt"
+                              // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
@@ -357,7 +358,7 @@ handleOpenServSec = (item) => {
                                 placeholder={Search}
                                 value={this.state.SearchValue}
                                 className="serchInput"
-                                // onChange={(e) => searchFilter(e, this)}
+                              // onChange={(e) => searchFilter(e, this)}
                               />
                             )}
                             <a>
@@ -426,8 +427,8 @@ handleOpenServSec = (item) => {
                                       onClose={this.handleCloseServSec}
                                       className={
                                         this.props.settings.setting &&
-                                        this.props.settings.setting.mode &&
-                                        this.props.settings.setting.mode ===
+                                          this.props.settings.setting.mode &&
+                                          this.props.settings.setting.mode ===
                                           "dark"
                                           ? "darkTheme addSpeclModel"
                                           : "addSpeclModel"
@@ -436,9 +437,9 @@ handleOpenServSec = (item) => {
                                       <Grid
                                         className={
                                           this.props.settings &&
-                                          this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode ===
+                                            this.props.settings.setting &&
+                                            this.props.settings.setting.mode &&
+                                            this.props.settings.setting.mode ===
                                             "dark"
                                             ? "darkTheme addSpeclContnt addStaffPart"
                                             : "addServContnt addStaffPart"
@@ -526,35 +527,36 @@ handleOpenServSec = (item) => {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          <li
-                                            onClick={() => {
-                                              editStaff(data, this);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/virtual_images/pencil-1.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {editstaff}
-                                            </a>
-                                          </li>
-
-                                          <li
-                                            onClick={() => {
-                                              DeleteStaff(data, this);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/images/cancel-request.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {deleteStaff}
-                                            </a>
-                                          </li>
+                                          {roles.includes('edit_group_staff') &&
+                                            <li
+                                              onClick={() => {
+                                                editStaff(data, this);
+                                              }}
+                                            >
+                                              <a>
+                                                <img
+                                                  src={require("assets/virtual_images/pencil-1.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {editstaff}
+                                              </a>
+                                            </li>}
+                                          {roles.includes('delete_group_staff') &&
+                                            <li
+                                              onClick={() => {
+                                                DeleteStaff(data, this);
+                                              }}
+                                            >
+                                              <a>
+                                                <img
+                                                  src={require("assets/images/cancel-request.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {deleteStaff}
+                                              </a>
+                                            </li>}
                                         </ul>
                                       </a>
                                     </Grid>

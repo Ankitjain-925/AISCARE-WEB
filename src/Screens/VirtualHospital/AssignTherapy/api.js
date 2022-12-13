@@ -375,12 +375,13 @@ export const updateEntry = (current, e) => {
 export const handleAddData = (current) => {
 
     let translate = getLanguage(current.props.stateLanguageType);
-    let {Please_enter_Task_name,
+    let { Please_enter_Task_name,
         Plz_enter_Service_Name,
-        Please_enter_Task_description
-        
+        Please_enter_Task_description,
+        Please_select_Service
+
     } = translate;
-    const { indexForUpdate, allSequence,  taskName, allSequence1, allSequence2 } = current.state;
+    const { indexForUpdate, allSequence, taskName, allSequence1, allSequence2 } = current.state;
 
     var newService = allSequence;
 
@@ -392,8 +393,8 @@ export const handleAddData = (current) => {
         current.setState({
             error_section: 3,
             errorMsg: taskName?.value === "task" ?
-                {Please_enter_Task_name} :
-               {Plz_enter_Service_Name}
+                Please_enter_Task_name :
+                Plz_enter_Service_Name
 
         });
     }
@@ -404,8 +405,8 @@ export const handleAddData = (current) => {
         current.setState({
             error_section: 3,
             errorMsg: taskName?.value === "task" ?
-                {Please_enter_Task_description} : 
-                 "Please Select Service"
+                Please_enter_Task_description :
+                Please_select_Service
 
         });
     }
@@ -502,7 +503,7 @@ export const editTaskSer = (current, data, index) => {
 
 export const removeServices = (current, index, data) => {
     let translate = getLanguage(current.props.stateLanguageType);
-    let { RemoveService, RemoveTask, sure_remove_task, sure_remove_service, from_therapy, No, Yes,Atleast_select_two_sequence } =
+    let { RemoveService, RemoveTask, sure_remove_task, sure_remove_service, from_therapy, No, Yes, Atleast_select_two_sequence } =
         translate;
     const { seqItems } = current.state;
     current.setState({ errorMsg: "" });
