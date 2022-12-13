@@ -97,33 +97,6 @@ export const handleSubmit = (current) => {
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
 }
-else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
-  current.setState({ errorMsg: Please_select_staff_name })
-} 
-else{
-  current.setState({ loaderImage: true });
-   if (data?._id) {
-    console.log('data',data)
-      // axios
-      //     .put(
-      //         // sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" +  data?.staff_id, data,
-      //         commonHeader(current.props.stateLoginValueAim.token)
-      //     )
-      //     .then((responce) => {
-      //       teamstaff(current);
-      //         current.setState({
-      //             updateTrack: {},
-      //             selectSpec2:'',
-      //             selectWard:[]
-      //         });
-      //         handleCloseServ(current);
-      //     })
-      //     .catch(() => {
-      //         current.setState({ loaderImage: false });
-      //         handleCloseServ(current);
-      //     })
-      console.log("kumar",data?._id);
-  }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
     current.setState({ errorMsg: Please_select_staff_name })
   }
@@ -349,4 +322,4 @@ export const editStaff = (data, current) => {
     openServ: true
   });
 
-}; 
+};

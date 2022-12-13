@@ -568,7 +568,7 @@ class Index extends React.Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { add_assign_service, AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, Add_Appointment, change_staff, move_patient_to,
+    let { Staff, add_assign_service, AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, Add_Appointment, change_staff, move_patient_to,
       assign_to_speciality, move_internal_space, assign_to_room, RemovePatientfromFlow, remove_patient, DischargePatient, Please_assign_speciality_first, Search_Select, Wards, Room, Bed } = translate;
     const { House: { roles = [] } = {} } = this.props || {}
     return (
@@ -708,7 +708,7 @@ class Index extends React.Component {
 
                 {(this.state.openOpti === true && this.state.updateQues[0]?.staff === "individual") && <>
                   <Grid className="seletDrop">
-                    <label>{this.state.updateQues[0]?.staff}</label>
+                    <label>{Staff}</label>
                     {/* <Select
                       name="name"
                       className="addStafSelect"
@@ -735,7 +735,7 @@ class Index extends React.Component {
 
                 {(this.state.openOpti === true && this.state.updateQues[0]?.staff === "group") && <>
                   <Grid className="seletDrop">
-                    <label>{this.state.updateQues[0]?.staff}</label>
+                    <label>{Staff}</label>
                     <Select
                       name="professional"
                       onChange={(e) => this.updateEntryState3(e)}
