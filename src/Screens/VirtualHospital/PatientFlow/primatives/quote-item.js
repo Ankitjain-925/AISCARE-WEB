@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
 import { checkTheIndex } from '../data';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
@@ -207,6 +207,7 @@ export default class QuoteItem extends React.Component {
                 <Grid className="checkDotsRght">
                   {quote?.verifiedbyPatient && (
                     <CasesMoreButton
+                      changeStaffsec={this.props.changeStaffsec}
                       setDta={(item) => this.props.setDta(item)}
                       currentStep={quote?.author?.step_name}
                       currentIndex={checkTheIndex(
@@ -537,6 +538,7 @@ export default class QuoteItem extends React.Component {
                   <Grid>
                     {quote?.verifiedbyPatient && (
                       <CasesMoreButton
+                        changeStaffsec={this.props.changeStaffsec}
                         setDta={(item) => this.props.setDta(item)}
                         currentStep={quote?.author?.step_name}
                         currentIndex={checkTheIndex(

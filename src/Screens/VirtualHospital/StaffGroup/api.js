@@ -145,48 +145,49 @@ export const teamstaff = (current) => {
     });
 };
 
- //For adding the New staff 
- export const handleSubmit = (current) => {
-   const { selectSpec2, selectWard,staffslct } = current.state;
-    let translate = getLanguage(current.props.stateLanguageType);
-    let {} = translate;
-    var data = current.state.updateTrack;
-    current.setState({ errorMsg: '' })
-      data.house_id = current.props?.House?.value;
-      if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
-        current.setState({ errorMsg: "Please select speciality id" })
-    }  else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
-      current.setState({ errorMsg: "Please select ward id" })
+//For adding the New staff 
+export const handleSubmit = (current) => {
+  const { selectSpec2, selectWard, staffslct } = current.state;
+  let translate = getLanguage(current.props.stateLanguageType);
+  let { Please_select_speciality, Please_select_ward, Please_enter_team_name, Please_select_staff_name } = translate;
+  var data = current.state.updateTrack;
+  current.setState({ errorMsg: '' })
+  data.house_id = current.props?.House?.value;
+  if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
+    current.setState({ errorMsg: Please_select_speciality })
+  } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
+    current.setState({ errorMsg: Please_select_ward })
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
-    current.setState({ errorMsg: "Please enter team name" })
-}
-else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
-  current.setState({ errorMsg: "Please select staff name" })
-} 
-else{
-  current.setState({ loaderImage: true });
-   if (data?._id) {
-      axios
-          .put(
-              sitedata.data.path + "/teammember/UpdateTeam/",+ data +"/"+ data?.staff_id,
-              commonHeader(current.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            teamstaff(current);
-              current.setState({
-                  updateTrack: {},
-                  selectSpec2:'',
-                  selectWard:[]
-              });
-              handleCloseServ(current);
-          })
-          .catch(() => {
-              current.setState({ loaderImage: false });
-              handleCloseServ(current);
-          })
+    current.setState({ errorMsg: Please_enter_team_name })
   }
-  else{
+  else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
+    current.setState({ errorMsg: Please_select_staff_name })
+  }
+  else {
+    current.setState({ loaderImage: true });
+    if (data?._id) {
+      axios
+        .put(
+          sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" + data?.staff_id, data,
+          commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          teamstaff(current);
+          current.setState({
+            updateTrack: {},
+            selectSpec2: '',
+            selectWard: []
+          });
+          handleCloseServ(current);
+        })
+        .catch(() => {
+          current.setState({ loaderImage: false });
+          handleCloseServ(current);
+        })
+      console.log("kumar", data?._id);
+    }
+    else {
       axios
         .post(sitedata.data.path + "/teammember/AddGroup",
           data,
@@ -205,108 +206,108 @@ else{
 }
 
 
-    //Delete the Staff
-    export const  DeleteStaff = (data,current) => {
-    let translate = getLanguage(current.props.stateLanguageType);
-      let {
-        deleteStaff,
-        yes_deleteStaff,
-        are_you_sure,
-        cancel_keepStaff,
-      } = translate;
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <Grid
-              className={
-                current.props.settings &&
-                  current.props.settings.setting &&
-                  current.props.settings.setting.mode === 'dark'
-                  ? 'dark-confirm deleteStep'
-                  : 'deleteStep'
-              }
-            >
-              <Grid className="deleteStepLbl">
-                <Grid>
-                  <a
-                    onClick={() => {
-                      onClose();
-                    }}
-                  >
-                    <img
-                      src={require('assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </Grid>
-                <label>{deleteStaff}</label>
-              </Grid>
-              <Grid className="deleteStepInfo">
-                <label>{are_you_sure}</label>
-                <Grid>
-                  <label></label>
-                </Grid>
-                <Grid>
-                  <Button
-                    onClick={() => {
-                    removestaff(data,current);
-                    }}
-                  >
-                    {yes_deleteStaff}
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      onClose();
-                    }}
-                  >
-                    {cancel_keepStaff}
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          );
-        },
-      });
-   
-  };
-
-  export const removestaff = (data,current) => {
-    let translate = getLanguage(current.props.stateLanguageType);
-    let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              current.props.settings &&
-                current.props.settings.setting &&
-                current.props.settings.setting.mode &&
-                current.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
-            }
-          >
-            <h1 class="alert-btn">{removeStaff}</h1>
-            <p>{really_want_to_remove_staff}</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>{No}</button>
-              <button
+//Delete the Staff
+export const DeleteStaff = (data, current) => {
+  let translate = getLanguage(current.props.stateLanguageType);
+  let {
+    deleteStaff,
+    yes_deleteStaff,
+    are_you_sure,
+    cancel_keepStaff,
+  } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <Grid
+          className={
+            current.props.settings &&
+              current.props.settings.setting &&
+              current.props.settings.setting.mode === 'dark'
+              ? 'dark-confirm deleteStep'
+              : 'deleteStep'
+          }
+        >
+          <Grid className="deleteStepLbl">
+            <Grid>
+              <a
                 onClick={() => {
-                  DeleteStaffOk(data,current);
                   onClose();
                 }}
               >
-               
-                {Yes}
-         
-              </button>
-            </div>
+                <img
+                  src={require('assets/images/close-search.svg')}
+                  alt=""
+                  title=""
+                />
+              </a>
+            </Grid>
+            <label>{deleteStaff}</label>
+          </Grid>
+          <Grid className="deleteStepInfo">
+            <label>{are_you_sure}</label>
+            <Grid>
+              <label></label>
+            </Grid>
+            <Grid>
+              <Button
+                onClick={() => {
+                  removestaff(data, current);
+                }}
+              >
+                {yes_deleteStaff}
+              </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                {cancel_keepStaff}
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      );
+    },
+  });
+
+};
+
+export const removestaff = (data, current) => {
+  let translate = getLanguage(current.props.stateLanguageType);
+  let { removeStaff, really_want_to_remove_staff, No, Yes } = translate;
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div
+          className={
+            current.props.settings &&
+              current.props.settings.setting &&
+              current.props.settings.setting.mode &&
+              current.props.settings.setting.mode === 'dark'
+              ? 'dark-confirm react-confirm-alert-body'
+              : 'react-confirm-alert-body'
+          }
+        >
+          <h1 class="alert-btn">{removeStaff}</h1>
+          <p>{really_want_to_remove_staff}</p>
+          <div className="react-confirm-alert-button-group">
+            <button onClick={onClose}>{No}</button>
+            <button
+              onClick={() => {
+                DeleteStaffOk(data, current);
+                onClose();
+              }}
+            >
+
+              {Yes}
+
+            </button>
           </div>
-        );
-      },
-    });
-  };
+        </div>
+      );
+    },
+  });
+};
 
 export const DeleteStaffOk = (data, current) => {
   current.setState({ loaderImage: true });
@@ -320,21 +321,21 @@ export const DeleteStaffOk = (data, current) => {
     });
 };
 
-  
- 
-  export const  GetProfessionalwstaff = (current) => {
-    current.setState({ loaderImage: true });
-   axios
-      .get(
-        sitedata.data.path + "/hospitaladmin/GetProfessionalwstaff/" + current.props?.House?.value,
-        commonHeader(current.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        console.log('responce',responce.data.data)
-       if (responce.data.hassuccessed && responce.data.data) {
-      var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          let name= item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
-          return ({label: name , value: item?.profile_id})
+
+
+export const GetProfessionalwstaff = (current) => {
+  current.setState({ loaderImage: true });
+  axios
+    .get(
+      sitedata.data.path + "/hospitaladmin/GetProfessionalwstaff/" + current.props?.House?.value,
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      console.log('responce', responce.data.data)
+      if (responce.data.hassuccessed && responce.data.data) {
+        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          let name = item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
+          return ({ label: name, value: item?.profile_id })
         })
         current.setState({ teamstaff: newArray, teamstaff1: responce.data?.data });
       }
@@ -350,25 +351,27 @@ export const stffchange = (e, current) => {
   })
   state['staff'] = staff;
   current.setState({ staffslct: e, updateTrack: state }, () => {
-    console.log('updateTrack', current.state.updateTrack)
+    // console.log('updateTrack', current.state.updateTrack)
   });
 }
 
 // Open Edit Model
 export const editStaff = (data, current) => {
-  console.log('data',data)
+  console.log('data', data)
   var deep = _.cloneDeep(data);
-  var a =deep.team_name.split("-");
-  var spe = {label: a[0] ,value: deep?.speciality_id,}
-  var ward = {label: a[1], value: deep?.ward_id, }
-  var nurse = {label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name,value: deep.staff_id}
-  var teamname =  a[2] 
-  console.log('deep',a)
-  current.setState({ updateTrack: deep,
-    selectSpec2:spe,
-    selectWard:ward,
-    team_name:teamname,
-    staffslct:nurse,
-     openServ: true });
-   
+  var a = deep.team_name.split("-");
+  var spe = { label: a[0], value: deep?.speciality_id, }
+  var ward = { label: a[1], value: deep?.ward_id, }
+  var nurse = { label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name, value: deep.staff_id }
+  var teamname = a[2]
+  console.log('deep', a)
+  current.setState({
+    updateTrack: deep,
+    selectSpec2: spe,
+    selectWard: ward,
+    team_name: teamname,
+    staffslct: nurse,
+    openServ: true
+  });
+
 }; 

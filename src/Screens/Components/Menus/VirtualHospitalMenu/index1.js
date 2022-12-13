@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";

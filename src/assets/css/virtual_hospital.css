@@ -17131,3 +17131,93 @@ color:#FFFFFF
 .addStaffPart{
   min-height:537px;
 }
+
+
+
+.tskSrvsPart{
+  display: inline-flex;
+}
+.allCreatInfo{
+  margin:15px 0px!important;
+}
+.allCustomService p {
+  color: #000808;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  /* line-height: 12px; */
+  font-family: Muli;
+  display: block;
+}
+.allCustomService p:nth-child(2){
+  margin-left: 10px;
+}
+.allCustomService label{
+  margin-top:5px;
+}
+.allThrapySec{
+  text-align: right;
+}
+.allThrapySec label{
+  font-weight: bold;
+  color: #00abaf;
+}
+
+.addCssTherNamDes{
+  padding-bottom: 8px;
+}
+
+.noNameType{
+  width: 40%; 
+  text-align: left;
+}
+
+.noNameType1{
+  width: 20%; 
+  text-align: left;
+}
+
+
+.imgEditDelPer
+{ padding: 7px;
+   cursor: pointer}
+
+
+   .noNameTypeEditDel1{width: 20%;
+     text-align: left}
+
+     .noNameTypeEditDel2{width: 30%;
+      text-align: left}
+
+      .noNameTypeEditDel3{width: 40%;
+        text-align: left}
+
+        .noNameTypeEditDel4{width: 10%;
+          text-align: left}
+
+
+
+          .noNameTypeEditDel5{
+            max-width: 30px 
+          }
+
+            .noNameTypeEditDel6{
+              max-width: 50px 
+            }
+
+              .noNameTypeEditDel7{
+                max-width: 100px 
+              }
+
+                .noNameTypeEditDel8{
+                  max-width: 40px 
+                }
+
+
+               .headService11 { padding: 30px; padding-Top: 0px}
+
+
+              .roomsNum3345 {
+                padding-Left: 30px;
+                 padding-Right: 30px}
+               

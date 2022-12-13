@@ -4,6 +4,8 @@ import { S3Image } from 'Screens/Components/GetS3Images/index';
 import Modal from "@material-ui/core/Modal";
 import useAllSetting from '../../Doctor/AccessKeyLog/Hooks/Setting';
 import ShowStaffData from "./ShowStaffData";
+import { getLanguage } from "translations/index";
+
 
 
 const ViewTherapy = (props) => {
@@ -19,6 +21,19 @@ const ViewTherapy = (props) => {
     // +   Therapy   +
     // +     Modal   +
     // +++++++++++++++
+    let translate = getLanguage(props.stateLanguageType);
+    let {
+        View_Therapy,
+        Therapyname,
+        Therapydescription,
+        DiseaseName,
+        Assignedto,
+        Sequence_Task_Assigned_Services,
+        No,
+        Type,
+        Name
+
+    } = translate;
     return (
         <div>
             <Modal
@@ -50,7 +65,7 @@ const ViewTherapy = (props) => {
                                 justify="center"
                             >
                                 <Grid item xs={8} md={8} lg={8}>
-                                    <label>View Therapy</label>
+                                    <label>{View_Therapy}</label>
                                 </Grid>
                                 <Grid item xs={4} md={4} lg={4}>
                                     <Grid>
@@ -73,26 +88,26 @@ const ViewTherapy = (props) => {
                             <Grid className="enterSpcl">
                                 <Grid>
                                     <label className="specbutton1">
-                                        Therapy Name
+                                        {Therapyname}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.therapy_name}</div>
+                                    <div className="addCssTherNamDes">{props?.item?.therapy_name}</div>
                                 </Grid>
                                 <Grid>
                                     <label className="specbutton1">
-                                        Therapy description
+                                        {Therapydescription}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.therapy_description}	</div>
+                                    <div className="addCssTherNamDes">{props?.item?.therapy_description}</div>
 
                                 </Grid>
                                 <Grid>
                                     <label className="specbutton1">
-                                        Disease name
+                                        {DiseaseName}
                                     </label>
-                                    <div style={{ paddingBottom: 8 }}>{props?.item?.disease_name}</div>
+                                    <div className="addCssTherNamDes">{props?.item?.disease_name}</div>
                                 </Grid>
                                 <Grid className="AddMarginTo">
                                     <label className="specbutton1">
-                                        Assigned To
+                                        {Assignedto}
                                     </label>
                                     {props?.item?.assinged_to &&
                                         props?.item?.assinged_to?.length > 0 &&
@@ -142,10 +157,10 @@ const ViewTherapy = (props) => {
                                 </Grid>
                                 <Grid className="specbutton1">
                                     <label>
-                                        Sequence of Tasks/ Assigned services
+                                        {Sequence_Task_Assigned_Services}
 
                                     </label>
-                                    {/* <div style={{ paddingBottom: 8 }}>-	</div> */}
+                                    {/* <div>-	</div> */}
 
                                 </Grid>
                                 <Grid className="srvcTable3656">
@@ -153,10 +168,10 @@ const ViewTherapy = (props) => {
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th style={{ "width": "20%", "text-align": "left" }}>No.</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>Type</th>
-                                                    <th style={{ "width": "40%", "text-align": "left" }}>Name</th>
-                                                    {/* <th style={{ "width": "10%", "text-align": "left" }}>Description of Type</th> */}
+                                                    <th className="noNameType1">{No}</th>
+                                                    <th className="noNameType">{Type}</th>
+                                                    <th className="noNameType">{Name}</th>
+                                                    {/* <th>Description of Type</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -166,7 +181,7 @@ const ViewTherapy = (props) => {
                                                         <tr>
                                                             <td key={index}>{index + 1}</td>
                                                             <td>{data?.type === "task" ? "Task" : "Assign Service"}</td>
-                                                            <td>{data?.task_name || data?.service_name}</td>
+                                                            <td>{data?.task_name || data?.title}</td>
                                                             {/* <td>{data?.task_description || data?.service_description}</td> */}
                                                         </tr>
                                                     ))}
@@ -186,5 +201,6 @@ const ViewTherapy = (props) => {
             />
         </div>
     );
+
 }
 export default ViewTherapy;

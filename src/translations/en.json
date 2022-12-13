@@ -2132,7 +2132,37 @@
     "FilterbyTherapyname":"Filter by Therapy",
     "FilterbyDisease":"Filter by Disease",
     "staff_members":"Staff Members",
-    "plz_enter_time":"Please Enter the time"
+    "plz_enter_time":"Please Enter the time",
+    "Please_select_speciality":"Please select speciality",
+    "Please_select_ward":"Please select ward",
+    "Please_enter_team_name":"Please enter team name",
+    "Please_select_staff_name":"Please select staff name",
+    "Please_enter_therapy_name":"Please enter therapy name",
+    "Please_enter_therapy_description":"Please enter therapy description",
+    "Please_enter_disease_name":"Please enter disease name",
+    "Please_selete_Doctor_Staff":"Please select Doctor/Staff",
+    "Please_select_Task_Service":"Please select atleast two sequences from Task/Service",
+    "Sequence_Task_Assigned_Services":"Sequence of Task / Assigned Services",
+    "No":"No.",
+    "Type":"Type",
+    "Name":"Name",
+    "Edit_Delete":"Edit/Delete",
+    "Add_Sequences":"Add Sequences",
+    "View_Therapy":"View Therapy",
+    "Therapydescription":" Therapy description",
+    "Assign_Therapy":"Assign Therapy",
+    "Therapy":"Therapy",
+    "Not_selected_hospital":"Not selected hospital",
+    "Patient_not_selected":"Patient not selected",
+    "Therapy_not_selected":"Therapy not selected",
+    "Please_enter_Task_name":"Please enter Task name",
+    "Please_enter_Task_description":"Please enter Task description",
+    "Atleast_select_two_sequence":"Atleast select two sequence from Task/Service",
+    "Task_Name":"Task Name",
+    "Task_Description":"Task Description",
+    "Assign_Title":"Assign Title",
+    "Service_Amount":"Service Amount"
+   
     
      
     }

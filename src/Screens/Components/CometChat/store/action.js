@@ -43,16 +43,16 @@ export const auth = (uid, authKey) => {
    
         dispatch(authStart());
 
-        CometChat.login(uid, authKey).then((user) => {
-            if(user) {
-                dispatch(authSuccess(user));
-            } else {
-                dispatch(authFail(user));
-            }
+        // CometChat.login(uid, authKey).then((user) => {
+        //     if(user) {
+        //         dispatch(authSuccess(user));
+        //     } else {
+        //         dispatch(authFail(user));
+        //     }
             
-        }).catch(error => {
-            dispatch(authFail(error));
-        });
+        // }).catch(error => {
+        //     dispatch(authFail(error));
+        // });
     };
 };
 
