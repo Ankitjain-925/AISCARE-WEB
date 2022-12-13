@@ -136,26 +136,17 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let {
-            Edit,
             Add,
-            ServiceAmount,
-            Quantity,
-            Enterquantity,
             Addservice,
             Searchserviceoraddcustominput,
-            viewData,
             Speciallity,
             Assignedto,
             Search_Select,
             Addnewtherapy,
             Therapy,
-            speciality,
             addtherapy,
             save_and_close,
-            all,
-            therapyTesting,
             EnterTherapyname,
-            newTherapy,
             editTherapy,
             viewTherapy,
             deleteTherapy,
@@ -165,11 +156,8 @@ class Index extends Component {
             therapy_name,
             total_task_or_services,
             Entertherapyshortdescription,
-            EntertherapyTesting,
             Therapyshortdescription,
             Therapyname,
-            Price,
-            Enterserviceprice,
             Search,
             Sequence_Task_Assigned_Services,
             No,
@@ -181,7 +169,7 @@ class Index extends Component {
             Task_Description,
             Assignedtitle
         } = translate;
-        const { AllTherpy, assignTask, taskName, viewAllData, AllTaskCss, error_section, ForButton } = this.state;
+        const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -255,7 +243,6 @@ class Index extends Component {
                                                                     ? "darkTheme addSpeclContnt"
                                                                     : "addServContnt"
                                                             }
-                                                        // className="addServContnt"
                                                         >
                                                             <Grid className="addSpeclContntIner1">
                                                                 <Grid className="addSpeclLbl">
@@ -367,8 +354,6 @@ class Index extends Component {
                                                                                 />
                                                                             </Grid>
                                                                         </Grid>
-
-
                                                                         <Grid className="addSrvcBtn3" >
                                                                             <h3 className="service-head">{Sequence_Task_Assigned_Services}</h3>
                                                                         </Grid>
@@ -380,29 +365,29 @@ class Index extends Component {
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid className="wardsGrup3">
                                                                                 {/* {this.state.taskData?.length > 0 && */}
-                                                                                <Grid className="roomsNum3" style={{ "paddingLeft": "30px", "paddingRight": "30px" }}>
+                                                                                <Grid className="roomsNum3 roomsNum3345">
                                                                                     <Grid container direction="row">
                                                                                         <Grid item xs={12} md={12} className="services-head">
                                                                                             {/* <b>Tasks</b> */}
                                                                                             <table border="0">
                                                                                                 <thead>
                                                                                                     <tr>
-                                                                                                        <th style={{ "width": "20%", "text-align": "left" }}>{No}</th>
-                                                                                                        <th style={{ "width": "30%", "text-align": "left" }}>{Type}</th>
-                                                                                                        <th style={{ "width": "40%", "text-align": "left" }}>{Name}</th>
-                                                                                                        <th style={{ "width": "10%", "text-align": "left" }}>{Edit_Delete}</th>
+                                                                                                        <th className="noNameTypeEditDel1">{No}</th>
+                                                                                                        <th className="noNameTypeEditDel2">{Type}</th>
+                                                                                                        <th className="noNameTypeEditDel3">{Name}</th>
+                                                                                                        <th className="noNameTypeEditDel4">{Edit_Delete}</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 {this.state.seqItems.map((item, index) => {
                                                                                                     return <tbody>
                                                                                                         <tr>
-                                                                                                            <td style={{ "maxWidth": "30px" }} key={index}>{index + 1}</td>
-                                                                                                            <td style={{ "maxWidth": "50px" }} key={index}>{item?.type === "task" ? "Task" : "Assign Service"}</td>
-                                                                                                            <td style={{ "maxWidth": "100px" }} key={index}>{item?.task_name || item?.title}</td>
-                                                                                                            <td style={{ "maxWidth": "40px" }} key={index}>
+                                                                                                            <td className="noNameTypeEditDel5" key={index}>{index + 1}</td>
+                                                                                                            <td className="noNameTypeEditDel6" key={index}>{item?.type === "task" ? "Task" : "Assign Service"}</td>
+                                                                                                            <td className="noNameTypeEditDel7" key={index}>{item?.task_name || item?.title}</td>
+                                                                                                            <td className="noNameTypeEditDel8" key={index}>
                                                                                                                 <Grid className="setEditDelBut">
                                                                                                                     <img
-                                                                                                                        style={{ "padding": "7px", "cursor": "pointer" }}
+                                                                                                                        className="imgEditDelPer"
                                                                                                                         onClick={() => {
                                                                                                                             editTaskSer(this, item, index);
                                                                                                                         }}
@@ -411,7 +396,7 @@ class Index extends Component {
                                                                                                                         title=""
                                                                                                                     />
                                                                                                                     <img
-                                                                                                                        style={{ "padding": "7px", "cursor": "pointer" }}
+                                                                                                                        className="imgEditDelPer"
                                                                                                                         onClick={() => {
                                                                                                                             removeServices(this, index, item);
                                                                                                                         }}
@@ -428,13 +413,11 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                 </Grid>
-                                                                                {/* } */}
-
                                                                             </Grid>
                                                                         </Grid>
 
                                                                         <Grid className="addSrvcBtn3" >
-                                                                            <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
+                                                                            <h3 className="service-head headService11">
                                                                                 <a onClick={() => { this.setState({ assignTask: true, allSequence: {}, taskName: {}, ForButton: Add, allSequence1: [] }) }}>{Add_Sequences}</a>
                                                                             </h3>
                                                                         </Grid>
@@ -444,8 +427,8 @@ class Index extends Component {
                                                                             </div>}
 
                                                                         {assignTask &&
-                                                                            <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
-                                                                                <label>{Type}</label>
+                                                                            <Grid className="headService11">
+                                                                                <label>Type</label>
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
@@ -460,7 +443,7 @@ class Index extends Component {
                                                                         }
 
                                                                         {taskName?.value === "task" &&
-                                                                            <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
+                                                                            <Grid className="headService11">
                                                                                 <VHfield
                                                                                     label={Task_Name}
                                                                                     name="task_name"
@@ -479,7 +462,7 @@ class Index extends Component {
                                                                                 <p className="err_message">{this.state.errorTaskDesc}</p>
                                                                             </Grid>}
                                                                         {taskName?.value === "assign_service" &&
-                                                                            <Grid style={{ "padding": "30px", "paddingTop": "0px" }}>
+                                                                            <Grid className="headService11">
                                                                                 <VHfield
                                                                                     label={Assignedtitle}
                                                                                     name="title"
@@ -541,11 +524,9 @@ class Index extends Component {
 
                                                                                 </Grid> */}
                                                                             </Grid>
-
-
                                                                         }
                                                                         {taskName?.value && <Grid className="addSrvcBtn3" >
-                                                                            <h3 style={{ "padding": "30px", "paddingTop": "0px" }} className="service-head">
+                                                                            <h3 className="service-head headService11">
                                                                                 <a onClick={() => { handleAddData(this) }}>{taskName?.value === "task" ? `${ForButton} Task` : `${ForButton} Service`}</a>
                                                                             </h3>
                                                                         </Grid>}
@@ -682,7 +663,7 @@ class Index extends Component {
                                                                         assigned_to={item?.assinged_to}
                                                                         AllStaffData={this.state.AllStaffData}
                                                                         showData={(data, team_name) => this.showData(data, team_name)}
-                                                                        openStaff={this.state.openStaff}
+                                                                        openStaff={openStaff}
                                                                         comesFrom="TherapySection"
                                                                     />
                                                                 </Grid>
@@ -746,7 +727,6 @@ class Index extends Component {
                                                                             </li>
                                                                         </ul>
                                                                     </a>
-
                                                                 </Grid>
                                                             </td>
                                                         </tr>
@@ -762,11 +742,11 @@ class Index extends Component {
                                             />
 
                                             <ViewTherapy
-                                                viewTher={this.state.viewTher}
+                                                viewTher={viewTher}
                                                 item={viewAllData}
                                                 closeFullQues={() => this.closeFullQues()}
                                                 showData={(data, team_name) => this.showData(data, team_name)}
-                                                openStaff={this.state.openStaff}
+                                                openStaff={openStaff}
                                                 closeStaffInfo={() => this.closeStaffInfo()}
                                                 AllStaffData={this.state.AllStaffData}
                                             />
@@ -776,6 +756,7 @@ class Index extends Component {
                                                 clearFilter={() => { this.clearFilter() }}
                                                 applyFilter={() => { this.applyFilter() }}
                                             />
+
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
