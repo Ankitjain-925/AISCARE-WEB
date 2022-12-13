@@ -24,12 +24,11 @@ import {
   handleOpenServ,
   handleCloseServ,
   updateEntryState1,
-  getSpecialty,
   teamstaff,
   handleSubmit,
   DeleteStaff,
   stffchange,
-  GetProfessionalwstaff,
+  GetProfessionalwstaff1,
   editStaff,
 } from "./api";
 import SelectField from "Screens/Components/Select/index";
@@ -70,11 +69,10 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    getSpecialty(this);
     teamstaff(this);
-    GetProfessionalwstaff(this);
+    GetProfessionalwstaff1(this);
     this.specailityList();
-    console.log("1", this.props.stateLanguageType);
+   
   }
 
   //On Changing the specialty id
@@ -112,7 +110,7 @@ class Index extends Component {
     this.setState({ selectWard: e, updateTrack: state });
   };
 
-  //to get the speciality list
+  // //to get the speciality list
   specailityList = () => {
     var spec =
       this.props.speciality?.SPECIALITY &&
@@ -120,10 +118,9 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
-    this.setState({ specilaityList: spec });
+    this.setState({ specilaityList: spec ? spec : [] });
   };
-
-  handleOpenServSec = (item) => {
+handleOpenServSec = (item) => {
     this.setState({ openServSec: true, showStaff: item });
   };
   handleCloseServSec = () => {

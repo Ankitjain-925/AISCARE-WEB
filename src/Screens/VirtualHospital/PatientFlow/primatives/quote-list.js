@@ -60,7 +60,7 @@ class InnerQuoteList extends React.Component {
     this.state = {
     }
   }
- 
+
   shouldComponentUpdate(nextProps, nextState) {
     if (
       nextProps.quotes !== this.props.quotes ||
@@ -72,15 +72,15 @@ class InnerQuoteList extends React.Component {
     return false;
   }
 
-  verifySection = (_id)=>{
+  verifySection = (_id) => {
     this.props.quotes.map((quote, index) => {
-      if(quote?._id ===_id ){
-      quote.verifiedbyPatient = true;
+      if (quote?._id === _id) {
+        quote.verifiedbyPatient = true;
       }
-  })
-  this.props.updatesQuotes(this.props.quotes)
-}
-  
+    })
+    this.props.updatesQuotes(this.props.quotes)
+  }
+
 
   render() {
     return this.props.quotes.map((quote, index) => (
@@ -93,7 +93,8 @@ class InnerQuoteList extends React.Component {
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
-          verifySection={(_id)=>{this.verifySection(_id)}}
+            changeStaffsec={this.props.changeStaffsec}
+            verifySection={(_id) => { this.verifySection(_id) }}
             moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
             columns={this.props.columns}
             ordered={this.props.ordered}
@@ -134,7 +135,8 @@ class InnerList extends React.Component {
       <div>
         <div ref={dropProvided.innerRef} className="quote-list">
           <InnerQuoteList
-          updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+            changeStaffsec={this.props.changeStaffsec}
+            updatesQuotes={(data) => { this.props.updatesQuotes(data) }}
             socket={this.props.socket}
             MovetoTask={(speciality, patient_id) => {
               this.props.MovetoTask(speciality, patient_id);
@@ -204,7 +206,8 @@ export default class QuoteList extends React.Component {
             {internalScroll ? (
               <ScrollContainer style={scrollContainerStyle}>
                 <InnerList
-                updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+                  changeStaffsec={this.props.changeStaffsec}
+                  updatesQuotes={(data) => { this.props.updatesQuotes(data) }}
                   moveDetial={(id, case_id) =>
                     this.props.moveDetial(id, case_id)
                   }
@@ -235,7 +238,8 @@ export default class QuoteList extends React.Component {
               </ScrollContainer>
             ) : (
               <InnerList
-              updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+                changeStaffsec={this.props.changeStaffsec}
+                updatesQuotes={(data) => { this.props.updatesQuotes(data) }}
                 moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
                 ordered={this.props.ordered}
                 columns={this.props.columns}

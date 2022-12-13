@@ -40,60 +40,59 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openAss: this.props.openAss1 ? this.props.openAss1 : false,
+            openAss1: this.props.openAss1 ? this.props.openAss1 : false,
             service: this.props.service || {},
             serviceList1: [],
             users1: {},
             selectedPat: {},
             professional_id_list1: [],
-            assignedTo: [],
             date_format: this.props.date_format,
             time_format: this.props.time_format,
-            openDate: false,
             openIndex: false,
-            AllSpeciality: [],
-            specilaityList: [],
-            newspeciality: [],
-            items: [],
-            editServ: false,
-            newServiceIndex: false,
-            error: '',
             errorMsg: '',
-            addservice: {},
             selectedHouse: this.props.selectedHouse,
             authErr: false,
             disableAssignment: false
-
         };
     }
 
     componentDidMount() {
-        // this.getPatientData();
-        // this.getProfessionalData();
-        // this.therapylist();
+        this.getPatientData();
+        this.getProfessionalData();
+        if (this.props?.House?.value) {
+            this.therapylist();
+        }
     }
 
     componentDidUpdate = (prevProps) => {
-        if (prevProps.patient !== this.props.patient) {
-            let user = { value: this.props.patient?.patient_id };
-            this.updateEntryState2(user);
-        }
         if (prevProps.openAss1 !== this.props.openAss1) {
-            // if (this.props.comesFrom !== 'Professional') {
-            this.setState({ openAss: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
-            // }
-            // else {
-            //     this.setState({ openAss: this.props.openAss, selectedHouse: {}, authErr: false })
-            // }
+            if (this.props.comesFrom !== 'Professional') {
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    authErr: false, professional_id_list1:
+                        this.state.professional_id_list
+                });
+            }
+            else {
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    selectedHouse: {},
+                    authErr: false
+                })
+            }
         }
+        if (prevProps.therapy !== this.props.therapy) {
+            this.settherapy(this.props.therapy)
+        }
+
     };
 
     handleCloseAss = () => {
         this.setState({
             service: {},
             selectedPat: {},
-            assignedTo: [], newspeciality: '', errorMsg: '', error: '',
-            items: [], total_amount: 0, showError: '',
+            showError: '',
+            selectedHouse: {},
 
         }, () => {
             if (this.props.comesFrom === 'detailTask') {
@@ -163,50 +162,56 @@ class Index extends Component {
 
     // Get the Professional data
     getProfessionalData = async (fromEdit) => {
-        this.setState({ loaderImage: true });
-        var data = await getProfessionalData(
-            this.props.comesFrom === "Professional"
-                ? this.state.service?.house_id || this.state.selectedHouse?.value
-                : this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-        );
-        if (data) {
-            this.setState({
-                loaderImage: false,
-                professionalArray: data.professionalArray,
-                professional_id_list: data.professionalList,
-                professional_id_list1: data.professionalList,
-            });
-        } else {
-            this.setState({ loaderImage: false });
+        if (this.props?.House?.value || this.state.selectedHouse?.value) {
+
+
+            this.setState({ loaderImage: true });
+            var data = await getProfessionalData(
+                this.props.comesFrom === "Professional"
+                    ? this.state.selectedHouse?.value
+                    : this.props?.House?.value,
+                this.props.stateLoginValueAim.token
+            );
+            if (data) {
+                this.setState({
+                    loaderImage: false,
+                    professionalArray: data.professionalArray,
+                    professional_id_list: data.professionalList,
+                    professional_id_list1: data.professionalList,
+                });
+            } else {
+                this.setState({ loaderImage: false });
+            }
         }
     };
 
     // Get the Patient data
     getPatientData = async () => {
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(
-            this.props.stateLoginValueAim.token,
-            this.props?.House?.value || this.state.selectedHouse?.value,
-            "taskpage"
-        );
-        if (response?.isdata) {
-            this.setState(
-                { users1: response.PatientList1, users: response.patientArray },
-                () => {
-                    if (this.props.location?.state?.user) {
-                        let user =
-                            this.state.users1.length > 0 &&
-                            this.state.users1.filter(
-                                (user) => user.value === this.props.location?.state?.user.value
-                            );
-
-                        this.updateEntryState2(this.props.location?.state?.user);
-                    }
-                }
+        if (this.props?.House?.value || this.state.selectedHouse?.value) {
+            this.setState({ loaderImage: true });
+            let response = await getPatientData(
+                this.props.stateLoginValueAim.token,
+                this.props?.House?.value || this.state.selectedHouse?.value,
+                "taskpage"
             );
-        } else {
-            this.setState({ loaderImage: false });
+            if (response?.isdata) {
+                this.setState(
+                    { users1: response.PatientList1, users: response.patientArray },
+                    () => {
+                        if (this.props.location?.state?.user) {
+                            let user =
+                                this.state.users1.length > 0 &&
+                                this.state.users1.filter(
+                                    (user) => user.value === this.props.location?.state?.user.value
+                                );
+
+                            this.updateEntryState2(this.props.location?.state?.user);
+                        }
+                    }
+                );
+            } else {
+                this.setState({ loaderImage: false });
+            }
         }
     };
 
@@ -243,13 +248,11 @@ class Index extends Component {
         var due_on = this.state.therapy_sequence?.[index]?.due_on ? this.state.therapy_sequence?.[index]?.due_on : { date: new Date(), time: new Date() };
         const state = this.state.therapy_sequence;
         if (name === 'date' || name === 'time') {
-            console.log('dsfdsfsf')
             due_on[name] = value;
             state[index]['due_on'] = due_on;
         }
         else if (name === 'assinged_to1') {
             state[index][name] = value;
-            console.log('state[index]2', state[index])
             var data =
                 value?.length > 0 &&
                 value.reduce((last, e, index) => {
@@ -264,13 +267,12 @@ class Index extends Component {
                     return last;
                 }, []);
             state[index]['assinged_to'] = data;
-            console.log('state[index]3', state[index])
+
         }
         else {
             state[name] = value;
         }
         this.setState({ therapy_sequence: state })
-        // ()=> console.log('therapy_sequence', this.state.therapy_sequence));
 
     };
 
@@ -309,10 +311,11 @@ class Index extends Component {
                     this.setState({ errorMsg: "Please fill due on date/time and professional for each sequence" })
                 }
                 else {
+
                     console.log('final api call')
+
                 }
             }
-            console.log('no error click')
         }
         // else if (!data?.due_on?.time) {
         //     this.setState({ errorMsg: plz_enter_time })
@@ -345,20 +348,21 @@ class Index extends Component {
                         return last;
                     }, []);
             }
+
             this.setState({ service: state, therapy_assignedto1: data, therapy_assignedto: datas[0]?.assinged_to, therapy_sequence: datas[0]?.sequence_list })
         }
     }
 
     //to get the speciality list
-    specailityList = () => {
-        var spec =
-            this.props.speciality?.SPECIALITY &&
-            this.props?.speciality?.SPECIALITY.length > 0 &&
-            this.props?.speciality?.SPECIALITY.map((data) => {
-                return { label: data.specialty_name, value: data._id };
-            });
-        this.setState({ specilaityList: spec });
-    };
+    // specailityList = () => {
+    //     var spec =
+    //         this.props.speciality?.SPECIALITY &&
+    //         this.props?.speciality?.SPECIALITY.length > 0 &&
+    //         this.props?.speciality?.SPECIALITY.map((data) => {
+    //             return { label: data.specialty_name, value: data._id };
+    //         });
+    //     this.setState({ specilaityList: spec });
+    // };
 
     //get therapy list
     therapylist = () => {
@@ -371,7 +375,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("reppp", response)
                 if (response.data?.hassuccessed) {
                     response?.data?.data &&
                         response.data.data.map((element) => {
@@ -388,7 +391,7 @@ class Index extends Component {
 
 
     updateEntryState7 = (e) => {
-        console.log("e", e)
+
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
@@ -426,7 +429,7 @@ class Index extends Component {
             <>
                 {this.state.loaderImage && <Loader />}
                 <Modal
-                    open={this.state.openAss}
+                    open={this.state.openAss1}
                     onClose={() => this.handleCloseAss()}
                     className={
                         this.props.settings &&
@@ -473,7 +476,7 @@ class Index extends Component {
 
                                 <Grid className="enterSpcl enterSpclSec">
 
-                                    <Grid item xs={12} md={12}>
+                                    {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                                         <Grid>
                                             <label>{For_Hospital}</label>
                                             <Select
@@ -487,8 +490,7 @@ class Index extends Component {
                                                 isSearchable={true}
                                             />
                                         </Grid>
-
-                                    </Grid>
+                                    </Grid>}
                                     <Grid item xs={12} md={12}>
                                         <label>{ForPatient}</label>
 
@@ -525,13 +527,14 @@ class Index extends Component {
                                             <Select
                                                 name="therapy"
                                                 onChange={(e) => this.settherapy(e, 'therapy')}
-                                                value={this.state.therapies}
+                                                // value={this.state.therapies}
+                                                value={this.props.therapy}
                                                 options={this.state.serviceList1}
                                                 placeholder={Search_Select}
                                                 className="addStafSelect"
                                                 isMulti={false}
                                                 isSearchable={true}
-
+                                                isDisabled={true}
                                             />
                                         </Grid>
                                     </Grid>
@@ -568,14 +571,15 @@ class Index extends Component {
 
                                                     </div>
                                                         : <div>
+
                                                             <label>{Assign_Title} : </label> {item.title}
                                                             <label>{TotalAmount} : </label> {item.total_amount}
                                                             <label>{Services} : </label>
                                                             <div>{item.services?.length > 0 && item.services.map((cont) => (
                                                                 <>
-                                                                    <label>{ServiceName}</label> <span>{cont?.service_name}</span>
+                                                                    <label>{ServiceName}</label>  <span>{cont?.service}</span>
                                                                     <label>{Service_Amount}</label> <span>{cont?.amount}</span>
-                                                                    <label>{Quantity}</label> <span>{cont?.quantity}</span>
+                                                                    <label>{Quantity}</label>  <span>{cont?.quantity}</span>
                                                                 </>
                                                             ))}</div>
                                                         </div>}

@@ -77,9 +77,9 @@ class Index extends Component {
     this.props.history.push("/insurance");
   };
   //For Chat page
-  Chats = () => {
-    this.props.history.push("/insurance/chats");
-  };
+  // Chats = () => {
+  //   this.props.history.push("/insurance/chats");
+  // };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
