@@ -8,26 +8,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-export const getSpecialty = (current) => {
-  current.setState({ loaderImage: true });
-  axios
-    .get(
-      sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
-      commonHeader(current.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-};
-
-
-
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -37,13 +17,6 @@ export const onChangePage = (pageNumber, current) => {
     currentPage: pageNumber,
   });
 };
-
-//On Changing the specialty id 
-export const onFieldChange = (e, current) => {
-  const state = current.state.updateTrack;
-  state['speciality_id'] = e?.length > 0 && e.map((data) => { return data.value });
-  current.setState({ updateTrack: state });
-}
 
 //Modal Open
 export const handleOpenServ = (current) => {
@@ -123,6 +96,33 @@ export const handleSubmit = (current) => {
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
+}
+else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
+  current.setState({ errorMsg: Please_select_staff_name })
+} 
+else{
+  current.setState({ loaderImage: true });
+   if (data?._id) {
+    console.log('data',data)
+      // axios
+      //     .put(
+      //         // sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" +  data?.staff_id, data,
+      //         commonHeader(current.props.stateLoginValueAim.token)
+      //     )
+      //     .then((responce) => {
+      //       teamstaff(current);
+      //         current.setState({
+      //             updateTrack: {},
+      //             selectSpec2:'',
+      //             selectWard:[]
+      //         });
+      //         handleCloseServ(current);
+      //     })
+      //     .catch(() => {
+      //         current.setState({ loaderImage: false });
+      //         handleCloseServ(current);
+      //     })
+      console.log("kumar",data?._id);
   }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
     current.setState({ errorMsg: Please_select_staff_name })

@@ -14,7 +14,7 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting } from "../api";
+import { getSetting, getSpeciality } from '../api';
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
@@ -42,6 +42,9 @@ class Index extends Component {
       this.logOutClick.bind(this)
     );
     getSetting(this);
+    if(this.props.speciality.SPECIALITY == false){
+    getSpeciality(this);
+    }
   }
   //For close the model
   openLanguageModel = () => {

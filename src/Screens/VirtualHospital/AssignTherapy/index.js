@@ -166,7 +166,8 @@ class Index extends Component {
             Edit_Delete,
             Add_Sequences,
             Task_Name,
-            Task_Description
+            Task_Description,
+            Assignedtitle
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -465,7 +466,7 @@ class Index extends Component {
                                                                         {taskName?.value === "assign_service" &&
                                                                             <Grid className="headService11">
                                                                                 <VHfield
-                                                                                    label="Assigned Title"
+                                                                                    label={Assignedtitle}
                                                                                     name="title"
                                                                                     placeholder="Enter Title"
                                                                                     onChange={(e) => updateEntry(this, e)}
