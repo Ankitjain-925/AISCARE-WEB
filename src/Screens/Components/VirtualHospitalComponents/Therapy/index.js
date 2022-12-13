@@ -53,30 +53,38 @@ class Index extends Component {
             selectedHouse: this.props.selectedHouse,
             authErr: false,
             disableAssignment: false
-
         };
     }
 
     componentDidMount() {
         this.getPatientData();
         this.getProfessionalData();
+        if (this.props?.House?.value) {
+            this.therapylist();
+        }
     }
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.openAss1 !== this.props.openAss1) {
-            console.log('111')
             if (this.props.comesFrom !== 'Professional') {
-            this.setState({ openAss1: this.props.openAss1, authErr: false, professional_id_list1: this.state.professional_id_list });
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    authErr: false, professional_id_list1:
+                        this.state.professional_id_list
+                });
             }
             else {
-                console.log('222')
-                this.setState({ openAss1: this.props.openAss1, selectedHouse: {}, authErr: false })
+                this.setState({
+                    openAss1: this.props.openAss1,
+                    selectedHouse: {},
+                    authErr: false
+                })
             }
         }
-        if(prevProps.therapy !== this.props.therapy){
-            console.log('this.props.therapy', this.props.therapy)
+        if (prevProps.therapy !== this.props.therapy) {
             this.settherapy(this.props.therapy)
         }
+
     };
 
     handleCloseAss = () => {
@@ -84,7 +92,7 @@ class Index extends Component {
             service: {},
             selectedPat: {},
             showError: '',
-            selectedHouse:{},
+            selectedHouse: {},
 
         }, () => {
             if (this.props.comesFrom === 'detailTask') {
@@ -96,22 +104,22 @@ class Index extends Component {
 
     };
     openTaskTime = (index) => {
-        this.setState({ openIndex: index});
+        this.setState({ openIndex: index });
     };
 
     closeTaskTime = () => {
-        this.setState({  openIndex:  false });
+        this.setState({ openIndex: false });
     };
 
     // assignedTo = (e) => {
     //     this.setState({ assignedTo: e }, () => {
     //         var data =
     //             e?.length > 0 &&
-    //             e.reduce((last, current, index) => {
+    //             e.reduce((last, this, index) => {
     //                 let isProf =
     //                     this.state.professionalArray?.length > 0 &&
     //                     this.state.professionalArray.filter(
-    //                         (data, index) => data.user_id === current.value
+    //                         (data, index) => data.user_id === this.value
     //                     );
     //                 if (isProf && isProf.length > 0) {
     //                     last.push(isProf[0]);
@@ -131,7 +139,7 @@ class Index extends Component {
 
 
     // manage assign to list
-   
+
     // selectProf = (listing, data) => {
     //     var showdata = data;
     //     var alredyAssigned =
@@ -154,59 +162,59 @@ class Index extends Component {
 
     // Get the Professional data
     getProfessionalData = async (fromEdit) => {
-        if( this.props?.House?.value || this.state.selectedHouse?.value){
+        if (this.props?.House?.value || this.state.selectedHouse?.value) {
 
-        
-        this.setState({ loaderImage: true });
-        var data = await getProfessionalData(
-            this.props.comesFrom === "Professional"
-                ? this.state.selectedHouse?.value
-                : this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-        );
-        if (data) {
-            this.setState({
-                loaderImage: false,
-                professionalArray: data.professionalArray,
-                professional_id_list: data.professionalList,
-                professional_id_list1: data.professionalList,
-            });
-        } else {
-            this.setState({ loaderImage: false });
+
+            this.setState({ loaderImage: true });
+            var data = await getProfessionalData(
+                this.props.comesFrom === "Professional"
+                    ? this.state.selectedHouse?.value
+                    : this.props?.House?.value,
+                this.props.stateLoginValueAim.token
+            );
+            if (data) {
+                this.setState({
+                    loaderImage: false,
+                    professionalArray: data.professionalArray,
+                    professional_id_list: data.professionalList,
+                    professional_id_list1: data.professionalList,
+                });
+            } else {
+                this.setState({ loaderImage: false });
+            }
         }
-    }
     };
 
     // Get the Patient data
     getPatientData = async () => {
-        if( this.props?.House?.value || this.state.selectedHouse?.value){
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(
-            this.props.stateLoginValueAim.token,
-            this.props?.House?.value || this.state.selectedHouse?.value,
-            "taskpage"
-        );
-        if (response?.isdata) {
-            this.setState(
-                { users1: response.PatientList1, users: response.patientArray },
-                () => {
-                    if (this.props.location?.state?.user) {
-                        let user =
-                            this.state.users1.length > 0 &&
-                            this.state.users1.filter(
-                                (user) => user.value === this.props.location?.state?.user.value
-                            );
-
-                        this.updateEntryState2(this.props.location?.state?.user);
-                    }
-                }
+        if (this.props?.House?.value || this.state.selectedHouse?.value) {
+            this.setState({ loaderImage: true });
+            let response = await getPatientData(
+                this.props.stateLoginValueAim.token,
+                this.props?.House?.value || this.state.selectedHouse?.value,
+                "taskpage"
             );
-        } else {
-            this.setState({ loaderImage: false });
+            if (response?.isdata) {
+                this.setState(
+                    { users1: response.PatientList1, users: response.patientArray },
+                    () => {
+                        if (this.props.location?.state?.user) {
+                            let user =
+                                this.state.users1.length > 0 &&
+                                this.state.users1.filter(
+                                    (user) => user.value === this.props.location?.state?.user.value
+                                );
+
+                            this.updateEntryState2(this.props.location?.state?.user);
+                        }
+                    }
+                );
+            } else {
+                this.setState({ loaderImage: false });
+            }
         }
-    }
     };
-  
+
     updateEntryState2 = (user) => {
         var user1 =
             this.state.users?.length > 0 &&
@@ -240,39 +248,50 @@ class Index extends Component {
         var due_on = this.state.therapy_sequence?.[index]?.due_on ? this.state.therapy_sequence?.[index]?.due_on : { date: new Date(), time: new Date() };
         const state = this.state.therapy_sequence;
         if (name === 'date' || name === 'time') {
-            console.log('dsfdsfsf')
             due_on[name] = value;
             state[index]['due_on'] = due_on;
-        } 
+        }
         else if (name === 'assinged_to1') {
-            state[index][name] = value;
-            console.log('state[index]2', state[index])
+
+            // state[index][name] = value;
             var data =
-          value?.length > 0 &&
-           value.reduce((last, e, index) => {
-                let isProf =
-                    this.state.professionalArray?.length > 0 &&
-                    this.state.professionalArray.filter(
-                        (data, index) => data.user_id === value.value || data._id === value.value
-                    );
-                if (isProf && isProf.length > 0) {
-                    last.push(isProf[0]);
-                }
-                return last;
-            }, []);
+                value?.length > 0 &&
+                value.reduce((last, value, index) => {
+                    let isProf =
+                        this.state.professionalArray?.length > 0 &&
+                        this.state.professionalArray.filter(
+
+                            (data, index) =>
+                                data.user_id === value?.value || data._id === value?.value
+                        );
+                    if (isProf && isProf.length > 0) {
+                        last.push(isProf[0]);
+                    }
+                    return last;
+                }, []);
             state[index]['assinged_to'] = data;
-            console.log('state[index]3', state[index])
-        }   
+
+        }
         else {
             state[name] = value;
         }
         this.setState({ therapy_sequence: state })
-            // ()=> console.log('therapy_sequence', this.state.therapy_sequence));
 
     };
 
     FinalServiceSubmit = () => {
         var data = this.state.service;
+        var house_id = this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
+        var sequence = this.state.therapy_sequence;
+        var finalData = {};
+        finalData.patient = data?.patient;
+        finalData.therapy_id = data?.therapy_id;
+        finalData.therapy_name = data?.therapy_name;
+        finalData.speciality = data?.speciality;
+        finalData.house_id = house_id;
+        finalData.status = "open";
+        finalData.sequence_list = sequence;
+
         this.setState({ errorMsg: '' })
         let translate = getLanguage(this.props.stateLanguageType);
         let {
@@ -283,33 +302,48 @@ class Index extends Component {
             Therapy_not_selected
 
         } = translate;
-        var house_id= this.props.House?.value ? this.props.House?.value : this.state.selectedHouse?.value;
+
         if (!house_id) {
             this.setState({ errorMsg: "Please select the hospital" })
         }
-        else if(!data.patient_id){
-            this.setState({errorMsg: "Please select the patient"})
+        else if (!data.patient_id) {
+            this.setState({ errorMsg: "Please select the patient" })
         }
-        else if(!data?.therapy_id){
-            this.setState({errorMsg: "Please select therapy"})
+        else if (!data?.therapy_id) {
+            this.setState({ errorMsg: "Please select therapy" })
         }
-        else{
+        else {
             var sequence = this.state.therapy_sequence;
             var gotall = true;
-            if(sequence?.length>0){
+            if (sequence?.length > 0) {
                 sequence.map((item) => {
-                    if(!item?.assinged_to?.legnth>0 && !item?.due_on?.date && !item?.due_on?.time){
-                        gotall= false;
+                    if (!item?.assinged_to?.legnth > 0 && !item?.due_on?.date && !item?.due_on?.time) {
+                        gotall = false;
                     }
                 })
-                if(!gotall){
-                    this.setState({errorMsg: "Please fill due on date/time and professional for each sequence"})
+                if (!gotall) {
+                    this.setState({ errorMsg: "Please fill due on date/time and professional for each sequence" })
                 }
-                else{
-                    console.log('final api call')
+                else {
+                    this.setState({
+                        loaderImage: true
+                    });
+                    axios
+                        .post(
+                            sitedata.data.path + "/vt/SaveTherapy",
+                            finalData,
+                            commonHeader(this.props.stateLoginValueAim.token)
+                        )
+                        .then((responce) => {
+                            this.setState({
+                                loaderImage: false, openAss1: false
+                            });
+                        })
+                        .catch(() => {
+                            this.setState({ loaderImage: false });
+                        })
                 }
             }
-            console.log('no error click')
         }
         // else if (!data?.due_on?.time) {
         //     this.setState({ errorMsg: plz_enter_time })
@@ -327,21 +361,22 @@ class Index extends Component {
         if (datas?.length > 0) {
             state['therapy_id'] = datas[0]?._id;
             state['therapy_name'] = datas[0]?.therapy_name;
-            if(datas[0]?.assinged_to){
+            if (datas[0]?.assinged_to) {
                 var data =
-                datas[0]?.assinged_to?.length > 0 &&
-                datas[0]?.assinged_to.reduce((last, e, index) => {
-                    let isProf =
-                        this.state.professional_id_list?.length > 0 &&
-                        this.state.professional_id_list.filter(
-                            (data, index) => data.value === e.user_id || data.value === e._id
-                        );
-                    if (isProf && isProf.length > 0) {
-                        last.push(isProf[0]);
-                    }
-                    return last;
-                }, []);
+                    datas[0]?.assinged_to?.length > 0 &&
+                    datas[0]?.assinged_to.reduce((last, e, index) => {
+                        let isProf =
+                            this.state.professional_id_list?.length > 0 &&
+                            this.state.professional_id_list.filter(
+                                (data, index) => data.value === e.user_id || data.value === e._id
+                            );
+                        if (isProf && isProf.length > 0) {
+                            last.push(isProf[0]);
+                        }
+                        return last;
+                    }, []);
             }
+
             this.setState({ service: state, therapy_assignedto1: data, therapy_assignedto: datas[0]?.assinged_to, therapy_sequence: datas[0]?.sequence_list })
         }
     }
@@ -368,7 +403,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("reppp", response)
                 if (response.data?.hassuccessed) {
                     response?.data?.data &&
                         response.data.data.map((element) => {
@@ -385,13 +419,13 @@ class Index extends Component {
 
 
     updateEntryState7 = (e) => {
-        console.log("e",e)
+
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
             this.therapylist();
             const { roles = [] } = e || {};
-            this.setState({ authErr: true,});
+            this.setState({ authErr: true, });
         });
     };
 
@@ -400,20 +434,27 @@ class Index extends Component {
         let { Searchserviceoraddcustominput,
             Addservice,
             For_Hospital,
-           ForPatient,
+            ForPatient,
             Search_Select,
-           Assignedto,
-           Assign_Therapy,
-             Dueon,
+            Assignedto,
+            Assign_Therapy,
+            Dueon,
             Addtime,
             save_and_close,
             remove_time,
-            Therapy
+            Therapy,
+            Task_Name,
+            Task_Description,
+            Assign_Title,
+            TotalAmount,
+            Services,
+            ServiceName,
+            Service_Amount,
+            Quantity
         } = translate;
         return (
 
             <>
-            {console.log('123', this.state.openAss1)}
                 {this.state.loaderImage && <Loader />}
                 <Modal
                     open={this.state.openAss1}
@@ -468,7 +509,7 @@ class Index extends Component {
                                             <label>{For_Hospital}</label>
                                             <Select
                                                 name="for_hospital"
-                                                options={this.props.currentList}
+                                                options={this.props.thisList}
                                                 placeholder={Search_Select}
                                                 onChange={(e) => this.updateEntryState7(e)}
                                                 value={this.state.selectedHouse || ""}
@@ -514,13 +555,14 @@ class Index extends Component {
                                             <Select
                                                 name="therapy"
                                                 onChange={(e) => this.settherapy(e, 'therapy')}
-                                                value={this.state.therapies}
+                                                // value={this.state.therapies}
+                                                value={this.props.therapy}
                                                 options={this.state.serviceList1}
                                                 placeholder={Search_Select}
                                                 className="addStafSelect"
                                                 isMulti={false}
                                                 isSearchable={true}
-
+                                                isDisabled={true}
                                             />
                                         </Grid>
                                     </Grid>
@@ -542,32 +584,33 @@ class Index extends Component {
                                             />
                                         </Grid>
                                     </Grid>
-                                        <Grid item xs={12} md={12} className="customservicetitle">
-                                             <Grid className="allCustomService">
+                                    <Grid item xs={12} md={12} className="customservicetitle">
+                                        <Grid className="allCustomService">
                                             <p>{"Sequence of Tasks / Assigned services"}</p>
                                             {this.state.therapy_sequence && this.state.therapy_sequence?.length > 0 && this.state.therapy_sequence.map((item, index) => (
                                                 <>
-                                                  <Grid className="tskSrvsPart">
-                                                    <p>{index + 1}</p>
-                                                    <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
+                                                    <Grid className="tskSrvsPart">
+                                                        <p>{index + 1}</p>
+                                                        <p>{item?.type === 'task' ? "Task" : "Assigned Service"}</p>
                                                     </Grid>
                                                     {item?.type === 'task' ? <div>
-                                                        <label>Task Name : </label> {item.task_name}
-                                                        <label>Task Description : </label> {item.task_description}
+                                                        <label>{Task_Name} : </label> {item.task_name}
+                                                        <label>{Task_Description} : </label> {item.task_description}
 
                                                     </div>
-                                                    :<div>
-                                                          <label>Assign Title : </label> {item.title}
-                                                          <label>Total amount : </label> {item.total_amount}
-                                                          <label>Services : </label> 
-                                                          <div>{item.services?.length>0 && item.services.map((cont)=>(
-                                                            <>
-                                                                <label>Service Name</label> <span>{cont?.service_name}</span>
-                                                                <label>Service Amount</label> <span>{cont?.amount}</span>
-                                                                <label>Quantity</label> <span>{cont?.quantity}</span>
-                                                            </>
-                                                          ))}</div>
-                                                    </div>}
+                                                        : <div>
+
+                                                            <label>{Assign_Title} : </label> {item.title}
+                                                            <label>{TotalAmount} : </label> {item.total_amount}
+                                                            <label>{Services} : </label>
+                                                            <div>{item.services?.length > 0 && item.services.map((cont) => (
+                                                                <>
+                                                                    <label>{ServiceName}</label>  <span>{cont?.service}</span>
+                                                                    <label>{Service_Amount}</label> <span>{cont?.amount}</span>
+                                                                    <label>{Quantity}</label>  <span>{cont?.quantity}</span>
+                                                                </>
+                                                            ))}</div>
+                                                        </div>}
                                                     <Grid item xs={12} md={12} className="dueOn creatInfoIner allCreatInfo">
                                                         <label>{Dueon}</label>
                                                         <Grid
@@ -585,7 +628,7 @@ class Index extends Component {
                                                                             ? new Date(
                                                                                 item?.due_on?.date
                                                                             )
-                                                                            : new Date()
+                                                                            : new Date() || {}
                                                                     }
                                                                     notFullBorder
                                                                     date_format={this.state.date_format}
@@ -606,7 +649,7 @@ class Index extends Component {
                                                                 xs={4}
                                                                 md={4}
                                                                 className={
-                                                                    this.state.openIndex !== index 
+                                                                    this.state.openIndex !== index
                                                                         ? 'addTimeTask'
                                                                         : 'addTimeTask1'
                                                                 }
@@ -650,29 +693,29 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={12} className="customservicetitle">
-                                        <label>{Assignedto}</label>
-                                       <Grid onClick={()=>{this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index)}} className="allThrapySec">
-                                       <label>{"Same as therapy"}</label></Grid>
-                                        <Grid>
-                                            <Select
-                                                name="professional"
-                                                onChange={(e) => this.updateEntry(e, 'assinged_to1', index)}
-                                                value={item.assinged_to1}
-                                                options={this.state.professional_id_list1}
-                                                placeholder={Assignedto}
-                                                className="addStafSelect"
-                                                isMulti={true}
-                                                isSearchable={true}
-                                            />
-                                        </Grid>
-                                        
-                                        </Grid>
-                                      
+                                                        <label>{Assignedto}</label>
+                                                        <Grid onClick={() => { this.updateEntry(this.state.therapy_assignedto1, 'assinged_to1', index) }} className="allThrapySec">
+                                                            <label>{"Same as therapy"}</label></Grid>
+                                                        <Grid>
+                                                            <Select
+                                                                name="professional"
+                                                                onChange={(e) => this.updateEntry(e, 'assinged_to1', index)}
+                                                                value={item.assinged_to1}
+                                                                options={this.state.professional_id_list1}
+                                                                placeholder={Assignedto}
+                                                                className="addStafSelect"
+                                                                isMulti={true}
+                                                                isSearchable={true}
+                                                            />
+                                                        </Grid>
+
+                                                    </Grid>
+
                                                 </>
                                             ))}
                                         </Grid>
-                                                                        
-                                   </Grid>
+
+                                    </Grid>
 
                                 </Grid>
 
