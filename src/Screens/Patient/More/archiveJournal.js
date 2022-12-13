@@ -405,11 +405,11 @@ class Index extends Component {
               {/* End of Website Menu */}
 
               {/* Website Mid Content */}
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={10}>
                 {/* Start of Depression Section */}
                 <Grid className="descpCntntMain">
                   <Grid className="journalAdd">
-                    <Grid container direction="row">
+                    <Grid container direction="row"  >
                       <Grid item xs={11} md={11}>
                         <Grid container direction="row">
                           <Grid item xs={6} md={6}>

@@ -2531,11 +2531,15 @@ a.lineSort {
 @media (max-width: 959px) {
   .srchRght {
     text-align: left !important;
-    padding: 0px 0px 16px 17px !important;
+    padding: 0px 0px 16px 17px !important; 
+  }
+  .srchLft {
+    border-right: none !important;
   }
   .cmnLftSpc {
     padding-left: 10px !important;
     padding-right: 10px !important;
+    padding-top: 0px;
   }
   .cardoLbl {
     margin: 15px 0px 12px !important;
@@ -4369,7 +4373,8 @@ button.onlogyBtn {
   font-family: Muli;
   text-transform: capitalize;
   padding: 9px 11px;
-  margin: 5px 5px;
+  margin: 3px 0px;
+  margin-right: 6px;
 }
 .cardioGrupBtn button:last-child {
   margin-right: 0px !important;
@@ -4421,7 +4426,7 @@ button.onlogyBtn {
 }
 .cardioGrupBtn {
   border-bottom: 1px solid #f2f2f2;
-  padding: 18px 18px;
+  padding: 18px;
 }
 .cardioTabUpr {
   padding: 0px 18px;
@@ -4849,11 +4854,11 @@ button.onlogyBtn {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 12px;
+  line-height: 24px;
   font-family: Muli;
   display: block;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px){
   .addSpeclContnt {
     width: 96% !important;
   }
@@ -5126,6 +5131,9 @@ a.recodBlck:hover {
   font-family: Muli;
   display: block;
 }
+.addWardsIner .wrdsBtn {
+  padding-bottom: 0px;
+}
 .roomName {
   margin-top: 22px;
 }
@@ -5153,7 +5161,7 @@ a.recodBlck:hover {
   text-align: center;
   justify-content: center;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 0px;
 }
 .roomName .MuiGrid-container {
   margin-bottom: 5px;
@@ -5388,9 +5396,8 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.srvcTable th,
-.srvcTable td {
-  padding: 10px 42px;
+.srvcTable th, .srvcTable td {
+  padding: 12px 42px 18px;
 }
 .srvcTable thead tr {
   border-bottom: 1px solid #d9dada;
@@ -5411,7 +5418,9 @@ button.downloadPDF:hover {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 18px;
-  margin-bottom: 8px;
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 0px;
 }
 .srvcTable td p {
   color: #7f8383;
@@ -5441,7 +5450,7 @@ button.downloadPDF:hover {
   display: block;
 }
 .invoiceAmnt {
-  padding: 0px 42px 38px;
+  padding: 30px 42px 30px;
 }
 .invoiceAmnt div button {
   font-family: Muli;
@@ -5508,9 +5517,6 @@ button.downloadPDF:hover {
   border-bottom: none;
   margin-bottom: 0px;
 }
-.srvcTable {
-  margin-bottom: 30px;
-}
 .addCstmField label {
   color: #404646;
   font-size: 12px;
@@ -5564,7 +5570,7 @@ button.downloadPDF:hover {
   content: initial !important;
 }
 .invoiceForm {
-  padding: 32px 42px 22px;
+  padding: 18px 42px 18px;
   border-bottom: 1px solid #d9dada;
 }
 .patntImg {
@@ -5725,11 +5731,11 @@ button.downloadPDF:hover {
 .srvcTable3 td {
   padding: 18px 18px;
 }
-.srvcTable3 thead tr {
-  border-bottom: 1px solid #d9dada;
-}
 .srvcTable3 tbody tr {
   border-bottom: 1px solid #f2f2f2;
+}
+.srvcTable3 tbody tr:last-child {
+  border-bottom: 0px;
 }
 .srvcTable3 td {
   color: #000808;
@@ -6273,6 +6279,7 @@ button.downloadPDF:hover {
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  min-height: 214px;
   margin-bottom: 30px;
 }
 .patntFlowIner {
@@ -6321,7 +6328,6 @@ button.downloadPDF:hover {
 .spcificInfo .MuiTypography-root.MuiTypography-body1 {
   padding: 24px 0px !important;
 }
-
 .tskOverView h1 {
   color: #000808;
   font-family: Muli;
@@ -6375,7 +6381,7 @@ button.downloadPDF:hover {
 }
 .showArchiv {
   text-align: center;
-}
+} 
 .showArchiv a {
   color: #00abaf !important;
   font-family: Muli;
@@ -6499,6 +6505,7 @@ button.downloadPDF:hover {
   border: 1px solid #f2f2f2;
   border-radius: 6px;
   padding: 14px 14px;
+  margin: 12px 22px;
   position: relative;
 }
 .allInfo label {
@@ -6761,8 +6768,7 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.asignLft,
-.asignRghtUpr {
+.asignLft, .asignRghtUpr {
   min-width: 142px;
 }
 .asignRght span {
@@ -6781,14 +6787,12 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.rvwCadio,
-.asignUpr,
-.makeCmpt,
-.multiDescp,
-.assignSecUpr,
-.assignSecUpr {
+.rvwCadio, .asignUpr, .makeCmpt, .multiDescp, .assignSecUpr {
   padding-left: 10px;
   padding-right: 30px;
+}
+.assignSec {
+  margin-top: 18px;
 }
 .markDone label {
   color: #00abaf;
@@ -8860,9 +8864,19 @@ button.dischrgCncl {
 .deleteStepLbl {
   border-bottom: 1px solid #f2f2f2;
 }
-.deleteStepLbl,
-.deleteStepInfo {
+.deleteStepLbl, .deleteStepInfo {
   padding: 15px 20px;
+}
+.deleteStep .deleteStepInfo {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.deleteStep .deleteStepInfo label {
+  margin-bottom: 20px;
+  display: block;
+}
+.dark-confirm .deleteStepLbl {
+  border-bottom: 1px solid #7c7c7c;
 }
 .receptn2 {
   width: 480px;
@@ -9395,7 +9409,6 @@ button.crdoLghtBlu2 {
   background-color: #ffffff;
   /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
 }
-
 .ptntFlowSpc {
   padding-left: 4%;
   padding-right: 4%;
@@ -9705,9 +9718,11 @@ button.crdoLghtBlu2 {
   .srchPatientMob a.srchSort {
     display: none;
   }
-  a.lineSort,
-  a.horzSort {
-    float: right;
+  a.lineSort, a.horzSort {
+    margin-top: 15px;
+  }
+  a.lineSort { 
+    margin-left: 12px;  
   }
   .srchRght {
     padding: 16px 0px 16px 17px !important;
@@ -9716,7 +9731,7 @@ button.crdoLghtBlu2 {
     margin-top: 0px;
   }
   .addFlow {
-    margin: 30px 0px 38px;
+    margin: 12px 0px 38px;
   }
   .srchPatientSrch .allSpec,
   .srchPatientSrch a.lineSort,
@@ -11089,11 +11104,6 @@ p.more-change-staff-img2 {
   padding-bottom: 16px;
   border-radius: 12px;
 }
-.creatTaskCntnt {
-  height: 537px;
-  overflow-y: scroll;
-  padding: 20px 0px;
-}
 .creatLbl {
   padding: 0px 20px;
   border-bottom: 1px solid #dedcdc;
@@ -11302,17 +11312,16 @@ p.more-change-staff-img2 {
   text-transform: initial;
   padding: 0px;
 }
-
 .acitveButton {
   color: #7f8383 !important;
   background-color: #f2f2f2 !important;
 }
 .positionDrop .spcMgntUpr {
   padding: 3px 3px !important;
-}
+} 
 .flowProfilRght {
   padding-left: 10px;
-  width: 75%;
+  width: 85%;
 }
 .nwModelCloseBtn {
   text-align: right;
@@ -11601,6 +11610,9 @@ ul.patientHint li {
 .darkTheme .roomBreadCrumb ul li label {
   color: #bfc1c1;
 }
+.darkTheme .cardioGrupBtn {
+  border-bottom: 1px solid #545454;
+}
 .darkTheme .wardsGrupUpr {
   background-color: #404646;
 }
@@ -11879,6 +11891,9 @@ ul.patientHint li {
 }
 .darkTheme .wardsGrup3 {
   background: #192020;
+}
+.darkTheme .roomsNum3 {
+  border-top: none !important;
 }
 .darkTheme .tskTabs button {
   background-color: #404646 !important;
@@ -12504,6 +12519,9 @@ ul.patientHint li {
 .darkTheme .patntFlow p {
   color: #fafafa;
 }
+.darkTheme .patntFlow p {
+  border-bottom: 1px solid #686868 !important;
+}
 .darkTheme .patntFlowIner label {
   color: #bfc1c1;
 }
@@ -12529,7 +12547,6 @@ ul.patientHint li {
 .openScandhrf1 img {
   margin-top: 20px;
 }
-
 .darkTheme .invoicHsptalIner.Mui-selected {
   background-color: transparent !important;
 }
@@ -13236,7 +13253,6 @@ ul.patientHint li {
   margin-right: 30px;
   padding: 18px 20px;
 }
-
 .addComit1 textarea {
   border: 1px solid #bfc1c1;
   border-radius: 4px;
@@ -13253,14 +13269,12 @@ ul.patientHint li {
   line-height: 18px;
   padding: 12px;
 }
-
 .patientTask {
   padding-top: 5px;
   padding-right: 30px;
   padding-bottom: 0px;
   padding-left: 0px;
 }
-
 @media (max-width: 452px) {
   .attchOpen {
     margin: 25px 0px 10px;
@@ -13286,12 +13300,7 @@ ul.patientHint li {
     display: flex;
   }
 }
-
 @media screen and (min-width: 961px) and (max-width: 1270px) {
-  .topLeftSpc {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
   .revwFilesRght,
   .allInfoRght {
     margin-left: 5px;
@@ -15215,12 +15224,14 @@ a.joinmeetingtab {
   /* left: 186px; */
   color: grey;
   font-weight: 600;
-  right: -10px;
+  right: -10px; 
 }
-
 @media (max-width: 500px) {
   .deleteStep {
     width: 100% !important;
+  }
+  .MuiGrid-root.srvcTable3 {
+    overflow-x: scroll;
   }
 }
 .infoShwSave3 input {
@@ -15474,11 +15485,9 @@ a.joinmeetingtab {
 .certificatePrice label {
   margin-bottom: 0px;
 }
-
 .addAssignedBtn button {
   min-width: 215px;
 }
-
 .addAssignBtn1 button {
   margin-left: 13px;
 }
@@ -15489,6 +15498,9 @@ a.joinmeetingtab {
 }
 .newServicAllSec {
   margin-bottom: 0px;
+}
+.newServc.newServicAllSec {
+  margin-bottom: 20px;
 }
 .darkTheme .cstmSelect2 div {
   background-color: #192020 !important;
@@ -15872,7 +15884,7 @@ width: 90px!important;
 .newServc {
   text-align: right;
   margin-top: 0px;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 .TabContainerWeb .topLeftSpc {
   padding-left: 0px;
@@ -15905,7 +15917,6 @@ width: 90px!important;
     text-align: center !important;
   }
 }
-
 .measureInput input{    
   border: 1px solid #BFC1C1;
   border-radius: 4px;
@@ -17007,15 +17018,11 @@ color:#FFFFFF
   text-align: center!important;
 }
 .react-confirm-alert-button-group1{
-  justify-content: center!important;
-
+  justify-content: center !important;
 }
-
-
 .seletDrop{
   margin-top: 10px;
 }
-
 .darkTheme .error_message,
 .homeBgDrk .error_message{
   color: #ff6262 !important;
@@ -17024,79 +17031,64 @@ color:#FFFFFF
   text-align: center;
   color: red !important;;
   font-weight: 600;
- 
 }
-
 .service-head{
   padding-bottom: 12px;
   padding-Top: 0px
 }
-
-.addSpeclContntIner1 {
+.addSpeclContntIner1{
   height: 472px;
-  /* overflow-y: auto; */
-}
-
-.addSpeclContntIner1 {
   overflow: auto;
-  /* height: 100%; */
-  padding-bottom: 5px;
+  padding-bottom: 18px;
 }
-
 .setEditDelBut{
   display: flex !important;
 }
-
 .addSrvcBtn3 h3{   
-   font-size: 16px;
+  font-size: 16px;
   font-weight: 500;
   color: #00abaf
 }
-
 .darkTheme .addSrvcBtn3 h3{   
   font-size: 16px!important;
- font-weight: 500!important;
- color: #00abaf!important;
+  font-weight: 500!important;
+  color: #00abaf!important;
 }
-
 .specbutton1 label{
   font-size: 16px;
   font-weight: 500;
   color: #00abaf
 }
-
 .darkTheme .specbutton1 label{   
   font-size: 16px!important;
- font-weight: 500!important;
- color: #00abaf!important;
+  font-weight: 500!important;
+  color: #00abaf!important;
 }
-
 .addSpeclabcIner{
   overflow: auto;
   height: 510px;
 }
-
-.setFilterCss
-{margin-left: 34px;
+.setFilterCss{
+  margin-left: 34px;
   font-size: 10px;
 }
-
-.services-head th{    color: #7f8383;
+.services-head th {    
+  color: #7f8383;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 12px;}
-
-  .presImg11 img
-  {border-radius: 27px;
-    height: 25px;
-    width: 25px;
-    margin: 2px 5px 7px 9px}
-    
-.AddMarginTo{
-    margin-bottom: 10px
+  line-height: 12px;
+  padding-bottom: 12px;
 }
-
+.presImg11 img {
+  border-radius: 27px;
+  height: 25px;
+  width: 25px;
+  margin: 2px 5px 7px 9px;
+}  
+.AddMarginTo{
+  margin-bottom: 10px
+}
 .srvcTable3656 th, .srvcTable3656 td{
   padding: 30px 24px;
 }
@@ -17131,7 +17123,6 @@ color:#FFFFFF
 .addStaffPart{
   min-height:537px;
 }
-
 
 
 .tskSrvsPart{
@@ -17220,4 +17211,4 @@ color:#FFFFFF
               .roomsNum3345 {
                 padding-Left: 30px;
                  padding-Right: 30px}
-               
+          
