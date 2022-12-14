@@ -31,7 +31,6 @@ import {
   GetProfessionalwstaff1,
   editStaff,
 } from "./api";
-import SelectField from "Screens/Components/Select/index";
 
 import { Speciality } from "Screens/Login/speciality.js";
 import { getLanguage } from "translations/index";
@@ -164,6 +163,7 @@ handleOpenServSec = (item) => {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
     const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
@@ -607,6 +607,8 @@ handleOpenServSec = (item) => {
   }
 }
 const mapStateToProps = (state) => {
+
+  console.log("=============state=====================>", state)
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
