@@ -177,18 +177,12 @@ class Index extends Component {
                     <Grid className="profilePkgIner1">
                       {/* Tabs  */}
                       <AppBar position="static" className="profileTabsUpr">
-                        <Tabs
-                          value={value}
-                          onChange={this.handleChangeTabs}
-                          className="profileTabs">
+                        <Tabs value={value} onChange={this.handleChangeTabs} className="profileTabs">
                           <Tab label={my_profile} className="aboutTabsIner" />
                           <Tab label={Security} className="aboutTabsIner" />
                           <Tab label={my_drs} className="aboutTabsIner" />
                           <Tab label={organ_donar} className="aboutTabsIner" />
-                          <Tab
-                            label={right_management}
-                            className="aboutTabsIner"
-                          />
+                          <Tab label={right_management} className="aboutTabsIner" />
                           <Tab label={kyc} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
                           <Tab label={delete_account} className="aboutTabsIner" />

@@ -24,12 +24,11 @@ import {
   handleOpenServ,
   handleCloseServ,
   updateEntryState1,
-  getSpecialty,
   teamstaff,
   handleSubmit,
   DeleteStaff,
   stffchange,
-  GetProfessionalwstaff,
+  GetProfessionalwstaff1,
   editStaff,
 } from "./api";
 
@@ -69,11 +68,10 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    getSpecialty(this);
     teamstaff(this);
-    GetProfessionalwstaff(this);
+    GetProfessionalwstaff1(this);
     this.specailityList();
-    console.log("1", this.props.stateLanguageType);
+   
   }
 
   //On Changing the specialty id
@@ -111,7 +109,7 @@ class Index extends Component {
     this.setState({ selectWard: e, updateTrack: state });
   };
 
-  //to get the speciality list
+  // //to get the speciality list
   specailityList = () => {
     var spec =
       this.props.speciality?.SPECIALITY &&
@@ -119,10 +117,9 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
-    this.setState({ specilaityList: spec });
+    this.setState({ specilaityList: spec ? spec : [] });
   };
-
-  handleOpenServSec = (item) => {
+handleOpenServSec = (item) => {
     this.setState({ openServSec: true, showStaff: item });
   };
   handleCloseServSec = () => {
@@ -167,14 +164,14 @@ class Index extends Component {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
 
-    console.log(this.state.reqPayload)
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -199,18 +196,18 @@ class Index extends Component {
                       <Grid item xs={6} md={6}></Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                          {console.log("updateTrack", this.state.updateTrack)}
                           <Grid className="newServc">
-                            <Button onClick={() => handleOpenServ(this)}>
-                              {newstaffGroup}
-                            </Button>
+                            {roles.includes('add_group_staff') &&
+                              <Button onClick={() => handleOpenServ(this)}>
+                                {newstaffGroup}
+                              </Button>}
                             <Modal
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -218,13 +215,13 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                                // className="addServContnt"
+                              // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
@@ -361,7 +358,7 @@ class Index extends Component {
                                 placeholder={Search}
                                 value={this.state.SearchValue}
                                 className="serchInput"
-                                // onChange={(e) => searchFilter(e, this)}
+                              // onChange={(e) => searchFilter(e, this)}
                               />
                             )}
                             <a>
@@ -430,8 +427,8 @@ class Index extends Component {
                                       onClose={this.handleCloseServSec}
                                       className={
                                         this.props.settings.setting &&
-                                        this.props.settings.setting.mode &&
-                                        this.props.settings.setting.mode ===
+                                          this.props.settings.setting.mode &&
+                                          this.props.settings.setting.mode ===
                                           "dark"
                                           ? "darkTheme addSpeclModel"
                                           : "addSpeclModel"
@@ -440,9 +437,9 @@ class Index extends Component {
                                       <Grid
                                         className={
                                           this.props.settings &&
-                                          this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode ===
+                                            this.props.settings.setting &&
+                                            this.props.settings.setting.mode &&
+                                            this.props.settings.setting.mode ===
                                             "dark"
                                             ? "darkTheme addSpeclContnt addStaffPart"
                                             : "addServContnt addStaffPart"
@@ -530,35 +527,36 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          <li
-                                            onClick={() => {
-                                              editStaff(data, this);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/virtual_images/pencil-1.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {editstaff}
-                                            </a>
-                                          </li>
-
-                                          <li
-                                            onClick={() => {
-                                              DeleteStaff(data, this);
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/images/cancel-request.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              {deleteStaff}
-                                            </a>
-                                          </li>
+                                          {roles.includes('edit_group_staff') &&
+                                            <li
+                                              onClick={() => {
+                                                editStaff(data, this);
+                                              }}
+                                            >
+                                              <a>
+                                                <img
+                                                  src={require("assets/virtual_images/pencil-1.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {editstaff}
+                                              </a>
+                                            </li>}
+                                          {roles.includes('delete_group_staff') &&
+                                            <li
+                                              onClick={() => {
+                                                DeleteStaff(data, this);
+                                              }}
+                                            >
+                                              <a>
+                                                <img
+                                                  src={require("assets/images/cancel-request.svg")}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                {deleteStaff}
+                                              </a>
+                                            </li>}
                                         </ul>
                                       </a>
                                     </Grid>

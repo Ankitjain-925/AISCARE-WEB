@@ -245,10 +245,6 @@ class Index extends Component {
   };
 
 
-
-
-
-
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Professional_activities } = translate;

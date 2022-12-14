@@ -8,6 +8,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
   axios
@@ -63,7 +64,6 @@ export const DeleteGroupStaff = (current, params) => {
 }
 
 
-
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -73,13 +73,6 @@ export const onChangePage = (pageNumber, current) => {
     currentPage: pageNumber,
   });
 };
-
-//On Changing the specialty id 
-export const onFieldChange = (e, current) => {
-  const state = current.state.updateTrack;
-  state['speciality_id'] = e?.length > 0 && e.map((data) => { return data.value });
-  current.setState({ updateTrack: state });
-}
 
 //Modal Open
 export const handleOpenServ = (current) => {
@@ -185,7 +178,6 @@ export const handleSubmit = (current) => {
           current.setState({ loaderImage: false });
           handleCloseServ(current);
         })
-      console.log("kumar", data?._id);
     }
     else {
       axios
@@ -322,7 +314,6 @@ export const DeleteStaffOk = (data, current) => {
 };
 
 
-
 export const GetProfessionalwstaff = (current) => {
   current.setState({ loaderImage: true });
   axios
@@ -363,6 +354,13 @@ export const editStaff = (data, current) => {
   var spe = { label: a[0], value: deep?.speciality_id, }
   var ward = { label: a[1], value: deep?.ward_id, }
   var nurse = { label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name, value: deep.staff_id }
+
+  var staffSelect = deep.staff.map((item) => {
+    return item?.profile_id;
+  })
+  console.log(
+    "staffSelect", staffSelect
+  )
   var teamname = a[2]
   console.log('deep', a)
   current.setState({
@@ -374,4 +372,6 @@ export const editStaff = (data, current) => {
     openServ: true
   });
 
+
 }; 
+
