@@ -74,7 +74,6 @@ class Index extends Component {
     teamstaff(this);
     GetProfessionalwstaff(this);
     this.specailityList();
-    console.log("1", this.props.stateLanguageType);
   }
 
   //On Changing the specialty id
@@ -96,7 +95,7 @@ class Index extends Component {
       });
     var state = this.state.updateTrack;
     state["speciality_id"] = e?.value;
-
+    state['team_name'] = e?.label + '-' + "undefined" + '-' + this.state.team_name;
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
@@ -107,8 +106,9 @@ class Index extends Component {
   // ward Change
   onWardChange = (e) => {
     var state = this.state.updateTrack;
-    console.log("e", e);
     state["ward_id"] = e.value;
+    state['team_name'] = this.state.selectSpec2?.label + '-' + e?.label + '-' + this.state.team_name;
+
     this.setState({ selectWard: e, updateTrack: state });
   };
 
@@ -171,9 +171,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -198,7 +198,6 @@ class Index extends Component {
                       <Grid item xs={6} md={6}></Grid>
                       <Grid item xs={12} md={6}>
                         <Grid className="openAssser">
-                          {console.log("updateTrack", this.state.updateTrack)}
                           <Grid className="newServc">
                             <Button onClick={() => handleOpenServ(this)}>
                               {newstaffGroup}
@@ -208,8 +207,8 @@ class Index extends Component {
                               onClose={() => handleCloseServ(this)}
                               className={
                                 this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                   ? "darkTheme addSpeclModel"
                                   : "addSpeclModel"
                               }
@@ -217,13 +216,13 @@ class Index extends Component {
                               <Grid
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
                                     ? "darkTheme addSpeclContnt"
                                     : "addServContnt"
                                 }
-                                // className="addServContnt"
+                              // className="addServContnt"
                               >
                                 <Grid className="addSpeclContntIner">
                                   <Grid className="addSpeclLbl">
@@ -275,23 +274,23 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
 
-                                    {/* {this.state.wardList &&
-                                      this.state.wardList.length > 0 && ( */}
-                                    <Grid className="enterSpcl">
-                                      <label>{Ward}</label>
-                                      <Grid className="addInput">
-                                        <Select
-                                          onChange={(e) => this.onWardChange(e)}
-                                          options={this.state.wardList}
-                                          name="ward_name"
-                                          value={this.state.selectWard}
-                                          isMulti={false}
-                                          className="addStafSelect"
-                                          isSearchable={true}
-                                        />
-                                      </Grid>
-                                    </Grid>
-                                    {/* )} */}
+                                    {this.state.wardList &&
+                                      this.state.wardList.length > 0 && (
+                                        <Grid className="enterSpcl">
+                                          <label>{Ward}</label>
+                                          <Grid className="addInput">
+                                            <Select
+                                              onChange={(e) => this.onWardChange(e)}
+                                              options={this.state.wardList}
+                                              name="ward_name"
+                                              value={this.state.selectWard}
+                                              isMulti={false}
+                                              className="addStafSelect"
+                                              isSearchable={true}
+                                            />
+                                          </Grid>
+                                        </Grid>
+                                      )}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
@@ -360,7 +359,7 @@ class Index extends Component {
                                 placeholder={Search}
                                 value={this.state.SearchValue}
                                 className="serchInput"
-                                // onChange={(e) => searchFilter(e, this)}
+                              // onChange={(e) => searchFilter(e, this)}
                               />
                             )}
                             <a>
@@ -429,8 +428,8 @@ class Index extends Component {
                                       onClose={this.handleCloseServSec}
                                       className={
                                         this.props.settings.setting &&
-                                        this.props.settings.setting.mode &&
-                                        this.props.settings.setting.mode ===
+                                          this.props.settings.setting.mode &&
+                                          this.props.settings.setting.mode ===
                                           "dark"
                                           ? "darkTheme addSpeclModel"
                                           : "addSpeclModel"
@@ -439,9 +438,9 @@ class Index extends Component {
                                       <Grid
                                         className={
                                           this.props.settings &&
-                                          this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode ===
+                                            this.props.settings.setting &&
+                                            this.props.settings.setting.mode &&
+                                            this.props.settings.setting.mode ===
                                             "dark"
                                             ? "darkTheme addSpeclContnt addStaffPart"
                                             : "addServContnt addStaffPart"
