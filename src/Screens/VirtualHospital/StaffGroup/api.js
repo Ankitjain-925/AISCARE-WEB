@@ -270,7 +270,7 @@ export const DeleteStaffOk = (data, current) => {
     });
 };
 
-export const GetProfessionalwstaff = (current) => {
+export const GetProfessionalwstaff1 = (current) => {
   current.setState({ loaderImage: true });
   axios
     .get(
