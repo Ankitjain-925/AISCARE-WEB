@@ -218,7 +218,7 @@ class Index extends Component {
 
   //Select the professional name
   updateEntryState3 = (e, case_id) => {
-    if (!e.length) {
+    if (!e?.length) {
       let a = [];
       a.push(e);
       e = a;

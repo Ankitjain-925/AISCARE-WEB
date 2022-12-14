@@ -8,26 +8,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-export const getSpecialty = (current) => {
-  current.setState({ loaderImage: true });
-  axios
-    .get(
-      sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
-      commonHeader(current.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-};
-
-
-
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -37,13 +17,6 @@ export const onChangePage = (pageNumber, current) => {
     currentPage: pageNumber,
   });
 };
-
-//On Changing the specialty id 
-export const onFieldChange = (e, current) => {
-  const state = current.state.updateTrack;
-  state['speciality_id'] = e?.length > 0 && e.map((data) => { return data.value });
-  current.setState({ updateTrack: state });
-}
 
 //Modal Open
 export const handleOpenServ = (current) => {

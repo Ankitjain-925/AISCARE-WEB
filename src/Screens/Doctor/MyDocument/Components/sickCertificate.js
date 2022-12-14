@@ -333,24 +333,24 @@ class Index extends Component {
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
                                 <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-        <p>{show} {inquiry}</p>
-        <label>{sick_cert}</label>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleClosePrescp}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
+                                <Grid item xs={8} md={8} lg={8}>
+                                    <p>{show} {inquiry}</p>
+                                    <label>{sick_cert}</label>
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={4}>
+                                    <Grid>
+                                    <Grid className="entryCloseBtn">
+                                        <a onClick={this.handleClosePrescp}>
+                                        <img
+                                            src={require("assets/images/close-search.svg")}
+                                            alt=""
+                                            title=""
+                                        />
+                                        </a>
+                                    </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                                     
                                 </Grid>
                                 <Grid className="docHlthMain">
@@ -445,24 +445,24 @@ class Index extends Component {
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                             <Grid container direction="row" justify="center">
-    <Grid item xs={8} md={8} lg={8}>
-    <p onClick={this.handleCloseReject}>{back}</p>
-        <label>{inqstatus} {inquiry}</label>
-    </Grid>
-    <Grid item xs={4} md={4} lg={4}>
-        <Grid>
-        <Grid className="entryCloseBtn">
-            <a onClick={this.handleCloseReject}>
-            <img
-                src={require("assets/images/close-search.svg")}
-                alt=""
-                title=""
-            />
-            </a>
-        </Grid>
-        </Grid>
-    </Grid>
-</Grid>
+                                <Grid item xs={8} md={8} lg={8}>
+                                <p onClick={this.handleCloseReject}>{back}</p>
+                                    <label>{inqstatus} {inquiry}</label>
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={4}>
+                                    <Grid>
+                                    <Grid className="entryCloseBtn">
+                                        <a onClick={this.handleCloseReject}>
+                                        <img
+                                            src={require("assets/images/close-search.svg")}
+                                            alt=""
+                                            title=""
+                                        />
+                                        </a>
+                                    </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                             
                             </Grid>
                             <Grid className="shrtRejctMsg">
