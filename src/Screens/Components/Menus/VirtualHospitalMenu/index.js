@@ -14,7 +14,7 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting } from "../api";
+import { getSetting, getSpeciality } from '../api';
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
@@ -42,6 +42,9 @@ class Index extends Component {
       this.logOutClick.bind(this)
     );
     getSetting(this);
+    if(this.props.speciality.SPECIALITY == false){
+    getSpeciality(this);
+    }
   }
   //For close the model
   openLanguageModel = () => {
@@ -601,7 +604,7 @@ class Index extends Component {
                                 {InvoicePattern}
                               </a>
                             </li>}
-                          {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('questionnaire') &&
+                          {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('group_staff_manager') &&
                             <>
                               <li>
                                 <a onClick={this.Staffgroup}>
@@ -625,28 +628,29 @@ class Index extends Component {
                                   {CreateStaffgroup}
                                 </a>
                               </li>
-                              <li>
-                                <a onClick={this.AssignTherapy}>
-                                  {this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode === "dark" ? (
-                                    <img
-                                      src={require("assets/images/menudocs-white.jpg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  ) : (
-                                    <img
-                                      src={require("assets/virtual_images/menudocs.jpg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  )}
+                              {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('therapy_manager') &&
+                                <li>
+                                  <a onClick={this.AssignTherapy}>
+                                    {this.props.settings &&
+                                      this.props.settings.setting &&
+                                      this.props.settings.setting.mode &&
+                                      this.props.settings.setting.mode === "dark" ? (
+                                      <img
+                                        src={require("assets/images/menudocs-white.jpg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    ) : (
+                                      <img
+                                        src={require("assets/virtual_images/menudocs.jpg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    )}
 
-                                  {AssignTherapy}
-                                </a>
-                              </li>
+                                    {AssignTherapy}
+                                  </a>
+                                </li>}
                               <li>
                                 <a onClick={this.Questionaires}>
                                   {this.props.settings &&

@@ -159,7 +159,7 @@ class PointPain extends Component {
                 </Grid>
               </Grid>
 
-              <Grid className="revwFiles" item xs={12} sm={4} md={4}>
+              <Grid className="revwFiles addCssForTherapy" item xs={12} sm={4} md={4}>
 
 
                 {data && data.therapy_name &&
@@ -174,12 +174,6 @@ class PointPain extends Component {
               </Grid>
             </Grid>
           </Grid>
-
-
-
-
-
-
 
 
           <Grid item xs={12} sm={6} md={6}>
