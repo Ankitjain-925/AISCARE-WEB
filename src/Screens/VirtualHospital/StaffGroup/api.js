@@ -21,10 +21,10 @@ export const onChangePage = (pageNumber, current) => {
 //Modal Open
 export const handleOpenServ = (current) => {
   if (current.state.speciality_id && current.state.speciality_id !== 'general') {
-    current.setState({ openServ: true, updateTrack: { speciality_id: [current.state.speciality_id] } });
+    current.setState({ team_name: "", openServ: true, updateTrack: { speciality_id: [current.state.speciality_id] } });
   }
   else {
-    current.setState({ openServ: true, updateTrack: {} });
+    current.setState({ team_name: "", openServ: true, updateTrack: {} });
   }
 
 };

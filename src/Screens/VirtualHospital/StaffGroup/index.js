@@ -65,6 +65,7 @@ class Index extends Component {
       staffslct: [],
       openServSec: false,
       showStaff: [],
+      team_name: "",
     };
   }
 
