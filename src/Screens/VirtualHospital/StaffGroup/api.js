@@ -95,7 +95,7 @@ export const handleSubmit = (current) => {
   } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1)) || current.state.updateTrack.team_name.includes("undefined")) {
     current.setState({ errorMsg: Please_select_ward })
   }
-  else if (!current.team_name || (current && current?.team_name && current?.team_name.length < 1)) {
+  else if (!current.state.team_name || (current.state.team_name && current.state.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
   }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
