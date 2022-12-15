@@ -514,7 +514,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
               <Grid className="enterServMain">
-                <Grid className="enterSpcl enterSpclSec">
+                <Grid className="enterSpcl enterSpclSec enterSpclSec1">
                   {this.props.comesFrom === "Professional" && (
                     <Grid item xs={12} md={12}>
                       <Grid>
@@ -735,7 +735,7 @@ class Index extends Component {
                                   md={4}
                                   className={
                                     this.state.openIndex !== index
-                                      ? "addTimeTask"
+                                      ? "addTimeTask addTimeTaskSec"
                                       : "addTimeTask1"
                                   }
                                 >
