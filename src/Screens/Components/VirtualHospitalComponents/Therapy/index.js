@@ -356,6 +356,7 @@ class Index extends Component {
     }
 
     settherapy = (value) => {
+        console.log("value", value)
         var state = this.state.service;
         var datas = this.state.service_id_list?.length > 0 && this.state.service_id_list.filter((item) => item?._id === value?.value)
         if (datas?.length > 0) {

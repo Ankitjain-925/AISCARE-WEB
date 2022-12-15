@@ -17057,7 +17057,7 @@ color:#FFFFFF
 .specbutton1 label{
   font-size: 16px;
   font-weight: 500;
-  color: #00abaf
+  color: #00abaf;
 }
 .darkTheme .specbutton1 label{   
   font-size: 16px!important;
@@ -17155,7 +17155,9 @@ color:#FFFFFF
 }
 
 .addCssTherNamDes{
-  padding-bottom: 8px;
+  padding-bottom: 15px;
+  color: #7f8383;
+  font-weight: 700;
 }
 
 .noNameType{
@@ -17211,14 +17213,33 @@ color:#FFFFFF
               .roomsNum3345 {
                 padding-Left: 30px;
                  padding-Right: 30px}
-               
 
-                 @media only screen and (min-width: 960px) and (max-width: 1000px){
-                  .addCssForTherapy{
-                    padding: 8px;
-                    margin-right: 5px;
-                  }
-                }
+
+
+.allEnterSpclPart label{
+  font-size: 15px;
+  margin-bottom:5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+.specbuttonPart{
+  margin-top: 30px;
+}                 
+.darkTheme .allEnterSpclPart label{
+  color: #00abaf!important;
+  font-weight: bold!important;
+}
+.darkTheme .addCssTherNamDes{
+  color: #fafafa;
+}
+     
+
+
+ @media only screen and (min-width: 960px) and (max-width: 1000px){
+  .addCssForTherapy{
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
 
                 
-            
