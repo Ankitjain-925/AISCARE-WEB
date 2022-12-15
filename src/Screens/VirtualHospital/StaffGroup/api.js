@@ -8,62 +8,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-
-export const getSpecialty = (current) => {
-  current.setState({ loaderImage: true });
-  axios
-    .get(
-      sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
-      commonHeader(current.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-};
-
-
-export const AddGroupStaff = (current, params) => {
-  console.log(current)
-  axios.post(
-    sitedata.data.path + "/vh/AddGroup/" + current.props?.House?.value, current.state.reqPayload,
-    commonHeader(current.props.stateLoginValueAim.token)
-  )
-    .then((responce) => {
-      console.log("responce", responce)
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-}
-
-export const DeleteGroupStaff = (current, params) => {
-  console.log(sitedata.data.path)
-  axios.post(
-    sitedata.data.path + "/vh/DeleteTeam/" + current.props?.House?.value,
-    commonHeader(current.props.stateLoginValueAim.token)
-  )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-}
-
-
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -314,7 +258,7 @@ export const DeleteStaffOk = (data, current) => {
   current.setState({ loaderImage: true });
   axios
     .delete(
-      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?._id,
+      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?.staff_id,
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {

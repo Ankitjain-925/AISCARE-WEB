@@ -19696,15 +19696,10 @@ video-page {
   color: #00abaf;
 }
 
-<<<<<<< HEAD
-.addCssTherNamDes {
-  padding-bottom: 8px;
-=======
 .addCssTherNamDes{
   padding-bottom: 15px;
   color: #7f8383;
   font-weight: 700;
->>>>>>> 3cae262e474338e82e1c46db6fcdd2b0ada57dad
 }
 
 .noNameType {
@@ -19769,20 +19764,6 @@ video-page {
 }
 
 
-<<<<<<< HEAD
-.roomsNum3345 {
-  padding-Left: 30px;
-  padding-Right: 30px
-}
-
-
-@media only screen and (min-width: 960px) and (max-width: 1000px) {
-  .addCssForTherapy {
-    padding: 8px;
-    margin-right: 5px;
-  }
-}
-=======
               .roomsNum3345 {
                 padding-Left: 30px;
                  padding-Right: 30px}
@@ -19815,4 +19796,3 @@ video-page {
 }
 
                 
->>>>>>> 3cae262e474338e82e1c46db6fcdd2b0ada57dad
