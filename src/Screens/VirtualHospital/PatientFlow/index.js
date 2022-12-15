@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import Input from '@material-ui/core/Input';
 import Select from 'react-select';
@@ -218,22 +218,26 @@ class Index extends Component {
 
   //Select the professional name
   updateEntryState3 = (e, case_id) => {
+    if (!e?.length) {
+      let a = [];
+      a.push(e);
+      e = a;
+    }
     var data =
       e?.length > 0 &&
       e.reduce((last, current, index) => {
         let isProf =
           this.state.professionalArray?.length > 0 &&
           this.state.professionalArray.filter(
-            (data, index) => data.user_id === current.value
+            (data, index) => data.user_id === current.value || data._id === current.value
           );
         if (isProf && isProf.length > 0) {
           last.push(isProf[0]);
         }
         return last;
       }, []);
-
     data = data ? data : [];
-    this.setState({ loaderImage: true });
+    this.setState({ loaderImage: true, changeStaffsec: false });
     var response = setAssignedTo(
       data,
       case_id,
@@ -249,7 +253,7 @@ class Index extends Component {
           var stepData = data ? data : [];
           this.setDta(stepData);
         });
-        this.setState({ loaderImage: false });
+        this.setState({ loaderImage: false, updateQues: {} });
       } else {
         this.setState({ loaderImage: false });
       }
@@ -680,7 +684,7 @@ class Index extends Component {
                       ' ' +
                       responce.data.data?.last_name
                       : responce.data.data?.first_name;
-                      senddata.house_id = this.props.House?.value;
+                    senddata.house_id = this.props.House?.value;
                     axios
                       .post(
                         sitedata.data.path + '/vh/linkforAccepthospital',
@@ -1093,7 +1097,7 @@ class Index extends Component {
     // }
   };
 
-  updatesQuotes = (data)=>{
+  updatesQuotes = (data) => {
     var steps = getSteps(
       this.props?.House?.value,
       this.props.stateLoginValueAim.token
@@ -1210,8 +1214,8 @@ class Index extends Component {
             {user.label} ( {user.profile_id} )
           </li>
         );
-      });    
-      const { House: { roles = [] } = {} } = this.props || {}
+      });
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
@@ -1517,47 +1521,48 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {roles.includes("show_step_patient")  && 
-                    <div className="custom-d-n-d">
-                      <Drags
-                      updatesQuotes={(data)=>{this.updatesQuotes(data)}}
-                        moveDetial={(id, case_id) =>
-                          this.moveDetial(id, case_id)
-                        }
-                        DeleteStep={(index) => this.DeleteStep(index)}
-                        onKeyDownlogin={this.onKeyDownlogin}
-                        editName={this.editName}
-                        edit={this.state.edit}
-                        onChange={this.onChange}
-                        AddStep={this.AddStep}
-                        openAddPatient={this.openAddPatient}
-                        initial={this.state.fullData}
-                        dragDropFlow={this.dragDropFlow}
-                        moveAllPatient={(to, from, data) =>
-                          this.moveAllPatient(to, from, data)
-                        }
-                        view={this.state.view}
-                        moveStep={(to, from, item) => {
-                          this.moveStep(to, from, item);
-                        }}
-                        setDta={(item) => this.setDta(item)}
-                        professional_id_list={this.state.professional_id_list}
-                        professionalArray={this.state.professionalArray}
-                        updateEntryState3={(e, case_id) => {
-                          this.updateEntryState3(e, case_id);
-                        }}
-                        MovetoTask={(speciality, patient_id) => {
-                          this.MovetoTask(speciality, patient_id);
-                        }}
-                        MovetoService={() => {
-                          this.MovetoService();
-                        }}
-                        mode={this.props?.settings?.setting?.mode}
-                        socket={socket}
-                        stateLanguageType={this.props.stateLanguageType}
-                        roles={roles}
-                      />
-                    </div>}
+                    {roles.includes("show_step_patient") &&
+                      <div className="custom-d-n-d">
+                        <Drags
+                          changeStaffsec={this.state.changeStaffsec}
+                          updatesQuotes={(data) => { this.updatesQuotes(data) }}
+                          moveDetial={(id, case_id) =>
+                            this.moveDetial(id, case_id)
+                          }
+                          DeleteStep={(index) => this.DeleteStep(index)}
+                          onKeyDownlogin={this.onKeyDownlogin}
+                          editName={this.editName}
+                          edit={this.state.edit}
+                          onChange={this.onChange}
+                          AddStep={this.AddStep}
+                          openAddPatient={this.openAddPatient}
+                          initial={this.state.fullData}
+                          dragDropFlow={this.dragDropFlow}
+                          moveAllPatient={(to, from, data) =>
+                            this.moveAllPatient(to, from, data)
+                          }
+                          view={this.state.view}
+                          moveStep={(to, from, item) => {
+                            this.moveStep(to, from, item);
+                          }}
+                          setDta={(item) => this.setDta(item)}
+                          professional_id_list={this.state.professional_id_list}
+                          professionalArray={this.state.professionalArray}
+                          updateEntryState3={(e, case_id) => {
+                            this.updateEntryState3(e, case_id);
+                          }}
+                          MovetoTask={(speciality, patient_id) => {
+                            this.MovetoTask(speciality, patient_id);
+                          }}
+                          MovetoService={() => {
+                            this.MovetoService();
+                          }}
+                          mode={this.props?.settings?.setting?.mode}
+                          socket={socket}
+                          stateLanguageType={this.props.stateLanguageType}
+                          roles={roles}
+                        />
+                      </div>}
                   </Grid>
                 </Grid>
               </Grid>

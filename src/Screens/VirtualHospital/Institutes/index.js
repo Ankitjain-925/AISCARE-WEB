@@ -248,7 +248,7 @@ class Index extends Component {
                   </Grid>
 
                   <Grid item xs={12} md={11}>
-                  <Institutes redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
+                    <Institutes redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
                     {/* <Grid className="topLeftSpc">
                    
                       <Grid className="breadCrumbUpr">

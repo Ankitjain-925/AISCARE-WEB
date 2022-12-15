@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
 import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { withRouter } from 'react-router-dom';
 import { authy } from 'Screens/Login/authy.js';
 import axios from 'axios';
@@ -37,7 +37,7 @@ import {
   CurrentBed,
   setBed,
 } from 'Screens/VirtualHospital/PatientFlow/data';
-
+import Drags from './drags';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -112,6 +112,16 @@ class Index extends Component {
       this.GetAllBed();
     });
   };
+
+  onMoveBed = (start, end) => {
+    this.setState({
+      case_ID: start.cases
+    }, () => {
+      this.setsBed({ value: end.bed, label: end.bed })
+      // this.GetAllBed();
+    });
+
+  }
 
   handleCloseWarn = () => {
     this.setState({ openWarn: false, case_ID: false });
@@ -205,7 +215,7 @@ class Index extends Component {
           response?.data?.data.map((bed) => {
             return { value: bed, label: bed };
           });
-        this.setState({ AllBeds: finalBed }, () => {});
+        this.setState({ AllBeds: finalBed }, () => { });
       } else {
         this.setState({ AllBeds: [] });
       }
@@ -254,9 +264,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -418,9 +428,9 @@ class Index extends Component {
                                           onClose={() => this.handleCloseWarn()}
                                           className={
                                             this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode ===
+                                              this.props.settings.setting &&
+                                              this.props.settings.setting.mode &&
+                                              this.props.settings.setting.mode ===
                                               'dark'
                                               ? 'darkTheme addWrnModel'
                                               : 'addWrnModel'
@@ -448,46 +458,46 @@ class Index extends Component {
                                                   <Grid className="wrnUndr">
                                                     {this.state.case_ID?.wards
                                                       ?._id && (
-                                                      <Grid className="fillDia">
-                                                        <SelectField
-                                                          isSearchable={true}
-                                                          name="type"
-                                                          label={Room}
-                                                          option={
-                                                            this.state.AllRoom
-                                                          }
-                                                          onChange={(e) =>
-                                                            this.setsRoom(e)
-                                                          }
-                                                          value={CurrentRoom(
-                                                            this.state.case_ID
-                                                              ?.rooms
-                                                          )}
-                                                          className="addStafSelect1"
-                                                        />
-                                                      </Grid>
-                                                    )}
+                                                        <Grid className="fillDia">
+                                                          <SelectField
+                                                            isSearchable={true}
+                                                            name="type"
+                                                            label={Room}
+                                                            option={
+                                                              this.state.AllRoom
+                                                            }
+                                                            onChange={(e) =>
+                                                              this.setsRoom(e)
+                                                            }
+                                                            value={CurrentRoom(
+                                                              this.state.case_ID
+                                                                ?.rooms
+                                                            )}
+                                                            className="addStafSelect1"
+                                                          />
+                                                        </Grid>
+                                                      )}
                                                     {this.state.case_ID?.rooms
                                                       ?._id && (
-                                                      <Grid className="fillDia">
-                                                        <SelectField
-                                                          isSearchable={true}
-                                                          name="type"
-                                                          label={Bed}
-                                                          option={
-                                                            this.state.AllBeds
-                                                          }
-                                                          onChange={(e) =>
-                                                            this.setsBed(e)
-                                                          }
-                                                          value={CurrentBed(
-                                                            this.state.case_ID
-                                                              ?.bed
-                                                          )}
-                                                          className="addStafSelect1"
-                                                        />
-                                                      </Grid>
-                                                    )}
+                                                        <Grid className="fillDia">
+                                                          <SelectField
+                                                            isSearchable={true}
+                                                            name="type"
+                                                            label={Bed}
+                                                            option={
+                                                              this.state.AllBeds
+                                                            }
+                                                            onChange={(e) =>
+                                                              this.setsBed(e)
+                                                            }
+                                                            value={CurrentBed(
+                                                              this.state.case_ID
+                                                                ?.bed
+                                                            )}
+                                                            className="addStafSelect1"
+                                                          />
+                                                        </Grid>
+                                                      )}
                                                   </Grid>
                                                 </Grid>
                                               </Grid>
@@ -498,9 +508,19 @@ class Index extends Component {
                                           {item?.rooms?.room_name}
                                         </Button>
                                       </Grid>
-                                      {item.bedData?.length > 0 &&
+
+                                      <Drags
+                                        items={item.bedData}
+                                        roles={roles}
+                                        Move_patient_here={Move_patient_here}
+                                        handleOpenWarn={(data) => this.handleOpenWarn(data)}
+                                        onDragEnd={(start, end) => this.onMoveBed(start, end)}
+                                      />
+
+                                      {/* {item.bedData?.length > 0 &&
                                         item.bedData.map((bed, index) => (
                                           <>
+                                          
                                             <Grid className="drListMain2">
                                               <Grid
                                                 className={
@@ -584,7 +604,7 @@ class Index extends Component {
                                               </Grid>
                                             </Grid>
                                           </>
-                                        ))}
+                                        ))} */}
                                     </Grid>
                                   </Grid>
                                 </Grid>

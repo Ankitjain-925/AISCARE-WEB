@@ -133,7 +133,6 @@ class PointPain extends Component {
                     this.props.Doctorsetget?.byhospital == newmember.value ? (
 
                       <>
-                      {console.log("1111aman")}
                         <Grid item xs={12} sm={6} md={6}>
                           <Grid className="checkHelthLbl 111">
                             {newmember.roles.includes("add_anamnesis") ? (

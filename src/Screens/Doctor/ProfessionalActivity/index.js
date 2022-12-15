@@ -132,7 +132,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -206,7 +206,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id,
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id + "/" + this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -243,10 +243,6 @@ class Index extends Component {
         this.setState({ loaderImage: false });
       });
   };
-
-
-
-
 
 
   render() {
