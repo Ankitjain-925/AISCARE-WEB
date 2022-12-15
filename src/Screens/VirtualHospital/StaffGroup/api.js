@@ -148,7 +148,7 @@ export const handleSubmit = (current) => {
   data.house_id = current.props?.House?.value;
   if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
     current.setState({ errorMsg: Please_select_speciality })
-  } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
+  } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1)) || current.state.updateTrack.team_name.includes("undefined")) {
     current.setState({ errorMsg: Please_select_ward })
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
@@ -158,7 +158,16 @@ export const handleSubmit = (current) => {
     current.setState({ errorMsg: Please_select_staff_name })
   }
   else {
+    var nurse1 = [];
+    const state = current.state.updateTrack;
+    current.state.staffslct.map((item2) => {
+      nurse1.push(item2.value)
+    });
+    state['staff'] = nurse1;
+    current.setState({ updateTrack: state });
+
     current.setState({ loaderImage: true });
+    // console.log("111", data)
     if (data?._id) {
       axios
         .put(
@@ -309,12 +318,15 @@ export const DeleteStaffOk = (data, current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
-      current.setState({ loaderImage: false });
+      if (responce.data.hassuccessed) {
+        teamstaff(current);
+        current.setState({ loaderImage: false });
+      }
+
     });
 };
 
-
-export const GetProfessionalwstaff = (current) => {
+export const GetProfessionalwstaff1 = (current) => {
   current.setState({ loaderImage: true });
   axios
     .get(
@@ -322,7 +334,6 @@ export const GetProfessionalwstaff = (current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
-      console.log('responce', responce.data.data)
       if (responce.data.hassuccessed && responce.data.data) {
         var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
           let name = item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
@@ -335,6 +346,8 @@ export const GetProfessionalwstaff = (current) => {
 };
 
 export const stffchange = (e, current) => {
+    
+  
   var state = current.state.updateTrack;
   var staff = [];
   staff = e?.length > 0 && e.map((item) => {
@@ -342,27 +355,21 @@ export const stffchange = (e, current) => {
   })
   state['staff'] = staff;
   current.setState({ staffslct: e, updateTrack: state }, () => {
-    // console.log('updateTrack', current.state.updateTrack)
+    console.log('updateTTrack', current.state.staffslct)
   });
 }
 
 // Open Edit Model
 export const editStaff = (data, current) => {
-  console.log('data', data)
+  var nurse = []
   var deep = _.cloneDeep(data);
   var a = deep.team_name.split("-");
   var spe = { label: a[0], value: deep?.speciality_id, }
   var ward = { label: a[1], value: deep?.ward_id, }
-  var nurse = { label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name, value: deep.staff_id }
-
-  var staffSelect = deep.staff.map((item) => {
-    return item?.profile_id;
-  })
-  console.log(
-    "staffSelect", staffSelect
-  )
-  var teamname = a[2]
-  console.log('deep', a)
+  deep.staff.map((item2) => {
+    nurse.push({ label: item2?.first_name + ' ' + item2?.last_name, value: item2.profile_id })
+  });
+  var teamname = a[2];
   current.setState({
     updateTrack: deep,
     selectSpec2: spe,
@@ -371,7 +378,6 @@ export const editStaff = (data, current) => {
     staffslct: nurse,
     openServ: true
   });
-
 
 }; 
 

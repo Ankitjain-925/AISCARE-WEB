@@ -17215,6 +17215,7 @@ color:#FFFFFF
                  padding-Right: 30px}
 
 
+
 .allEnterSpclPart label{
   font-size: 15px;
   margin-bottom:5px;
@@ -17233,12 +17234,12 @@ color:#FFFFFF
 }
      
 
-                 @media only screen and (min-width: 960px) and (max-width: 1000px){
-                  .addCssForTherapy{
-                    padding: 8px;
-                    margin-right: 5px;
-                  }
-                }
+
+ @media only screen and (min-width: 960px) and (max-width: 1000px){
+  .addCssForTherapy{
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
 
                 
-
