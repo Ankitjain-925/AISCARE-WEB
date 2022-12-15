@@ -19583,7 +19583,7 @@ video-page {
 .specbutton1 label {
   font-size: 16px;
   font-weight: 500;
-  color: #00abaf
+  color: #00abaf;
 }
 
 .darkTheme .specbutton1 label {
@@ -19696,8 +19696,15 @@ video-page {
   color: #00abaf;
 }
 
+<<<<<<< HEAD
 .addCssTherNamDes {
   padding-bottom: 8px;
+=======
+.addCssTherNamDes{
+  padding-bottom: 15px;
+  color: #7f8383;
+  font-weight: 700;
+>>>>>>> 3cae262e474338e82e1c46db6fcdd2b0ada57dad
 }
 
 .noNameType {
@@ -19762,6 +19769,7 @@ video-page {
 }
 
 
+<<<<<<< HEAD
 .roomsNum3345 {
   padding-Left: 30px;
   padding-Right: 30px
@@ -19774,3 +19782,37 @@ video-page {
     margin-right: 5px;
   }
 }
+=======
+              .roomsNum3345 {
+                padding-Left: 30px;
+                 padding-Right: 30px}
+
+
+
+.allEnterSpclPart label{
+  font-size: 15px;
+  margin-bottom:5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+.specbuttonPart{
+  margin-top: 30px;
+}                 
+.darkTheme .allEnterSpclPart label{
+  color: #00abaf!important;
+  font-weight: bold!important;
+}
+.darkTheme .addCssTherNamDes{
+  color: #fafafa;
+}
+     
+
+ @media only screen and (min-width: 960px) and (max-width: 1000px){
+  .addCssForTherapy{
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
+
+                
+>>>>>>> 3cae262e474338e82e1c46db6fcdd2b0ada57dad

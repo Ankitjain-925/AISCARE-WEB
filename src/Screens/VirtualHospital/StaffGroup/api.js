@@ -8,6 +8,62 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+
+export const getSpecialty = (current) => {
+  current.setState({ loaderImage: true });
+  axios
+    .get(
+      sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed && responce.data.data) {
+        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          return ({ label: item.specialty_name, value: item._id })
+        })
+        current.setState({ AllSpeciality: newArray });
+      }
+      current.setState({ loaderImage: false });
+    });
+};
+
+
+export const AddGroupStaff = (current, params) => {
+  console.log(current)
+  axios.post(
+    sitedata.data.path + "/vh/AddGroup/" + current.props?.House?.value, current.state.reqPayload,
+    commonHeader(current.props.stateLoginValueAim.token)
+  )
+    .then((responce) => {
+      console.log("responce", responce)
+      if (responce.data.hassuccessed && responce.data.data) {
+        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          return ({ label: item.specialty_name, value: item._id })
+        })
+        current.setState({ AllSpeciality: newArray });
+      }
+      current.setState({ loaderImage: false });
+    });
+}
+
+export const DeleteGroupStaff = (current, params) => {
+  console.log(sitedata.data.path)
+  axios.post(
+    sitedata.data.path + "/vh/DeleteTeam/" + current.props?.House?.value,
+    commonHeader(current.props.stateLoginValueAim.token)
+  )
+    .then((responce) => {
+      if (responce.data.hassuccessed && responce.data.data) {
+        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+          return ({ label: item.specialty_name, value: item._id })
+        })
+        current.setState({ AllSpeciality: newArray });
+      }
+      current.setState({ loaderImage: false });
+    });
+}
+
+
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -34,6 +90,7 @@ export const handleCloseServ = (current) => {
   current.setState({ openServ: false, updateTrack: {}, selectSpec2: '', selectWard: '', staffslct: [], wardList: [], errorMsg: false });
 };
 export const updateEntryState1 = (e, current) => {
+  const reqPayload = { ...current.state.reqPayload }
   const state = current.state.updateTrack;
   if (e.target.name === 'team_name') {
     current.setState({ team_name: e.target.value })
@@ -91,37 +148,45 @@ export const handleSubmit = (current) => {
   data.house_id = current.props?.House?.value;
   if (!data.speciality_id || (data && data?.speciality_id && data?.speciality_id.length < 1)) {
     current.setState({ errorMsg: Please_select_speciality })
-  } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1))) {
+  } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1)) || current.state.updateTrack.team_name.includes("undefined")) {
     current.setState({ errorMsg: Please_select_ward })
   }
   else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
-}
+  }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
     current.setState({ errorMsg: Please_select_staff_name })
   }
   else {
+    var nurse1 = [];
+    const state = current.state.updateTrack;
+    current.state.staffslct.map((item2) => {
+      nurse1.push(item2.value)
+    });
+    state['staff'] = nurse1;
+    current.setState({ updateTrack: state });
+
     current.setState({ loaderImage: true });
+    // console.log("111", data)
     if (data?._id) {
-      // axios
-      // .put(
-      //     sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" +  data?.staff_id, data,
-      //     commonHeader(current.props.stateLoginValueAim.token)
-      // )
-      // .then((responce) => {
-      //   teamstaff(current);
-      //     current.setState({
-      //         updateTrack: {},
-      //         selectSpec2:'',
-      //         selectWard:[]
-      //     });
-      //     handleCloseServ(current);
-      // })
-      // .catch(() => {
-      //     current.setState({ loaderImage: false });
-      //     handleCloseServ(current);
-      // })
-      console.log("kumar", data?._id);
+      axios
+        .put(
+          sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" + data?.staff_id, data,
+          commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          teamstaff(current);
+          current.setState({
+            updateTrack: {},
+            selectSpec2: '',
+            selectWard: []
+          });
+          handleCloseServ(current);
+        })
+        .catch(() => {
+          current.setState({ loaderImage: false });
+          handleCloseServ(current);
+        })
     }
     else {
       axios
@@ -245,23 +310,22 @@ export const removestaff = (data, current) => {
   });
 };
 
-
 export const DeleteStaffOk = (data, current) => {
   current.setState({ loaderImage: true });
   axios
     .delete(
-      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?.staff_id,
+      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?._id,
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
       if (responce.data.hassuccessed) {
-        console.log('delete', responce)
         teamstaff(current);
         current.setState({ loaderImage: false });
       }
 
     });
 };
+
 
 export const GetProfessionalwstaff1 = (current) => {
   current.setState({ loaderImage: true });
@@ -271,7 +335,6 @@ export const GetProfessionalwstaff1 = (current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
-      console.log('responce', responce.data.data)
       if (responce.data.hassuccessed && responce.data.data) {
         var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
           let name = item?.first_name && item?.last_name ? item?.first_name + ' ' + item?.last_name : item?.first_name;
@@ -284,6 +347,8 @@ export const GetProfessionalwstaff1 = (current) => {
 };
 
 export const stffchange = (e, current) => {
+    
+  
   var state = current.state.updateTrack;
   var staff = [];
   staff = e?.length > 0 && e.map((item) => {
@@ -291,30 +356,23 @@ export const stffchange = (e, current) => {
   })
   state['staff'] = staff;
   current.setState({ staffslct: e, updateTrack: state }, () => {
-    // console.log('updateTrack', current.state.updateTrack)
+    console.log('updateTTrack', current.state.staffslct)
   });
 }
 
 // Open Edit Model
 export const editStaff = (data, current) => {
-  console.log('data', data)
+  var nurse = []
   var deep = _.cloneDeep(data);
   var a = deep.team_name.split("-");
   var spe = { label: a[0], value: deep?.speciality_id, }
   var ward = { label: a[1], value: deep?.ward_id, }
-  var nurse = { label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name, value: deep.staff_id }
-
-  var staffSelect = deep.staff.map((item) => {
-    return item?.profile_id;
-  })
-  console.log(
-    "staffSelect", staffSelect
-  )
-  var teamname = a[2]
-  console.log('deep', a)
+  deep.staff.map((item2) => {
+    nurse.push({ label: item2?.first_name + ' ' + item2?.last_name, value: item2.profile_id })
+  });
+  var teamname = a[2];
   current.setState({
     updateTrack: deep,
-    updateTrack: { staff: staffSelect },
     selectSpec2: spe,
     selectWard: ward,
     team_name: teamname,
@@ -322,4 +380,5 @@ export const editStaff = (data, current) => {
     openServ: true
   });
 
-};
+}; 
+
