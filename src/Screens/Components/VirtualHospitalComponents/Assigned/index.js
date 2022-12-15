@@ -159,7 +159,7 @@ class Index extends React.Component {
                                             this.props.settings.setting.mode &&
                                             this.props.settings.setting.mode === "dark" ?
                                             require("assets/virtual_images/groupicon-black.jpg")
-                                            : require("assets/virtual_images/groupicon.jpg")}></img>
+                                            : require("assets/virtual_images/groupicon-black.jpg")}></img>
                                         </Grid>
                                         <Grid className="allInfoRght">
                                           <Grid>
@@ -211,7 +211,7 @@ class Index extends React.Component {
                     this.props.settings.setting.mode &&
                     this.props.settings.setting.mode === "dark" ?
                     require("assets/virtual_images/groupicon-black.jpg")
-                    : require("assets/virtual_images/groupicon.jpg")}></img></a>}
+                    : require("assets/virtual_images/groupicon-black.jpg")}></img></a>}
                 </div>
               ))}
             {count > 0 && <a onClick={() => this.ViewPopup()}>+{count}</a>}

@@ -143,7 +143,7 @@ const ViewTherapy = (props) => {
                                       settings.setting.mode &&
                                       settings.setting.mode === "dark"
                                         ? require("assets/virtual_images/groupicon-black.jpg")
-                                        : require("assets/virtual_images/groupicon.jpg")
+                                        : require("assets/virtual_images/groupicon-black.jpg")
                                     }
                                   ></img>
                                 </Grid>
