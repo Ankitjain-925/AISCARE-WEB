@@ -234,7 +234,7 @@ class Index extends Component {
 
     axios
       .post(
-        sitedata.data.path + "/UserProfile/AskPatientProfile" ,
+        sitedata.data.path + "/UserProfile/AskPatientProfile",
         {
           id: AskPatient
         },
@@ -413,7 +413,7 @@ class Index extends Component {
                     });
                   }
                 })
-                .catch((err) => {});
+                .catch((err) => { });
             } else {
               this.setState({ regisError: fillreptcha });
             }
@@ -536,10 +536,10 @@ class Index extends Component {
     axios
       .delete(
         sitedata.data.path +
-          "/UserProfile/favPatients/" +
-          profileDetail.profile_id +
-          "/" +
-          this.props.stateLoginValueAim.user.alies_id,
+        "/UserProfile/favPatients/" +
+        profileDetail.profile_id +
+        "/" +
+        this.props.stateLoginValueAim.user.alies_id,
         commonHeader(user_token)
       )
       .then((response) => {
@@ -673,11 +673,11 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-            "/User/getUser/" +
-            user_id +
-            "?pin=" +
-            pin +
-            "&&comefrom=healthdata",
+          "/User/getUser/" +
+          user_id +
+          "?pin=" +
+          pin +
+          "&&comefrom=healthdata",
           commonHeader(user_token)
         )
         .then((response) => {
@@ -704,7 +704,7 @@ class Index extends Component {
           e.first_name.toLowerCase().indexOf(searchWord) > -1 ||
           e.last_name.toLowerCase().indexOf(searchWord) > -1 ||
           (e.first_name + " " + e.last_name).toLowerCase().indexOf(searchWord) >
-            -1
+          -1
       );
       this.setState({
         MypatientsData: searchdta.slice((pageNumber - 1) * 10, pageNumber * 10),
@@ -789,6 +789,7 @@ class Index extends Component {
       find_patient,
       Patient,
       add_new_patient_in_list,
+      no_data_avlbl
     } = translate;
     const enter_patient_id = enter + " " + patient_id;
     if (
@@ -805,9 +806,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -881,7 +882,7 @@ class Index extends Component {
                                     src={
                                       this.state.MypatientsData[index].new_image
                                         ? this.state.MypatientsData[index]
-                                            .new_image
+                                          .new_image
                                         : require("assets/images/dr1.jpg")
                                     }
                                     alt=""
@@ -908,7 +909,7 @@ class Index extends Component {
                                     : not_mentioned}
                                 </Td>
                                 <Td>
-                                        {data?.byhospital && <>{"By Hospital"}</>}
+                                  {data?.byhospital && <>{"By Hospital"}</>}
                                 </Td>
                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                   <a>
@@ -966,9 +967,9 @@ class Index extends Component {
                       <Modal
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1080,8 +1081,8 @@ class Index extends Component {
                                         <p>
                                           {data
                                             ? this.filterCountry(
-                                                data.insurance_country
-                                              )
+                                              data.insurance_country
+                                            )
                                             : ""}
                                         </p>
                                       </Grid>
@@ -1125,9 +1126,9 @@ class Index extends Component {
                         onClose={this.handleCloseData}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1210,9 +1211,9 @@ class Index extends Component {
                         onClose={this.handleCloseReq}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1250,7 +1251,7 @@ class Index extends Component {
                               {this.state.error_message_1 &&
                                 this.state.error_message_1 !== "" &&
                                 this.state.error_message_1 ===
-                                  "User does not exist" && (
+                                "User does not exist" && (
                                   <div className="err_message">
                                     {user_not_exist}
                                   </div>
@@ -1258,7 +1259,7 @@ class Index extends Component {
                               {this.state.error_message_1 &&
                                 this.state.error_message_1 !== "" &&
                                 this.state.error_message_1 ===
-                                  "Doctor already exists" && (
+                                "Doctor already exists" && (
                                   <div className="err_message">
                                     {alredypatientFav}
                                   </div>
@@ -1302,9 +1303,9 @@ class Index extends Component {
                         onClose={this.handleCloseNewPatient}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme nwPresModel"
                             : "nwPresModel"
                         }
@@ -1650,10 +1651,12 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                            {(this.state.currentPage && this.state.totalPage) ?(
+                                  <a>
+                                    {this.state.currentPage} of{" "}
+                                    {this.state.totalPage}
+                                  </a>) :(<div className="err_message">{no_data_avlbl}</div>)
+                                }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
