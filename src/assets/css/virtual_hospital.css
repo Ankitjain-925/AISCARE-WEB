@@ -17136,6 +17136,7 @@ color:#FFFFFF
 
 .tskSrvsPart{
   display: inline-flex;
+  margin-bottom: 10px;
 }
 .allCreatInfo{
   margin:15px 0px!important;
@@ -17150,10 +17151,12 @@ color:#FFFFFF
   display: block;
 }
 .allCustomService p:nth-child(2){
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .allCustomService label{
   margin-top:5px;
+  font-weight: 700;
+  font-size: 13px;
 }
 .allThrapySec{
   text-align: right;
@@ -17238,4 +17241,15 @@ color:#FFFFFF
 }
 .darkTheme .addCssTherNamDes{
   color: #fafafa;
+}
+.serAmntQunty{
+  margin-top: 20px;
+}
+.allCustomService p span {
+  color: #00abaf;
+  font-size: 15px;
+  line-height: 25px;
+}
+.tskSrvsPart p{
+  color: #00abaf;
 }
