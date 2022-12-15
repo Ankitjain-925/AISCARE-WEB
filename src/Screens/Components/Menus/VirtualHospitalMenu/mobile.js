@@ -605,7 +605,7 @@ class Index extends Component {
                                       {InvoicePattern}
                                     </a>
                                   </li>}
-                                {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('questionnaire') &&
+                                {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('group_staff_manager') &&
                                   <>
                                     <li>
                                       <a onClick={this.Staffgroup}>
@@ -630,28 +630,29 @@ class Index extends Component {
                                         {CreateStaffgroup}
                                       </a>
                                     </li>
-                                    <li>
-                                      <a onClick={this.AssignTherapy}>
-                                        {this.props.settings &&
-                                          this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode === "dark" ? (
-                                          <img
-                                            src={require("assets/images/menudocs-white.jpg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                        ) : (
-                                          <img
-                                            src={require("assets/virtual_images/menudocs.jpg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                        )}
+                                    {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('therapy_manager') &&
+                                      <li>
+                                        <a onClick={this.AssignTherapy}>
+                                          {this.props.settings &&
+                                            this.props.settings.setting &&
+                                            this.props.settings.setting.mode &&
+                                            this.props.settings.setting.mode === "dark" ? (
+                                            <img
+                                              src={require("assets/images/menudocs-white.jpg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                          ) : (
+                                            <img
+                                              src={require("assets/virtual_images/menudocs.jpg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                          )}
 
-                                        {AssignTherapy}
-                                      </a>
-                                    </li>
+                                          {AssignTherapy}
+                                        </a>
+                                      </li>}
                                     <li>
                                       <a onClick={this.Questionaires}>
                                         {this.props.settings &&

@@ -700,7 +700,7 @@ class Index extends Component {
                               md={12}
                               className="dueOn creatInfoIner allCreatInfo"
                             >
-                              <label>{Dueon}</label>
+                              <p>{Dueon}</p>
                               <Grid
                                 container
                                 direction="row"

@@ -166,7 +166,8 @@ class Index extends Component {
             Edit_Delete,
             Add_Sequences,
             Task_Name,
-            Task_Description
+            Task_Description,
+            Assignedtitle
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -184,6 +185,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
 
+        const { House: { roles = [] } = {} } = this.props || {}
         return (
             <Grid
                 className={
@@ -219,9 +221,10 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <Grid className="openAssser"> <Grid className="newServc">
-                                                    <Button onClick={() => handleOpenServ(this)}>
-                                                        {addtherapy}
-                                                    </Button>
+                                                    {roles.includes('add_therapy') &&
+                                                        <Button onClick={() => handleOpenServ(this)}>
+                                                            {addtherapy}
+                                                        </Button>}
                                                     <Modal
                                                         open={this.state.openServ}
                                                         onClose={() => handleCloseServ(this)}
@@ -463,7 +466,7 @@ class Index extends Component {
                                                                         {taskName?.value === "assign_service" &&
                                                                             <Grid className="headService11">
                                                                                 <VHfield
-                                                                                    label="Assigned Title"
+                                                                                    label={Assignedtitle}
                                                                                     name="title"
                                                                                     placeholder="Enter Title"
                                                                                     onChange={(e) => updateEntry(this, e)}
@@ -694,36 +697,42 @@ class Index extends Component {
                                                                                     {viewTherapy}
                                                                                 </a>
                                                                             </li>
-                                                                            <li onClick={() => { this.handleOpenAss1({ value: item?._id, label: item?.therapy_name }) }}>
-                                                                                <a>
-                                                                                    <img
-                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
-                                                                                        alt=""
-                                                                                        title=""
-                                                                                    />
-                                                                                    {assign_to_patient}
-                                                                                </a>
-                                                                            </li>
-                                                                            <li onClick={() => EditTherapy(this, item)}>
-                                                                                <a>
-                                                                                    <img
-                                                                                        src={require("assets/virtual_images/pencil-1.svg")}
-                                                                                        alt=""
-                                                                                        title=""
-                                                                                    />
-                                                                                    {editTherapy}
-                                                                                </a>
-                                                                            </li>
-                                                                            <li onClick={() => DeleteTherapy(this, item)}>
-                                                                                <a>
-                                                                                    <img
-                                                                                        src={require("assets/images/cancel-request.svg")}
-                                                                                        alt=""
-                                                                                        title=""
-                                                                                    />
-                                                                                    {deleteTherapy}
-                                                                                </a>
-                                                                            </li>
+
+
+                                                                            {roles.includes('assign_therapy') &&
+                                                                                <li onClick={() => { this.handleOpenAss1({ value: item?._id, label: item?.therapy_name }) }}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {assign_to_patient}
+                                                                                    </a>
+                                                                                </li>}
+                                                                            {roles.includes('edit_therapy') &&
+                                                                                <li onClick={() => EditTherapy(this, item)}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/virtual_images/pencil-1.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {editTherapy}
+                                                                                    </a>
+                                                                                </li>}
+
+                                                                            {roles.includes('delete_therapy') &&
+                                                                                <li onClick={() => DeleteTherapy(this, item)}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/images/cancel-request.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        {deleteTherapy}
+                                                                                    </a>
+                                                                                </li>}
                                                                         </ul>
                                                                     </a>
                                                                 </Grid>
