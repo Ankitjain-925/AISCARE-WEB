@@ -8,62 +8,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-
-export const getSpecialty = (current) => {
-  current.setState({ loaderImage: true });
-  axios
-    .get(
-      sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
-      commonHeader(current.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-};
-
-
-export const AddGroupStaff = (current, params) => {
-  console.log(current)
-  axios.post(
-    sitedata.data.path + "/vh/AddGroup/" + current.props?.House?.value, current.state.reqPayload,
-    commonHeader(current.props.stateLoginValueAim.token)
-  )
-    .then((responce) => {
-      console.log("responce", responce)
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-}
-
-export const DeleteGroupStaff = (current, params) => {
-  console.log(sitedata.data.path)
-  axios.post(
-    sitedata.data.path + "/vh/DeleteTeam/" + current.props?.House?.value,
-    commonHeader(current.props.stateLoginValueAim.token)
-  )
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-          return ({ label: item.specialty_name, value: item._id })
-        })
-        current.setState({ AllSpeciality: newArray });
-      }
-      current.setState({ loaderImage: false });
-    });
-}
-
-
 export const onChangePage = (pageNumber, current) => {
   current.setState({
     staff_data: current.state.AllStaff.slice(
@@ -151,7 +95,7 @@ export const handleSubmit = (current) => {
   } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1)) || current.state.updateTrack.team_name.includes("undefined")) {
     current.setState({ errorMsg: Please_select_ward })
   }
-  else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
+  else if (!current.team_name || (current && current?.team_name && current?.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
   }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
@@ -314,7 +258,7 @@ export const DeleteStaffOk = (data, current) => {
   current.setState({ loaderImage: true });
   axios
     .delete(
-      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?._id,
+      sitedata.data.path + "/teammember/DeleteTeam/" + current.props?.House?.value + "/" + data?.staff_id,
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
