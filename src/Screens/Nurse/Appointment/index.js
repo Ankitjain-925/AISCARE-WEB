@@ -535,7 +535,7 @@ class Index extends Component {
         sitedata.data.path + "/UserProfile/GetAppointment/" + id,
         {
           status: status,
-
+ 
           email: data.patient_info.email,
           lan: this.props.stateLanguageType,
           docProfile: {
