@@ -2162,7 +2162,12 @@
     "Task_Description":"Task Description",
     "Assign_Title":"Assign Title",
     "Service_Amount":"Service Amount",
-    "Please_select_Service":"PLease Select Services"
+    "Please_select_Service":"PLease Select Services",
+    "Please_select_the_hospital":"Please select the hospital",
+    "Please_select_the_patient":"Please select the patient",
+    "Please_select_therapy":"Please select therapy",
+    "Please_fill_due_on_each_sequence":"Please fill due on date/time and professional for each sequence",
+    "Same_as_therapy":"Same as therapy"
    
     
      

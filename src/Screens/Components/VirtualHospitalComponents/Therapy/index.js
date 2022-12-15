@@ -289,19 +289,18 @@ class Index extends Component {
     this.setState({ errorMsg: "" });
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      plz_enter_time,
-      plz_enter_date,
-      Not_selected_hospital,
-      Patient_not_selected,
-      Therapy_not_selected,
+      Please_select_the_hospital,
+      Please_select_the_patient,
+      Please_select_therapy,
+      Please_fill_due_on_each_sequence
     } = translate;
 
     if (!house_id) {
-      this.setState({ errorMsg: "Please select the hospital" });
+      this.setState({ errorMsg: Please_select_the_hospital});
     } else if (!data.patient_id) {
-      this.setState({ errorMsg: "Please select the patient" });
+      this.setState({ errorMsg: Please_select_the_patient });
     } else if (!data?.therapy_id) {
-      this.setState({ errorMsg: "Please select therapy" });
+      this.setState({ errorMsg: Please_select_therapy });
     } else {
       var sequence = this.state.therapy_sequence;
       var gotall = true;
@@ -318,7 +317,7 @@ class Index extends Component {
         if (!gotall) {
           this.setState({
             errorMsg:
-              "Please fill due on date/time and professional for each sequence",
+            Please_fill_due_on_each_sequence,
           });
         } else {
           this.setState({
@@ -460,6 +459,7 @@ class Index extends Component {
       ServiceName,
       Service_Amount,
       Quantity,
+      Same_as_therapy
     } = translate;
     return (
       <>
@@ -792,7 +792,7 @@ class Index extends Component {
                                 }}
                                 className="allThrapySec"
                               >
-                                <label>{"Same as therapy"}</label>
+                                <label>{Same_as_therapy}</label>
                               </Grid>
                               <Grid>
                                 <Select
