@@ -430,7 +430,7 @@ class Index extends Component {
 
                                                                         {assignTask &&
                                                                             <Grid className="headService11">
-                                                                                <label>Type</label>
+                                                                                <label>{Type}</label>
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
