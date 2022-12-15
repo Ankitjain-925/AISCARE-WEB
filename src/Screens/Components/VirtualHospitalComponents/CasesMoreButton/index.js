@@ -51,7 +51,9 @@ class Index extends React.Component {
       AllBeds: [],
       assignedTo: [],
       professional_id_list: [],
-      professionalArray: [],
+      professional_id_list1: [],
+      professionalArray : [],
+
       setSec: false,
       updateQues: {},
       options: [{ label: "Individual", value: "individual" }, { label: "Group", value: "group" }],
@@ -84,11 +86,17 @@ class Index extends React.Component {
       });
     var professional_id_list = this.props.professional_id_list;
     var professionalArray = this.props.professionalArray;
+    var professional_id_list1 = this.props.professional_id_list;
     if (getAllData) {
       professional_id_list =
         this.props.professional_id_list?.length > 0 &&
         this.props.professional_id_list.filter(
           (data) => !getAllData.includes(data.value)
+        );
+        professional_id_list1 =
+        this.props.professional_id_list?.length > 0 &&
+        this.props.professional_id_list.filter(
+          (data) => !getAllData.includes(data.value) && data.label.indexOf('Staff') === -1
         );
       var setUpdates =
         this.props.professional_id_list?.length > 0 &&
@@ -97,7 +105,7 @@ class Index extends React.Component {
         );
       this.setState({ assignedTo: setUpdates });
     }
-    this.setState({ professional_id_list: professional_id_list, professionalArray: professionalArray });
+    this.setState({ professional_id_list: professional_id_list, professional_id_list1: professional_id_list1, professionalArray: professionalArray });
   };
 
   getListOption = () => {
@@ -122,6 +130,9 @@ class Index extends React.Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       RemovePatientfromFlow,
+
+
+      
       patient_will_be_removed_and_cannot_be_reversed,
       are_you_sure,
       Yes_remove_patient,
@@ -705,53 +716,32 @@ class Index extends React.Component {
 
                   />
                 </Grid>
-
-                {(this.state.openOpti === true && this.state.updateQues[0]?.staff === "individual") && <>
-                  <Grid className="seletDrop">
-                    <label>{Staff}</label>
-                    {/* <Select
-                      name="name"
-                      className="addStafSelect"
-                      options={this.state.professional_id_list}
-                      isMulti={false}
-                    />
-                  </Grid> */}
-
-
-                    <Select
-                      name="professional"
-                      onChange={(e) => this.updateEntryState3(e)}
-                      value={this.state.assignedTo}
-                      options={this.state.professional_id_list}
-                      placeholder={Search_Select}
-                      className="addStafSelect"
-                      isMulti={false}
-                      autoBlur={true}
-                      closeMenuOnSelect={false}
-                      isSearchable={true}
-                    />
-                  </Grid>
-                </>}
-
-                {(this.state.openOpti === true && this.state.updateQues[0]?.staff === "group") && <>
-                  <Grid className="seletDrop">
-                    <label>{Staff}</label>
-                    <Select
-                      name="professional"
-                      onChange={(e) => this.updateEntryState3(e)}
-                      value={this.state.assignedTo}
-                      options={this.state.professional_id_list}
-                      placeholder={Search_Select}
-                      className="addStafSelect"
-                      isMulti={true}
-                      autoBlur={true}
-                      closeMenuOnSelect={false}
-                      isSearchable={true}
-                    />
-                  </Grid>
-                </>}
+                  {(this.state.openOpti === true && this.state.updateQues[0]?.staff=== "individual") && <>
+                    <Grid className="seletDrop">
+                      <label>{this.state.updateQues[0]?.staff}</label>
+                      <Select
+                        name="name"
+                        className="addStafSelect"
+                        options={this.state.professional_id_list1}
+                        isMulti={false}
+                      />
+                    </Grid>
+                  </>}
+                    
+                  {(this.state.openOpti === true && this.state.updateQues[0]?.staff=== "group") && <>
+                    <Grid className="seletDrop">
+                      <label>{this.state.updateQues[0]?.staff}</label>
+                      <Select
+                        name="name"
+                        className="addStafSelect"
+                        options={this.state.professional_id_list}
+                        isMulti={true}
+                      />
+                    </Grid>
+                  </>}
               </div>
-            )}
+            )}   
+           
 
             {this.state.assignroom && (
               <div>
