@@ -430,6 +430,7 @@ class Index extends Component {
     };
 
     render() {
+        console.log("currentList", this.state.currentList)
         let translate = getLanguage(this.props.stateLanguageType);
         let { Searchserviceoraddcustominput,
             Addservice,

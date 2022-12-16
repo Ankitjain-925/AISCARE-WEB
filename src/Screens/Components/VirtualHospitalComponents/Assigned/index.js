@@ -155,11 +155,15 @@ class Index extends React.Component {
                                     <a onClick={() => this.GetStaffListing(data, data?.team_name)} >
                                       <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                         <Grid>
-                                          <img src={this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode === "dark" ?
+                                          <img src={
+                                            // this.props.settings.setting &&
+                                            //   this.props.settings.setting.mode &&
+                                            //   this.props.settings.setting.mode === "dark" ?
                                             require("assets/virtual_images/groupicon-black.jpg")
-                                            : require("assets/virtual_images/groupicon.jpg")}></img>
+                                            // : require("assets/virtual_images/groupicon.jpg")
+                                          }>
+
+                                          </img>
                                         </Grid>
                                         <Grid className="allInfoRght">
                                           <Grid>
@@ -207,11 +211,17 @@ class Index extends React.Component {
                     <span>
                       {data?.team_name} {" "} {"(Staff)"}
                     </span>}
-                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ?
+                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={
+
+                    // this.props.settings.setting &&
+                    //   this.props.settings.setting.mode &&
+                    //   this.props.settings.setting.mode === "dark" ?
                     require("assets/virtual_images/groupicon-black.jpg")
-                    : require("assets/virtual_images/groupicon.jpg")}></img></a>}
+                    // : require("assets/virtual_images/groupicon.jpg")
+                  }>
+
+                  </img>
+                  </a>}
                 </div>
               ))}
             {count > 0 && <a onClick={() => this.ViewPopup()}>+{count}</a>}

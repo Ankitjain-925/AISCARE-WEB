@@ -130,24 +130,42 @@ export const handleSubmit = (current) => {
   else {
     current.setState({ loaderImage: true });
     if (data?._id) {
-      // axios
-      // .put(
-      //     sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" +  data?.staff_id, data,
-      //     commonHeader(current.props.stateLoginValueAim.token)
-      // )
-      // .then((responce) => {
-      //   teamstaff(current);
-      //     current.setState({
-      //         updateTrack: {},
-      //         selectSpec2:'',
-      //         selectWard:[]
-      //     });
-      //     handleCloseServ(current);
-      // })
-      // .catch(() => {
-      //     current.setState({ loaderImage: false });
-      //     handleCloseServ(current);
-      // })
+      console.log("datainside put", data)
+
+      var staffSelect = data?.staff.map((item) => {
+        return item?.profile_id;
+      })
+      console.log(
+        "datainside put", data
+      )
+
+      var data1 = {};
+      data1.staff = staffSelect;
+      data1.speciality_id = data?.speciality_id;
+      data1.house_id = data?.house_id;
+      data1.ward_id = data?.ward_id;
+      data1.team_name = data?.team_name;
+      data1._id = data?._id;
+      console.log("dARA1", data1)
+
+      axios
+        .put(
+          sitedata.data.path + "/teammember/UpdateTeam/" + data?.house_id + "/" + data?.staff_id, data1,
+          commonHeader(current.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          teamstaff(current);
+          current.setState({
+            updateTrack: {},
+            selectSpec2: '',
+            selectWard: []
+          });
+          handleCloseServ(current);
+        })
+        .catch(() => {
+          current.setState({ loaderImage: false });
+          handleCloseServ(current);
+        })
       console.log("kumar", data?._id);
     }
     else {
@@ -331,17 +349,11 @@ export const editStaff = (data, current) => {
   var ward = { label: a[1], value: deep?.ward_id, }
   var nurse = { label: deep.staff[0]?.first_name + ' ' + deep.staff[0]?.last_name, value: deep.staff_id }
 
-  var staffSelect = deep.staff.map((item) => {
-    return item?.profile_id;
-  })
-  console.log(
-    "staffSelect", staffSelect
-  )
   var teamname = a[2]
   console.log('deep', a)
   current.setState({
     updateTrack: deep,
-    updateTrack: { staff: staffSelect },
+    // updateTrack: [{ staff: staffSelect }],
     selectSpec2: spe,
     selectWard: ward,
     team_name: teamname,

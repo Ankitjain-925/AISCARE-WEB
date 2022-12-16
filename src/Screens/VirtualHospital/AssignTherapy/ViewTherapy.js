@@ -136,11 +136,15 @@ const ViewTherapy = (props) => {
                                                 <a onClick={() => props.showData(data, data?.team_name)}>   <div className="showAllAssignedInner">
                                                     <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                                         <Grid>
-                                                            <img src={settings.setting &&
-                                                                settings.setting.mode &&
-                                                                settings.setting.mode === "dark" ?
+                                                            <img src={
+                                                                // this.props.settings.setting &&
+                                                                //   this.props.settings.setting.mode &&
+                                                                //   this.props.settings.setting.mode === "dark" ?
                                                                 require("assets/virtual_images/groupicon-black.jpg")
-                                                                : require("assets/virtual_images/groupicon.jpg")}></img>
+                                                                // : require("assets/virtual_images/groupicon.jpg")
+                                                            }>
+
+                                                            </img>
                                                         </Grid>
                                                         <Grid className="allInfoRght">
                                                             <Grid>
