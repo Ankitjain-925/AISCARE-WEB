@@ -92,6 +92,7 @@ class Index extends Component {
         selectedPat: {},
         showError: "",
         selectedHouse: {},
+        errorMsg: ""
       },
       () => {
         if (this.props.comesFrom === "detailTask") {
@@ -249,7 +250,7 @@ class Index extends Component {
       due_on[name] = value;
       state[index]["due_on"] = due_on;
     } else if (name === "assinged_to1") {
-      // state[index][name] = value;
+      state[index][name] = value;
       var data =
         value?.length > 0 &&
         value.reduce((last, value, index) => {
@@ -277,6 +278,22 @@ class Index extends Component {
       ? this.props.House?.value
       : this.state.selectedHouse?.value;
     var sequence = this.state.therapy_sequence;
+    var finalSequence = sequence && sequence.length > 0 && sequence.map((item) => {
+      return item?.type === "task" ? {
+        assinged_to: item?.assinged_to,
+        task_description: item?.task_description,
+        task_name: item?.task_name,
+        due_on: item?.due_on,
+        type: item?.type
+      } : {
+        amount: item?.amount,
+        assinged_to: item?.assinged_to,
+        due_on: item?.due_on,
+        title: item?.title,
+        type: item?.type,
+        services: item?.services
+      }
+    })
     var finalData = {};
     finalData.patient = data?.patient;
     finalData.therapy_id = data?.therapy_id;
@@ -284,7 +301,7 @@ class Index extends Component {
     finalData.speciality = data?.speciality;
     finalData.house_id = house_id;
     finalData.status = "open";
-    finalData.sequence_list = sequence;
+    finalData.sequence_list = finalSequence;
 
     this.setState({ errorMsg: "" });
     let translate = getLanguage(this.props.stateLanguageType);
@@ -296,7 +313,7 @@ class Index extends Component {
     } = translate;
 
     if (!house_id) {
-      this.setState({ errorMsg: Please_select_the_hospital});
+      this.setState({ errorMsg: Please_select_the_hospital });
     } else if (!data.patient_id) {
       this.setState({ errorMsg: Please_select_the_patient });
     } else if (!data?.therapy_id) {
@@ -317,7 +334,7 @@ class Index extends Component {
         if (!gotall) {
           this.setState({
             errorMsg:
-            Please_fill_due_on_each_sequence,
+              Please_fill_due_on_each_sequence,
           });
         } else {
           this.setState({
@@ -469,9 +486,9 @@ class Index extends Component {
           onClose={() => this.handleCloseAss()}
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
               ? "darkTheme addSpeclModel"
               : "addSpeclModel"
           }
@@ -479,13 +496,13 @@ class Index extends Component {
           <Grid
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme addSpeclContnt2"
                 : "addServContnt"
             }
-            // className="addServContnt"
+          // className="addServContnt"
           >
             {/* {this.state.disableAssignment && 
                                 <div className="err_message">You dont have authority to Assign Service</div>} */}
@@ -521,7 +538,7 @@ class Index extends Component {
                         <label>{For_Hospital}</label>
                         <Select
                           name="for_hospital"
-                          options={this.props.thisList}
+                          options={this.props.currentList}
                           placeholder={Search_Select}
                           onChange={(e) => this.updateEntryState7(e)}
                           value={this.state.selectedHouse || ""}
@@ -536,7 +553,7 @@ class Index extends Component {
                     <label>{ForPatient}</label>
 
                     {this.props.comesFrom === "Professional" &&
-                    this.state.service?.patient?._id ? (
+                      this.state.service?.patient?._id ? (
                       <h2>
                         {this.state.service?.patient?.first_name}{" "}
                         {this.state.service?.patient?.last_name}
@@ -567,14 +584,13 @@ class Index extends Component {
                       <Select
                         name="therapy"
                         onChange={(e) => this.settherapy(e, "therapy")}
-                        // value={this.state.therapies}
                         value={this.props.therapy}
                         options={this.state.serviceList1}
                         placeholder={Search_Select}
                         className="addStafSelect"
                         isMulti={false}
                         isSearchable={true}
-                        isDisabled={true}
+                        isDisabled={this.props.comesFrom !== "Professional" ? true : false}
                       />
                     </Grid>
                   </Grid>
@@ -722,11 +738,11 @@ class Index extends Component {
                                       this.updateEntry(e, "date", index)
                                     }
 
-                                    // disabled={
-                                    //   this.props.comesFrom === 'Professional'
-                                    //     ? true
-                                    //     : false
-                                    // }
+                                  // disabled={
+                                  //   this.props.comesFrom === 'Professional'
+                                  //     ? true
+                                  //     : false
+                                  // }
                                   />
                                 </Grid>
                                 <Grid
