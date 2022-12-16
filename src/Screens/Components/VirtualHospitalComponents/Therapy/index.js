@@ -92,7 +92,10 @@ class Index extends Component {
         selectedPat: {},
         showError: "",
         selectedHouse: {},
-        errorMsg: ""
+        errorMsg: "",
+        therapy_sequence: {},
+        therapy_assignedto1: []
+
       },
       () => {
         if (this.props.comesFrom === "detailTask") {
@@ -449,7 +452,19 @@ class Index extends Component {
       this.getPatientData();
       this.therapylist();
       const { roles = [] } = e || {};
-      this.setState({ authErr: true });
+      if (!roles.includes('add_assign_therapy')) {
+        this.setState(
+          {
+            authErr: true,
+          },
+          // () => {
+          //   setTimeout(
+          //     () => this.setState({ openTask: false }),
+          //     2000
+          //   );
+          // }
+        );
+      } else this.setState({ authErr: false })
     });
   };
 
@@ -532,6 +547,9 @@ class Index extends Component {
               </Grid>
               <Grid className="enterServMain">
                 <Grid className="enterSpcl enterSpclSec enterSpclSec1">
+                  {this.state.authErr &&
+                    <div className="err_message">You dont have authority to Assign Service</div>
+                  }
                   {this.props.comesFrom === "Professional" && (
                     <Grid item xs={12} md={12}>
                       <Grid>
@@ -638,13 +656,13 @@ class Index extends Component {
                                     <p>{Task_Name} :</p>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
-                                    <label>{item.task_name}</label>
+                                    <label>{item?.task_name}</label>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
                                     <p>{Task_Description} :</p>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
-                                    <label>{item.task_description}</label>
+                                    <label>{item?.task_description}</label>
                                   </Grid>
                                 </Grid>
                               </div>
@@ -659,19 +677,19 @@ class Index extends Component {
                                     <p>{Assign_Title} :</p>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
-                                    <label>{item.title}</label>
+                                    <label>{item?.title}</label>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
                                     <p>{TotalAmount} :</p>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
-                                    <label>{item.total_amount}</label>
+                                    <label>{item?.amount}</label>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
                                     <p>{Services} : </p>
                                   </Grid>
                                   <Grid item xs={6} md={6} lg={6}>
-                                    <label></label>
+                                    <label>{item?.services?.length}</label>
                                   </Grid>
                                 </Grid>
                                 <div>
@@ -694,7 +712,7 @@ class Index extends Component {
                                               <p>{Service_Amount} :</p>
                                             </Grid>
                                             <Grid item xs={6} md={6} lg={6}>
-                                              <label>{cont?.amount}</label>
+                                              <label>{cont?.price_per_quantity}</label>
                                             </Grid>
                                             <Grid item xs={6} md={6} lg={6}>
                                               <p>{Quantity} :</p>
@@ -841,11 +859,14 @@ class Index extends Component {
                 className="servSaveBtn"
                 onClick={() => this.FinalServiceSubmit()}
               >
-                <a>
-                  <Button disabled={this.state.disableAssignment}>
-                    {save_and_close}
-                  </Button>
-                </a>
+                {!this.state.authErr &&
+                  <a>
+                    <Button
+                      disabled={this.state.authErr}
+                    >
+                      {save_and_close}
+                    </Button>
+                  </a>}
               </Grid>
             </Grid>
           </Grid>
