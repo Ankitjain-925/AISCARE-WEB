@@ -252,8 +252,8 @@ class Index extends Component {
     } = translate;
 
     if (
-      stateLoginValueAim?.token !== 401 &&
-      stateLoginValueAim?.token !== 450 &&
+      stateLoginValueAim.token !== 401 &&
+      stateLoginValueAim.token !== 450 &&
       stateLoginValueAim?.user?.type === "patient" &&
       this.props.verifyCode.code
     ) {
@@ -301,9 +301,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/pharmacy"} />;
+        return <Redirect to={"/pharmacy/profile"} />;
       } else {
-        return <Redirect to={"/pharmacy"} />;
+        return <Redirect to={"/pharmacy/profile"} />;
       }
     }
     if (
@@ -329,9 +329,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       } else {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       }
     }
     if (
@@ -341,11 +341,11 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       } else {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       }
-    }
+    }  
     if (
       stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
@@ -357,7 +357,7 @@ class Index extends Component {
       } else {
         return <Redirect to={"/h-patients"} />;
       }
-    } else {
+    }  else {
       return (
         <Grid
           className={
