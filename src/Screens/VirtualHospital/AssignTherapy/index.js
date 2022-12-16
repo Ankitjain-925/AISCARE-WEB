@@ -166,7 +166,9 @@ class Index extends Component {
             Edit_Delete,
             Add_Sequences,
             Task_Name,
-            Task_Description
+            Task_Description,
+            Assignedtitle,
+            no_data_avlbl
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -429,7 +431,7 @@ class Index extends Component {
 
                                                                         {assignTask &&
                                                                             <Grid className="headService11">
-                                                                                <label>Type</label>
+                                                                                <label>{Type}</label>
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
@@ -465,7 +467,7 @@ class Index extends Component {
                                                                         {taskName?.value === "assign_service" &&
                                                                             <Grid className="headService11">
                                                                                 <VHfield
-                                                                                    label="Assigned Title"
+                                                                                    label={Assignedtitle}
                                                                                     name="title"
                                                                                     placeholder="Enter Title"
                                                                                     onChange={(e) => updateEntry(this, e)}
@@ -768,10 +770,12 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
                                                         <Grid className="totalOutOff">
-                                                            <a>
-                                                                {this.state.currentPage} of{" "}
-                                                                {this.state.totalPage}
-                                                            </a>
+                                                            {(this.state.currentPage && this.state.totalPage) ? (
+                                                                <a>
+                                                                    {this.state.currentPage} of{" "}
+                                                                    {this.state.totalPage}
+                                                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                                                            }
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>

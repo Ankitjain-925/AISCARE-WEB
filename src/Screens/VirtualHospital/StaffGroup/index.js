@@ -24,15 +24,13 @@ import {
   handleOpenServ,
   handleCloseServ,
   updateEntryState1,
-  getSpecialty,
   teamstaff,
   handleSubmit,
   DeleteStaff,
   stffchange,
-  GetProfessionalwstaff,
+  GetProfessionalwstaff1,
   editStaff,
 } from "./api";
-import SelectField from "Screens/Components/Select/index";
 
 import { Speciality } from "Screens/Login/speciality.js";
 import { getLanguage } from "translations/index";
@@ -66,15 +64,14 @@ class Index extends Component {
       staffslct: [],
       openServSec: false,
       showStaff: [],
+      team_name: "",
     };
   }
 
   componentDidMount() {
-    getSpecialty(this);
     teamstaff(this);
-    GetProfessionalwstaff(this);
+    GetProfessionalwstaff1(this);
     this.specailityList();
-    console.log("1", this.props.stateLanguageType);
   }
 
   //On Changing the specialty id
@@ -96,7 +93,7 @@ class Index extends Component {
       });
     var state = this.state.updateTrack;
     state["speciality_id"] = e?.value;
-
+    state['team_name'] = e?.label + '-' + "undefined" + '-' + this.state.team_name;
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
@@ -107,12 +104,13 @@ class Index extends Component {
   // ward Change
   onWardChange = (e) => {
     var state = this.state.updateTrack;
-    console.log("e", e);
     state["ward_id"] = e.value;
+    state['team_name'] = this.state.selectSpec2?.label + '-' + e?.label + '-' + this.state.team_name;
+
     this.setState({ selectWard: e, updateTrack: state });
   };
 
-  //to get the speciality list
+  // //to get the speciality list
   specailityList = () => {
     var spec =
       this.props.speciality?.SPECIALITY &&
@@ -120,9 +118,8 @@ class Index extends Component {
       this.props?.speciality?.SPECIALITY.map((data) => {
         return { label: data.specialty_name, value: data._id };
       });
-    this.setState({ specilaityList: spec });
+    this.setState({ specilaityList: spec ? spec : [] });
   };
-
   handleOpenServSec = (item) => {
     this.setState({ openServSec: true, showStaff: item });
   };
@@ -151,6 +148,7 @@ class Index extends Component {
       staffmembers,
       Search,
       staff_members,
+      no_data_avlbl
     } = translate;
     const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -167,6 +165,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
     const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
@@ -276,23 +275,23 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
 
-                                    {/* {this.state.wardList &&
-                                      this.state.wardList.length > 0 && ( */}
-                                    <Grid className="enterSpcl">
-                                      <label>{Ward}</label>
-                                      <Grid className="addInput">
-                                        <Select
-                                          onChange={(e) => this.onWardChange(e)}
-                                          options={this.state.wardList}
-                                          name="ward_name"
-                                          value={this.state.selectWard}
-                                          isMulti={false}
-                                          className="addStafSelect"
-                                          isSearchable={true}
-                                        />
-                                      </Grid>
-                                    </Grid>
-                                    {/* )} */}
+                                    {this.state.wardList &&
+                                      this.state.wardList.length > 0 && (
+                                        <Grid className="enterSpcl">
+                                          <label>{Ward}</label>
+                                          <Grid className="addInput">
+                                            <Select
+                                              onChange={(e) => this.onWardChange(e)}
+                                              options={this.state.wardList}
+                                              name="ward_name"
+                                              value={this.state.selectWard}
+                                              isMulti={false}
+                                              className="addStafSelect"
+                                              isSearchable={true}
+                                            />
+                                          </Grid>
+                                        </Grid>
+                                      )}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
@@ -574,10 +573,12 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                              {(this.state.currentPage && this.state.totalPage) ? (
+                                <a>
+                                  {this.state.currentPage} of{" "}
+                                  {this.state.totalPage}
+                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                              }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
@@ -610,6 +611,8 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
+
+  console.log("=============state=====================>", state)
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;

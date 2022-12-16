@@ -230,9 +230,9 @@ class FilterSec extends Component {
     } = translate;
 
     return (
-      <Grid container direction="row">
+      <Grid container direction="row" justifyContent="center">
         {this.state.loaderImage && <Loader />}
-        <Grid item xs={12} md={11}>
+        <Grid item xs={11} md={11}> 
           <Grid className="srchFilter 22 ">
             {!this.state.isTest && (
               <Grid container direction="row">

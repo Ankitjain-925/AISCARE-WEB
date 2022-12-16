@@ -107,7 +107,8 @@ class Index extends Component {
             date,
             not_mentioned,
             Care_Questionnary_Submit,
-            see_details
+            see_details,
+            no_data_avlbl
 
 
 
@@ -238,10 +239,12 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
                                                         <Grid className="totalOutOff">
-                                                            <a>
-                                                                {this.state.currentPage} of{' '}
-                                                                {this.state.totalPage}
-                                                            </a>
+                                                            {(this.state.currentPage && this.state.totalPage) ? (
+                                                                <a>
+                                                                    {this.state.currentPage} of{" "}
+                                                                    {this.state.totalPage}
+                                                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                                                            }
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>

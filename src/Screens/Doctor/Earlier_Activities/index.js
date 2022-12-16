@@ -98,7 +98,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response", response)
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
                     if (response?.data?.data) {
@@ -137,7 +136,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response", response)
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
                     if (response?.data?.data) {
@@ -176,7 +174,6 @@ class Index extends Component {
             )
             .then((response) => {
                 this.setState({ AllTasks: response.data.data });
-                console.log('response', response)
                 if (response.data.hassuccessed) {
                     if (response?.data?.data) {
                         var patientForFilterArr = filterPatient(response.data.data);

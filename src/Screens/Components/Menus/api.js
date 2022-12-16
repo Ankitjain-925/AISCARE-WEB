@@ -1,7 +1,71 @@
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index"
+import { AllBedOnWard } from 'Screens/VirtualHospital/PatientFlow/data';
 
+
+//for getting all speciality
+export const getSpeciality = async (current) => {
+  current.setState({ loaderImage: true });
+  axios
+    .get(
+      sitedata.data.path + '/vh/AddSpecialty/' + current.props?.House?.value,
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then(async (responce) => {
+      if (responce.data.hassuccessed && responce.data.data) {
+        current.props.Speciality(
+          true,
+          current.props?.House?.value,
+          current.props.stateLoginValueAim.token
+        );
+        var NewData = [];
+        NewData =
+          (await responce?.data?.data?.length) > 0 &&
+          responce.data.data.map(async (item) => {
+            item?.wards?.length > 0 &&
+              item.wards.map(async (item1) => {
+                var response = await AllBedOnWard(
+                  item._id,
+                  item1._id,
+                  current.props?.House?.value,
+                  current.props.stateLoginValueAim.token
+                );
+                if (response.data.hassuccessed) {
+                  item1['available'] = response?.data?.data;
+                }
+              });
+            return item;
+          });
+        if (NewData) {
+          NewData = Promise.all(NewData).then((values) => {
+            return values;
+          });
+          NewData.then((values1) => {
+            setTimeout(() => {
+              current.setState({
+                loaderImage: false,
+                openSpecl: false,
+                specialityData: values1,
+                specialityData2: values1,
+              });
+            }, 3000);
+          });
+        } else {
+          setTimeout(() => {
+            current.setState({
+              loaderImage: false,
+              openSpecl: false,
+              specialityData: [],
+              specialityData2: [],
+            });
+          }, 3000);
+        }
+      } else {
+        current.setState({ loaderImage: false, openSpecl: false });
+      }
+    });
+};
 export const getSetting = (current) => {
     current.setState({ loaderImage: true });
     axios
