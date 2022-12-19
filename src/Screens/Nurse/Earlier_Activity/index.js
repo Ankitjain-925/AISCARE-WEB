@@ -133,14 +133,14 @@ class Index extends Component {
                             if (item.task_name) {
                                 return item.status === "done"
                             }
-                            else { 
+                            else {
                                 return item.status === "done"
                             }
                         });
                     var Open =
                         services?.length > 0 &&
                         services.filter((item) => item.status === "open" || (item.appointment_type || item.status !== "done"));
-                        // services.filter((item) => item.status === "open" );
+                    // services.filter((item) => item.status === "open" );
                     var ArchivedTask = services?.length > 0 &&
                         services.filter((item) => item.archived);
                     this.setState({
@@ -178,7 +178,7 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Earlier_activities} = translate;
+        let { Earlier_activities } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -221,17 +221,17 @@ class Index extends Component {
                                 <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
-                                <Grid className="topLeftSpc">
-                        <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{Earlier_activities}</h1>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
+                                    <Grid className="topLeftSpc">
+                                        <Grid container direction="row">
+                                            <Grid item xs={11} md={11}>
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6} className="spcMgntH1">
+                                                        <h1>{Earlier_activities}</h1>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={12}>
                                             {/* Model setup */}
@@ -245,6 +245,7 @@ class Index extends Component {
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={this.state.ArchivedTask}
                                                 comesFrom={"Professional"}
+                                                comesFrom1={"earlier_activities"}
                                                 removeAddbutton={true}
                                             />
                                             {/* End of Model setup */}

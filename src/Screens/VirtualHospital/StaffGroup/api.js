@@ -291,8 +291,8 @@ export const GetProfessionalwstaff1 = (current) => {
 };
 
 export const stffchange = (e, current) => {
-    
-  
+
+
   var state = current.state.updateTrack;
   var staff = [];
   staff = e?.length > 0 && e.map((item) => {
@@ -324,5 +324,5 @@ export const editStaff = (data, current) => {
     openServ: true
   });
 
-}; 
+};
 

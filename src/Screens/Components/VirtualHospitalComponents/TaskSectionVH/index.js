@@ -2106,10 +2106,10 @@ class Index extends Component {
                     <Button onClick={this.handleOpenTask}>{add_task}</Button> : null}
                 </> : <>   {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
                 </>}
-              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
-                </Button>}
+                </Button>} */}
               {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenCT()} >
                   {"Create Therapy Protocal"}
