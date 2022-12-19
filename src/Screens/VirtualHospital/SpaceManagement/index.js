@@ -92,7 +92,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.setState({ action: 'loading' });
-    // getSpeciality(this);
+    getSpeciality(this);
   }
 
   removeSpeciality = () => {

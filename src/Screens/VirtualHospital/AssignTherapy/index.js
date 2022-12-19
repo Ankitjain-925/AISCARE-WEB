@@ -453,7 +453,7 @@ class Index extends Component {
                                                                                     placeholder={Task_Name}
                                                                                     onChange={(e) => updateEntry(this, e)}
                                                                                     value={this.state?.allSequence?.task_name || ""}
-                                                                                />
+                                                                                />                                                                          
                                                                                 <p className="err_message">{this.state.errorTaskName}</p>
                                                                                 <VHfield
                                                                                     label={Task_Description}

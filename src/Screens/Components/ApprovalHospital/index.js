@@ -240,6 +240,7 @@ class Index extends Component {
                 {this.state.specific &&
                     <Select
                   //  value={this.state.specialistOption}
+                    className="selectapprove"
                     onChange={this.setMy_doc}
                     options={
                     this.state.professionalList

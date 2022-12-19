@@ -616,7 +616,6 @@ class Index extends Component {
   };
 
   handleOpenSlot = (data) => {
-    console.log('data', data)
     this.props.Doctorset(data._id, data.pin, data.house_id);
     if (data.appointment_type == "online_appointment") {
       this.setState(
