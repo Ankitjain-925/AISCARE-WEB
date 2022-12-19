@@ -2109,16 +2109,16 @@ class Index extends Component {
               {((this.props.comesFrom == "Professional" && this.props.comesFrom1 !=='earlier_activities')|| this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
-                </Button>}
+                </Button>} 
               {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenCT()} >
                   {"Create Therapy Protocal"}
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
-              {(this.props.comesFrom1 !== "earlier_activities" && this.props.comesFrom == "Professional" &&
+              {/* {(this.props.comesFrom == "Professional" &&
                 <Button onClick={() => this.handleOpenAss1()} >
                   {"+ Assign Therapy"}
-                </Button>)}
+                </Button>)} */}
             </Grid>
             {/* )} */}
           </Grid>

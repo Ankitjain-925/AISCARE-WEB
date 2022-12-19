@@ -453,7 +453,7 @@ class Index extends Component {
                   {this.props?.House?.value && (
                     <>
 
-                      {this.props?.House?.roles?.length > 0 && (this.props?.House?.roles.includes('service_manager') || this.props?.House?.roles.includes('questionnaire')) &&
+                      {this.props?.House?.roles?.length > 0 && (this.props?.House?.roles.includes('service_manager') || this.props?.House?.roles.includes('questionnaire') || this.props?.House?.roles.includes('therapy_manager')|| this.props?.House?.roles.includes('group_staff_manager') ) &&
                         <li
                           className={
                             this.props.currentPage === "more" ? "menuActv" : ""
@@ -606,7 +606,7 @@ class Index extends Component {
                                     </a>
                                   </li>}
                                 {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('group_staff_manager') &&
-                                  <>
+                                  
                                     <li>
                                       <a onClick={this.Staffgroup}>
                                         {this.props.settings &&
@@ -630,6 +630,7 @@ class Index extends Component {
                                         {CreateStaffgroup}
                                       </a>
                                     </li>
+                                }
                                     {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('therapy_manager') &&
                                       <li>
                                         <a onClick={this.AssignTherapy}>
@@ -653,6 +654,7 @@ class Index extends Component {
                                           {AssignTherapy}
                                         </a>
                                       </li>}
+                                  {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('questionnaire') &
                                     <li>
                                       <a onClick={this.Questionaires}>
                                         {this.props.settings &&
@@ -676,7 +678,7 @@ class Index extends Component {
                                         {Questionnaire}
                                       </a>
                                     </li>
-                                  </>}
+                                  }
                               </ul>
                             </div>
                           </a>
