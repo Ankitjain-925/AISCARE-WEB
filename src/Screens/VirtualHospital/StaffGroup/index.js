@@ -275,8 +275,8 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
 
-                                    {this.state.wardList &&
-                                      this.state.wardList.length > 0 && (
+                                    {/* {this.state.wardList &&
+                                      this.state.wardList.length > 0 && ( */}
                                         <Grid className="enterSpcl">
                                           <label>{Ward}</label>
                                           <Grid className="addInput">
@@ -291,7 +291,7 @@ class Index extends Component {
                                             />
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      {/* // )} */}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
