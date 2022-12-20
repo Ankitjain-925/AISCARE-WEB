@@ -91,7 +91,7 @@ class Index extends React.Component {
       professional_id_list =
         this.props.professional_id_list?.length > 0 &&
         this.props.professional_id_list.filter(
-          (data) => !getAllData.includes(data.value)
+          (data) => !getAllData.includes(data.value) && data.label.indexOf('Staff') !== -1
         );
         professional_id_list1 =
         this.props.professional_id_list?.length > 0 &&
