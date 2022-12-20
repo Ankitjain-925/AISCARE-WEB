@@ -498,7 +498,7 @@ class PointPain extends Component {
                                 </li></>}
                             {this.props.comesFrom === 'adminstaff' ?
                               <>
-                                {/* {roles.includes("delete_task") ?
+                                {roles.includes("delete_task") ?
                                   <li>
                                     <a
                                       onClick={() => {
@@ -537,7 +537,7 @@ class PointPain extends Component {
                                       )}
                                     </a>
                                   </li>
-                                  : null} */}
+                                  : null}
                               </> :
                               <>  <li>
 
