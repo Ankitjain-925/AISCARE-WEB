@@ -11318,10 +11318,6 @@ button.crdoLghtBlu2 {
   float: right;
 }
 
-.edtdelservice img {
-  width: 22px;
-}
-
 @media (max-width: 500px) {
   .informStatus {
     padding: 11px !important;
@@ -16239,7 +16235,7 @@ input:-webkit-autofill:active{
 /* ADD by Tanya */
 .enterPricePart3 {
   position: absolute;
-  top: 32px;
+  top: 43px;
   right: 30px;
   color: #404646;
   font-weight: 600;
@@ -19847,4 +19843,14 @@ video-page {
 }
 
                 
-
+.edtdelservice img {
+  width: 20px;
+}
+.edtdelservice img:first-child{
+  margin-right: 5px;
+}
+.editDelSerBtn{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
