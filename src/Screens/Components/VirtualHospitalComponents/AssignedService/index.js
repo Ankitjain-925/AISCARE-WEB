@@ -826,8 +826,8 @@ class Index extends Component {
                                                 <Grid className="wardsGrup3">
                                                     {this.state.items?.length > 0 &&
                                                         this.state.items.map((data, id) => (
-                                                            <Grid className="roomsNum3">
-                                                                <Grid container direction="row">
+                                                            <Grid className="roomsNum3 aaa">
+                                                                <Grid container direction="row" className="editDelSerBtn">
                                                                     <Grid item xs={6} md={6} className="services-head">
                                                                         <h3>{data?.service}</h3>
                                                                         <p>{data?.quantity}</p>

@@ -291,9 +291,7 @@ export const GetProfessionalwstaff1 = (current) => {
 };
 
 export const stffchange = (e, current) => {
-
-
-  var state = current.state.updateTrack;
+var state = current.state.updateTrack;
   var staff = [];
   staff = e?.length > 0 && e.map((item) => {
     return item?.value;
