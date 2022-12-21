@@ -387,7 +387,7 @@ UpdateDoc = (assinged_to) => {
   };
   //Select the professional name
   updateEntryState3 = (e,b) => {
-    this.setState({ assignedTo: e }, () => {
+    this.setState({ assignedTo: e,assignedTo2:'' }, () => {
       this.props.updateEntryState3(e, this.props.quote._id);
     });
     if (b =='group'){
