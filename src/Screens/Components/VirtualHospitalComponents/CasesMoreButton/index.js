@@ -77,7 +77,7 @@ class Index extends React.Component {
     }
   };
 
-  UpdateDoc = (assinged_to) => {
+UpdateDoc = (assinged_to) => {
     var getAllData =
       assinged_to &&
       assinged_to.length > 0 &&
@@ -386,10 +386,15 @@ class Index extends React.Component {
     }
   };
   //Select the professional name
-  updateEntryState3 = (e) => {
-    this.setState({ assignedTo: e }, () => {
+  updateEntryState3 = (e,b) => {
+    this.setState({ assignedTo: e,assignedTo2:'' }, () => {
       this.props.updateEntryState3(e, this.props.quote._id);
     });
+    if (b =='group'){
+      this.setState({ assignedTo2: e }, () => {
+        this.props.updateEntryState3(e, this.props.quote._id);
+      });
+    }
   };
 
   Discharge = () => {
@@ -720,10 +725,13 @@ class Index extends React.Component {
                     <Grid className="seletDrop">
                       <label>{this.state.updateQues[0]?.staff}</label>
                       <Select
-                        name="name"
+                        name="staff"
                         className="addStafSelect"
                         options={this.state.professional_id_list1}
                         isMulti={false}
+                        onChange={(e) =>
+                          this.updateEntryState3(e)}
+                        value={this.state.assignedTo}
                       />
                     </Grid>
                   </>}
@@ -732,10 +740,14 @@ class Index extends React.Component {
                     <Grid className="seletDrop">
                       <label>{this.state.updateQues[0]?.staff}</label>
                       <Select
-                        name="name"
+                        name="staff1"
                         className="addStafSelect"
                         options={this.state.professional_id_list}
-                        isMulti={true}
+                       isMulti={true}
+                       onChange={(e) =>
+                        this.updateEntryState3(e,'group')}
+                      value={this.state.assignedTo2}
+                    
                       />
                     </Grid>
                   </>}
