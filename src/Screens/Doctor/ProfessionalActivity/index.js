@@ -72,7 +72,7 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    this.getAddTaskData();
+    // this.getAddTaskData();
     this.getAllactivities();
     this.allHouses();
   }
@@ -132,7 +132,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id + this.props.stateLoginValueAim?.user?.profile_id,
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id +'/'+ this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -298,7 +298,7 @@ class Index extends Component {
                       <TaskSectiuonVH
                         patient={this.state.patient}
                         getAddTaskData={(tabvalue2, goArchive) => {
-                          this.getAddTaskData(tabvalue2, goArchive);
+                          this.getAllactivities(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}
