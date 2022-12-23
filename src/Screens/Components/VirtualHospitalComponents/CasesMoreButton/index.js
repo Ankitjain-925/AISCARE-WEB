@@ -723,7 +723,7 @@ class Index extends React.Component {
                         name="name"
                         className="addStafSelect"
                         options={this.state.professional_id_list1}
-                        isMulti={false}
+                        isMulti={true}
                       />
                     </Grid>
                   </>}

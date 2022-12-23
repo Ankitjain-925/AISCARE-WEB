@@ -721,7 +721,16 @@ class Index extends Component {
                                                                                         {editTherapy}
                                                                                     </a>
                                                                                 </li>}
-
+                                                                                {roles.includes('edit_therapy') &&
+                                                                                <li onClick={() => EditTherapy(this, item)}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/virtual_images/assign-to.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        /> Duplicate Therapy
+                                                                                    </a>
+                                                                                </li>}
                                                                             {roles.includes('delete_therapy') &&
                                                                                 <li onClick={() => DeleteTherapy(this, item)}>
                                                                                     <a>
@@ -793,7 +802,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         {/* end of service price content */}
-                                    </Grid>
+-                                    </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
                             </Grid>
