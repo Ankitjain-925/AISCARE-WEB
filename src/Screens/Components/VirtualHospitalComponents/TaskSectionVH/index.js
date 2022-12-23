@@ -2115,10 +2115,10 @@ class Index extends Component {
                   {"Create Therapy Protocal"}
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
-              {/* {(this.props.comesFrom == "Professional" &&
+              {((this.props.comesFrom == "Professional" && this.props.comesFrom1 !=='earlier_activities') &&
                 <Button onClick={() => this.handleOpenAss1()} >
                   {"+ Assign Therapy"}
-                </Button>)} */}
+                </Button>)}
             </Grid>
             {/* )} */}
           </Grid>
