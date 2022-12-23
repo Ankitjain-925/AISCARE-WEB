@@ -19854,3 +19854,9 @@ video-page {
   align-items: center;
   justify-content: center;
 }
+.clearFilterRghtSec a {
+  height: 32px;
+}
+.clearFilterRghtSec img{
+  height: 20px;
+}
