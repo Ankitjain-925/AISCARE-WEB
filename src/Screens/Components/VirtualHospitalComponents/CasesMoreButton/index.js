@@ -728,7 +728,7 @@ UpdateDoc = (assinged_to) => {
                         name="staff"
                         className="addStafSelect"
                         options={this.state.professional_id_list1}
-                        isMulti={false}
+                        isMulti={true}
                         onChange={(e) =>
                           this.updateEntryState3(e)}
                         value={this.state.assignedTo}
