@@ -336,11 +336,11 @@ class FilterSec extends Component {
                   // className="clear_filter"
                 >
                   <Grid className="clear_filterUpr ">
-                    <Grid className="clear_filterLft ">
+                    <Grid className="clear_filterLft">
                       <a onClick={this.ClearData}>{clear_filter}</a>
                     </Grid>
                     <Grid
-                      className="clear_filterRght "
+                      className="clear_filterRght clearFilterRghtSec"
                       onClick={() => {
                         this.setState({ isTest: true });
                       }}

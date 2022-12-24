@@ -212,8 +212,8 @@ class Index extends Component {
         const { House: { roles = [] } = {} } = this.props
         return (
             <Grid>
-                {/* Model setup */}
-                {/* <Modal
+
+                <Modal
                     open={this.state.openModal}
                     onClose={() => this.closeFullQues()}
                     className={
@@ -221,264 +221,276 @@ class Index extends Component {
                             this.props.settings.setting &&
                             this.props.settings.setting.mode &&
                             this.props.settings.setting.mode === 'dark'
-                            ? 'darkTheme'
-                            : ''
+                            ? 'darkTheme addSpeclModel'
+                            : 'addSpeclModel'
                     }
-                > */}
-                    <Grid className=" creatTaskModel11">
-                        <Grid >
-                            <Grid>
-                                {/* <Grid container direction="row" justify="center" className="addSpeclLbl">
-                                    <Grid item xs={8} md={8} lg={8}>
-                                        <label>{Details}</label>
-                                    </Grid>
-                                    <Grid item xs={4} md={4} lg={4}>
-                                        <Grid>
-                                            <Grid className="entryCloseBtn">
-                                                <a onClick={() => this.closeFullQues()}>
-                                                    <img
-                                                        src={require("assets/images/close-search.svg")}
-                                                        alt=""
-                                                        title=""
-                                                    />
-                                                </a>
+                >
+                    <Grid
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "darkTheme addSpeclContnt"
+                                : "addServContnt"
+                        }
+                    >
+                        <Grid className="addSpeclContntIner addSpeclabcIner">
+
+                            <Grid className=" creatTaskModel11">
+                                <Grid >
+                                    <Grid>
+                                        <Grid container direction="row" justify="center" className="addSpeclLbl">
+                                            <Grid item xs={8} md={8} lg={8}>
+                                                <label>{Details}</label>
                                             </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid> */}
-                            
-                                <Grid
-                                    container
-                                    direction="row"
-                                    className="setDetail-eval"
-                                >
-                                    <Grid item xs={12} md={12} className="taskDescp">
-                                 
-                                        <Grid className="stndQues stndQues1 allQuestionShow">
-                                            {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
-                                                <Grid className=" selectOptionCmn">
-                                                    {this.state.comesFrom === "PatientEnd" &&
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss MainclassQues1">
-                                                                    <h1>{Type_Report}</h1>
-
-                                                                    <label>
-                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                                    </label>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss MainclassQues1">
-                                                                    <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
-
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    }
-                                                    <Grid className="allQuestionShow1">
-                                                        {selectoption.map((item) => (
-                                                            <FormControl className="selectOption">
-                                                                <FormLabel id="main-topic-counted" className="mainQueLab">
-                                                                    {item.label}
-                                                                </FormLabel>
-                                                                {item.value?.map((option, index) => {
-                                                                    const compareResult = parseInt(item && item?.result && item?.result?.value &&
-                                                                        item?.result?.value.split('_v').pop())
-                                                                    return (
-                                                                        <Grid className={compareResult === index + 1 &&('selectdcolchange')}>
-
-                                                                        <RadioGroup
-                                                                            aria-labelledby="main-topic-counted"
-                                                                            name="quarter_feeding"
-                                                                        >
-                                                                            <FormControlLabel
-                                                                                control={<Radio />}
-                                                                                label={this.capitalizeFirstLetter(option)}
-                                                                                checked={
-                                                                                    compareResult === index + 1 ? (
-                                                                                        <Radio />
-                                                                                    ) : null
-                                                                                }
-                                                                            />
-                                                                          
-                                                                        </RadioGroup>
-                                                                        </Grid>
-                                                                    );
-                                                                })}
-                                                                
-                                                            </FormControl>
-                                                        ))}
+                                            <Grid item xs={4} md={4} lg={4}>
+                                                <Grid>
+                                                    <Grid className="entryCloseBtn">
+                                                        <a onClick={() => this.closeFullQues()}>
+                                                            <img
+                                                                src={require("assets/images/close-search.svg")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                        </a>
                                                     </Grid>
                                                 </Grid>
-                                            )}
-                                            {item && (item?.questionnaire_type === "two_weeks" || item?.questionary_type === "two_weeks") && (
-                                                <Grid className="MainclassQues MainclassQues1">
-                                                    {this.state.comesFrom === "PatientEnd" &&
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Type_Report}</h1>
-                                                                    <label>
-                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                                    </label>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            className="setDetail-eval"
+                                        >
+                                            <Grid item xs={12} md={12} className="taskDescp">
+
+                                                <Grid className="stndQues stndQues1 allQuestionShow">
+                                                    {item && (item?.questionnaire_type === "quarter" || item?.questionary_type === "quarter") && (
+                                                        <Grid className=" selectOptionCmn">
+                                                            {this.state.comesFrom === "PatientEnd" &&
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss MainclassQues1">
+                                                                            <h1>{Type_Report}</h1>
+
+                                                                            <label>
+                                                                                {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                                    "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                        "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
+                                                                                            "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                            </label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss MainclassQues1">
+                                                                            <h1>{Report_Date}</h1>
+                                                                            <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
+
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            }
+                                                            <Grid className="allQuestionShow1">
+                                                                {selectoption.map((item) => (
+                                                                    <FormControl className="selectOption">
+                                                                        <FormLabel id="main-topic-counted" className="mainQueLab">
+                                                                            {item.label}
+                                                                        </FormLabel>
+                                                                        {item.value?.map((option, index) => {
+                                                                            const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                                                                item?.result?.value.split('_v').pop())
+                                                                            return (
+                                                                                <Grid className={compareResult === index + 1 && ('selectdcolchange')}>
+
+                                                                                    <RadioGroup
+                                                                                        aria-labelledby="main-topic-counted"
+                                                                                        name="quarter_feeding"
+                                                                                    >
+                                                                                        <FormControlLabel
+                                                                                            control={<Radio />}
+                                                                                            label={this.capitalizeFirstLetter(option)}
+                                                                                            checked={
+                                                                                                compareResult === index + 1 ? (
+                                                                                                    <Radio />
+                                                                                                ) : null
+                                                                                            }
+                                                                                        />
+
+                                                                                    </RadioGroup>
+                                                                                </Grid>
+                                                                            );
+                                                                        })}
+
+                                                                    </FormControl>
+                                                                ))}
+                                                            </Grid>
+                                                        </Grid>
+                                                    )}
+                                                    {item && (item?.questionnaire_type === "two_weeks" || item?.questionary_type === "two_weeks") && (
+                                                        <Grid className="MainclassQues MainclassQues1">
+                                                            {this.state.comesFrom === "PatientEnd" &&
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Type_Report}</h1>
+                                                                            <label>
+                                                                                {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                                    "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                        "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
+                                                                                            "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                            </label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Report_Date}</h1>
+                                                                            <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            }
+                                                            <Grid>
+                                                                <h1>{Anamnesis}</h1>
+                                                                <h3>{blood_pressure}</h3>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={3} md={3}>
+                                                                        <label>{Systolic}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_rr_systolic}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={3} md={3}>
+                                                                        <label>{Diastolic}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_rr_diastolic}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={3} md={3}>
+                                                                        <label>{Weight}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_anamnesis_weight}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={3} md={3}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+
+
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Decubitus_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.week_decubitus_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_decubitus_amount_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.week_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
+
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Falling_Risk}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{ask_for_incidents}</label>
+                                                                        {item?.questionnaire_answers?.week_falling_risk_ask_for_incident && <p>{Fall_today}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Use_of_tools}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_falling_risk_use_of_tools && <p>{use_yours_tools}</p>}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{timed_up_and_go} (2 Weeks)</label>
+                                                                        {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                    }
-                                                    <Grid>
-                                                        <h1>{Anamnesis}</h1>
-                                                        <h3>{blood_pressure}</h3>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={3} md={3}>
-                                                                <label>{Systolic}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_rr_systolic}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={3} md={3}>
-                                                                <label>{Diastolic}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_rr_diastolic}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={3} md={3}>
-                                                                <label>{Weight}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_anamnesis_weight}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={3} md={3}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.week_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
 
-
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Decubitus_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.week_decubitus_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Nutrition_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Ask_for_Food}</h3>
+                                                                        <label>{Have_you_eaten}</label>
+                                                                        {item?.questionnaire_answers?.week_thrombose_food_eaten === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Water}</h3>
+                                                                        <label>{Have_you_been_trinkung}</label>
+                                                                        {item?.questionnaire_answers?.week_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Toilet_situation}</h3>
+                                                                        <label>{Could_you_go_Toilet}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                        </p>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_decubitus_amount_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.week_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
 
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Pain_Status}</h1>
+                                                                <p>{item?.questionnaire_answers?.week_thrombose_pain_status}</p>
+                                                            </Grid>
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Falling_Risk}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{ask_for_incidents}</label>
-                                                                {item?.questionnaire_answers?.week_falling_risk_ask_for_incident && <p>{Fall_today}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Use_of_tools}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_falling_risk_use_of_tools && <p>{use_yours_tools}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{timed_up_and_go} (2 Weeks)</label>
-                                                                {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Nutrition_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Ask_for_Food}</h3>
-                                                                <label>{Have_you_eaten}</label>
-                                                                {item?.questionnaire_answers?.week_thrombose_food_eaten === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Water}</h3>
-                                                                <label>{Have_you_been_trinkung}</label>
-                                                                {item?.questionnaire_answers?.week_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Toilet_situation}</h3>
-                                                                <label>{Could_you_go_Toilet}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Pain_Status}</h1>
-                                                        <p>{item?.questionnaire_answers?.week_thrombose_pain_status}</p>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Wound_doc}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.week_thrombose_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Wound_doc}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.week_thrombose_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.week_thrombose_amount_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.week_thrombose_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.week_thrombose_amount_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.week_thrombose_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    {/* 
+                                                            {/* 
                                                     <Grid className="allQuestionShow1">
                                                         <h1>{Depression_Risk}</h1>
                                                         <label>{what_was_today}</label>
@@ -486,37 +498,37 @@ class Index extends Component {
                                                             <p>{Month_If_not_acute_daily}</p> : <p>{Could_the_Patient_tell_day}</p>}
                                                     </Grid> */}
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Disorientation_Level}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{ask_for_News_Day}</h3>
-                                                                <label>{Patient_tell_news_Days}</label>
-                                                                {item?.questionnaire_answers?.week_disorientation_level_ask_for_news ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Disorientation_Level}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{ask_for_News_Day}</h3>
+                                                                        <label>{Patient_tell_news_Days}</label>
+                                                                        {item?.questionnaire_answers?.week_disorientation_level_ask_for_news ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Name_of_Family_Members}</h3>
+                                                                        <label>{Patient_remebmer_Family_Memer}</label>
+                                                                        {item?.questionnaire_answers?.week_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Name_of_Family_Members}</h3>
-                                                                <label>{Patient_remebmer_Family_Memer}</label>
-                                                                {item?.questionnaire_answers?.week_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Sanitary_Situation}</h1>
+                                                                <h3>{ask_for_incidents}</h3>
+                                                                <label>{No_Incidents_Sanitary_Situation}</label>
+                                                                {item?.questionnaire_answers?.week_sanitary_situation_ask_for_incidents ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Sanitary_Situation}</h1>
-                                                        <h3>{ask_for_incidents}</h3>
-                                                        <label>{No_Incidents_Sanitary_Situation}</label>
-                                                        {item?.questionnaire_answers?.week_sanitary_situation_ask_for_incidents ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-
-                                                    {/* <Grid className="allQuestionShow1">
+                                                            {/* <Grid className="allQuestionShow1">
                                                         <h1>{Falling_Risk}</h1>
                                                         <label>{timed_up_and_go} (2 Weeks)</label>
                                                         {item?.questionnaire_answers?.week_anamnesis_falling_up_go === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid> */}
-                                                    {/* 
+                                                            {/* 
                                                     <Grid className="allQuestionShow1">
                                                         <h1>{Depression_Risk}</h1>
                                                         <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
@@ -524,263 +536,263 @@ class Index extends Component {
                                                         {item?.questionnaire_answers?.week_depression_risk_good_today ? <p>{Yes}</p> : <p>{No}</p>}
                                                     </Grid> */}
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
-                                                        </Grid>
-                                                        {item?.questionnaire_answers?.week_thrombose_diameter_leg ?
-                                                            <Grid container xs={12} md={12}>
-                                                                <Grid xs={6} md={6}>
-                                                                    <label>{Measure_diameter_Leg}</label>
-                                                                    <p>
-                                                                        {item?.questionnaire_answers?.week_thrombose_diameter_leg}
-                                                                    </p>
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Thrombose_Situation}</h1>
                                                                 </Grid>
-                                                                <Grid xs={6} md={6}>
-                                                                    <label>{Condition}</label>
-                                                                    {item?.questionnaire_answers?.week_thrombose_diameter_leg_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                                </Grid>
-                                                            </Grid> : <Grid><p>{No}</p></Grid>}
-                                                    </Grid>
-                                                </Grid>
-                                            )}
-
-                                            {item && (item?.questionnaire_type === "two_days" || item?.questionary_type === "two_days") && (
-                                                <Grid className="MainclassQues MainclassQues1">
-                                                    {this.state.comesFrom === "PatientEnd" &&
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Type_Report}</h1>
-                                                                    <label>
-                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                                    </label>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    }
-                                                    <Grid>
-                                                        <h1>{Anamnesis}</h1>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{blood_pressure}</h3>
-                                                                <Grid container xs={12} md={12}>
-                                                                    <Grid xs={6} md={6}>
-                                                                        <label>{Systolic}</label>
-                                                                        <p>
-                                                                            {item?.questionnaire_answers?.day_rr_systolic}
-                                                                        </p>
-                                                                    </Grid>
-                                                                    <Grid xs={6} md={6}>
-                                                                        <label>{Diastolic}</label>
-                                                                        <p>
-                                                                            {item?.questionnaire_answers?.day_rr_diastolic}
-                                                                        </p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                            {item && item?.questionnaire_answers?.day_Sick === 'yes' &&
-                                                                <Grid xs={6} md={6}>
-                                                                    <h3>{Sick}</h3>
+                                                                {item?.questionnaire_answers?.week_thrombose_diameter_leg ?
                                                                     <Grid container xs={12} md={12}>
                                                                         <Grid xs={6} md={6}>
-                                                                            <label>{Weight}</label>
+                                                                            <label>{Measure_diameter_Leg}</label>
                                                                             <p>
-                                                                                {item?.questionnaire_answers?.day_anamnesis_weight}
+                                                                                {item?.questionnaire_answers?.week_thrombose_diameter_leg}
                                                                             </p>
                                                                         </Grid>
                                                                         <Grid xs={6} md={6}>
-                                                                            <label>{o2_Saturation}</label>
-                                                                            <p>
-                                                                                {item?.questionnaire_answers?.day_anamnesis_o2_saturation}
-                                                                            </p>
+                                                                            <label>{Condition}</label>
+                                                                            {item?.questionnaire_answers?.week_thrombose_diameter_leg_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                        </Grid>
+                                                                    </Grid> : <Grid><p>{No}</p></Grid>}
+                                                            </Grid>
+                                                        </Grid>
+                                                    )}
+
+                                                    {item && (item?.questionnaire_type === "two_days" || item?.questionary_type === "two_days") && (
+                                                        <Grid className="MainclassQues MainclassQues1">
+                                                            {this.state.comesFrom === "PatientEnd" &&
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Type_Report}</h1>
+                                                                            <label>
+                                                                                {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                                    "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                        "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
+                                                                                            "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                            </label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Report_Date}</h1>
+                                                                            <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                             }
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Decubitus_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.day_decubitus_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <h1>{Anamnesis}</h1>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{blood_pressure}</h3>
+                                                                        <Grid container xs={12} md={12}>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{Systolic}</label>
+                                                                                <p>
+                                                                                    {item?.questionnaire_answers?.day_rr_systolic}
+                                                                                </p>
+                                                                            </Grid>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{Diastolic}</label>
+                                                                                <p>
+                                                                                    {item?.questionnaire_answers?.day_rr_diastolic}
+                                                                                </p>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    {item && item?.questionnaire_answers?.day_Sick === 'yes' &&
+                                                                        <Grid xs={6} md={6}>
+                                                                            <h3>{Sick}</h3>
+                                                                            <Grid container xs={12} md={12}>
+                                                                                <Grid xs={6} md={6}>
+                                                                                    <label>{Weight}</label>
+                                                                                    <p>
+                                                                                        {item?.questionnaire_answers?.day_anamnesis_weight}
+                                                                                    </p>
+                                                                                </Grid>
+                                                                                <Grid xs={6} md={6}>
+                                                                                    <label>{o2_Saturation}</label>
+                                                                                    <p>
+                                                                                        {item?.questionnaire_answers?.day_anamnesis_o2_saturation}
+                                                                                    </p>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    }
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.day_decubitus_amount_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.day_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Falling_Risk}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{ask_for_incidents}</label>
-                                                                {item?.questionnaire_answers?.day_falling_risk_incident && <p>{Fall_today}</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Use_of_tools}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.day_falling_risk_use_of_tools && <p>{use_yours_tools}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Nutrition_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Ask_for_Food}</h3>
-                                                                <label>{Have_you_eaten}</label>
-                                                                {item?.questionnaire_answers?.day_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Water}</h3>
-                                                                <label>{Have_you_been_trinkung}</label>
-                                                                {item?.questionnaire_answers?.day_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Toilet_situation}</h3>
-                                                                <label>{Could_you_go_Toilet}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.day_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Fruits}</h3>
-                                                                <label>{Have_you_eaten_Fruits}</label>
-                                                                {item?.questionnaire_answers?.day_nutrition_situation_fruits ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Protein}</h3>
-                                                                <label>{Have_you_eaten_Meat}</label>
-                                                                {item?.questionnaire_answers?.day_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Pain_Status}</h1>
-                                                        <p>{item?.questionnaire_answers?.day_thrombose_pain_status}</p>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Wound_doc}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.day_thrombose_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Decubitus_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.day_decubitus_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.day_decubitus_amount_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.day_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.day_thrombose_amount_of_wounds}
-                                                                </p>
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Falling_Risk}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{ask_for_incidents}</label>
+                                                                        {item?.questionnaire_answers?.day_falling_risk_incident && <p>{Fall_today}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{Use_of_tools}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.day_falling_risk_use_of_tools && <p>{use_yours_tools}</p>}
+                                                                        </p>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.day_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Nutrition_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Ask_for_Food}</h3>
+                                                                        <label>{Have_you_eaten}</label>
+                                                                        {item?.questionnaire_answers?.day_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Water}</h3>
+                                                                        <label>{Have_you_been_trinkung}</label>
+                                                                        {item?.questionnaire_answers?.day_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Toilet_situation}</h3>
+                                                                        <label>{Could_you_go_Toilet}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.day_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                        </p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Fruits}</h3>
+                                                                        <label>{Have_you_eaten_Fruits}</label>
+                                                                        {item?.questionnaire_answers?.day_nutrition_situation_fruits ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Protein}</h3>
+                                                                        <label>{Have_you_eaten_Meat}</label>
+                                                                        {item?.questionnaire_answers?.day_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Depression_Risk}</h1>
-                                                        <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
-                                                        <label>{Patient_tell_Good_Day}</label>
-                                                        {item?.questionnaire_answers?.day_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
 
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Disorientation_Level}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{ask_for_News_Day}</h3>
-                                                                <label>{Patient_tell_news_Days}</label>
-                                                                {item?.questionnaire_answers?.day_disorientation_level_ask_for_news ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Pain_Status}</h1>
+                                                                <p>{item?.questionnaire_answers?.day_thrombose_pain_status}</p>
                                                             </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Name_of_Family_Members}</h3>
-                                                                <label>{Patient_remebmer_Family_Memer}</label>
-                                                                {item?.questionnaire_answers?.day_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Wound_doc}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.day_thrombose_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.day_thrombose_amount_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.day_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Sanitary_Situation}</h1>
-                                                        <h3>{ask_for_incidents}</h3>
-                                                        <label>{No_Incidents_Sanitary_Situation}</label>
-                                                        {item?.questionnaire_answers?.day_sanitary_situation_ask_for_incident ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Depression_Risk}</h1>
+                                                                <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
+                                                                <label>{Patient_tell_Good_Day}</label>
+                                                                {item?.questionnaire_answers?.day_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Pneunomie_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            {/* <Grid xs={6} md={6}>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Disorientation_Level}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{ask_for_News_Day}</h3>
+                                                                        <label>{Patient_tell_news_Days}</label>
+                                                                        {item?.questionnaire_answers?.day_disorientation_level_ask_for_news ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Name_of_Family_Members}</h3>
+                                                                        <label>{Patient_remebmer_Family_Memer}</label>
+                                                                        {item?.questionnaire_answers?.day_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Sanitary_Situation}</h1>
+                                                                <h3>{ask_for_incidents}</h3>
+                                                                <label>{No_Incidents_Sanitary_Situation}</label>
+                                                                {item?.questionnaire_answers?.day_sanitary_situation_ask_for_incident ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Pneunomie_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    {/* <Grid xs={6} md={6}>
                                                                 <h3>{o2_Saturation}</h3>
                                                                 <label>{Second_Day}</label>
                                                                 {item?.questionnaire_answers?.day_pneunomie_o2_saturation ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid> */}
-                                                            <Grid item xs={12} md={12}>
-                                                                <h3>{SoundRecording_Techdevelopment}</h3>
-                                                                <label>{Second_Day}</label>
-                                                                {item?.questionnaire_answers?.day_pneunomie_o2_sound_recording ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    <Grid item xs={12} md={12}>
+                                                                        <h3>{SoundRecording_Techdevelopment}</h3>
+                                                                        <label>{Second_Day}</label>
+                                                                        {item?.questionnaire_answers?.day_pneunomie_o2_sound_recording ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
 
-                                                    {/* <Grid>
+                                                            {/* <Grid>
                                                         <Grid>
                                                             <h1>{Nutrition_Situation}</h1>
                                                         </Grid>
@@ -797,54 +809,54 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid> */}
-                                                </Grid>
-
-
-
-                                            )}
-                                            {item && (item?.questionnaire_type === "daily" || item?.questionary_type === "daily") && (
-                                                <Grid className="MainclassQues MainclassQues1">
-                                                    {this.state.comesFrom === "PatientEnd" &&
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Type_Report}</h1>
-                                                                    <label>
-                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                                    </label>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
-                                                                </Grid>
-                                                            </Grid>
                                                         </Grid>
-                                                    }
-                                                    <Grid>
-                                                        <h1>{Anamnesis}</h1>
-                                                        {/* <Grid container xs={12} md={12}> */}
-                                                        {/* <Grid xs={6} md={6}> */}
-                                                        <h3>{blood_pressure}</h3>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Systolic}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_rr_systolic}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Diastolic}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_rr_diastolic}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                        {/* </Grid>
+
+
+
+                                                    )}
+                                                    {item && (item?.questionnaire_type === "daily" || item?.questionary_type === "daily") && (
+                                                        <Grid className="MainclassQues MainclassQues1">
+                                                            {this.state.comesFrom === "PatientEnd" &&
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Type_Report}</h1>
+                                                                            <label>
+                                                                                {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                                    "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                        "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
+                                                                                            "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                            </label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Report_Date}</h1>
+                                                                            <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            }
+                                                            <Grid>
+                                                                <h1>{Anamnesis}</h1>
+                                                                {/* <Grid container xs={12} md={12}> */}
+                                                                {/* <Grid xs={6} md={6}> */}
+                                                                <h3>{blood_pressure}</h3>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{Systolic}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.daily_rr_systolic}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{Diastolic}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.daily_rr_diastolic}
+                                                                        </p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                {/* </Grid>
                                                             {item && item?.questionnaire_answers?.daily_diameter_leg === 'yes' &&
                                                                 <Grid xs={6} md={6}>
                                                                     <h3>{Diameter_Leg}</h3>
@@ -865,409 +877,409 @@ class Index extends Component {
                                                                 </Grid>
                                                             }
                                                         </Grid> */}
-                                                    </Grid>
+                                                            </Grid>
 
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Decubitus_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.daily_decubitus_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Decubitus_Situation}</h1>
                                                                 </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_decubitus_amount_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.daily_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Falling_Risk}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{ask_for_incidents}</label>
-                                                                {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>{Fall_today}</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Use_of_tools}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>{use_yours_tools}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Nutrition_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Ask_for_Food}</h3>
-                                                                <label>{Have_you_eaten}</label>
-                                                                {item?.questionnaire_answers?.daily_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Water}</h3>
-                                                                <label>{Have_you_been_trinkung}</label>
-                                                                {item?.questionnaire_answers?.daily_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Toilet_situation}</h3>
-                                                                <label>{Could_you_go_Toilet}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <label>{Pain_Status}</label>
-                                                        <p>{item?.questionnaire_answers?.daily_thrombose_pain_status}</p>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Wound_doc}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.daily_thrombose_picture_with_scale}
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.daily_thrombose_amout_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.daily_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Depression_Risk}</h1>
-                                                        <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
-                                                        <label>{Patient_tell_Good_Day}</label>
-                                                        {item?.questionnaire_answers?.daily_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Disorientation_Level}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{ask_for_News_Day}</h3>
-                                                                <label>{Patient_tell_news_Days}</label>
-                                                                {item?.questionnaire_answers?.daily_disorientation_level_patient_tell ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Name_of_Family_Members}</h3>
-                                                                <label>{Patient_remebmer_Family_Memer}</label>
-                                                                {item?.questionnaire_answers?.daily_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Sanitary_Situation}</h1>
-                                                        <h3>{ask_for_incidents}</h3>
-                                                        <label>{No_Incidents_Sanitary_Situation}</label>
-                                                        {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Thrombose_Situation}</h1>
-                                                        </Grid>
-                                                        {item?.questionnaire_answers?.daily_anamnesis_diameter_leg ?
-                                                            <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                    <label>{Measure_diameter_Leg}</label>
-                                                                    <p>
-                                                                        {item?.questionnaire_answers?.daily_anamnesis_diameter_leg}
-                                                                    </p>
-                                                                </Grid>
-                                                                <Grid xs={6} md={6}>
-                                                                    <label>{Condition}</label>
-                                                                    {item?.questionnaire_answers?.daily_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                                </Grid>
-                                                            </Grid> : <Grid><p>{No}</p></Grid>}
-                                                    </Grid>
-                                                </Grid>
-                                            )}
-                                            {item && (item?.questionnaire_type === "full" || item?.questionary_type === "full") && (
-                                                <Grid className="MainclassQues MainclassQues1">
-                                                    {this.state.comesFrom === "PatientEnd" &&
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Type_Report}</h1>
-                                                                    <label>
-                                                                        {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
-                                                                            "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
-                                                                                "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
-                                                                                    "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
-                                                                    </label>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="RportCss">
-                                                                    <h1>{Report_Date}</h1>
-                                                                    <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    }
-                                                    <Grid>
-                                                        <h1>{Anamnesis}</h1>
-                                                        <Grid container xs={12} md={12}>
-                                                            <h3>{blood_pressure}</h3>
-                                                            <Grid container xs={12} md={12}>
-                                                                <Grid xs={6} md={6}>
-                                                                    <label>{Systolic}</label>
-                                                                    <p>
-                                                                        {item?.questionnaire_answers?.full_rr_systolic}
-                                                                    </p>
-                                                                </Grid>
-                                                                <Grid xs={6} md={6}>
-                                                                    <label>{Diastolic}</label>
-                                                                    <p>
-                                                                        {item?.questionnaire_answers?.full_rr_diastolic}
-                                                                    </p>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-
-                                                        {item && item?.questionnaire_answers?.full_diameter_leg === 'yes' &&
-                                                            <Grid container xs={12} md={12}>
-                                                                <h3>{Diameter_Leg}</h3>
                                                                 <Grid container xs={12} md={12}>
-                                                                    <Grid xs={6} md={6}>
-                                                                        <label>{Measure_diameter_Leg}</label>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.daily_decubitus_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
                                                                         <p>
-                                                                            {item?.questionnaire_answers?.full_anamnesis_diameter_leg}
+                                                                            {item?.questionnaire_answers?.daily_decubitus_amount_of_wounds}
                                                                         </p>
                                                                     </Grid>
-                                                                    <Grid xs={6} md={6}>
+                                                                    <Grid xs={4} md={4}>
                                                                         <label>{Condition}</label>
-                                                                        {item?.questionnaire_answers?.full_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                        {item?.questionnaire_answers?.daily_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
                                                                     </Grid>
                                                                 </Grid>
-                                                            </Grid>}
+                                                            </Grid>
 
-                                                        {item && item?.questionnaire_answers?.full_Sick === 'yes' &&
-                                                            <Grid container xs={12} md={12}>
-                                                                <h3>{Sick}</h3>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Falling_Risk}</h1>
+                                                                </Grid>
                                                                 <Grid container xs={12} md={12}>
                                                                     <Grid xs={6} md={6}>
-                                                                        <label>{Weight}</label>
-                                                                        <p>
-                                                                            {item?.questionnaire_answers?.full_anamnesis_weight}
-                                                                        </p>
+                                                                        <label>{ask_for_incidents}</label>
+                                                                        {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>{Fall_today}</p>}
                                                                     </Grid>
                                                                     <Grid xs={6} md={6}>
-                                                                        <label>{o2_Saturation}</label>
-                                                                        <p>{item?.questionnaire_answers?.full_anamnesis_o2_saturation}</p>
+                                                                        <label>{Use_of_tools}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.daily_falling_risk_incident_today && <p>{use_yours_tools}</p>}
+                                                                        </p>
                                                                     </Grid>
                                                                 </Grid>
-                                                            </Grid>}
-                                                    </Grid>
+                                                            </Grid>
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Decubitus_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.full_decubitus_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Nutrition_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Ask_for_Food}</h3>
+                                                                        <label>{Have_you_eaten}</label>
+                                                                        {item?.questionnaire_answers?.daily_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Water}</h3>
+                                                                        <label>{Have_you_been_trinkung}</label>
+                                                                        {item?.questionnaire_answers?.daily_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Toilet_situation}</h3>
+                                                                        <label>{Could_you_go_Toilet}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.daily_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                        </p>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.full_decubitus_amount_of_wounds}
-                                                                </p>
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.full_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Falling_Risk}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{ask_for_incidents}</label>
-                                                                {item?.questionnaire_answers?.full_falling_risk_incident_today && <p>{Fall_today}</p>}
+                                                            <Grid className="allQuestionShow1">
+                                                                <label>{Pain_Status}</label>
+                                                                <p>{item?.questionnaire_answers?.daily_thrombose_pain_status}</p>
                                                             </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <label>{Use_of_tools}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.full_falling_risk_incident_tools && <p>{use_yours_tools}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Nutrition_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Ask_for_Food}</h3>
-                                                                <label>{Have_you_eaten}</label>
-                                                                {item?.questionnaire_answers?.full_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Water}</h3>
-                                                                <label>{Have_you_been_trinkung}</label>
-                                                                {item?.questionnaire_answers?.full_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <h3>{Toilet_situation}</h3>
-                                                                <label>{Could_you_go_Toilet}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.full_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
-                                                                </p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Pain_Status}</h1>
-                                                        <p>{item?.questionnaire_answers?.full_thrombose_pain_status}</p>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Wound_doc}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={4} md={4}>
-                                                                <Grid className="SetImagesOn">
-                                                                    <label>{Picture_with_Scale}</label>
-                                                                    <FileViews
-                                                                        comesFrom='Picture_Task'
-                                                                        attachfile={item?.questionnaire_answers?.full_thrombose_picture_with_scale}
-                                                                    />
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Wound_doc}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.daily_thrombose_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.daily_thrombose_amout_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.daily_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Amount_of_wounds}</label>
-                                                                <p>
-                                                                    {item?.questionnaire_answers?.full_thrombose_amout_of_wounds}
-                                                                </p>
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Depression_Risk}</h1>
+                                                                <h3>{what_was_today} (every 2 Weeks  If not acute daily)</h3>
+                                                                <label>{Patient_tell_Good_Day}</label>
+                                                                {item?.questionnaire_answers?.daily_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid>
-                                                            <Grid xs={4} md={4}>
-                                                                <label>{Condition}</label>
-                                                                {item?.questionnaire_answers?.full_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Disorientation_Level}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{ask_for_News_Day}</h3>
+                                                                        <label>{Patient_tell_news_Days}</label>
+                                                                        {item?.questionnaire_answers?.daily_disorientation_level_patient_tell ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Name_of_Family_Members}</h3>
+                                                                        <label>{Patient_remebmer_Family_Memer}</label>
+                                                                        {item?.questionnaire_answers?.daily_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Depression_Risk}</h1>
-                                                        <h3>{what_was_today}(every 2 Weeks  If not acute daily)</h3>
-                                                        <label>{Patient_tell_Good_Day}</label>
-                                                        {item?.questionnaire_answers?.full_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Disorientation_Level}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{ask_for_News_Day}</h3>
-                                                                <label>{Patient_tell_news_Days}</label>
-                                                                {item?.questionnaire_answers?.full_disorientation_level_patient_tell ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Sanitary_Situation}</h1>
+                                                                <h3>{ask_for_incidents}</h3>
+                                                                <label>{No_Incidents_Sanitary_Situation}</label>
+                                                                {item?.questionnaire_answers?.daily_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
                                                             </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Name_of_Family_Members}</h3>
-                                                                <label>{Patient_remebmer_Family_Memer}</label>
-                                                                {item?.questionnaire_answers?.full_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid className="allQuestionShow1">
-                                                        <h1>{Sanitary_Situation}</h1>
-                                                        <h3>{ask_for_incidents}</h3>
-                                                        <label>{No_Incidents_Sanitary_Situation}</label>
-                                                        {item?.questionnaire_answers?.full_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Pneunomie_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <label>{SoundRecording_Techdevelopment}</label>
-                                                            {item?.questionnaire_answers?.full_pneunomie_o2_sound_recording ? <p>{Yes}</p> : <p>{No}</p>}
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid>
-                                                        <Grid>
-                                                            <h1>{Nutrition_Situation}</h1>
-                                                        </Grid>
-                                                        <Grid container xs={12} md={12}>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Fruits}</h3>
-                                                                <label>{Have_you_eaten_Fruits}</label>
-                                                                {item?.questionnaire_answers?.full_nutrition_situation_fruits ? <p>Yes</p> : <p>No</p>}
-                                                            </Grid>
-                                                            <Grid xs={6} md={6}>
-                                                                <h3>{Protein}</h3>
-                                                                <label>{Have_you_eaten_Meat}</label>
-                                                                {item?.questionnaire_answers?.full_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Thrombose_Situation}</h1>
+                                                                </Grid>
+                                                                {item?.questionnaire_answers?.daily_anamnesis_diameter_leg ?
+                                                                    <Grid container xs={12} md={12}>
+                                                                        <Grid xs={6} md={6}>
+                                                                            <label>{Measure_diameter_Leg}</label>
+                                                                            <p>
+                                                                                {item?.questionnaire_answers?.daily_anamnesis_diameter_leg}
+                                                                            </p>
+                                                                        </Grid>
+                                                                        <Grid xs={6} md={6}>
+                                                                            <label>{Condition}</label>
+                                                                            {item?.questionnaire_answers?.daily_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                        </Grid>
+                                                                    </Grid> : <Grid><p>{No}</p></Grid>}
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    )}
+                                                    {item && (item?.questionnaire_type === "full" || item?.questionary_type === "full") && (
+                                                        <Grid className="MainclassQues MainclassQues1">
+                                                            {this.state.comesFrom === "PatientEnd" &&
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Type_Report}</h1>
+                                                                            <label>
+                                                                                {item.questionary_type === "daily" || item.questionnaire_type === "daily" ?
+                                                                                    "Daily" : item.questionary_type === "two_days" || item.questionnaire_type === "two_days" ?
+                                                                                        "Two Days" : item.questionary_type === "two_weeks" || item.questionnaire_type === "two_weeks" ?
+                                                                                            "Two weeks" : item.questionary_type === "quarter" || item.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}
+                                                                            </label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="RportCss">
+                                                                            <h1>{Report_Date}</h1>
+                                                                            <label>{getDate(item.created_on ? item.created_on : item.submitDate, this.state.date_format)}</label>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            }
+                                                            <Grid>
+                                                                <h1>{Anamnesis}</h1>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <h3>{blood_pressure}</h3>
+                                                                    <Grid container xs={12} md={12}>
+                                                                        <Grid xs={6} md={6}>
+                                                                            <label>{Systolic}</label>
+                                                                            <p>
+                                                                                {item?.questionnaire_answers?.full_rr_systolic}
+                                                                            </p>
+                                                                        </Grid>
+                                                                        <Grid xs={6} md={6}>
+                                                                            <label>{Diastolic}</label>
+                                                                            <p>
+                                                                                {item?.questionnaire_answers?.full_rr_diastolic}
+                                                                            </p>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
 
-                                                    {/* <Grid>
+                                                                {item && item?.questionnaire_answers?.full_diameter_leg === 'yes' &&
+                                                                    <Grid container xs={12} md={12}>
+                                                                        <h3>{Diameter_Leg}</h3>
+                                                                        <Grid container xs={12} md={12}>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{Measure_diameter_Leg}</label>
+                                                                                <p>
+                                                                                    {item?.questionnaire_answers?.full_anamnesis_diameter_leg}
+                                                                                </p>
+                                                                            </Grid>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{Condition}</label>
+                                                                                {item?.questionnaire_answers?.full_anamnesis_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>}
+
+                                                                {item && item?.questionnaire_answers?.full_Sick === 'yes' &&
+                                                                    <Grid container xs={12} md={12}>
+                                                                        <h3>{Sick}</h3>
+                                                                        <Grid container xs={12} md={12}>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{Weight}</label>
+                                                                                <p>
+                                                                                    {item?.questionnaire_answers?.full_anamnesis_weight}
+                                                                                </p>
+                                                                            </Grid>
+                                                                            <Grid xs={6} md={6}>
+                                                                                <label>{o2_Saturation}</label>
+                                                                                <p>{item?.questionnaire_answers?.full_anamnesis_o2_saturation}</p>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>}
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Decubitus_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.full_decubitus_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.full_decubitus_amount_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.full_decubitus_condition === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Falling_Risk}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{ask_for_incidents}</label>
+                                                                        {item?.questionnaire_answers?.full_falling_risk_incident_today && <p>{Fall_today}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <label>{Use_of_tools}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.full_falling_risk_incident_tools && <p>{use_yours_tools}</p>}
+                                                                        </p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Nutrition_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Ask_for_Food}</h3>
+                                                                        <label>{Have_you_eaten}</label>
+                                                                        {item?.questionnaire_answers?.full_thrombose_food_eaten_condition === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Water}</h3>
+                                                                        <label>{Have_you_been_trinkung}</label>
+                                                                        {item?.questionnaire_answers?.full_thrombose_water_trinkung === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <h3>{Toilet_situation}</h3>
+                                                                        <label>{Could_you_go_Toilet}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.full_thrombose_toilet_situation === 'yes' ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                        </p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Pain_Status}</h1>
+                                                                <p>{item?.questionnaire_answers?.full_thrombose_pain_status}</p>
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Wound_doc}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <Grid className="SetImagesOn">
+                                                                            <label>{Picture_with_Scale}</label>
+                                                                            <FileViews
+                                                                                comesFrom='Picture_Task'
+                                                                                attachfile={item?.questionnaire_answers?.full_thrombose_picture_with_scale}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Amount_of_wounds}</label>
+                                                                        <p>
+                                                                            {item?.questionnaire_answers?.full_thrombose_amout_of_wounds}
+                                                                        </p>
+                                                                    </Grid>
+                                                                    <Grid xs={4} md={4}>
+                                                                        <label>{Condition}</label>
+                                                                        {item?.questionnaire_answers?.full_thrombose_situation === "better" ? <p>{Better}</p> : <p>{Worse}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Depression_Risk}</h1>
+                                                                <h3>{what_was_today}(every 2 Weeks  If not acute daily)</h3>
+                                                                <label>{Patient_tell_Good_Day}</label>
+                                                                {item?.questionnaire_answers?.full_depression_good_today ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
+
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Disorientation_Level}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{ask_for_News_Day}</h3>
+                                                                        <label>{Patient_tell_news_Days}</label>
+                                                                        {item?.questionnaire_answers?.full_disorientation_level_patient_tell ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Name_of_Family_Members}</h3>
+                                                                        <label>{Patient_remebmer_Family_Memer}</label>
+                                                                        {item?.questionnaire_answers?.full_disorientation_level_family_member ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="allQuestionShow1">
+                                                                <h1>{Sanitary_Situation}</h1>
+                                                                <h3>{ask_for_incidents}</h3>
+                                                                <label>{No_Incidents_Sanitary_Situation}</label>
+                                                                {item?.questionnaire_answers?.full_sanitary_situation_incident ? <p>{Yes}</p> : <p>{No}</p>}
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Pneunomie_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid>
+                                                                    <label>{SoundRecording_Techdevelopment}</label>
+                                                                    {item?.questionnaire_answers?.full_pneunomie_o2_sound_recording ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <h1>{Nutrition_Situation}</h1>
+                                                                </Grid>
+                                                                <Grid container xs={12} md={12}>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Fruits}</h3>
+                                                                        <label>{Have_you_eaten_Fruits}</label>
+                                                                        {item?.questionnaire_answers?.full_nutrition_situation_fruits ? <p>Yes</p> : <p>No</p>}
+                                                                    </Grid>
+                                                                    <Grid xs={6} md={6}>
+                                                                        <h3>{Protein}</h3>
+                                                                        <label>{Have_you_eaten_Meat}</label>
+                                                                        {item?.questionnaire_answers?.full_nutrition_situation_protein ? <p>{Yes}</p> : <p>{No}</p>}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            {/* <Grid>
                                                         <Grid className="allQuestionShow1">
                                                             <h1>{Feeding}</h1>
                                                             <p>{this.capitalizeFirstLetter(item?.questionnaire_answers?.full_feeding?.label)}</p>
@@ -1302,49 +1314,52 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid> */}
 
-                                                    <Grid className="selectOptionCmn">
-                                                        <Grid className="allQuestionShow1">
-                                                            {selectoption.map((item) => (
-                                                                <FormControl className="selectOption">
-                                                                    <FormLabel id="main-topic-counted" className="mainQueLab">
-                                                                        {item.label}
-                                                                    </FormLabel>
-                                                                    {item.value?.map((option, index) => {
-                                                                        const compareResult = parseInt(item && item?.result && item?.result?.value &&
-                                                                            item?.result?.value.split('_v').pop())
-                                                                        return (
-                                                                            <RadioGroup
-                                                                                aria-labelledby="main-topic-counted"
-                                                                                name="quarter_feeding"
-                                                                            >
-                                                                                <FormControlLabel
-                                                                                    control={<Radio />}
-                                                                                    label={this.capitalizeFirstLetter(option)}
-                                                                                    checked={
-                                                                                        compareResult === index + 1 ? (
-                                                                                            <Radio />
-                                                                                        ) : null
-                                                                                    }
-                                                                                />
-                                                                            </RadioGroup>
-                                                                        );
-                                                                    })}
-                                                                </FormControl>
-                                                            ))}
+                                                            <Grid className="selectOptionCmn">
+                                                                <Grid className="allQuestionShow1">
+                                                                    {selectoption.map((item) => (
+                                                                        <FormControl className="selectOption">
+                                                                            <FormLabel id="main-topic-counted" className="mainQueLab">
+                                                                                {item.label}
+                                                                            </FormLabel>
+                                                                            {item.value?.map((option, index) => {
+                                                                                const compareResult = parseInt(item && item?.result && item?.result?.value &&
+                                                                                    item?.result?.value.split('_v').pop())
+                                                                                return (
+                                                                                    <RadioGroup
+                                                                                        aria-labelledby="main-topic-counted"
+                                                                                        name="quarter_feeding"
+                                                                                    >
+                                                                                        <FormControlLabel
+                                                                                            control={<Radio />}
+                                                                                            label={this.capitalizeFirstLetter(option)}
+                                                                                            checked={
+                                                                                                compareResult === index + 1 ? (
+                                                                                                    <Radio />
+                                                                                                ) : null
+                                                                                            }
+                                                                                        />
+                                                                                    </RadioGroup>
+                                                                                );
+                                                                            })}
+                                                                        </FormControl>
+                                                                    ))}
+                                                                </Grid>
+                                                            </Grid>
+
+
                                                         </Grid>
-                                                    </Grid>
-
-
+                                                    )}
                                                 </Grid>
-                                            )}
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                {/* </Modal> */}
-                {/* End of Model setup */}
+
+
+                </Modal>
             </Grid>
         )
     }

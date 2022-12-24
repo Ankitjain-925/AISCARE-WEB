@@ -11318,10 +11318,6 @@ button.crdoLghtBlu2 {
   float: right;
 }
 
-.edtdelservice img {
-  width: 22px;
-}
-
 @media (max-width: 500px) {
   .informStatus {
     padding: 11px !important;
@@ -16239,7 +16235,7 @@ input:-webkit-autofill:active{
 /* ADD by Tanya */
 .enterPricePart3 {
   position: absolute;
-  top: 32px;
+  top: 43px;
   right: 30px;
   color: #404646;
   font-weight: 600;
@@ -19770,6 +19766,28 @@ video-page {
 }
 
 
+
+.allEnterSpclPart label {
+  font-size: 15px;
+  margin-bottom: 5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+
+.specbuttonPart {
+  margin-top: 30px;
+}
+
+.darkTheme .allEnterSpclPart label {
+  color: #00abaf !important;
+  font-weight: bold !important;
+}
+
+.darkTheme .addCssTherNamDes {
+  color: #fafafa;
+}
+
+
 @media only screen and (min-width: 960px) and (max-width: 1000px) {
   .addCssForTherapy {
     padding: 8px;
@@ -19819,6 +19837,26 @@ video-page {
     width:100%;
   }
 }
+.selectapprove {
+  width: 50%;
+  margin: auto;
+}
 
                 
-
+.edtdelservice img {
+  width: 20px;
+}
+.edtdelservice img:first-child{
+  margin-right: 5px;
+}
+.editDelSerBtn{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.clearFilterRghtSec a {
+  height: 32px;
+}
+.clearFilterRghtSec img{
+  height: 20px;
+}

@@ -64,6 +64,7 @@ class Index extends Component {
       staffslct: [],
       openServSec: false,
       showStaff: [],
+      team_name: "",
     };
   }
 
@@ -119,7 +120,7 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec ? spec : [] });
   };
-handleOpenServSec = (item) => {
+  handleOpenServSec = (item) => {
     this.setState({ openServSec: true, showStaff: item });
   };
   handleCloseServSec = () => {
@@ -147,6 +148,7 @@ handleOpenServSec = (item) => {
       staffmembers,
       Search,
       staff_members,
+      no_data_avlbl
     } = translate;
     const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -273,8 +275,8 @@ handleOpenServSec = (item) => {
                                       </Grid>
                                     </Grid>
 
-                                    {this.state.wardList &&
-                                      this.state.wardList.length > 0 && (
+                                    {/* {this.state.wardList &&
+                                      this.state.wardList.length > 0 && ( */}
                                         <Grid className="enterSpcl">
                                           <label>{Ward}</label>
                                           <Grid className="addInput">
@@ -289,7 +291,7 @@ handleOpenServSec = (item) => {
                                             />
                                           </Grid>
                                         </Grid>
-                                      )}
+                                      {/* // )} */}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
@@ -571,10 +573,12 @@ handleOpenServSec = (item) => {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                              {(this.state.currentPage && this.state.totalPage) ? (
+                                <a>
+                                  {this.state.currentPage} of{" "}
+                                  {this.state.totalPage}
+                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                              }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>

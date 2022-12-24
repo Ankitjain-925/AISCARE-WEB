@@ -47,7 +47,9 @@ class Index extends React.Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { available } = translate;
     return (
-      <span>{this.props.available} {available}</span>
+      <>
+        {this.props.available && <span>{this.props.available} {available}</span>}
+      </>
     );
   }
 }

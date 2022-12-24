@@ -2106,16 +2106,16 @@ class Index extends Component {
                     <Button onClick={this.handleOpenTask}>{add_task}</Button> : null}
                 </> : <>   {!this.props.removeAddbutton && this.props.comesFrom !== "Profearliertask" && <Button onClick={this.handleOpenTask}>{add_task}</Button>}
                 </>}
-              {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
+              {((this.props.comesFrom == "Professional" && this.props.comesFrom1 !=='earlier_activities')|| this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenAss()} >
                   {"+ Assign service"}
-                </Button>}
+                </Button>} 
               {/* {(this.props.comesFrom == "Professional" || this.props.comesFrom == "detailTask") &&
                 <Button onClick={() => this.handleOpenCT()} >
                   {"Create Therapy Protocal"}
                 </Button>} */}
               {/* <label>{filterbedge}</label> */}
-              {(this.props.comesFrom == "Professional" &&
+              {((this.props.comesFrom == "Professional" && this.props.comesFrom1 !=='earlier_activities') &&
                 <Button onClick={() => this.handleOpenAss1()} >
                   {"+ Assign Therapy"}
                 </Button>)}
@@ -4027,7 +4027,10 @@ class Index extends Component {
                                                 <label>{Archive}</label>
                                               </Grid>
                                             )}
-                                            <Grid>
+                                           {this.props.comesFrom ==='adminstaff' ?
+                                             <> 
+                                             {this.props.House?.roles?.length>0 && this.props?.House?.roles.includes('delete_task') && 
+                                             <Grid>
                                               <img
                                                 onClick={() => {
                                                   this.removeTask(
@@ -4049,6 +4052,30 @@ class Index extends Component {
                                                 {Delete}
                                               </label>
                                             </Grid>
+                                            }</>
+                                              : <Grid>
+                                              <img
+                                                onClick={() => {
+                                                  this.removeTask(
+                                                    this.state.newTask?._id
+                                                  );
+                                                }}
+                                                src={require("assets/virtual_images/deleteNew.png")}
+                                                alt=""
+                                                title=""
+                                                className="manage-size"
+                                              />
+                                              <label
+                                                onclick={(id) => {
+                                                  this.removeTask(
+                                                    this.state.newTask?._id
+                                                  );
+                                                }}
+                                              >
+                                                {Delete}
+                                              </label>
+                                            </Grid>
+                                                }
                                           </>
                                         )
                                       ) : this.state.newTask?.task_type ===

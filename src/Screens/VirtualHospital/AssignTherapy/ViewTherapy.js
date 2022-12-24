@@ -38,8 +38,8 @@ const ViewTherapy = (props) => {
         onClose={() => closeFullQues()}
         className={
           settings.setting &&
-          settings.setting.mode &&
-          settings.setting.mode === "dark"
+            settings.setting.mode &&
+            settings.setting.mode === "dark"
             ? "darkTheme addSpeclModel"
             : "addSpeclModel"
         }
@@ -47,9 +47,9 @@ const ViewTherapy = (props) => {
         <Grid
           className={
             settings &&
-            settings.setting &&
-            settings.setting.mode &&
-            settings.setting.mode === "dark"
+              settings.setting &&
+              settings.setting.mode &&
+              settings.setting.mode === "dark"
               ? "darkTheme addSpeclContnt"
               : "addServContnt"
           }
@@ -140,10 +140,10 @@ const ViewTherapy = (props) => {
                                   <img
                                     src={
                                       settings.setting &&
-                                      settings.setting.mode &&
-                                      settings.setting.mode === "dark"
+                                        settings.setting.mode &&
+                                        settings.setting.mode === "dark"
                                         ? require("assets/virtual_images/groupicon-black.jpg")
-                                        : require("assets/virtual_images/groupicon.jpg")
+                                        : require("assets/virtual_images/groupicon-black.jpg")
                                     }
                                   ></img>
                                 </Grid>
@@ -167,34 +167,34 @@ const ViewTherapy = (props) => {
                   {/* <div>-	</div> */}
                 </Grid>
                 {/* <Grid className="srvcTable3656"> */}
-                  <Grid className="srvcTable3">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th className="noNameType1">{No}</th>
-                          <th className="noNameType">{Type}</th>
-                          <th className="noNameType">{Name}</th>
-                          {/* <th>Description of Type</th> */}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {props?.item?.sequence_list &&
-                          props?.item?.sequence_list?.length > 0 &&
-                          props?.item?.sequence_list.map((data, index) => (
-                            <tr>
-                              <td key={index}>{index + 1}</td>
-                              <td>
-                                {data?.type === "task"
-                                  ? "Task"
-                                  : "Assign Service"}
-                              </td>
-                              <td>{data?.task_name || data?.title}</td>
-                              {/* <td>{data?.task_description || data?.service_description}</td> */}
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
-                  </Grid>
+                <Grid className="srvcTable3">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="noNameType1">{No}</th>
+                        <th className="noNameType">{Type}</th>
+                        <th className="noNameType">{Name}</th>
+                        {/* <th>Description of Type</th> */}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {props?.item?.sequence_list &&
+                        props?.item?.sequence_list?.length > 0 &&
+                        props?.item?.sequence_list.map((data, index) => (
+                          <tr>
+                            <td key={index}>{index + 1}</td>
+                            <td>
+                              {data?.type === "task"
+                                ? "Task"
+                                : "Assign Service"}
+                            </td>
+                            <td>{data?.task_name || data?.title}</td>
+                            {/* <td>{data?.task_description || data?.service_description}</td> */}
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </Grid>
                 {/* </Grid> */}
               </Grid>
             </Grid>

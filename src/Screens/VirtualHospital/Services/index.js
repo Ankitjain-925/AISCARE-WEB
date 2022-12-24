@@ -211,6 +211,7 @@ class Index extends Component {
       Sick_Certificate_Amount,
       edit_assigned_services,
       delete_assigned_services,
+      no_data_avlbl
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -698,10 +699,12 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                            {(this.state.currentPage && this.state.totalPage) ?(
+                                  <a>
+                                    {this.state.currentPage} of{" "}
+                                    {this.state.totalPage}
+                                  </a>) :(<div className="err_message">{no_data_avlbl}</div>)
+                                }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>

@@ -21,10 +21,10 @@ export const onChangePage = (pageNumber, current) => {
 //Modal Open
 export const handleOpenServ = (current) => {
   if (current.state.speciality_id && current.state.speciality_id !== 'general') {
-    current.setState({ openServ: true, updateTrack: { speciality_id: [current.state.speciality_id] } });
+    current.setState({ team_name: "", openServ: true, updateTrack: { speciality_id: [current.state.speciality_id] } });
   }
   else {
-    current.setState({ openServ: true, updateTrack: {} });
+    current.setState({ team_name: "", openServ: true, updateTrack: {} });
   }
 
 };
@@ -95,7 +95,7 @@ export const handleSubmit = (current) => {
   } else if (!data.ward_id || ((data && data?.ward_id && data?.ward_id.length < 1)) || current.state.updateTrack.team_name.includes("undefined")) {
     current.setState({ errorMsg: Please_select_ward })
   }
-  else if (!data.team_name || (data && data?.team_name && data?.team_name.length < 1)) {
+  else if (!current.state.team_name || (current.state.team_name && current.state.team_name.length < 1)) {
     current.setState({ errorMsg: Please_enter_team_name })
   }
   else if (!data.staff || (data && data?.staff && data?.staff.length < 1)) {
@@ -291,9 +291,7 @@ export const GetProfessionalwstaff1 = (current) => {
 };
 
 export const stffchange = (e, current) => {
-    
-  
-  var state = current.state.updateTrack;
+var state = current.state.updateTrack;
   var staff = [];
   staff = e?.length > 0 && e.map((item) => {
     return item?.value;
@@ -324,5 +322,5 @@ export const editStaff = (data, current) => {
     openServ: true
   });
 
-}; 
+};
 
