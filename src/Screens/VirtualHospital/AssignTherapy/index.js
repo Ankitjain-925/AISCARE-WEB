@@ -723,7 +723,7 @@ class Index extends Component {
                                                                                     </a>
                                                                                 </li>}
                                                                                 {roles.includes('edit_therapy') &&
-                                                                                <li onClick={() => EditTherapy(this, item)}>
+                                                                                <li onClick={() => EditTherapy(this, item, true)}>
                                                                                     <a>
                                                                                         <img
                                                                                             src={require("assets/virtual_images/assign-to.svg")}

@@ -407,8 +407,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {staff_data?.length > 0 &&
-                            staff_data.map((data) => (
+                          {staff_data?.length > 0 && staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
@@ -611,8 +610,6 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-
-  console.log("=============state=====================>", state)
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
