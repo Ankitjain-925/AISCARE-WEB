@@ -1179,6 +1179,7 @@ class Index extends Component {
       Done,
       Open,
       Archived,
+      showing_assigned_service
     } = translate;
 
     const {
@@ -1407,7 +1408,7 @@ class Index extends Component {
                       ))}
                   </Grid>
                 </TabContainer>
-                : <p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
+                : <p className='authority'>{showing_assigned_service}</p>}
             </> : <>
               {tabvalue2 === 0 && (
                 <TabContainer>
