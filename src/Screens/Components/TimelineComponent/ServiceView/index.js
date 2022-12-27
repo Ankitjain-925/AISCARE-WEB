@@ -337,9 +337,9 @@ class Index extends Component {
                                                                 <label>Due on</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                {item && item?.due_on && item?.due_on?.time &&
+                                                                {item && item?.due_on && item?.due_on?.date &&
                                                                     <span>
-                                                                        {getDate(item?.due_on?.time, this.state.date_format)}
+                                                                        {getDate(item?.due_on?.date, this.state.date_format)}
                                                                     </span>
                                                                 }
                                                             </Grid>
