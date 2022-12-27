@@ -379,8 +379,9 @@ class Index extends Component {
                                                         </Tr>
                                                     </Thead>
                                                     <Tbody>
-                                                        {item?.services?.length > 0 &&
-                                                            item?.services.map((data) => (
+                                                       
+                                                            {item?.assign_service?.length > 0 &&
+                                                            item?.assign_service.map((data) => (
                                                                 <>
                                                                     <Tr>
                                                                         <Td>
@@ -388,58 +389,13 @@ class Index extends Component {
                                                                         </Td>
                                                                         <Td>{data.price}</Td>
                                                                         <Td>{data.quantity}</Td>
-                                                                        {/* <Td className="srvcDots"> */}
-                                                                        <Td>
-                                                                            {/* <Grid
-                                item
-                                xs={6}
-                                md={6}
-                                className="spcMgntRght7 presEditDot scndOptionIner"
-                            > */}
-                                                                            {/* <a className="openScndhrf">
-                                    <img
-                                        src={require("assets/images/three_dots_t.png")}
-                                        alt=""
-                                        title=""
-                                        className="openScnd specialuty-more"
-                                    />
-                                    <ul>
-                                        <li>
-                                            <a
-                                                onClick={() => {
-                                                    editService(data, this);
-                                                }}
-                                            >
-                                                <img
-                                                    src={require("assets/images/details.svg")}
-                                                    alt=""
-                                                    title=""
-                                                />
-                                                Edit Service
-                                            </a>
-                                        </li>
-
-                                        <li
-                                            onClick={() => {
-                                                this.removeServices(data._id);
-                                            }}
-                                        >
-                                            <a>
-                                                <img
-                                                    src={require("assets/images/cancel-request.svg")}
-                                                    alt=""
-                                                    title=""
-                                                />
-                                                Delete Service
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </a> */}
-                                                                            {/* </Grid> */}
+                                                                      <Td>
+                                          
                                                                         </Td>
                                                                     </Tr>
                                                                 </>
                                                             ))}
+                                                           
                                                     </Tbody>
                                                 </Table>
                                             </Grid>
