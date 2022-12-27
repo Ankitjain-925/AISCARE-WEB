@@ -2172,7 +2172,8 @@
     "showing_therapy":"You have no authority for showing the therapy, Please contact to hospital admin",
     "showing_staff":"You have no authority for showing the group staff, Please contact to hospital admin",
     "showing_assigned_service":"You have no authority for showing the assigned service, Please contact to hospital admin",
-    "showing_task":"You have no authority for showing the tasks, Please contact to hospital admin"
+    "showing_task":"You have no authority for showing the tasks, Please contact to hospital admin",
+    "Sequence":"Sequence"
    
     
      
