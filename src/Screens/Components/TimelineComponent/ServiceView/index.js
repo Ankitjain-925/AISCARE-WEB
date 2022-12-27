@@ -57,7 +57,9 @@ class Index extends Component {
             Dueon,
             Dueon_time,
             Services,
-            Price
+            Price,
+            therapy_name,
+            Sequence
         } = translate;
         var item = this.state.item;
         return (
@@ -272,6 +274,38 @@ class Index extends Component {
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
+                                    {item && item.therapy_id && (
+                                    <Grid className="addSpc detailMark">
+                                        <Collapsible trigger="Assign Therapy" open="true">
+                                            <Grid className="detailCntnt">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={5} md={5} >
+                                                                <label>{therapy_name}</label>
+                                                            </Grid>
+                                                            <Grid item xs={7} md={7}>
+                                                            <span>{item.therapy_name}</span>
+                                                            </Grid>
+                                                            <Grid className="clear"></Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={5} md={5} >
+                                                                <label>{Sequence}</label>
+                                                            </Grid>
+                                                            <Grid item xs={7} md={7}>
+                                                            <span>{item.sequence}</span>
+                                                            </Grid>
+                                                            <Grid className="clear"></Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="clear"></Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Collapsible>
+                                    </Grid>)}
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Assigned to" open="true">
                                             <Grid className="detailCntnt">
