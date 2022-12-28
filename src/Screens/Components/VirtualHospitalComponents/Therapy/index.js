@@ -81,8 +81,8 @@ class Index extends Component {
         });
       }
     }
-    if (prevProps.therapy !== this.props.therapy) {
-      this.settherapy(this.props.therapy);
+    if (prevProps.therapy !==this.props.therapy) {
+      this.therapylist();
     }
   };
 
@@ -104,8 +104,8 @@ class Index extends Component {
         selectedHouse: {},
         errorMsg: "",
         therapy_sequence: {},
-        therapy_assignedto1: []
-
+        therapy_assignedto1: [],
+        openIndex: false
       },
       () => {
         if (this.props.comesFrom === "detailTask") {
@@ -287,7 +287,8 @@ class Index extends Component {
   };
 
   FinalServiceSubmit = () => {
-    var data = this.state.service;
+    var data2 = this.state.service;
+    var data = _.cloneDeep(data2);
     var house_id = this.props.House?.value
       ? this.props.House?.value
       : this.state.selectedHouse?.value;
@@ -365,6 +366,7 @@ class Index extends Component {
                 loaderImage: false,
                 openAss1: false,
               });
+              this.handleCloseAss();
             })
             .catch(() => {
               this.setState({ loaderImage: false });
@@ -384,10 +386,11 @@ class Index extends Component {
 
   settherapy = (value) => {
     var state = this.state.service;
-    var datas =
+    var datas1 =
       this.state.service_id_list?.length > 0 &&
       this.state.service_id_list.filter((item) => item?._id === value?.value);
-    if (datas?.length > 0) {
+    var datas = _.cloneDeep(datas1);
+      if (datas?.length > 0) {
       state["therapy_id"] = datas[0]?._id;
       state["therapy_name"] = datas[0]?.therapy_name;
       if (datas[0]?.assinged_to) {
@@ -406,13 +409,15 @@ class Index extends Component {
             return last;
           }, []);
       }
-
-      this.setState({
-        service: state,
-        therapy_assignedto1: data,
-        therapy_assignedto: datas[0]?.assinged_to,
-        therapy_sequence: datas[0]?.sequence_list,
-      });
+      setTimeout(()=>{
+        this.setState({
+          service: state,
+          therapy_assignedto1: data,
+          therapy_assignedto: datas[0]?.assinged_to,
+          therapy_sequence: datas[0]?.sequence_list,
+        });
+      }, 200)
+  
     }
   };
 
@@ -452,6 +457,11 @@ class Index extends Component {
           this.setState({
             service_id_list: serviceList,
             serviceList1: serviceList1,
+          }, 
+          ()=>{
+            if(this.props.therapy){
+              this.settherapy(this.props.therapy);
+            }
           });
         }
       });
@@ -845,7 +855,7 @@ class Index extends Component {
                                   onChange={(e) =>
                                     this.updateEntry(e, "assinged_to1", index)
                                   }
-                                  value={item.assinged_to1}
+                                  value={item.assinged_to1 || ''}
                                   options={this.state.professional_id_list1}
                                   placeholder={Assignedto}
                                   className="addStafSelect"

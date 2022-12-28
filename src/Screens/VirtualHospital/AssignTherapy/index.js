@@ -168,7 +168,9 @@ class Index extends Component {
             Task_Name,
             Task_Description,
             Assignedtitle,
-            no_data_avlbl
+            no_data_avlbl,
+            Duplicate_Therapy,
+            showing_therapy
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -643,6 +645,7 @@ class Index extends Component {
                                         </Grid> */}
 
                                         {/* service price content */}
+                                        {roles.includes('show_therapy') ? <>
                                         <Grid className="srvcTable3">
                                             <table>
                                                 <thead>
@@ -722,7 +725,16 @@ class Index extends Component {
                                                                                         {editTherapy}
                                                                                     </a>
                                                                                 </li>}
-
+                                                                                {roles.includes('edit_therapy') &&
+                                                                                <li onClick={() => EditTherapy(this, item, true)}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/virtual_images/assign-to.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />{Duplicate_Therapy}
+                                                                                    </a>
+                                                                                </li>}
                                                                             {roles.includes('delete_therapy') &&
                                                                                 <li onClick={() => DeleteTherapy(this, item)}>
                                                                                     <a>
@@ -794,9 +806,10 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid></>:<p className='authority'>{showing_therapy}</p>
+                                        }
                                         {/* end of service price content */}
-                                    </Grid>
+-                                    </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
                             </Grid>

@@ -148,7 +148,8 @@ class Index extends Component {
       staffmembers,
       Search,
       staff_members,
-      no_data_avlbl
+      no_data_avlbl,
+      showing_staff
     } = translate;
     const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -397,6 +398,7 @@ class Index extends Component {
                     {/* End of Bread Crumb */}
 
                     {/* service price content */}
+                    {roles.includes('show_staff_group') ?<>
                     <Grid className="srvcTable3">
                       <Table>
                         <Thead>
@@ -407,8 +409,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {staff_data?.length > 0 &&
-                            staff_data.map((data) => (
+                          {staff_data?.length > 0 && staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
@@ -597,7 +598,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid></>:<p className='authority'>{showing_staff}</p>}
                     {/* end of service price content */}
                   </Grid>
                 </Grid>
@@ -611,8 +612,6 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-
-  console.log("=============state=====================>", state)
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;

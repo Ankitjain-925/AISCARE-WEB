@@ -27,6 +27,15 @@ class PointPain extends Component {
     };
   }
 
+
+  checkAuthority = (id, authority) => {
+    if (id) {
+      const { roles = [] } = this.props.stateLoginValueAim?.user?.houses?.find(e => e.value === id) || {};
+      return roles.includes(authority);
+    }
+    return false;
+  }
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.data !== this.props.data) {
@@ -357,7 +366,7 @@ class PointPain extends Component {
                                   title=""
                                   className="openScnd specialuty-more"
                                 /> : null}
-                            </> : <>          <img
+                            </>: <>          <img
                               src={require('assets/images/three_dots_t.png')}
                               alt=""
                               title=""
@@ -422,7 +431,7 @@ class PointPain extends Component {
                                   </a>
                                 </li> : null}</> : <> <li>
 
-
+                                      {console.log('data', data)}
                                   {data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     this.props.comesFrom === 'adminstaff' &&
@@ -454,7 +463,7 @@ class PointPain extends Component {
                                   ) : data.task_type &&
                                     (data.task_type === 'sick_leave' ||
                                       data.task_type === 'video_conference' || data.task_type === 'picture_evaluation') && (
-                                      this.props.comesFrom === 'Professional' && data.edit_professional_activity) ? (
+                                      this.props.comesFrom === 'Professional' && this.checkAuthority(data.house_id, "edit_professional_activity")) ? (
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
@@ -466,8 +475,8 @@ class PointPain extends Component {
                                         title=""
                                       />{view_detail}</a>
                                   ) : (
-                                    data.task_name ? <>
-                                      {data.edit_professional_activity &&
+                                    this.checkAuthority(data.house_id, "edit_professional_activity") && 
+                                   <> {data.task_name ? 
                                         <a
                                           onClick={() => {
                                             this.props.editTask(data);
@@ -480,8 +489,7 @@ class PointPain extends Component {
                                           />
                                           {EditTask}
                                         </a>
-                                      }
-                                    </> :
+                                     :
                                       <a
                                         onClick={() => {
                                           this.props.editTask(data);
@@ -493,7 +501,9 @@ class PointPain extends Component {
                                           title=""
                                         />
                                         {edit_assigned_services}
-                                      </a>
+                                      </a>}
+                                      </>
+
                                   )}
                                 </li></>}
                             {this.props.comesFrom === 'adminstaff' ?
@@ -577,7 +587,7 @@ class PointPain extends Component {
                                       data.task_type == 'video_conference' || data.task_type == 'picture_evaluation' || data.task_type == 'sick_leave' ?
                                         " " :
 
-                                        data.delete_professional_activity && <a
+                                        this.checkAuthority(data.house_id, "delete_professional_activity") && <a
                                           onClick={() => {
                                             this.props.removeTask(data._id, data.house_id);
                                           }}

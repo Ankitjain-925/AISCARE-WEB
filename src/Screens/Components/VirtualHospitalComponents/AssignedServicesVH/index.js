@@ -1179,6 +1179,7 @@ class Index extends Component {
       Done,
       Open,
       Archived,
+      showing_assigned_service
     } = translate;
 
     const {
@@ -1387,28 +1388,9 @@ class Index extends Component {
             </Grid>
           </Grid>
           {this.props.comesFrom === 'adminstaff' ?
-            <>
-              {tabvalue2 === 0 && roles.includes("get_assignedservice") ?
-                <TabContainer>
-                  <Grid className="allInerTabs">
-                    {this.state.AllTasks?.length > 0 &&
-                      this.state.AllTasks.map((data) => (
-                        <Grid>
-                          <TaskView
-                            data={data}
-                            removeTask={(id) => this.removeTask(id)}
-                            editTask={(data) => this.editTask(data)}
-
-                            DoneAppointment={() => { }}
-
-                            comesFrom={this.props.comesFrom}
-                          />
-                        </Grid>
-                      ))}
-                  </Grid>
-                </TabContainer>
-                : <p className='authority'>You have no authority for showing the assigned service, Please contact to hospital admin</p>}
-            </> : <>
+          <>
+        {roles.includes("get_assignedservice")? 
+        <>
               {tabvalue2 === 0 && (
                 <TabContainer>
                   <Grid className="allInerTabs">
@@ -1427,7 +1409,106 @@ class Index extends Component {
                   </Grid>
                 </TabContainer>
               )}
-            </>}
+           
+          {tabvalue2 === 1 && (
+            <TabContainer>
+              <Grid className="allInerTabs">
+                {this.state.DoneTask?.length > 0 &&
+                  this.state.DoneTask.map((data) => (
+                    <Grid>
+                      <TaskView
+                        data={data}
+                        DoneAppointment={() => { }}
+                        removeTask={(id) => this.removeTask(id)}
+                        editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            </TabContainer>
+          )}
+          {tabvalue2 === 2 && (
+            <TabContainer>
+              <Grid className="allInerTabs">
+                {this.state.OpenTask?.length > 0 &&
+                  this.state.OpenTask.map((data) => (
+                    <Grid>
+                      <TaskView
+                        DoneAppointment={() => { }}
+                        data={data}
+                        removeTask={(id) => this.removeTask(id)}
+                        editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
+                      />
+                    </Grid >
+                  ))
+                }
+              </Grid>
+            </TabContainer >
+          )}
+
+          {
+            tabvalue2 === 3 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={() => { }}
+
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}
+          {
+            tabvalue2 === 4 && (
+              <TabContainer>
+                <Grid className="allInerTabs">
+                  {this.state.ArchivedTasks?.length > 0 &&
+                    this.state.ArchivedTasks.map((data) => (
+                      <Grid>
+                        <TaskView
+                          DoneAppointment={() => { }}
+                          data={data}
+                          removeTask={(id) => this.removeTask(id)}
+                          editTask={(data) => this.editTask(data)}
+                          comesFrom={this.props.comesFrom}
+                        />
+                      </Grid >
+                    ))
+                  }
+                </Grid >
+              </TabContainer >
+            )}</>:<p className='authority'>{showing_assigned_service}</p>}</>:
+            <>
+            {tabvalue2 === 0 && (
+                <TabContainer>
+                  <Grid className="allInerTabs">
+                    {this.state.AllTasks?.length > 0 &&
+                      this.state.AllTasks.map((data) => (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
+                            DoneAppointment={() => { }}
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TabContainer>
+              )}
+           
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
@@ -1507,6 +1588,7 @@ class Index extends Component {
                 </Grid >
               </TabContainer >
             )}
+            </>}
         </Grid >
         <Modal open={this.state.noWards}
           onClose={this.handleCloseRvw}>
