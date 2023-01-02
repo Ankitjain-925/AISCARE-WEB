@@ -130,8 +130,8 @@ class PointPain extends Component {
   };
 
   componentDidMount = () => {
-    socket.on("connection", () => {});
-    console.log("socket12", socket);
+    // socket.on("connection", () => {});
+    // console.log("socket12", socket);
   };
 
   render() {

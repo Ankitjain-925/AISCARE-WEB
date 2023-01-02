@@ -252,8 +252,8 @@ class Index extends Component {
     } = translate;
 
     if (
-      stateLoginValueAim.token !== 401 &&
-      stateLoginValueAim.token !== 450 &&
+      stateLoginValueAim?.token !== 401 &&
+      stateLoginValueAim?.token !== 450 &&
       stateLoginValueAim?.user?.type === "patient" &&
       this.props.verifyCode.code
     ) {
@@ -341,11 +341,11 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/nurse/profile"} />;
+        return <Redirect to={"/nurse"} />;
       } else {
-        return <Redirect to={"/nurse/profile"} />;
+        return <Redirect to={"/nurse"} />;
       }
-    }  
+    }
     if (
       stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
@@ -357,7 +357,7 @@ class Index extends Component {
       } else {
         return <Redirect to={"/h-patients"} />;
       }
-    }  else {
+    } else {
       return (
         <Grid
           className={
@@ -380,16 +380,12 @@ class Index extends Component {
               <Grid item xs={11} md={10}>
                 <Grid className="regHead">
                   <Grid container direction="row" justify="center">
-                    <Grid item xs={6} sm={6} className="LogoForms">
+                    <Grid item xs={3} sm={6} className="LogoForms">
                       <a href={sitedata.data.live_site}>
-                        <img
-                          src={require("assets/images/LogoPNG.png")}
-                          alt=""
-                          title=""
-                        />
+                        <img src={require("assets/images/LogoPNG.png")} alt="" title="" />
                       </a>
                     </Grid>
-                    <Grid item xs={6} sm={6}>
+                    <Grid item xs={9} sm={6}>
                       <Grid className="regSelectTop">
                         <Grid className={this.props.stateLanguageType !== "pt" ? "changeLang" : "changeLang1"}>
                           <li>

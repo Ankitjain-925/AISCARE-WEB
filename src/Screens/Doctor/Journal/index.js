@@ -1037,7 +1037,7 @@ class Index extends Component {
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} className="journalMain">
               {!this.state.isGraph && (
                 <Grid container direction="row">
                   {/* Website Menu */}
