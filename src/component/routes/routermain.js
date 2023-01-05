@@ -119,15 +119,17 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
-import io from "socket.io-client";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// import io from "socket.io-client";
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 import TryCaptcha from "Screens/TryCaptch"
-const SOCKET_URL = GetSocketUrl()
+import {SocketIo, clearScoket} from "socket";
+// const SOCKET_URL = GetSocketUrl()
 
-var socket = io(SOCKET_URL);
+// var socket = io(SOCKET_URL);
 class Routermain extends Component {
 
   allHouses = () => {
+    var socket = SocketIo();
     var data = this.props.stateLoginValueAim?.user?.type
     if (data == "nurse") {
       socket.on("displaynurse", (data) => {
@@ -142,19 +144,24 @@ class Routermain extends Component {
 
     } else if (data == 'doctor') {
       socket.on("displaydoctor", (data) => {
+        console.log('data1', data)
         this.setData(data)
       })
       socket.on("deletedata", (data) => {
+        console.log('data1', data)
         this.setData(data)
       })
       socket.on("Updateddata", (data) => {
+        console.log('data1', data)
         this.setData(data)
       })
     } else if (data == 'adminstaff') {
       socket.on("displayadmin", (data) => {
+        console.log('data1', data)
         this.setData(data, 'adminstaff')
       })
       socket.on("deletedataA", (data) => {
+        console.log('data1', data)
         this.setData(data, 'adminstaff')
       })
       socket.on("UpdateddataA", (data) => {
@@ -163,6 +170,7 @@ class Routermain extends Component {
     }
 
   };
+
   setData = (data) => {
     if (this.props.stateLoginValueAim?.user?._id === data?._id) {
       let user_token = this.props.stateLoginValueAim.token;
@@ -181,7 +189,9 @@ class Routermain extends Component {
   }
 
   componentDidMount() {
-    this.allHouses();
+    // if(this.props.stateLoginValueAim?.user?.id){
+      this.allHouses();
+    // }
   }
 
   render() {

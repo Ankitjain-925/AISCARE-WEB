@@ -21,12 +21,13 @@ import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseactio
 import { getSetting } from "../api";
 import Checkbox from "@material-ui/core/Checkbox";
 import Loader from "Screens/Components/Loader/index";
-import io from "socket.io-client";
+import {SocketIo, clearScoket} from "socket";
+// import io from "socket.io-client";
 import { currentAvaliable } from "./current.js";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl();
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +44,7 @@ class Index extends Component {
       update: false,
     };
     // new Timer(this.logOutClick.bind(this));
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
 
   //For loggedout if logged in user is deleted
@@ -173,6 +174,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
+        var socket = SocketIo();
         socket.emit("update", responce);
         let value = responce?.data?.data?.current_available;
         this.setState({

@@ -65,8 +65,8 @@ class Index extends Component {
   };
 
   openFullInfo = (data) => {
-    this.props.Opencare(data)
-    // this.setState({ openModal: true, ModalData: data });
+  // this.props.Opencare(data)
+     this.setState({ openModal: true, ModalData: data });
   }
 
   closeFullInfo = () => {

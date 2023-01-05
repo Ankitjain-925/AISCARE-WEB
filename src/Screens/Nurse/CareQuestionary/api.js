@@ -906,9 +906,10 @@ export const prevQuestData = (current) => {
     current.setState({ loaderImage: true });
     let user_token = current.props.stateLoginValueAim.token;
     let user_id = current.state.selectPatient?.value;
+    let house_id = current.state.selectHouse?.value;
     axios
         .get(
-            sitedata.data.path + "/vc/GetUserQuerstionair/" + user_id,
+            sitedata.data.path + "/vc/GetUserQuerstionair/" + user_id +"/"+ house_id,
             commonHeader(user_token)
         )
         .then((response) => {

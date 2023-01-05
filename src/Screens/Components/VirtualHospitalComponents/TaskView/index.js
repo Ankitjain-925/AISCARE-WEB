@@ -431,7 +431,7 @@ class PointPain extends Component {
                                   </a>
                                 </li> : null}</> : <> <li>
 
-                                      {console.log('data', data)}
+                                      {/* {console.log('data', data)} */}
                                   {data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     this.props.comesFrom === 'adminstaff' &&
