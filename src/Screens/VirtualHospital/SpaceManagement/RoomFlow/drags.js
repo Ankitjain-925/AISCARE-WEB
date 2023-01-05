@@ -48,8 +48,6 @@ export default class Index extends Component {
 
         const data = this.state.items?.map((item, index) => ({ ...item, id: `item-${index}` }))
 
-        // console.log('=========== DATA =========', data);
-
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable" direction="vertical">
@@ -91,7 +89,6 @@ export default class Index extends Component {
                                                     className="pat_flow_sec"
                                                 >
                                                     <Grid className="drListRght2 setinFullidrh">
-                                                        {/* {console.log(" =============== CASE ID ====================",item.cases?._id, index)} */}
                                                         {item.cases?._id ? (
                                                             <Grid className="drRghtIner2">
                                                                 <Grid>
