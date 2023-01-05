@@ -422,10 +422,11 @@ class Index extends Component {
             serviceList1 = [];
         axios
             .get(
-                sitedata.data.path + '/vh/GetService/' + "60fabfe5b3394533f7f9a6dc-1654919887767",
+                sitedata.data.path + '/vh/GetService/' + this.props.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
+                console.log("response", response)
                 this.setState({ allServData: response.data.data });
                 for (let i = 0; i < this.state.allServData.length; i++) {
                     serviceList1.push(this.state.allServData[i]);
