@@ -34,10 +34,11 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
-var socket
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
+// var socket = SocketIo();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -74,7 +75,7 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
   getallGroups = () => {
     var institute_id =
@@ -403,8 +404,9 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-              console.log('UpdateN', responce.data.data)
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              var socket = SocketIo();
+              console.log('socket1', socket)
               socket.emit("UpdateN",sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
@@ -453,6 +455,8 @@ class Index extends Component {
       )
       .then((responce) => {
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var socket =SocketIo();
+        console.log('socket122221111', socket)
         socket.emit("deleteN",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true  });
