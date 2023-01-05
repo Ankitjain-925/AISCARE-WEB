@@ -119,9 +119,9 @@ class Index extends Component {
   GetLanguageMetadata = () => {
     var AllStatus1 = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.billing_status &&
-        this.state.allMetadata.billing_status.length > 0 &&
-        this.state.allMetadata.billing_status,
+      this.state.allMetadata.billing_status &&
+      this.state.allMetadata.billing_status.length > 0 &&
+      this.state.allMetadata.billing_status,
       this.props.stateLanguageType
     );
     var AllStatus = _.cloneDeep(AllStatus1);
@@ -233,31 +233,30 @@ class Index extends Component {
       if (checkCase && checkCase.length > 0) {
         state[name] = checkCase[0];
         state['case_id'] = checkCase[0].case_id;
-        this.setState({ selectedPat: e });
+        this.setState({ selectedPat: e, loaderImage: true });
         axios
-        .get(
-          sitedata.data.path + '/vc/GetTaskandService/'+checkCase[0].case_id,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({AllTask: responce?.data?.data?.Task})
-          let ServiceDeep = _.cloneDeep(responce?.data?.data?.assigned_service)
-          var items = [] , sum = 0;
-          ServiceDeep?.length>0 && ServiceDeep.map((item)=> {
-            sum =  parseInt(item.amount)+sum;
-           return item?.assign_service?.length>0 && item?.assign_service.map((item2)=>{
-              item2.title = item.title
-              item2.assigned_service_id = item?._id
-              items.push(item2);
+          .get(
+            sitedata.data.path + '/vc/GetTaskandService/' + checkCase[0].case_id,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({ AllTask: responce?.data?.data?.Task, loaderImage: false })
+            let ServiceDeep = _.cloneDeep(responce?.data?.data?.assigned_service)
+            var items = [], sum = 0;
+            ServiceDeep?.length > 0 && ServiceDeep.map((item) => {
+              sum = parseInt(item.amount) + sum;
+              return item?.assign_service?.length > 0 && item?.assign_service.map((item2) => {
+                item2.title = item.title
+                item2.assigned_service_id = item?._id
+                items.push(item2);
+              })
             })
+            state['total_amount'] = sum;
+            this.setState({ AllTask: responce?.data?.data?.Task, items: items })
           })
-          state['total_amount'] = sum;
-          this.setState({AllTask: responce?.data?.data?.Task, items: items})
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     } else {
       state[name] = e;
@@ -395,7 +394,7 @@ class Index extends Component {
     let {
       Invoice_Id_cant_be_empty,
       Please_select_patient,
-      Please_select_status,
+      can_add_invoice,
       Please_add_atleast_one_service,
       Invoice_Id_is_already_exists,
     } = translate;
@@ -441,6 +440,8 @@ class Index extends Component {
       this.setState({ finishError: Invoice_Id_cant_be_empty });
     } else if (!data.patient || (data.patient && data.patient.length < 1)) {
       this.setState({ finishError: Please_select_patient });
+    } else if (!data.services || (data.services && data.services.length < 1)) {
+      this.setState({ finishError: can_add_invoice });
     } else {
       this.setState({ loaderImage: true });
       axios
@@ -453,7 +454,6 @@ class Index extends Component {
           this.setState({ loaderImage: false });
           if (responce.data.hassuccessed) {
             if (data.status.value == 'paid') {
-              // console.log('come inside that');
               PatientMoveFromHouse(
                 data.case_id,
                 this.props.stateLoginValueAim.token,
@@ -473,7 +473,6 @@ class Index extends Component {
               addinvoice: {},
               selectedPat: {},
             });
-            // console.log('add', this.state.addinvoice);
             this.Billing();
           } else {
             this.setState({ finishError: Invoice_Id_is_already_exists });
@@ -498,9 +497,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -537,7 +536,7 @@ class Index extends Component {
   //     this.updateTotalPrize();
   //   });
 
-    // this.finishInvoice();
+  // this.finishInvoice();
   // }
 
   render() {
@@ -583,16 +582,15 @@ class Index extends Component {
       Priceperquantity,
       Servicename,
     } = translate;
-    // console.log('Quantity',Quantity);
     const { selectedOption } = this.state;
     const { addinvoice } = this.state;
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -698,18 +696,18 @@ class Index extends Component {
 
                       <Grid className="srvcTable">
                         <h3>{"Tasks"}</h3>
-                        {this.state.AllTask?.length>0 && this.state.AllTask.map((data)=>(
+                        {this.state.AllTask?.length > 0 && this.state.AllTask.map((data) => (
                           <TaskView
-                          removeAddbutton = {true}
-                          data={data}
-                          removeTask={(id) => {}}
-                          editTask={(data) => {}}
-                          declineTask={(id, patient_id) =>{}}
-                          DoneAppointment={()=>{}}
-                          handleApprovedDetails={(id, status, data) => {}}
-                          comesFrom={'adminstaff'}
-                          removeMorebutton ={true}
-                        />
+                            removeAddbutton={true}
+                            data={data}
+                            removeTask={(id) => { }}
+                            editTask={(data) => { }}
+                            declineTask={(id, patient_id) => { }}
+                            DoneAppointment={() => { }}
+                            handleApprovedDetails={(id, status, data) => { }}
+                            comesFrom={'adminstaff'}
+                            removeMorebutton={true}
+                          />
 
                         ))}
                         <h3>{Services}</h3>
