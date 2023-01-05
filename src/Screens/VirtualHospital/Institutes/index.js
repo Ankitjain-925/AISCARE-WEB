@@ -41,7 +41,6 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-    console.log("data", data)
     if (data.roles) {
       if (data.roles.includes("assigned_services")) {
         this.props.history.push("/virtualHospital/assignedservices");
