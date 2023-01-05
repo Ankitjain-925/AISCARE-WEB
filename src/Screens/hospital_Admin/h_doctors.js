@@ -182,7 +182,6 @@ class Index extends Component {
             return x._id;
           }).indexOf(data?.data?.data?._id);
         if (elementPos > -1) {
-          console.log('sdfsdfdsf', data, data?.data, data?.data?.data);
           AllPatient[elementPos] = data?.data?.data;
           this.setState({ MypatientsData: AllPatient });
         }
@@ -349,7 +348,7 @@ class Index extends Component {
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
               var socket =SocketIo();
               socket.emit("Updated",sendSec)
-
+                console.log('sendSec1', sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -400,6 +399,7 @@ class Index extends Component {
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
         var socket =SocketIo();
         socket.emit("delete",sendSec)
+        console.log('sendSec2', sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {

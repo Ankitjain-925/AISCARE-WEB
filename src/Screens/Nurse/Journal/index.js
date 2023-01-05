@@ -996,7 +996,7 @@ getMypatientsData() {
 
   //Get the RIGHT INFO
   rightInfo() {
-    console.log('dsfsdfsf', this.props.Doctorsetget.p_id)
+    // console.log('dsfsdfsf', this.props.Doctorsetget.p_id)
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(

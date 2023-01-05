@@ -453,7 +453,7 @@ class Index extends Component {
           this.setState({ loaderImage: false });
           if (responce.data.hassuccessed) {
             if (data.status.value == 'paid') {
-              console.log('come inside that');
+              // console.log('come inside that');
               PatientMoveFromHouse(
                 data.case_id,
                 this.props.stateLoginValueAim.token,
@@ -473,7 +473,7 @@ class Index extends Component {
               addinvoice: {},
               selectedPat: {},
             });
-            console.log('add', this.state.addinvoice);
+            // console.log('add', this.state.addinvoice);
             this.Billing();
           } else {
             this.setState({ finishError: Invoice_Id_is_already_exists });

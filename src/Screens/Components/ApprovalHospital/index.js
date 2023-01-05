@@ -44,7 +44,6 @@ class Index extends Component {
       },
     )
       .then((responce1) => {
-        console.log("rep",responce1)
         if(!responce1.data.hassuccessed){
           this.setState({ linkexpire: true });
           setTimeout(() => {

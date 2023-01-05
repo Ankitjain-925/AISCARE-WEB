@@ -144,24 +144,19 @@ class Routermain extends Component {
 
     } else if (data == 'doctor') {
       socket.on("displaydoctor", (data) => {
-        console.log('data1', data)
         this.setData(data)
       })
       socket.on("deletedata", (data) => {
-        console.log('data1', data)
         this.setData(data)
       })
       socket.on("Updateddata", (data) => {
-        console.log('data1', data)
         this.setData(data)
       })
     } else if (data == 'adminstaff') {
       socket.on("displayadmin", (data) => {
-        console.log('data1', data)
         this.setData(data, 'adminstaff')
       })
       socket.on("deletedataA", (data) => {
-        console.log('data1', data)
         this.setData(data, 'adminstaff')
       })
       socket.on("UpdateddataA", (data) => {
@@ -189,10 +184,14 @@ class Routermain extends Component {
   }
 
   componentDidMount() {
-    // if(this.props.stateLoginValueAim?.user?.id){
       this.allHouses();
-    // }
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+        this.allHouses();
+    }
+  };
 
   render() {
     return (

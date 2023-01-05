@@ -5,8 +5,6 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
-import Timer from "Screens/Components/TimeLogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
@@ -26,7 +24,7 @@ import { currentAvaliable } from "./current.js";
 // import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 // const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);

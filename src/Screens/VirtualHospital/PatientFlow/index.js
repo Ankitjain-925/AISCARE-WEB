@@ -226,11 +226,11 @@ class Index extends Component {
     }
     var data =
       e?.length > 0 &&
-      e.reduce((last, current, index) => {
+      e.reduce((last, current) => {
         let isProf =
           this.state.professionalArray?.length > 0 &&
           this.state.professionalArray.filter(
-            (data, index) => data.user_id === current.value || data._id === current.value
+            (data) => data?.user_id === current?.value || data?._id === current?.value
           );
         if (isProf && isProf.length > 0) {
           last.push(isProf[0]);

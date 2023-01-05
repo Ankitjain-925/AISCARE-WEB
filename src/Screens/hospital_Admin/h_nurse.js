@@ -406,7 +406,7 @@ class Index extends Component {
             .then((responce) => {
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
               var socket = SocketIo();
-              console.log('socket1', socket)
+              console.log('sendSec-n', sendSec)
               socket.emit("UpdateN",sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
@@ -456,7 +456,7 @@ class Index extends Component {
       .then((responce) => {
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
         var socket =SocketIo();
-        console.log('socket122221111', socket)
+        console.log('socket122221111', sendSec)
         socket.emit("deleteN",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true  });
