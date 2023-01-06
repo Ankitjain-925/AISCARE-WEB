@@ -15,6 +15,15 @@ export default class Index extends Component {
         this.onDragEnd = this.onDragEnd.bind(this);
     }
 
+
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.items !== this.props.items) {
+            this.setState({
+                items: this.props.items,
+            });
+        }
+    };
+
     onDragEnd(result) {
         // dropped outside the list
         if (!result.destination) {

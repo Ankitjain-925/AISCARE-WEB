@@ -43,7 +43,6 @@ class Index extends Component {
     var ran1 = Math.floor(Math.random() * 99) + 1;
     var ran2 = Math.floor(Math.random() * 99) + 1;
     var sum = ran1+ran2;
-    console.log('sum', sum)
     this.setState({ran1 : ran1, ran2 : ran2, sum : sum})
   }
 

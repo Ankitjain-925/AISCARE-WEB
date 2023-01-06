@@ -15,7 +15,7 @@ class InnerQuoteList extends React.Component {
   }
 
   render() {
-    console.log('7', this.props.stateLanguageType);
+    // console.log('7', this.props.stateLanguageType);
     return this.props.quotes.map((quote, index) => (
       <Draggable
         key={quote.profile_id}
@@ -60,7 +60,7 @@ export default class QuoteList extends React.Component {
     listId: 'LIST',
   };
   render() {
-    console.log('9', this.props.stateLanguageType);
+    // console.log('9', this.props.stateLanguageType);
     const {
       ignoreContainerClipping,
       internalScroll,

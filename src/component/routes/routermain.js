@@ -119,15 +119,17 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
-import io from "socket.io-client";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// import io from "socket.io-client";
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 import TryCaptcha from "Screens/TryCaptch"
-const SOCKET_URL = GetSocketUrl()
+import {SocketIo, clearScoket} from "socket";
+// const SOCKET_URL = GetSocketUrl()
 
-var socket = io(SOCKET_URL);
+// var socket = io(SOCKET_URL);
 class Routermain extends Component {
 
   allHouses = () => {
+    var socket = SocketIo();
     var data = this.props.stateLoginValueAim?.user?.type
     if (data == "nurse") {
       socket.on("displaynurse", (data) => {
@@ -163,6 +165,7 @@ class Routermain extends Component {
     }
 
   };
+
   setData = (data) => {
     if (this.props.stateLoginValueAim?.user?._id === data?._id) {
       let user_token = this.props.stateLoginValueAim.token;
@@ -181,8 +184,14 @@ class Routermain extends Component {
   }
 
   componentDidMount() {
-    this.allHouses();
+      this.allHouses();
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+        this.allHouses();
+    }
+  };
 
   render() {
     return (

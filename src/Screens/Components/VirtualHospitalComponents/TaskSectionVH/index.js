@@ -2349,26 +2349,26 @@ class Index extends Component {
                             </Grid>
                           )}
 
-                          {this.state.newTask.task_type !==
-                            "picture_evaluation" || this.state.newTask.task_type !== "video_conference"
-                              (this.state.newTask.task_type !== "sick_leave" && (
-                                <Grid item xs={12} md={12} className="taskDescp">
-                                  <label>{Taskdescription}</label>
-                                  <Grid>
-                                    <textarea
-                                      placeholder={Enterdescription}
-                                      name="description"
-                                      onChange={(e) =>
-                                        this.updateEntryState1(
-                                          e.target.value,
-                                          e.target.name
-                                        )
-                                      }
-                                      value={this.state.newTask.description || ""}
-                                    ></textarea>
-                                  </Grid>
+                          {this.state.newTask?.task_type && this.state.newTask?.task_type !==
+                            "picture_evaluation" && this.state.newTask?.task_type !== "video_conference" &&
+                            this.state.newTask?.task_type !== "sick_leave" && (
+                              <Grid item xs={12} md={12} className="taskDescp">
+                                <label>{Taskdescription}</label>
+                                <Grid>
+                                  <textarea
+                                    placeholder={Enterdescription}
+                                    name="description"
+                                    onChange={(e) =>
+                                      this.updateEntryState1(
+                                        e.target.value,
+                                        e.target.name
+                                      )
+                                    }
+                                    value={this.state.newTask.description || ""}
+                                  ></textarea>
                                 </Grid>
-                              ))}
+                              </Grid>
+                            )}
 
                           {this.state.newTask.task_type ===
                             "picture_evaluation" && (

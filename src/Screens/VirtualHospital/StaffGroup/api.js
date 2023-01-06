@@ -300,7 +300,7 @@ var state = current.state.updateTrack;
   })
   state['staff'] = staff;
   current.setState({ staffslct: e, updateTrack: state }, () => {
-    console.log('updateTTrack', current.state.staffslct)
+    // console.log('updateTTrack', current.state.staffslct)
   });
 }
 
