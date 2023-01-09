@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { pure } from "recompose";
 import TaskView from "../TaskView/index";
 import InvoiceView from "../InvoiceView/index";
+import ServiceView from "../ServiceView/index";
 
 import { overView } from "Screens/Login/journalviewaction";
 
@@ -48,6 +49,27 @@ class Index extends Component {
       <div className="timelineGap">
         {item && item?.task_name && (
           <TaskView
+            onlyOverview={this.props.Overview}
+            list={this.props.Pressuresituation}
+            TrackRecord={this.state.TrackRecord}
+            OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            comesfrom={this.state.comesfrom}
+            downloadTrack={(data) => this.props.downloadTrack(data)}
+            images={this.state.images}
+            Archive={this.state.Archive}
+            DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
+            ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
+            EidtOption={(value, updateTrack, visibility) =>
+              this.props.EidtOption(value, updateTrack, visibility)
+            }
+            data={item}
+            loggedinUser={this.state.loggedinUser}
+            date_format={this.props.date_format}
+            time_format={this.props.time_format}
+          />
+        )}
+            {item && item?.title && (
+          <ServiceView
             onlyOverview={this.props.Overview}
             list={this.props.Pressuresituation}
             TrackRecord={this.state.TrackRecord}

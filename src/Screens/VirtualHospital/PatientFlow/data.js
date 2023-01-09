@@ -80,6 +80,7 @@ export const checkTheIndex = (array, attr, value) => {
 };
 
 export const AllWards = (Specilaity_id, AllSpecaility) => {
+  if(AllSpecaility && AllSpecaility.length>0){
   var mydata = AllSpecaility.filter((element) => element._id === Specilaity_id);
   if (mydata && mydata.length > 0) {
     return (
@@ -91,6 +92,10 @@ export const AllWards = (Specilaity_id, AllSpecaility) => {
   } else {
     return [];
   }
+}
+else {
+  return [];
+}
 };
 
 export const setWard = async (
@@ -258,26 +263,26 @@ export const setBed = async (value, case_id, user_token) => {
 
 export const MoveInternalSpace = async (case_id, user_token, current) => {
   current.setState({ loaderImage: true });
-    let response = await axios.put(
-      sitedata.data.path + '/cases/AddCase/' + case_id,
-      { external_space: false},
-      commonHeader(user_token)
-    );
-    if (response) {
-      if(response.data.hassuccessed){
-        current.setState({ loaderImage: false });
-        var steps = getSteps(
-          current.props?.House?.value,
-          current.props.stateLoginValueAim.token
-        );
-        steps.then((data) => {
-          var stepData = data ? data : [];
-          current.props.setDta(stepData);
-        });
-      }
-    } else {
+  let response = await axios.put(
+    sitedata.data.path + '/cases/AddCase/' + case_id,
+    { external_space: false },
+    commonHeader(user_token)
+  );
+  if (response) {
+    if (response.data.hassuccessed) {
       current.setState({ loaderImage: false });
+      var steps = getSteps(
+        current.props?.House?.value,
+        current.props.stateLoginValueAim.token
+      );
+      steps.then((data) => {
+        var stepData = data ? data : [];
+        current.props.setDta(stepData);
+      });
     }
+  } else {
+    current.setState({ loaderImage: false });
+  }
 };
 
 export const setAssignedTo = async (value, case_id, user_token) => {
@@ -327,9 +332,12 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
       } else if (response.data?.data[i]?.first_name) {
         name = response.data?.data[i]?.first_name;
       }
+      else if (response.data?.data[i]?.team_name) {
+        name = response.data?.data[i]?.team_name + " " + "(Staff)";
+      }
       if (comesFrom === 'appoint') {
         professionalArray.push(response.data?.data[i]);
-      } else {
+      } else if (response.data?.data[i].first_name) {
         professionalArray.push({
           first_name: response.data?.data[i].first_name,
           last_name: response.data?.data[i].last_name,
@@ -340,14 +348,31 @@ export const getProfessionalData = async (house_id, user_token, comesFrom) => {
           type: response.data?.data[i].type,
           title: response.data?.data[i].title,
         });
+      } else if (response.data?.data[i].team_name) {
+        professionalArray.push({
+          team_name: response.data?.data[i].team_name,
+          staff: response.data?.data[i].staff,
+          _id: response.data?.data[i]._id,
+          speciality_id: response.data?.data[i].speciality_id,
+          staff_id: response.data?.data[i].staff_id,
+          ward_id: response.data?.data[i].ward_id,
+        });
       }
-
-      professionalList.push({
-        value: response.data?.data[i]._id,
-        label: name,
-        email: response.data.data[i].email,
-      });
-      // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
+      else {
+        professionalArray.push(response.data?.data[i]);
+      }
+      if (response.data?.data[i].first_name) {
+        professionalList.push({
+          value: response.data?.data[i]._id,
+          label: name,
+          email: response.data.data[i].email,
+        });
+      } else {
+        professionalList.push({
+          value: response.data?.data[i]._id,
+          label: name,
+        });
+      }
     }
     return {
       professionalArray: professionalArray,
@@ -367,10 +392,10 @@ export const PatientMoveFromHouse = async (
 ) => {
   let newObj = viewQuestionaire
     ? {
-        status: status,
-        inhospital: inhospital,
-        viewQuestionaire: viewQuestionaire,
-      }
+      status: status,
+      inhospital: inhospital,
+      viewQuestionaire: viewQuestionaire,
+    }
     : { status: status, inhospital: inhospital };
   let response = await axios.put(
     sitedata.data.path + '/cases/AddCase/' + case_id,

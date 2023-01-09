@@ -70,7 +70,7 @@ class Index extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
-            console.log('on adding and removing')
+            // console.log('on adding and removing')
             allHouses(this);
         }
       };

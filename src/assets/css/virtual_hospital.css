@@ -2531,11 +2531,15 @@ a.lineSort {
 @media (max-width: 959px) {
   .srchRght {
     text-align: left !important;
-    padding: 0px 0px 16px 17px !important;
+    padding: 0px 0px 16px 17px !important; 
+  }
+  .srchLft {
+    border-right: none !important;
   }
   .cmnLftSpc {
     padding-left: 10px !important;
     padding-right: 10px !important;
+    padding-top: 0px;
   }
   .cardoLbl {
     margin: 15px 0px 12px !important;
@@ -4369,7 +4373,8 @@ button.onlogyBtn {
   font-family: Muli;
   text-transform: capitalize;
   padding: 9px 11px;
-  margin: 5px 5px;
+  margin: 3px 0px;
+  margin-right: 6px;
 }
 .cardioGrupBtn button:last-child {
   margin-right: 0px !important;
@@ -4421,7 +4426,7 @@ button.onlogyBtn {
 }
 .cardioGrupBtn {
   border-bottom: 1px solid #f2f2f2;
-  padding: 18px 18px;
+  padding: 18px;
 }
 .cardioTabUpr {
   padding: 0px 18px;
@@ -4499,19 +4504,17 @@ button.onlogyBtn {
   letter-spacing: 0;
   line-height: 12px;
 }
-
-  .medcalFZCntnt {
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-    min-height: 196px;
-    padding: 12px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 8px;
-
+.medcalFZCntnt {
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  min-height: 196px;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
 }
 .medcalFZCntnt a {
   display: block;
@@ -4832,7 +4835,7 @@ button.onlogyBtn {
   text-align: right;
 }
 .addSpeclLbl img {
-  width: 24px;
+  width: 24px; 
   cursor: pointer;
   border-radius: 6px;
 }
@@ -4849,11 +4852,11 @@ button.onlogyBtn {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 12px;
+  line-height: 24px;
   font-family: Muli;
   display: block;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px){
   .addSpeclContnt {
     width: 96% !important;
   }
@@ -5126,6 +5129,9 @@ a.recodBlck:hover {
   font-family: Muli;
   display: block;
 }
+.addWardsIner .wrdsBtn {
+  padding-bottom: 0px;
+}
 .roomName {
   margin-top: 22px;
 }
@@ -5153,7 +5159,7 @@ a.recodBlck:hover {
   text-align: center;
   justify-content: center;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 0px;
 }
 .roomName .MuiGrid-container {
   margin-bottom: 5px;
@@ -5388,9 +5394,8 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.srvcTable th,
-.srvcTable td {
-  padding: 10px 42px;
+.srvcTable th, .srvcTable td {
+  padding: 12px 42px 18px;
 }
 .srvcTable thead tr {
   border-bottom: 1px solid #d9dada;
@@ -5411,7 +5416,9 @@ button.downloadPDF:hover {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 18px;
-  margin-bottom: 8px;
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 0px;
 }
 .srvcTable td p {
   color: #7f8383;
@@ -5441,7 +5448,7 @@ button.downloadPDF:hover {
   display: block;
 }
 .invoiceAmnt {
-  padding: 0px 42px 38px;
+  padding: 30px 42px 30px;
 }
 .invoiceAmnt div button {
   font-family: Muli;
@@ -5508,9 +5515,6 @@ button.downloadPDF:hover {
   border-bottom: none;
   margin-bottom: 0px;
 }
-.srvcTable {
-  margin-bottom: 30px;
-}
 .addCstmField label {
   color: #404646;
   font-size: 12px;
@@ -5564,7 +5568,7 @@ button.downloadPDF:hover {
   content: initial !important;
 }
 .invoiceForm {
-  padding: 32px 42px 22px;
+  padding: 18px 42px 18px;
   border-bottom: 1px solid #d9dada;
 }
 .patntImg {
@@ -5723,13 +5727,13 @@ button.downloadPDF:hover {
 }
 .srvcTable3 th,
 .srvcTable3 td {
-  padding: 30px 42px;
-}
-.srvcTable3 thead tr {
-  border-bottom: 1px solid #d9dada;
+  padding: 18px 18px;
 }
 .srvcTable3 tbody tr {
   border-bottom: 1px solid #f2f2f2;
+}
+.srvcTable3 tbody tr:last-child {
+  border-bottom: 0px;
 }
 .srvcTable3 td {
   color: #000808;
@@ -6273,6 +6277,7 @@ button.downloadPDF:hover {
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  min-height: 214px;
   margin-bottom: 30px;
 }
 .patntFlowIner {
@@ -6321,7 +6326,6 @@ button.downloadPDF:hover {
 .spcificInfo .MuiTypography-root.MuiTypography-body1 {
   padding: 24px 0px !important;
 }
-
 .tskOverView h1 {
   color: #000808;
   font-family: Muli;
@@ -6375,7 +6379,7 @@ button.downloadPDF:hover {
 }
 .showArchiv {
   text-align: center;
-}
+} 
 .showArchiv a {
   color: #00abaf !important;
   font-family: Muli;
@@ -6490,7 +6494,7 @@ button.downloadPDF:hover {
   background: #f3f3f3;
 }
 .allInerTabs {
-  padding: 16px 15px;
+  padding: 16px 15px 40px 15px;
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -6499,6 +6503,7 @@ button.downloadPDF:hover {
   border: 1px solid #f2f2f2;
   border-radius: 6px;
   padding: 14px 14px;
+  margin: 12px 22px;
   position: relative;
 }
 .allInfo label {
@@ -6611,6 +6616,7 @@ button.downloadPDF:hover {
 }
 .attchOpen {
   margin: 0px 38px;
+  padding-left: 0px;
 }
 .userDots button {
   height: 24px;
@@ -6646,8 +6652,7 @@ button.downloadPDF:hover {
   color: #00b0db;
   background-color: #b4ecf8;
 }
-
-.rvewFiles {
+.rvewFiles { 
   width: 580px;
   background: #fff;
   margin: 0 auto;
@@ -6761,8 +6766,7 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.asignLft,
-.asignRghtUpr {
+.asignLft, .asignRghtUpr {
   min-width: 142px;
 }
 .asignRght span {
@@ -6781,14 +6785,15 @@ button.downloadPDF:hover {
   letter-spacing: 0;
   line-height: 12px;
 }
-.rvwCadio,
-.asignUpr,
-.makeCmpt,
-.multiDescp,
-.assignSecUpr,
-.assignSecUpr {
+.rvwCadio, .asignUpr, .makeCmpt, .multiDescp, .assignSecUpr {
   padding-left: 10px;
   padding-right: 30px;
+}
+.assignSec {
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+  margin: 0px auto;
+  display: table;
 }
 .markDone label {
   color: #00abaf;
@@ -6870,6 +6875,7 @@ button.downloadPDF:hover {
   font-family: Muli;
   display: block;
   margin-top: 10px;
+  margin-left: 0px;
 }
 .assignSec img {
   border: 1px solid #f2f2f2;
@@ -8860,9 +8866,19 @@ button.dischrgCncl {
 .deleteStepLbl {
   border-bottom: 1px solid #f2f2f2;
 }
-.deleteStepLbl,
-.deleteStepInfo {
+.deleteStepLbl, .deleteStepInfo {
   padding: 15px 20px;
+}
+.deleteStep .deleteStepInfo {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.deleteStep .deleteStepInfo label {
+  margin-bottom: 20px;
+  display: block;
+}
+.dark-confirm .deleteStepLbl {
+  border-bottom: 1px solid #7c7c7c;
 }
 .receptn2 {
   width: 480px;
@@ -9395,7 +9411,6 @@ button.crdoLghtBlu2 {
   background-color: #ffffff;
   /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
 }
-
 .ptntFlowSpc {
   padding-left: 4%;
   padding-right: 4%;
@@ -9421,7 +9436,7 @@ button.crdoLghtBlu2 {
   letter-spacing: 0;
   line-height: 12px;
 }
-.flowProfil {
+.flowProfil { 
   display: flex;
   align-items: center;
   margin-top: 12px;
@@ -9443,8 +9458,7 @@ button.crdoLghtBlu2 {
 .dtlCountRm a:first-child {
   margin-right: 14px;
 }
-.dtlCount a,
-.dtlCount span {
+.dtlCount a, .dtlCount span {
   color: #404646;
   font-size: 12px;
   font-weight: 600;
@@ -9647,7 +9661,7 @@ button.crdoLghtBlu2 {
     border-top: 1px solid #e8e8e8;
     border-bottom: 1px solid #dadada;
   }
-  .addTaskBtn {
+  .addTaskBtn { 
     text-align: center;
     margin-top: 50px;
     margin-bottom: 25px;
@@ -9705,9 +9719,11 @@ button.crdoLghtBlu2 {
   .srchPatientMob a.srchSort {
     display: none;
   }
-  a.lineSort,
-  a.horzSort {
-    float: right;
+  a.lineSort, a.horzSort {
+    margin-top: 15px;
+  }
+  a.lineSort { 
+    margin-left: 12px;  
   }
   .srchRght {
     padding: 16px 0px 16px 17px !important;
@@ -9716,7 +9732,7 @@ button.crdoLghtBlu2 {
     margin-top: 0px;
   }
   .addFlow {
-    margin: 30px 0px 38px;
+    margin: 12px 0px 38px;
   }
   .srchPatientSrch .allSpec,
   .srchPatientSrch a.lineSort,
@@ -9782,6 +9798,13 @@ button.crdoLghtBlu2 {
     margin-top: 0px;
     border-top: 1px solid #e8e8e8;
   }
+  .topLeftSpc {
+    margin-top: 0px;
+  }
+  .topLeftSpc {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
   .roomBreadCrumbMob ul li {
     display: inline-block !important;
   }
@@ -9793,12 +9816,11 @@ button.crdoLghtBlu2 {
     margin-top: 28px;
     margin-bottom: 32px;
   }
-  .topLeftSpc {
-    margin-top: 0px;
+  .addTaskBtn.addAssignBtn1 {
+    display: block !important;
   }
-  .topLeftSpc {
-    padding-left: 0px;
-    padding-right: 0px;
+  .addTaskBtn.addAssignBtn1 button {
+    margin-bottom: 14px !important;
   }
 }
 .spcLeft {
@@ -10014,9 +10036,13 @@ button.crdoLghtBlu2 {
   font-size: 14px;
   font-weight: 600;
   float: right;
-}
-.edtdelservice img{
+} 
+.edtdelservice img {
   width: 22px;
+  margin-right: 10px;
+}
+.edtdelservice img:last-child {
+  margin-right: 0px;
 }
 @media (max-width: 500px) {
   .informStatus {
@@ -10080,6 +10106,9 @@ button.crdoLghtBlu2 {
   }
   .srvcTable {
     margin-bottom: 5px !important;
+  }
+  .MuiGrid-root.hideTask {
+    margin-top: 10px;
   }
 }
 .spec-bed-profile {
@@ -10252,7 +10281,7 @@ ul.addpatientoption li:hover {
 .darkTheme .allSpeces div {
   background-color: #192020;
   color: #cfcfcf;
-}
+} 
 @media (max-width: 640px) {
   .vh-section .presOpinionIner td.pivoted img.openScnd {
     margin-top: -15px;
@@ -10306,6 +10335,7 @@ ul.addpatientoption li:hover {
 }
 .newassignLft {
   display: flex;
+  justify-content: end;
 }
 .attchNotePart {
   display: flex;
@@ -10318,19 +10348,20 @@ ul.addpatientoption li:hover {
   position: relative;
 }
 .setAssignedTo span {
+  min-width: 92px;
   z-index: 1;
   font-weight: 700 !important;
   text-align: center;
-  top: -40px;
+  top: -43px;
   position: absolute;
   left: -35px;
   display: none;
-  padding: 6px 7px;
+  padding: 5px 6px;
   color: #e5e6e6;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 12px;
+  line-height: 14px;
   border-radius: 8px;
   background-color: rgba(0, 8, 8, 0.9);
   box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
@@ -11089,11 +11120,6 @@ p.more-change-staff-img2 {
   padding-bottom: 16px;
   border-radius: 12px;
 }
-.creatTaskCntnt {
-  height: 537px;
-  overflow-y: scroll;
-  padding: 20px 0px;
-}
 .creatLbl {
   padding: 0px 20px;
   border-bottom: 1px solid #dedcdc;
@@ -11219,11 +11245,6 @@ p.more-change-staff-img2 {
 .hideTask .MuiCheckbox-colorSecondary {
   padding: 0px 8px;
 }
-.hideTask {
-  border-radius: 4px;
-  background-color: #f2f2f2;
-  padding: 9px 12px;
-}
 .hideTask .MuiFormControlLabel-label {
   font-family: "Mulish", sans-serif;
   color: #404646;
@@ -11302,17 +11323,16 @@ p.more-change-staff-img2 {
   text-transform: initial;
   padding: 0px;
 }
-
 .acitveButton {
   color: #7f8383 !important;
   background-color: #f2f2f2 !important;
 }
 .positionDrop .spcMgntUpr {
   padding: 3px 3px !important;
-}
+} 
 .flowProfilRght {
   padding-left: 10px;
-  width: 75%;
+  width: 85%;
 }
 .nwModelCloseBtn {
   text-align: right;
@@ -11329,7 +11349,6 @@ p.more-change-staff-img2 {
   border-radius: 50%;
   margin-right: 2px;
 }
-
 ul.patientHint {
   z-index: 9;
   position: relative;
@@ -11364,7 +11383,6 @@ ul.patientHint li {
   border-radius: 7px;
 }
 .sevicessection {
-  /* width: 97%; */
   width: 100%;
   margin-bottom: 20px;
   font-weight: bold;
@@ -11600,6 +11618,9 @@ ul.patientHint li {
 }
 .darkTheme .roomBreadCrumb ul li label {
   color: #bfc1c1;
+}
+.darkTheme .cardioGrupBtn {
+  border-bottom: 1px solid #545454;
 }
 .darkTheme .wardsGrupUpr {
   background-color: #404646;
@@ -11879,6 +11900,9 @@ ul.patientHint li {
 }
 .darkTheme .wardsGrup3 {
   background: #192020;
+}
+.darkTheme .roomsNum3 {
+  border-top: none !important;
 }
 .darkTheme .tskTabs button {
   background-color: #404646 !important;
@@ -12163,6 +12187,10 @@ ul.patientHint li {
   font-family: Muli;
   box-shadow: initial !important;
   outline: none !important;
+}
+.darkTheme input[type="submit"]:disabled {
+  background-color: #1aabae !important;
+  color: #fff !important;
 }
 .darkTheme .fltrClear {
   background: #404646;
@@ -12504,6 +12532,9 @@ ul.patientHint li {
 .darkTheme .patntFlow p {
   color: #fafafa;
 }
+.darkTheme .patntFlow p {
+  border-bottom: 1px solid #686868 !important;
+}
 .darkTheme .patntFlowIner label {
   color: #bfc1c1;
 }
@@ -12529,7 +12560,6 @@ ul.patientHint li {
 .openScandhrf1 img {
   margin-top: 20px;
 }
-
 .darkTheme .invoicHsptalIner.Mui-selected {
   background-color: transparent !important;
 }
@@ -12618,7 +12648,7 @@ ul.patientHint li {
 .darkTheme .bilingTabUpr {
   background-color: #404646;
 }
-.da rkTheme .billTabs button {
+.darkTheme .billTabs button {
   color: #fafafa !important;
 }
 .darkTheme .billtabIner.Mui-selected {
@@ -13236,7 +13266,6 @@ ul.patientHint li {
   margin-right: 30px;
   padding: 18px 20px;
 }
-
 .addComit1 textarea {
   border: 1px solid #bfc1c1;
   border-radius: 4px;
@@ -13253,14 +13282,12 @@ ul.patientHint li {
   line-height: 18px;
   padding: 12px;
 }
-
 .patientTask {
   padding-top: 5px;
   padding-right: 30px;
   padding-bottom: 0px;
   padding-left: 0px;
 }
-
 @media (max-width: 452px) {
   .attchOpen {
     margin: 25px 0px 10px;
@@ -13286,12 +13313,7 @@ ul.patientHint li {
     display: flex;
   }
 }
-
 @media screen and (min-width: 961px) and (max-width: 1270px) {
-  .topLeftSpc {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
   .revwFilesRght,
   .allInfoRght {
     margin-left: 5px;
@@ -13588,7 +13610,7 @@ input:-moz-autofill:active{
   .topLeftSpc {
     padding-left: 10px !important;
     padding-right: 10px !important;
-    margin-top: 50px !important;
+    margin-top: 40px !important;
   }
   .viewTaskfilter {
     display: block;
@@ -14905,7 +14927,7 @@ input:-webkit-autofill:active {
   font-weight: 600;
   letter-spacing: 0;
   line-height: 18px;
-}
+} 
 .browsInput2 a {
   color: #00abaf !important;
   margin: 0px 4px;
@@ -14984,7 +15006,7 @@ input:-webkit-autofill:active {
 }
 .workUntil {
   margin-top: 5px !important;
-}
+} 
 /* @media (max-width: 600px) {
   .setArbtSign {
     margin-top:100% !important;
@@ -15190,7 +15212,6 @@ a.joinmeetingtab {
   margin-left: 10px;
   text-transform: capitalize;
 }
-
 .certificatePrice button:hover {
   /* background: transparent; */
   background-color: #00abaf;
@@ -15204,29 +15225,28 @@ a.joinmeetingtab {
 .darkTheme .certificatePrice input {
   background: #192020 !important;
 }
-
 .darkTheme input[type="date"] {
   background-color: #192020 !important;
 }
-
 .euroamount {
   position: absolute;
   top: 8px;
   /* left: 186px; */
   color: grey;
   font-weight: 600;
-  right: -10px;
+  right: -10px; 
 }
-
 @media (max-width: 500px) {
   .deleteStep {
     width: 100% !important;
+  }
+  .MuiGrid-root.srvcTable3 {
+    overflow-x: scroll;
   }
 }
 .infoShwSave3 input {
   width: 100%;
 }
-
 @media screen and (min-width: 1425px) and (max-width: 1470px) {
   .revwFiles {
     margin-right: 30px;
@@ -15351,19 +15371,16 @@ a.joinmeetingtab {
 .darkTheme .dobCertSec1 input:first-child {
   border: 1px solid #00b0de;
 }
-
 @media screen and (min-width: 600px) and (max-width: 768px) {
   .stampDoctor {
     padding: 30px 15px;
   }
 }
-
 .allDrList3 {
   height: 680px;
   overflow-y: scroll;
   padding: 10px 0px;
 }
-
 .nwDiaCntnt2 {
   max-width: 480px !important;
   padding: 1px;
@@ -15386,8 +15403,7 @@ a.joinmeetingtab {
   margin-left: 10px;
   margin-bottom: 10px;
 }
-.allCreInfSec,
-.allCreInfSec2 {
+.allCreInfSec, .allCreInfSec2 {
   margin-top: 10px;
 }
 .creatInfoTwo input {
@@ -15398,7 +15414,6 @@ a.joinmeetingtab {
   width: 100%;
   padding: 8px 8px;
 }
-
 .allCertSec {
   display: flex;
   align-items: center;
@@ -15474,14 +15489,11 @@ a.joinmeetingtab {
 .certificatePrice label {
   margin-bottom: 0px;
 }
-
 .addAssignedBtn button {
   min-width: 215px;
 }
-
-.addAssignBtn1 button:last-child {
-  /* min-width: 215px; */
-  margin-left: 20px;
+.addAssignBtn1 button {
+  margin-left: 13px;
 }
 .addAssignBtn1 {
   display: flex;
@@ -15490,6 +15502,9 @@ a.joinmeetingtab {
 }
 .newServicAllSec {
   margin-bottom: 0px;
+}
+.newServc.newServicAllSec {
+  margin-bottom: 20px;
 }
 .darkTheme .cstmSelect2 div {
   background-color: #192020 !important;
@@ -15771,7 +15786,6 @@ width: 90px!important;
 .selectOptionCmn {
   margin-top: 20px;
 }
-
 .selectOptionCmn label span {
   font-weight: 500;
   line-height: 21px;
@@ -15873,7 +15887,7 @@ width: 90px!important;
 .newServc {
   text-align: right;
   margin-top: 0px;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 .TabContainerWeb .topLeftSpc {
   padding-left: 0px;
@@ -15906,7 +15920,6 @@ width: 90px!important;
     text-align: center !important;
   }
 }
-
 .measureInput input{    
   border: 1px solid #BFC1C1;
   border-radius: 4px;
@@ -16016,21 +16029,15 @@ width: 90px!important;
     .homeBgDrk .bp_graph.FullInfoSet a {
         color: #00B0DB !important;
     }
-
-    /* added by ankita */
-
     .nurse-filter-sec {
       width: 203px;
       background-color: #01abaf;
-      padding: 6px 4px;
+      padding: 8px 4px;
       text-align: center;
       color: #ffffff;
       margin-right: 5px;
       cursor: pointer;
   }
-
-
-  
   .totalamount label{
     color: #000808;
     font-size: 28px;
@@ -16096,7 +16103,7 @@ width: 90px!important;
   .infoCourse .shPatientProfile .userDetail {
     margin-top: 0px;
   }
-  .infoBoxCntnt .infoCourse .userAdresInfo {
+  .infoBoxCntnt .infoCourse .userAdresInfo { 
     margin-top: 12px;
   }
   .nwPresCntnt .nwPresCntntIner .infoShwHidBrdr2 {
@@ -16172,7 +16179,6 @@ width: 90px!important;
   .darkTheme .MainclassQues1 h1{
     color: #00abaf!important;
   }
-
   .darkTheme .recaddDocUpr {
     background-color: #303737 !important;
   }
@@ -16240,31 +16246,26 @@ width: 90px!important;
   .extraSrvcUpr .actvMain {
     margin-bottom: 32px !important;
   }
-
-
-  .homeiconcolor{
-    color:#00abaf
-  }
-
-
-.checkHelth2{
-  overflow-y: scroll;
-    height: 362px !important;
+.homeiconcolor{
+  color:#00abaf
 }
-
+.checkHelth2{
+  overflow-y: auto;
+  height: 362px !important;
+}
 .creatTaskModel3{
-width: 580px;
-background: #fff;
-margin: 0 auto;
-border: none;
-outline: none;
-background-color: #ffffff;
-box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
-margin-top: 20px;
-padding-right: 2px;
-padding-top: 18px;
-padding-bottom: 16px;
-border-radius: 12px;
+  width: 580px;
+  background: #fff;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+  margin-top: 20px;
+  padding-right: 2px;
+  padding-top: 18px;
+  padding-bottom: 16px;
+  border-radius: 12px;
 }
 .darkTheme .creatTaskModel3 {
   background-color: #404646 !important;
@@ -16279,30 +16280,24 @@ border-radius: 12px;
   color:grey;
 }
 /* .uuu label{
-  color: black
+     color: black
 } */
  .selectdcolchange label{
   color:#00abaf!important
 }
-
 .homeBgDrk .valuecolor label{
   color: white!important;
 }
 .darkTheme .yearSecBg:hover {
   background-color: #404646;
 }
-
 .scrollvalue {
   height: 537px;
   overflow-y: scroll;
 }
-
 .getAllCalSec .rbc-calendar{
   min-height: 1055px!important;
-  }
-
-
-
+}
 .profileIdRghtSec{
   margin-bottom: 0px;
   display: flex;
@@ -16831,7 +16826,6 @@ overflow: auto
   margin-bottom: 0px !important;
   margin-top: 40px;
 }
-
 .addSpeclClose {
   text-align: right;
 }
@@ -16840,7 +16834,6 @@ overflow: auto
     margin-bottom: 10px;
   }
 }
-
 .collap{
   border: 1px #00ABAF solid;
   background: #e2e4e6;
@@ -16848,7 +16841,6 @@ overflow: auto
   padding: 10px;
   margin-bottom: 20px;
 }
-
 .darkTheme .collap{
 background: #647484 !important;
 }
@@ -16861,26 +16853,23 @@ background: #647484 !important;
   cursor: pointer;
   color: #00ABAF !important;
 }
-
 .innerAuthority{
   margin-left: 35px;
 }
-
 .authoirty :hover {
   background: linear-gradient(33deg, aqua, transparent);
 }
-
 .authoirty .MuiTypography-body1{
   font-size: 0.9rem !important;
   font-weight: 600;
 }
-
 .sel{
-background: #04a5a9;
-margin-bottom: 10px;
+  background: #04a5a9;
+  margin-top: 0px;
+  margin-bottom: 10px;
   font-size: 1rem;
   padding-left: 8px;
-
+  padding-right: 0px;
 }
 .formscrool {
   height: 537px;
@@ -16890,41 +16879,35 @@ margin-bottom: 10px;
   font-size: 15px;
   font-family: muli;
   margin-bottom: 20px;
- 
 }
-
 .darkTheme .headsize2{
-background-color: #192020!important;
-color:#FFFFFF
+  background-color: #192020!important;
+  color:#FFFFFF
 }
 .darkTheme .valuesuggest2{ 
   background-color: #404646!important;
   color:#FFFFFF
-  }
-
-  .authorityvalue { 
-   font-size: 20px;
-  }
-
-  
-.AddEntrynwSec a:first-child {
-  margin-right: 0px;
 }
-
+.authorityvalue { 
+  font-size: 20px;
+}
 .allNewReqInfo{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0px;
 }
 .authority{
-  font-size: 20px;
+  font-size: 18px;
   font-family: muli;
-  color:red;
+  color: red;
   text-align: center;
+  line-height: normal;
+  margin-bottom: 8px;
 }
-
 .archvOpinLblSec{
-  justify-content: flex-start!important;
+  justify-content: flex-start !important;
+  margin-left: 0px;
 }
 .enterSpclMainSec{
   padding-top: 20px;
@@ -16945,21 +16928,21 @@ color:#FFFFFF
   padding: 0px;
 }
 .assignSection{
-  margin-top: 5px!important;
+  margin-top: 5px !important;
 }
 .checkboxquesSec{
-  margin-top:0px!important;
-  margin-bottom:15px!important;
+  margin-top:0px !important;
+  margin-bottom:15px !important;
 }
 .infoSubBtn{
   margin-top: 35px;
 }
 .allCheckboxQue{
   margin-top:15px!important;
-}
+} 
 .stndQuesPart label{
   font-size: 15px;
-  font-weight: bold;
+  font-weight: bold; 
   color:#00abaf;
   letter-spacing: 0;
   font-family: Muli;
@@ -16992,7 +16975,6 @@ color:#FFFFFF
 .allEnterSpclSec{
   padding-top: 12px;
 }
-
 .enterSpclSec input{
   min-height: 38px;
 }
@@ -17008,7 +16990,325 @@ color:#FFFFFF
   text-align: center!important;
 }
 .react-confirm-alert-button-group1{
-  justify-content: center!important;
+  justify-content: center !important;
+}
+.seletDrop{
+  margin-top: 10px;
+}
+.darkTheme .error_message,
+.homeBgDrk .error_message{
+  color: #ff6262 !important;
+}
+.error_message{
+  text-align: center;
+  color: red !important;;
+  font-weight: 600;
+}
+.service-head{
+  padding-bottom: 12px;
+  padding-Top: 0px
+}
+.addSpeclContntIner1{
+  height: 472px;
+  overflow: auto;
+  padding-bottom: 18px;
+}
+.setEditDelBut{
+  display: flex !important;
+}
+.addSrvcBtn3 h3{   
+  font-size: 16px;
+  font-weight: 500;
+  color: #00abaf
+}
+.darkTheme .addSrvcBtn3 h3{   
+  font-size: 16px!important;
+  font-weight: 500!important;
+  color: #00abaf!important;
+}
+.specbutton1 label{
+  font-size: 16px;
+  font-weight: 500;
+  color: #00abaf
+}
+.darkTheme .specbutton1 label{   
+  font-size: 16px!important;
+  font-weight: 500!important;
+  color: #00abaf!important;
+}
+.addSpeclabcIner{
+  overflow: auto;
+  height: 510px;
+}
+.setFilterCss{
+  margin-left: 34px;
+  font-size: 10px;
+}
+.services-head th {    
+  color: #7f8383;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 12px;
+  padding-bottom: 12px;
+}
+.presImg11 img {
+  border-radius: 27px;
+  height: 25px;
+  width: 25px;
+  margin: 2px 5px 7px 9px;
+}  
+.AddMarginTo{
+  margin-bottom: 10px
+}
+.srvcTable3656 th, .srvcTable3656 td{
+  padding: 30px 24px;
+}
+.darkTheme .srvcTable365
+{background: #192020}
 
+.srvcTable365{
+  overflow: auto;
+}
+.creatLbl22 label{
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  /* line-height: 32px!important; */
+  font-family: "Mulish", sans-serif !important;
+  margin-top: 10px !important;
+}
+.tasklistName1{
+  margin-top: 12px;
+}
+.tasklistName1 img{
+  margin-right: 3px;
+}
+.allStaffRghtSec{
+  margin-left: 10px;
+}
+.addStaffPart{
+  min-height:537px;
+} 
+
+.tskSrvsPart {
+  display: inline-flex;
+  margin-bottom: 10px;
 }
 
+.allCreatInfo {
+  margin: 15px 0px !important;
+}
+
+.allCustomService p {
+  color: #000808;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  font-family: Muli;
+  display: block;
+}
+.allCustomService p:nth-child(2){
+  margin-left: 5px;
+}
+.allCustomService label{
+  /* margin-top:5px; */
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom:0px;
+}
+
+.allThrapySec {
+  text-align: right;
+}
+
+.allThrapySec label {
+  font-weight: bold;
+  color: #00abaf;
+}
+
+.addCssTherNamDes{
+  padding-bottom: 15px;
+  color: #7f8383;
+  font-weight: 700;
+}
+
+.noNameType {
+  width: 40%;
+  text-align: left;
+}
+
+.noNameType1 {
+  width: 20%;
+  text-align: left;
+}
+
+
+.imgEditDelPer {
+  padding: 7px;
+  cursor: pointer
+}
+
+
+.noNameTypeEditDel1 {
+  width: 20%;
+  text-align: left
+}
+
+.noNameTypeEditDel2 {
+  width: 30%;
+  text-align: left
+}
+
+.noNameTypeEditDel3 {
+  width: 40%;
+  text-align: left
+}
+
+.noNameTypeEditDel4 {
+  width: 10%;
+  text-align: left
+}
+
+
+
+.noNameTypeEditDel5 {
+  max-width: 30px
+}
+
+.noNameTypeEditDel6 {
+  max-width: 50px
+}
+
+.noNameTypeEditDel7 {
+  max-width: 100px
+}
+
+.noNameTypeEditDel8 {
+  max-width: 40px
+}
+
+
+.headService11 {
+  padding: 30px;
+  padding-Top: 0px
+}
+
+.roomsNum3345 {
+  padding-Left: 30px;
+  padding-Right: 30px
+}
+
+
+
+.allEnterSpclPart label {
+  font-size: 15px;
+  margin-bottom: 5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+
+.specbuttonPart {
+  margin-top: 30px;
+}
+
+.darkTheme .allEnterSpclPart label {
+  color: #00abaf !important;
+  font-weight: bold !important;
+}
+
+.darkTheme .addCssTherNamDes {
+  color: #fafafa;
+}
+
+
+@media only screen and (min-width: 960px) and (max-width: 1000px) {
+  .addCssForTherapy {
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
+
+.allEnterSpclPart label{
+  font-size: 15px;
+  margin-bottom:5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+.specbuttonPart{
+  margin-top: 30px;
+}                 
+.darkTheme .allEnterSpclPart label{
+  color: #00abaf!important;
+  font-weight: bold!important;
+}
+.darkTheme .addCssTherNamDes{
+  color: #fafafa;
+}
+.serAmntQunty{
+  margin-top: 20px;
+}
+.allCustomService p span {
+  color: #00abaf;
+  font-size: 15px;
+  line-height: 25px;
+}
+.tskSrvsPart p{
+  color: #00abaf;
+}
+ @media only screen and (min-width: 960px) and (max-width: 1000px){
+  .addCssForTherapy{
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
+
+.enterSpclSec1 label{
+  margin-bottom: 0px;
+}
+@media screen and (max-width:600px) {
+  .addTimeTaskSec button{
+    width:100%;
+  }
+}
+.selectapprove {
+  width: 50%;
+  margin: auto;
+}
+
+                
+.edtdelservice img {
+  width: 20px;
+}
+.edtdelservice img:first-child{
+  margin-right: 5px;
+}
+.editDelSerBtn{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.clearFilterRghtSec a {
+  height: 32px;
+}
+.clearFilterRghtSec img{
+  height: 20px;
+}
+
+@media (max-width: 623px){ 
+  .changeLang a.dropdown-toggle.nav-link {
+    padding: 0.5rem 1rem !important;
+    width: initial !important;
+  }
+  .changeLang li.dropdown.nav-item:last-child {
+    margin-right: 0px !important;
+  }
+  .changeLang .react-toggle-track {
+    width: 34px !important;
+    height: 18px !important;
+  }
+  .changeLang .react-toggle-thumb {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}

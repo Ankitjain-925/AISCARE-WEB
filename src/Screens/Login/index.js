@@ -11,6 +11,7 @@ import { authy } from "./authy.js";
 import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
 import { Invoices } from "./invoices";
+import {clearScoket} from "socket";
 
 import {
   NavLink,
@@ -65,7 +66,7 @@ class Index extends Component {
   }
 
   componentDidMount = () => {
-    actions.logout();
+    // actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
     this.props.Invoices("logout");
@@ -82,12 +83,13 @@ class Index extends Component {
   };
 
   logoutUser = () => {
-    CometChat.logout().then(
-      console.log('loggedout from cometchat11')
-    )
+    // CometChat.logout().then(
+    //   console.log('loggedout from cometchat11')
+    // )
     this.props.houseSelect('loggedOut');
     this.props.OptionList(false);
     this.props.authy(false);
+    clearScoket();
     this.props.Invoices(false);
     let languageType =
       this.props.stateLanguageType && this.props.stateLanguageType !== ""
@@ -301,9 +303,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/pharmacy"} />;
+        return <Redirect to={"/pharmacy/profile"} />;
       } else {
-        return <Redirect to={"/pharmacy"} />;
+        return <Redirect to={"/pharmacy/profile"} />;
       }
     }
     if (
@@ -329,9 +331,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       } else {
-        return <Redirect to={"/nurse"} />;
+        return <Redirect to={"/nurse/profile"} />;
       }
     }
     if (
@@ -380,16 +382,12 @@ class Index extends Component {
               <Grid item xs={11} md={10}>
                 <Grid className="regHead">
                   <Grid container direction="row" justify="center">
-                    <Grid item xs={6} sm={6} className="LogoForms">
+                    <Grid item xs={3} sm={6} className="LogoForms">
                       <a href={sitedata.data.live_site}>
-                        <img
-                          src={require("assets/images/LogoPNG.png")}
-                          alt=""
-                          title=""
-                        />
+                        <img src={require("assets/images/LogoPNG.png")} alt="" title="" />
                       </a>
                     </Grid>
-                    <Grid item xs={6} sm={6}>
+                    <Grid item xs={9} sm={6}>
                       <Grid className="regSelectTop">
                         <Grid className={this.props.stateLanguageType !== "pt" ? "changeLang" : "changeLang1"}>
                           <li>

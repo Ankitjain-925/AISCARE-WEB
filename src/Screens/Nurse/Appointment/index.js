@@ -535,7 +535,7 @@ class Index extends Component {
         sitedata.data.path + "/UserProfile/GetAppointment/" + id,
         {
           status: status,
-
+ 
           email: data.patient_info.email,
           lan: this.props.stateLanguageType,
           docProfile: {
@@ -616,7 +616,6 @@ class Index extends Component {
   };
 
   handleOpenSlot = (data) => {
-    console.log('data', data)
     this.props.Doctorset(data._id, data.pin, data.house_id);
     if (data.appointment_type == "online_appointment") {
       this.setState(

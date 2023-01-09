@@ -21,12 +21,13 @@ import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseactio
 import { getSetting } from "../api";
 import Checkbox from "@material-ui/core/Checkbox";
 import Loader from "Screens/Components/Loader/index";
-import io from "socket.io-client";
+import {SocketIo, clearScoket} from "socket";
+// import io from "socket.io-client";
 import { currentAvaliable } from "./current.js";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl();
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -42,8 +43,8 @@ class Index extends Component {
       CheckCurrent: { current_available: false },
       update: false,
     };
-    new Timer(this.logOutClick.bind(this));
-    socket = io(SOCKET_URL);
+    // new Timer(this.logOutClick.bind(this));
+    // socket = io(SOCKET_URL);
   }
 
   //For loggedout if logged in user is deleted
@@ -51,14 +52,14 @@ class Index extends Component {
 
     // socket.on("connection", () => { });
 
-    new LogOut(
-      this.props.stateLoginValueAim.token,
-      this.props.stateLoginValueAim.user._id,
-      this.logOutClick.bind(this)
-    );
+    // new LogOut(
+    //   this.props.stateLoginValueAim.token,
+    //   this.props.stateLoginValueAim.user._id,
+    //   this.logOutClick.bind(this)
+    // );
     getSetting(this);
     this.getavailableUpdate();
-    this.availableUpdate();
+    // this.availableUpdate();
   }
 
   //For change Institutes
@@ -173,6 +174,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
+        var socket = SocketIo();
         socket.emit("update", responce);
         let value = responce?.data?.data?.current_available;
         this.setState({
@@ -231,9 +233,9 @@ class Index extends Component {
     this.props.history.push("/doctor/profile");
   };
   //For Chat
-  Chats = () => {
-    this.props.history.push("/doctor/chats");
-  };
+  // Chats = () => {
+  //   this.props.history.push("/doctor/chats");
+  // };
 
   //For Emergency
   Emergency = () => {
@@ -817,7 +819,7 @@ class Index extends Component {
                               />
                             </a>
                           </li>
-                          <li onClick={this.logOutClick}>
+                          <li onClick={()=>this.logOutClick()}>
                             <a>
                               {this.props.settings &&
                                 this.props.settings.setting &&

@@ -274,7 +274,7 @@ export function blockClick(deletekey, userblock, user_token) {
 }
 
 export function sortCometUser(userList) {
-  let users = userList && userList.length>0 && userList.sort(function (a, b) {
+  let users = userList && userList.length > 0 && userList.sort(function (a, b) {
     if (a.name.includes('undefined') && b.name.includes('undefined')) {
       if (a.uid < b.uid) { return -1; }
       if (a.uid > b.uid) { return 1; }
@@ -299,7 +299,7 @@ export function sortCometUser(userList) {
 }
 
 export function unreadAtLast(userList, unread) {
-  let users = userList && userList.length>0 && userList.filter(function (usersa) {
+  let users = userList && userList.length > 0 && userList.filter(function (usersa) {
     if (unread && unread.users && unread.users.hasOwnProperty(usersa.uid)) {
       return false;
     }
@@ -355,7 +355,7 @@ export const isLessThanToday = (someDate) => {
   const today = new Date()
   someDate = new Date(someDate)
   return someDate.getDate() >= today.getDate() &&
-    someDate.getMonth() >=  today.getMonth() &&
+    someDate.getMonth() >= today.getMonth() &&
     someDate.getFullYear() >= today.getFullYear()
 }
 
@@ -381,36 +381,36 @@ export const filterPatient = (taskForSelectedHouse) => {
   return patientForFilterArr1;
 };
 
-export function allusers(currentPage,user_token,type,institute_id){
+export function allusers(currentPage, user_token, type, institute_id) {
   let data1 = axios.get(`${sitedata.data.path}/admin/allHospitalusers/${institute_id}/${type}/${currentPage}`,
-      {
-          headers: {
-              'token': user_token,
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          }
+    {
+      headers: {
+        'token': user_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
+    }
   )
   return data1;
 }
 
 export function GetSocketUrl() {
-  let env ="Sysaimedis";
+  let env = "Sysaimedis";
   if (typeof window !== "undefined") {
     let target = window.location.href;
-    env =  target.match(/localhost/) ? "Virtualhospital" :
-      target.match(/virtualhospital/) ? "Virtualhospital" : 
-      target.match(/aidoc.io/) ? "Aimedix" : "Sysaimedis";
-    }
-    let SOCKET_URL;
-    if (env === "Local") {
-      SOCKET_URL = "http://localhost:5001/";
-    } else if (env === "Virtualhospital") {
-      SOCKET_URL = "https://virtualhospital.aidoc.io/";
-    } else if (env === "Aimedix") {
-      SOCKET_URL = "https://aidoc.io/";
-    } else {
-      SOCKET_URL = "https://sys.aimedis.io/";
-    }
-    return SOCKET_URL;
+    env = target.match(/localhost/) ? "Local" :
+      target.match(/virtualhospital/) ? "Virtualhospital" :
+        target.match(/aidoc.io/) ? "Aimedix" : "Sysaimedis";
   }
+  let SOCKET_URL;
+  if (env === "Local") {
+    SOCKET_URL = "http://localhost:5001/";
+  } else if (env === "Virtualhospital") {
+    SOCKET_URL = "https://virtualhospital.aidoc.io/";
+  } else if (env === "Aimedix") {
+    SOCKET_URL = "https://aidoc.io/";
+  } else {
+    SOCKET_URL = "https://sys.aimedis.io/";
+  }
+  return SOCKET_URL;
+}

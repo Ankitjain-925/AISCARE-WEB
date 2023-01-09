@@ -230,9 +230,9 @@ class FilterSec extends Component {
     } = translate;
 
     return (
-      <Grid container direction="row">
+      <Grid container direction="row" justifyContent="center">
         {this.state.loaderImage && <Loader />}
-        <Grid item xs={12} md={11}>
+        <Grid item xs={11} md={11}> 
           <Grid className="srchFilter 22 ">
             {!this.state.isTest && (
               <Grid container direction="row">
@@ -336,11 +336,11 @@ class FilterSec extends Component {
                   // className="clear_filter"
                 >
                   <Grid className="clear_filterUpr ">
-                    <Grid className="clear_filterLft ">
+                    <Grid className="clear_filterLft">
                       <a onClick={this.ClearData}>{clear_filter}</a>
                     </Grid>
                     <Grid
-                      className="clear_filterRght "
+                      className="clear_filterRght clearFilterRghtSec"
                       onClick={() => {
                         this.setState({ isTest: true });
                       }}

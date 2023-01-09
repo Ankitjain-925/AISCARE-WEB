@@ -211,6 +211,7 @@ class Index extends Component {
       Sick_Certificate_Amount,
       edit_assigned_services,
       delete_assigned_services,
+      no_data_avlbl
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -272,10 +273,10 @@ class Index extends Component {
                           </Grid> */}
 
                           <Grid className="newServc">
-                          {roles.includes('add_service')&&
-                            <Button onClick={() => handleOpenServ(this)}>
-                              {newService}
-                            </Button>}
+                            {roles.includes('add_service') &&
+                              <Button onClick={() => handleOpenServ(this)}>
+                                {newService}
+                              </Button>}
                             <Modal
                               open={this.state.openServ}
                               onClose={() => handleCloseServ(this)}
@@ -358,7 +359,7 @@ class Index extends Component {
                                         />
                                       </Grid>
 
-                                          
+
                                       <label className="specbutton1">
                                         {speciality}
                                       </label>
@@ -410,7 +411,7 @@ class Index extends Component {
                                       <Button
                                         onClick={() => handleSubmit(this)}
                                         disabled={this.state.isButtonDisabled}
-                                        
+
                                       >
                                         {save_and_close}
                                       </Button>
@@ -455,20 +456,20 @@ class Index extends Component {
                               />
                               <p className="euroamount">€</p>
                             </Grid>
-                            {roles.includes('change_sc_amount')&&
-                            <Grid>
-                              <img
-                                className="pionter"
-                                src={require("assets/virtual_images/pencil-1.svg")}
-                                alt=""
-                                title=""
-                                onClick={() => {
-                                  this.setState({
-                                    sickamount: false,
-                                  });
-                                }}
-                              />
-                            </Grid>}
+                            {roles.includes('change_sc_amount') &&
+                              <Grid>
+                                <img
+                                  className="pionter"
+                                  src={require("assets/virtual_images/pencil-1.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={() => {
+                                    this.setState({
+                                      sickamount: false,
+                                    });
+                                  }}
+                                />
+                              </Grid>}
 
                             {/* </a> */}
                           </Grid>
@@ -698,10 +699,12 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                            {(this.state.currentPage && this.state.totalPage) ?(
+                                  <a>
+                                    {this.state.currentPage} of{" "}
+                                    {this.state.totalPage}
+                                  </a>) :(<div className="err_message">{no_data_avlbl}</div>)
+                                }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>

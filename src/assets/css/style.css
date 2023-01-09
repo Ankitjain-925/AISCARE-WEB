@@ -199,7 +199,7 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     padding-right: 12px;
 }
 .descpCntntMain {
-    padding-left: 70px;
+    padding-left: 52px;
     margin-bottom: 45px;
 }
 .addSpc {
@@ -239,9 +239,9 @@ a.vsblTime {
 .vsblEye span {
     vertical-align: middle;
 }
-/* End home page css */
 
-.markCntntImg span, .markMDCntntImg span {
+.markCntntImg span, 
+.markMDCntntImg span {
     color: #7F8383;
     font-family: Muli;
     font-size: 12px;
@@ -1425,10 +1425,11 @@ a.conPainTime img {
     width: 32px;
     cursor: pointer;
     border-radius: 5px;
-}
+} 
 .clear_filterUpr {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .clear_filterLft {
     width: 70%;
@@ -1928,7 +1929,7 @@ a.profilMenu {
         margin-left: 0px !important;
         margin-top: 0px !important;
         padding: 0px 12px;
-    }
+    } 
     .ScndOpinRght {
         text-align: left !important;
     }
@@ -1940,7 +1941,7 @@ a.profilMenu {
         min-height: 152px !important;
     }
     .extraSrvcUpr {
-        padding: 12px 22px !important;
+        padding: 12px 12px !important;
         padding-top: 50px !important;
     }
     .docsOpinion {
@@ -2052,7 +2053,7 @@ a.profilMenu {
     .MuiTabs-fixed {
         overflow-x: scroll !important;
     }
-  .MuiTabs-fixed::-webkit-scrollbar{
+    .MuiTabs-fixed::-webkit-scrollbar{
         height: 3px;
     }
     .MuiTabs-fixed::-webkit-scrollbar-track{
@@ -2093,6 +2094,13 @@ a.profilMenu {
     }
     .actvMain .MuiGrid-spacing-xs-3 {
         margin: 0px !important;
+    }
+    .addAssignBtn1 {
+        justify-content: center !important;
+    }
+    .topLeftSpc .MuiGrid-root.MuiGrid-container .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-11.MuiGrid-grid-md-11 {
+        max-width: 100% !important;
+        flex-basis: 100% !important;
     }
 }
 @media (max-width: 992px){ 
@@ -3953,7 +3961,7 @@ button.aboutTabsIner {
     line-height: 18px;
 }
 .editPinform {
-    padding: 18px 30px 20px 30px;
+    padding: 18px 30px 28px 30px;
 }
 .editPinform label {
     color: #404646;
@@ -3968,7 +3976,7 @@ button.aboutTabsIner {
     border-radius: 4px;
     background-color: #FFFFFF;
     width: 100%;
-    padding: 6px 12px;
+    padding: 6px 12px; 
     outline: none;
 }
 .editPinform p {
@@ -5286,7 +5294,7 @@ span.revwRed{
 }
 .medicalDesp {
     padding: 18px 18px;
-    min-height: 80px;
+    min-height: 125px;
 }
 .medicalDesp a {
     color: #000808 !important;
@@ -5449,7 +5457,7 @@ span.revwRed{
     line-height: 32px;
     margin-bottom: 16px;
 }
-.docArundUpr{
+.docArundUpr {
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
@@ -5483,14 +5491,15 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
+    margin-top: 10px;
     margin-bottom: 0px;
 }
-.docArund {
+.docArund { 
     text-align: center;
     padding: 22px 18px 28px;
 }
 .srvcActiv {
-    padding: 6px 8px 16px;
+    padding: 6px 10px 16px;
     border-top: 1px solid #F2F2F2;
 }
 .acvtTogle label {
@@ -5849,7 +5858,7 @@ a.nxtpag {
 }
 .nwPresCntntIner {
     height: 564px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .doseMg {
     position: relative;
@@ -6243,7 +6252,7 @@ img.openScnd {
     padding-left: 0px;
     margin-bottom: 0px;
     padding: 12px 8px;
-    position: absolute;
+    position: absolute; 
     top: 19px;
     right: 0;
     text-align: left;
@@ -6269,7 +6278,6 @@ a.openScndhrf {
 .scndOption {
     margin-bottom: 32px;
 }
-
 .datBoxCntnt {
     width: 100%;
     background: #fff;
@@ -6532,7 +6540,7 @@ a.archvDel:hover ul {
     box-shadow: 0 8px 24px 0 rgba(0,171,175,0.32);
     color: #fff;
 }
-.checkHelthLbl a:hover{
+.checkHelthLbl a:hover{ 
     color: #00ABAF;
 }
 .nwDiaCntnt {
@@ -6551,7 +6559,7 @@ a.archvDel:hover ul {
 }
 .nwDiaCntntIner {
     height: 564px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .nwDiaCourse {
     padding: 12px 24px 18px 24px;
@@ -6828,23 +6836,6 @@ a.diaCDActv {
 .editShwHid3 {
     text-align: right;
 }
-.infoShwSave3 input {
-    border-radius: 8px;
-    background-color: #00ABAF;
-    width: 100%;
-    color: #FFFFFF;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 16px;
-    text-align: center;
-    border: none;
-    padding: 12px 8px;
-    margin-top: 22px;
-    margin-bottom: 2px;
-    outline: none;
-}
 .infoShwHidMain3upr {
     border-top: 1px solid #F2F2F2;
     padding-top: 20px;
@@ -7070,7 +7061,7 @@ a.diaCDActv {
 }
 .emrgncyFrmInpt .form-control:focus {
     box-shadow: initial !important;
-}
+} 
 .emrgncyFrmSub input {
     margin-top: 12px;
     border-radius: 8px;
@@ -7168,12 +7159,12 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     padding: 6px 3px 9px;
 }
 .homeBgDrk .diryCntntMain, .homeBgDrk .bpJohnMain, 
-.homeBgDrk .conPain_Cntnt, .homeBgDrk .markCntntMain{
+.homeBgDrk .conPain_Cntnt, .homeBgDrk .markCntntMain{ 
     border-top: 1px solid #4C5252 !important;
     border-bottom: 1px solid #4C5252 !important;
 }
 .homeBgDrk .sortBySec {
-    border-top: 1px solid #4C5252 !important;
+    border-top: 1px solid #979797 !important;
 }
 .homeBgDrk .profileDescp{
     background-color: #404646 !important;
@@ -7464,7 +7455,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .dateFormat .react-date-picker, .homeBgDrk .timeFormat .react-time-picker,
 .homeBgDrk .donarForm input, .homeBgDrk .donarLang .css-yk16xz-control, 
 .homeBgDrk .kycForms input[type="text"], .homeBgDrk .browsInput, .homeBgDrk .cntryDropKyc .css-yk16xz-control,
-.homeBgDrk .cntryDropKyc .css-g1d714-ValueContainer {
+.homeBgDrk .cntryDropKyc .css-g1d714-ValueContainer { 
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
@@ -7672,7 +7663,6 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .mkFmlyDoc .css-yk16xz-control {
     background: transparent;
 }
-
 .homeBgDrk .loginSite {
     background: #192020;
 }
@@ -7683,12 +7673,17 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     background: #404646;
     background-color: #404646;
 }
-.homeBgDrk .loginSite .logForm label, .homeBgDrk .loginSite p.regOnlog, .homeBgDrk .loginSite .registerForm label,
-.homeBgDrk .loginSite .regMob span, .homeBgDrk .loginSite .havAC p {
+.homeBgDrk .loginSite .logForm label, .homeBgDrk .loginSite p.regOnlog, 
+.homeBgDrk .loginSite .registerForm label, .homeBgDrk .loginSite .regMob span, 
+.homeBgDrk .loginSite .havAC p {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .loginSite .logFrgtpass label {
     color: #00ABAF !important;
+}
+.homeBgDrk .detailMark2 span.Collapsible__trigger{
+    background-color: #05050557 !important;
+    color: #D9DADA !important;
 }
 /* End of dark screen css */
 
@@ -9239,8 +9234,8 @@ a.menuActv img {
     background-color: #00ABAF !important;
 }
 .docOpinion {
-    margin-left: 70px;
-    margin-top: 41px;
+    margin-left: 55px;
+    margin-top: 40px;
 }
 .docOpinLbl {
     margin-bottom: 30px;
@@ -9341,7 +9336,7 @@ a.menuActv img {
     border-bottom: 1px solid #F2F2F2;
 }
 .docOpinionIner td.pivoted {
-    padding: 14px 25px;
+    padding: 14px 20px;
     color: #000808;
     font-family: Muli;
     font-size: 14px;
@@ -12334,10 +12329,10 @@ a.srtDiaTim {
 img.MenuImg {
     margin-left: 17px;
 }
-
-.error_message{
-    justify-content: center;
+.error_message {
     display: flex;
+    justify-content: center;
+    width: 100%;
     color: #e23f3f;
 }
 .slotBoxMain {
@@ -13206,11 +13201,10 @@ a.academy_ul ul li img {
     color: #D9DADA !important;
 }
 @media screen and (max-width:959px) {
-    .emergency-head h1 {
-        font-size: 22px;
-    }
+  .emergency-head h1 {
+    font-size: 22px;
+   }
 }
-
 .emergency-head h1 {
     font-size: 28px;
     color: #000808;
@@ -13326,19 +13320,19 @@ a.academy_ul ul li img {
     margin: 6px 6px 6px 10px;
     font-family: inherit;  
 }
-
-.homeBgDrk .payment_sec_extra_ser p{
+.homeBgDrk .payment_sec_extra_ser p {
     color: #BFC1C1 !important;
 }
-.homeBgDrk .payment_sec_extra_ser{
+.homeBgDrk .payment_sec_extra_ser {
     background: #404646 !important;
 }
-.payment_sec_extra_ser{
+.payment_sec_extra_ser {
     background: #fff;
     padding: 30px;
+    margin-top: 20px;
     border-radius: 15px;
+    margin-bottom: 15px;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
-
 }
 .__PrivateStripeElement iframe {
     min-width: 500px !important;
@@ -13367,13 +13361,13 @@ a.academy_ul ul li img {
 }
 @media (max-width: 768px){
   .menuItems {
-    padding-bottom: 170px;
+     padding-bottom: 170px;
    }
    .menuItems ul li:last-child:not(.doctor-menu) {
-    margin-top: 63px !important; 
+      margin-top: 63px !important; 
    }
    .menuItems ul li .profilMenuList ul li:last-child:not(.doctor-menu) {
-    margin-top: 0px !important; 
+      margin-top: 0px !important; 
    }
 }
 .mnMxBtn1{
@@ -13446,6 +13440,11 @@ a.academy_ul ul li img {
     .docsOpinLbl a {
         margin-left: 20px;
         margin-bottom: 10px;
+    }
+    .downloadButton {
+        margin-top: 10px;
+        margin-left: 14px;
+        margin-right: 14px;
     }
 }
 #cp-call-screen-container iframe #fullscreen .main-container {
@@ -13545,7 +13544,6 @@ a.academy_ul ul li img {
         height: 800px !important;
     }
 }
-
 @media screen and (min-height:1000px) {
     .nwPresCntntIner, .opinBoxCntntIner {
         height: 900px !important;
@@ -13793,7 +13791,8 @@ span.ccl-dtls-section-listitem-link {
     top: 0 !important;
     left: 0 !important;
 }
-.darkTheme> .fancyBoxCntnt, .darkTheme> .phrmBoxCntnt,.darkTheme> .invtBoxCntnt{
+.darkTheme> .fancyBoxCntnt, 
+.darkTheme> .phrmBoxCntnt, .darkTheme> .invtBoxCntnt{
     background-color: #404646 !important;
 }
 .homeBgDrk .rbc-event-content {
@@ -13810,7 +13809,7 @@ a.barViewnw.nowactive,  a.calViewnw.nowactive{
     font-weight: 800 !important;
 }
 .homeBgDrk .ant-picker-input input {
-    background: #404646 !important;
+    background: #v404646 !important;
 }
 .darkTheme .jurnlTatent label span{
     color: #fff!important;
@@ -13948,7 +13947,7 @@ g.highcharts-axis.highcharts-yaxis text {
 .phrmLinkUpr, .detailPrescp {	
     height: 382px !important;	
 }	
-@media screen and (min-height:700px) {	
+@media screen and (min-height:700px) { 
     .phrmLinkUpr, .detailPrescp {	
         height: 545px !important;	
     }	
@@ -14044,10 +14043,10 @@ g.highcharts-axis.highcharts-yaxis text {
 .prespCloseBtn a:hover, .rejectCloseBtn a:hover, .opinCloseBtn a:hover, .nwDiaCloseBtn a:hover,
 .phrmCloseBtn a:hover, .qrCloseBtn a:hover, .infoCloseBtn a:hover, .slotCourse a:hover, .slotBoxCourse a:hover,
 .apontCloseBtn a:hover, .handleAccessBtn a:hover, .trstCloseBtn a:hover, .srvcCloseBtn a:hover,
-.presCloseBtn a:hover{
+.presCloseBtn a:hover {
     background: #e2e2e2e0 !important;
 }
-.darkTheme > .nwPresCntnt ,
+.darkTheme > .nwPresCntnt,
 .darkTheme > .opinBoxCntnt, 
 .darkTheme > .invtCourse {
     background-color: #404646 !important;
@@ -14562,7 +14561,7 @@ img.openScnd1 {
     z-index: 111;
     min-width: 223px;
 }
-a.openScndhrf1:hover ul {
+a.openScndhrf1:hover ul { 
     display: block !important;
     width: 200px !important;
 }
@@ -14607,8 +14606,7 @@ a.painAreasTxt {
 .prfilHghtLft, .prfilHghtRght{
     padding-left: 0% !important;
 }
-.FileInptJournal
-{
+.FileInptJournal{
     display : none;
 }
 .minus_span_medication {
@@ -14849,16 +14847,17 @@ input:focus {
     display: block;
   }
   @media (max-width: 414px){
-  .inCallUpr{
+   .inCallUpr{
      top: 12% !important;
      left: 0px !important;
      right: 0px !important;
-   }
+    }
   }
   .patietnRegister {
     max-height: calc(100vh - 200px);
     overflow: hidden;
     overflow-y: auto;
+    margin-right: 1.5px;
     position: relative;
   }
   .wrkHour a.seleted-days {
@@ -15034,8 +15033,8 @@ input:focus {
   .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
-  .dark-confirm{
-    background-color: #404646!important;
+  .dark-confirm{ 
+    background-color: #404646 !important;
   }
   .dark-confirm h1, .dark-confirm span, .dark-confirm p, 
   .dark-confirm h3, .dark-confirm h1, 
@@ -15157,10 +15156,16 @@ td.docphrImg {
 .insureMe .MuiGrid-grid-xs-4:last-child {
     text-align: right;
 }
-.daySchedule .ant-picker, .nameSchedule .ant-picker {
+.daySchedule .ant-picker {
     margin-bottom: 0px !important;
     width: 125px !important;
     border: 1px solid #dfdfdf;
+    padding: 4px 2px 1px;
+}
+.nameSchedule .ant-picker {
+    margin-bottom: 0px !important;
+    width: 125px !important;
+    /* border: 1px solid #dfdfdf; */
     padding: 4px 2px 1px;
 }
 .daySchedule .ant-picker-clear {
@@ -15398,7 +15403,7 @@ input#graduationYear {
     width: 100% !important;
 }
 .editBoxModel {
-    z-index: 99999999999 !important;
+    z-index: 99999999999 !important; 
 }
 .selCalenderUpr .selTimeSlot .selTimeAM {
     height: 328px;
@@ -15424,7 +15429,7 @@ input#graduationYear {
 .srchdoseMg input:-moz-placeholder { 
     color: #676969;
   }
-  .darkTheme .paraPatient input {
+.darkTheme .paraPatient input {
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
@@ -15454,7 +15459,7 @@ input#graduationYear {
     border: 1px solid #f2f2f2 !important;
     background-color: #192020 !important;
 }
-.homeBgDrk .scndOptionIner ul li{
+.homeBgDrk .scndOptionIner ul li {
     color: #bfc1c1 !important;
     background-color: transparent !important;
 }
@@ -15873,7 +15878,7 @@ a.SelectedGender{
 a.clsSltCal img {
     width: 12px;
 }
-a.clsSltCal {
+a.clsSltCal { 
     padding: 2px 2px;
     right: 3px;
     top: 3px;
@@ -16118,6 +16123,11 @@ td.dotsImgColor.pivoted{
     max-width: 45% !important;
     flex-basis: 45% !important;
   }
+  .profileDescp {
+    margin-top: 80px !important;
+    width: 95%;
+    margin: 0 auto;
+  }
 }
 .homeBgDrk .allTimeSel1 svg{
     color: #dfdfdf !important;
@@ -16237,7 +16247,7 @@ select:-webkit-autofill:focus {
      width: 100% !important;
      max-width: 100% !important;
      flex-basis: 100% !important;
-   }
+   } 
    .descpCntnt2{
      display: block !important;
    }
@@ -16246,7 +16256,7 @@ select:-webkit-autofill:focus {
      max-width: 100% !important;
      flex-basis: 100% !important;
     }
-    .descpCntntLft2 a{
+    .descpCntntLft2 a{ 
      width: 130px !important;
      margin: 0 auto !important;
      margin-bottom: 18px !important;
@@ -16270,7 +16280,7 @@ select:-webkit-autofill:focus {
     }
     .journalAdd{
      margin-top: 0px !important;
-     margin-bottom: 15px !important;
+     margin-bottom: 35px !important;
     }
     .profilePkg{
      margin-left: 8px !important;
@@ -16345,11 +16355,14 @@ select:-webkit-autofill:focus {
   .delQuesBook a:first-child{
     margin-right: 3px;
   }
+  .delQuesBook button{
+    margin-right: 3px;
+  }
   .delQuesBook a:last-child{
     margin-left: 3px;
   }
   .extraSrvcUpr{
-    padding-left: 24px !important;
+    padding-left: 24px;
   }
   .presBoxCntnt{
     width: 98% !important;
@@ -16405,6 +16418,9 @@ select:-webkit-autofill:focus {
 .profileInfoDate .ant-picker {
     margin-bottom: 0px !important;
 }
+.payment_sec_extra_ser .MuiFormControl-marginNormal.MuiFormControl-fullWidth {
+    margin-top: 0px !important;
+}
 @media (max-width: 468px){
     .meetCourse {
         position: absolute;
@@ -16436,9 +16452,38 @@ select:-webkit-autofill:focus {
         display: inline-block;
     }
     .dataLoader img {
-        width: 300px !important;
+        width: 300px !important; 
         left: 4% !important;
         right: 4% !important;
+    }
+    .addTaskBtn.addAssignBtn1 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .nurse-filter-sec {
+        width: 100% !important;
+        margin-bottom: 4px;
+    }
+    .allInerTabs .MuiGrid-root.allTabCntnt {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .taskCntntMng.vwTaskSelectTpCstm .viewTaskfilter {
+        width: 100% !important;
+    }
+    .payment_sec_extra_ser {
+        padding: 14px !important;
+    }
+    .extraSrvcUpr .MuiGrid-root.MuiGrid-grid-md-3, 
+    .extraSrvcUpr .MuiGrid-root.MuiGrid-grid-md-6 {
+        padding: 0px;
+    }
+    .extraSrvcUpr .payment_sec_extra_ser,
+    .extraSrvcUpr .MuiGrid-root.docArundUpr {
+        margin-bottom: 12px !important;
+    }
+    .extraSrvcUpr .MuiGrid-root.docArundUpr {
+        margin-top: 20px !important;
     }
 }
 @media screen and (min-width: 960px) and (max-width: 1280px){
@@ -16452,8 +16497,6 @@ select:-webkit-autofill:focus {
         margin-left: 11px !important;
     }
 }
-
-
 .homeBgDrk .MuiInputBase-root {
     color: #b9bfbd !important;
 }
@@ -16486,19 +16529,19 @@ select:-webkit-autofill:focus {
 } */
 @media screen and (max-height: 625px) {
     .phrmLinkUpr {
-        height: 480px !important;
+      height: 480px !important;
     }
 }
 @media (max-height:300px) {
     .imptNotic {
-        height: 480px !important;
+      height: 480px !important;
     }
 }
 @media screen and (max-width: 40em){
     .responsiveTable tbody tr {
-        border: 1px solid #000;
-        padding: 0.25em;
-        margin-bottom: 14px;
+       border: 1px solid #000;
+       padding: 0.25em;
+       margin-bottom: 14px;
     }
 }
 @media screen and (min-width: 960px) and (max-width: 1092px) {
@@ -16533,7 +16576,6 @@ select:-webkit-autofill:focus {
     padding: 12px 20px 12px 20px !important;
   }
 }
-
 @media only screen and (max-width: 1200px) and (min-width: 960px) {
     .docArund p {
       min-height: 74px;
@@ -16568,6 +16610,7 @@ select:-webkit-autofill:focus {
         text-align: left !important;
     }
 } */
+
 .homeBgDrk .mr_sel div {
     background: #404646 !important;
     border: none;
@@ -16612,9 +16655,9 @@ select:-webkit-autofill:focus {
     padding-bottom: 16px;
     border-radius: 12px;
 }
-.creatTaskCntnt {
-    height: 537px;
-    overflow-y: scroll;
+.creatTaskCntnt { 
+    height: 526px;
+    overflow-y: auto;
     padding: 20px 0px;
 }
 .creatLbl {
@@ -17034,6 +17077,9 @@ select:-webkit-autofill:focus {
 .fatiqueQues .MuiGrid-container {
     margin-bottom: 12px;
 }
+.fatiqueQues .MuiGrid-grid-md-4 {
+    text-align: right;
+}
 .memoryCapicity textarea {
     min-height: 116px;
     width: 72%;
@@ -17411,7 +17457,7 @@ ul.duringCovid li:last-child {
     align-items: center !important;
 }
 .addTimeTask button {
-    width: 162px;
+    width: 100%;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
     /* background-color: #192020; */
@@ -17491,7 +17537,7 @@ ul.duringCovid li:last-child {
     background: #00abaf !important;
 }
 .timePickerOpt li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
-    background: #00abaf !important;
+    background: #00abaf !important; 
     color: #ffffff !important;
 }
 .timePickerOpt .ant-picker-time-panel-cell-inner {
@@ -17527,6 +17573,15 @@ ul.duringCovid li:last-child {
   .drListRght2 label {
     font-size: 12px;
   }
+  .addTaskBtn {
+    padding: 0px !important;
+  }
+  .SetWidthPopup3 {
+    width: 90% !important;
+  }
+  .journalMain .MuiGrid-container {
+    justify-content: center;
+  }
 }
 .drListLft2 {
     width: 20%;
@@ -17558,13 +17613,13 @@ ul.duringCovid li:last-child {
 .srvcTableNew {
     margin-bottom: 0px;
 }
-.addServContnt .enterServMain .enterSpcl {
+.addServContnt .enterServMain .enterSpcl { 
     margin-bottom: 6px;
 }
 .addServContnt .enterSpcl input {
     width: 100% !important;
 }
-.colorbtn .tskOverView.tskOverView2 {
+.colorbtn .tskOverView.tskOverView2 { 
     min-height: initial !important;
 }
 td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton-text {
@@ -17587,7 +17642,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .cnfrmDiaMain label.MuiFormControlLabel-root.checkboxquestion {
     margin-top: 6px;
     margin-bottom: 0px;
-}
+} 
 .addSpeclModel .addSpeclContnt {
     height: initial !important;
 }
@@ -17657,7 +17712,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     margin-right: 5px;
     cursor: pointer;
 }
-.darkTheme .vwTaskSelect {
+.darkTheme .vwTaskSelect { 
     border: 1px solid #939393;
     background-color: #192020;
     color: #fafafa;
@@ -17694,13 +17749,16 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 .addAssignBtn1 .MuiGrid-root.newServc.newServicAllSec {
     margin-bottom: 0px;
 }
-.addTaskBtn.addAssignBtn1 button {
+.addTaskBtn.addAssignBtn1 button { 
     margin-bottom: 24px;
+}
+.addTaskBtn.addAssignBtn1 {
+    padding: 0px;
 }
 .addSpeclContntIner2 .enterServMain .enterSpcl h2 {
     margin-bottom: 18px;
 }
-.MuiGrid-root.LeftPatientDataWeb .profileDescp {
+.MuiGrid-root.LeftPatientDataWeb .profileDescp { 
     margin-top: 0px !important;
 }
 .addFlowContnt .patentInfo {
@@ -17724,7 +17782,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     width: 67%;
 }
 .taskDetailMob .allInerTabs .allTabCntnt {
-    padding: 10px 7px;
+    padding: 12px 10px;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
@@ -17748,12 +17806,12 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
       margin-top: 5px;
    }
    .vwTaskSelectTpCstm .taskSort {
-       position: initial;
-       right: initial;
-       top: initial;
+      position: initial;
+      right: initial;
+      top: initial;
    }
    .vwTaskSelectTpCstm input.TaskSearch {
-        width: initial;
+      width: initial;
    }
 }
 @media (max-width: 1300px){
@@ -17782,7 +17840,7 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
     }
     .allInfo label {
       font-size: 10px !important;
-    }
+    } 
     .allInfo p {
       font-size: 10px !important;
     }
@@ -17795,11 +17853,38 @@ td.presEditDot.scndOptionIner button.MuiButtonBase-root.MuiButton-root.MuiButton
 }
 a{color: #000;}
 a:hover{color: #000;}
-
 .setMarginBottom{
     margin : 0px 0px 30px 0px;
 }
 input[type="submit"]:disabled {
     background-color: aliceblue !important;
     color: #00abaf !important;
+}
+.flowContentAdd.MuiGrid-container {
+    justify-content: center;
+}
+@media (max-width: 640px){} 
+.srvcTable3.srvcTable365 {
+    margin-top: 18px;
+}
+.srvcTable3.srvcTable365 table tr th, 
+.srvcTable3.srvcTable365 table tr td {
+    padding: 16px 18px;
+}
+.dataBoxCntnt .dataBoxUpr.patietnRegister.patientRegSec .passInst {
+    position: initial !important;
+    width: 100% !important;
+    margin-top: 22px;
+    border: 1px solid #00abaf !important;
+}
+.dataBoxCntnt .dataBoxUpr.patietnRegister.patientRegSec .passInstIner:after {
+    content: '';
+    position: absolute;
+    left: 18px !important;
+    top: -32px !important;
+    transform: rotate(90deg);
+    border-right: 13px solid #00abaf !important;
+}
+.payment_sec_extra_ser iframe {
+    width: 100% !important;
 }

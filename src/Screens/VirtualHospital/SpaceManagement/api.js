@@ -102,8 +102,17 @@ export const getSpeciality = async (current) => {
           current.props.stateLoginValueAim.token
         );
         var NewData = [];
+
+        current.setState({
+          loaderImage: false,
+          openSpecl: false,
+          specialityData: responce.data.data,
+          specialityData2: responce.data.data,
+        });
         NewData =
           (await responce?.data?.data?.length) > 0 &&
+          
+          
           responce.data.data.map(async (item) => {
             item?.wards?.length > 0 &&
               item.wards.map(async (item1) => {

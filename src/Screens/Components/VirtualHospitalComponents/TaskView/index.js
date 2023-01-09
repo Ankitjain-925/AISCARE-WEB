@@ -27,6 +27,15 @@ class PointPain extends Component {
     };
   }
 
+
+  checkAuthority = (id, authority) => {
+    if (id) {
+      const { roles = [] } = this.props.stateLoginValueAim?.user?.houses?.find(e => e.value === id) || {};
+      return roles.includes(authority);
+    }
+    return false;
+  }
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.data !== this.props.data) {
@@ -83,73 +92,99 @@ class PointPain extends Component {
       <Grid className="allTabCntnt">
         <Grid container direction="row" alignItems="center">
           <Grid className="" item xs={12} sm={6} md={6}>
-            <Grid className="revwFiles revwFiles1">
-              <>
-              </>
-              {data.status === 'done' ? (
-                <Grid>
-                  <img
-                    src={require('assets/virtual_images/rightTick.png')}
-                    alt=""
-                    title=""
-                  />
-                </Grid>
-              ) : (
-                <Grid>
-                  <img
-                    src={require('assets/virtual_images/greyImg.png')}
-                    alt=""
-                    title=""
-                  />
-                </Grid>
-              )}
-              <Grid className="revwFilesRght">
-                <Grid>
-                  <SpecialityButton
-                    label={data?.speciality?.specialty_name}
-                    backgroundColor={data?.speciality?.background_color}
-                    viewImage={false}
-                    color={data?.speciality?.color}
-                    showActive={false}
-                  />
-                </Grid>
-                <Grid>
-                  <label>{data.appointment_type ?
-                    data.appointment_type === "homevisit_appointment" ? "Home visit" : "Office visit" :
-                    data.task_name
-                      ? data.task_name
-                      : data?.title}</label>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid className="allInfo tasklistName">
-              <Grid>
-                {data.appointment_type ?
-                  <S3Image imgUrl={data?.patient?.image} /> : <S3Image imgUrl={data?.patient?.image} />}
-              </Grid>
-              {/* <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid> */}
-              <Grid className="allInfoRght">
-                {data.appointment_type ?
+            <Grid container direction="row" alignItems="center">
+              <Grid className="" item xs={12} sm={6} md={6}>
+                <Grid className="revwFiles revwFiles1">
                   <>
-                    <Grid>
-                      <label>
-                        {data?.patient_info?.first_name} {data?.patient_info?.last_name}
-                      </label>
-                    </Grid>
-                    <p>{data?.patient_info?.patient_id}</p>
                   </>
-                  :
-                  <>
+                  {data.status === 'done' ? (
                     <Grid>
-                      <label>
-                        {data?.patient?.first_name} {data?.patient?.last_name}
-                      </label>
+                      <img
+                        src={require('assets/virtual_images/rightTick.png')}
+                        alt=""
+                        title=""
+                      />
                     </Grid>
-                    <p>{data?.patient?.profile_id}</p>
-                  </>}
+                  ) : (
+                    <Grid>
+                      <img
+                        src={require('assets/virtual_images/greyImg.png')}
+                        alt=""
+                        title=""
+                      />
+                    </Grid>
+                  )}
+                  <Grid className="revwFilesRght">
+                    <Grid>
+                      <SpecialityButton
+                        label={data?.speciality?.specialty_name}
+                        backgroundColor={data?.speciality?.background_color}
+                        viewImage={false}
+                        color={data?.speciality?.color}
+                        showActive={false}
+                      />
+                    </Grid>
+                    <Grid>
+                      <label>{data.appointment_type ?
+                        data.appointment_type === "homevisit_appointment" ? "Home visit" : "Office visit" :
+                        data.task_name
+                          ? data.task_name
+                          : data?.title}</label>
+
+
+
+                    </Grid>
+
+                  </Grid>
+                </Grid>
+                <Grid className="allInfo tasklistName">
+                  <Grid>
+                    {data.appointment_type ?
+                      <S3Image imgUrl={data?.patient?.image} /> : <S3Image imgUrl={data?.patient?.image} />}
+                  </Grid>
+                  {/* <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid> */}
+                  <Grid className="allInfoRght">
+                    {data.appointment_type ?
+                      <>
+                        <Grid>
+                          <label>
+                            {data?.patient_info?.first_name} {data?.patient_info?.last_name}
+                          </label>
+                        </Grid>
+                        <p>{data?.patient_info?.patient_id}</p>
+                      </>
+                      :
+                      <>
+                        <Grid>
+                          <label>
+                            {data?.patient?.first_name} {data?.patient?.last_name}
+                          </label>
+                        </Grid>
+                        <p>{data?.patient?.profile_id}</p>
+                      </>}
+
+                  </Grid>
+
+                </Grid>
+              </Grid>
+
+              <Grid className="revwFiles addCssForTherapy" item xs={12} sm={4} md={4}>
+
+
+                {data && data.therapy_name &&
+                  <Grid>
+                    <Grid>
+                      <label>{data?.therapy_name}</label>
+                    </Grid>
+                    <Grid className="allInfo">
+                      <p>Sequence {":"} {data?.sequence}</p>
+                    </Grid>
+                  </Grid>}
               </Grid>
             </Grid>
           </Grid>
+
+
           <Grid item xs={12} sm={6} md={6}>
             <Grid className="attchNoteMain">
               {data.appointment_type ?
@@ -331,7 +366,7 @@ class PointPain extends Component {
                                   title=""
                                   className="openScnd specialuty-more"
                                 /> : null}
-                            </> : <>          <img
+                            </>: <>          <img
                               src={require('assets/images/three_dots_t.png')}
                               alt=""
                               title=""
@@ -362,7 +397,6 @@ class PointPain extends Component {
                                   <a
                                     onClick={() => {
                                       this.props.editTask(data);
-                                      console.log('1')
                                     }}
                                   >
                                     <img
@@ -397,7 +431,7 @@ class PointPain extends Component {
                                   </a>
                                 </li> : null}</> : <> <li>
 
-
+                                      {/* {console.log('data', data)} */}
                                   {data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     this.props.comesFrom === 'adminstaff' &&
@@ -405,7 +439,6 @@ class PointPain extends Component {
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -413,14 +446,14 @@ class PointPain extends Component {
                                         alt=""
                                         title=""
                                       />{see_details}</a>
-                                  ) : data.task_type &&
+                                  ) 
+                                  : data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     (this.props.comesFrom === 'adminstaff' ||
                                       this.props.comesFrom === 'detailTask') ? (
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -431,11 +464,10 @@ class PointPain extends Component {
                                   ) : data.task_type &&
                                     (data.task_type === 'sick_leave' ||
                                       data.task_type === 'video_conference' || data.task_type === 'picture_evaluation') && (
-                                      this.props.comesFrom === 'Professional' && data.edit_professional_activity) ? (
+                                      this.props.comesFrom === 'Professional' && this.checkAuthority(data.house_id, "edit_professional_activity")) ? (
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
-                                        console.log('1')
                                       }}
                                     >
                                       <img
@@ -444,12 +476,11 @@ class PointPain extends Component {
                                         title=""
                                       />{view_detail}</a>
                                   ) : (
-                                    data.task_name ? <>
-                                      {data.edit_professional_activity &&
+                                    this.checkAuthority(data.house_id, "edit_professional_activity") && 
+                                   <> {data.task_name ? 
                                         <a
                                           onClick={() => {
                                             this.props.editTask(data);
-                                            console.log('1')
                                           }}
                                         >
                                           <img
@@ -459,12 +490,10 @@ class PointPain extends Component {
                                           />
                                           {EditTask}
                                         </a>
-                                      }
-                                    </> :
+                                     :
                                       <a
                                         onClick={() => {
                                           this.props.editTask(data);
-                                          console.log('1')
                                         }}
                                       >
                                         <img
@@ -473,12 +502,14 @@ class PointPain extends Component {
                                           title=""
                                         />
                                         {edit_assigned_services}
-                                      </a>
+                                      </a>}
+                                      </>
+
                                   )}
                                 </li></>}
-                            {this.props.comesFrom === 'adminstaff' ?
+                            {this.props.comesFrom === 'adminstaff' && data?.task_name && data?.task_type !=='picture_evaluation' ?
                               <>
-                                {/* {roles.includes("delete_task") ?
+                                {roles.includes("delete_task") ?
                                   <li>
                                     <a
                                       onClick={() => {
@@ -502,62 +533,34 @@ class PointPain extends Component {
                                         this.props.comesFrom === 'adminstaff' &&
                                         data.status === 'done' ? (
                                         <>{see_details}</>
-                                      ) : data.task_type &&
-                                        data.task_type === 'picture_evaluation' &&
-                                        (this.props.comesFrom === 'adminstaff' ||
-                                          this.props.comesFrom === 'detailTask') ? (
-                                        <>{assign_to_doctor}</>
-                                      ) : data.task_type &&
+                                      ) : 
+                                      // data.task_type &&
+                                      //   data.task_type === 'picture_evaluation' &&
+                                      //   (this.props.comesFrom === 'adminstaff' ||
+                                      //     this.props.comesFrom === 'detailTask') ? (
+                                      //   <>{assign_to_doctor}</>
+                                      // ) 
+                                      // : 
+                                      data.task_type &&
                                         data.task_type === 'sick_leave' &&
                                         this.props.comesFrom === 'Professional' ? (
                                         <>{view_detail}</>
                                       ) : (
-                                        data.task_name && <>{DeleteTask}</> 
+                                        data.task_name && data?.task_type !=='picture_evaluation' && 
+                                        <>{DeleteTask}</> 
                                         // : <>{edit_assigned_services}</>
                                       )}
                                     </a>
                                   </li>
-                                  : null} */}
+                                  : null}
                               </> :
                               <>  <li>
-
-
-
-                                {data.task_type &&
-                                  data.task_type === 'picture_evaluation' &&
-                                  this.props.comesFrom === 'adminstaff' &&
-                                  data.status === 'done' ? (
-                                  <a
-                                    onClick={() => {
-                                      this.props.removeTask(data._id);
-                                    }}
-                                  >
-                                    <img
-                                      src={require('assets/virtual_images/deleteNew.png')}
-                                      alt=""
-                                      title=""
-                                    />{see_details}</a>
-                                ) : data.task_type &&
-                                  data.task_type === 'picture_evaluation' &&
-                                  (this.props.comesFrom === 'adminstaff' ||
-                                    this.props.comesFrom === 'detailTask') ? (
-                                  <a
-                                    onClick={() => {
-                                      this.props.removeTask(data._id);
-                                    }}
-                                  >
-                                    <img
-                                      src={require('assets/virtual_images/deleteNew.png')}
-                                      alt=""
-                                      title=""
-                                    />{assign_to_doctor}</a>
-                                ) :
-                                  (
-                                    this.props.comesFrom === 'Professional' ?
+                                  
+                                    {this.props.comesFrom === 'Professional' ?
                                       data.task_type == 'video_conference' || data.task_type == 'picture_evaluation' || data.task_type == 'sick_leave' ?
                                         " " :
 
-                                        data.delete_professional_activity && <a
+                                        this.checkAuthority(data.house_id, "delete_professional_activity") && <a
                                           onClick={() => {
                                             this.props.removeTask(data._id, data.house_id);
                                           }}
@@ -568,12 +571,11 @@ class PointPain extends Component {
                                             title=""
                                           />
                                           {data.task_name
-                                        ? DeleteTask : delete_assigned_services }
+                                            ? DeleteTask : delete_assigned_services}
                                         </a>
 
-
-                                      : " "
-                                  )}
+                                      : " "}
+                                
                               </li></>}
                             {data &&
                               data.task_type &&

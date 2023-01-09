@@ -17,7 +17,7 @@ import {
   blockClick,
 } from 'Screens/Components/BasicMethod/index';
 import { OptionList } from 'Screens/Login/metadataaction';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from 'Screens/Components/Select/index';
 import { getLanguage } from './translations/index';
 import H_LeftMenu from 'Screens/Components/Menus/H_leftMenu/index';
@@ -38,15 +38,15 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
-
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
   { value: 'Specialist2', label: 'Specialist2' },
 ];
-var socket
+// var socket
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -75,7 +75,7 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
 
   }
 
@@ -459,8 +459,9 @@ class Index extends Component {
             .then((responce) => {
               console.log('UpdateA', responce.data.data)
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              var socket =SocketIo();
               socket.emit("UpdateA",sendSec)
-
+              console.log('sdsfdsfdsf2222', sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -508,7 +509,9 @@ class Index extends Component {
       .then((responce) => {
         this.setState({ loaderImage: false });
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var socket =SocketIo();
         socket.emit("deleteA",sendSec)
+        console.log('sdsfdsfdsf', sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {

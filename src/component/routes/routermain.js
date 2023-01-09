@@ -103,6 +103,8 @@ import UploadApproval from "Screens/VirtualHospital/UploadApproval/index";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js";
+import StaffGroup from "Screens/VirtualHospital/StaffGroup/index.js";
+import AssignTherapy from "Screens/VirtualHospital/AssignTherapy/index.js";
 import UplaodDocument from "Screens/VirtualHospital/UploadDocument/index.js";
 import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
@@ -117,75 +119,84 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
-import io from "socket.io-client";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// import io from "socket.io-client";
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 import TryCaptcha from "Screens/TryCaptch"
-const SOCKET_URL = GetSocketUrl()
+import {SocketIo, clearScoket} from "socket";
+// const SOCKET_URL = GetSocketUrl()
 
-var socket = io(SOCKET_URL);
+// var socket = io(SOCKET_URL);
 class Routermain extends Component {
-  
+
   allHouses = () => {
-    var data= this.props.stateLoginValueAim?.user?.type
-    if(data=="nurse"){
-      socket.on("displaynurse",(data)=>{
+    var socket = SocketIo();
+    var data = this.props.stateLoginValueAim?.user?.type
+    if (data == "nurse") {
+      socket.on("displaynurse", (data) => {
         this.setData(data)
       })
-      socket.on("deletedataN",(data)=>{
+      socket.on("deletedataN", (data) => {
         this.setData(data)
       })
-      socket.on("UpdateddataN",(data)=>{
+      socket.on("UpdateddataN", (data) => {
         this.setData(data)
       })
 
-    } else if(data=='doctor'){
-      socket.on("displaydoctor",(data)=>{
+    } else if (data == 'doctor') {
+      socket.on("displaydoctor", (data) => {
         this.setData(data)
       })
-      socket.on("deletedata",(data)=>{
+      socket.on("deletedata", (data) => {
         this.setData(data)
       })
-      socket.on("Updateddata",(data)=>{
+      socket.on("Updateddata", (data) => {
         this.setData(data)
       })
-    } else if(data=='adminstaff'){
-      socket.on("displayadmin",(data)=>{ 
+    } else if (data == 'adminstaff') {
+      socket.on("displayadmin", (data) => {
         this.setData(data, 'adminstaff')
       })
-      socket.on("deletedataA",(data)=>{
+      socket.on("deletedataA", (data) => {
         this.setData(data, 'adminstaff')
       })
-      socket.on("UpdateddataA",(data)=>{
+      socket.on("UpdateddataA", (data) => {
         this.setData(data, 'adminstaff')
       })
     }
 
   };
-  setData = (data)=>{
-    if(this.props.stateLoginValueAim?.user?._id === data?._id){
+
+  setData = (data) => {
+    if (this.props.stateLoginValueAim?.user?._id === data?._id) {
       let user_token = this.props.stateLoginValueAim.token;
       let user = this.props.stateLoginValueAim?.user;
       user['houses'] = data?.houses;
-      var forUpdate = {value: true, token: user_token, user: user}
-      this.props.LoginReducerAim(data?.email, '', user_token, () => {}, forUpdate);
-      if(user && user.type ==='adminstaff'){
-        var filterHouse = data?.houses?.length>0 && data?.houses?.filter((data)=> data?.value === this.props?.House?.value)
-        if(filterHouse && filterHouse?.length > 0) {
+      var forUpdate = { value: true, token: user_token, user: user }
+      this.props.LoginReducerAim(data?.email, '', user_token, () => { }, forUpdate);
+      if (user && user.type === 'adminstaff') {
+        var filterHouse = data?.houses?.length > 0 && data?.houses?.filter((data) => data?.value === this.props?.House?.value)
+        if (filterHouse && filterHouse?.length > 0) {
           this.props.houseSelect(filterHouse[0], true);
         }
-        
+
       }
     }
   }
 
   componentDidMount() {
-    this.allHouses();
+      this.allHouses();
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+        this.allHouses();
+    }
+  };
 
   render() {
     return (
       <Router basename={"/"}>
-        <CallatAllPages />
+        {/* <CallatAllPages /> */}
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -270,11 +281,11 @@ class Routermain extends Component {
               path="/patient/Timelinecomponents"
               render={(props) => <PatientTimeLine1 {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/patient/chats"
               render={(props) => <PatientChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/patient/blockchain"
@@ -296,11 +307,11 @@ class Routermain extends Component {
               path="/paramedic/profile"
               render={(props) => <ParamedicProfile {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/paramedic/chats"
               render={(props) => <ParamedicChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/paramedic/online-course"
@@ -322,11 +333,11 @@ class Routermain extends Component {
               path="/insurance/profile"
               render={(props) => <InsuranceProfile {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/insurance/chats"
               render={(props) => <InsuranceChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/insurance/online-course"
@@ -338,11 +349,11 @@ class Routermain extends Component {
               render={(props) => <PaitnetViewCourses {...props} />}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/nurse"
               render={(props) => <NurseChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/nurse/profile"
@@ -369,11 +380,11 @@ class Routermain extends Component {
               render={(props) => <PaitnetViewCourses {...props} />}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/pharmacy"
               render={(props) => <PharmaChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/pharmacy/profile"
@@ -460,11 +471,11 @@ class Routermain extends Component {
               path="/doctor/view-course"
               render={(props) => <PaitnetViewCourses {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/doctor/chats"
               render={(props) => <DoctorChats {...props} />}
-            />
+            /> */}
             <Route
               exact
               path="/doctor/journal"
@@ -481,7 +492,7 @@ class Routermain extends Component {
               render={(props) => <DoctorProfessionalActivity {...props} />}
 
             /> */}
-              <Route
+            <Route
 
               exact
               path="/doctor/video-call"
@@ -666,6 +677,16 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
             />
+            <Route
+              path="/virtualHospital/staff-group"
+              exact={true}
+              render={(props) => <StaffGroup {...props} />}
+            />
+            <Route
+              path="/virtualHospital/add-therapy"
+              exact={true}
+              render={(props) => <AssignTherapy {...props} />}
+            />
 
             <Route
               path="/virtualHospital/print_approval"
@@ -699,7 +720,7 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NursePT {...props} />}
             />
-              {/* <Route
+            {/* <Route
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}

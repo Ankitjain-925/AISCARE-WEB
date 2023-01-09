@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
 import { checkTheIndex } from '../data';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
@@ -9,6 +9,7 @@ import { S3Image } from 'Screens/Components/GetS3Images/index';
 import { getLanguage } from 'translations/index';
 import { borderRadius, grid } from '../constants';
 import styled from '@emotion/styled';
+import {SocketIo, clearScoket} from "socket";
 
 const getBackgroundColor = (isDragging, isGroupedOver, authorColors) => {
   if (isDragging) {
@@ -129,7 +130,8 @@ export default class QuoteItem extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.socket.on('email_accept', (data) => {
+    var socket = SocketIo();
+    socket.on('email_accept', (data) => {
       if (this.props.quote?._id === data.case_id) {
         this.props.quote.verifiedbyPatient = true;
         this.props.verifySection(this.props.quote?._id);
@@ -207,6 +209,7 @@ export default class QuoteItem extends React.Component {
                 <Grid className="checkDotsRght">
                   {quote?.verifiedbyPatient && (
                     <CasesMoreButton
+                      changeStaffsec={this.props.changeStaffsec}
                       setDta={(item) => this.props.setDta(item)}
                       currentStep={quote?.author?.step_name}
                       currentIndex={checkTheIndex(
@@ -537,6 +540,7 @@ export default class QuoteItem extends React.Component {
                   <Grid>
                     {quote?.verifiedbyPatient && (
                       <CasesMoreButton
+                        changeStaffsec={this.props.changeStaffsec}
                         setDta={(item) => this.props.setDta(item)}
                         currentStep={quote?.author?.step_name}
                         currentIndex={checkTheIndex(

@@ -104,6 +104,7 @@ class Index extends Component {
   };
 
   render() {
+    // console.log("changeStaffsec", this.props.changeStaffsec)
     const columns = this.state.columns;
     const ordered = this.state.ordered;
     let translate = getLanguage(this.props.stateLanguageType);
@@ -136,7 +137,8 @@ class Index extends Component {
             >
               {ordered.map((key, index) => (
                 <Column
-                updatesQuotes={(data)=>{this.props.updatesQuotes(data)}}
+                  changeStaffsec={this.props.changeStaffsec}
+                  updatesQuotes={(data) => { this.props.updatesQuotes(data) }}
                   moveDetial={(id, case_id) =>
                     this.props.moveDetial(id, case_id)
                   }

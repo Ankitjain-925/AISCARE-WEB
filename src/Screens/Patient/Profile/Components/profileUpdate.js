@@ -844,7 +844,7 @@ class Index extends Component {
                     </label>
                     <Grid className="cntryDropTop">
                       <Select
-                        value={this.state.UpDataDetails.citizen_country || ''}
+                        value={this.state.UpDataDetails.citizen_country || {}}
                         onChange={(e) =>
                           EntryValueName(e, 'citizen_country', this)
                         }

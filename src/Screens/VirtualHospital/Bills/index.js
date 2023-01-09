@@ -212,9 +212,9 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       var AllStatus = GetLanguageDropdown(
         this.state.allMetadata &&
-          this.state.allMetadata.billing_status &&
-          this.state.allMetadata.billing_status.length > 0 &&
-          this.state.allMetadata.billing_status,
+        this.state.allMetadata.billing_status &&
+        this.state.allMetadata.billing_status.length > 0 &&
+        this.state.allMetadata.billing_status,
         this.props.stateLanguageType
       );
       this.setState({
@@ -250,10 +250,10 @@ class Index extends Component {
       value == 1
         ? 'issued'
         : value == 2
-        ? 'overdue'
-        : value == 3
-        ? 'paid'
-        : 'all';
+          ? 'overdue'
+          : value == 3
+            ? 'paid'
+            : 'all';
     this.fetchbillsdata(ApiStatus, value);
     this.handleClosePopUp();
   };
@@ -362,7 +362,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
+        `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -411,9 +411,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -447,9 +447,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -486,13 +486,13 @@ class Index extends Component {
           value == 1
             ? 'issued'
             : value == 2
-            ? 'overdue'
-            : value == 3
-            ? 'paid'
-            : 'all';
+              ? 'overdue'
+              : value == 3
+                ? 'paid'
+                : 'all';
         this.fetchbillsdata(ApiStatus, value);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   Invoice = (data) => {
@@ -507,10 +507,10 @@ class Index extends Component {
       value == 1
         ? 'issued'
         : value == 2
-        ? 'overdue'
-        : value == 3
-        ? 'paid'
-        : 'all';
+          ? 'overdue'
+          : value == 3
+            ? 'paid'
+            : 'all';
     this.fetchbillsdata(ApiStatus, value);
   };
 
@@ -545,8 +545,8 @@ class Index extends Component {
     var invoice = datas;
     invoice.choice =
       this.props.settings &&
-      this.props.settings.setting &&
-      this.props.settings.setting.invoice_pattern
+        this.props.settings.setting &&
+        this.props.settings.setting.invoice_pattern
         ? this.props.settings.setting.invoice_pattern
         : 5;
     this.setState({ loaderImage: true });
@@ -642,6 +642,7 @@ class Index extends Component {
       FilterbyPatient,
       FilterbySpeciality,
       FilterbyStatus,
+      no_data_avlbl
     } = translate;
     const {
       value,
@@ -663,9 +664,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -694,14 +695,14 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
-                        {roles.includes("add_invoice") &&
-                          <Button
-                            onClick={() => {
-                              this.Invoice('new');
-                            }}
-                          >
-                            {NewInvoice}
-                          </Button>}
+                          {roles.includes("add_invoice") &&
+                            <Button
+                              onClick={() => {
+                                this.Invoice('new');
+                              }}
+                            >
+                              {NewInvoice}
+                            </Button>}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -824,8 +825,8 @@ class Index extends Component {
                               onClose={this.handleClosePopUp}
                               className={
                                 this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode === 'dark'
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode === 'dark'
                                   ? 'darkTheme paraBoxModel'
                                   : 'paraBoxModel'
                               }
@@ -833,25 +834,25 @@ class Index extends Component {
                               <Grid className="fltrClear">
                                 <Grid className="fltrClearIner2">
                                   <Grid className="fltrLbl">
-                                  <Grid container direction="row" justify="center">
-                                        <Grid item xs={8} md={8} lg={8}>
-                                            <label>{filters}</label>
+                                    <Grid container direction="row" justify="center">
+                                      <Grid item xs={8} md={8} lg={8}>
+                                        <label>{filters}</label>
+                                      </Grid>
+                                      <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                          <Grid className="entryCloseBtn">
+                                            <a onClick={this.handleClosePopUp}>
+                                              <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </a>
+                                          </Grid>
                                         </Grid>
-                                        <Grid item xs={4} md={4} lg={4}>
-                                            <Grid>
-                                            <Grid className="entryCloseBtn">
-                                                <a onClick={this.handleClosePopUp}>
-                                                <img
-                                                    src={require("assets/images/close-search.svg")}
-                                                    alt=""
-                                                    title=""
-                                                />
-                                                </a>
-                                            </Grid>
-                                            </Grid>
-                                        </Grid>
+                                      </Grid>
                                     </Grid>
-                                  <Grid className="fltrLblClose">
+                                    <Grid className="fltrLblClose">
                                       <a onClick={this.handleClosePopUp}>
                                         <img
                                           src={require('assets/images/close-search.svg')}
@@ -946,39 +947,39 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {roles.includes("show_invoice") &&
-                    <Grid className="billInfoData">
-                      <Table>
-                        <Thead>
-                          <Tr>
-                            <Th>{ID}</Th>
-                            <Th>{Patient}</Th>
-                            <Th>{date}</Th>
-                            {/* <Th>{Status}</Th> */}
-                            <Th>{total}</Th>
-                            <Th></Th>
-                          </Tr>
-                        </Thead>
-                        {this.state.bills_data.length > 0 &&
-                          this.state.bills_data.map((data, index) => (
-                            <Tbody>
-                              <Tr>
-                                <Td>{data?.invoice_id}</Td>
-                                <Td className="patentPic">
-                                  {/* <img src={require('assets/virtual_images/james.jpg')} alt="" title="" /> */}
-                                  <S3Image imgUrl={data?.patient?.image} />
-                                  {data?.patient?.first_name}{' '}
-                                  {data?.patient?.last_name}
-                                </Td>
-                                <Td>
-                                  {data.created_at
-                                    ? getDate(
+                      <Grid className="billInfoData">
+                        <Table>
+                          <Thead>
+                            <Tr>
+                              <Th>{ID}</Th>
+                              <Th>{Patient}</Th>
+                              <Th>{date}</Th>
+                              {/* <Th>{Status}</Th> */}
+                              <Th>{total}</Th>
+                              <Th></Th>
+                            </Tr>
+                          </Thead>
+                          {this.state.bills_data.length > 0 &&
+                            this.state.bills_data.map((data, index) => (
+                              <Tbody>
+                                <Tr>
+                                  <Td>{data?.invoice_id}</Td>
+                                  <Td className="patentPic">
+                                    {/* <img src={require('assets/virtual_images/james.jpg')} alt="" title="" /> */}
+                                    <S3Image imgUrl={data?.patient?.image} />
+                                    {data?.patient?.first_name}{' '}
+                                    {data?.patient?.last_name}
+                                  </Td>
+                                  <Td>
+                                    {data.created_at
+                                      ? getDate(
                                         data.created_at,
                                         this.props.settings.setting.date_format
                                       )
-                                    : not_mentioned}
-                                </Td>
-                                {/* <Td>{data.}</Td> */}
-                                {/* <Td className="">
+                                      : not_mentioned}
+                                  </Td>
+                                  {/* <Td>{data.}</Td> */}
+                                  {/* <Td className="">
                                   <span
                                     className={
                                       data?.status?.value === 'paid'
@@ -1000,23 +1001,23 @@ class Index extends Component {
                                       'anamnesis'
                                     )}
                                 </Td> */}
-                                <Td>{data?.total_amount} €</Td>
-                                <Td className="billDots">
-                                {(roles.includes("print_invoice") || roles.includes("download_invoice")|| roles.includes("delete_invoice"))  &&
-                                  <Button className="downloadDots">
-                                    <img
-                                      src={require('assets/virtual_images/threeDots.png')}
-                                      alt=""
-                                      title=""
-                                    />
-                                    <Grid className="actionList">
-                                      <ul className="actionPdf">
-                                        <a
-                                          onClick={() => {
-                                            this.Invoice(data);
-                                          }}
-                                        >
-                                          {/* <li>
+                                  <Td>{data?.total_amount} €</Td>
+                                  <Td className="billDots">
+                                    {(roles.includes("print_invoice") || roles.includes("download_invoice") || roles.includes("delete_invoice")) &&
+                                      <Button className="downloadDots">
+                                        <img
+                                          src={require('assets/virtual_images/threeDots.png')}
+                                          alt=""
+                                          title=""
+                                        />
+                                        <Grid className="actionList">
+                                          <ul className="actionPdf">
+                                            <a
+                                              onClick={() => {
+                                                this.Invoice(data);
+                                              }}
+                                            >
+                                              {/* <li>
                                             <img
                                               src={require('assets/virtual_images/DuplicateInvoice.png')}
                                               alt=""
@@ -1024,130 +1025,130 @@ class Index extends Component {
                                             />
                                             <span>{DuplicateInvoice}</span>
                                           </li> */}
-                                        </a>
-                                        {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
-                                        <div className="printPreviewlink">
-                                          <ReactToPrint
-                                            content={() =>
-                                              this.reactToPrintContent()
-                                            }
-                                            documentTitle="Report.pdf"
-                                            onBeforeGetContent={() =>
-                                              this.handleOnBeforeGetContent(
-                                                data
-                                              )
-                                            }
-                                            removeAfterPrint
-                                            trigger={() => (
-                                              <a>
-                                                  {roles.includes("print_invoice") &&
+                                            </a>
+                                            {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
+                                            <div className="printPreviewlink">
+                                              <ReactToPrint
+                                                content={() =>
+                                                  this.reactToPrintContent()
+                                                }
+                                                documentTitle="Report.pdf"
+                                                onBeforeGetContent={() =>
+                                                  this.handleOnBeforeGetContent(
+                                                    data
+                                                  )
+                                                }
+                                                removeAfterPrint
+                                                trigger={() => (
+                                                  <a>
+                                                    {roles.includes("print_invoice") &&
+                                                      <li>
+                                                        <img
+                                                          src={require('assets/virtual_images/PrintInvoice.png')}
+                                                          alt=""
+                                                          title=""
+                                                        />
+                                                        <span>{PrintInvoice}</span>
+                                                      </li>}
+                                                  </a>
+                                                )}
+                                                _id={data._id}
+                                              />
+                                              {this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern == 1 && (
+                                                  <ComponentToPrint1
+                                                    ref={(el) =>
+                                                      (this.componentRef = el)
+                                                    }
+                                                    data={this.state.currentData}
+                                                    House={this.props.House}
+                                                    index={index}
+                                                  />
+                                                )}
+                                              {this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern == 2 && (
+                                                  <ComponentToPrint2
+                                                    ref={(el) =>
+                                                      (this.componentRef = el)
+                                                    }
+                                                    data={this.state.currentData}
+                                                    House={this.props.House}
+                                                    index={index}
+                                                  />
+                                                )}
+                                              {this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern == 3 && (
+                                                  <ComponentToPrint3
+                                                    ref={(el) =>
+                                                      (this.componentRef = el)
+                                                    }
+                                                    data={this.state.currentData}
+                                                    House={this.props.House}
+                                                    index={index}
+                                                  />
+                                                )}
+                                              {this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern == 4 && (
+                                                  <ComponentToPrint4
+                                                    ref={(el) =>
+                                                      (this.componentRef = el)
+                                                    }
+                                                    data={this.state.currentData}
+                                                    House={this.props.House}
+                                                    index={index}
+                                                  />
+                                                )}
+                                              {this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern &&
+                                                this.props.settings.setting
+                                                  .invoice_pattern == 5 && (
+                                                  <ComponentToPrint5
+                                                    ref={(el) =>
+                                                      (this.componentRef = el)
+                                                    }
+                                                    data={this.state.currentData}
+                                                    House={this.props.House}
+                                                    index={index}
+                                                  />
+                                                )}
+                                            </div>
+                                            {roles.includes("download_invoice") &&
+                                              <a
+                                                onClick={() => {
+                                                  this.downloadInvoicePdf(data);
+                                                }}
+                                              >
+                                                {' '}
                                                 <li>
                                                   <img
-                                                    src={require('assets/virtual_images/PrintInvoice.png')}
+                                                    src={require('assets/virtual_images/DownloadPDF.png')}
                                                     alt=""
                                                     title=""
                                                   />
-                                                  <span>{PrintInvoice}</span>
-                                                </li>}
-                                              </a>
-                                            )}
-                                            _id={data._id}
-                                          />
-                                          {this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting
-                                              .invoice_pattern &&
-                                            this.props.settings.setting
-                                              .invoice_pattern == 1 && (
-                                              <ComponentToPrint1
-                                                ref={(el) =>
-                                                  (this.componentRef = el)
-                                                }
-                                                data={this.state.currentData}
-                                                House={this.props.House}
-                                                index={index}
-                                              />
-                                            )}
-                                          {this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting
-                                              .invoice_pattern &&
-                                            this.props.settings.setting
-                                              .invoice_pattern == 2 && (
-                                              <ComponentToPrint2
-                                                ref={(el) =>
-                                                  (this.componentRef = el)
-                                                }
-                                                data={this.state.currentData}
-                                                House={this.props.House}
-                                                index={index}
-                                              />
-                                            )}
-                                          {this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting
-                                              .invoice_pattern &&
-                                            this.props.settings.setting
-                                              .invoice_pattern == 3 && (
-                                              <ComponentToPrint3
-                                                ref={(el) =>
-                                                  (this.componentRef = el)
-                                                }
-                                                data={this.state.currentData}
-                                                House={this.props.House}
-                                                index={index}
-                                              />
-                                            )}
-                                          {this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting
-                                              .invoice_pattern &&
-                                            this.props.settings.setting
-                                              .invoice_pattern == 4 && (
-                                              <ComponentToPrint4
-                                                ref={(el) =>
-                                                  (this.componentRef = el)
-                                                }
-                                                data={this.state.currentData}
-                                                House={this.props.House}
-                                                index={index}
-                                              />
-                                            )}
-                                          {this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting
-                                              .invoice_pattern &&
-                                            this.props.settings.setting
-                                              .invoice_pattern == 5 && (
-                                              <ComponentToPrint5
-                                                ref={(el) =>
-                                                  (this.componentRef = el)
-                                                }
-                                                data={this.state.currentData}
-                                                House={this.props.House}
-                                                index={index}
-                                              />
-                                            )}
-                                        </div>
-                                        {roles.includes("download_invoice") &&
-                                        <a
-                                          onClick={() => {
-                                            this.downloadInvoicePdf(data);
-                                          }}
-                                        >
-                                          {' '}
-                                          <li>
-                                            <img
-                                              src={require('assets/virtual_images/DownloadPDF.png')}
-                                              alt=""
-                                              title=""
-                                            />
-                                            <span>{DownloadPDF}</span>
-                                          </li>
-                                        </a>}
-                                      </ul>
+                                                  <span>{DownloadPDF}</span>
+                                                </li>
+                                              </a>}
+                                          </ul>
 
-                                      {/* {data?.status?.value != 'paid' && (
+                                          {/* {data?.status?.value != 'paid' && (
                                         <div className="setStatus">
                                           <a
                                             onClick={(e) => {
@@ -1219,55 +1220,57 @@ class Index extends Component {
                                         </div>
                                       )} */}
                                           {roles.includes("delete_invoice") &&
-                                      <a
-                                        onClick={() => {
-                                          this.removeBills(data._id);
-                                        }}
-                                      >
-                                        <li>
-                                          <img
-                                            src={require('assets/virtual_images/bin.svg')}
-                                            alt=""
-                                            title=""
-                                          />
-                                          <span>{DeleteInvoice}</span>
-                                        </li>
-                                      </a>}
-                                    </Grid>
-                                  </Button>
-                          }
-                                </Td>
-                              </Tr>
-                            </Tbody>
-                          ))}
-                      </Table>
-                      <Grid className="tablePagNum">
-                        <Grid container direction="row">
-                          <Grid item xs={12} md={6}>
-                            <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{' '}
-                                {this.state.totalPage}
-                              </a>
+                                            <a
+                                              onClick={() => {
+                                                this.removeBills(data._id);
+                                              }}
+                                            >
+                                              <li>
+                                                <img
+                                                  src={require('assets/virtual_images/bin.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                <span>{DeleteInvoice}</span>
+                                              </li>
+                                            </a>}
+                                        </Grid>
+                                      </Button>
+                                    }
+                                  </Td>
+                                </Tr>
+                              </Tbody>
+                            ))}
+                        </Table>
+                        <Grid className="tablePagNum">
+                          <Grid container direction="row">
+                            <Grid item xs={12} md={6}>
+                              <Grid className="totalOutOff">
+                                {(this.state.currentPage && this.state.totalPage) ?(
+                                  <a>
+                                    {this.state.currentPage} of{" "}
+                                    {this.state.totalPage}
+                                  </a>) :(<div className="err_message">{no_data_avlbl}</div>)
+                                }
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                              {this.state.totalPage > 1 && (
+                                <Grid className="prevNxtpag">
+                                  <Pagination
+                                    totalPage={this.state.totalPage}
+                                    currentPage={this.state.currentPage}
+                                    pages={this.state.pages}
+                                    onChangePage={(page) => {
+                                      this.onChangePage(page);
+                                    }}
+                                  />
+                                </Grid>
+                              )}
                             </Grid>
                           </Grid>
-                          <Grid item xs={12} md={6}>
-                            {this.state.totalPage > 1 && (
-                              <Grid className="prevNxtpag">
-                                <Pagination
-                                  totalPage={this.state.totalPage}
-                                  currentPage={this.state.currentPage}
-                                  pages={this.state.pages}
-                                  onChangePage={(page) => {
-                                    this.onChangePage(page);
-                                  }}
-                                />
-                              </Grid>
-                            )}
-                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Grid>}
+                      </Grid>}
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}

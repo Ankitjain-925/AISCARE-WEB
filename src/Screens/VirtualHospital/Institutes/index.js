@@ -41,7 +41,6 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-    console.log("data", data)
     if (data.roles) {
       if (data.roles.includes("assigned_services")) {
         this.props.history.push("/virtualHospital/assignedservices");
@@ -248,7 +247,7 @@ class Index extends Component {
                   </Grid>
 
                   <Grid item xs={12} md={11}>
-                  <Institutes redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
+                    <Institutes redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />
                     {/* <Grid className="topLeftSpc">
                    
                       <Grid className="breadCrumbUpr">

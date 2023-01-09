@@ -14,11 +14,12 @@ import { getLanguage } from "translations/index";
 import { LoginReducerAim } from "Screens/Login/actions";
 import NewRole from "Screens/VirtualHospital/New Role/index";
 import { commonHeader } from "component/CommonHeader/index";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl();
-console.log("SOCKET_URL", SOCKET_URL);
-var socket;
+// const SOCKET_URL = GetSocketUrl();
+// console.log("SOCKET_URL", SOCKET_URL);
+// var socket;
+import {SocketIo, clearScoket} from "socket";
 class PointPain extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,7 @@ class PointPain extends Component {
       finalArray: [],
       loaderImage: false,
     };
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
 
   updateEntryState1 = (value, name) => {
@@ -87,6 +88,7 @@ class PointPain extends Component {
           houses: responce.data.data?.houses,
         };
 
+        var socket =SocketIo();
         if (responce.data.data.type == "nurse") {
           socket.emit("nurse", sendSec);
         } else if (responce.data.data.type == "doctor") {
@@ -130,8 +132,8 @@ class PointPain extends Component {
   };
 
   componentDidMount = () => {
-    socket.on("connection", () => {});
-    console.log("socket12", socket);
+    // socket.on("connection", () => {});
+    // console.log("socket12", socket);
   };
 
   render() {

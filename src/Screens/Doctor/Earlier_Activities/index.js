@@ -98,7 +98,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response", response)
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
                     if (response?.data?.data) {
@@ -127,17 +126,16 @@ class Index extends Component {
             });
     };
 
-     //get old task data
-     getAddTaskData1 = (tabvalue2, goArchive) => {
+    //get old task data
+    getAddTaskData1 = (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
         axios
             .post(
                 sitedata.data.path + "/vc/nursebefore/",
-                {nurse_id: this.props.stateLoginValueAim?.user?._id},
+                { nurse_id: this.props.stateLoginValueAim?.user?._id },
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response", response)
                 this.setState({ AllTasks: response.data.data });
                 if (response.data.hassuccessed) {
                     if (response?.data?.data) {
@@ -169,67 +167,65 @@ class Index extends Component {
     PastAppoint = (tabvalue2, goArchive) => {
         this.setState({ loaderImage: true });
         axios
-          .get(
-            sitedata.data.path +
-            "/vc/PastAppointmentServiceTask/" + this.props.stateLoginValueAim?.user?._id,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((response) => {
-            this.setState({ AllTasks: response.data.data });
-            console.log('response',response)
-            if (response.data.hassuccessed) {
-              if (response?.data?.data) {
-                var patientForFilterArr = filterPatient(response.data.data);
-                this.setState({ patientForFilter: patientForFilterArr });
-              }
-             let current_time= moment().format("HH:mm")
-              var Done =
-                response.data.data?.length > 0 &&
-                response.data.data.filter((item) =>{
-                  if(item.task_name){
-                    return item.status === "done" 
-                     }
-                     else 
-                     {
-                     if(item?.end_time && moment(current_time).isSameOrAfter(item?.end_time)===false){
-                      return item
-                     }else{
-                     return item.status ==="done"
-                     }
+            .get(
+                sitedata.data.path +
+                "/vc/PastAppointmentServiceTask/" + this.props.stateLoginValueAim?.user?._id,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ AllTasks: response.data.data });
+                if (response.data.hassuccessed) {
+                    if (response?.data?.data) {
+                        var patientForFilterArr = filterPatient(response.data.data);
+                        this.setState({ patientForFilter: patientForFilterArr });
                     }
+                    let current_time = moment().format("HH:mm")
+                    var Done =
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => {
+                            if (item.task_name) {
+                                return item.status === "done"
+                            }
+                            else {
+                                if (item?.end_time && moment(current_time).isSameOrAfter(item?.end_time) === false) {
+                                    return item
+                                } else {
+                                    return item.status === "done"
+                                }
+                            }
+                        });
+                    var Open =
+                        response.data.data?.length > 0 &&
+                        response.data.data.filter((item) => item.status === "open");
+                    this.setState({
+                        AllTasks: response.data.data,
+                        DoneTask: Done,
+                        OpenTask: Open,
                     });
-              var Open =
-                response.data.data?.length > 0 &&
-                response.data.data.filter((item) => item.status === "open");
-              this.setState({
-                AllTasks: response.data.data,
-                DoneTask: Done,
-                OpenTask: Open,
-              });
-              if (goArchive) {
-                this.setState({ tabvalue2: 3 });
-              }
-              else {
-                this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
-              }
-            }
-            this.setState({ loaderImage: false });
-          });
-      };
+                    if (goArchive) {
+                        this.setState({ tabvalue2: 3 });
+                    }
+                    else {
+                        this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+                    }
+                }
+                this.setState({ loaderImage: false });
+            });
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Earlier_activities} = translate;
+        let { Earlier_activities } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (
-          stateLoginValueAim.user === 'undefined' ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === 'undefined' ||
-          stateLoginValueAim.user.type !== 'doctor' ||
-          !this.props.verifyCode ||
-          !this.props.verifyCode.code
+            stateLoginValueAim.user === 'undefined' ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === 'undefined' ||
+            stateLoginValueAim.user.type !== 'doctor' ||
+            !this.props.verifyCode ||
+            !this.props.verifyCode.code
         ) {
-          return <Redirect to={'/'} />;
+            return <Redirect to={'/'} />;
         }
         return (
             <Grid
@@ -253,17 +249,17 @@ class Index extends Component {
                                 <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
-                                <Grid className="topLeftSpc">
-                        <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={12} md={6} className="spcMgntH1">
-                                <h1>{Earlier_activities}</h1>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
+                                    <Grid className="topLeftSpc">
+                                        <Grid container direction="row">
+                                            <Grid item xs={11} md={11}>
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6} className="spcMgntH1">
+                                                        <h1>{Earlier_activities}</h1>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={12}>
                                             {/* Model setup */}
@@ -278,6 +274,7 @@ class Index extends Component {
                                                 OpenTask={this.state.OpenTask}
                                                 ArchivedTasks={[]}
                                                 comesFrom={"Professional"}
+                                                comesFrom1={"earlier_activities"}
                                             />
                                             {/* End of Model setup */}
                                         </Grid>

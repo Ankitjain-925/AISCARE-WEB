@@ -9,14 +9,15 @@ import axios from "axios";
 import sitedata from "sitedata";
 import "react-calendar/dist/Calendar.css";
 import { getLanguage } from "translations/index"
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import Radio from "@material-ui/core/Radio";
 import Select from 'react-select';
+import {SocketIo, clearScoket} from "socket";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl()
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// const SOCKET_URL = GetSocketUrl()
 
-var socket;
+// var socket;
 
 class Index extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Index extends Component {
       fav_doc:[],
       users_id: []
     };
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
 
   }
 
@@ -43,7 +44,6 @@ class Index extends Component {
       },
     )
       .then((responce1) => {
-        console.log("rep",responce1)
         if(!responce1.data.hassuccessed){
           this.setState({ linkexpire: true });
           setTimeout(() => {
@@ -51,6 +51,7 @@ class Index extends Component {
           },5000);
         }
         else{
+          var socket = SocketIo();
           if(status){
             this.mypatiantandDocSend();
             socket.emit("addpatient",{verifiedbyPatient:status,case_id:this.props.match.params.id})
@@ -240,6 +241,7 @@ class Index extends Component {
                 {this.state.specific &&
                     <Select
                   //  value={this.state.specialistOption}
+                    className="selectapprove"
                     onChange={this.setMy_doc}
                     options={
                     this.state.professionalList

@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
 import Modal from '@material-ui/core/Modal';
 import Checkbox from '@material-ui/core/Checkbox';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PhoneInput from 'react-phone-input-2';
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
