@@ -356,6 +356,9 @@ class Index extends Component {
                 openAss1: false,
               });
               this.handleCloseAss();
+              if(this.props.comesFrom === 'Professional'){
+                this.props.getAddTaskData();
+              }
             })
             .catch(() => {
               this.setState({ loaderImage: false });

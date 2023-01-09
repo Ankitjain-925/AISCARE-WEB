@@ -2164,7 +2164,9 @@ class Index extends Component {
             handleCloseAss={() => this.handleCloseAss1()}
             service={this.state.service}
             comesFrom={'Professional'}
-
+            getAddTaskData={(tabvalue2) => {
+              this.props.getAddTaskData(tabvalue2);
+            }}
           />
 
           <Modal

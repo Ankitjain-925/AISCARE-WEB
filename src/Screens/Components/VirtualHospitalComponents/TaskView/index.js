@@ -446,7 +446,8 @@ class PointPain extends Component {
                                         alt=""
                                         title=""
                                       />{see_details}</a>
-                                  ) : data.task_type &&
+                                  ) 
+                                  : data.task_type &&
                                     data.task_type === 'picture_evaluation' &&
                                     (this.props.comesFrom === 'adminstaff' ||
                                       this.props.comesFrom === 'detailTask') ? (
@@ -506,7 +507,7 @@ class PointPain extends Component {
 
                                   )}
                                 </li></>}
-                            {this.props.comesFrom === 'adminstaff' ?
+                            {this.props.comesFrom === 'adminstaff' && data?.task_name && data?.task_type !=='picture_evaluation' ?
                               <>
                                 {roles.includes("delete_task") ?
                                   <li>
@@ -532,17 +533,21 @@ class PointPain extends Component {
                                         this.props.comesFrom === 'adminstaff' &&
                                         data.status === 'done' ? (
                                         <>{see_details}</>
-                                      ) : data.task_type &&
-                                        data.task_type === 'picture_evaluation' &&
-                                        (this.props.comesFrom === 'adminstaff' ||
-                                          this.props.comesFrom === 'detailTask') ? (
-                                        <>{assign_to_doctor}</>
-                                      ) : data.task_type &&
+                                      ) : 
+                                      // data.task_type &&
+                                      //   data.task_type === 'picture_evaluation' &&
+                                      //   (this.props.comesFrom === 'adminstaff' ||
+                                      //     this.props.comesFrom === 'detailTask') ? (
+                                      //   <>{assign_to_doctor}</>
+                                      // ) 
+                                      // : 
+                                      data.task_type &&
                                         data.task_type === 'sick_leave' &&
                                         this.props.comesFrom === 'Professional' ? (
                                         <>{view_detail}</>
                                       ) : (
-                                        data.task_name && <>{DeleteTask}</> 
+                                        data.task_name && data?.task_type !=='picture_evaluation' && 
+                                        <>{DeleteTask}</> 
                                         // : <>{edit_assigned_services}</>
                                       )}
                                     </a>
@@ -550,40 +555,8 @@ class PointPain extends Component {
                                   : null}
                               </> :
                               <>  <li>
-
-
-
-                                {data.task_type &&
-                                  data.task_type === 'picture_evaluation' &&
-                                  this.props.comesFrom === 'adminstaff' &&
-                                  data.status === 'done' ? (
-                                  <a
-                                    onClick={() => {
-                                      this.props.removeTask(data._id);
-                                    }}
-                                  >
-                                    <img
-                                      src={require('assets/virtual_images/deleteNew.png')}
-                                      alt=""
-                                      title=""
-                                    />{see_details}</a>
-                                ) : data.task_type &&
-                                  data.task_type === 'picture_evaluation' &&
-                                  (this.props.comesFrom === 'adminstaff' ||
-                                    this.props.comesFrom === 'detailTask') ? (
-                                  <a
-                                    onClick={() => {
-                                      this.props.removeTask(data._id);
-                                    }}
-                                  >
-                                    <img
-                                      src={require('assets/virtual_images/deleteNew.png')}
-                                      alt=""
-                                      title=""
-                                    />{assign_to_doctor}</a>
-                                ) :
-                                  (
-                                    this.props.comesFrom === 'Professional' ?
+                                  
+                                    {this.props.comesFrom === 'Professional' ?
                                       data.task_type == 'video_conference' || data.task_type == 'picture_evaluation' || data.task_type == 'sick_leave' ?
                                         " " :
 
@@ -601,9 +574,8 @@ class PointPain extends Component {
                                             ? DeleteTask : delete_assigned_services}
                                         </a>
 
-
-                                      : " "
-                                  )}
+                                      : " "}
+                                
                               </li></>}
                             {data &&
                               data.task_type &&
