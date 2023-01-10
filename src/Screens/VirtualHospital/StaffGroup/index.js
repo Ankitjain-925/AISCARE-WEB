@@ -28,7 +28,7 @@ import {
   handleSubmit,
   DeleteStaff,
   stffchange,
-  GetProfessionalwstaff1,
+  // GetProfessionalwstaff1,
   editStaff,
 } from "./api";
 
@@ -70,7 +70,7 @@ class Index extends Component {
 
   componentDidMount() {
     teamstaff(this);
-    GetProfessionalwstaff1(this);
+    // GetProfessionalwstaff1(this);
     this.specailityList();
   }
 
