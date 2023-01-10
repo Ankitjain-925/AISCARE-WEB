@@ -382,51 +382,68 @@ class PointPain extends Component {
                               </li>
                             }
                             {this.props.comesFrom === 'adminstaff' ? <>
-                              {(roles.includes("edit_assignedservice") ||
+                              {/* {(roles.includes("edit_assignedservice") ||
                                 roles.includes("edit_task")) ?
-                                <li>
-                                  <a
-                                    onClick={() => {
-                                      this.props.editTask(data);
-                                    }}
-                                  >
-                                    <img
-                                      src={require('assets/virtual_images/pencil-1.svg')}
-                                      alt=""
-                                      title=""
-                                    />
-
-                                    {data &&
-                                      data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      this.props.comesFrom === 'Professional' ? (
-                                      <>{edit_picture_evaluation}</>
-                                    ) : data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      this.props.comesFrom === 'adminstaff' &&
-                                      data.status === 'done' ? (
-                                      <>{see_details}</>
-                                    ) : data.task_type &&
-                                      data.task_type === 'picture_evaluation' &&
-                                      (this.props.comesFrom === 'adminstaff' ||
-                                        this.props.comesFrom === 'detailTask') ? (
-                                      <>{assign_to_doctor}</>
-                                    ) : data.task_type &&
-                                      (data.task_type === 'sick_leave' ||
-                                        data.task_type === 'video_conference') &&
-                                      this.props.comesFrom === 'Professional' ? (
-                                      <>{view_detail}</>
-                                    ) : (
-                                      data.task_name ? <>{EditTask}</> : <>{edit_assigned_services}</>
-                                    )}
-                                  </a>
-                                </li> : null}</> : <> <li>
-
-
-                                  {data.task_type &&
-                                    data.task_type === 'picture_evaluation' &&
-                                    this.props.comesFrom === 'adminstaff' &&
-                                    data.status === 'done' ? (
+                                <li> */}
+                              {data &&
+                                data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <li><a
+                                  onClick={() => {
+                                    this.props.editTask(data);
+                                  }}
+                                >
+                                  <img
+                                    src={require('assets/virtual_images/pencil-1.svg')}
+                                    alt=""
+                                    title=""
+                                  />{edit_picture_evaluation}</a></li>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                this.props.comesFrom === 'adminstaff' &&
+                                data.status === 'done' ? (
+                                <li><a
+                                  onClick={() => {
+                                    this.props.editTask(data);
+                                  }}
+                                >
+                                  <img
+                                    src={require('assets/virtual_images/pencil-1.svg')}
+                                    alt=""
+                                    title=""
+                                  />{see_details}</a></li>
+                              ) : data.task_type &&
+                                data.task_type === 'picture_evaluation' &&
+                                (this.props.comesFrom === 'adminstaff' ||
+                                  this.props.comesFrom === 'detailTask') ? (
+                                <li><a
+                                  onClick={() => {
+                                    this.props.editTask(data);
+                                  }}
+                                >
+                                  <img
+                                    src={require('assets/virtual_images/pencil-1.svg')}
+                                    alt=""
+                                    title=""
+                                  />{assign_to_doctor}</a></li>
+                              ) : data.task_type &&
+                                (data.task_type === 'sick_leave' ||
+                                  data.task_type === 'video_conference') &&
+                                this.props.comesFrom === 'Professional' ? (
+                                <li><a
+                                  onClick={() => {
+                                    this.props.editTask(data);
+                                  }}
+                                >
+                                  <img
+                                    src={require('assets/virtual_images/pencil-1.svg')}
+                                    alt=""
+                                    title=""
+                                  />{view_detail}</a></li>
+                              ) : (
+                                data.task_name ? <li>
+                                  {roles.includes("edit_task") &&
                                     <a
                                       onClick={() => {
                                         this.props.editTask(data);
@@ -436,52 +453,12 @@ class PointPain extends Component {
                                         src={require('assets/virtual_images/pencil-1.svg')}
                                         alt=""
                                         title=""
-                                      />{see_details}</a>
-                                  ) : data.task_type &&
-                                    data.task_type === 'picture_evaluation' &&
-                                    (this.props.comesFrom === 'adminstaff' ||
-                                      this.props.comesFrom === 'detailTask') ? (
-                                    <a
-                                      onClick={() => {
-                                        this.props.editTask(data);
-                                      }}
-                                    >
-                                      <img
-                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                        alt=""
-                                        title=""
-                                      />{assign_to_doctor}</a>
-                                  ) : data.task_type &&
-                                    (data.task_type === 'sick_leave' ||
-                                      data.task_type === 'video_conference' || data.task_type === 'picture_evaluation') && (
-                                      this.props.comesFrom === 'Professional' && data.edit_professional_activity) ? (
-                                    <a
-                                      onClick={() => {
-                                        this.props.editTask(data);
-                                      }}
-                                    >
-                                      <img
-                                        src={require('assets/virtual_images/pencil-1.svg')}
-                                        alt=""
-                                        title=""
-                                      />{view_detail}</a>
-                                  ) : (
-                                    data.task_name ? <>
-                                      {data.edit_professional_activity &&
-                                        <a
-                                          onClick={() => {
-                                            this.props.editTask(data);
-                                          }}
-                                        >
-                                          <img
-                                            src={require('assets/virtual_images/pencil-1.svg')}
-                                            alt=""
-                                            title=""
-                                          />
-                                          {EditTask}
-                                        </a>
-                                      }
-                                    </> :
+                                      /> {EditTask}
+                                    </a>
+                                  }
+                                </li>
+                                  : <li>
+                                    {roles.includes("edit_assignedservice") &&
                                       <a
                                         onClick={() => {
                                           this.props.editTask(data);
@@ -494,8 +471,90 @@ class PointPain extends Component {
                                         />
                                         {edit_assigned_services}
                                       </a>
-                                  )}
-                                </li></>}
+                                    }
+                                  </li>
+                              )}
+                              {/* : null */}
+                              {/* } */}
+                            </>
+                              :
+
+                              <> <li>
+
+
+                                {data.task_type &&
+                                  data.task_type === 'picture_evaluation' &&
+                                  this.props.comesFrom === 'adminstaff' &&
+                                  data.status === 'done' ? (
+                                  <a
+                                    onClick={() => {
+                                      this.props.editTask(data);
+                                    }}
+                                  >
+                                    <img
+                                      src={require('assets/virtual_images/pencil-1.svg')}
+                                      alt=""
+                                      title=""
+                                    />{see_details}</a>
+                                ) : data.task_type &&
+                                  data.task_type === 'picture_evaluation' &&
+                                  (this.props.comesFrom === 'adminstaff' ||
+                                    this.props.comesFrom === 'detailTask') ? (
+                                  <a
+                                    onClick={() => {
+                                      this.props.editTask(data);
+                                    }}
+                                  >
+                                    <img
+                                      src={require('assets/virtual_images/pencil-1.svg')}
+                                      alt=""
+                                      title=""
+                                    />{assign_to_doctor}</a>
+                                ) : data.task_type &&
+                                  (data.task_type === 'sick_leave' ||
+                                    data.task_type === 'video_conference' || data.task_type === 'picture_evaluation') && (
+                                    this.props.comesFrom === 'Professional' && data.edit_professional_activity) ? (
+                                  <a
+                                    onClick={() => {
+                                      this.props.editTask(data);
+                                    }}
+                                  >
+                                    <img
+                                      src={require('assets/virtual_images/pencil-1.svg')}
+                                      alt=""
+                                      title=""
+                                    />{view_detail}</a>
+                                ) : (
+                                  data.task_name ? <>
+                                    {data.edit_professional_activity &&
+                                      <a
+                                        onClick={() => {
+                                          this.props.editTask(data);
+                                        }}
+                                      >
+                                        <img
+                                          src={require('assets/virtual_images/pencil-1.svg')}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {EditTask}
+                                      </a>
+                                    }
+                                  </> :
+                                    <a
+                                      onClick={() => {
+                                        this.props.editTask(data);
+                                      }}
+                                    >
+                                      <img
+                                        src={require('assets/virtual_images/pencil-1.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit_assigned_services}
+                                    </a>
+                                )}
+                              </li></>}
                             {this.props.comesFrom === 'adminstaff' ?
                               <>
                                 {/* {roles.includes("delete_task") ?
