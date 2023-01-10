@@ -946,6 +946,8 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {!roles.includes("show_invoice") && 
+                    <p className='err_message'>You have no authority for showing the Invoices, Please contact to hospital admin</p>}
                     {roles.includes("show_invoice") &&
                       <Grid className="billInfoData">
                         <Table>
