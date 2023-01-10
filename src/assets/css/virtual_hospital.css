@@ -17312,3 +17312,9 @@ background: #647484 !important;
     height: 16px !important;
   }
 }
+
+@media(max-width:960px){
+  .academy_ul.stepTdotupper ul{
+    height: 250px;
+  }
+}
