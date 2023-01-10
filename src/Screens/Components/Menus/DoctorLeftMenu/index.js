@@ -46,21 +46,21 @@ class Index extends Component {
       mode: "normal",
       update: false,
     };
-    new Timer(this.logOutClick.bind(this));
+    // new Timer(this.logOutClick.bind(this));
     socket = io(SOCKET_URL);
   }
   //For loggedout if logged in user is deleted
   componentDidMount() {
     // socket.on("connection", () => { });
 
-    new LogOut(
-      this.props.stateLoginValueAim.token,
-      this.props.stateLoginValueAim.user._id,
-      this.logOutClick.bind(this)
-    );
+    // new LogOut(
+    //   this.props.stateLoginValueAim.token,
+    //   this.props.stateLoginValueAim.user._id,
+    //   this.logOutClick.bind(this)
+    // );
     getSetting(this);
     this.getavailableUpdate();
-    this.availableUpdate();
+    // this.availableUpdate();
   }
 
   // componentDidUpdate(PrevProps, PrevState) {
@@ -216,6 +216,7 @@ class Index extends Component {
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
+        console.log('value', value)
         this.props.currentAvaliable({ current_available: value });
       })
       .catch((error) => {

@@ -117,7 +117,7 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    socket.on('connection', () => { });
+    // socket.on('connection', () => { });
     this.getPatientData();
     this.getProfessionalData();
     var steps = getSteps(

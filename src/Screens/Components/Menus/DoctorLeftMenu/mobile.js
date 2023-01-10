@@ -42,7 +42,7 @@ class Index extends Component {
       CheckCurrent: { current_available: false },
       update: false,
     };
-    new Timer(this.logOutClick.bind(this));
+    // new Timer(this.logOutClick.bind(this));
     socket = io(SOCKET_URL);
   }
 
@@ -51,14 +51,14 @@ class Index extends Component {
 
     // socket.on("connection", () => { });
 
-    new LogOut(
-      this.props.stateLoginValueAim.token,
-      this.props.stateLoginValueAim.user._id,
-      this.logOutClick.bind(this)
-    );
+    // new LogOut(
+    //   this.props.stateLoginValueAim.token,
+    //   this.props.stateLoginValueAim.user._id,
+    //   this.logOutClick.bind(this)
+    // );
     getSetting(this);
     this.getavailableUpdate();
-    this.availableUpdate();
+    // this.availableUpdate();
   }
 
   //For change Institutes
@@ -817,7 +817,7 @@ class Index extends Component {
                               />
                             </a>
                           </li>
-                          <li onClick={this.logOutClick}>
+                          <li onClick={()=>this.logOutClick()}>
                             <a>
                               {this.props.settings &&
                                 this.props.settings.setting &&

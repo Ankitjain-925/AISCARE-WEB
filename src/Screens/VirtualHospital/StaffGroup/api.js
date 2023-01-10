@@ -55,6 +55,7 @@ export const teamstaff = (current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((response) => {
+      if(response?.data?.hassuccessed){
       var totalPage = Math.ceil(response.data.data.length / 10);
       current.setState(
         {
@@ -79,6 +80,7 @@ export const teamstaff = (current) => {
           }
         }
       );
+      }
     });
 };
 

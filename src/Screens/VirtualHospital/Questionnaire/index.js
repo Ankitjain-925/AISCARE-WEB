@@ -1106,6 +1106,20 @@ class Index extends Component {
                 {/* End of Right Section */}
               </Grid>
             </Grid>
+            {/* <Grid item xs={12} md={6}>
+              {this.state.totalPage > 1 && (
+                <Grid className="prevNxtpag">
+                  <Pagination
+                    totalPage={this.state.totalPage}
+                    currentPage={this.state.currentPage}
+                    pages={this.state.pages}
+                    onChangePage={(page) => {
+                      this.onChangePage(page);
+                    }}
+                  />
+                </Grid>
+              )}
+            </Grid> */}
           </Grid>
         </Grid>
       </Grid>

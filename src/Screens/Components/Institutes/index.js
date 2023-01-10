@@ -38,8 +38,8 @@ class Index extends Component {
     socket = io(SOCKET_URL);
   }
   componentDidMount = () => {
-    socket.on('connection', () => {
-    });
+    // socket.on('connection', () => {
+    // });
     this.allHouses();
     this.getSetting();
   };

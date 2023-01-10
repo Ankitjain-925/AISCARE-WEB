@@ -1197,7 +1197,7 @@ getMypatientsData() {
       medication,
       enter_patient_id,
       enter_pin,
-      personalize_dashbrd,
+      personalize_dashbrd, 
       no_data_avlbl
     } = translate;
 
@@ -1235,7 +1235,7 @@ getMypatientsData() {
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} className="journalMain">
               {!this.state.isGraph && (
                 <Grid container direction="row">
                   {/* Website Menu */}
