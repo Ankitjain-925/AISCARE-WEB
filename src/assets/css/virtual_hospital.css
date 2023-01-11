@@ -17340,6 +17340,20 @@ background: #647484 !important;
   }
 }
 
+.allInfoRght2 label {
+  color:#000;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: Muli;
+}
+.margindatright{
+margin-left: 30px;
+}
+.spcaetime{
+  margin-top: 20px;
+}
+
+
 .setPointer {
   cursor: pointer;
 }
