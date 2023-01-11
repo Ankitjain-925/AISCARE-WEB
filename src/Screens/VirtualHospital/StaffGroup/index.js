@@ -334,6 +334,92 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             </Modal>
+                            <Modal
+open={this.state.openServSec}
+onClose={this.handleCloseServSec}
+className={
+  this.props.settings.setting &&
+    this.props.settings.setting.mode &&
+    this.props.settings.setting.mode ===
+    "dark"
+    ? "darkTheme addSpeclModel"
+    : "addSpeclModel"
+}
+>
+<Grid
+  className={
+    this.props.settings &&
+      this.props.settings.setting &&
+      this.props.settings.setting.mode &&
+      this.props.settings.setting.mode ===
+      "dark"
+      ? "darkTheme addSpeclContnt addStaffPart"
+      : "addServContnt addStaffPart"
+  }
+>
+  <Grid className="addSpeclContntIner">
+    <Grid className="addSpeclLbl">
+      <Grid
+        container
+        direction="row"
+        justify="center"
+      >
+        <Grid item xs={8} md={8} lg={8}>
+          <label>{staff_members}</label>
+        </Grid>
+        <Grid item xs={4} md={4} lg={4}>
+          <Grid>
+            <Grid className="entryCloseBtn">
+              <a
+                onClick={
+                  this.handleCloseServSec
+                }
+              >
+                <img
+                  src={require("assets/images/close-search.svg")}
+                  alt=""
+                  title=""
+                />
+              </a>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
+    <Grid className="enterServMain">
+      {this.state.showStaff &&
+        this.state.showStaff.length > 0 &&
+        this.state.showStaff.map(
+          (item) => {
+            return (
+              <Grid className="creatDetail">
+                <Grid className="creatInfoIner tasklistName allInfo">
+                  <Grid>
+                    <S3Image
+                      imgUrl={item?.image}
+                    />
+                  </Grid>
+                  <Grid className="allStaffRghtSec">
+                    <Grid>
+                      <label>
+                        {item.first_name}{" "}
+                        {item.last_name}
+                      </label>
+                    </Grid>
+                    <p>
+                      {item.profile_id}
+                    </p>
+                  </Grid>
+                </Grid>
+              </Grid>
+            );
+          }
+        )}
+    </Grid>
+  </Grid>
+</Grid>
+</Modal>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -421,96 +507,12 @@ class Index extends Component {
                                       this.handleOpenServSec(data?.staff);
                                     }}
                                   >
-                                    {data?.staff?.length}
+                                    <span className="setPointer">{data?.staff?.length}</span>
                                   </Td>
 
+                                    
                                   <Grid className="newServc">
-                                    <Modal
-                                      open={this.state.openServSec}
-                                      onClose={this.handleCloseServSec}
-                                      className={
-                                        this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode ===
-                                          "dark"
-                                          ? "darkTheme addSpeclModel"
-                                          : "addSpeclModel"
-                                      }
-                                    >
-                                      <Grid
-                                        className={
-                                          this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode ===
-                                            "dark"
-                                            ? "darkTheme addSpeclContnt addStaffPart"
-                                            : "addServContnt addStaffPart"
-                                        }
-                                      >
-                                        <Grid className="addSpeclContntIner">
-                                          <Grid className="addSpeclLbl">
-                                            <Grid
-                                              container
-                                              direction="row"
-                                              justify="center"
-                                            >
-                                              <Grid item xs={8} md={8} lg={8}>
-                                                <label>{staff_members}</label>
-                                              </Grid>
-                                              <Grid item xs={4} md={4} lg={4}>
-                                                <Grid>
-                                                  <Grid className="entryCloseBtn">
-                                                    <a
-                                                      onClick={
-                                                        this.handleCloseServSec
-                                                      }
-                                                    >
-                                                      <img
-                                                        src={require("assets/images/close-search.svg")}
-                                                        alt=""
-                                                        title=""
-                                                      />
-                                                    </a>
-                                                  </Grid>
-                                                </Grid>
-                                              </Grid>
-                                            </Grid>
-                                          </Grid>
 
-                                          <Grid className="enterServMain">
-                                            {this.state.showStaff &&
-                                              this.state.showStaff.length > 0 &&
-                                              this.state.showStaff.map(
-                                                (item) => {
-                                                  return (
-                                                    <Grid className="creatDetail">
-                                                      <Grid className="creatInfoIner tasklistName allInfo">
-                                                        <Grid>
-                                                          <S3Image
-                                                            imgUrl={item?.image}
-                                                          />
-                                                        </Grid>
-                                                        <Grid className="allStaffRghtSec">
-                                                          <Grid>
-                                                            <label>
-                                                              {item.first_name}{" "}
-                                                              {item.last_name}
-                                                            </label>
-                                                          </Grid>
-                                                          <p>
-                                                            {item.profile_id}
-                                                          </p>
-                                                        </Grid>
-                                                      </Grid>
-                                                    </Grid>
-                                                  );
-                                                }
-                                              )}
-                                          </Grid>
-                                        </Grid>
-                                      </Grid>
-                                    </Modal>
                                   </Grid>
 
                                   {/* <Td className="srvcDots"> */}

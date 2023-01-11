@@ -23,7 +23,7 @@ export const updateFLAG = (str) => {
           commonHeader(user_token)).then((response) => {
               current.setState({ loaderImage: false });
               if (response) {
-                  updateBlockchain(current.props.stateLoginValueAim.user, [], response.data.data.organ_donor[0], 'organ_data')
+                //   updateBlockchain(current.props.stateLoginValueAim.user, [], response.data.data.organ_donor[0], 'organ_data')
                   if (response.data.data.organ_donor[0].selectedOption) {
                       current.setState({ selectedOption: response.data.data.organ_donor[0].selectedOption })
                   }

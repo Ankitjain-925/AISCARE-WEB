@@ -5134,9 +5134,19 @@ a.recodBlck:hover {
 }
 .roomName {
   margin-top: 22px;
+  /* overflow: auto; */
+  height: 170px;
+  overflow-x: hidden;
 }
 .roomName label {
   margin-bottom: 0px;
+}
+.roomName .label1 {
+  display: none;
+}
+.roomName .label2 {
+  display: none;
+
 }
 .roomName-h label {
   margin-bottom: 0px;
@@ -11546,6 +11556,23 @@ ul.patientHint li {
     max-width: 100% !important;
     flex-basis: 100% !important;
   }
+  .roomName .MuiGrid-root.MuiGrid-container label {
+    display: none;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container .label1 {
+    color: #404646;
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 7px;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container .label2 {
+    color: #404646;
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 7px;
+  }
   .roomName .MuiGrid-root.MuiGrid-container input {
     margin-bottom: 0px !important;
   }
@@ -17313,13 +17340,43 @@ background: #647484 !important;
   }
 }
 
+
+.allInfoRght2 label {
+  color:#000;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: Muli;
+}
+.margindatright{
+margin-left: 30px;
+}
+.spcaetime{
+  margin-top: 20px;
+}
+
+
+.setPointer {
+  cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+  .tooltip-container {
+    width: 0px !important;
+  }
+}
+@media screen and (max-width: 640px) {
+  .scndOptionIner ul {
+    margin-top: 14px !important;
+    right: auto !important;
+}
+}
+
 @media(max-width:960px){
   .academy_ul.stepTdotupper ul{
     height: 250px;
   }
 }
-
 .setAssignedPart span{
   top:-84px;
   left: -30px;
 }
+
