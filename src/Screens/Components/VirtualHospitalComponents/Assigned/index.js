@@ -7,7 +7,7 @@ import { getLanguage } from 'translations/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Settings } from 'Screens/Login/setting';
-import ShowStaffData from "../../../VirtualHospital/AssignTherapy/ShowStaffData";
+import ShowStaffData from "Screens/VirtualHospital/AssignTherapy/ShowStaffData";
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";

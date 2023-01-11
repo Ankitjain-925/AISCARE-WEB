@@ -17313,7 +17313,20 @@ background: #647484 !important;
   }
 }
 
-
+.setPointer {
+  cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+  .tooltip-container {
+    width: 0px !important;
+  }
+}
+@media screen and (max-width: 640px) {
+  .scndOptionIner ul {
+    margin-top: 14px !important;
+    right: auto !important;
+}
+}
 @media(max-width:960px){
   .academy_ul.stepTdotupper ul{
     height: 250px;

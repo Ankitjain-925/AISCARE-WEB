@@ -1191,21 +1191,17 @@ class Index extends Component {
                           <Grid item xs={12} md={12} lg={12}>
                             <Grid container direction="row" justify="center">
                               <Grid item xs={8} md={8} lg={8}>
+                              <div>
                                 {this.state.updateOne !==
                                   this.state.updateTrack.track_id ? (
-                                  <div>
                                     <p>
                                       {New} {entry}
                                     </p>
-                                    <Grid className="nwDiaSel1">
-                                      {this.state.current_select}
-                                    </Grid>
-                                  </div>
+                                  
                                 ) : (
-                                  <div>
                                     <p>
                                       {edit} {entry}
-                                    </p>
+                                    </p>)}
                                     <Grid className="nwDiaSel">
                                       {this.state.current_select ===
                                         "anamnesis" && (
@@ -1344,7 +1340,7 @@ class Index extends Component {
                                         )}
                                     </Grid>
                                   </div>
-                                )}
+                              
                               </Grid>
                               <Grid item xs={4} md={4} lg={4}>
                                 <Grid>
