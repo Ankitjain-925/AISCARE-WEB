@@ -517,8 +517,9 @@ class Index extends Component {
           })
 
           var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
-          var id = this.state.selectDocData?.value;
+          var id =  this.state.selectDocData?.value ||  this.state.selectNurData?.value;
           this.setState({ loaderImage: true });
+
           axios
             .post(
               sitedata.data.path + '/vchat/getSlotTime',

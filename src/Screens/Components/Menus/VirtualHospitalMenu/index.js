@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
+import { getSetting, getSpeciality } from '../api';
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
@@ -14,7 +15,6 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting, getSpeciality } from '../api';
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Index extends Component {
     );
     getSetting(this);
     if(this.props.speciality.SPECIALITY == false){
-    getSpeciality(this);
+      getSpeciality(this);
     }
   }
   //For close the model

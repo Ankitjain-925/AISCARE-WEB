@@ -58,7 +58,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log('response11111', response)
+                // console.log('response11111', response)
                 if (response?.data?.hassuccessed) {
                     var totalPage = Math.ceil(response.data.data.length / 10);
                     this.setState({

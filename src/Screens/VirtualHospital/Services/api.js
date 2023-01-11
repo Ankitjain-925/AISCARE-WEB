@@ -113,7 +113,7 @@ export const handleSubmit = (current) => {
           });
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
           current.setState({ errorMsg: Something_went_wrong })
 
         });
@@ -228,7 +228,7 @@ export const  getAmount = (current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
-      console.log('responce',responce)
+      // console.log('responce',responce)
      if (responce.data.hassuccessed && responce.data.sickleave_certificate_amount) {
       let data=responce.data.sickleave_certificate_amount
         current.setState({ sickamount1:{amount:data} });

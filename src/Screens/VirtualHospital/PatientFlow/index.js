@@ -39,11 +39,12 @@ import QrReader from 'react-qr-reader';
 import VHfield from 'Screens/Components/VirtualHospitalComponents/VHfield/index';
 import DateFormat from 'Screens/Components/DateFormat/index';
 import ReactFlagsSelect from 'react-flags-select';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 
 class Index extends Component {
   constructor(props) {
@@ -90,7 +91,7 @@ class Index extends Component {
       msgState: '',
       enableScan: true,
     };
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
   static defaultProps = {
     isCombineEnabled: false,
@@ -225,11 +226,11 @@ class Index extends Component {
     }
     var data =
       e?.length > 0 &&
-      e.reduce((last, current, index) => {
+      e.reduce((last, current) => {
         let isProf =
           this.state.professionalArray?.length > 0 &&
           this.state.professionalArray.filter(
-            (data, index) => data.user_id === current.value || data._id === current.value
+            (data) => data?.user_id === current?.value || data?._id === current?.value
           );
         if (isProf && isProf.length > 0) {
           last.push(isProf[0]);
@@ -924,6 +925,7 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
+    var socket = SocketIo();
     socket.on('email_decline', (data) => {
       let result1 = result.map((element) => {
         var finalData =
@@ -1558,7 +1560,7 @@ class Index extends Component {
                             this.MovetoService();
                           }}
                           mode={this.props?.settings?.setting?.mode}
-                          socket={socket}
+                          // socket={()=>SocketIo()}
                           stateLanguageType={this.props.stateLanguageType}
                           roles={roles}
                         />

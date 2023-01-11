@@ -11,6 +11,7 @@ import { authy } from "./authy.js";
 import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
 import { Invoices } from "./invoices";
+import {clearScoket} from "socket";
 
 import {
   NavLink,
@@ -65,7 +66,7 @@ class Index extends Component {
   }
 
   componentDidMount = () => {
-    actions.logout();
+    // actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
     this.props.Invoices("logout");
@@ -88,6 +89,7 @@ class Index extends Component {
     this.props.houseSelect('loggedOut');
     this.props.OptionList(false);
     this.props.authy(false);
+    clearScoket();
     this.props.Invoices(false);
     let languageType =
       this.props.stateLanguageType && this.props.stateLanguageType !== ""

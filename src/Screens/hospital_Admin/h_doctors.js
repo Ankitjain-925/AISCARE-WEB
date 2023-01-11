@@ -35,15 +35,16 @@ import SelectField from 'Screens/Components/Select/index';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
   { value: 'Specialist2', label: 'Specialist2' },
 ];
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +75,7 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
 
   getallGroups = () => {
@@ -172,15 +173,15 @@ class Index extends Component {
     res.then((res) => {
       var images = [];
       const AllPatient = res.data && res.data.data && res.data.data;
+      var socket = SocketIo();
       socket.on('data_shown', (data) => {
-        console.log('data', data);
+        // console.log('data', data);
         var elementPos =
           AllPatient?.length > 0 &&
           AllPatient.map(function (x) {
             return x._id;
           }).indexOf(data?.data?.data?._id);
         if (elementPos > -1) {
-          console.log('sdfsdfdsf', data, data?.data, data?.data?.data);
           AllPatient[elementPos] = data?.data?.data;
           this.setState({ MypatientsData: AllPatient });
         }
@@ -345,8 +346,9 @@ class Index extends Component {
             )
             .then((responce) => {
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              var socket =SocketIo();
               socket.emit("Updated",sendSec)
-
+                console.log('sendSec1', sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -395,7 +397,9 @@ class Index extends Component {
       .then((responce) => {
         console.log('delete', responce.data.data)
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var socket =SocketIo();
         socket.emit("delete",sendSec)
+        console.log('sendSec2', sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {
