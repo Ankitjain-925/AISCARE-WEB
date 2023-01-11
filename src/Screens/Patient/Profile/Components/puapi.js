@@ -287,7 +287,7 @@ export const EntryValueName = (value, name, current) => {
     current.setState({ rhesus: value });
   }
   const state = current.state.UpDataDetails;
-  state[name] = value;
+  state[name] = name === 'title' ? value?.label : value;
   current.setState({ UpDataDetails: state });
 };
 
@@ -544,24 +544,24 @@ export const saveUserData = (current) => {
             current.setState({ succUpdate: false });
           }, 5000);
           getUserData(current, datas);
-          axios
-            .put(
-              'https://api-eu.cometchat.io/v2.0/users/' +
-                current.state.profile_id.toLowerCase(),
-              {
-                name:
-                  current.state.UpDataDetails.first_name +
-                  ' ' +
-                  current.state.UpDataDetails.last_name,
-              },
-              commonCometHeader()
-            )
-            .then((res) => {
-              var data = update_CometUser(
-                current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-                res.data.data
-              );
-            });
+          // axios
+          //   .put(
+          //     'https://api-eu.cometchat.io/v2.0/users/' +
+          //       current.state.profile_id.toLowerCase(),
+          //     {
+          //       name:
+          //         current.state.UpDataDetails.first_name +
+          //         ' ' +
+          //         current.state.UpDataDetails.last_name,
+          //     },
+          //     commonCometHeader()
+          //   )
+          //   .then((res) => {
+          //     var data = update_CometUser(
+          //       current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+          //       res.data.data
+          //     );
+          //   });
         } else {
           current.setState({ loaderImage: false });
           if (responce.data.message === 'Phone is not verified') {

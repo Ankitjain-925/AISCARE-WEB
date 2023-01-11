@@ -15,7 +15,7 @@ import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
 import { slide as Menu } from "react-burger-menu";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting } from "../api";
+import { getSetting, getSpeciality } from '../api';
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
@@ -41,6 +41,9 @@ class Index extends Component {
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
+    if(this.props.speciality.SPECIALITY == false){
+      getSpeciality(this);
+    }
   }
   //For close the model
   openLanguageModel = () => {

@@ -4728,7 +4728,7 @@ button.aboutTabsIner {
     text-align: center;
     justify-content: center;
     align-items: center;
-    min-height: 80px;
+    min-height: 100px;
     display: flex;
     color: #7F8383;
     font-family: Muli;
@@ -13809,7 +13809,7 @@ a.barViewnw.nowactive,  a.calViewnw.nowactive{
     font-weight: 800 !important;
 }
 .homeBgDrk .ant-picker-input input {
-    background: #v404646 !important;
+    background: #404646 !important;
 }
 .darkTheme .jurnlTatent label span{
     color: #fff!important;

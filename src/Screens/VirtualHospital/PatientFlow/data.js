@@ -80,6 +80,7 @@ export const checkTheIndex = (array, attr, value) => {
 };
 
 export const AllWards = (Specilaity_id, AllSpecaility) => {
+  if(AllSpecaility && AllSpecaility.length>0){
   var mydata = AllSpecaility.filter((element) => element._id === Specilaity_id);
   if (mydata && mydata.length > 0) {
     return (
@@ -91,6 +92,10 @@ export const AllWards = (Specilaity_id, AllSpecaility) => {
   } else {
     return [];
   }
+}
+else {
+  return [];
+}
 };
 
 export const setWard = async (

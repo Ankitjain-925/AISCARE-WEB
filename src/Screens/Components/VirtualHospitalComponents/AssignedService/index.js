@@ -420,9 +420,12 @@ class Index extends Component {
     getAssignService = () => {
         var serviceList = [],
             serviceList1 = [];
+            var house =  this.props.comesFrom === "Professional"
+            ? this.state.service?.house_id || this.state.selectedHouse?.value
+            : this.props?.House?.value;
         axios
             .get(
-                sitedata.data.path + '/vh/GetService/' + this.props.House?.value,
+                sitedata.data.path + '/vh/GetService/' + house,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -460,6 +463,7 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            this.getAssignService();
             const { roles = [] } = e || {};
             if (!roles.includes("add_assigned_services")) {
                 this.setState(

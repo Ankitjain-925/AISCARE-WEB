@@ -316,21 +316,21 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
-        axios
-          .put(
-            'https://api-eu.cometchat.io/v2.0/users/' +
-            this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
-            {
-              avatar: this.state.uploadedimage,
-            },
-            commonCometHeader()
-          )
-          .then((res) => {
-            var data = update_CometUser(
-              this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-              res.data.data
-            );
-          });
+        // axios
+        //   .put(
+        //     'https://api-eu.cometchat.io/v2.0/users/' +
+        //     this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
+        //     {
+        //       avatar: this.state.uploadedimage,
+        //     },
+        //     commonCometHeader()
+        //   )
+        //   .then((res) => {
+        //     var data = update_CometUser(
+        //       this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+        //       res.data.data
+        //     );
+        //   });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
