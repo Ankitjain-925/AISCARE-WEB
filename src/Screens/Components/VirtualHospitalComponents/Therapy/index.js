@@ -104,11 +104,15 @@ class Index extends Component {
 
     };
     openTaskTime = (index) => {
-        this.setState({ openIndex: index });
+        const stateCopy = this.state.therapy_sequence
+        stateCopy[index]['addTime'] = true
+        this.setState({ therapy_sequence: stateCopy });
     };
 
-    closeTaskTime = () => {
-        this.setState({ openIndex: false });
+    closeTaskTime = (index) => {
+        const stateCopy = this.state.therapy_sequence
+        stateCopy[index]['addTime'] = false
+        this.setState({ therapy_sequence: stateCopy });
     };
 
     // assignedTo = (e) => {
@@ -510,7 +514,7 @@ class Index extends Component {
                                             <label>{For_Hospital}</label>
                                             <Select
                                                 name="for_hospital"
-                                                options={this.props.thisList}
+                                                options={this.props.currentList}
                                                 placeholder={Search_Select}
                                                 onChange={(e) => this.updateEntryState7(e)}
                                                 value={this.state.selectedHouse || ""}
@@ -563,7 +567,7 @@ class Index extends Component {
                                                 className="addStafSelect"
                                                 isMulti={false}
                                                 isSearchable={true}
-                                                isDisabled={true}
+                                            // isDisabled={true}
                                             />
                                         </Grid>
                                     </Grid>
@@ -650,12 +654,12 @@ class Index extends Component {
                                                                 xs={4}
                                                                 md={4}
                                                                 className={
-                                                                    this.state.openIndex !== index
+                                                                    !item.addTime
                                                                         ? 'addTimeTask'
                                                                         : 'addTimeTask1'
                                                                 }
                                                             >
-                                                                {this.state.openIndex !== index ? (
+                                                                {!item.addTime ? (
                                                                     <Button
                                                                         onClick={() => {
                                                                             this.openTaskTime(index)
