@@ -17340,6 +17340,7 @@ background: #647484 !important;
   }
 }
 
+
 .allInfoRght2 label {
   color:#000;
   font-weight: 600;
@@ -17368,8 +17369,14 @@ margin-left: 30px;
     right: auto !important;
 }
 }
+
 @media(max-width:960px){
   .academy_ul.stepTdotupper ul{
     height: 250px;
   }
 }
+.setAssignedPart span{
+  top:-84px;
+  left: -30px;
+}
+
