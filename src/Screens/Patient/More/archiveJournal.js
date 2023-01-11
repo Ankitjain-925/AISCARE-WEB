@@ -84,6 +84,27 @@ class Index extends Component {
     );
   };
 
+  isThisAvilabel = (object, text) => {
+    if (object && typeof object == "object") {
+      if (
+        object?.type?.replace("_", " ") &&
+        object?.type?.replace("_", " ")?.includes(text)
+      ) {
+        return true;
+      } else if (
+        object.created_by_temp &&
+        object.created_by_temp.includes(text)
+      ) {
+        return true;
+      } else {
+        return JSON.stringify(object).toLowerCase().includes(text);
+      }
+    } else {
+      return false;
+    }
+  };
+
+
   FilterText = (text) => {
     let track = this.state.allTrack1;
     let FilterFromSearch =

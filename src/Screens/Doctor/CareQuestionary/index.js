@@ -205,11 +205,9 @@ class Index extends Component {
                                         {!openQues ?
                                             <Grid>
                                                
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>
-{!this.state.authorityMsg && 
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>}
-                                                {this.state.authorityMsg && 
-                                                <div className="err_message">You dont have authority to selected hospital</div>}
+                                                {/* <div className="err_message">{this.state.errorChrMsg1}</div> */}
+                                                {!this.state.authorityMsg && <div className="err_message">{this.state.errorChrMsg1}</div>}
+                                                {this.state.authorityMsg && <div className="err_message">You dont have authority to selected hospital</div>}
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
