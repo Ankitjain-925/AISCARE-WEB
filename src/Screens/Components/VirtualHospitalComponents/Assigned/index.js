@@ -208,9 +208,10 @@ class Index extends React.Component {
                     <span>
                       {data?.first_name} {data?.last_name} - ({data?.profile_id})
                     </span> :
+                    <Grid className="setAssignedPart">
                     <span>
                       {data?.team_name} {" "} {"(Staff)"}
-                    </span>}
+                    </span></Grid>}
                   {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={
 
                     // this.props.settings.setting &&

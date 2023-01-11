@@ -17318,3 +17318,8 @@ background: #647484 !important;
     height: 250px;
   }
 }
+
+.setAssignedPart span{
+  top:-84px;
+  left: -30px;
+}
