@@ -1197,9 +1197,9 @@ class Index extends Component {
                                     <p>
                                       {New} {entry}
                                     </p>
-                                    <Grid className="nwDiaSel1">
+                                    {/* <Grid className="nwDiaSel1">
                                       {this.state.current_select}
-                                    </Grid>
+                                    </Grid> */}
                                   </div>
                                 ) : (
                                   <div>
