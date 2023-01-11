@@ -107,12 +107,16 @@ class Index extends Component {
     this.props.handleCloseAss();
   };
   openTaskTime = (index) => {
-    this.setState({ openIndex: index });
-  };
+    const stateCopy = this.state.therapy_sequence
+    stateCopy[index]['addTime'] = true
+    this.setState({ therapy_sequence: stateCopy });
+};
 
-  closeTaskTime = () => {
-    this.setState({ openIndex: false });
-  };
+closeTaskTime = (index) => {
+    const stateCopy = this.state.therapy_sequence
+    stateCopy[index]['addTime'] = false
+    this.setState({ therapy_sequence: stateCopy });
+};
 
   // assignedTo = (e) => {
   //     this.setState({ assignedTo: e }, () => {
@@ -781,12 +785,12 @@ class Index extends Component {
                                   xs={4}
                                   md={4}
                                   className={
-                                    this.state.openIndex !== index
+                                    !item.addTime
                                       ? "addTimeTask addTimeTaskSec"
                                       : "addTimeTask1"
                                   }
                                 >
-                                  {this.state.openIndex !== index ? (
+                                  {!item.addTime ? (
                                     <Button
                                       onClick={() => {
                                         this.openTaskTime(index);
