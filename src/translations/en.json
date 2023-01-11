@@ -2177,7 +2177,9 @@
     "can_add_invoice":"Can't Add invoice with 0 Amount",
     "Viewmoredetails":"View More Details",
     "assignedservicename":"Assigned Service Name",
-    "Services_name":"Service Name"
+    "Services_name":"Service Name",
+    "taskname":"Task Name",
+    "task_Description":"Task Description"
    
     
      

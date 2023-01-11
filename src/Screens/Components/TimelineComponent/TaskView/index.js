@@ -14,6 +14,7 @@ import { getDate, newdate, getTime, getImage, } from "../../BasicMethod/index";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import { pure } from "recompose";
 import AssignTherapy from "Screens/VirtualHospital/AssignTherapy/index";
+import Patientdata from "Screens/Components/TimelineComponent/TaskView/Patientdata"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +51,12 @@ class Index extends Component {
         }
     };
 
+    patientjourneydata = (item) => {
+        this.setState({ openModal: true, ModalData: item });
+    }
+    closeFullQues = () => {
+        this.setState({ openModal: false });
+    }
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
@@ -58,7 +65,8 @@ class Index extends Component {
             Dueon,
             Dueon_time,
             therapy_name,
-            Sequence
+            Sequence,
+            Viewmoredetails
         } = translate;
         var item = this.state.item;
         return (
@@ -312,13 +320,45 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
-                                                            <Grid item xs={5} md={5} >
+                                                            <Grid item xs={12} md={12} >
                                                                 {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data, index) => (
+                                                                     <>
+                                                                     {data?.first_name ? (
                                                                     <CreatedBySec
                                                                         data={data}
                                                                         callFrom='assignedTo'
                                                                         track_id={item._id}
                                                                         index={index} />
+                                                                        ):(
+                                                                            <>
+                                                                            {" "}
+                                                                            <div className="">
+                                                                                <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                                                                    <Grid>
+                                                                                        <img
+                                                                                            src={
+                                                                                                this.props.settings &&
+                                                                                                    this.props.settings.setting &&
+                                                                                                    this.props.settings.setting.mode &&
+                                                                                                    this.props.settings.setting.mode === "dark"
+                                                                                                    ? require("assets/virtual_images/groupicon-black.jpg")
+                                                                                                    : require("assets/virtual_images/groupicon-black.jpg")
+                                                                                            }
+                                                                                        ></img>
+                                                                                    </Grid>
+                                                                                    <Grid className="allInfoRght2">
+                                                                                        <Grid>
+                                                                                            <label>
+                                                                                                {data?.team_name} {"(Staff)"}
+                                                                                            </label>
+                                                                                        </Grid>
+                                                                                        <p>{data?.staff_id}</p>
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </div>
+                                                                        </>
+                                                                          )}
+                                                                            </>
                                                                 ))}
                                                             </Grid>
                                                         </Grid>
@@ -369,9 +409,21 @@ class Index extends Component {
                                     <Grid className="addSpc detailMark task_desk">
                                         <Collapsible trigger="Description" open="true">
                                             <Grid className="task_desk">
-                                                <span>{item.description}</span>
+                                                <span>{item.task_description}</span>
                                             </Grid>
                                         </Collapsible>
+                                    </Grid>
+                                    <Grid className="bp_graph">
+                                        <Grid>
+                                            <a
+                                                onClick={(e) =>
+                                                    this.patientjourneydata(item)
+                                                }
+                                            >
+
+                                                {Viewmoredetails}
+                                            </a>
+                                        </Grid>
                                     </Grid>
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Attachments" open="true">
@@ -386,6 +438,12 @@ class Index extends Component {
                         </Collapsible>
                     </Grid>
                 </Grid>
+                <Patientdata
+                    closeFullQues={() => this.closeFullQues()}
+                    openModal={this.state.openModal}
+                    item={this.state.ModalData}
+                    // comesFrom="PatientEnd"
+                />
             </Grid>
         );
     }
