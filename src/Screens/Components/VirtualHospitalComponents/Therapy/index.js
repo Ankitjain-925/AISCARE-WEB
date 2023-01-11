@@ -53,6 +53,7 @@ class Index extends Component {
       selectedHouse: this.props.selectedHouse,
       authErr: false,
       disableAssignment: false,
+      therapy_sequence: {}
     };
   }
 
@@ -85,7 +86,16 @@ class Index extends Component {
     }
   };
 
+
+
   handleCloseAss = () => {
+
+    this.state.therapy_sequence.map((item, index) => {
+      const state = this.state.therapy_sequence;
+    state[index]["assinged_to1"] = "";
+    this.setState({ therapy_sequence: state });
+    });
+
     this.setState(
       {
         service: {},
@@ -249,6 +259,7 @@ closeTaskTime = (index) => {
   };
 
   updateEntry = (value, name, index) => {
+    console.log("1111", index)
     var due_on = this.state.therapy_sequence?.[index]?.due_on
       ? this.state.therapy_sequence?.[index]?.due_on
       : { date: new Date(), time: new Date() };

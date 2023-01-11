@@ -1,4 +1,5 @@
 var data = {
+
   "path": "http://localhost:5001/api/v5",
   // live_site"  : "https://aimedis.io/",
   // "path"       : "https://virtualhospital.aidoc.io/api/v5",

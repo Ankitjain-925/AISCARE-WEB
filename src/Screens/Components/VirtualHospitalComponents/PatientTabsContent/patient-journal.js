@@ -1197,7 +1197,6 @@ class Index extends Component {
                                     <p>
                                       {New} {entry}
                                     </p>
-                                  
                                 ) : (
                                     <p>
                                       {edit} {entry}

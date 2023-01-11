@@ -12,6 +12,7 @@ import SpecialityButton from "../../VirtualHospitalComponents/SpecialityButton";
 import { getLanguage } from "translations/index";
 import { getDate, newdate, getTime, getImage, } from "../../BasicMethod/index";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import Patientdata from "Screens/Components/TimelineComponent/ServiceView/Patientdata"
 import { pure } from "recompose";
 class Index extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class Index extends Component {
             images: this.props.images,
             TrackRecord: this.props.TrackRecord,
             onlyOverview: this.props.onlyOverview,
+            openModal: false
         };
     }
 
@@ -49,6 +51,12 @@ class Index extends Component {
         }
     };
 
+    patientjourneydata = (item) => {
+        this.setState({ openModal: true, ModalData: item });
+    }
+    closeFullQues = () => {
+        this.setState({ openModal: false });
+    }
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
@@ -59,7 +67,8 @@ class Index extends Component {
             Services,
             Price,
             therapy_name,
-            Sequence
+            Sequence,
+            Viewmoredetails
         } = translate;
         var item = this.state.item;
         return (
@@ -275,50 +284,82 @@ class Index extends Component {
                                         <Grid className="clear"></Grid>
                                     </Grid>
                                     {item && item.therapy_id && (
-                                    <Grid className="addSpc detailMark">
-                                        <Collapsible trigger="Assign Therapy" open="true">
-                                            <Grid className="detailCntnt">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={5} md={5} >
-                                                                <label>{therapy_name}</label>
+                                        <Grid className="addSpc detailMark">
+                                            <Collapsible trigger="Assign Therapy" open="true">
+                                                <Grid className="detailCntnt">
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
+                                                            <Grid container direction="row">
+                                                                <Grid item xs={5} md={5} >
+                                                                    <label>{therapy_name}</label>
+                                                                </Grid>
+                                                                <Grid item xs={7} md={7}>
+                                                                    <span>{item.therapy_name}</span>
+                                                                </Grid>
+                                                                <Grid className="clear"></Grid>
                                                             </Grid>
-                                                            <Grid item xs={7} md={7}>
-                                                            <span>{item.therapy_name}</span>
-                                                            </Grid>
-                                                            <Grid className="clear"></Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={5} md={5} >
-                                                                <label>{Sequence}</label>
+                                                        <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
+                                                            <Grid container direction="row">
+                                                                <Grid item xs={5} md={5} >
+                                                                    <label>{Sequence}</label>
+                                                                </Grid>
+                                                                <Grid item xs={7} md={7}>
+                                                                    <span>{item.sequence}</span>
+                                                                </Grid>
+                                                                <Grid className="clear"></Grid>
                                                             </Grid>
-                                                            <Grid item xs={7} md={7}>
-                                                            <span>{item.sequence}</span>
-                                                            </Grid>
-                                                            <Grid className="clear"></Grid>
                                                         </Grid>
+                                                        <Grid className="clear"></Grid>
                                                     </Grid>
-                                                    <Grid className="clear"></Grid>
                                                 </Grid>
-                                            </Grid>
-                                        </Collapsible>
-                                    </Grid>)}
+                                            </Collapsible>
+                                        </Grid>)}
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Assigned to" open="true">
                                             <Grid className="detailCntnt">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
-                                                            <Grid item xs={5} md={5} >
+                                                            <Grid item xs={12} md={12} >
                                                                 {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data, index) => (
+                                                                    <>
+                                                                      {data?.first_name ? (
                                                                     <CreatedBySec
                                                                         data={data}
                                                                         callFrom='assignedTo'
                                                                         track_id={item._id}
                                                                         index={index} />
+                                                                      ):(
+                                                                        <>
+                                                                        {" "}
+                                                                        <div className="">
+                                                                            <Grid className="allInfo allInfo2 tasklistName tasklistName1">
+                                                                                <Grid>
+                                                                                    <img
+                                                                                        src={
+                                                                                            this.props.settings &&
+                                                                                                this.props.settings.setting &&
+                                                                                                this.props.settings.setting.mode &&
+                                                                                                this.props.settings.setting.mode === "dark"
+                                                                                                ? require("assets/virtual_images/groupicon-black.jpg")
+                                                                                                : require("assets/virtual_images/groupicon-black.jpg")
+                                                                                        }
+                                                                                    ></img>
+                                                                                </Grid>
+                                                                                <Grid className="allInfoRght2">
+                                                                                    <Grid>
+                                                                                        <label>
+                                                                                            {data?.team_name} {"(Staff)"}
+                                                                                        </label>
+                                                                                    </Grid>
+                                                                                    <p>{data?.staff_id}</p>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </div>
+                                                                    </>
+                                                                      )}
+                                                                        </>
                                                                 ))}
                                                             </Grid>
                                                         </Grid>
@@ -367,7 +408,19 @@ class Index extends Component {
                                             </Grid>
                                         </Collapsible>
                                     </Grid>
-                                    <Grid className="addSpc detailMark">
+                                    <Grid className="bp_graph">
+                                        <Grid>
+                                            <a
+                                                onClick={(e) =>
+                                                    this.patientjourneydata(item)
+                                                }
+                                            >
+
+                                                {Viewmoredetails}
+                                            </a>
+                                        </Grid>
+                                    </Grid>
+                                    {/* <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Services" open="true">
                                             <Grid className="srvcTable3">
                                                 <Table>
@@ -400,7 +453,7 @@ class Index extends Component {
                                                 </Table>
                                             </Grid>
                                         </Collapsible>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Attachments" open="true">
                                             <FileViews
@@ -414,7 +467,14 @@ class Index extends Component {
                         </Collapsible>
                     </Grid>
                 </Grid>
+                <Patientdata
+                    closeFullQues={() => this.closeFullQues()}
+                    openModal={this.state.openModal}
+                    item={this.state.ModalData}
+                    // comesFrom="PatientEnd"
+                />
             </Grid>
+
         );
     }
 }
