@@ -319,7 +319,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_diameter_leg')} label={Diameter_Leg} value={allQuestionData?.full_diameter_leg} />
                                                                     </Grid>
                                                                 </Grid>
@@ -357,7 +357,7 @@ class Index extends Component {
                                                             </Grid>}
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_Sick')} label={Sick} value={allQuestionData?.full_Sick} />
                                                                     </Grid>
                                                                 </Grid>
