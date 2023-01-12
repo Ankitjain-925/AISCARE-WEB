@@ -38,7 +38,7 @@ export const handleSubmit = (current) => {
         current.setState({ error_section: 1, errorMsg: Please_selete_Doctor_Staff })
     }
     else if (!data.speciality || ((data && data?.speciality && data?.speciality?.length < 0))) {
-        current.setState({ error_section: 1, erorMsg: Please_select_speciality })
+        current.setState({ error_section: 1, errorMsg: Please_select_speciality })
     }
     else if (!data.sequence_list || ((data && data?.sequence_list && data?.sequence_list?.length < 2))) {
         current.setState({ error_section: 2, errorMsg: Please_select_Task_Service })

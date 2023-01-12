@@ -27,7 +27,7 @@ import SPECIALITY from "speciality";
 import _ from 'lodash';
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { getLanguage } from "translations/index"
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import contry from "Screens/Components/countryBucket/countries.json";
 
@@ -442,21 +442,21 @@ class Index extends Component {
             this.setState({ succUpdate: false });
           }, 5000);
           this.getUserData();
-          axios
-            .put(
-              "https://api-eu.cometchat.io/v2.0/users/" +
-                this.state.profile_id.toLowerCase(),
-              {
-                name:
-                  this.state.UpDataDetails.first_name +
-                  " " +
-                  this.state.UpDataDetails.last_name,
-              },
-              commonCometHeader()
-            )
-            .then((res) => {
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-            });
+          // axios
+          //   .put(
+          //     "https://api-eu.cometchat.io/v2.0/users/" +
+          //       this.state.profile_id.toLowerCase(),
+          //     {
+          //       name:
+          //         this.state.UpDataDetails.first_name +
+          //         " " +
+          //         this.state.UpDataDetails.last_name,
+          //     },
+          //     commonCometHeader()
+          //   )
+          //   .then((res) => {
+          //     // var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+          //   });
         } else {
           this.setState({ loaderImage: false });
           if (responce.data.message === "Phone is not verified") {
@@ -681,18 +681,18 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
-        axios
-          .put(
-            "https://api-eu.cometchat.io/v2.0/users/" +
-              this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
-            {
-              avatar: this.state.uploadedimage,
-            },
-            commonCometHeader()
-          )
-          .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-          });
+        // axios
+        //   .put(
+        //     "https://api-eu.cometchat.io/v2.0/users/" +
+        //       this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
+        //     {
+        //       avatar: this.state.uploadedimage,
+        //     },
+        //     commonCometHeader()
+        //   )
+        //   .then((res) => {
+        //     // var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+        //   });
         var find1 = this.state.uploadedimage;
 
         this.SettingImage(find1);

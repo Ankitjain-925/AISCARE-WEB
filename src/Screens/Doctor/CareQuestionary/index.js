@@ -205,11 +205,9 @@ class Index extends Component {
                                         {!openQues ?
                                             <Grid>
                                                
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>
-{!this.state.authorityMsg && 
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>}
-                                                {this.state.authorityMsg && 
-                                                <div className="err_message">You dont have authority to selected hospital</div>}
+                                                {/* <div className="err_message">{this.state.errorChrMsg1}</div> */}
+                                                {!this.state.authorityMsg && <div className="err_message">{this.state.errorChrMsg1}</div>}
+                                                {this.state.authorityMsg && <div className="err_message">You dont have authority to selected hospital</div>}
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
@@ -321,7 +319,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_diameter_leg')} label={Diameter_Leg} value={allQuestionData?.full_diameter_leg} />
                                                                     </Grid>
                                                                 </Grid>
@@ -359,7 +357,7 @@ class Index extends Component {
                                                             </Grid>}
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_Sick')} label={Sick} value={allQuestionData?.full_Sick} />
                                                                     </Grid>
                                                                 </Grid>

@@ -6,7 +6,7 @@ import SPECIALITY from "speciality";
 import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import contry from "Screens/Components/countryBucket/countries.json";
 // Copy the Profile id and PIN
@@ -310,21 +310,21 @@ export const saveUserData = (current, datas) => {
                         current.setState({ succUpdate: false });
                     }, 5000);
                     getUserData(current);
-                    axios
-                        .put(
-                            "https://api-eu.cometchat.io/v2.0/users/" +
-                            current.state.profile_id.toLowerCase(),
-                            {
-                                name:
-                                    current.state.UpDataDetails.first_name +
-                                    " " +
-                                    current.state.UpDataDetails.last_name,
-                            },
-                            commonCometHeader()
-                        )
-                        .then((res) => {
-                            var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
-                        });
+                    // axios
+                    //     .put(
+                    //         "https://api-eu.cometchat.io/v2.0/users/" +
+                    //         current.state.profile_id.toLowerCase(),
+                    //         {
+                    //             name:
+                    //                 current.state.UpDataDetails.first_name +
+                    //                 " " +
+                    //                 current.state.UpDataDetails.last_name,
+                    //         },
+                    //         commonCometHeader()
+                    //     )
+                    //     .then((res) => {
+                    //         // var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+                    //     });
                 } else {
                     current.setState({ loaderImage: false });
                     if (responce.data.message === "Phone is not verified") {
@@ -379,7 +379,7 @@ export const saveUserData1 = (current) => {
                     commonCometHeader()
                 )
                 .then((res) => {
-                    var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+                    // var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
                 });
             var find1 = current.state.uploadedimage;
             SettingImage(find1, current);

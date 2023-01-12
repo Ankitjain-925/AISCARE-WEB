@@ -10,7 +10,7 @@ import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getSetting } from "../api";
 import sitedata from "sitedata";
@@ -70,11 +70,11 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -86,7 +86,7 @@ class Index extends Component {
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
-    }
+    // }
   };
 
   handleOpenInvt = () => {

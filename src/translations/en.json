@@ -2174,18 +2174,12 @@
     "showing_assigned_service":"You have no authority for showing the assigned service, Please contact to hospital admin",
     "showing_task":"You have no authority for showing the tasks, Please contact to hospital admin",
     "Sequence":"Sequence",
-    "can_add_invoice":"Can't Add invoice with 0 Amount",
+    "can_add_invoice":"Can not add invoice with 0 amount",
     "Viewmoredetails":"View More Details",
     "assignedservicename":"Assigned Service Name",
     "Services_name":"Service Name",
     "taskname":"Task Name",
     "task_Description":"Task Description"
-   
-    
-     
     }
-
-     
-
     }
 

@@ -808,7 +808,7 @@ class Index extends Component {
     let response = await get_track(user_token, user_id);
     if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
-      updateBlockchain(this.props.stateLoginValueAim.user, response.data.data);
+      // updateBlockchain(this.props.stateLoginValueAim.user, response.data.data);
       var images = [];
       response.data.data = response.data.data.filter((e) => e != null);
 

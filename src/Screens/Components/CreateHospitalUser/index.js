@@ -16,7 +16,7 @@ import axios from 'axios';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import contry from '../countryBucket/countries.json';
 import Loader from '../Loader/index';
-import { updateCometUser } from 'Screens/Components/CommonApi/index';
+// import { updateCometUser } from 'Screens/Components/CommonApi/index';
 import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
 import { getLanguage } from '../../hospital_Admin/translations/index';
 // import * as translationEN from '../../hospital_Admin/translations/en_json.json';
@@ -252,28 +252,28 @@ class Index extends Component {
                   )
                   .then((response) => {
                     if (response.data.hassuccessed) {
-                      axios
-                        .post(
-                          'https://api-eu.cometchat.io/v2.0/users',
-                          {
-                            uid: response.data.data.profile_id,
-                            name:
-                              response.data.data.first_name +
-                              ' ' +
-                              response.data.data.last_name,
-                          },
-                          commonCometHeader()
-                        )
-                        .then((res) => {
-                          updateCometUser({
-                            uid: response.data.data.profile_id.toLowerCase(),
-                            name:
-                              response.data.data.first_name +
-                              ' ' +
-                              response.data.data.last_name,
-                            role: 'default',
-                          });
-                        });
+                      // axios
+                      //   .post(
+                      //     'https://api-eu.cometchat.io/v2.0/users',
+                      //     {
+                      //       uid: response.data.data.profile_id,
+                      //       name:
+                      //         response.data.data.first_name +
+                      //         ' ' +
+                      //         response.data.data.last_name,
+                      //     },
+                      //     commonCometHeader()
+                      //   )
+                      //   .then((res) => {
+                      //     // updateCometUser({
+                      //     //   uid: response.data.data.profile_id.toLowerCase(),
+                      //     //   name:
+                      //     //     response.data.data.first_name +
+                      //     //     ' ' +
+                      //     //     response.data.data.last_name,
+                      //     //   role: 'default',
+                      //     // });
+                      //   });
                       setTimeout(() => {
                         this.setState({ loaderImage: false });
                         this.setState({ CreateUsers: {} });

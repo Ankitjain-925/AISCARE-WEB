@@ -4728,7 +4728,7 @@ button.aboutTabsIner {
     text-align: center;
     justify-content: center;
     align-items: center;
-    min-height: 80px;
+    min-height: 100px;
     display: flex;
     color: #7F8383;
     font-family: Muli;
@@ -16379,9 +16379,9 @@ select:-webkit-autofill:focus {
   .presCourse{
     padding: 8px 12px 8px 12px !important;
   }
-  .meetBoxCntnt{
+  /* .meetBoxCntnt{
     width: 100% !important;
-  }
+  } */
   .trckSection {
     margin: 0px 10px;
   }
@@ -16424,14 +16424,16 @@ select:-webkit-autofill:focus {
 @media (max-width: 468px){
     .meetCourse {
         position: absolute;
-        left: -51px;
+        left: -80px;
         top: 11px;
         background-color: #ffffff;
         padding: 8px 12px;
+        width: 100px !important;
     }
     .meetDetail h1 {
         line-height: 21px !important;
         font-size: 18px;
+        line-break: anywhere !important;
     }
     .meetVdoLft, .meetVdoRght {
         width: 100% !important;
