@@ -17380,3 +17380,11 @@ margin-left: 30px;
   left: -30px;
 }
 
+@media(max-width:384px){
+  .fatiqueQuesSec .MuiGrid-grid-md-4{
+    text-align: left;
+  }
+  .fatiqueQuesSec a{
+    margin-top: 5px;
+  }
+}
