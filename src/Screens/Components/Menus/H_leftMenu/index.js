@@ -8,7 +8,7 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import Timer from 'Screens/Components/TimeLogOut/index';
 import Mode from 'Screens/Components/ThemeMode/index.js';
 import Loader from 'Screens/Components/Loader/index';
-import { update_CometUser } from 'Screens/Components/CommonApi/index';
+// import { update_CometUser } from 'Screens/Components/CommonApi/index';
 import { getLanguage } from 'Screens/hospital_Admin/translations/index';
 import CreateAdminUser from 'Screens/Components/CreateHospitalUser/index';
 import SetLanguage from 'Screens/Components/SetLanguage/index.js';
@@ -64,17 +64,17 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = '';
       let password = '';
       this.props.LoginReducerAim(email, password);
       let languageType = 'en';
       this.props.LanguageFetchReducer(languageType);
-    }
+    // }
     localStorage.removeItem('token');
     this.props.history.push('/');
   };

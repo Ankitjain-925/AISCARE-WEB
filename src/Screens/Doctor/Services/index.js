@@ -37,7 +37,7 @@ import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
-import { updateCometUser } from "Screens/Components/CommonApi/index";
+// import { updateCometUser } from "Screens/Components/CommonApi/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -349,28 +349,28 @@ class Index extends Component {
                   this.setState({ loaderImage: false });
                   if (responce.data.hassuccessed === true) {
                     this.setState({ openNew: false, recaptcha: false });
-                    axios
-                      .post(
-                        "https://api-eu.cometchat.io/v2.0/users",
-                        {
-                          uid: responce.data.data.profile_id,
-                          name:
-                            userDetails.first_name +
-                            " " +
-                            userDetails.last_name,
-                        },
-                        commonCometHeader()
-                      )
-                      .then((res) => {
-                        updateCometUser({
-                          uid: responce.data.data.profile_id.toLowerCase(),
-                          name:
-                            userDetails.first_name +
-                            " " +
-                            userDetails.last_name,
-                          role: "default",
-                        });
-                      });
+                    // axios
+                    //   .post(
+                    //     "https://api-eu.cometchat.io/v2.0/users",
+                    //     {
+                    //       uid: responce.data.data.profile_id,
+                    //       name:
+                    //         userDetails.first_name +
+                    //         " " +
+                    //         userDetails.last_name,
+                    //     },
+                    //     commonCometHeader()
+                    //   )
+                    //   .then((res) => {
+                    //     // updateCometUser({
+                    //     //   uid: responce.data.data.profile_id.toLowerCase(),
+                    //     //   name:
+                    //     //     userDetails.first_name +
+                    //     //     " " +
+                    //     //     userDetails.last_name,
+                    //     //   role: "default",
+                    //     // });
+                    //   });
                     AddFavDoc2(
                       this.props.stateLoginValueAim.user.profile_id,
                       this.props.stateLoginValueAim.user.profile_id,
