@@ -9,7 +9,7 @@ import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
@@ -57,11 +57,11 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -69,16 +69,7 @@ class Index extends Component {
       this.props.LanguageFetchReducer(languageType);
       this.props.houseSelect({ value: null });
       this.props.Speciality(false);
-      this.props.Fitbit({
-        lifetimeStats: {},
-        device: [],
-        distance: {},
-        steps: {},
-        user: {},
-        badges: {},
-      });
-      this.props.Withings([]);
-    }
+    // }
     this.props.history.push("/");
   };
 

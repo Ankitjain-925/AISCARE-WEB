@@ -296,18 +296,18 @@ class Index extends Component {
         this.setState({ loaderImage: false });
         var data = JSON.stringify({ permanent: true });
 
-        var config = {
-          method: 'delete',
-          url:
-            'https://api-eu.cometchat.io/v2.0/users/' +
-            profile_id.toLowerCase(),
-          headers: commonCometDelHeader(),
-          data: data,
-        };
+        // var config = {
+        //   method: 'delete',
+        //   url:
+        //     'https://api-eu.cometchat.io/v2.0/users/' +
+        //     profile_id.toLowerCase(),
+        //   headers: commonCometDelHeader(),
+        //   data: data,
+        // };
 
-        axios(config)
-          .then(function (response) {})
-          .catch(function (error) {});
+        // axios(config)
+        //   .then(function (response) {})
+        //   .catch(function (error) {});
         this.getDoctors();
       });
   };

@@ -74,16 +74,16 @@ class PointPain extends Component {
       .then((responce) => {
         this.props.getData();
         this.setState({ loaderImage: false });
-        axios
-          .put(
-            "https://api-eu.cometchat.io/v2.0/users/" +
-              this.state.personalinfo.info.profile_id.toLowerCase(),
-            {
-              avatar: this.state.uploadedimage,
-            },
-            commonCometHeader()
-          )
-          .then((res) => {});
+        // axios
+        //   .put(
+        //     "https://api-eu.cometchat.io/v2.0/users/" +
+        //       this.state.personalinfo.info.profile_id.toLowerCase(),
+        //     {
+        //       avatar: this.state.uploadedimage,
+        //     },
+        //     commonCometHeader()
+        //   )
+        //   .then((res) => {});
       });
   }
   //For Upload the User Image
