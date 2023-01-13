@@ -31,7 +31,7 @@ import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
 import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
 import { LanguageFetchReducer } from 'Screens/actions';
 import { getLanguage } from 'translations/index';
-import { update_CometUser } from 'Screens/Components/CommonApi/index';
+// import { update_CometUser } from 'Screens/Components/CommonApi/index';
 import Loader from 'Screens/Components/Loader/index';
 import DateFormat from 'Screens/Components/DateFormat/index';
 import Autocomplete from 'Screens/Components/Autocomplete/index.js';
@@ -739,22 +739,22 @@ class Index extends Component {
               this.setState({ succUpdate: false });
             }, 5000);
             this.getUserData();
-            axios
-              .put(
-                'https://api-eu.cometchat.io/v2.0/users/' +
-                this.state.profile_id.toLowerCase(),
-                {
-                  name:
-                    UpDataDetails.first_name + ' ' + UpDataDetails.last_name,
-                },
-                commonCometHeader()
-              )
-              .then((res) => {
-                var data = update_CometUser(
-                  this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-                  res.data.data
-                );
-              });
+            // axios
+            //   .put(
+            //     'https://api-eu.cometchat.io/v2.0/users/' +
+            //     this.state.profile_id.toLowerCase(),
+            //     {
+            //       name:
+            //         UpDataDetails.first_name + ' ' + UpDataDetails.last_name,
+            //     },
+            //     commonCometHeader()
+            //   )
+            //   .then((res) => {
+            //     // var data = update_CometUser(
+            //     //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+            //     //   res.data.data
+            //     // );
+            //   });
           } else {
             this.setState({ loaderImage: false });
             if (responce.data.message === 'Phone is not verified') {

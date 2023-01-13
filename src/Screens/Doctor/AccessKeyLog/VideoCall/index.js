@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { Button, TextField, Card } from "@material-ui/core/index";
 import Item from "./SliderItem";
 import Carousel from "react-material-ui-carousel";
-import { APIs, APIs1, APIs2, APIs3 } from "../APIcall/index";
+// import { APIs, APIs1, APIs2, APIs3 } from "../APIcall/index";
 import axios from "axios";
 import {
   CometChatOutgoingDirectCall,
@@ -99,137 +99,137 @@ class VideoCallPat extends Component {
     if (this.props.location?.state?.code) {
       var accessKey = this.props.location?.state?.code;
     }
-    this.callCometChat(accessKey);
+    // this.callCometChat(accessKey);
   };
 
-  callCometChat = (accessKey) => {
-    const { stateLoginValueAim } = this.props;
-    var profile_id = stateLoginValueAim?.user?.profile_id;
-    let callType = 'DIRECT';
-    this.setState({ loaderImage: true });
-    axios
-      .get(APIs2.linktime + "/" + accessKey)
-      .then((response) => {
-        if (response && response.data && response.data.hassuccessed) {
-          if (response.data.message === 'link active') {
-            if (response?.data?.data.doctor_info?.user_id === stateLoginValueAim?.user?._id || response?.data?.data?.Session?.patient_id === stateLoginValueAim?.user?._id) {
-              this.setState({ allDoctorData: response?.data?.data?.doctor_info });
-              var taskData = response.data.data.Task;
-              var gender = response.data.data.gender;
-              this.getFeedbackIssue(response?.data?.data);
-              CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-                .then((resp) => {
-                  axios
-                    .post(APIs1.cometUserList, {
-                      profile_id: profile_id,
-                    })
-                    .then((response) => {
-                      this.setState({
-                        loaderImage: false,
-                        startCall: 1,
-                        allTasks: taskData,
-                        gender: gender
-                      });
-                      this.startTimer(taskData);
-                    })
-                    .catch((err) => {
-                      this.setState({
-                        loaderImage: false,
-                      });
-                    });
-                }).catch((err) => {
-                  this.setState({
-                    loaderImage: false,
-                  });
-                });
-            } else {
-              this.setState({
-                loaderImage: false, startCall: 7,
-              });
-            }
-          }
-        }
-        else {
-          if (
-            response.data.message === 'Link will active soon' ||
-            response.data.message === 'link start soon'
-          ) {
-            this.setState({
-              loaderImage: false, startCall: 2
-            });
-          } else if (response.data.message === 'Link Expire') {
-            this.setState({
-              loaderImage: false, startCall: 3
-            });
-          } else {
-            this.setState({
-              loaderImage: false, startCall: 5
-            });
-          }
-        }
-      })
-      .catch((err) => {
-        console.log('err', err);
-        this.setState({
-          loaderImage: false, startCall: 5
-        });
-      });
-  }
+  // callCometChat = (accessKey) => {
+  //   const { stateLoginValueAim } = this.props;
+  //   var profile_id = stateLoginValueAim?.user?.profile_id;
+  //   let callType = 'DIRECT';
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .get(APIs2.linktime + "/" + accessKey)
+  //     .then((response) => {
+  //       if (response && response.data && response.data.hassuccessed) {
+  //         if (response.data.message === 'link active') {
+  //           if (response?.data?.data.doctor_info?.user_id === stateLoginValueAim?.user?._id || response?.data?.data?.Session?.patient_id === stateLoginValueAim?.user?._id) {
+  //             this.setState({ allDoctorData: response?.data?.data?.doctor_info });
+  //             var taskData = response.data.data.Task;
+  //             var gender = response.data.data.gender;
+  //             this.getFeedbackIssue(response?.data?.data);
+  //             CometChat.login(profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+  //               .then((resp) => {
+  //                 axios
+  //                   .post(APIs1.cometUserList, {
+  //                     profile_id: profile_id,
+  //                   })
+  //                   .then((response) => {
+  //                     this.setState({
+  //                       loaderImage: false,
+  //                       startCall: 1,
+  //                       allTasks: taskData,
+  //                       gender: gender
+  //                     });
+  //                     this.startTimer(taskData);
+  //                   })
+  //                   .catch((err) => {
+  //                     this.setState({
+  //                       loaderImage: false,
+  //                     });
+  //                   });
+  //               }).catch((err) => {
+  //                 this.setState({
+  //                   loaderImage: false,
+  //                 });
+  //               });
+  //           } else {
+  //             this.setState({
+  //               loaderImage: false, startCall: 7,
+  //             });
+  //           }
+  //         }
+  //       }
+  //       else {
+  //         if (
+  //           response.data.message === 'Link will active soon' ||
+  //           response.data.message === 'link start soon'
+  //         ) {
+  //           this.setState({
+  //             loaderImage: false, startCall: 2
+  //           });
+  //         } else if (response.data.message === 'Link Expire') {
+  //           this.setState({
+  //             loaderImage: false, startCall: 3
+  //           });
+  //         } else {
+  //           this.setState({
+  //             loaderImage: false, startCall: 5
+  //           });
+  //         }
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log('err', err);
+  //       this.setState({
+  //         loaderImage: false, startCall: 5
+  //       });
+  //     });
+  // }
 
-  getFeedbackIssue = (allTasks) => {
-    const { stateLoginValueAim } = this.props;
-    console.log('allTasks', allTasks)
-    axios
-      .get(
-        APIs.getfeedbackfordoctor + "/" + allTasks?.doctor_info?.user_id,
-        commonHeader(stateLoginValueAim.token)
-      )
-      .then((response) => {
-        let { data, hassuccessed } = response.data;
-        if (hassuccessed) {
-          const sliderItems = data.length > 2 ? 2 : data.length;
-          const items = [];
-          for (let i = 0; i < data.length; i += sliderItems) {
-            if (i % sliderItems === 0) {
-              items.push(
-                <Card raised className="Banner" key={i.toString()}>
-                  <Grid container spacing={0} className="BannerGrid">
-                    {data.slice(i, i + sliderItems).map((da, index) => {
-                      return <Item key={index.toString()} item={da} />;
-                    })}
-                  </Grid>
-                </Card>
-              );
-            }
-          }
-          this.setState({ slideItems: items });
-        }
-      });
-  }
+  // getFeedbackIssue = (allTasks) => {
+  //   const { stateLoginValueAim } = this.props;
+  //   console.log('allTasks', allTasks)
+  //   axios
+  //     .get(
+  //       APIs.getfeedbackfordoctor + "/" + allTasks?.doctor_info?.user_id,
+  //       commonHeader(stateLoginValueAim.token)
+  //     )
+  //     .then((response) => {
+  //       let { data, hassuccessed } = response.data;
+  //       if (hassuccessed) {
+  //         const sliderItems = data.length > 2 ? 2 : data.length;
+  //         const items = [];
+  //         for (let i = 0; i < data.length; i += sliderItems) {
+  //           if (i % sliderItems === 0) {
+  //             items.push(
+  //               <Card raised className="Banner" key={i.toString()}>
+  //                 <Grid container spacing={0} className="BannerGrid">
+  //                   {data.slice(i, i + sliderItems).map((da, index) => {
+  //                     return <Item key={index.toString()} item={da} />;
+  //                   })}
+  //                 </Grid>
+  //               </Card>
+  //             );
+  //           }
+  //         }
+  //         this.setState({ slideItems: items });
+  //       }
+  //     });
+  // }
 
   // For End call
-  endCallScreen = (value) => {
-    const { allTasks, uniqueUser } = this.state;
-    let task_id = allTasks?._id;
-    this.setState({ startCall: value });
-    if (uniqueUser && uniqueUser?.length === 2) {
-      this.setState({
-        loaderImage: true
-      });
-      axios
-        .put(APIs3.joinmeeting + task_id)
-        .then((responce) => {
-          this.setState({
-            loaderImage: false
-          });
-        })
-        .catch(() => {
-          this.setState({
-            loaderImage: false
-          });
-        });
-    }
-  };
+  // endCallScreen = (value) => {
+  //   const { allTasks, uniqueUser } = this.state;
+  //   let task_id = allTasks?._id;
+  //   this.setState({ startCall: value });
+  //   if (uniqueUser && uniqueUser?.length === 2) {
+  //     this.setState({
+  //       loaderImage: true
+  //     });
+  //     axios
+  //       .put(APIs3.joinmeeting + task_id)
+  //       .then((responce) => {
+  //         this.setState({
+  //           loaderImage: false
+  //         });
+  //       })
+  //       .catch(() => {
+  //         this.setState({
+  //           loaderImage: false
+  //         });
+  //       });
+  //   }
+  // };
 
   // Count unique users
   userListCall = (userList) => {

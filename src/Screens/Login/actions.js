@@ -21,21 +21,21 @@ export const createUser = ({ uid, name }) => {
 export const cometLogin = async (uid) => {
   return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
-export const updateCometUser = async (data) => {
-  axios
-    .post(sitedata.data.path + "/cometUserList",
-      {
-        "uid": data?.uid,
-        "name": data?.name,
-        "avatar": data?.avatar,
-        "status": data?.status,
-        "role": data?.role,
-        "lastActiveAt": data?.lastActiveAt,
-        "conversationId": data?.conversationId
-      })
-    .then((response) => { })
-    .catch((err) => { })
-}
+// export const updateCometUser = async (data) => {
+//   axios
+//     .post(sitedata.data.path + "/cometUserList",
+//       {
+//         "uid": data?.uid,
+//         "name": data?.name,
+//         "avatar": data?.avatar,
+//         "status": data?.status,
+//         "role": data?.role,
+//         "lastActiveAt": data?.lastActiveAt,
+//         "conversationId": data?.conversationId
+//       })
+//     .then((response) => { })
+//     .catch((err) => { })
+// }
 
 export const LoginReducerAim = (email, password, logintoken, SendCallback = () => { }, forUpdate) => {
   return (dispatch) => {

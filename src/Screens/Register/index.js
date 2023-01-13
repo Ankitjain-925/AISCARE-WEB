@@ -19,7 +19,7 @@ import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownIt
 import ReCAPTCHA from "react-google-recaptcha";
 import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
-import { updateCometUser } from "Screens/Components/CommonApi/index";
+// import { updateCometUser } from "Screens/Components/CommonApi/index";
 import { commonCometHeader, commonHeader } from "component/CommonHeader/index";
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
@@ -139,28 +139,28 @@ class Index extends Component {
                           if (responce.data?.data?.Aimedis_health_newletter) {
                             this.activatenewsLetter(responce);
                           }
-                          axios
-                            .post(
-                              "https://api-eu.cometchat.io/v2.0/users",
-                              {
-                                uid: responce.data.data.profile_id,
-                                name:
-                                  responce.data.data.first_name +
-                                  " " +
-                                  responce.data.data.last_name,
-                              },
-                              commonCometHeader()
-                            )
-                            .then((res) => {
-                              updateCometUser({
-                                uid: responce.data.data.profile_id.toLowerCase(),
-                                name:
-                                  responce.data.data.first_name +
-                                  " " +
-                                  responce.data.data.last_name,
-                                role: "default",
-                              });
-                            });
+                          // axios
+                          //   .post(
+                          //     "https://api-eu.cometchat.io/v2.0/users",
+                          //     {
+                          //       uid: responce.data.data.profile_id,
+                          //       name:
+                          //         responce.data.data.first_name +
+                          //         " " +
+                          //         responce.data.data.last_name,
+                          //     },
+                          //     commonCometHeader()
+                          //   )
+                          //   .then((res) => {
+                          //     // updateCometUser({
+                          //     //   uid: responce.data.data.profile_id.toLowerCase(),
+                          //     //   name:
+                          //     //     responce.data.data.first_name +
+                          //     //     " " +
+                          //     //     responce.data.data.last_name,
+                          //     //   role: "default",
+                          //     // });
+                          //   });
 
                           this.setState({ successfull: true });
                           this.setState({
@@ -221,28 +221,28 @@ class Index extends Component {
                           this.setState({ loaderImage: false });
                           if (responce.data.hassuccessed === true) {
                             if (this.state.selectedOption == "nurse") {
-                              axios
-                                .post(
-                                  "https://api-eu.cometchat.io/v2.0/users",
-                                  {
-                                    uid: responce.data.data.profile_id,
-                                    name:
-                                      responce.data.data.first_name +
-                                      " " +
-                                      responce.data.data.last_name,
-                                  },
-                                  commonCometHeader()
-                                )
-                                .then((res) => {
-                                  updateCometUser({
-                                    uid: responce.data.data.profile_id.toLowerCase(),
-                                    name:
-                                      responce.data.data.first_name +
-                                      " " +
-                                      responce.data.data.last_name,
-                                    role: "default",
-                                  });
-                                });
+                              // axios
+                              //   .post(
+                              //     "https://api-eu.cometchat.io/v2.0/users",
+                              //     {
+                              //       uid: responce.data.data.profile_id,
+                              //       name:
+                              //         responce.data.data.first_name +
+                              //         " " +
+                              //         responce.data.data.last_name,
+                              //     },
+                              //     commonCometHeader()
+                              //   )
+                              //   .then((res) => {
+                              //     // updateCometUser({
+                              //     //   uid: responce.data.data.profile_id.toLowerCase(),
+                              //     //   name:
+                              //     //     responce.data.data.first_name +
+                              //     //     " " +
+                              //     //     responce.data.data.last_name,
+                              //     //   role: "default",
+                              //     // });
+                              //   });
                             }
                             this.setState({ successfull: true });
                             this.setState({
@@ -424,28 +424,28 @@ class Index extends Component {
       .then((responce) => {
         this.setState({ loaderImage: false, FilesUp: [] });
         if (responce.data.hassuccessed) {
-          axios
-            .post(
-              "https://api-eu.cometchat.io/v2.0/users",
-              {
-                uid: responce.data.data.profile_id,
-                name:
-                  responce.data.data.first_name +
-                  " " +
-                  responce.data.data.last_name,
-              },
-              commonCometHeader()
-            )
-            .then((res) => {
-              updateCometUser({
-                uid: responce.data.data.profile_id.toLowerCase(),
-                name:
-                  responce.data.data.first_name +
-                  " " +
-                  responce.data.data.last_name,
-                role: "default",
-              });
-            });
+          // axios
+          //   .post(
+          //     "https://api-eu.cometchat.io/v2.0/users",
+          //     {
+          //       uid: responce.data.data.profile_id,
+          //       name:
+          //         responce.data.data.first_name +
+          //         " " +
+          //         responce.data.data.last_name,
+          //     },
+          //     commonCometHeader()
+          //   )
+          //   .then((res) => {
+          //     // updateCometUser({
+          //     //   uid: responce.data.data.profile_id.toLowerCase(),
+          //     //   name:
+          //     //     responce.data.data.first_name +
+          //     //     " " +
+          //     //     responce.data.data.last_name,
+          //     //   role: "default",
+          //     // });
+          //   });
           this.setState({ successfull: true });
           this.setState({
             registerMessage:

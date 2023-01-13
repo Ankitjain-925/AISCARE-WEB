@@ -121,13 +121,17 @@ export const handleSubmit = (current) => {
           commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((responce) => {
-          teamstaff(current);
-          current.setState({
-            updateTrack: {},
-            selectSpec2: '',
-            selectWard: []
-          });
-          handleCloseServ(current);
+          if (responce && responce.data && responce.data.message === "Team Already Exist") {
+            current.setState({ loaderImage: false, errorMsg: "Group Already Exist" });
+          } else {
+            teamstaff(current);
+            current.setState({
+              updateTrack: {},
+              selectSpec2: '',
+              selectWard: []
+            });
+            handleCloseServ(current);
+          }
         })
         .catch(() => {
           current.setState({ loaderImage: false });
@@ -140,9 +144,13 @@ export const handleSubmit = (current) => {
           data,
           commonHeader(current.props.stateLoginValueAim.token))
         .then((responce) => {
-          current.setState({ loaderImage: false });
-          teamstaff(current);
-          handleCloseServ(current);
+          if (responce && responce.data && responce.data.message === "Group Already Exist") {
+            current.setState({ loaderImage: false, errorMsg: responce?.data?.message });
+          } else {
+            current.setState({ loaderImage: false });
+            teamstaff(current);
+            handleCloseServ(current);
+          }
         })
         .catch(function (error) {
           current.setState({ loaderImage: false });

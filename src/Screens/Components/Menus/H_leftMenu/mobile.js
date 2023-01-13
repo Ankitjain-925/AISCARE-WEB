@@ -9,7 +9,7 @@ import { slide as Menu } from 'react-burger-menu';
 import Timer from 'Screens/Components/TimeLogOut/index';
 import Loader from 'Screens/Components/Loader/index';
 import Mode from 'Screens/Components/ThemeMode/index.js';
-import { update_CometUser } from 'Screens/Components/CommonApi/index';
+// import { update_CometUser } from 'Screens/Components/CommonApi/index';
 import { getLanguage } from 'Screens/hospital_Admin/translations/index';
 import CreateAdminUser from 'Screens/Components/CreateHospitalUser/index';
 import LogOut from 'Screens/Components/LogOut/index';
@@ -67,17 +67,17 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = '';
       let password = '';
       this.props.LoginReducerAim(email, password);
       let languageType = 'en';
       this.props.LanguageFetchReducer(languageType);
-    }
+    // }
     this.props.history.push('/');
   };
 
