@@ -584,6 +584,7 @@ class Index extends Component {
     } = translate;
     const { selectedOption } = this.state;
     const { addinvoice } = this.state;
+    const { House: { roles = [] } = {} } = this.props || {}
     return (
       <Grid
         className={
@@ -630,50 +631,51 @@ class Index extends Component {
                                             />
                                         } */}
 
-                    <Grid className="srvcContent">
-                      <Grid className="invoiceForm">
-                        <p className="err_message">{this.state.finishError}</p>
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          spacing={3}
-                        >
-                          {/* <label>{InvoiceID}</label> */}
-                          <Grid item xs={12} md={3} className="invoiceID">
-                            <label>{InvoiceID}</label>
-                            {/* <TextField placeholder="Invoice ID" value="548756" /> */}
-                            <VHfield
-                              name="invoice_id"
-                              placeholder={InvoiceID}
-                              onChange={(e) =>
-                                this.onFieldChange1(
-                                  e.target.value,
-                                  'invoice_id'
-                                )
-                              }
-                              value={this.state.addinvoice?.invoice_id || ''}
-                            />
-                          </Grid>
-                          <Grid item xs={12} md={4}>
-                            <label>{Patient}</label>
-                            <Grid>
-                              <Select
-                                name="patient"
-                                options={this.state.users1}
-                                placeholder={Search_Select}
+                    {roles.includes("add_invoice") &&
+                      <Grid className="srvcContent">
+                        <Grid className="invoiceForm">
+                          <p className="err_message">{this.state.finishError}</p>
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            spacing={3}
+                          >
+                            {/* <label>{InvoiceID}</label> */}
+                            <Grid item xs={12} md={3} className="invoiceID">
+                              <label>{InvoiceID}</label>
+                              {/* <TextField placeholder="Invoice ID" value="548756" /> */}
+                              <VHfield
+                                name="invoice_id"
+                                placeholder={InvoiceID}
                                 onChange={(e) =>
-                                  this.onFieldChange1(e, 'patient')
+                                  this.onFieldChange1(
+                                    e.target.value,
+                                    'invoice_id'
+                                  )
                                 }
-                                value={this.state.selectedPat || ''}
-                                className="addStafSelect"
-                                isMulti={false}
-                                isSearchable={true}
+                                value={this.state.addinvoice?.invoice_id || ''}
                               />
                             </Grid>
-                          </Grid>
+                            <Grid item xs={12} md={4}>
+                              <label>{Patient}</label>
+                              <Grid>
+                                <Select
+                                  name="patient"
+                                  options={this.state.users1}
+                                  placeholder={Search_Select}
+                                  onChange={(e) =>
+                                    this.onFieldChange1(e, 'patient')
+                                  }
+                                  value={this.state.selectedPat || ''}
+                                  className="addStafSelect"
+                                  isMulti={false}
+                                  isSearchable={true}
+                                />
+                              </Grid>
+                            </Grid>
 
-                          {/* <Grid item xs={12} md={3}>
+                            {/* <Grid item xs={12} md={3}>
                             <label>{Status}</label>
                             <Select
                               name="status"
@@ -691,51 +693,51 @@ class Index extends Component {
                               styles={customStyles}
                             />
                           </Grid> */}
+                          </Grid>
                         </Grid>
-                      </Grid>
 
-                      <Grid className="srvcTable">
-                        <h3>{"Tasks"}</h3>
-                        {this.state.AllTask?.length > 0 && this.state.AllTask.map((data) => (
-                          <TaskView
-                            removeAddbutton={true}
-                            data={data}
-                            removeTask={(id) => { }}
-                            editTask={(data) => { }}
-                            declineTask={(id, patient_id) => { }}
-                            DoneAppointment={() => { }}
-                            handleApprovedDetails={(id, status, data) => { }}
-                            comesFrom={'adminstaff'}
-                            removeMorebutton={true}
-                          />
+                        <Grid className="srvcTable">
+                          <h3>{"Tasks"}</h3>
+                          {this.state.AllTask?.length > 0 && this.state.AllTask.map((data) => (
+                            <TaskView
+                              removeAddbutton={true}
+                              data={data}
+                              removeTask={(id) => { }}
+                              editTask={(data) => { }}
+                              declineTask={(id, patient_id) => { }}
+                              DoneAppointment={() => { }}
+                              handleApprovedDetails={(id, status, data) => { }}
+                              comesFrom={'adminstaff'}
+                              removeMorebutton={true}
+                            />
 
-                        ))}
-                        <h3>{Services}</h3>
-                        <Table>
-                          <Thead>
-                            <Tr>
-                              <Th>{srvc}</Th>
-                              <Th>{qty}</Th>
-                              <Th>{Price}</Th>
-                              <Th></Th>
-                            </Tr>
-                          </Thead>
+                          ))}
+                          <h3>{Services}</h3>
+                          <Table>
+                            <Thead>
+                              <Tr>
+                                <Th>{srvc}</Th>
+                                <Th>{qty}</Th>
+                                <Th>{Price}</Th>
+                                <Th></Th>
+                              </Tr>
+                            </Thead>
 
-                          {this.state.items?.length > 0 &&
-                            this.state.items.map((data, id) => (
-                              <Tbody>
-                                {data && data?.quantity && (
-                                  <Tr>
-                                    <Td>
-                                      <h1>{data?.title}</h1>
-                                      <label>
-                                        {data?.service}
-                                      </label>
-                                      <p>{data?.service?.description}</p>
-                                    </Td>
-                                    <Td>{data?.quantity}</Td>
-                                    <Td>{data?.price} €</Td>
-                                    {/* <Td className="xRay-edit">
+                            {this.state.items?.length > 0 &&
+                              this.state.items.map((data, id) => (
+                                <Tbody>
+                                  {data && data?.quantity && (
+                                    <Tr>
+                                      <Td>
+                                        <h1>{data?.title}</h1>
+                                        <label>
+                                          {data?.service}
+                                        </label>
+                                        <p>{data?.service?.description}</p>
+                                      </Td>
+                                      <Td>{data?.quantity}</Td>
+                                      <Td>{data?.price} €</Td>
+                                      {/* <Td className="xRay-edit">
                                       <Button
                                         onClick={() => {
                                           this.editService(data, id);
@@ -759,14 +761,14 @@ class Index extends Component {
                                         />
                                       </Button>
                                     </Td> */}
-                                  </Tr>
-                                )}
-                              </Tbody>
-                            ))}
-                        </Table>
-                      </Grid>
+                                    </Tr>
+                                  )}
+                                </Tbody>
+                              ))}
+                          </Table>
+                        </Grid>
 
-                      {/* <Grid className="srvcTable">
+                        {/* <Grid className="srvcTable">
                         <Grid className="addCstmField">
                           <p className="err_message">{this.state.error}</p>
                           <Grid
@@ -873,27 +875,27 @@ class Index extends Component {
                           </Grid>
                         )}
                       </Grid> */}
-                      <Grid className="invoiceAmnt">
-                        <p>{InvoiceAmount}</p>
-                        <label>{this.state.addinvoice.total_amount} €</label>
-                        <Grid>
-                          <Button
-                            onClick={() => {
-                              this.finishInvoice();
-                            }}
-                          >
-                            {FinishInvoice}
-                          </Button>
-                          {/* <Button
+                        <Grid className="invoiceAmnt">
+                          <p>{InvoiceAmount}</p>
+                          <label>{this.state.addinvoice.total_amount} €</label>
+                          <Grid>
+                            <Button
+                              onClick={() => {
+                                this.finishInvoice();
+                              }}
+                            >
+                              {FinishInvoice}
+                            </Button>
+                            {/* <Button
                             onClick={() => {
                               this.finishInvoice('draft');
                             }}
                           >
                             {SaveDraft}
                           </Button> */}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Grid>
+                      </Grid>}
                     {/* End of Billing New Invoice */}
 
                     {/* <Modal
