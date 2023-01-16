@@ -1138,7 +1138,6 @@ class Index extends Component {
                                                   this.downloadInvoicePdf(data);
                                                 }}
                                               >
-                                                {' '}
                                                 <li>
                                                   <img
                                                     src={require('assets/virtual_images/DownloadPDF.png')}
