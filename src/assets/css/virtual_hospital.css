@@ -14108,7 +14108,6 @@ input:-webkit-autofill:active{
   color: #404646;
   font-weight: 600;
 }
-
 .assignHos {
   font-size: 18px !important;
   font-weight: 700 !important;
@@ -17387,6 +17386,14 @@ margin-left: 30px;
   .fatiqueQuesSec a{
     margin-top: 5px;
   }
+}
+
+.enterPartprice{
+  position: absolute;
+  top: 14px;
+  right: 30px;
+  color: #404646;
+  font-weight: 600; 
 }
 
 .billingHeadSec p{
