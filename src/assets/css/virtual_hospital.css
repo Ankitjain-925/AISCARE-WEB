@@ -2612,9 +2612,9 @@ a.lineSort {
   line-height: 18px;
   margin-bottom: 0px;
 }
-.yearSec label:first-child {
+/* .yearSec label:first-child {
   margin-right: 22px;
-}
+} */
 .yearOpen a {
   color: #00abaf !important;
   font-family: Muli;
@@ -2656,7 +2656,7 @@ a.lineSort {
   display: block;
   margin-left: -8px;
   margin-right: -8px;
-  padding: 8px 12px;
+  padding: 8px 6px;
   border-radius: 6px;
 }
 .yearSecBg:hover {
@@ -17365,7 +17365,7 @@ margin-left: 30px;
 @media screen and (max-width: 640px) {
   .scndOptionIner ul {
     margin-top: 14px !important;
-    right: auto !important;
+    /* right: auto !important; */
 }
 }
 
@@ -17387,10 +17387,39 @@ margin-left: 30px;
     margin-top: 5px;
   }
 }
+
 .enterPartprice{
   position: absolute;
   top: 14px;
   right: 30px;
   color: #404646;
   font-weight: 600; 
+}
+
+.billingHeadSec p{
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 12px;
+  font-family: Muli;
+  color: #000808;
+  font-weight: bold;
+}
+.darkTheme .billingHeadSec p{
+  color: #fafafa;
+}
+.billLbl label {
+  color: #00b0db;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  text-transform: capitalize;
+}
+.darkTheme .billLbl label{
+  color: #00abaf!important;
+}
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+  .billingHeadSec{
+    display: none;
+  }
 }
