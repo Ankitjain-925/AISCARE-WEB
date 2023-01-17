@@ -310,7 +310,7 @@ closeTaskTime = (index) => {
         due_on: item?.due_on,
         title: item?.title,
         type: item?.type,
-        services: item?.services
+        assign_service: item?.services
       }
     })
     var finalData = {};
