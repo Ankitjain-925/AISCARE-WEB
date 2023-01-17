@@ -17448,3 +17448,12 @@ a.dtlCountEmail{
 .forSameLineIcon img{
   padding: 10px 2px;
 }
+@media screen and (min-width:960px) and (max-width:1200px){
+  .attchNotePart{
+    display: block;
+  }
+  .attchOpen, .attchDone{
+    margin:5px 0px;
+    padding: 0px;
+  }
+}
