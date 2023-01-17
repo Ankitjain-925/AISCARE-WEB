@@ -2489,7 +2489,7 @@ class Index extends Component {
 
 
                           <div className="forSameLineIcon">
-                            <div className="setAssignedTo">
+                            <div className="setAssignedTo setAssignedToA">
                               <span>
                                 {this.state.LeftInfoPatient?.full_address?.address} {','} {this.state.LeftInfoPatient?.full_address?.city} / {to} {'-'} {this.state.LeftInfoPatient?.full_address?.pastal_code}
                               </span>
@@ -2502,7 +2502,7 @@ class Index extends Component {
                               </a>
                             </div>
 
-                            <div className="setAssignedTo">
+                            <div className="setAssignedTo setAssignedToB">
                               <span>
                                 {this.state.LeftInfoPatient?.full_address?.email}
                               </span>
@@ -2515,7 +2515,7 @@ class Index extends Component {
                               </a>
                             </div>
 
-                            <div className="setAssignedTo">
+                            <div className="setAssignedTo setAssignedToC">
                               <span>
                                 {this.state.LeftInfoPatient?.full_address?.mobile}
                               </span>
