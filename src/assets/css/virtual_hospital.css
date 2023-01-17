@@ -17423,3 +17423,28 @@ margin-left: 30px;
     display: none;
   }
 }
+
+.NeuroBtn123{
+  margin-top: 2px!important;
+}
+
+a.dtlCountEmail{
+  display: flex;
+}
+
+.dtlCount123 a{
+ line-break: anywhere!important;
+}
+
+ .setstaffleft .newassignLft img{
+  display: flex!important;
+  justify-content: left!important;
+}
+
+.forSameLineIcon{
+  display :flex;
+}
+
+.forSameLineIcon img{
+  padding: 10px 2px;
+}
