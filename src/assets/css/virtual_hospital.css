@@ -17457,3 +17457,17 @@ a.dtlCountEmail{
     padding: 0px;
   }
 }
+
+.setAssignedToA span{
+top: -60px !important;
+}
+
+.setAssignedToB span{
+top: -18px!important;
+left: -75px!important;
+}
+
+.setAssignedToC span{
+top: -35px!important;
+left: -38px!important;
+}
