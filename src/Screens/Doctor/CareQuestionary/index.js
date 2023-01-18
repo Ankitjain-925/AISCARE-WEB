@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from "Screens/Login/authy.js";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 // import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -63,7 +63,7 @@ class Index extends Component {
       };
 
     render() {
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { stateLoginValueAim } = this.props;
         if (
             stateLoginValueAim.user === 'undefined' ||
             stateLoginValueAim.token === 450 ||

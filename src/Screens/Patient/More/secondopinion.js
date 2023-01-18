@@ -6,29 +6,24 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Select from "react-select";
-import sitedata, { data } from "sitedata";
+import sitedata from "sitedata";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Radio from "@material-ui/core/Radio";
 import axios from "axios";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ListingSecond from "./Components/ListingSecond";
 import Loader from "Screens/Components/Loader/index";
 import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import FileUploader from "Screens/Components/FileUploader/index";
-import { AddFavDoc, ConsoleCustom } from "Screens/Components/BasicMethod/index";
+import { AddFavDoc } from "Screens/Components/BasicMethod/index";
 import { authy } from "Screens/Login/authy.js";
 import { getLanguage } from "translations/index"
 
 // import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
-
-const specialistOptions = [
-  { value: "Specialist1", label: "Specialist1" },
-  { value: "Specialist2", label: "Specialist2" },
-];
 
 class Index extends Component {
   constructor(props) {
@@ -74,8 +69,8 @@ class Index extends Component {
     if (data.doctor_id) {
       this.setState({ error: false });
       this.setState({ loaderImage: true });
-      const user_token = this.props.stateLoginValueAim.token;
-      var data = this.state.AddSecond;
+      // const user_token = this.props.stateLoginValueAim.token;
+      // var data = this.state.AddSecond;
       if (this.state.fileattach) {
         data.documents = this.state.fileattach;
       }
@@ -170,6 +165,7 @@ class Index extends Component {
               name = item.first_name;
             }
             data.push({ value: item._id, label: name });
+            return;
           });
           this.setState({ Pdoctors: data });
         }

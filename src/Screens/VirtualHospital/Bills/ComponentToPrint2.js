@@ -235,8 +235,7 @@ export class ComponentToPrint2 extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   return {

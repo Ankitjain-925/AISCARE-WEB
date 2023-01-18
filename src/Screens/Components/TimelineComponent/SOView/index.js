@@ -454,7 +454,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
 
 
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   return {
     stateLanguageType,

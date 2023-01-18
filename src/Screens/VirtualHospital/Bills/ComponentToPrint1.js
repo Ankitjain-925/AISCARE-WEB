@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./../../../assets/css/virtual_hospital.css";
 import Grid from '@material-ui/core/Grid';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { LoginReducerAim } from "Screens/Login/actions";
 import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
@@ -29,9 +29,8 @@ export class ComponentToPrint1 extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
-            ServiceName, TotalAmount, InvoiceID, srvc,Priceperquantity,Quantity,Amount, total,Status,date,For,From,Welcome_to_aimedis,Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
-        var { data, id } = this.state;
+        let { YourAimedisTeam, InvoiceID, srvc,Priceperquantity,Quantity,Amount, total,Status,date,For,From,Welcome_to_aimedis,Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
+        var { data } = this.state;
         return (
             <div className="relativeCSS">
 

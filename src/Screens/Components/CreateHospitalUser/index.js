@@ -777,8 +777,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim ? state.LoginReducerAim : {};
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   return {

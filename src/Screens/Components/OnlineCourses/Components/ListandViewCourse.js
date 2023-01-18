@@ -6,7 +6,7 @@ import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import Iframeview from "../../FrameUse/index";
-import { ConsoleCustom } from "../../BasicMethod/index";
+// import { ConsoleCustom } from "../../BasicMethod/index";
 import axios from "axios";
 import sitedata from "sitedata";
 import { getLanguage } from "translations/index"
@@ -25,12 +25,12 @@ class Index extends Component {
   //on Change Course
   componentDidUpdate = (prevProps) => {
     if (prevProps.Course !== this.props.Course) {
-      var NextButton =
-        this.props.Course &&
-        this.props.Course.attachment &&
-        this.props.Course.attachment.length > 0
-          ? this.props.Course.attachment.length - 1
-          : 0;
+      // var NextButton =
+      //   this.props.Course &&
+      //   this.props.Course.attachment &&
+      //   this.props.Course.attachment.length > 0
+      //     ? this.props.Course.attachment.length - 1
+      //     : 0;
       this.setState({ Course: this.props.Course }, () => this.ChangeIndex(0));
     }
   };
@@ -77,8 +77,8 @@ class Index extends Component {
       previous_lesson,
       next_lesson,
       my_course,
-      DarkMode,
-      logout,
+      // DarkMode,
+      // logout,
       download_file,
     } = translate;
     return (

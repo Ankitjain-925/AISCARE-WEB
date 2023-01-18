@@ -197,7 +197,6 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const {
         stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
     } = state.LoginReducerAim;
     return {
         stateLanguageType,

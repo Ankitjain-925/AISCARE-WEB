@@ -79,7 +79,7 @@ class Index extends Component {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid><FormControlLabel value="yes" value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={(e)=>handleOptionChange(e, this)} control={<Radio />} label={allowthisonlyforfollowing} /></Grid>
+                        <Grid><FormControlLabel value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={(e)=>handleOptionChange(e, this)} control={<Radio />} label={allowthisonlyforfollowing} /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
                             <label>{organ_tissue}</label>
                             <Grid>
@@ -99,8 +99,8 @@ class Index extends Component {
                     </Grid>
 
                     <Grid className="organDecide">
-                        <Grid><FormControlLabel value="yes" value="not_allowed" name="my_choice" checked={this.state.selectedOption === 'not_allowed'} onChange={(e)=>handleOptionChange(e, this)} control={<Radio />} label={dont_allow_transplantation} /></Grid>
-                        <Grid><FormControlLabel value="yes" value="decided_by_following" color="primary" name="my_choice" checked={this.state.selectedOption === 'decided_by_following'} onChange={(e)=>handleOptionChange(e, this)}  control={<Radio />} label={yes_shall_not_decided_by_person} /></Grid>
+                        <Grid><FormControlLabel value="not_allowed" name="my_choice" checked={this.state.selectedOption === 'not_allowed'} onChange={(e)=>handleOptionChange(e, this)} control={<Radio />} label={dont_allow_transplantation} /></Grid>
+                        <Grid><FormControlLabel value="decided_by_following" color="primary" name="my_choice" checked={this.state.selectedOption === 'decided_by_following'} onChange={(e)=>handleOptionChange(e, this)}  control={<Radio />} label={yes_shall_not_decided_by_person} /></Grid>
                     </Grid>
 
                     <Grid>

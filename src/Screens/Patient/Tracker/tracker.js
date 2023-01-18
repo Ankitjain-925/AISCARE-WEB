@@ -112,7 +112,7 @@ class Index extends Component {
 
     backDate = (backmonth = 6) => {
         let today = new Date(Date.now());
-        let month, day, date, year;
+        let month, date, year;
         year = today.getFullYear();
         month = today.getMonth();
         date = today.getDate();
@@ -213,7 +213,7 @@ class Index extends Component {
                     if( messureData && messureData.measuregrps && messureData.measuregrps.length > 0) {
                         messureData.measuregrps.sort(getDesc);
                         messureData.measuregrps.map((data) => {
-                            if (deviceid == data.deviceid) {
+                            if (deviceid === data.deviceid) {
                                 if (data.measures && data.measures.length > 0) {
                                     data.measures.map(obj => {
                                         switch (parseInt(obj.type)) {
@@ -546,7 +546,7 @@ class Index extends Component {
         }
 
     render() {
-        const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
+        const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, deviceid } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,
             view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,user,
@@ -650,7 +650,7 @@ class Index extends Component {
                                                 <Grid className="selfData">
                                                     <Grid container spacing={3}>
                                                         <Grid item xs={12} md={3}>
-                                                            {this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.device.length==0 &&
+                                                            {this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.device.length===0 &&
                                                                 <Grid className="trckSection">
                                                                     <Grid className="trckSecIner" >
                                                                         <Grid style={{ minHeight: "140px" }} >
@@ -814,13 +814,13 @@ class Index extends Component {
                                                                                                         ).toString()}</span>
                                                                                                     </Grid>
                                                                                                     <Grid item sm={2}>
-                                                                                                        {deviceid.battery == "high" && (
+                                                                                                        {deviceid.battery === "high" && (
                                                                                                             <Battery90Icon style={{ color: 'green', fontSize: '35px' }} />
                                                                                                         )}
-                                                                                                        {deviceid.battery == "medium" && (
+                                                                                                        {deviceid.battery === "medium" && (
                                                                                                             <Battery60Icon style={{ color: 'orange', fontSize: '35px' }} />
                                                                                                         )}
-                                                                                                        {deviceid.battery == "low" && (
+                                                                                                        {deviceid.battery === "low" && (
                                                                                                             <Battery30Icon style={{ color: 'red', fontSize: '35px' }} />
                                                                                                         )}
                                                                                                     </Grid>

@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from "Screens/Login/authy.js";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
 // import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -20,8 +20,8 @@ import MMHG from 'Screens/Components/mmHgField/index';
 import { getLanguage } from 'translations/index';
 import PainIntensity from "Screens/Components/PainIntansity/index";
 import FatiqueQuestion from "Screens/Components/TimelineComponent/CovidSymptomsField/FatiqueQuestions";
-import { S3Image } from 'Screens/Components/GetS3Images/index';
-import { getDate } from 'Screens/Components/BasicMethod';
+// import { S3Image } from 'Screens/Components/GetS3Images/index';
+// import { getDate } from 'Screens/Components/BasicMethod';
 import {
     updateAllEntrySec2,
     handleChangeForm,
@@ -32,7 +32,7 @@ import {
     allHouses,
     updateEntryState,
     updateEntryState1,
-    openFullQues,
+    // openFullQues,
     closeFullQues,
     updateAllEntrySec0,
     showHouseValue

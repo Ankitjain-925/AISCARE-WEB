@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
@@ -37,8 +37,8 @@ class Index extends Component {
   componentDidMount() {}
 
   render() {
-    const { specialistOption } = this.state;
-    const { stateLoginValueAim, Doctorsetget } = this.props;
+    // const { specialistOption } = this.state;
+    const { stateLoginValueAim } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||

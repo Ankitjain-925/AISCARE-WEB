@@ -6,7 +6,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { connect } from "react-redux";
 import { Doctorarrays } from "Screens/Login/doctorarray";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import CometChat from "Screens/Components/CometChat";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -59,7 +59,7 @@ class index extends React.Component {
   };
 
   render() {
-    const { stateLoginValueAim, Doctorsetget } = this.props;
+    const { stateLoginValueAim } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
