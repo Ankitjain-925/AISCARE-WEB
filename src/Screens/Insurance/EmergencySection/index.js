@@ -18,7 +18,7 @@ import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import { getLanguage } from "translations/index"
 import { getTrack } from "./api";
 import { Settings } from "Screens/Login/setting";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
   constructor(props) {
@@ -119,7 +119,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="emergency" />
                 <LeftMenuMobile isNotShow={true} currentPage="emergency" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10}>

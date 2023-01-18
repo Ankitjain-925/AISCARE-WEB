@@ -44,7 +44,7 @@ import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
 import Loader from "Screens/Components/Loader/index";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 
 const CURRENT_DATE = moment().toDate();
@@ -1115,7 +1115,7 @@ class Index extends Component {
               <Grid container direction="row">
                 <LeftMenu isNotShow={true} currentPage="appointment" />
                 <LeftMenuMobile isNotShow={true} currentPage="appointment" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* Video Model */}
 
                 <Modal

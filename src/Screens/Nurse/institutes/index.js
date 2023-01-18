@@ -11,7 +11,7 @@ import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { LoginReducerAim } from "Screens/Login/actions";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from "Screens/Login/setting";
 import Institutes from "Screens/Components/Institutes/index";
 
@@ -75,7 +75,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="emergency" />
                 <LeftMenuMobile isNotShow={true} currentPage="emergency" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={11}>

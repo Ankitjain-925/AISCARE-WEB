@@ -11,7 +11,7 @@ import { authy } from "Screens/Login/authy.js";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import CourseSection from "Screens/Components/OnlineCourses/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="course" />
                 <LeftMenuMobile isNotShow={true} currentPage="course" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                   <CourseSection />

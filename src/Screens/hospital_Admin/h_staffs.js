@@ -37,7 +37,7 @@ import {
 } from 'component/CommonHeader/index';
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
-import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
+// import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
 // import io from 'socket.io-client';
 // import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
 // const SOCKET_URL = GetSocketUrl();

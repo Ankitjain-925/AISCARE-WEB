@@ -64,7 +64,7 @@ import FloatArrowUp from "../../Components/FloatArrowUp/index";
 import { authy } from "Screens/Login/authy.js";
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index";
 import SPECIALITY from "speciality";
 
@@ -1129,7 +1129,7 @@ class Index extends Component {
         }
       >
         {this.state.loaderImage && <Loader />}
-        <Notification />
+        {/* <Notification /> */}
 
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">

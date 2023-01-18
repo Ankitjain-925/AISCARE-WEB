@@ -17,7 +17,7 @@ import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
 import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { getLanguage } from "translations/index"
 import { filterPatient } from "Screens/Components/BasicMethod/index";
@@ -218,7 +218,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="Earliertask" />
                                 <LeftMenuMobile isNotShow={true} currentPage="Earliertask" />
-                                <Notification />
+                                {/* <Notification /> */}
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">

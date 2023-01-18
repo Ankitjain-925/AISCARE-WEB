@@ -62,7 +62,7 @@ import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import FloatArrowUp from "Screens/Components/FloatArrowUp/index";
 
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
@@ -1241,7 +1241,7 @@ getMypatientsData() {
                   {/* Website Menu */}
                   <LeftMenu isNotShow={true} currentPage="journal" />
                   <LeftMenuMobile isNotShow={true} currentPage="journal" />
-                  <Notification />
+                  {/* <Notification /> */}
                   {/* End of Website Menu */}
 
                   {/* Website Mid Content */}

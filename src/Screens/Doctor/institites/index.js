@@ -11,7 +11,7 @@ import { authy } from "Screens/Login/authy.js";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Institutes from "Screens/Components/Institutes/index";
 class Index extends Component {
   constructor(props) {
@@ -96,7 +96,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="institute" />
                 <LeftMenuMobile isNotShow={true} currentPage="institute" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                 <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />

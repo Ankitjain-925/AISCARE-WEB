@@ -9,7 +9,7 @@ import { authy } from "Screens/Login/authy.js";
 import { Redirect, Route } from "react-router-dom";
 import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -228,7 +228,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="questionnary" />
                                 <LeftMenuMobile isNotShow={true} currentPage="questionnary" />
-                                <Notification />
+                                {/* <Notification /> */}
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} sm={12} md={8}>
                                     <Grid className="allFormSection">

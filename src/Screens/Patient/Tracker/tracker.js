@@ -26,7 +26,7 @@ import HighchartsReact from "highcharts-react-official";
 import { getDesc } from "Screens/Components/BasicMethod/index"
 import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
 import { getLanguage } from "translations/index"
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const withingsMeasureType = {
     Weight: 1,
@@ -563,7 +563,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <LeftMenu  isNotShow ={true} currentPage="tracker" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="tracker"/>
-                                <Notification />
+                                {/* <Notification /> */}
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docsOpinion">
@@ -656,7 +656,7 @@ class Index extends Component {
                                                                         <Grid style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "40px" }}></div>
                                                                             < a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Fsys.aimedis.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-                                                                                <img style={{ margin: "10%" }} title="Loggin via Fitbit!" src={require('assets/images/fitbit.png')} style={{ maxWidth: "100px" }} alt="" />
+                                                                                <img style={{ maxWidth: "100px" , margin: "10%" }} title="Loggin via Fitbit!" src={require('assets/images/fitbit.png')} alt="" />
                                                                             </a>
                                                                         </Grid>
                                                                     </Grid>

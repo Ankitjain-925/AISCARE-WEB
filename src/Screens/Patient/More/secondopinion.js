@@ -22,7 +22,7 @@ import { AddFavDoc, ConsoleCustom } from "Screens/Components/BasicMethod/index";
 import { authy } from "Screens/Login/authy.js";
 import { getLanguage } from "translations/index"
 
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 
 const specialistOptions = [
@@ -322,7 +322,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="more" />
                 <LeftMenuMobile isNotShow={true} currentPage="more" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10} lg={9}>

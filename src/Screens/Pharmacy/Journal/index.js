@@ -58,7 +58,7 @@ import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { get_gender, get_cur_one, get_personalized, download_track, delete_click_track } from "Screens/Components/CommonApi/index";
@@ -1084,7 +1084,7 @@ class Index extends Component {
                     isNotShow={true}
                     currentPage="pharmajournal"
                   />
-                  <Notification />
+                  {/* <Notification /> */}
                   {/* End of Website Menu */}
 
                   {/* Website Mid Content */}

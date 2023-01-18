@@ -9,11 +9,6 @@ import Item from "./SliderItem";
 import Carousel from "react-material-ui-carousel";
 // import { APIs, APIs1, APIs2, APIs3 } from "../APIcall/index";
 import axios from "axios";
-import {
-  CometChatOutgoingDirectCall,
-} from './Calls/CometChatOutgoingDirectCall';
-import { CometChat } from '@cometchat-pro/chat';
-import { COMETCHAT_CONSTANTS } from '../../../Components/CometChat/consts';
 import useAllLoginReducerAim from "../Hooks/LoginReducerAim";
 import Loader from 'Screens/Components/Loader/index';
 import { S3Image } from 'Screens/Components/GetS3Images/index';
@@ -488,7 +483,7 @@ class VideoCallPat extends Component {
                                       <Grid>
                                         <TimerIcon className="timerIcon" />
                                         <label className="formviewhead"> {time.h}h : {time.m}m</label></Grid>
-                                      <CometChatOutgoingDirectCall
+                                      {/* <CometChatOutgoingDirectCall
                                         open
                                         userListCall={(userList) =>
                                           this.userListCall(userList)
@@ -503,7 +498,7 @@ class VideoCallPat extends Component {
                                       // joinDirectCall={joinDirectCall}
                                       // loggedInUser={loggedInUser}
                                       // actionGenerated={actionHandler}
-                                      />
+                                      /> */}
                                     </>
                                     {/* } */}
                                   </Grid>

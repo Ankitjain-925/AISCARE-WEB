@@ -6,7 +6,6 @@ import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import {
   getDate,
   newdate,
-  getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
