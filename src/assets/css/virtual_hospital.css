@@ -17436,7 +17436,7 @@ a.dtlCountEmail{
  line-break: anywhere!important;
 }
 
- .setstaffleft .newassignLft img{
+ .setstaffleft div{
   display: flex!important;
   justify-content: left!important;
 }
