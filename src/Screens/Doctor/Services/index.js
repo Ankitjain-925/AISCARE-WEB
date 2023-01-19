@@ -34,7 +34,7 @@ import {
 } from "Screens/Components/BasicMethod/index";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Doctorset } from "Screens/Doctor/actions";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
 // import { updateCometUser } from "Screens/Components/CommonApi/index";
@@ -821,7 +821,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="patient" />
                 <LeftMenuMobile isNotShow={true} currentPage="patient" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10} lg={9}>
@@ -1675,8 +1675,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { Doctorsetget } = state.Doctorset;

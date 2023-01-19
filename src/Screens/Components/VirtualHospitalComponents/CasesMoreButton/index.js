@@ -920,7 +920,7 @@ UpdateDoc = (assinged_to) => {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

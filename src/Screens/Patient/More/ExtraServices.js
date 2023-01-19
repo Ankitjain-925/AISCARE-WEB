@@ -20,7 +20,7 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { getLanguage } from "translations/index";
 import { getPublishableKey } from "Screens/Components/CardInput/getPriceId"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 
 const STRIPE_PUBLISHABLE = getPublishableKey()
@@ -255,7 +255,7 @@ class Index extends Component {
               {/* Website Menu */}
               <LeftMenu isNotShow={true} currentPage="more" />
               <LeftMenuMobile isNotShow={true} currentPage="more" />
-              <Notification />
+              {/* <Notification /> */}
               {/* End of Website Menu */}
 
               {/* Website Mid Content */}

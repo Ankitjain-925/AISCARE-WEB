@@ -436,14 +436,11 @@ class FilterSec extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { Overview } = state.overView;
   const { settings } = state.Settings;
   return {
     stateLanguageType,
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     Overview,

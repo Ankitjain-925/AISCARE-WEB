@@ -5,7 +5,6 @@ import ReactTooltip from "react-tooltip";
 import {
   getDate,
   newdate,
-  getImage,
 } from "Screens/Components/BasicMethod/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
@@ -217,7 +216,7 @@ class Index extends Component {
 
                             this.props.stateLoginValueAim.user.houses.map((newmember) => (
 
-                              this.props.Doctorsetget?.byhospital == newmember.value ? (
+                              this.props.Doctorsetget?.byhospital === newmember.value ? (
                                 newmember.roles.includes("edit_prescription") ? (
                                   this.props.comesfrom !== "patient" && (
 
@@ -241,7 +240,7 @@ class Index extends Component {
                                   )
                               ) : (" ")
                             )))
-                            :  (this.props.comesfrom == "adminstaff" ? (
+                            :  (this.props.comesfrom === "adminstaff" ? (
 
                               this.props.House.roles.includes("edit_prescription") ? (
                                 this.props.comesfrom !== "patient" && (
@@ -453,7 +452,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
 
 
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   return {
     stateLanguageType,

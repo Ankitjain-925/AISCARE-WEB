@@ -18,7 +18,7 @@ import { authy } from "Screens/Login/authy.js";
 import { LoginReducerAim } from "Screens/Login/actions";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import { getLanguage } from "translations/index"
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
 
@@ -163,7 +163,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="emergency" />
                 <LeftMenuMobile isNotShow={true} currentPage="emergency" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10}>

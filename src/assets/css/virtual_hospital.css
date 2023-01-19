@@ -14108,7 +14108,6 @@ input:-webkit-autofill:active{
   color: #404646;
   font-weight: 600;
 }
-
 .assignHos {
   font-size: 18px !important;
   font-weight: 700 !important;
@@ -17347,9 +17346,9 @@ background: #647484 !important;
   font-size: 12px;
   font-family: Muli;
 }
-.margindatright{
+/* .margindatright{
 margin-left: 30px;
-}
+} */
 .spcaetime{
   margin-top: 20px;
 }
@@ -17389,6 +17388,14 @@ margin-left: 30px;
   }
 }
 
+.enterPartprice{
+  position: absolute;
+  top: 14px;
+  right: 30px;
+  color: #404646;
+  font-weight: 600; 
+}
+
 .billingHeadSec p{
   font-size: 14px;
   letter-spacing: 0;
@@ -17417,6 +17424,30 @@ margin-left: 30px;
   }
 }
 
+.NeuroBtn123{
+  margin-top: 2px!important;
+}
+
+a.dtlCountEmail{
+  display: flex;
+}
+
+.dtlCount123 a{
+ line-break: anywhere!important;
+}
+
+ .setstaffleft div{
+  display: flex!important;
+  justify-content: left!important;
+}
+
+.forSameLineIcon{
+  display :flex;
+}
+
+.forSameLineIcon img{
+  padding: 10px 2px;
+}
 @media screen and (min-width:960px) and (max-width:1200px){
   .attchNotePart{
     display: block;
@@ -17426,6 +17457,7 @@ margin-left: 30px;
     padding: 0px;
   }
 }
+
 
 @media(max-width:960px){
 .allTimeSlotSec{
@@ -17438,4 +17470,17 @@ margin-left: 30px;
   border-radius: 4px;
   margin: 8px;
 }
+}
+.setAssignedToA span{
+top: -60px !important;
+}
+
+.setAssignedToB span{
+top: -18px!important;
+left: -75px!important;
+}
+
+.setAssignedToC span{
+top: -35px!important;
+left: -38px!important;
 }

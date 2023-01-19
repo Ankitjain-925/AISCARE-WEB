@@ -5,8 +5,8 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
-import Timer from "Screens/Components/TimeLogOut/index";
+// import LogOut from "Screens/Components/LogOut/index";
+// import Timer from "Screens/Components/TimeLogOut/index";
 import { slide as Menu } from "react-burger-menu";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import sitedata from "sitedata";
@@ -193,7 +193,7 @@ class Index extends Component {
     state[e.target.name] = e.target.checked;
     localStorage.setItem(
       "CheckCurrent",
-      e.target.checked == true ? true : false
+      e.target.checked === true ? true : false
     );
     this.setState({ CheckCurrent: state, update: !this.state.update });
     this.availableUpdate();
@@ -271,9 +271,9 @@ class Index extends Component {
       my_profile,
       invite_doc,
       pharma_prescription,
-      ProfessionalTask,
-      Doctor_view,
-      VHS_view,
+      // ProfessionalTask,
+      // Doctor_view,
+      // VHS_view,
       online_course,
       profile_setting,
       Language,
@@ -887,8 +887,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

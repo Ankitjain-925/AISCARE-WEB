@@ -23,8 +23,8 @@ import LeftMenuIns from "Screens/Components/Menus/InsuranceLeftMenu/index";
 import LeftMenuMobileIns from "Screens/Components/Menus/InsuranceLeftMenu/mobile";
 
 import ViewCourse from "Screens/Components/OnlineCourses/Components/ListandViewCourse";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// 
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +88,7 @@ class Index extends Component {
 
                 {this.props.stateLoginValueAim?.user?.type === 'nurse' && <LeftMenuNurse isNotShow={true} currentPage="course" />}
                 {this.props.stateLoginValueAim?.user?.type === 'nurse' && <LeftMenuMobileNurse isNotShow={true} currentPage="course" />}
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                   <ViewCourse Course={this.state.Course} />

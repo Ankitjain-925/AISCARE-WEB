@@ -78,7 +78,7 @@ import H_nurse from "Screens/hospital_Admin/h_nurse";
 import H_archive from "Screens/hospital_Admin/hadmin_archivechoose";
 import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
-import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
+// import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 import H_Group from "Screens/hospital_Admin/h_add_group";
 import H_Staff from "Screens/hospital_Admin/h_staffs";
 
@@ -756,7 +756,7 @@ class Routermain extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   const { House } = state.houseSelect;
   return {

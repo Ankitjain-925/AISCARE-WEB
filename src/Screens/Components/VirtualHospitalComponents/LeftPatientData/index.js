@@ -65,7 +65,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -2154,6 +2154,7 @@ class Index extends Component {
     const { personalinfo, patientData } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      to,
       open,
       slashmin,
       mmHg,
@@ -2362,11 +2363,12 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Assigned
-                        assigned_to={
-                          this.state.LeftInfoPatient?.data?.assinged_to
-                        }
-                      />
+                      <Grid className="setstaffleft">
+                        <Assigned
+                          assigned_to={
+                            this.state.LeftInfoPatient?.data?.assinged_to
+                          }
+                        /></Grid>
                       {/* <Grid className="mdclMembrs">
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
@@ -2406,6 +2408,7 @@ class Index extends Component {
               <Grid item xs={6} md={6}>
                 <Grid container direction="row" alignItems="center">
                   <Grid className="assignTo">
+                    {/* {this.state.LeftInfoPatient?.data?.external_space ? <></> : */}
                     <Grid container direction="row">
                       <Grid item xs={6} md={8}>
                         <Grid>
@@ -2416,8 +2419,10 @@ class Index extends Component {
                         {/* <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid> */}
                       </Grid>
                     </Grid>
+                    {/* } */}
+
                     <Grid>
-                      <Grid className="NeuroBtn">
+                      <Grid className="NeuroBtn NeuroBtn123">
                         <Grid>
                           {this.state.LeftInfoPatient?.data?.speciality && (
                             <SpecialityButton
@@ -2442,40 +2447,127 @@ class Index extends Component {
                             />
                           )}
                         </Grid>
-                        <Grid className="roomsNum">
-                          <ul>
-                            <li>
-                              <img
-                                src={require("assets/virtual_images/ward.png")}
-                                alt=""
-                                title=""
-                              />
-                              {
-                                this.state.LeftInfoPatient?.data?.wards
-                                  ?.ward_name
-                              }
-                            </li>
-                            <li>
-                              <img
-                                src={require("assets/virtual_images/room22.svg")}
-                                alt=""
-                                title=""
-                              />
-                              {
-                                this.state.LeftInfoPatient?.data?.rooms
-                                  ?.room_name
-                              }
-                            </li>
-                            <li>
-                              <img
-                                src={require("assets/virtual_images/bedColor.png")}
-                                alt=""
-                                title=""
-                              />
-                              {Bed} {this.state.LeftInfoPatient?.data?.bed}
-                            </li>
-                          </ul>
-                        </Grid>
+
+                        {this.state.LeftInfoPatient?.data?.external_space ? <>
+                          {/* <Grid className="dtlCntUpr">
+                            <Grid className="dtlCntLft">
+                              <Grid>
+                                <Grid className="dtlCount">
+                                  <a className="taskHover">
+                                    <img
+                                      src={require("assets/images/location-pin.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.address} {','} {this.state.LeftInfoPatient?.full_address?.city} / {to} {'-'} {this.state.LeftInfoPatient?.full_address?.pastal_code}
+                                  </a>
+                                </Grid>
+                                <Grid className="dtlCount dtlCount123">
+                                  <a className="taskHover dtlCountEmail">
+                                    <img
+                                      src={require("assets/images/email.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.email}
+                                  </a>
+                                </Grid>
+                                <Grid className="dtlCount">
+                                  <a className="taskHover">
+                                    <img
+                                      src={require("assets/images/phone.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.mobile}
+                                  </a>
+                                </Grid>
+                              </Grid>
+                          
+                            </Grid>
+                          </Grid> */}
+
+
+                          <div className="forSameLineIcon">
+                            <div className="setAssignedTo setAssignedToA">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.address} {','} {this.state.LeftInfoPatient?.full_address?.city} / {to} {'-'} {this.state.LeftInfoPatient?.full_address?.pastal_code}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/location-pin.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+
+                            <div className="setAssignedTo setAssignedToB">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.email}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/email.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+
+                            <div className="setAssignedTo setAssignedToC">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.mobile}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/phone.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+                          </div>
+
+
+
+
+
+                        </> : <>
+                          <Grid className="roomsNum">
+                            <ul>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/ward.png")}
+                                  alt=""
+                                  title=""
+                                />
+                                {
+                                  this.state.LeftInfoPatient?.data?.wards
+                                    ?.ward_name
+                                }
+                              </li>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/room22.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {
+                                  this.state.LeftInfoPatient?.data?.rooms
+                                    ?.room_name
+                                }
+                              </li>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/bedColor.png")}
+                                  alt=""
+                                  title=""
+                                />
+                                {Bed} {this.state.LeftInfoPatient?.data?.bed}
+                              </li>
+                            </ul>
+                          </Grid></>}
                       </Grid>
                       <Grid className="exmBtn">
                         <a>
@@ -2508,8 +2600,8 @@ class Index extends Component {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12}>
-            <Grid className="billingHeadSec">
-              <Grid container direction="row" alignItems="center">
+              <Grid className="billingHeadSec">
+                <Grid container direction="row" alignItems="center">
                   <Grid item xs={2} md={6} lg={2}>
                     <p>{ID}</p>
                   </Grid>
@@ -2541,7 +2633,7 @@ class Index extends Component {
                               {getDate(
                                 item.created_at,
                                 this.props.settings.setting &&
-                                  this.props.settings.setting.date_format
+                                this.props.settings.setting.date_format
                               )}
                             </label>
                           </Grid>
@@ -2568,9 +2660,9 @@ class Index extends Component {
                 <label>{Weight}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo?.weight_bmi &&
-                  this.state.personalinfo?.weight_bmi.length > 0 &&
-                  this.state.personalinfo?.weight_bmi[0].weight
+                    this.state.personalinfo?.weight_bmi &&
+                    this.state.personalinfo?.weight_bmi.length > 0 &&
+                    this.state.personalinfo?.weight_bmi[0].weight
                     ? this.state.personalinfo?.weight_bmi[0].weight
                     : "--"}
                   <span>{kg}</span>
@@ -2580,9 +2672,9 @@ class Index extends Component {
                 <label>{Height}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo?.weight_bmi &&
-                  this.state.personalinfo?.weight_bmi.length > 0 &&
-                  this.state.personalinfo?.weight_bmi[0].height
+                    this.state.personalinfo?.weight_bmi &&
+                    this.state.personalinfo?.weight_bmi.length > 0 &&
+                    this.state.personalinfo?.weight_bmi[0].height
                     ? this.state.personalinfo?.weight_bmi[0].height
                     : "--"}
                   <span>{cm}</span>
@@ -2593,8 +2685,8 @@ class Index extends Component {
               <Grid className="prfilHghtLft">
                 <label>{BMI}</label>
                 {this.state.personalinfo &&
-                this.state.personalinfo?.weight_bmi &&
-                this.state.personalinfo?.weight_bmi.length > 0 ? (
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 ? (
                   <p>
                     {(
                       (this.state.personalinfo.weight_bmi[0].weight /
@@ -2604,11 +2696,11 @@ class Index extends Component {
                     ).toFixed(2) === "NaN"
                       ? "--"
                       : (
-                          (this.state.personalinfo.weight_bmi[0].weight /
-                            (this.state.personalinfo.weight_bmi[0].height *
-                              this.state.personalinfo.weight_bmi[0].height)) *
-                          10000
-                        ).toFixed(2)}
+                        (this.state.personalinfo.weight_bmi[0].weight /
+                          (this.state.personalinfo.weight_bmi[0].height *
+                            this.state.personalinfo.weight_bmi[0].height)) *
+                        10000
+                      ).toFixed(2)}
                   </p>
                 ) : (
                   <p>--</p>
@@ -2618,17 +2710,17 @@ class Index extends Component {
                 <label>{Blood}</label>
                 <p>
                   {this.state.user &&
-                  this.state.user?.blood_group &&
-                  this.state.user?.rhesus &&
-                  this.state.user.blood_group.value !== "not_known" &&
-                  this.state.user.rhesus.value !== "not_known"
+                    this.state.user?.blood_group &&
+                    this.state.user?.rhesus &&
+                    this.state.user.blood_group.value !== "not_known" &&
+                    this.state.user.rhesus.value !== "not_known"
                     ? typeof this.state.user.blood_group === "object"
                       ? this.state.user.blood_group.value +
-                        " " +
-                        this.state.user.rhesus.value
+                      " " +
+                      this.state.user.rhesus.value
                       : this.state.user.blood_group +
-                        " " +
-                        this.state.user.rhesus.value
+                      " " +
+                      this.state.user.rhesus.value
                     : "--"}
                 </p>
               </Grid>
@@ -2665,7 +2757,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.respiration[
-                                            this.state.resprisationLast
+                                          this.state.resprisationLast
                                           ]
                                         )
                                       }
@@ -2699,16 +2791,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.respiration &&
-                    this.state.personalinfo.respiration.length > 0 &&
-                    this.state.resprisationLast !== -1 ? (
+                      this.state.personalinfo.respiration &&
+                      this.state.personalinfo.respiration.length > 0 &&
+                      this.state.resprisationLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.respiration &&
                               this.state.personalinfo.respiration[
-                                this.state.resprisationLast
+                              this.state.resprisationLast
                               ] &&
                               this.state.personalinfo.respiration[
                                 this.state.resprisationLast
@@ -2816,24 +2908,24 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_pressure &&
-                    this.state.personalinfo.blood_pressure.length > 0 &&
-                    this.state.BPLast !== -1 ? (
+                      this.state.personalinfo.blood_pressure &&
+                      this.state.personalinfo.blood_pressure.length > 0 &&
+                      this.state.BPLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_pressure &&
                               this.state.personalinfo.blood_pressure[
-                                this.state.BPLast
+                              this.state.BPLast
                               ] &&
                               this.state.personalinfo.blood_pressure[
                                 this.state.BPLast
                               ].rr_systolic +
-                                "/" +
-                                this.state.personalinfo.blood_pressure[
-                                  this.state.BPLast
-                                ].rr_diastolic}{" "}
+                              "/" +
+                              this.state.personalinfo.blood_pressure[
+                                this.state.BPLast
+                              ].rr_diastolic}{" "}
                             <span>{mmHg}</span>
                           </h3>
                           <p>
@@ -2904,7 +2996,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.weight_bmi[
-                                            this.state.wiegthLast
+                                          this.state.wiegthLast
                                           ]
                                         )
                                       }
@@ -2938,16 +3030,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.weight_bmi &&
-                    this.state.personalinfo.weight_bmi.length > 0 &&
-                    this.state.wiegthLast !== -1 ? (
+                      this.state.personalinfo.weight_bmi &&
+                      this.state.personalinfo.weight_bmi.length > 0 &&
+                      this.state.wiegthLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.weight_bmi &&
                               this.state.personalinfo.weight_bmi[
-                                this.state.wiegthLast
+                              this.state.wiegthLast
                               ] &&
                               (
                                 (this.state.personalinfo.weight_bmi[
@@ -3027,7 +3119,7 @@ class Index extends Component {
                                         this.props.downloadTrack(
                                           this.state.personalinfo
                                             .blood_pressure[
-                                            this.state.HeartLast
+                                          this.state.HeartLast
                                           ]
                                         )
                                       }
@@ -3062,16 +3154,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_pressure &&
-                    this.state.personalinfo.blood_pressure.length > 0 &&
-                    this.state.HeartLast !== -1 ? (
+                      this.state.personalinfo.blood_pressure &&
+                      this.state.personalinfo.blood_pressure.length > 0 &&
+                      this.state.HeartLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_pressure &&
                               this.state.personalinfo.blood_pressure[
-                                this.state.HeartLast
+                              this.state.HeartLast
                               ] &&
                               this.state.personalinfo.blood_pressure[
                                 this.state.HeartLast
@@ -3149,7 +3241,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Potassium[
-                                            this.state.potassiumLast
+                                          this.state.potassiumLast
                                           ]
                                         )
                                       }
@@ -3184,8 +3276,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Potassium &&
-                    this.state.Potassium.length > 0 &&
-                    this.state.potassiumLast !== -1 ? (
+                      this.state.Potassium.length > 0 &&
+                      this.state.potassiumLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -3270,7 +3362,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Creatinine[
-                                            this.state.LRLast
+                                          this.state.LRLast
                                           ]
                                         )
                                       }
@@ -3307,8 +3399,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Creatinine &&
-                    this.state.Creatinine.length > 0 &&
-                    this.state.LRLast !== -1 ? (
+                      this.state.Creatinine.length > 0 &&
+                      this.state.LRLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -3396,7 +3488,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Hemoglobine[
-                                            this.state.hemoglobineLast
+                                          this.state.hemoglobineLast
                                           ]
                                         )
                                       }
@@ -3431,13 +3523,13 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Hemoglobine &&
-                    this.state.Hemoglobine.length > 0 ? (
+                      this.state.Hemoglobine.length > 0 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Hemoglobine &&
                               this.state.Hemoglobine[
-                                this.state.hemoglobineLast
+                              this.state.hemoglobineLast
                               ] &&
                               this.state.Hemoglobine[this.state.hemoglobineLast]
                                 .value}{" "}
@@ -3522,7 +3614,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Leucocytes[
-                                            this.state.leucocytesLast
+                                          this.state.leucocytesLast
                                           ]
                                         )
                                       }
@@ -3557,14 +3649,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Leucocytes &&
-                    this.state.Leucocytes.length > 0 &&
-                    this.state.leucocytesLast !== -1 ? (
+                      this.state.Leucocytes.length > 0 &&
+                      this.state.leucocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Leucocytes &&
                               this.state.Leucocytes[
-                                this.state.leucocytesLast
+                              this.state.leucocytesLast
                               ] &&
                               this.state.Leucocytes[this.state.leucocytesLast]
                                 .value}{" "}
@@ -3646,7 +3738,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Pancreaticlipase[
-                                            this.state.pancreaticlipaseLast
+                                          this.state.pancreaticlipaseLast
                                           ]
                                         )
                                       }
@@ -3681,14 +3773,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Pancreaticlipase &&
-                    this.state.Pancreaticlipase.length > 0 &&
-                    this.state.pancreaticlipaseLast !== -1 ? (
+                      this.state.Pancreaticlipase.length > 0 &&
+                      this.state.pancreaticlipaseLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Pancreaticlipase &&
                               this.state.Pancreaticlipase[
-                                this.state.pancreaticlipaseLast
+                              this.state.pancreaticlipaseLast
                               ] &&
                               this.state.Pancreaticlipase[
                                 this.state.pancreaticlipaseLast
@@ -3777,7 +3869,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Thrombocytes[
-                                            this.state.thrombocytesLast
+                                          this.state.thrombocytesLast
                                           ]
                                         )
                                       }
@@ -3812,14 +3904,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Thrombocytes &&
-                    this.state.Thrombocytes.length > 0 &&
-                    this.state.thrombocytesLast !== -1 ? (
+                      this.state.Thrombocytes.length > 0 &&
+                      this.state.thrombocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Thrombocytes &&
                               this.state.Thrombocytes[
-                                this.state.thrombocytesLast
+                              this.state.thrombocytesLast
                               ] &&
                               this.state.Thrombocytes[
                                 this.state.thrombocytesLast
@@ -3906,7 +3998,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Sodium[
-                                            this.state.sodiumLast
+                                          this.state.sodiumLast
                                           ]
                                         )
                                       }
@@ -3941,8 +4033,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Sodium &&
-                    this.state.Sodium.length > 0 &&
-                    this.state.sodiumLast !== -1 ? (
+                      this.state.Sodium.length > 0 &&
+                      this.state.sodiumLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -4059,8 +4151,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.GGT &&
-                    this.state.GGT.length > 0 &&
-                    this.state.ggtLast !== -1 ? (
+                      this.state.GGT.length > 0 &&
+                      this.state.ggtLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -4171,8 +4263,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.AST &&
-                    this.state.AST.length > 0 &&
-                    this.state.astLast !== -1 ? (
+                      this.state.AST.length > 0 &&
+                      this.state.astLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -4284,8 +4376,8 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.ALT &&
-                    this.state.ALT.length > 0 &&
-                    this.state.altLast !== -1 ? (
+                      this.state.ALT.length > 0 &&
+                      this.state.altLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
@@ -4357,7 +4449,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.BSLast
+                                          this.state.BSLast
                                           ]
                                         )
                                       }
@@ -4391,16 +4483,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_sugar &&
-                    this.state.personalinfo.blood_sugar.length > 0 &&
-                    this.state.BSLast !== -1 ? (
+                      this.state.personalinfo.blood_sugar &&
+                      this.state.personalinfo.blood_sugar.length > 0 &&
+                      this.state.BSLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                                this.state.BSLast
+                              this.state.BSLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.BSLast
@@ -4472,7 +4564,7 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.hbLast
+                                          this.state.hbLast
                                           ]
                                         )
                                       }
@@ -4506,16 +4598,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_sugar &&
-                    this.state.personalinfo.blood_sugar.length > 0 &&
-                    this.state.hbLast !== -1 ? (
+                      this.state.personalinfo.blood_sugar &&
+                      this.state.personalinfo.blood_sugar.length > 0 &&
+                      this.state.hbLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                                this.state.hbLast
+                              this.state.hbLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.hbLast
@@ -4646,7 +4738,7 @@ class Index extends Component {
                     </Grid>
 
                     {this.state.upcoming_appointment &&
-                    this.state.upcoming_appointment.length > 0 ? (
+                      this.state.upcoming_appointment.length > 0 ? (
                       <div>
                         {this.state.upcoming_appointment.map((data, index) => (
                           <div>
@@ -4671,15 +4763,15 @@ class Index extends Component {
                               )}
                               {data.appointment_type ===
                                 "online_appointment" && (
-                                <a>
-                                  <img
-                                    src={require("assets/images/video-call.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {vdo_call}
-                                </a>
-                              )}
+                                  <a>
+                                    <img
+                                      src={require("assets/images/video-call.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {vdo_call}
+                                  </a>
+                                )}
                               {data.appointment_type === "practice_days" && (
                                 <a>
                                   <img
@@ -4768,8 +4860,8 @@ class Index extends Component {
                       <a className="presSecAncr">
                         <h4>{prescriptions}</h4>
                         {this.state.personalinfo &&
-                        this.state.personalinfo.prescriptions &&
-                        this.state.personalinfo.prescriptions.length > 0 ? (
+                          this.state.personalinfo.prescriptions &&
+                          this.state.personalinfo.prescriptions.length > 0 ? (
                           <div>
                             {this.state.personalinfo.prescriptions.map(
                               (itm) => (
@@ -4826,8 +4918,8 @@ class Index extends Component {
                       <a className="presSecAncr">
                         <h4>{sick_cert}</h4>
                         {this.state.personalinfo &&
-                        this.state.personalinfo.sick_certificates &&
-                        this.state.personalinfo.sick_certificates.length > 0 ? (
+                          this.state.personalinfo.sick_certificates &&
+                          this.state.personalinfo.sick_certificates.length > 0 ? (
                           <div>
                             {this.state.personalinfo.sick_certificates.map(
                               (itm) => (
@@ -5002,8 +5094,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

@@ -372,7 +372,7 @@ class Index extends Component {
                                           options={this.state.AllSpeciality}
                                           name="specialty_name"
                                           isSearchable={true}
-                                          className="min_section minall_sec"
+                                          className="addStafSelect"
                                           isMulti={true}
                                           value={selectedID(
                                             this.state.updateTrack.specialty_id,
@@ -380,16 +380,19 @@ class Index extends Component {
                                           )}
                                         />
                                       </Grid>
-
+                                      <Grid className='enterSpcl' >
+                                        <label>{Price}</label>
+                                      </Grid>
                                       <Grid
                                         item
                                         xs={12}
                                         md={12}
                                         className="enterPricePart1"
                                       >
-                                        <VHfield
-                                          label={Price}
+                                        <input
+                                          type="number"
                                           name="price"
+                                          className="serchInput"
                                           placeholder={Enterserviceprice}
                                           onChange={(e) =>
                                             updateEntryState1(e, this)
@@ -398,7 +401,7 @@ class Index extends Component {
                                             this.state.updateTrack.price || 0
                                           }
                                         />
-                                        <p className="enterPricePart3">€</p>
+                                        <p className="enterPartprice">€</p>
                                       </Grid>
                                     </Grid>
 
@@ -737,8 +740,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

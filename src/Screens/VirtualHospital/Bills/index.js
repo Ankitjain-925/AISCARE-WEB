@@ -3,9 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+// import AppBar from '@material-ui/core/AppBar';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
 import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +27,7 @@ import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from '../Institutes/selecthouseaction';
 import Loader from 'Screens/Components/Loader/index';
 import { getLanguage } from 'translations/index';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { PatientMoveFromHouse } from '../PatientFlow/data';
 import Modal from '@material-ui/core/Modal';
 import Select from 'react-select';
@@ -41,10 +41,10 @@ import { ComponentToPrint4 } from './ComponentToPrint4';
 import { ComponentToPrint5 } from './ComponentToPrint5';
 import { filterPatient } from 'Screens/Components/BasicMethod/index';
 import { Speciality } from 'Screens/Login/speciality.js';
-import {
-  GetShowLabel1,
-  GetShowLabel,
-} from 'Screens/Components/GetMetaData/index.js';
+// import {
+//   GetShowLabel1,
+//   GetShowLabel,
+// } from 'Screens/Components/GetMetaData/index.js';
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -247,11 +247,11 @@ class Index extends Component {
     });
     var value = this.state.value;
     var ApiStatus =
-      value == 1
+      value === 1
         ? 'issued'
-        : value == 2
+        : value === 2
           ? 'overdue'
-          : value == 3
+          : value === 3
             ? 'paid'
             : 'all';
     this.fetchbillsdata(ApiStatus, value);
@@ -336,7 +336,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        if (status == 'paid') {
+        if (status === 'paid') {
           PatientMoveFromHouse(
             data.case_id,
             this.props.stateLoginValueAim.token,
@@ -344,7 +344,7 @@ class Index extends Component {
             false,
             true
           );
-        } else if (status == 'overdue') {
+        } else if (status === 'overdue') {
           PatientMoveFromHouse(
             data.case_id,
             this.props.stateLoginValueAim.token,
@@ -483,16 +483,16 @@ class Index extends Component {
       .then((response) => {
         var value = this.state.value;
         var ApiStatus =
-          value == 1
+          value === 1
             ? 'issued'
-            : value == 2
+            : value === 2
               ? 'overdue'
-              : value == 3
+              : value === 3
                 ? 'paid'
                 : 'all';
         this.fetchbillsdata(ApiStatus, value);
       })
-      .catch((error) => { });
+      .catch(() => { });
   }
 
   Invoice = (data) => {
@@ -504,11 +504,11 @@ class Index extends Component {
 
   handleChangeTab = (event, value) => {
     var ApiStatus =
-      value == 1
+      value === 1
         ? 'issued'
-        : value == 2
+        : value === 2
           ? 'overdue'
-          : value == 3
+          : value === 3
             ? 'paid'
             : 'all';
     this.fetchbillsdata(ApiStatus, value);
@@ -616,48 +616,48 @@ class Index extends Component {
     }
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      All,
+      // All,
       Billing,
       filters,
       Patient,
       speciality,
-      Status,
+      // Status,
       not_mentioned,
       ID,
       date,
       total,
       NewInvoice,
       applyFilters,
-      Paid,
-      Draft,
-      Overdue,
-      Issued,
+      // Paid,
+      // Draft,
+      // Overdue,
+      // Issued,
       DeleteInvoice,
       clear_all_filters,
-      DuplicateInvoice,
+      // DuplicateInvoice,
       PrintInvoice,
       DownloadPDF,
-      Setstatus,
+      // Setstatus,
       Search,
       FilterbyPatient,
       FilterbySpeciality,
-      FilterbyStatus,
+      // FilterbyStatus,
       no_data_avlbl
     } = translate;
     const {
       value,
-      DraftBills,
-      IssuedBills,
-      OverDueBills,
-      PaidBills,
-      bills_data,
-      PatientList,
-      PatientStatus,
+      // DraftBills,
+      // IssuedBills,
+      // OverDueBills,
+      // PaidBills,
+      // bills_data,
+      // PatientList,
+      // PatientStatus,
       SpecialityData,
-      allBillsCSS,
-      issuedCSS,
-      overdueCSS,
-      paidCSS,
+      // allBillsCSS,
+      // issuedCSS,
+      // overdueCSS,
+      // paidCSS,
     } = this.state;
     const { House: { roles = [] } = {} } = this.props || {}
     return (
@@ -1284,8 +1284,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

@@ -89,7 +89,7 @@ class Index extends Component {
                                 <Grid className="vsblAllTim">
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={8}>
-                                            <DateFormat name="opt_until" value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                            <DateFormat name="opt_until" value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -109,7 +109,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLoginValueAim , loadingaIndicatoranswerdetail} = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     return {

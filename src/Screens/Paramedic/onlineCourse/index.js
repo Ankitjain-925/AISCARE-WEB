@@ -10,7 +10,7 @@ import Loader from "Screens/Components/Loader/index";
 import LeftMenu from "Screens/Components/Menus/ParamedicLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/ParamedicLeftMenu/mobile";
 import CourseSection from "Screens/Components/OnlineCourses/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { authy } from "Screens/Login/authy.js";
 
 class Index extends Component {
@@ -68,7 +68,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="course" />
                 <LeftMenuMobile isNotShow={true} currentPage="course" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                   <CourseSection />

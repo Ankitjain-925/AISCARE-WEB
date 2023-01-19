@@ -129,7 +129,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
 

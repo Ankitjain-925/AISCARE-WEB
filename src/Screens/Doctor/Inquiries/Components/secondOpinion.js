@@ -267,9 +267,9 @@ class Index extends Component {
     //         imagePreviewUrl: reader.result
     //     });
     // }
-    let user_token = this.props.stateLoginValueAim.token;
+    // let user_token = this.props.stateLoginValueAim.token;
     reader.readAsDataURL(file);
-    const data = new FormData();
+    // const data = new FormData();
     for (var i = 0; i < event.length; i++) {
       var file1 = event[i];
       let fileParts = event[i].name.split(".");
@@ -307,7 +307,7 @@ class Index extends Component {
 
             var returnData = response.data.data.returnData;
             var signedRequest = returnData.signedRequest;
-            var url = returnData.url;
+            // var url = returnData.url;
 
             if (fileType === "pdf") {
               fileType = "application/pdf";
@@ -592,18 +592,18 @@ class Index extends Component {
     }
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      capab_Doctors,
+      // capab_Doctors,
       see_details,
       approve,
       decline,
       remove,
-      prescription_inquiry,
-      standerd_ques,
+      // prescription_inquiry,
+      // standerd_ques,
       questions,
-      patient_health_status,
+      // patient_health_status,
       sent,
-      on,
-      prescription,
+      // on,
+      // prescription,
       Pending,
       request,
       edit,
@@ -611,39 +611,39 @@ class Index extends Component {
       Answered,
       Cancelled,
       req_updated_successfully,
-      sick_cert,
-      my_doc,
-      New,
+      // sick_cert,
+      // my_doc,
+      // New,
       inquiry,
-      doc_and_statnderd_ques,
-      doc_aimedis_private,
+      // doc_and_statnderd_ques,
+      // doc_aimedis_private,
       Annotations,
       details,
       Patient,
-      recved_on,
+      // recved_on,
       status,
       home_add_mailbox,
-      how_u_like_rcv_pres,
-      Medicine,
-      Substance,
-      Dose,
-      mg,
-      trade_name,
-      atc_if_applicable,
-      manufacturer,
-      pack_size,
-      Medications,
-      allergies,
-      dignoses,
+      // how_u_like_rcv_pres,
+      // Medicine,
+      // Substance,
+      // Dose,
+      // mg,
+      // trade_name,
+      // atc_if_applicable,
+      // manufacturer,
+      // pack_size,
+      // Medications,
+      // allergies,
+      // dignoses,
       browse,
       or_drag_here,
       online,
       suported_file_type_jpg_png,
-      snd_patient_timeline_email,
-      next,
+      // snd_patient_timeline_email,
+      // next,
       reject,
       short_msg,
-      previous,
+      // previous,
       back,
       about,
       not_mentioned,

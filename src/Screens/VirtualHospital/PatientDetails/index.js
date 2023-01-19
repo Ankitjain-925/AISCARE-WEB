@@ -191,11 +191,11 @@ class Index extends Component {
   CloseGraph = () => {
     this.rightInfo();
     this.getTrack();
-    this.setState({ ModalDataCare: {}, isGraph: false , QueryDetail: false});
-};
-Opencare=(data)=>{
-  this.setState({ModalDataCare: data, QueryDetail: true, isGraph: true})
-}
+    this.setState({ ModalDataCare: {}, isGraph: false, QueryDetail: false });
+  };
+  Opencare = (data) => {
+    this.setState({ ModalDataCare: data, QueryDetail: true, isGraph: true })
+  }
   //For get the Track
   getTrack = async () => {
     var user_id = this.props.stateLoginValueAim.user._id;
@@ -360,9 +360,9 @@ Opencare=(data)=>{
     ) {
       return <Redirect to={'/'} />;
     }
-     if (House && House?.value === null) {
-         return <Redirect to={'/VirtualHospital/institutes'} />;
-     }
+    if (House && House?.value === null) {
+      return <Redirect to={'/VirtualHospital/institutes'} />;
+    }
     const { value } = this.state;
     const { valueMob } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
@@ -474,7 +474,7 @@ Opencare=(data)=>{
                           <PatientJournal
                             rightInfo={this.rightInfo}
                             OpenGraph={this.OpenGraph}
-                            Opencare={(data)=>this.Opencare(data)}  
+                            Opencare={(data) => this.Opencare(data)}
                           />
                         </TabContainer>
                       )}
@@ -568,29 +568,29 @@ Opencare=(data)=>{
             )}
           </Grid>
           {this.state.isGraph && (
-                this.state.QueryDetail ? 
+            this.state.QueryDetail ?
               <ShowPrevQues
                 closeFullQues={() => this.CloseGraph()}
                 item={this.state.ModalDataCare}
                 comesFrom="PatientEnd"
               />
-                :
+              :
 
-            <GraphView
-              date_format={
-                this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.date_format
-              }
-              time_format={
-                this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.time_format
-              }
-              personalinfo={this.state.personalinfo}
-              current_Graph={this.state.current_Graph}
-              CloseGraph={this.CloseGraph}
-            />
+              <GraphView
+                date_format={
+                  this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.date_format
+                }
+                time_format={
+                  this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.time_format
+                }
+                personalinfo={this.state.personalinfo}
+                current_Graph={this.state.current_Graph}
+                CloseGraph={this.CloseGraph}
+              />
           )}
         </Grid>
       </Grid>
@@ -598,8 +598,7 @@ Opencare=(data)=>{
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

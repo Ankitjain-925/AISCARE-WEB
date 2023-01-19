@@ -6,7 +6,7 @@ import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { withRouter } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { OptionList } from "Screens/Login/metadataaction";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -26,7 +26,6 @@ import {
   mySorter,
   SortByEntry,
   SortByDiagnose,
-  getReminder,
   isToday,
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
@@ -64,7 +63,7 @@ import FloatArrowUp from "../../Components/FloatArrowUp/index";
 import { authy } from "Screens/Login/authy.js";
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index";
 import SPECIALITY from "speciality";
 
@@ -1129,7 +1128,7 @@ class Index extends Component {
         }
       >
         {this.state.loaderImage && <Loader />}
-        <Notification />
+        {/* <Notification /> */}
 
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -2199,8 +2198,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;

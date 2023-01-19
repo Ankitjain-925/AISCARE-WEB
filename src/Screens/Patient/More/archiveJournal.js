@@ -21,7 +21,7 @@ import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/inde
 import Loader from "Screens/Components/Loader/index.js";
 import { getLanguage } from "translations/index"
 import { authy } from "Screens/Login/authy.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { get_gender, get_cur_one, delete_click_track } from "Screens/Components/CommonApi/index";
 import { commonHeader } from "component/CommonHeader/index";
 
@@ -422,7 +422,7 @@ class Index extends Component {
               {/* Website Menu */}
               <LeftMenu isNotShow={true} currentPage="more" />
               <LeftMenuMobile isNotShow={true} currentPage="more" />
-              <Notification />
+              {/* <Notification /> */}
               {/* End of Website Menu */}
 
               {/* Website Mid Content */}
