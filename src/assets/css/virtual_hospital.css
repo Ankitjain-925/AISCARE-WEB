@@ -17426,3 +17426,16 @@ margin-left: 30px;
     padding: 0px;
   }
 }
+
+@media(max-width:960px){
+.allTimeSlotSec{
+  border:none;
+  width:100%!important;
+  display:inline-block;
+}
+.midTimeSlotSec{
+  border:1px solid #BFC1C1;
+  border-radius: 4px;
+  margin: 8px;
+}
+}
