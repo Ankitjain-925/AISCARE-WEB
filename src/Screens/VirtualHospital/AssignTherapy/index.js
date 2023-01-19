@@ -167,7 +167,10 @@ class Index extends Component {
             Add_Sequences,
             Task_Name,
             Task_Description,
-            Assignedtitle
+            Assignedtitle,
+            no_data_avlbl,
+            Duplicate_Therapy,
+            showing_therapy
         } = translate;
         const { AllTherpy, assignTask, taskName, viewAllData, error_section, ForButton, viewTher, openStaff } = this.state;
         const { stateLoginValueAim, House } = this.props;
@@ -430,7 +433,7 @@ class Index extends Component {
 
                                                                         {assignTask &&
                                                                             <Grid className="headService11">
-                                                                                <label>Type</label>
+                                                                                <label>{Type}</label>
                                                                                 <Select
                                                                                     name="type"
                                                                                     options={this.state.AddTaskSection}
@@ -452,7 +455,7 @@ class Index extends Component {
                                                                                     placeholder={Task_Name}
                                                                                     onChange={(e) => updateEntry(this, e)}
                                                                                     value={this.state?.allSequence?.task_name || ""}
-                                                                                />
+                                                                                />                                                                          
                                                                                 <p className="err_message">{this.state.errorTaskName}</p>
                                                                                 <VHfield
                                                                                     label={Task_Description}
@@ -642,6 +645,7 @@ class Index extends Component {
                                         </Grid> */}
 
                                         {/* service price content */}
+                                        {roles.includes('show_therapy') ? <>
                                         <Grid className="srvcTable3">
                                             <table>
                                                 <thead>
@@ -721,7 +725,16 @@ class Index extends Component {
                                                                                         {editTherapy}
                                                                                     </a>
                                                                                 </li>}
-
+                                                                                {roles.includes('edit_therapy') &&
+                                                                                <li onClick={() => EditTherapy(this, item, true)}>
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/virtual_images/assign-to.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />{Duplicate_Therapy}
+                                                                                    </a>
+                                                                                </li>}
                                                                             {roles.includes('delete_therapy') &&
                                                                                 <li onClick={() => DeleteTherapy(this, item)}>
                                                                                     <a>
@@ -769,10 +782,12 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
                                                         <Grid className="totalOutOff">
-                                                            <a>
-                                                                {this.state.currentPage} of{" "}
-                                                                {this.state.totalPage}
-                                                            </a>
+                                                            {(this.state.currentPage && this.state.totalPage) ? (
+                                                                <a>
+                                                                    {this.state.currentPage} of{" "}
+                                                                    {this.state.totalPage}
+                                                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                                                            }
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>
@@ -791,9 +806,10 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid></>:<p className='authority'>{showing_therapy}</p>
+                                        }
                                         {/* end of service price content */}
-                                    </Grid>
+-                                    </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
                             </Grid>
@@ -805,8 +821,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect;
     const { settings } = state.Settings;

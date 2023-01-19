@@ -254,8 +254,7 @@ img.passArow {
     padding: 12px 0px 12px 32px;
     outline: none !important;
     margin-bottom: 18px;
-}
-
+} 
 .acType {
     margin-left: 5px;
 }
@@ -495,9 +494,7 @@ p.regOnlog {
 /* End Login page css */
 
 /* Added By ANKITA */
-
-.success_message
-{
+.success_message {
     text-align: center;
     color: #00abaf;
     font-weight: 600;
@@ -505,14 +502,12 @@ p.regOnlog {
 img.link_docs {
     width: 30px;
 }
-.onProfessional a
-{
+.onProfessional a{
     background-color: #f7f7f7!important;
     color: #000!important;
     font-weight: 400!important;
 }
-.ProfSelect a.dropdown-toggle.nav-link
-{
+.ProfSelect a.dropdown-toggle.nav-link{
     background-color: #00ABAF!important;
     color: #fff!important;
     font-weight: 600!important;
@@ -531,15 +526,13 @@ img.link_docs {
 .flag-select{
     position: absolute!important;
 }
-.flag-select__btn[aria-expanded="true"]:after
-{
+.flag-select__btn[aria-expanded="true"]:after{
 	margin-top: 25%;
 }
-.flag-select__btn:after
-{
+.flag-select__btn:after{
 	margin-top: 25%;
 }
-.flag-select__btn:after {
+.flag-select__btn:after{
     border-top: 3px solid #4d4d4d !important;
     border-left: 3px solid transparent !important;
     border-right: 3px solid transparent !important;
@@ -597,7 +590,7 @@ ul.flag-select__options li {
 }
 .spaceforplus
 {
-    margin-bottom:10px!important;
+    margin-bottom:10px!important; 
 }
 .widthProfession {
     width: 95% !important;

@@ -3,10 +3,10 @@ import * as React from "react";
 import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import "./../../../assets/css/virtual_hospital.css";
-import axios from "axios";
-import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index";
-import { Redirect, withRouter } from 'react-router-dom';
+// import axios from "axios";
+// import sitedata from "sitedata";
+// import { commonHeader } from "component/CommonHeader/index";
+import { withRouter } from 'react-router-dom';
 import { LoginReducerAim } from "Screens/Login/actions";
 import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
@@ -103,7 +103,7 @@ export class ComponentToPrint5 extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLoginValueAim , loadingaIndicatoranswerdetail} = state.LoginReducerAim;
     return {
         stateLoginValueAim, loadingaIndicatoranswerdetail
     };

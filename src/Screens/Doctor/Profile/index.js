@@ -28,7 +28,7 @@ import SecurityTab from "Screens/Components/CommonProfileSec/security.js";
 import ServicesAppointment from "./Components/serviceAppointments.js";
 import DateTime from "Screens/Components/CommonProfileSec/DateTime";
 import OfficeInformation from "./Components/officeInformation.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Redirect, Route } from "react-router-dom";
 import { commonHeader } from "component/CommonHeader/index.js";
 import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
@@ -203,7 +203,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="profile" />
                 <LeftMenuMobile isNotShow={true} currentPage="profile" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 {/* Website Mid Content */}
                 <Grid item xs={12} md={9}>

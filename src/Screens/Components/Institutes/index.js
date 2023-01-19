@@ -16,11 +16,11 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
 import { Button } from "@material-ui/core/index";
 import _ from "lodash";
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
-console.log("SOCKET_URL",SOCKET_URL)
-var socket;
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+// console.log("SOCKET_URL",SOCKET_URL)
+// var socket;
 
 class Index extends Component {
   constructor(props) {
@@ -35,11 +35,11 @@ class Index extends Component {
       showinput: false,
       loaderImage: false,
     };
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
   componentDidMount = () => {
-    socket.on('connection', () => {
-    });
+    // socket.on('connection', () => {
+    // });
     this.allHouses();
     this.getSetting();
   };
@@ -413,8 +413,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

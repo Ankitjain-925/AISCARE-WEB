@@ -25,7 +25,7 @@ import Loader from "Screens/Components/Loader/index.js";
 import npmCountryList from "react-select-country-list";
 import FloatArrowUp from "../../Components/FloatArrowUp/index";
 import { authy } from "Screens/Login/authy.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index"
 import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
 import { commonHeader } from "component/CommonHeader/index.js";
@@ -252,10 +252,10 @@ class Index extends Component {
     let response = await get_track(user_token, user_id)
     if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
-      updateBlockchain(
-        this.props.stateLoginValueAim.user,
-        response.data.data
-      );
+      // updateBlockchain(
+      //   this.props.stateLoginValueAim.user,
+      //   response.data.data
+      // );
       var images = [];
       response.data.data = response.data.data.filter((e) => e != null);
 
@@ -310,7 +310,7 @@ class Index extends Component {
         }
       >
         {this.state.loaderImage && <Loader />}
-        <Notification />
+        {/* <Notification /> */}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
             <Grid item xs={12} md={12}>

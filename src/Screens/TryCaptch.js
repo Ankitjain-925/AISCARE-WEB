@@ -19,7 +19,7 @@ import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownIt
 import ReCAPTCHA from "react-google-recaptcha";
 import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
-import { updateCometUser } from "Screens/Components/CommonApi/index";
+// import { updateCometUser } from "Screens/Components/CommonApi/index";
 import { commonCometHeader, commonHeader } from "component/CommonHeader/index";
 
 
@@ -43,7 +43,6 @@ class Index extends Component {
     var ran1 = Math.floor(Math.random() * 99) + 1;
     var ran2 = Math.floor(Math.random() * 99) + 1;
     var sum = ran1+ran2;
-    console.log('sum', sum)
     this.setState({ran1 : ran1, ran2 : ran2, sum : sum})
   }
 

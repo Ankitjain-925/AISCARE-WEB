@@ -5,8 +5,8 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
-import Timer from "Screens/Components/TimeLogOut/index";
+// import LogOut from "Screens/Components/LogOut/index";
+// import Timer from "Screens/Components/TimeLogOut/index";
 import { slide as Menu } from "react-burger-menu";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import sitedata from "sitedata";
@@ -14,19 +14,20 @@ import axios from "axios";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import { getLanguage } from "translations/index";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { getSetting } from "../api";
 import Checkbox from "@material-ui/core/Checkbox";
 import Loader from "Screens/Components/Loader/index";
-import io from "socket.io-client";
+import {SocketIo, clearScoket} from "socket";
+// import io from "socket.io-client";
 import { currentAvaliable } from "./current.js";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl();
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -42,8 +43,8 @@ class Index extends Component {
       CheckCurrent: { current_available: false },
       update: false,
     };
-    new Timer(this.logOutClick.bind(this));
-    socket = io(SOCKET_URL);
+    // new Timer(this.logOutClick.bind(this));
+    // socket = io(SOCKET_URL);
   }
 
   //For loggedout if logged in user is deleted
@@ -51,14 +52,14 @@ class Index extends Component {
 
     // socket.on("connection", () => { });
 
-    new LogOut(
-      this.props.stateLoginValueAim.token,
-      this.props.stateLoginValueAim.user._id,
-      this.logOutClick.bind(this)
-    );
+    // new LogOut(
+    //   this.props.stateLoginValueAim.token,
+    //   this.props.stateLoginValueAim.user._id,
+    //   this.logOutClick.bind(this)
+    // );
     getSetting(this);
     this.getavailableUpdate();
-    this.availableUpdate();
+    // this.availableUpdate();
   }
 
   //For change Institutes
@@ -148,11 +149,11 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -160,7 +161,7 @@ class Index extends Component {
       this.props.LanguageFetchReducer(languageType);
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
-    }
+    // }
   };
 
   getavailableUpdate = () => {
@@ -173,6 +174,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
+        var socket = SocketIo();
         socket.emit("update", responce);
         let value = responce?.data?.data?.current_available;
         this.setState({
@@ -191,7 +193,7 @@ class Index extends Component {
     state[e.target.name] = e.target.checked;
     localStorage.setItem(
       "CheckCurrent",
-      e.target.checked == true ? true : false
+      e.target.checked === true ? true : false
     );
     this.setState({ CheckCurrent: state, update: !this.state.update });
     this.availableUpdate();
@@ -269,9 +271,9 @@ class Index extends Component {
       my_profile,
       invite_doc,
       pharma_prescription,
-      ProfessionalTask,
-      Doctor_view,
-      VHS_view,
+      // ProfessionalTask,
+      // Doctor_view,
+      // VHS_view,
       online_course,
       profile_setting,
       Language,
@@ -817,7 +819,7 @@ class Index extends Component {
                               />
                             </a>
                           </li>
-                          <li onClick={this.logOutClick}>
+                          <li onClick={()=>this.logOutClick()}>
                             <a>
                               {this.props.settings &&
                                 this.props.settings.setting &&
@@ -885,8 +887,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

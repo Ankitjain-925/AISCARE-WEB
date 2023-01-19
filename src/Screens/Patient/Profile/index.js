@@ -28,7 +28,7 @@ import KycSection from "Screens/Components/CommonProfileSec/kyc";
 import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 import Timezone from "timezon.json";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { getLanguage } from "translations/index"
 import { pure } from "recompose";
@@ -170,7 +170,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="profile" />
                 <LeftMenuMobile isNotShow={true} currentPage="profile" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* Website Mid Content */}
                 <Grid item xs={12} md={10} lg={8}>
                   <Grid className="profilePkg ">

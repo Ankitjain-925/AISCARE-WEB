@@ -1106,7 +1106,7 @@ class Index extends Component {
                 {/* End of Right Section */}
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
               {this.state.totalPage > 1 && (
                 <Grid className="prevNxtpag">
                   <Pagination
@@ -1119,7 +1119,7 @@ class Index extends Component {
                   />
                 </Grid>
               )}
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
       </Grid>
@@ -1127,8 +1127,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim , loadingaIndicatoranswerdetail} = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

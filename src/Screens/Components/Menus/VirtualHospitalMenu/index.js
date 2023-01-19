@@ -7,14 +7,14 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
+import { getSetting, getSpeciality } from '../api';
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { getSetting, getSpeciality } from '../api';
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Index extends Component {
     );
     getSetting(this);
     if(this.props.speciality.SPECIALITY == false){
-    getSpeciality(this);
+      getSpeciality(this);
     }
   }
   //For close the model
@@ -58,11 +58,11 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -79,7 +79,7 @@ class Index extends Component {
         badges: {},
       });
       this.props.Withings([]);
-    }
+    // }
     this.props.history.push("/");
   };
 
@@ -456,7 +456,7 @@ class Index extends Component {
             {this.props?.House?.value && (
               <>
 
-                {this.props?.House?.roles?.length > 0 && (this.props?.House?.roles.includes('service_manager') || this.props?.House?.roles.includes('questionnaire')) &&
+                {this.props?.House?.roles?.length > 0 && (this.props?.House?.roles.includes('service_manager') || this.props?.House?.roles.includes('questionnaire') || this.props?.House?.roles.includes('therapy_manager')|| this.props?.House?.roles.includes('group_staff_manager')) &&
                   <li
                     className={
                       this.props.currentPage === "more" ? "menuActv" : ""
@@ -605,7 +605,7 @@ class Index extends Component {
                               </a>
                             </li>}
                           {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('group_staff_manager') &&
-                            <>
+                            
                               <li>
                                 <a onClick={this.Staffgroup}>
                                   {this.props.settings &&
@@ -628,6 +628,7 @@ class Index extends Component {
                                   {CreateStaffgroup}
                                 </a>
                               </li>
+                              } 
                               {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('therapy_manager') &&
                                 <li>
                                   <a onClick={this.AssignTherapy}>
@@ -651,6 +652,8 @@ class Index extends Component {
                                     {AssignTherapy}
                                   </a>
                                 </li>}
+                                      
+                              {this.props?.House?.roles?.length > 0 && this.props?.House?.roles.includes('questionnaire') &&        
                               <li>
                                 <a onClick={this.Questionaires}>
                                   {this.props.settings &&
@@ -672,7 +675,7 @@ class Index extends Component {
 
                                   {Questionnaire}
                                 </a>
-                              </li></>}
+                              </li>}
                         </ul>
                       </div>
                     </a>
@@ -808,8 +811,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { fitbit } = state.Fitbit;

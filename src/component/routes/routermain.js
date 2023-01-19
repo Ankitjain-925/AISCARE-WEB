@@ -78,7 +78,7 @@ import H_nurse from "Screens/hospital_Admin/h_nurse";
 import H_archive from "Screens/hospital_Admin/hadmin_archivechoose";
 import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
-import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
+// import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 import H_Group from "Screens/hospital_Admin/h_add_group";
 import H_Staff from "Screens/hospital_Admin/h_staffs";
 
@@ -119,15 +119,17 @@ import VHAssignedServices from "Screens/VirtualHospital/AssignedServices/index.j
 import QuestionShow from "Screens/VirtualHospital/QuestionShow/index.js";
 import AccessKeyLog from "../../Screens/Doctor/AccessKeyLog/index";
 import VideoCall from "../../Screens/Doctor/AccessKeyLog/VideoCall/index"
-import io from "socket.io-client";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// import io from "socket.io-client";
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
 import TryCaptcha from "Screens/TryCaptch"
-const SOCKET_URL = GetSocketUrl()
+import {SocketIo, clearScoket} from "socket";
+// const SOCKET_URL = GetSocketUrl()
 
-var socket = io(SOCKET_URL);
+// var socket = io(SOCKET_URL);
 class Routermain extends Component {
 
   allHouses = () => {
+    var socket = SocketIo();
     var data = this.props.stateLoginValueAim?.user?.type
     if (data == "nurse") {
       socket.on("displaynurse", (data) => {
@@ -163,6 +165,7 @@ class Routermain extends Component {
     }
 
   };
+
   setData = (data) => {
     if (this.props.stateLoginValueAim?.user?._id === data?._id) {
       let user_token = this.props.stateLoginValueAim.token;
@@ -181,8 +184,14 @@ class Routermain extends Component {
   }
 
   componentDidMount() {
-    this.allHouses();
+      this.allHouses();
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.stateLoginValueAim !== this.props.stateLoginValueAim) {
+        this.allHouses();
+    }
+  };
 
   render() {
     return (
@@ -747,7 +756,7 @@ class Routermain extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   const { House } = state.houseSelect;
   return {

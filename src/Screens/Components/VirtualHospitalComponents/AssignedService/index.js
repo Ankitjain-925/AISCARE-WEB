@@ -7,8 +7,8 @@ import TimeFormat from 'Screens/Components/TimeFormat/index';
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import TextField from '@material-ui/core/TextField';
+// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+// import TextField from '@material-ui/core/TextField';
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -188,11 +188,11 @@ class Index extends Component {
         this.setState({ assignedTo: e }, () => {
             var data =
                 e?.length > 0 &&
-                e.reduce((last, current, index) => {
+                e.reduce((last, current) => {
                     let isProf =
                         this.state.professionalArray?.length > 0 &&
                         this.state.professionalArray.filter(
-                            (data, index) => data.user_id === current.value || data._id === current.value
+                            (data) => data.user_id === current.value || data._id === current.value
                         );
                     if (isProf && isProf.length > 0) {
                         last.push(isProf[0]);
@@ -420,12 +420,16 @@ class Index extends Component {
     getAssignService = () => {
         var serviceList = [],
             serviceList1 = [];
+            var house =  this.props.comesFrom === "Professional"
+            ? this.state.service?.house_id || this.state.selectedHouse?.value
+            : this.props?.House?.value;
         axios
             .get(
-                sitedata.data.path + '/vh/GetService/' + "60fabfe5b3394533f7f9a6dc-1654919887767",
+                sitedata.data.path + '/vh/GetService/' + house,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
+                console.log("response", response)
                 this.setState({ allServData: response.data.data });
                 for (let i = 0; i < this.state.allServData.length; i++) {
                     serviceList1.push(this.state.allServData[i]);
@@ -459,6 +463,7 @@ class Index extends Component {
         this.setState({ selectedHouse: e }, () => {
             this.getProfessionalData();
             this.getPatientData();
+            this.getAssignService();
             const { roles = [] } = e || {};
             if (!roles.includes("add_assigned_services")) {
                 this.setState(
@@ -637,8 +642,8 @@ class Index extends Component {
         let { Searchserviceoraddcustominput,
             Addservice,
             For_Hospital,
-            Customservicedescription,
-            Customservicetitle,
+            // Customservicedescription,
+            // Customservicetitle,
             ForPatient,
             Search_Select,
             Entertitle,
@@ -649,17 +654,17 @@ class Index extends Component {
             Archive,
             Delete,
             Enterserviceprice,
-            FilterbySpeciality,
+            // FilterbySpeciality,
             Duplicate,
             Dueon,
             Addtime,
             save_and_close,
             remove_time,
-            assignService,
-            Addnewservice,
+            // assignService,
+            // Addnewservice,
             Services,
-            srvc,
-            qty,
+            // srvc,
+            // qty,
             Add,
             Markasdone,
             ServiceAmount,
@@ -826,8 +831,8 @@ class Index extends Component {
                                                 <Grid className="wardsGrup3">
                                                     {this.state.items?.length > 0 &&
                                                         this.state.items.map((data, id) => (
-                                                            <Grid className="roomsNum3">
-                                                                <Grid container direction="row">
+                                                            <Grid className="roomsNum3 aaa">
+                                                                <Grid container direction="row" className="editDelSerBtn">
                                                                     <Grid item xs={6} md={6} className="services-head">
                                                                         <h3>{data?.service}</h3>
                                                                         <p>{data?.quantity}</p>
@@ -1246,8 +1251,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect;
     const { settings } = state.Settings;

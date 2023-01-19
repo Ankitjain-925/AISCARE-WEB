@@ -381,7 +381,7 @@ MovetoTask=()=>{
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    const { stateLoginValueAim } =
       state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect;

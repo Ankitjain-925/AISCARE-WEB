@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./../../../assets/css/virtual_hospital.css";
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { LoginReducerAim } from "Screens/Login/actions";
 import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";

@@ -5,37 +5,37 @@ import {
 } from "actiontypes";
 import sitedata from "sitedata.js";
 import axios from "axios";
-import { CometChat } from "@cometchat-pro/chat";
-import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
+// import { CometChat } from "@cometchat-pro/chat";
+// import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
 import * as Docarray from "./doctorarray";
 import { commonNoTokentHeader } from "component/CommonHeader/index";
 const path = sitedata.data.path + "/UserProfile";
 const path1 = sitedata.data.path + "/User";
 
-export const createUser = ({ uid, name }) => {
-  let user = new CometChat.User(uid);
-  user.setName(name);
-  return CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY);
-};
-//login user
-export const cometLogin = async (uid) => {
-  return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
-};
-export const updateCometUser = async (data) => {
-  axios
-    .post(sitedata.data.path + "/cometUserList",
-      {
-        "uid": data?.uid,
-        "name": data?.name,
-        "avatar": data?.avatar,
-        "status": data?.status,
-        "role": data?.role,
-        "lastActiveAt": data?.lastActiveAt,
-        "conversationId": data?.conversationId
-      })
-    .then((response) => { })
-    .catch((err) => { })
-}
+// export const createUser = ({ uid, name }) => {
+//   let user = new CometChat.User(uid);
+//   user.setName(name);
+//   return CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY);
+// };
+// //login user
+// export const cometLogin = async (uid) => {
+//   return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
+// };
+// export const updateCometUser = async (data) => {
+//   axios
+//     .post(sitedata.data.path + "/cometUserList",
+//       {
+//         "uid": data?.uid,
+//         "name": data?.name,
+//         "avatar": data?.avatar,
+//         "status": data?.status,
+//         "role": data?.role,
+//         "lastActiveAt": data?.lastActiveAt,
+//         "conversationId": data?.conversationId
+//       })
+//     .then((response) => { })
+//     .catch((err) => { })
+// }
 
 export const LoginReducerAim = (email, password, logintoken, SendCallback = () => { }, forUpdate) => {
   return (dispatch) => {

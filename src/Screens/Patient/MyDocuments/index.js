@@ -31,7 +31,7 @@ import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
 import { AddFavDoc, ConsoleCustom } from 'Screens/Components/BasicMethod/index';
 import { getLanguage } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from 'component/CommonHeader/index';
 function TabContainer(props) {
     return (
@@ -469,7 +469,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="documents" />
                                 <LeftMenuMobile isNotShow={true} currentPage="documents" />
-                                <Notification />
+                                {/* <Notification /> */}
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11} lg={10}>
                                     <Grid className="docsOpinion">

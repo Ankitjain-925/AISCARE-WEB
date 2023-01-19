@@ -2162,13 +2162,24 @@
     "Task_Description":"Task Description",
     "Assign_Title":"Assign Title",
     "Service_Amount":"Service Amount",
-    "Please_select_Service":"PLease Select Services"
-   
-    
-     
+    "Please_select_Service":"PLease Select Services",
+    "Please_select_the_hospital":"Please select the hospital",
+    "Please_select_the_patient":"Please select the patient",
+    "Please_select_therapy":"Please select therapy",
+    "Please_fill_due_on_each_sequence":"Please fill due on date/time and professional for each sequence",
+    "Same_as_therapy":"Same as therapy",
+    "Duplicate_Therapy":"Duplicate Therapy",
+    "showing_therapy":"You have no authority for showing the therapy, Please contact to hospital admin",
+    "showing_staff":"You have no authority for showing the group staff, Please contact to hospital admin",
+    "showing_assigned_service":"You have no authority for showing the assigned service, Please contact to hospital admin",
+    "showing_task":"You have no authority for showing the tasks, Please contact to hospital admin",
+    "Sequence":"Sequence",
+    "can_add_invoice":"Can not add invoice with 0 amount",
+    "Viewmoredetails":"View More Details",
+    "assignedservicename":"Assigned Service Name",
+    "Services_name":"Service Name",
+    "taskname":"Task Name",
+    "task_Description":"Task Description"
     }
-
-     
-
     }
 

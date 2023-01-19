@@ -6,7 +6,7 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
-import { confirmAlert } from "react-confirm-alert";
+// import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 import { withRouter } from "react-router-dom";
 import { Redirect, Route } from "react-router-dom";
@@ -28,7 +28,7 @@ import {
   handleSubmit,
   DeleteStaff,
   stffchange,
-  // GetProfessionalwstaff1,
+  GetProfessionalwstaff1,
   editStaff,
 } from "./api";
 
@@ -64,14 +64,14 @@ class Index extends Component {
       staffslct: [],
       openServSec: false,
       showStaff: [],
+      team_name: "",
     };
   }
 
   componentDidMount() {
     teamstaff(this);
-    // GetProfessionalwstaff1(this);
+    GetProfessionalwstaff1(this);
     this.specailityList();
-   
   }
 
   //On Changing the specialty id
@@ -93,7 +93,7 @@ class Index extends Component {
       });
     var state = this.state.updateTrack;
     state["speciality_id"] = e?.value;
-
+    state['team_name'] = e?.label + '-' + "undefined" + '-' + this.state.team_name;
     this.setState({
       selectSpec2: e,
       wardList: wards_data,
@@ -104,8 +104,9 @@ class Index extends Component {
   // ward Change
   onWardChange = (e) => {
     var state = this.state.updateTrack;
-    console.log("e", e);
     state["ward_id"] = e.value;
+    state['team_name'] = this.state.selectSpec2?.label + '-' + e?.label + '-' + this.state.team_name;
+
     this.setState({ selectWard: e, updateTrack: state });
   };
 
@@ -119,7 +120,7 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec ? spec : [] });
   };
-handleOpenServSec = (item) => {
+  handleOpenServSec = (item) => {
     this.setState({ openServSec: true, showStaff: item });
   };
   handleCloseServSec = () => {
@@ -147,6 +148,8 @@ handleOpenServSec = (item) => {
       staffmembers,
       Search,
       staff_members,
+      no_data_avlbl,
+      showing_staff
     } = translate;
     const { services_data, staff_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -275,21 +278,21 @@ handleOpenServSec = (item) => {
 
                                     {/* {this.state.wardList &&
                                       this.state.wardList.length > 0 && ( */}
-                                    <Grid className="enterSpcl">
-                                      <label>{Ward}</label>
-                                      <Grid className="addInput">
-                                        <Select
-                                          onChange={(e) => this.onWardChange(e)}
-                                          options={this.state.wardList}
-                                          name="ward_name"
-                                          value={this.state.selectWard}
-                                          isMulti={false}
-                                          className="addStafSelect"
-                                          isSearchable={true}
-                                        />
-                                      </Grid>
-                                    </Grid>
-                                    {/* )} */}
+                                        <Grid className="enterSpcl">
+                                          <label>{Ward}</label>
+                                          <Grid className="addInput">
+                                            <Select
+                                              onChange={(e) => this.onWardChange(e)}
+                                              options={this.state.wardList}
+                                              name="ward_name"
+                                              value={this.state.selectWard}
+                                              isMulti={false}
+                                              className="addStafSelect"
+                                              isSearchable={true}
+                                            />
+                                          </Grid>
+                                        </Grid>
+                                      {/* // )} */}
 
                                     <Grid className="enterSpcl">
                                       <Grid>
@@ -331,6 +334,92 @@ handleOpenServSec = (item) => {
                                 </Grid>
                               </Grid>
                             </Modal>
+                            <Modal
+open={this.state.openServSec}
+onClose={this.handleCloseServSec}
+className={
+  this.props.settings.setting &&
+    this.props.settings.setting.mode &&
+    this.props.settings.setting.mode ===
+    "dark"
+    ? "darkTheme addSpeclModel"
+    : "addSpeclModel"
+}
+>
+<Grid
+  className={
+    this.props.settings &&
+      this.props.settings.setting &&
+      this.props.settings.setting.mode &&
+      this.props.settings.setting.mode ===
+      "dark"
+      ? "darkTheme addSpeclContnt addStaffPart"
+      : "addServContnt addStaffPart"
+  }
+>
+  <Grid className="addSpeclContntIner">
+    <Grid className="addSpeclLbl">
+      <Grid
+        container
+        direction="row"
+        justify="center"
+      >
+        <Grid item xs={8} md={8} lg={8}>
+          <label>{staff_members}</label>
+        </Grid>
+        <Grid item xs={4} md={4} lg={4}>
+          <Grid>
+            <Grid className="entryCloseBtn">
+              <a
+                onClick={
+                  this.handleCloseServSec
+                }
+              >
+                <img
+                  src={require("assets/images/close-search.svg")}
+                  alt=""
+                  title=""
+                />
+              </a>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
+    <Grid className="enterServMain">
+      {this.state.showStaff &&
+        this.state.showStaff.length > 0 &&
+        this.state.showStaff.map(
+          (item) => {
+            return (
+              <Grid className="creatDetail">
+                <Grid className="creatInfoIner tasklistName allInfo">
+                  <Grid>
+                    <S3Image
+                      imgUrl={item?.image}
+                    />
+                  </Grid>
+                  <Grid className="allStaffRghtSec">
+                    <Grid>
+                      <label>
+                        {item.first_name}{" "}
+                        {item.last_name}
+                      </label>
+                    </Grid>
+                    <p>
+                      {item.profile_id}
+                    </p>
+                  </Grid>
+                </Grid>
+              </Grid>
+            );
+          }
+        )}
+    </Grid>
+  </Grid>
+</Grid>
+</Modal>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -395,6 +484,7 @@ handleOpenServSec = (item) => {
                     {/* End of Bread Crumb */}
 
                     {/* service price content */}
+                    {roles.includes('show_staff_group') ?<>
                     <Grid className="srvcTable3">
                       <Table>
                         <Thead>
@@ -405,8 +495,7 @@ handleOpenServSec = (item) => {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {staff_data?.length > 0 &&
-                            staff_data.map((data) => (
+                          {staff_data?.length > 0 && staff_data.map((data) => (
                               <>
                                 <Tr>
                                   <Td>
@@ -418,96 +507,12 @@ handleOpenServSec = (item) => {
                                       this.handleOpenServSec(data?.staff);
                                     }}
                                   >
-                                    {data?.staff?.length}
+                                    <span className="setPointer">{data?.staff?.length}</span>
                                   </Td>
 
+                                    
                                   <Grid className="newServc">
-                                    <Modal
-                                      open={this.state.openServSec}
-                                      onClose={this.handleCloseServSec}
-                                      className={
-                                        this.props.settings.setting &&
-                                          this.props.settings.setting.mode &&
-                                          this.props.settings.setting.mode ===
-                                          "dark"
-                                          ? "darkTheme addSpeclModel"
-                                          : "addSpeclModel"
-                                      }
-                                    >
-                                      <Grid
-                                        className={
-                                          this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode ===
-                                            "dark"
-                                            ? "darkTheme addSpeclContnt addStaffPart"
-                                            : "addServContnt addStaffPart"
-                                        }
-                                      >
-                                        <Grid className="addSpeclContntIner">
-                                          <Grid className="addSpeclLbl">
-                                            <Grid
-                                              container
-                                              direction="row"
-                                              justify="center"
-                                            >
-                                              <Grid item xs={8} md={8} lg={8}>
-                                                <label>{staff_members}</label>
-                                              </Grid>
-                                              <Grid item xs={4} md={4} lg={4}>
-                                                <Grid>
-                                                  <Grid className="entryCloseBtn">
-                                                    <a
-                                                      onClick={
-                                                        this.handleCloseServSec
-                                                      }
-                                                    >
-                                                      <img
-                                                        src={require("assets/images/close-search.svg")}
-                                                        alt=""
-                                                        title=""
-                                                      />
-                                                    </a>
-                                                  </Grid>
-                                                </Grid>
-                                              </Grid>
-                                            </Grid>
-                                          </Grid>
 
-                                          <Grid className="enterServMain">
-                                            {this.state.showStaff &&
-                                              this.state.showStaff.length > 0 &&
-                                              this.state.showStaff.map(
-                                                (item) => {
-                                                  return (
-                                                    <Grid className="creatDetail">
-                                                      <Grid className="creatInfoIner tasklistName allInfo">
-                                                        <Grid>
-                                                          <S3Image
-                                                            imgUrl={item?.image}
-                                                          />
-                                                        </Grid>
-                                                        <Grid className="allStaffRghtSec">
-                                                          <Grid>
-                                                            <label>
-                                                              {item.first_name}{" "}
-                                                              {item.last_name}
-                                                            </label>
-                                                          </Grid>
-                                                          <p>
-                                                            {item.profile_id}
-                                                          </p>
-                                                        </Grid>
-                                                      </Grid>
-                                                    </Grid>
-                                                  );
-                                                }
-                                              )}
-                                          </Grid>
-                                        </Grid>
-                                      </Grid>
-                                    </Modal>
                                   </Grid>
 
                                   {/* <Td className="srvcDots"> */}
@@ -571,10 +576,12 @@ handleOpenServSec = (item) => {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                              {(this.state.currentPage && this.state.totalPage) ? (
+                                <a>
+                                  {this.state.currentPage} of{" "}
+                                  {this.state.totalPage}
+                                </a>) : (<div className="err_message">{no_data_avlbl}</div>)
+                              }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
@@ -593,7 +600,7 @@ handleOpenServSec = (item) => {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid></>:<p className='authority'>{showing_staff}</p>}
                     {/* end of service price content */}
                   </Grid>
                 </Grid>
@@ -607,10 +614,7 @@ handleOpenServSec = (item) => {
   }
 }
 const mapStateToProps = (state) => {
-
-  console.log("=============state=====================>", state)
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

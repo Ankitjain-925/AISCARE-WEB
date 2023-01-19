@@ -22,7 +22,7 @@ import SentPrescriptionList from "./Components/sentPricription.js";
 import { getLanguage } from "translations/index"
 import { Redirect } from "react-router-dom";
 import SecondOpinion from "./Components/secondOpinion";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index.js";
 
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
@@ -155,7 +155,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="inquiries" />
                 <LeftMenuMobile isNotShow={true} currentPage="inquiries" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={11} lg={9}>

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { getLanguage } from 'translations/index';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { LoginReducerAim } from 'Screens/Login/actions';
-import { Settings } from 'Screens/Login/setting';
-import axios from 'axios';
-import { S3Image } from 'Screens/Components/GetS3Images/index';
-import { LanguageFetchReducer } from 'Screens/actions';
-import sitedata from 'sitedata';
-import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
-import { authy } from 'Screens/Login/authy.js';
-import { houseSelect } from 'Screens/VirtualHospital/Institutes/selecthouseaction';
-import { Redirect, Route } from 'react-router-dom';
-import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts/highstock';
-import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
-import AllL_Ps from 'Screens/Components/Parameters/parameter.js';
-import moment from 'moment';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { getLanguage } from "translations/index";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { S3Image } from "Screens/Components/GetS3Images/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import { authy } from "Screens/Login/authy.js";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { Redirect, Route } from "react-router-dom";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts/highstock";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import AllL_Ps from "Screens/Components/Parameters/parameter.js";
+import moment from "moment";
 import {
   getDate,
   getTime,
@@ -27,8 +27,8 @@ import {
   getSpec,
   getImage,
   SortByGraphView,
-} from 'Screens/Components/BasicMethod';
-import PatientTasks from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-tasks';
+} from "Screens/Components/BasicMethod";
+import PatientTasks from "Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-tasks";
 
 class Index extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       last_dv: this.props.personalinfo?.last_dv || [],
       user: this.props.user,
-      doc_image: '',
+      doc_image: "",
       images: [],
       resprisationLast: -1,
       HeartLast: -1,
@@ -65,7 +65,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -146,10 +146,10 @@ class Index extends Component {
             if (item.image) {
               var find = item && item.image;
               if (find) {
-                var find1 = find.split('.com/')[1];
+                var find1 = find.split(".com/")[1];
 
                 axios
-                  .get(sitedata.data.path + '/aws/sign_s3?find=' + find1)
+                  .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
                   .then((response) => {
                     if (response.data.hassuccessed) {
                       images.push({
@@ -163,8 +163,8 @@ class Index extends Component {
                         ) {
                           var newData = this.state.images;
                           newData.push({
-                            image: 'last_image',
-                            new_image: 'last_image_resolve',
+                            image: "last_image",
+                            new_image: "last_image_resolve",
                           });
                           setTimeout(() => {
                             this.setState({ images: newData });
@@ -177,22 +177,22 @@ class Index extends Component {
             }
           });
 
-        var laboratory_result = this.getOptions('laboratory_result');
-        var blood_pressure = this.getOptions('blood_pressure');
-        var weight_bmi = this.getOptions('weight_bmi');
-        var heart_rate = this.getOptions('heart_rate');
-        var blood_sugar = this.getOptions('blood_sugar');
-        var potassium1 = this.getOptions('potassium');
-        var hemoglobine1 = this.getOptions('hemoglobine');
-        var leucocytes1 = this.getOptions('leucocytes');
-        var pancreaticlipase1 = this.getOptions('pancreaticlipase');
-        var thrombocytes1 = this.getOptions('thrombocytes');
-        var sodium1 = this.getOptions('sodium');
-        var ggt1 = this.getOptions('ggt');
-        var ast1 = this.getOptions('ast/got');
-        var alt1 = this.getOptions('alt/gpt');
-        var respiration_data = this.getOptions('respiration');
-        var hba_data = this.getOptions('hba');
+        var laboratory_result = this.getOptions("laboratory_result");
+        var blood_pressure = this.getOptions("blood_pressure");
+        var weight_bmi = this.getOptions("weight_bmi");
+        var heart_rate = this.getOptions("heart_rate");
+        var blood_sugar = this.getOptions("blood_sugar");
+        var potassium1 = this.getOptions("potassium");
+        var hemoglobine1 = this.getOptions("hemoglobine");
+        var leucocytes1 = this.getOptions("leucocytes");
+        var pancreaticlipase1 = this.getOptions("pancreaticlipase");
+        var thrombocytes1 = this.getOptions("thrombocytes");
+        var sodium1 = this.getOptions("sodium");
+        var ggt1 = this.getOptions("ggt");
+        var ast1 = this.getOptions("ast/got");
+        var alt1 = this.getOptions("alt/gpt");
+        var respiration_data = this.getOptions("respiration");
+        var hba_data = this.getOptions("hba");
 
         var Creatinine1 =
           this.state.personalinfo &&
@@ -200,7 +200,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'Creatinine'
+              value.lab_parameter && value.lab_parameter.value === "Creatinine"
           );
         var Potassium =
           this.state.personalinfo &&
@@ -208,7 +208,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'Potassium'
+              value.lab_parameter && value.lab_parameter.value === "Potassium"
           );
         var Hemoglobine =
           this.state.personalinfo &&
@@ -216,7 +216,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'Hemoglobine'
+              value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
           );
         var Leucocytes =
           this.state.personalinfo &&
@@ -224,7 +224,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'Leucocytes'
+              value.lab_parameter && value.lab_parameter.value === "Leucocytes"
           );
         var Pancreaticlipase =
           this.state.personalinfo &&
@@ -233,7 +233,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
               value.lab_parameter &&
-              value.lab_parameter.value === 'Pancreaticlipase'
+              value.lab_parameter.value === "Pancreaticlipase"
           );
         var Thrombocytes =
           this.state.personalinfo &&
@@ -242,7 +242,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
               value.lab_parameter &&
-              value.lab_parameter.value === 'Thrombocytes'
+              value.lab_parameter.value === "Thrombocytes"
           );
         var Sodium =
           this.state.personalinfo &&
@@ -250,7 +250,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'Sodium'
+              value.lab_parameter && value.lab_parameter.value === "Sodium"
           );
         var GGT =
           this.state.personalinfo &&
@@ -258,7 +258,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'GGT'
+              value.lab_parameter && value.lab_parameter.value === "GGT"
           );
         var AST =
           this.state.personalinfo &&
@@ -266,7 +266,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'AST/GOT'
+              value.lab_parameter && value.lab_parameter.value === "AST/GOT"
           );
         var ALT =
           this.state.personalinfo &&
@@ -274,7 +274,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === 'ALT/GPT'
+              value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
           );
         this.setState({
           Creatinine: Creatinine1,
@@ -345,7 +345,7 @@ class Index extends Component {
       Hba1c,
     } = translate;
 
-    if (current_Graph === 'blood_pressure' || current_Graph === 'heart_rate') {
+    if (current_Graph === "blood_pressure" || current_Graph === "heart_rate") {
       var categoriesbp = [],
         databp_d = [],
         databp_s = [],
@@ -411,7 +411,7 @@ class Index extends Component {
           oldone = data;
         });
 
-      if (current_Graph === 'blood_pressure') {
+      if (current_Graph === "blood_pressure") {
         var options = {
           title: {
             text: blood_pressure,
@@ -438,7 +438,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: 'line',
+            type: "line",
           },
           credits: {
             enabled: false,
@@ -447,14 +447,14 @@ class Index extends Component {
             {
               name: RR_diastolic,
               data: databp_d,
-              type: 'line',
-              color: '#008080',
+              type: "line",
+              color: "#008080",
             },
             {
               name: rr_systolic,
               data: databp_s,
-              type: 'line',
-              color: '#0000A0',
+              type: "line",
+              color: "#0000A0",
             },
           ],
         };
@@ -485,7 +485,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: 'line',
+            type: "line",
           },
           credits: {
             enabled: false,
@@ -494,8 +494,8 @@ class Index extends Component {
             {
               name: frequency,
               data: dataf,
-              type: 'line',
-              color: '#008080',
+              type: "line",
+              color: "#008080",
             },
           ],
         };
@@ -503,7 +503,7 @@ class Index extends Component {
 
       return options;
     }
-    if (current_Graph === 'potassium') {
+    if (current_Graph === "potassium") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -514,7 +514,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Potassium'
+            value.lab_parameter && value.lab_parameter.value === "Potassium"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -562,10 +562,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Potassium',
+            "Potassium",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -573,10 +573,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Potassium',
+              "Potassium",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -596,7 +596,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -605,29 +605,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'hemoglobine') {
+    if (current_Graph === "hemoglobine") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -638,7 +638,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Hemoglobine'
+            value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -686,10 +686,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Hemoglobine',
+            "Hemoglobine",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -697,10 +697,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Hemoglobine',
+              "Hemoglobine",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -720,7 +720,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -729,29 +729,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'leucocytes') {
+    if (current_Graph === "leucocytes") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -762,7 +762,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Leucocytes'
+            value.lab_parameter && value.lab_parameter.value === "Leucocytes"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -810,10 +810,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Leucocytes',
+            "Leucocytes",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -821,10 +821,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Leucocytes',
+              "Leucocytes",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -844,7 +844,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -853,29 +853,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'pancreaticlipase') {
+    if (current_Graph === "pancreaticlipase") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -887,7 +887,7 @@ class Index extends Component {
         laboratory_result5.filter(
           (value, key) =>
             value.lab_parameter &&
-            value.lab_parameter.value === 'Pancreaticlipase'
+            value.lab_parameter.value === "Pancreaticlipase"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -935,10 +935,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Pancreaticlipase',
+            "Pancreaticlipase",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -946,10 +946,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Pancreaticlipase',
+              "Pancreaticlipase",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -969,7 +969,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -978,29 +978,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'thrombocytes') {
+    if (current_Graph === "thrombocytes") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1011,7 +1011,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Thrombocytes'
+            value.lab_parameter && value.lab_parameter.value === "Thrombocytes"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1059,10 +1059,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Thrombocytes',
+            "Thrombocytes",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1070,10 +1070,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Thrombocytes',
+              "Thrombocytes",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1093,7 +1093,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1102,29 +1102,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'sodium') {
+    if (current_Graph === "sodium") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1135,7 +1135,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Sodium'
+            value.lab_parameter && value.lab_parameter.value === "Sodium"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1183,10 +1183,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Sodium',
+            "Sodium",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1194,10 +1194,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Sodium',
+              "Sodium",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1217,7 +1217,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1226,29 +1226,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'ggt') {
+    if (current_Graph === "ggt") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1259,7 +1259,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'GGT'
+            value.lab_parameter && value.lab_parameter.value === "GGT"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1307,10 +1307,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'GGT',
+            "GGT",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1318,10 +1318,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'GGT',
+              "GGT",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1341,7 +1341,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1350,29 +1350,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'ast/got') {
+    if (current_Graph === "ast/got") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1383,7 +1383,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'AST/GOT'
+            value.lab_parameter && value.lab_parameter.value === "AST/GOT"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1431,10 +1431,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'AST/GOT',
+            "AST/GOT",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1442,10 +1442,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'AST/GOT',
+              "AST/GOT",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1465,7 +1465,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1474,29 +1474,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'alt/gpt') {
+    if (current_Graph === "alt/gpt") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1507,7 +1507,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'ALT/GPT'
+            value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1555,10 +1555,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'ALT/GPT',
+            "ALT/GPT",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1566,10 +1566,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'ALT/GPT',
+              "ALT/GPT",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1589,7 +1589,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1598,28 +1598,28 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
-    if (current_Graph === 'laboratory_result') {
+    if (current_Graph === "laboratory_result") {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1630,7 +1630,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === 'Creatinine'
+            value.lab_parameter && value.lab_parameter.value === "Creatinine"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1678,10 +1678,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            'Creatinine',
+            "Creatinine",
             this.props.stateLanguageType,
             true,
-            'lpr'
+            "lpr"
           ),
         },
 
@@ -1689,10 +1689,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              'Creatinine',
+              "Creatinine",
               this.props.stateLanguageType,
               true,
-              'lpr'
+              "lpr"
             ),
           },
         },
@@ -1712,7 +1712,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1721,29 +1721,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: 'line',
-            color: '#800000',
+            type: "line",
+            color: "#800000",
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#008080',
+            type: "line",
+            dashStyle: "dot",
+            color: "#008080",
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: 'line',
-            dashStyle: 'dot',
-            color: '#0000A0',
+            type: "line",
+            dashStyle: "dot",
+            color: "#0000A0",
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === 'weight_bmi') {
+    if (current_Graph === "weight_bmi") {
       var oldthree,
         weightbmi = [],
         Ibmi = [],
@@ -1838,7 +1838,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -1847,24 +1847,24 @@ class Index extends Component {
           {
             name: weight,
             data: weightbmi,
-            type: 'line',
+            type: "line",
           },
           {
             name: height,
             data: heightbmi,
-            type: 'line',
-            color: 'red',
+            type: "line",
+            color: "red",
           },
           {
             name: BMI,
             data: Ibmi,
-            type: 'line',
+            type: "line",
           },
         ],
       };
       return options;
     }
-    if (current_Graph === 'blood_sugar' || current_Graph === 'hba') {
+    if (current_Graph === "blood_sugar" || current_Graph === "hba") {
       var categoriesbs = [],
         categorieshb = [],
         oldtwo,
@@ -1928,7 +1928,7 @@ class Index extends Component {
           });
       }
 
-      if (current_Graph === 'blood_sugar') {
+      if (current_Graph === "blood_sugar") {
         options = {
           title: {
             text: blood_sugar,
@@ -1954,7 +1954,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: 'line',
+            type: "line",
           },
           credits: {
             enabled: false,
@@ -1963,7 +1963,7 @@ class Index extends Component {
             {
               name: blood_sugar,
               data: blood_s,
-              type: 'line',
+              type: "line",
             },
           ],
         };
@@ -1994,7 +1994,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: 'line',
+            type: "line",
           },
           credits: {
             enabled: false,
@@ -2003,7 +2003,7 @@ class Index extends Component {
             {
               name: Hba1c,
               data: hbac,
-              type: 'line',
+              type: "line",
             },
           ],
         };
@@ -2011,7 +2011,7 @@ class Index extends Component {
 
       return options;
     }
-    if (current_Graph === 'respiration') {
+    if (current_Graph === "respiration") {
       var categoriesbs = [],
         oldtwo,
         r_value = [],
@@ -2075,7 +2075,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: 'line',
+          type: "line",
         },
         credits: {
           enabled: false,
@@ -2084,7 +2084,7 @@ class Index extends Component {
           {
             name: respiration,
             data: r_value,
-            type: 'line',
+            type: "line",
           },
         ],
       };
@@ -2095,35 +2095,35 @@ class Index extends Component {
   GetTimess = (start_time) => {
     let da1 = new Date();
     if (start_time) {
-      var t1 = start_time.split(':');
+      var t1 = start_time.split(":");
     }
 
     if (t1 && t1.length > 0) {
       da1.setHours(t1[0]);
       da1.setMinutes(t1[1]);
     } else {
-      da1.setHours('00');
-      da1.setMinutes('00');
+      da1.setHours("00");
+      da1.setMinutes("00");
     }
-    if (this.state.time_format === '12') {
-      return moment(da1).format('hh:mm a');
+    if (this.state.time_format === "12") {
+      return moment(da1).format("hh:mm a");
     } else {
-      return moment(da1).format('HH:mm');
+      return moment(da1).format("HH:mm");
     }
   };
 
   getFileName = (file) => {
     if (file && file.filename) {
-      if (file.filename.split('Trackrecord/')[1]) {
-        if (file.filename.split('Trackrecord/')[1].split('&bucket=')[0]) {
-          return file.filename.split('Trackrecord/')[1].split('&bucket=')[0];
+      if (file.filename.split("Trackrecord/")[1]) {
+        if (file.filename.split("Trackrecord/")[1].split("&bucket=")[0]) {
+          return file.filename.split("Trackrecord/")[1].split("&bucket=")[0];
         } else {
-          return file.filename.split('Trackrecord/')[1];
+          return file.filename.split("Trackrecord/")[1];
         }
       } else {
         return file.filename;
       }
-    } else return '';
+    } else return "";
   };
 
   onTrigger = (event) => {
@@ -2147,13 +2147,14 @@ class Index extends Component {
       }
       return years;
     }
-    return '-';
+    return "-";
   };
 
   render() {
     const { personalinfo, patientData } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      to,
       open,
       slashmin,
       mmHg,
@@ -2180,7 +2181,10 @@ class Index extends Component {
       Download,
       respiration,
       Bed,
-      
+      ID,
+      date,
+      total,
+      status,
     } = translate;
     var item = this.state.item;
     let {
@@ -2214,12 +2218,12 @@ class Index extends Component {
         <Grid
           className="backFlow"
           onClick={() => {
-            this.props.history.push('/virtualHospital/patient-flow');
+            this.props.history.push("/virtualHospital/patient-flow");
           }}
         >
           <a>
             <img
-              src={require('assets/virtual_images/rightArrow.png')}
+              src={require("assets/virtual_images/rightArrow.png")}
               alt=""
               title=""
             />
@@ -2244,24 +2248,24 @@ class Index extends Component {
                 <Grid>
                   <label>
                     {this.state.personalinfo?.info?.first_name &&
-                      this.state.personalinfo?.info?.first_name}{' '}
+                      this.state.personalinfo?.info?.first_name}{" "}
                     {this.state.personalinfo?.info?.last_name &&
                       this.state.personalinfo?.info?.last_name}
                     {/* </label></Grid><p><span>13 / 12 / 1988 (32 years)</span></p> */}
                   </label>
                 </Grid>
                 {this.state.personalinfo?.info?.birthday &&
-                  this.state.personalinfo?.info?.birthday !== '' && (
+                  this.state.personalinfo?.info?.birthday !== "" && (
                     <p>
                       <span>
                         {getDate(
                           this.state.loggedinUser?.birthday,
                           this.props.settings.setting.date_format
-                        )}{' '}
+                        )}{" "}
                         (
                         {this.calculateAge(
                           this.state.personalinfo?.info?.birthday
-                        )}{' '}
+                        )}{" "}
                         years)
                       </span>
                     </p>
@@ -2273,13 +2277,13 @@ class Index extends Component {
                     onClick={() => {
                       this.onTrigger(0);
                     }}
-                    className={this.state.currenttab == 0 && 'entryInfoActv'}
+                    className={this.state.currenttab == 0 && "entryInfoActv"}
                   >
                     <img
                       src={
                         this.state.currenttab == 0
-                          ? require('assets/images/nav-journal-white.svg')
-                          : require('assets/images/nav-journal.svg')
+                          ? require("assets/images/nav-journal-white.svg")
+                          : require("assets/images/nav-journal.svg")
                       }
                       alt=""
                       title=""
@@ -2290,13 +2294,13 @@ class Index extends Component {
                     onClick={() => {
                       this.onTrigger(1);
                     }}
-                    className={this.state.currenttab == 1 && 'entryInfoActv'}
+                    className={this.state.currenttab == 1 && "entryInfoActv"}
                   >
                     <img
                       src={
                         this.state.currenttab == 1
-                          ? require('assets/virtual_images/rightIcon2.png')
-                          : require('assets/virtual_images/rightpng.png')
+                          ? require("assets/virtual_images/rightIcon2.png")
+                          : require("assets/virtual_images/rightpng.png")
                       }
                       alt=""
                       title=""
@@ -2307,13 +2311,13 @@ class Index extends Component {
                     onClick={() => {
                       this.onTrigger(3);
                     }}
-                    className={this.state.currenttab == 3 && 'entryInfoActv'}
+                    className={this.state.currenttab == 3 && "entryInfoActv"}
                   >
                     <img
                       src={
                         this.state.currenttab == 3
-                          ? require('assets/virtual_images/active-pencil.svg')
-                          : require('assets/virtual_images/pencil-1.svg')
+                          ? require("assets/virtual_images/active-pencil.svg")
+                          : require("assets/virtual_images/pencil-1.svg")
                       }
                       alt=""
                       title=""
@@ -2324,13 +2328,13 @@ class Index extends Component {
                     onClick={() => {
                       this.onTrigger(2);
                     }}
-                    className={this.state.currenttab == 2 && 'entryInfoActv'}
+                    className={this.state.currenttab == 2 && "entryInfoActv"}
                   >
                     <img
                       src={
                         this.state.currenttab == 2
-                          ? require('assets/images/nav-my-documents-inquiries-active.svg')
-                          : require('assets/images/nav-my-documents-inquiries.svg')
+                          ? require("assets/images/nav-my-documents-inquiries-active.svg")
+                          : require("assets/images/nav-my-documents-inquiries.svg")
                       }
                       alt=""
                       title=""
@@ -2359,9 +2363,12 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Assigned
-                        assigned_to={this.state.LeftInfoPatient?.assinged_to}
-                      />
+                      <Grid className="setstaffleft">
+                        <Assigned
+                          assigned_to={
+                            this.state.LeftInfoPatient?.data?.assinged_to
+                          }
+                        /></Grid>
                       {/* <Grid className="mdclMembrs">
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
@@ -2381,7 +2388,7 @@ class Index extends Component {
                             ? this.state.LeftInfoPatient?.done_task
                             : 0}
                         </span>
-                        /{' '}
+                        /{" "}
                         {this.state.LeftInfoPatient?.total_task
                           ? this.state.LeftInfoPatient?.total_task
                           : 0}
@@ -2401,6 +2408,7 @@ class Index extends Component {
               <Grid item xs={6} md={6}>
                 <Grid container direction="row" alignItems="center">
                   <Grid className="assignTo">
+                    {/* {this.state.LeftInfoPatient?.data?.external_space ? <></> : */}
                     <Grid container direction="row">
                       <Grid item xs={6} md={8}>
                         <Grid>
@@ -2411,17 +2419,19 @@ class Index extends Component {
                         {/* <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid> */}
                       </Grid>
                     </Grid>
+                    {/* } */}
+
                     <Grid>
-                      <Grid className="NeuroBtn">
+                      <Grid className="NeuroBtn NeuroBtn123">
                         <Grid>
-                          {this.state.LeftInfoPatient?.speciality && (
+                          {this.state.LeftInfoPatient?.data?.speciality && (
                             <SpecialityButton
                               label={
-                                this.state.LeftInfoPatient?.speciality
+                                this.state.LeftInfoPatient?.data?.speciality
                                   ?.specialty_name
                               }
                               backgroundColor={
-                                this.state.LeftInfoPatient?.speciality
+                                this.state.LeftInfoPatient?.data?.speciality
                                   ?.background_color
                               }
                               viewImage={false}
@@ -2430,46 +2440,139 @@ class Index extends Component {
                               }
                               onClick={() =>
                                 this.setSpeciality(
-                                  this.state.LeftInfoPatient?.speciality
+                                  this.state.LeftInfoPatient?.data?.speciality
                                 )
                               }
                               showActive={false}
                             />
                           )}
                         </Grid>
-                        <Grid className="roomsNum">
-                          <ul>
-                            <li>
-                              <img
-                                src={require('assets/virtual_images/ward.png')}
-                                alt=""
-                                title=""
-                              />
-                              {this.state.LeftInfoPatient?.wards?.ward_name}
-                            </li>
-                            <li>
-                              <img
-                                src={require('assets/virtual_images/room22.svg')}
-                                alt=""
-                                title=""
-                              />
-                              {this.state.LeftInfoPatient?.rooms?.room_name}
-                            </li>
-                            <li>
-                              <img
-                                src={require('assets/virtual_images/bedColor.png')}
-                                alt=""
-                                title=""
-                              />
-                              {Bed} {this.state.LeftInfoPatient?.bed}
-                            </li>
-                          </ul>
-                        </Grid>
+
+                        {this.state.LeftInfoPatient?.data?.external_space ? <>
+                          {/* <Grid className="dtlCntUpr">
+                            <Grid className="dtlCntLft">
+                              <Grid>
+                                <Grid className="dtlCount">
+                                  <a className="taskHover">
+                                    <img
+                                      src={require("assets/images/location-pin.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.address} {','} {this.state.LeftInfoPatient?.full_address?.city} / {to} {'-'} {this.state.LeftInfoPatient?.full_address?.pastal_code}
+                                  </a>
+                                </Grid>
+                                <Grid className="dtlCount dtlCount123">
+                                  <a className="taskHover dtlCountEmail">
+                                    <img
+                                      src={require("assets/images/email.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.email}
+                                  </a>
+                                </Grid>
+                                <Grid className="dtlCount">
+                                  <a className="taskHover">
+                                    <img
+                                      src={require("assets/images/phone.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {this.state.LeftInfoPatient?.full_address?.mobile}
+                                  </a>
+                                </Grid>
+                              </Grid>
+                          
+                            </Grid>
+                          </Grid> */}
+
+
+                          <div className="forSameLineIcon">
+                            <div className="setAssignedTo setAssignedToA">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.address} {','} {this.state.LeftInfoPatient?.full_address?.city} / {to} {'-'} {this.state.LeftInfoPatient?.full_address?.pastal_code}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/location-pin.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+
+                            <div className="setAssignedTo setAssignedToB">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.email}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/email.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+
+                            <div className="setAssignedTo setAssignedToC">
+                              <span>
+                                {this.state.LeftInfoPatient?.full_address?.mobile}
+                              </span>
+                              <a>
+                                <img
+                                  src={require("assets/images/phone.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </div>
+                          </div>
+
+
+
+
+
+                        </> : <>
+                          <Grid className="roomsNum">
+                            <ul>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/ward.png")}
+                                  alt=""
+                                  title=""
+                                />
+                                {
+                                  this.state.LeftInfoPatient?.data?.wards
+                                    ?.ward_name
+                                }
+                              </li>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/room22.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {
+                                  this.state.LeftInfoPatient?.data?.rooms
+                                    ?.room_name
+                                }
+                              </li>
+                              <li>
+                                <img
+                                  src={require("assets/virtual_images/bedColor.png")}
+                                  alt=""
+                                  title=""
+                                />
+                                {Bed} {this.state.LeftInfoPatient?.data?.bed}
+                              </li>
+                            </ul>
+                          </Grid></>}
                       </Grid>
                       <Grid className="exmBtn">
                         <a>
                           <img
-                            src={require('assets/virtual_images/content-view-column.svg')}
+                            src={require("assets/virtual_images/content-view-column.svg")}
                             alt=""
                             title=""
                           />
@@ -2495,34 +2598,57 @@ class Index extends Component {
               <Grid item xs={6} md={6} className="billLbl">
                 <label>{Billing}</label>
               </Grid>
-              <Grid item xs={6} md={6}>
-                {/* <Grid className="billImg">
-                  <img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" />
-                </Grid> */}
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <Grid className="billingHeadSec">
+                <Grid container direction="row" alignItems="center">
+                  <Grid item xs={2} md={6} lg={2}>
+                    <p>{ID}</p>
+                  </Grid>
+                  <Grid item xs={4} md={6} lg={4}>
+                    <p>{date}</p>
+                  </Grid>
+                  <Grid item xs={3} md={6} lg={3}>
+                    <p>{status}</p>
+                  </Grid>
+                  <Grid item xs={3} md={6} lg={3}>
+                    <p>{total}</p>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
+
             <a href className="yearSecBg">
               {this.state.LeftInfoPatient?.invoice &&
                 this.state.LeftInfoPatient?.invoice.map((item) => (
                   <Grid container direction="row" alignItems="center">
                     <Grid item xs={12} md={12}>
                       <Grid className="yearSec">
-                        <label>{item?.invoice_id}</label>
-                        <label>
-                          {getDate(
-                            item.created_at,
-                            this.props.settings.setting &&
-                              this.props.settings.setting.date_format
-                          )}
-                        </label>
+                        <Grid container direction="row" alignItems="center">
+                          <Grid item xs={2} md={6} lg={2}>
+                            <label>{item?.invoice_id}</label>
+                          </Grid>
+                          <Grid item xs={4} md={6} lg={4}>
+                            <label>
+                              {getDate(
+                                item.created_at,
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              )}
+                            </label>
+                          </Grid>
+                          <Grid item xs={3} md={6} lg={3}>
+                            <Grid className="issuePrice">
+                              <label className="isuLbl">
+                                {item?.status?.label}
+                              </label>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={3} md={6} lg={3}>
+                            <label>{item?.total_amount} €</label>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid className="issuePrice">
-                        <label className="isuLbl">{item?.status?.label}</label>
-                        <label>{item?.total_amount} €</label>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                      {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
                     </Grid>
                   </Grid>
                 ))}
@@ -2534,11 +2660,11 @@ class Index extends Component {
                 <label>{Weight}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo?.weight_bmi &&
-                  this.state.personalinfo?.weight_bmi.length > 0 &&
-                  this.state.personalinfo?.weight_bmi[0].weight
+                    this.state.personalinfo?.weight_bmi &&
+                    this.state.personalinfo?.weight_bmi.length > 0 &&
+                    this.state.personalinfo?.weight_bmi[0].weight
                     ? this.state.personalinfo?.weight_bmi[0].weight
-                    : '--'}
+                    : "--"}
                   <span>{kg}</span>
                 </p>
               </Grid>
@@ -2546,11 +2672,11 @@ class Index extends Component {
                 <label>{Height}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo?.weight_bmi &&
-                  this.state.personalinfo?.weight_bmi.length > 0 &&
-                  this.state.personalinfo?.weight_bmi[0].height
+                    this.state.personalinfo?.weight_bmi &&
+                    this.state.personalinfo?.weight_bmi.length > 0 &&
+                    this.state.personalinfo?.weight_bmi[0].height
                     ? this.state.personalinfo?.weight_bmi[0].height
-                    : '--'}
+                    : "--"}
                   <span>{cm}</span>
                 </p>
               </Grid>
@@ -2559,22 +2685,22 @@ class Index extends Component {
               <Grid className="prfilHghtLft">
                 <label>{BMI}</label>
                 {this.state.personalinfo &&
-                this.state.personalinfo?.weight_bmi &&
-                this.state.personalinfo?.weight_bmi.length > 0 ? (
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 ? (
                   <p>
                     {(
                       (this.state.personalinfo.weight_bmi[0].weight /
                         (this.state.personalinfo.weight_bmi[0].height *
                           this.state.personalinfo.weight_bmi[0].height)) *
                       10000
-                    ).toFixed(2) === 'NaN'
-                      ? '--'
+                    ).toFixed(2) === "NaN"
+                      ? "--"
                       : (
-                          (this.state.personalinfo.weight_bmi[0].weight /
-                            (this.state.personalinfo.weight_bmi[0].height *
-                              this.state.personalinfo.weight_bmi[0].height)) *
-                          10000
-                        ).toFixed(2)}
+                        (this.state.personalinfo.weight_bmi[0].weight /
+                          (this.state.personalinfo.weight_bmi[0].height *
+                            this.state.personalinfo.weight_bmi[0].height)) *
+                        10000
+                      ).toFixed(2)}
                   </p>
                 ) : (
                   <p>--</p>
@@ -2584,18 +2710,18 @@ class Index extends Component {
                 <label>{Blood}</label>
                 <p>
                   {this.state.user &&
-                  this.state.user?.blood_group &&
-                  this.state.user?.rhesus &&
-                  this.state.user.blood_group.value !== 'not_known' &&
-                  this.state.user.rhesus.value !== 'not_known'
-                    ? typeof this.state.user.blood_group === 'object'
+                    this.state.user?.blood_group &&
+                    this.state.user?.rhesus &&
+                    this.state.user.blood_group.value !== "not_known" &&
+                    this.state.user.rhesus.value !== "not_known"
+                    ? typeof this.state.user.blood_group === "object"
                       ? this.state.user.blood_group.value +
-                        ' ' +
-                        this.state.user.rhesus.value
+                      " " +
+                      this.state.user.rhesus.value
                       : this.state.user.blood_group +
-                        ' ' +
-                        this.state.user.rhesus.value
-                    : '--'}
+                      " " +
+                      this.state.user.rhesus.value
+                    : "--"}
                 </p>
               </Grid>
             </Grid>
@@ -2605,7 +2731,7 @@ class Index extends Component {
             this.state.added_data.length > 0 &&
             this.state.added_data.map((item, index) => (
               <div key={index}>
-                {item === 'respiration' && (
+                {item === "respiration" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item sxs={6} md={6} className="lstView">
@@ -2620,7 +2746,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2631,13 +2757,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.respiration[
-                                            this.state.resprisationLast
+                                          this.state.resprisationLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2647,11 +2773,11 @@ class Index extends Component {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('respiration')
+                                        this.props.OpenGraph("respiration")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -2665,16 +2791,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.respiration &&
-                    this.state.personalinfo.respiration.length > 0 &&
-                    this.state.resprisationLast !== -1 ? (
+                      this.state.personalinfo.respiration &&
+                      this.state.personalinfo.respiration.length > 0 &&
+                      this.state.resprisationLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.respiration &&
                               this.state.personalinfo.respiration[
-                                this.state.resprisationLast
+                              this.state.resprisationLast
                               ] &&
                               this.state.personalinfo.respiration[
                                 this.state.resprisationLast
@@ -2688,7 +2814,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.respiration[
@@ -2703,13 +2829,13 @@ class Index extends Component {
                           {/* <img src={require('assets/images/lineGraph.png')} alt="" title="" /> */}
 
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.respiration_data}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph('respiration')}
+                            onClick={() => this.props.OpenGraph("respiration")}
                           >
                             {VeiwGraph}
                           </a>
@@ -2723,7 +2849,7 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'graph_blood_pressure' && (
+                {item === "graph_blood_pressure" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item sxs={6} md={6} className="lstView">
@@ -2738,7 +2864,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2754,7 +2880,7 @@ class Index extends Component {
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2764,11 +2890,11 @@ class Index extends Component {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('blood_pressure')
+                                        this.props.OpenGraph("blood_pressure")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -2782,24 +2908,24 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_pressure &&
-                    this.state.personalinfo.blood_pressure.length > 0 &&
-                    this.state.BPLast !== -1 ? (
+                      this.state.personalinfo.blood_pressure &&
+                      this.state.personalinfo.blood_pressure.length > 0 &&
+                      this.state.BPLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_pressure &&
                               this.state.personalinfo.blood_pressure[
-                                this.state.BPLast
+                              this.state.BPLast
                               ] &&
                               this.state.personalinfo.blood_pressure[
                                 this.state.BPLast
                               ].rr_systolic +
-                                '/' +
-                                this.state.personalinfo.blood_pressure[
-                                  this.state.BPLast
-                                ].rr_diastolic}{' '}
+                              "/" +
+                              this.state.personalinfo.blood_pressure[
+                                this.state.BPLast
+                              ].rr_diastolic}{" "}
                             <span>{mmHg}</span>
                           </h3>
                           <p>
@@ -2809,7 +2935,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_pressure[
@@ -2822,14 +2948,14 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.blood_pressure}
                           />
                           <a
                             onClick={() =>
-                              this.props.OpenGraph('blood_pressure')
+                              this.props.OpenGraph("blood_pressure")
                             }
                           >
                             {VeiwGraph}
@@ -2844,7 +2970,7 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'graph_weight_bmi' && (
+                {item === "graph_weight_bmi" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -2859,7 +2985,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2870,13 +2996,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.weight_bmi[
-                                            this.state.wiegthLast
+                                          this.state.wiegthLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2886,11 +3012,11 @@ class Index extends Component {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('weight_bmi')
+                                        this.props.OpenGraph("weight_bmi")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -2904,16 +3030,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.weight_bmi &&
-                    this.state.personalinfo.weight_bmi.length > 0 &&
-                    this.state.wiegthLast !== -1 ? (
+                      this.state.personalinfo.weight_bmi &&
+                      this.state.personalinfo.weight_bmi.length > 0 &&
+                      this.state.wiegthLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.weight_bmi &&
                               this.state.personalinfo.weight_bmi[
-                                this.state.wiegthLast
+                              this.state.wiegthLast
                               ] &&
                               (
                                 (this.state.personalinfo.weight_bmi[
@@ -2926,7 +3052,7 @@ class Index extends Component {
                                       this.state.wiegthLast
                                     ].height)) *
                                 10000
-                              ).toFixed(2)}{' '}
+                              ).toFixed(2)}{" "}
                             <span>{BMI}</span>
                           </h3>
                           <p>
@@ -2936,7 +3062,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.weight_bmi[
@@ -2949,12 +3075,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.weight_bmi}
                           />
-                          <a onClick={() => this.props.OpenGraph('weight_bmi')}>
+                          <a onClick={() => this.props.OpenGraph("weight_bmi")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -2966,7 +3092,7 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'graph_heart_rate' && (
+                {item === "graph_heart_rate" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -2981,7 +3107,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2993,13 +3119,13 @@ class Index extends Component {
                                         this.props.downloadTrack(
                                           this.state.personalinfo
                                             .blood_pressure[
-                                            this.state.HeartLast
+                                          this.state.HeartLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3007,14 +3133,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('heart_rate')
+                                        this.props.OpenGraph("heart_rate")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3028,20 +3154,20 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_pressure &&
-                    this.state.personalinfo.blood_pressure.length > 0 &&
-                    this.state.HeartLast !== -1 ? (
+                      this.state.personalinfo.blood_pressure &&
+                      this.state.personalinfo.blood_pressure.length > 0 &&
+                      this.state.HeartLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_pressure &&
                               this.state.personalinfo.blood_pressure[
-                                this.state.HeartLast
+                              this.state.HeartLast
                               ] &&
                               this.state.personalinfo.blood_pressure[
                                 this.state.HeartLast
-                              ].heart_frequncy}{' '}
+                              ].heart_frequncy}{" "}
                             <span>{bslashmin}</span>
                           </h3>
                           <p>
@@ -3051,7 +3177,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_pressure[
@@ -3064,12 +3190,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.heart_rate}
                           />
-                          <a onClick={() => this.props.OpenGraph('heart_rate')}>
+                          <a onClick={() => this.props.OpenGraph("heart_rate")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3081,18 +3207,18 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'potassium' && (
+                {item === "potassium" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
-                          {' '}
+                          {" "}
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Potassium',
+                            "Potassium",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3104,7 +3230,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3115,13 +3241,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Potassium[
-                                            this.state.potassiumLast
+                                          this.state.potassiumLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3129,14 +3255,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('potassium')
+                                        this.props.OpenGraph("potassium")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3150,15 +3276,15 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Potassium &&
-                    this.state.Potassium.length > 0 &&
-                    this.state.potassiumLast !== -1 ? (
+                      this.state.Potassium.length > 0 &&
+                      this.state.potassiumLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Potassium &&
                               this.state.Potassium[this.state.potassiumLast] &&
                               this.state.Potassium[this.state.potassiumLast]
-                                .value}{' '}
+                                .value}{" "}
                             <span>
                               {this.state.Potassium[this.state.potassiumLast]
                                 .unit &&
@@ -3172,7 +3298,7 @@ class Index extends Component {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Potassium[
@@ -3185,12 +3311,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.potassium1}
                           />
-                          <a onClick={() => this.props.OpenGraph('potassium')}>
+                          <a onClick={() => this.props.OpenGraph("potassium")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3203,17 +3329,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'creatnine' && (
+                {item === "creatnine" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Creatinine',
+                            "Creatinine",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3225,7 +3351,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3236,13 +3362,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Creatinine[
-                                            this.state.LRLast
+                                          this.state.LRLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3250,16 +3376,16 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
                                         this.props.OpenGraph(
-                                          'laboratory_result'
+                                          "laboratory_result"
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3273,15 +3399,15 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Creatinine &&
-                    this.state.Creatinine.length > 0 &&
-                    this.state.LRLast !== -1 ? (
+                      this.state.Creatinine.length > 0 &&
+                      this.state.LRLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Creatinine &&
                               this.state.Creatinine[this.state.LRLast] &&
                               this.state.Creatinine[this.state.LRLast]
-                                .value}{' '}
+                                .value}{" "}
                             <span>
                               {this.state.Creatinine[this.state.LRLast].unit &&
                                 this.state.Creatinine[this.state.LRLast].unit
@@ -3294,7 +3420,7 @@ class Index extends Component {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Creatinine[
@@ -3307,14 +3433,14 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.laboratory_result}
                           />
                           <a
                             onClick={() =>
-                              this.props.OpenGraph('laboratory_result')
+                              this.props.OpenGraph("laboratory_result")
                             }
                           >
                             {VeiwGraph}
@@ -3329,17 +3455,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'hemoglobine' && (
+                {item === "hemoglobine" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Hemoglobine',
+                            "Hemoglobine",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3351,7 +3477,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3362,13 +3488,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Hemoglobine[
-                                            this.state.hemoglobineLast
+                                          this.state.hemoglobineLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3376,14 +3502,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('Hemoglobine')
+                                        this.props.OpenGraph("Hemoglobine")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3397,16 +3523,16 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Hemoglobine &&
-                    this.state.Hemoglobine.length > 0 ? (
+                      this.state.Hemoglobine.length > 0 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Hemoglobine &&
                               this.state.Hemoglobine[
-                                this.state.hemoglobineLast
+                              this.state.hemoglobineLast
                               ] &&
                               this.state.Hemoglobine[this.state.hemoglobineLast]
-                                .value}{' '}
+                                .value}{" "}
                             <span>
                               {this.state.Hemoglobine[
                                 this.state.hemoglobineLast
@@ -3422,7 +3548,7 @@ class Index extends Component {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Hemoglobine[
@@ -3435,13 +3561,13 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.hemoglobine1}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph('hemoglobine')}
+                            onClick={() => this.props.OpenGraph("hemoglobine")}
                           >
                             {VeiwGraph}
                           </a>
@@ -3455,17 +3581,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'leucocytes' && (
+                {item === "leucocytes" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Leucocytes',
+                            "Leucocytes",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3477,7 +3603,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3488,13 +3614,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Leucocytes[
-                                            this.state.leucocytesLast
+                                          this.state.leucocytesLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3502,14 +3628,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('Leucocytes')
+                                        this.props.OpenGraph("Leucocytes")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3523,17 +3649,17 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Leucocytes &&
-                    this.state.Leucocytes.length > 0 &&
-                    this.state.leucocytesLast !== -1 ? (
+                      this.state.Leucocytes.length > 0 &&
+                      this.state.leucocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Leucocytes &&
                               this.state.Leucocytes[
-                                this.state.leucocytesLast
+                              this.state.leucocytesLast
                               ] &&
                               this.state.Leucocytes[this.state.leucocytesLast]
-                                .value}{' '}
+                                .value}{" "}
                             <span>
                               {this.state.Leucocytes[this.state.leucocytesLast]
                                 .unit &&
@@ -3547,7 +3673,7 @@ class Index extends Component {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Leucocytes[
@@ -3560,12 +3686,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.leucocytes1}
                           />
-                          <a onClick={() => this.props.OpenGraph('leucocytes')}>
+                          <a onClick={() => this.props.OpenGraph("leucocytes")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3578,18 +3704,18 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'pancreaticlipase' && (
+                {item === "pancreaticlipase" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
-                          {' '}
+                          {" "}
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Pancreaticlipase',
+                            "Pancreaticlipase",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3601,7 +3727,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3612,13 +3738,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Pancreaticlipase[
-                                            this.state.pancreaticlipaseLast
+                                          this.state.pancreaticlipaseLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3626,14 +3752,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('Pancreaticlipase')
+                                        this.props.OpenGraph("Pancreaticlipase")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3647,18 +3773,18 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Pancreaticlipase &&
-                    this.state.Pancreaticlipase.length > 0 &&
-                    this.state.pancreaticlipaseLast !== -1 ? (
+                      this.state.Pancreaticlipase.length > 0 &&
+                      this.state.pancreaticlipaseLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Pancreaticlipase &&
                               this.state.Pancreaticlipase[
-                                this.state.pancreaticlipaseLast
+                              this.state.pancreaticlipaseLast
                               ] &&
                               this.state.Pancreaticlipase[
                                 this.state.pancreaticlipaseLast
-                              ].value}{' '}
+                              ].value}{" "}
                             <span>
                               {this.state.Pancreaticlipase[
                                 this.state.pancreaticlipaseLast
@@ -3675,7 +3801,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Pancreaticlipase[
@@ -3688,14 +3814,14 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.pancreaticlipase1}
                           />
                           <a
                             onClick={() =>
-                              this.props.OpenGraph('pancreaticlipase')
+                              this.props.OpenGraph("pancreaticlipase")
                             }
                           >
                             {VeiwGraph}
@@ -3710,17 +3836,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'thrombocytes' && (
+                {item === "thrombocytes" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Thrombocytes',
+                            "Thrombocytes",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3732,7 +3858,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3743,13 +3869,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Thrombocytes[
-                                            this.state.thrombocytesLast
+                                          this.state.thrombocytesLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3757,14 +3883,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('Pancreaticlipase')
+                                        this.props.OpenGraph("Pancreaticlipase")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3778,18 +3904,18 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Thrombocytes &&
-                    this.state.Thrombocytes.length > 0 &&
-                    this.state.thrombocytesLast !== -1 ? (
+                      this.state.Thrombocytes.length > 0 &&
+                      this.state.thrombocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Thrombocytes &&
                               this.state.Thrombocytes[
-                                this.state.thrombocytesLast
+                              this.state.thrombocytesLast
                               ] &&
                               this.state.Thrombocytes[
                                 this.state.thrombocytesLast
-                              ].value}{' '}
+                              ].value}{" "}
                             <span>
                               {this.state.Thrombocytes[
                                 this.state.thrombocytesLast
@@ -3806,7 +3932,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Thrombocytes[
@@ -3819,13 +3945,13 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.thrombocytes1}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph('thrombocytes')}
+                            onClick={() => this.props.OpenGraph("thrombocytes")}
                           >
                             {VeiwGraph}
                           </a>
@@ -3839,17 +3965,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'sodium' && (
+                {item === "sodium" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'Sodium',
+                            "Sodium",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3861,7 +3987,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3872,13 +3998,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Sodium[
-                                            this.state.sodiumLast
+                                          this.state.sodiumLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3886,14 +4012,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('Sodium')
+                                        this.props.OpenGraph("Sodium")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -3907,15 +4033,15 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.Sodium &&
-                    this.state.Sodium.length > 0 &&
-                    this.state.sodiumLast !== -1 ? (
+                      this.state.Sodium.length > 0 &&
+                      this.state.sodiumLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Sodium &&
                               this.state.Sodium[this.state.sodiumLast] &&
                               this.state.Sodium[this.state.sodiumLast]
-                                .value}{' '}
+                                .value}{" "}
                             <span>
                               {this.state.Sodium[this.state.sodiumLast].unit &&
                                 this.state.Sodium[this.state.sodiumLast].unit
@@ -3928,7 +4054,7 @@ class Index extends Component {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.Sodium[
@@ -3941,12 +4067,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.sodium1}
                           />
-                          <a onClick={() => this.props.OpenGraph('sodium')}>
+                          <a onClick={() => this.props.OpenGraph("sodium")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3959,17 +4085,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'ggt' && (
+                {item === "ggt" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'GGT',
+                            "GGT",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -3981,7 +4107,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3996,7 +4122,7 @@ class Index extends Component {
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4004,14 +4130,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('GGT')
+                                        this.props.OpenGraph("GGT")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -4025,14 +4151,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.GGT &&
-                    this.state.GGT.length > 0 &&
-                    this.state.ggtLast !== -1 ? (
+                      this.state.GGT.length > 0 &&
+                      this.state.ggtLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.GGT &&
                               this.state.GGT[this.state.ggtLast] &&
-                              this.state.GGT[this.state.ggtLast].value}{' '}
+                              this.state.GGT[this.state.ggtLast].value}{" "}
                             <span>
                               {this.state.GGT[this.state.ggtLast].unit &&
                                 this.state.GGT[this.state.ggtLast].unit.label}
@@ -4043,7 +4169,7 @@ class Index extends Component {
                               this.state.GGT[this.state.ggtLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.GGT[this.state.ggtLast].datetime_on
@@ -4054,12 +4180,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.ggt1}
                           />
-                          <a onClick={() => this.props.OpenGraph('ggt')}>
+                          <a onClick={() => this.props.OpenGraph("ggt")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4071,17 +4197,17 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'ast/got' && (
+                {item === "ast/got" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'AST/GOT',
+                            "AST/GOT",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -4093,7 +4219,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4108,7 +4234,7 @@ class Index extends Component {
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4116,14 +4242,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('AST')
+                                        this.props.OpenGraph("AST")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -4137,14 +4263,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.AST &&
-                    this.state.AST.length > 0 &&
-                    this.state.astLast !== -1 ? (
+                      this.state.AST.length > 0 &&
+                      this.state.astLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.AST &&
                               this.state.AST[this.state.astLast] &&
-                              this.state.AST[this.state.astLast].value}{' '}
+                              this.state.AST[this.state.astLast].value}{" "}
                             <span>
                               {this.state.AST[this.state.astLast].unit &&
                                 this.state.AST[this.state.astLast].unit.label}
@@ -4155,7 +4281,7 @@ class Index extends Component {
                               this.state.AST[this.state.astLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.AST[this.state.astLast].datetime_on
@@ -4166,12 +4292,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.ast1}
                           />
-                          <a onClick={() => this.props.OpenGraph('ast/got')}>
+                          <a onClick={() => this.props.OpenGraph("ast/got")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4184,17 +4310,17 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'alt/gpt' && (
+                {item === "alt/gpt" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            'ALT/GPT',
+                            "ALT/GPT",
                             this.props.stateLanguageType,
                             true,
-                            'lpr'
+                            "lpr"
                           )}
                         </label>
                       </Grid>
@@ -4206,7 +4332,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4221,7 +4347,7 @@ class Index extends Component {
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4229,14 +4355,14 @@ class Index extends Component {
                                     </a>
                                   </li>
                                   <li>
-                                    {' '}
+                                    {" "}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('ALT')
+                                        this.props.OpenGraph("ALT")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -4250,14 +4376,14 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.ALT &&
-                    this.state.ALT.length > 0 &&
-                    this.state.altLast !== -1 ? (
+                      this.state.ALT.length > 0 &&
+                      this.state.altLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.ALT &&
                               this.state.ALT[this.state.altLast] &&
-                              this.state.ALT[this.state.altLast].value}{' '}
+                              this.state.ALT[this.state.altLast].value}{" "}
                             <span>
                               {this.state.ALT[this.state.altLast].unit &&
                                 this.state.ALT[this.state.altLast].unit.label}
@@ -4268,7 +4394,7 @@ class Index extends Component {
                               this.state.ALT[this.state.altLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.ALT[this.state.altLast].datetime_on
@@ -4279,12 +4405,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.alt1}
                           />
-                          <a onClick={() => this.props.OpenGraph('alt/gpt')}>
+                          <a onClick={() => this.props.OpenGraph("alt/gpt")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4297,7 +4423,7 @@ class Index extends Component {
                   </Grid>
                 )}
 
-                {item === 'graph_blood_sugar' && (
+                {item === "graph_blood_sugar" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -4312,7 +4438,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4323,13 +4449,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.BSLast
+                                          this.state.BSLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4339,11 +4465,11 @@ class Index extends Component {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('blood_sugar')
+                                        this.props.OpenGraph("blood_sugar")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -4357,20 +4483,20 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_sugar &&
-                    this.state.personalinfo.blood_sugar.length > 0 &&
-                    this.state.BSLast !== -1 ? (
+                      this.state.personalinfo.blood_sugar &&
+                      this.state.personalinfo.blood_sugar.length > 0 &&
+                      this.state.BSLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                                this.state.BSLast
+                              this.state.BSLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.BSLast
-                              ].blood_sugar}{' '}
+                              ].blood_sugar}{" "}
                             <span>{mgdl}</span>
                           </h3>
                           <p>
@@ -4380,7 +4506,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_sugar[
@@ -4393,13 +4519,13 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.blood_sugar}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph('blood_sugar')}
+                            onClick={() => this.props.OpenGraph("blood_sugar")}
                           >
                             {VeiwGraph}
                           </a>
@@ -4412,7 +4538,7 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'graph_HbA1c' && (
+                {item === "graph_HbA1c" && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -4427,7 +4553,7 @@ class Index extends Component {
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require('assets/images/nav-more.svg')}
+                                    src={require("assets/images/nav-more.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4438,13 +4564,13 @@ class Index extends Component {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.hbLast
+                                          this.state.hbLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/download.svg')}
+                                        src={require("assets/images/download.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4454,11 +4580,11 @@ class Index extends Component {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph('blood_sugar')
+                                        this.props.OpenGraph("blood_sugar")
                                       }
                                     >
                                       <img
-                                        src={require('assets/images/eye2.png')}
+                                        src={require("assets/images/eye2.png")}
                                         alt=""
                                         title=""
                                       />
@@ -4472,20 +4598,20 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                    this.state.personalinfo.blood_sugar &&
-                    this.state.personalinfo.blood_sugar.length > 0 &&
-                    this.state.hbLast !== -1 ? (
+                      this.state.personalinfo.blood_sugar &&
+                      this.state.personalinfo.blood_sugar.length > 0 &&
+                      this.state.hbLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                                this.state.hbLast
+                              this.state.hbLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.hbLast
-                              ].Hba1c}{' '}
+                              ].Hba1c}{" "}
                             <span>%</span>
                           </h3>
                           <p>
@@ -4495,7 +4621,7 @@ class Index extends Component {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{' '}
+                            ,{" "}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_sugar[
@@ -4508,12 +4634,12 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={'chart'}
+                            constructorType={"chart"}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.hba_data}
                           />
-                          <a onClick={() => this.props.OpenGraph('hba')}>
+                          <a onClick={() => this.props.OpenGraph("hba")}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4525,7 +4651,7 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'last_doctor_visit' && (
+                {item === "last_doctor_visit" && (
                   <Grid className="drVisit">
                     <h3>{last_doc_visit}</h3>
                     {this.state.last_dv && this.state.last_dv.length > 0 ? (
@@ -4544,7 +4670,7 @@ class Index extends Component {
                                   src={
                                     data && data.image
                                       ? getImage(data.image, this.state.images)
-                                      : require('assets/images/dr1.jpg')
+                                      : require("assets/images/dr1.jpg")
                                   }
                                   alt=""
                                   title=""
@@ -4560,7 +4686,7 @@ class Index extends Component {
                                     data.datetime_on,
                                     this.state.date_format
                                   )}
-                                  ,{' '}
+                                  ,{" "}
                                   {getTime(
                                     new Date(data.datetime_on),
                                     this.state.time_foramt
@@ -4579,13 +4705,13 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'upcomming_appointments' && (
+                {item === "upcomming_appointments" && (
                   <Grid className="comeAppoint">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={10} md={10}>
                         <Grid className="upcomView">
-                          <label>{upcming_apointment}</label>{' '}
-                          {this.props.from === 'patient' && (
+                          <label>{upcming_apointment}</label>{" "}
+                          {this.props.from === "patient" && (
                             <a onClick={this.props.MoveAppoint}>{view_all}</a>
                           )}
                         </Grid>
@@ -4612,44 +4738,44 @@ class Index extends Component {
                     </Grid>
 
                     {this.state.upcoming_appointment &&
-                    this.state.upcoming_appointment.length > 0 ? (
+                      this.state.upcoming_appointment.length > 0 ? (
                       <div>
                         {this.state.upcoming_appointment.map((data, index) => (
                           <div>
                             <Grid className="oficVisit">
                               <label>
-                                {getDate(data.date, this.state.date_format)},{' '}
+                                {getDate(data.date, this.state.date_format)},{" "}
                                 {data.start_time &&
                                   this.GetTimess(data.start_time)}
                               </label>
 
-                              {data.appointment_type === 'appointments' && (
+                              {data.appointment_type === "appointments" && (
                                 <a>
                                   <img
-                                    src={require('assets/images/office-visit.svg')}
+                                    src={require("assets/images/office-visit.svg")}
                                     alt=""
                                     title=""
-                                  />{' '}
+                                  />{" "}
                                   {data.custom_text
                                     ? data.custom_text
                                     : office_visit}
                                 </a>
                               )}
                               {data.appointment_type ===
-                                'online_appointment' && (
+                                "online_appointment" && (
+                                  <a>
+                                    <img
+                                      src={require("assets/images/video-call.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {vdo_call}
+                                  </a>
+                                )}
+                              {data.appointment_type === "practice_days" && (
                                 <a>
                                   <img
-                                    src={require('assets/images/video-call.svg')}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {vdo_call}
-                                </a>
-                              )}
-                              {data.appointment_type === 'practice_days' && (
-                                <a>
-                                  <img
-                                    src={require('assets/images/cal.png')}
+                                    src={require("assets/images/cal.png")}
                                     alt=""
                                     title=""
                                   />
@@ -4683,10 +4809,10 @@ class Index extends Component {
                                   />
                                   {data.docProfile &&
                                     data.docProfile.first_name &&
-                                    data.docProfile.first_name}{' '}
+                                    data.docProfile.first_name}{" "}
                                   {data.docProfile &&
                                     data.docProfile.last_name &&
-                                    data.docProfile.last_name}{' '}
+                                    data.docProfile.last_name}{" "}
                                   (Doctor)
                                 </a>
                               </Grid>
@@ -4702,12 +4828,12 @@ class Index extends Component {
                     )}
                   </Grid>
                 )}
-                {item === 'last_documents' && (
+                {item === "last_documents" && (
                   <Grid className="lstDocs">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={10} md={10}>
                         <Grid className="lstView">
-                          <label>{last_document}</label>{' '}
+                          <label>{last_document}</label>{" "}
                         </Grid>
                       </Grid>
                       <Grid item xs={2} md={2}>
@@ -4734,8 +4860,8 @@ class Index extends Component {
                       <a className="presSecAncr">
                         <h4>{prescriptions}</h4>
                         {this.state.personalinfo &&
-                        this.state.personalinfo.prescriptions &&
-                        this.state.personalinfo.prescriptions.length > 0 ? (
+                          this.state.personalinfo.prescriptions &&
+                          this.state.personalinfo.prescriptions.length > 0 ? (
                           <div>
                             {this.state.personalinfo.prescriptions.map(
                               (itm) => (
@@ -4792,8 +4918,8 @@ class Index extends Component {
                       <a className="presSecAncr">
                         <h4>{sick_cert}</h4>
                         {this.state.personalinfo &&
-                        this.state.personalinfo.sick_certificates &&
-                        this.state.personalinfo.sick_certificates.length > 0 ? (
+                          this.state.personalinfo.sick_certificates &&
+                          this.state.personalinfo.sick_certificates.length > 0 ? (
                           <div>
                             {this.state.personalinfo.sick_certificates.map(
                               (itm) => (
@@ -4968,8 +5094,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

@@ -6,10 +6,10 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from "Screens/Login/authy.js";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -63,7 +63,7 @@ class Index extends Component {
       };
 
     render() {
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { stateLoginValueAim } = this.props;
         if (
             stateLoginValueAim.user === 'undefined' ||
             stateLoginValueAim.token === 450 ||
@@ -198,18 +198,16 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="questionnary" />
                                 <LeftMenuMobile isNotShow={true} currentPage="questionnary" />
-                                <Notification />
+                                {/* <Notification /> */}
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} sm={12} md={8}>
                                     <Grid className="allFormSection">
                                         {!openQues ?
                                             <Grid>
                                                
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>
-{!this.state.authorityMsg && 
-                                                <div className="err_message">{this.state.errorChrMsg1}</div>}
-                                                {this.state.authorityMsg && 
-                                                <div className="err_message">You dont have authority to selected hospital</div>}
+                                                {/* <div className="err_message">{this.state.errorChrMsg1}</div> */}
+                                                {!this.state.authorityMsg && <div className="err_message">{this.state.errorChrMsg1}</div>}
+                                                {this.state.authorityMsg && <div className="err_message">You dont have authority to selected hospital</div>}
                                                 <Grid item xs={12} sm={9} md={6}>
                                                     <label>{For_Hospital}</label>
                                                     <Grid>
@@ -321,7 +319,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_diameter_leg')} label={Diameter_Leg} value={allQuestionData?.full_diameter_leg} />
                                                                     </Grid>
                                                                 </Grid>
@@ -359,7 +357,7 @@ class Index extends Component {
                                                             </Grid>}
                                                             <Grid className="anamneSec">
                                                                 <Grid className="measureInput">
-                                                                    <Grid className="fatiqueQues">
+                                                                    <Grid className="fatiqueQues fatiqueQuesSec">
                                                                         <FatiqueQuestion updateEntryState1={(e) => updateAllEntrySec2(this, e, 'full_Sick')} label={Sick} value={allQuestionData?.full_Sick} />
                                                                     </Grid>
                                                                 </Grid>

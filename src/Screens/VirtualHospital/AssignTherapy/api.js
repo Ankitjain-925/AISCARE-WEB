@@ -17,7 +17,8 @@ export const handleSubmit = (current) => {
     let translate = getLanguage(current.props.stateLanguageType);
     let { Please_enter_therapy_name, Please_enter_therapy_description, Please_enter_disease_name, Please_selete_Doctor_Staff,
         Please_select_speciality,
-        Please_select_Task_Service
+        Please_select_Task_Service,
+        Something_went_wrong
     } = translate;
     current.setState({ errorMsg: '' })
     var data = current.state.updateTrack;
@@ -76,15 +77,26 @@ export const handleSubmit = (current) => {
                     commonHeader(current.props.stateLoginValueAim.token)
                 )
                 .then((responce) => {
-                    current.setState({
-                        loaderImage: false,
-                        allSequence: {},
-                        taskName: {},
-                        allSequence1: [],
-                        assignTask: false,
-                    });
-                    getAllTherpy(current);
-                    handleCloseServ(current);
+                    if(responce?.data?.hassuccessed){
+                        current.setState({
+                            loaderImage: false,
+                            allSequence: {},
+                            taskName: {},
+                            allSequence1: [],
+                            assignTask: false,
+                        });
+                        getAllTherpy(current);
+                        handleCloseServ(current);
+                    }
+                    else{
+
+                        current.setState({
+                            loaderImage: false,
+                            error_section: 1, 
+                            errorMsg: responce?.data?.message === "Duplicate Therapy are not allowed" ? "Therapy with same name already exists" : Something_went_wrong
+                        });
+                    }
+                   
                 })
                 .catch(() => {
                     current.setState({ loaderImage: false });
@@ -108,14 +120,14 @@ export const handleCloseServ = (current) => {
 
 //Modal Open
 export const handleOpenServ = (current) => {
-    current.setState({
-        professional_id_list1: current.state.professional_id_list,
-        openServ: true,
-        updateTrack: {},
-        taskName: {},
-        allSequence1: [],
-        assignTask: false,
-    });
+        current.setState({
+            professional_id_list1: current.state.professional_id_list,
+            openServ: true,
+            updateTrack: {},
+            taskName: {},
+            allSequence1: [],
+            assignTask: false,
+        });
 };
 
 //For getting the therapies
@@ -127,35 +139,41 @@ export const getAllTherpy = (current) => {
             commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((response) => {
-            var totalPage = Math.ceil(response.data.data.length / 10);
-            current.setState(
-                {
-                    AllTherpy1: response.data.data,
-                    loaderImage: false,
-                    totalPage: totalPage,
-                    currentPage: 1,
-                },
-                () => {
-                    current.setState({ loaderImage: false });
-                    if (totalPage > 1) {
-                        var pages = [];
-                        for (var i = 1; i <= current.state.totalPage; i++) {
-                            pages.push(i);
+            if(response?.data?.hassuccessed){
+                var totalPage = Math.ceil(response.data.data.length / 10);
+                current.setState(
+                    {
+                        AllTherpy1: response.data.data,
+                        loaderImage: false,
+                        totalPage: totalPage,
+                        currentPage: 1,
+                    },
+                    () => {
+                        current.setState({ loaderImage: false });
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= current.state.totalPage; i++) {
+                                pages.push(i);
+                            }
+                            current.setState({
+                                AllTherpy: current.state.AllTherpy1.slice(0, 10),
+                                pages: pages,
+                            });
+                        } else {
+                            current.setState({ AllTherpy: current.state.AllTherpy1 });
                         }
-                        current.setState({
-                            AllTherpy: current.state.AllTherpy1.slice(0, 10),
-                            pages: pages,
-                        });
-                    } else {
-                        current.setState({ AllTherpy: current.state.AllTherpy1 });
                     }
-                }
-            );
+                );
+            }
+            
         });
 };
 
 // For editing the therapy
-export const EditTherapy = (current, data) => {
+export const EditTherapy = (current, data, forduplicate) => {
+    if(forduplicate){
+        delete data?._id;
+    }
     selectProf(current, data?.assinged_to, current.state.professional_id_list1);
     var deep = _.cloneDeep(data);
     var Assigned_Aready =

@@ -56,7 +56,7 @@ import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
 import { getLanguage } from "translations/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
@@ -1037,13 +1037,13 @@ class Index extends Component {
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} className="journalMain">
               {!this.state.isGraph && (
                 <Grid container direction="row">
                   {/* Website Menu */}
                   <LeftMenu isNotShow={true} currentPage="journal" />
                   <LeftMenuMobile isNotShow={true} currentPage="journal" />
-                  <Notification />
+                  {/* <Notification /> */}
                   {/* End of Website Menu */}
 
                   {/* Website Mid Content */}
@@ -2128,8 +2128,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { Doctorsetget } = state.Doctorset;

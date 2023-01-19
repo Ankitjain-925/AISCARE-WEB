@@ -89,18 +89,21 @@ class Index extends React.Component {
           this.state.roomArray.map((data, index) => (
             <Grid container direction="row" alignItems="center" spacing={2}>
               <Grid item xs={7} md={7}>
+              <label className='label1'>{Roomname}</label>
                 <input
                   type="text"
-                  placeholder={Enter_room_name}
+                  placeholder="Enter Room Name"
                   name="room_name"
                   onChange={(e) => this.onDataChange(e, index)}
                   value={data.room_name}
                 />
               </Grid>
               <Grid item xs={3} md={3}>
+              <label className='label2'>{Bedsinroom}</label>
                 <input
+               
                   type="number"
-                  placeholder={0}
+                  placeholder="Enter Beds in room"
                   name="no_of_bed"
                   value={data.no_of_bed}
                   onChange={(e) => this.onDataChange(e, index)}
@@ -126,7 +129,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
 

@@ -521,19 +521,19 @@ class Index extends Component {
                   });
                   datas = [];
                   this.openIdPin();
-                  axios
-                    .post(
-                      'https://api-eu.cometchat.io/v2.0/users',
-                      {
-                        uid: responce.data.data.profile_id,
-                        name:
-                          UpDataDetails.first_name +
-                          ' ' +
-                          UpDataDetails.last_name,
-                      },
-                      commonCometHeader()
-                    )
-                    .then((res) => { });
+                  // axios
+                  //   .post(
+                  //     'https://api-eu.cometchat.io/v2.0/users',
+                  //     {
+                  //       uid: responce.data.data.profile_id,
+                  //       name:
+                  //         UpDataDetails.first_name +
+                  //         ' ' +
+                  //         UpDataDetails.last_name,
+                  //     },
+                  //     commonCometHeader()
+                  //   )
+                  //   .then((res) => { });
                   if (this.state.newemail && !savedata.mobile) {
                     this.props.history.push({
                       pathname: '/virtualHospital/print_approval',
@@ -2271,8 +2271,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;

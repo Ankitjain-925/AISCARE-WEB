@@ -104,7 +104,7 @@ class Index extends Component {
   };
 
   render() {
-    console.log("changeStaffsec", this.props.changeStaffsec)
+    // console.log("changeStaffsec", this.props.changeStaffsec)
     const columns = this.state.columns;
     const ordered = this.state.ordered;
     let translate = getLanguage(this.props.stateLanguageType);

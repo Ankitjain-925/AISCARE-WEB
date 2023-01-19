@@ -256,8 +256,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -472,36 +472,36 @@ class Index extends Component {
               onClose={this.handleQrClose}
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'darkTheme qrBoxModel'
                   : 'qrBoxModel'
               }
             >
               <Grid className="qrBoxCntnt">
                 <Grid className="qrCourse">
-                <Grid container direction="row" justify="center">
-                <Grid item xs={12} md={12} lg={12}>
                   <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
-                      <label>{profile} {QR_code}</label>
-                    </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
-                      <Grid>
-                        <Grid className="entryCloseBtn">
-                        <a onClick={this.handleQrClose}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                    <Grid item xs={12} md={12} lg={12}>
+                      <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
+                          <label>{profile} {QR_code}</label>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                          <Grid>
+                            <Grid className="entryCloseBtn">
+                              <a onClick={this.handleQrClose}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-            </Grid>
                 </Grid>
                 <Grid className="qrCourseImg">
                   <Grid>
@@ -537,37 +537,37 @@ class Index extends Component {
               onClose={() => this.handlePinClose('chngPinOpen')}
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === 'dark'
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === 'dark'
                   ? 'darkTheme editBoxModel'
                   : 'editBoxModel'
               }
             >
               <Grid className="editBoxCntnt">
                 <Grid className="editCourse">
-                <Grid container direction="row" justify="center">
-                <Grid item xs={12} md={12} lg={12}>
                   <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
-                      <label>{edit} {ID} {and} {pin}</label>
-                      <p>{edit_id_pin}</p>
-                    </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
-                      <Grid>
-                        <Grid className="entryCloseBtn">
-                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                    <Grid item xs={12} md={12} lg={12}>
+                      <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
+                          <label>{edit} {ID} {and} {pin}</label>
+                          <p>{edit_id_pin}</p>
+                        </Grid>
+                        <Grid item xs={4} md={4} lg={4}>
+                          <Grid>
+                            <Grid className="entryCloseBtn">
+                              <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Grid>
                 </Grid>
                 <Grid className="editPinform">
                   <Grid className="editField">
@@ -639,7 +639,7 @@ class Index extends Component {
                     </label>
                     <Grid>
                       <Select
-                        value={this.state.title}
+                        // value={this.state.title}
                         onChange={(e) => EntryValueName(e, 'title', this)}
                         options={this.state.title_degreeData}
                         placeholder="Mr."
@@ -844,7 +844,7 @@ class Index extends Component {
                     </label>
                     <Grid className="cntryDropTop">
                       <Select
-                        value={this.state.UpDataDetails.citizen_country || ''}
+                        value={this.state.UpDataDetails.citizen_country || {}}
                         onChange={(e) =>
                           EntryValueName(e, 'citizen_country', this)
                         }
@@ -1104,36 +1104,36 @@ class Index extends Component {
             onClose={() => this.handlePinClose('addInsuranceOpen')}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'darkTheme editBoxModel'
                 : 'editBoxModel'
             }
           >
             <Grid className="editBoxCntnt">
               <Grid className="editCourse editCourse1">
-              <Grid container direction="row" justify="center">
-                <Grid item xs={12} md={12} lg={12}>
-                  <Grid container direction="row" justify="center">
-                    <Grid item xs={11} md={11} lg={11}>
-                      <label>{add_more} {insurance}</label>
-                    </Grid>
-                    <Grid item xs={1} md={1} lg={1}>
-                      <Grid>
-                        <Grid className="entryCloseBtn">
-                        <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Grid container direction="row" justify="center">
+                      <Grid item xs={11} md={11} lg={11}>
+                        <label>{add_more} {insurance}</label>
+                      </Grid>
+                      <Grid item xs={1} md={1} lg={1}>
+                        <Grid>
+                          <Grid className="entryCloseBtn">
+                            <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
+                              <img
+                                src={require("assets/images/close-search.svg")}
+                                alt=""
+                                title=""
+                              />
+                            </a>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
               </Grid>
               <Grid className="editPinform">
                 <Grid className="editField">
@@ -1272,36 +1272,36 @@ class Index extends Component {
             onClose={() => this.handlePinClose('editInsuranceOpen')}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'darkTheme editBoxModel'
                 : 'editBoxModel'
             }
           >
             <Grid className="editBoxCntnt">
               <Grid className="editCourse">
-              <Grid container direction="row" justify="center">
-                <Grid item xs={12} md={12} lg={12}>
-                  <Grid container direction="row" justify="center">
-                    <Grid item xs={8} md={8} lg={8}>
-                      <label>{edit} {insurance}</label>
-                    </Grid>
-                    <Grid item xs={4} md={4} lg={4}>
-                      <Grid>
-                        <Grid className="entryCloseBtn">
-                        <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Grid container direction="row" justify="center">
+                      <Grid item xs={8} md={8} lg={8}>
+                        <label>{edit} {insurance}</label>
+                      </Grid>
+                      <Grid item xs={4} md={4} lg={4}>
+                        <Grid>
+                          <Grid className="entryCloseBtn">
+                            <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
+                              <img
+                                src={require("assets/images/close-search.svg")}
+                                alt=""
+                                title=""
+                              />
+                            </a>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
               </Grid>
               <Grid className="editPinform">
                 <Grid className="editField">
@@ -1318,13 +1318,13 @@ class Index extends Component {
                     <Select
                       value={
                         insurancefull &&
-                        insurancefull[editIndex] &&
-                        insurancefull[editIndex].insurance_country
+                          insurancefull[editIndex] &&
+                          insurancefull[editIndex].insurance_country
                           ? filterCountry1(
-                              insurancefull[editIndex] &&
-                                insurancefull[editIndex].insurance_country,
-                              this
-                            )
+                            insurancefull[editIndex] &&
+                            insurancefull[editIndex].insurance_country,
+                            this
+                          )
                           : ''
                       }
                       onChange={(event) =>
@@ -1348,10 +1348,10 @@ class Index extends Component {
                       type="text"
                       value={
                         insurancefull &&
-                        insurancefull[editIndex] &&
-                        insurancefull[editIndex].insurance
+                          insurancefull[editIndex] &&
+                          insurancefull[editIndex].insurance
                           ? insurancefull[editIndex] &&
-                            insurancefull[editIndex].insurance
+                          insurancefull[editIndex].insurance
                           : ''
                       }
                       name="insurance"
@@ -1380,10 +1380,10 @@ class Index extends Component {
                       type="text"
                       value={
                         insurancefull &&
-                        insurancefull[editIndex] &&
-                        insurancefull[editIndex].insurance_number
+                          insurancefull[editIndex] &&
+                          insurancefull[editIndex].insurance_number
                           ? insurancefull[editIndex] &&
-                            insurancefull[editIndex].insurance_number
+                          insurancefull[editIndex].insurance_number
                           : ''
                       }
                       name="insurance_number"
@@ -1426,8 +1426,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;

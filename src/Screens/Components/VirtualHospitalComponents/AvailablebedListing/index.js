@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-import { AllBedOnWard } from "Screens/VirtualHospital/PatientFlow/data";
+// import { AllBedOnWard } from "Screens/VirtualHospital/PatientFlow/data";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { Speciality } from "Screens/Login/speciality.js";
 import { getLanguage } from "translations/index";
@@ -22,7 +22,7 @@ class Index extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.available !== this.props.available || prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id || prevProps.action !== this.props.action) {
+    if ((prevProps.available !== this.props.available || prevProps.speciality_id !== this.props.speciality_id) && (prevProps.ward_id !== this.props.ward_id || prevProps.action !== this.props.action)) {
       this.setState({ available : this.props.available, speciality_id: this.props.speciality_id, ward_id: this.props.ward_id, action: this.props.action });
     }
   };
@@ -47,13 +47,14 @@ class Index extends React.Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { available } = translate;
     return (
-      <span>{this.props.available} {available}</span>
+      <>
+        {this.props.available && <span>{this.props.available} {available}</span>}
+      </>
     );
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

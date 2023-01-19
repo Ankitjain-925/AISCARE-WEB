@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
 import Checkbox from "@material-ui/core/Checkbox";
 // import { Editor } from "react-draft-wysiwyg";
-import sitedata, { data } from "sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -62,7 +62,7 @@ import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import FloatArrowUp from "Screens/Components/FloatArrowUp/index";
 
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
@@ -996,7 +996,7 @@ getMypatientsData() {
 
   //Get the RIGHT INFO
   rightInfo() {
-    console.log('dsfsdfsf', this.props.Doctorsetget.p_id)
+    // console.log('dsfsdfsf', this.props.Doctorsetget.p_id)
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(
@@ -1197,7 +1197,8 @@ getMypatientsData() {
       medication,
       enter_patient_id,
       enter_pin,
-      personalize_dashbrd,
+      personalize_dashbrd, 
+      no_data_avlbl
     } = translate;
 
     const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -1234,13 +1235,13 @@ getMypatientsData() {
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} className="journalMain">
               {!this.state.isGraph && (
                 <Grid container direction="row">
                   {/* Website Menu */}
                   <LeftMenu isNotShow={true} currentPage="journal" />
                   <LeftMenuMobile isNotShow={true} currentPage="journal" />
-                  <Notification />
+                  {/* <Notification /> */}
                   {/* End of Website Menu */}
 
                   {/* Website Mid Content */}
@@ -1387,10 +1388,12 @@ getMypatientsData() {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                            {(this.state.currentPage && this.state.totalPage) ?(
+                                  <a>
+                                    {this.state.currentPage} of{" "}
+                                    {this.state.totalPage}
+                                  </a>) :(<div className="err_message">{no_data_avlbl}</div>)
+                                }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>

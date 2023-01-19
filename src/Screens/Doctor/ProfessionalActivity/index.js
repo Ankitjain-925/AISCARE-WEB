@@ -17,7 +17,7 @@ import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from 'Screens/VirtualHospital/Institutes/selecthouseaction.js';
 import Loader from 'Screens/Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
-import Notification from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications';
+// import Notification from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications';
 import TaskSectiuonVH from 'Screens/Components/VirtualHospitalComponents/TaskSectionVH';
 import { getLanguage } from 'translations/index';
 import { filterPatient } from 'Screens/Components/BasicMethod/index';
@@ -72,7 +72,7 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    this.getAddTaskData();
+    // this.getAddTaskData();
     this.getAllactivities();
     this.allHouses();
   }
@@ -132,7 +132,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id + this.props.stateLoginValueAim?.user?.profile_id,
+        "/assignservice/getAllactivities/" + this.props.stateLoginValueAim?.user?._id +'/'+ this.props.stateLoginValueAim?.user?.profile_id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -278,7 +278,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="activity" />
                 <LeftMenuMobile isNotShow={true} currentPage="activity" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
@@ -298,7 +298,7 @@ class Index extends Component {
                       <TaskSectiuonVH
                         patient={this.state.patient}
                         getAddTaskData={(tabvalue2, goArchive) => {
-                          this.getAddTaskData(tabvalue2, goArchive);
+                          this.getAllactivities(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}
@@ -321,8 +321,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;

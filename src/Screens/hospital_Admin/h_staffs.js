@@ -37,16 +37,16 @@ import {
 } from 'component/CommonHeader/index';
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
-import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
-
+// import { UserListManager } from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CometChatUserList/controller';
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
   { value: 'Specialist2', label: 'Specialist2' },
 ];
-var socket
+// var socket
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -75,7 +75,7 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
 
   }
 
@@ -392,20 +392,20 @@ class Index extends Component {
       )
       .then((response) => {
         this.setState({ loaderImage: false });
-        var data = JSON.stringify({ permanent: true });
+        // var data = JSON.stringify({ permanent: true });
 
-        var config = {
-          method: 'delete',
-          url:
-            'https://api-eu.cometchat.io/v2.0/users/' +
-            profile_id.toLowerCase(),
-          headers: commonCometDelHeader(),
-          data: data,
-        };
+        // var config = {
+        //   method: 'delete',
+        //   url:
+        //     'https://api-eu.cometchat.io/v2.0/users/' +
+        //     profile_id.toLowerCase(),
+        //   headers: commonCometDelHeader(),
+        //   data: data,
+        // };
 
-        axios(config)
-          .then(function (response) {})
-          .catch(function (error) {});
+        // axios(config)
+        //   .then(function (response) {})
+        //   .catch(function (error) {});
         this.getAdminstaff();
         //   this.MessageUser();
       })
@@ -459,8 +459,9 @@ class Index extends Component {
             .then((responce) => {
               console.log('UpdateA', responce.data.data)
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              var socket =SocketIo();
               socket.emit("UpdateA",sendSec)
-
+              console.log('sdsfdsfdsf2222', sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
                     this.getallGroups();
@@ -508,7 +509,9 @@ class Index extends Component {
       .then((responce) => {
         this.setState({ loaderImage: false });
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var socket =SocketIo();
         socket.emit("deleteA",sendSec)
+        console.log('sdsfdsfdsf', sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true });
           setTimeout(() => {
@@ -891,8 +894,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;

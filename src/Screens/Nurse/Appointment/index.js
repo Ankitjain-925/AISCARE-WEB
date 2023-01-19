@@ -27,7 +27,7 @@ import { Redirect } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import { getLanguage } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 import HomeIcon from '@material-ui/icons/Home';
 
@@ -535,7 +535,7 @@ class Index extends Component {
         sitedata.data.path + "/UserProfile/GetAppointment/" + id,
         {
           status: status,
-
+ 
           email: data.patient_info.email,
           lan: this.props.stateLanguageType,
           docProfile: {
@@ -616,7 +616,6 @@ class Index extends Component {
   };
 
   handleOpenSlot = (data) => {
-    console.log('data', data)
     this.props.Doctorset(data._id, data.pin, data.house_id);
     if (data.appointment_type == "online_appointment") {
       this.setState(
@@ -1175,7 +1174,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="appointment" />
                 <LeftMenuMobile isNotShow={true} currentPage="appointment" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={11}>

@@ -5,13 +5,13 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Institutes from "Screens/Components/Institutes/index";
 class Index extends Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class Index extends Component {
 
   redirectSpace = (data) => {
     this.props.houseSelect(data);
-    console.log("data", data)
     if(data.roles){
       if (data.roles.includes("task_manager")) {
         this.props.history.push("/doctor/professional-activity");
@@ -66,8 +65,8 @@ class Index extends Component {
   };
 
   render() {
-    const { specialistOption } = this.state;
-    const { stateLoginValueAim, Doctorsetget } = this.props;
+    // const { specialistOption } = this.state;
+    const { stateLoginValueAim } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -97,7 +96,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="institute" />
                 <LeftMenuMobile isNotShow={true} currentPage="institute" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                 <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)} message={this.state.message} />

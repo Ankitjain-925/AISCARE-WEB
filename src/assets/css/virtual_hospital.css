@@ -2612,9 +2612,9 @@ a.lineSort {
   line-height: 18px;
   margin-bottom: 0px;
 }
-.yearSec label:first-child {
+/* .yearSec label:first-child {
   margin-right: 22px;
-}
+} */
 .yearOpen a {
   color: #00abaf !important;
   font-family: Muli;
@@ -2656,7 +2656,7 @@ a.lineSort {
   display: block;
   margin-left: -8px;
   margin-right: -8px;
-  padding: 8px 12px;
+  padding: 8px 6px;
   border-radius: 6px;
 }
 .yearSecBg:hover {
@@ -4504,19 +4504,17 @@ button.onlogyBtn {
   letter-spacing: 0;
   line-height: 12px;
 }
-
-  .medcalFZCntnt {
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-    min-height: 196px;
-    padding: 12px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 8px;
-
+.medcalFZCntnt {
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+  min-height: 196px;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
 }
 .medcalFZCntnt a {
   display: block;
@@ -4837,7 +4835,7 @@ button.onlogyBtn {
   text-align: right;
 }
 .addSpeclLbl img {
-  width: 24px;
+  width: 24px; 
   cursor: pointer;
   border-radius: 6px;
 }
@@ -5136,9 +5134,19 @@ a.recodBlck:hover {
 }
 .roomName {
   margin-top: 22px;
+  /* overflow: auto; */
+  height: 170px;
+  overflow-x: hidden;
 }
 .roomName label {
   margin-bottom: 0px;
+}
+.roomName .label1 {
+  display: none;
+}
+.roomName .label2 {
+  display: none;
+
 }
 .roomName-h label {
   margin-bottom: 0px;
@@ -6496,7 +6504,7 @@ button.downloadPDF:hover {
   background: #f3f3f3;
 }
 .allInerTabs {
-  padding: 16px 15px;
+  padding: 16px 15px 40px 15px;
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -6618,6 +6626,7 @@ button.downloadPDF:hover {
 }
 .attchOpen {
   margin: 0px 38px;
+  padding-left: 0px;
 }
 .userDots button {
   height: 24px;
@@ -6653,8 +6662,7 @@ button.downloadPDF:hover {
   color: #00b0db;
   background-color: #b4ecf8;
 }
-
-.rvewFiles {
+.rvewFiles { 
   width: 580px;
   background: #fff;
   margin: 0 auto;
@@ -6792,7 +6800,10 @@ button.downloadPDF:hover {
   padding-right: 30px;
 }
 .assignSec {
-  margin-top: 18px;
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+  margin: 0px auto;
+  display: table;
 }
 .markDone label {
   color: #00abaf;
@@ -6874,6 +6885,7 @@ button.downloadPDF:hover {
   font-family: Muli;
   display: block;
   margin-top: 10px;
+  margin-left: 0px;
 }
 .assignSec img {
   border: 1px solid #f2f2f2;
@@ -9434,7 +9446,7 @@ button.crdoLghtBlu2 {
   letter-spacing: 0;
   line-height: 12px;
 }
-.flowProfil {
+.flowProfil { 
   display: flex;
   align-items: center;
   margin-top: 12px;
@@ -9456,8 +9468,7 @@ button.crdoLghtBlu2 {
 .dtlCountRm a:first-child {
   margin-right: 14px;
 }
-.dtlCount a,
-.dtlCount span {
+.dtlCount a, .dtlCount span {
   color: #404646;
   font-size: 12px;
   font-weight: 600;
@@ -9660,7 +9671,7 @@ button.crdoLghtBlu2 {
     border-top: 1px solid #e8e8e8;
     border-bottom: 1px solid #dadada;
   }
-  .addTaskBtn {
+  .addTaskBtn { 
     text-align: center;
     margin-top: 50px;
     margin-bottom: 25px;
@@ -9797,6 +9808,13 @@ button.crdoLghtBlu2 {
     margin-top: 0px;
     border-top: 1px solid #e8e8e8;
   }
+  .topLeftSpc {
+    margin-top: 0px;
+  }
+  .topLeftSpc {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
   .roomBreadCrumbMob ul li {
     display: inline-block !important;
   }
@@ -9808,12 +9826,11 @@ button.crdoLghtBlu2 {
     margin-top: 28px;
     margin-bottom: 32px;
   }
-  .topLeftSpc {
-    margin-top: 0px;
+  .addTaskBtn.addAssignBtn1 {
+    display: block !important;
   }
-  .topLeftSpc {
-    padding-left: 0px;
-    padding-right: 0px;
+  .addTaskBtn.addAssignBtn1 button {
+    margin-bottom: 14px !important;
   }
 }
 .spcLeft {
@@ -10029,9 +10046,13 @@ button.crdoLghtBlu2 {
   font-size: 14px;
   font-weight: 600;
   float: right;
-}
-.edtdelservice img{
+} 
+.edtdelservice img {
   width: 22px;
+  margin-right: 10px;
+}
+.edtdelservice img:last-child {
+  margin-right: 0px;
 }
 @media (max-width: 500px) {
   .informStatus {
@@ -10095,6 +10116,9 @@ button.crdoLghtBlu2 {
   }
   .srvcTable {
     margin-bottom: 5px !important;
+  }
+  .MuiGrid-root.hideTask {
+    margin-top: 10px;
   }
 }
 .spec-bed-profile {
@@ -10267,7 +10291,7 @@ ul.addpatientoption li:hover {
 .darkTheme .allSpeces div {
   background-color: #192020;
   color: #cfcfcf;
-}
+} 
 @media (max-width: 640px) {
   .vh-section .presOpinionIner td.pivoted img.openScnd {
     margin-top: -15px;
@@ -10321,6 +10345,7 @@ ul.addpatientoption li:hover {
 }
 .newassignLft {
   display: flex;
+  justify-content: end;
 }
 .attchNotePart {
   display: flex;
@@ -10333,19 +10358,20 @@ ul.addpatientoption li:hover {
   position: relative;
 }
 .setAssignedTo span {
+  min-width: 92px;
   z-index: 1;
   font-weight: 700 !important;
   text-align: center;
-  top: -40px;
+  top: -43px;
   position: absolute;
   left: -35px;
   display: none;
-  padding: 6px 7px;
+  padding: 5px 6px;
   color: #e5e6e6;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 12px;
+  line-height: 14px;
   border-radius: 8px;
   background-color: rgba(0, 8, 8, 0.9);
   box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
@@ -11229,11 +11255,6 @@ p.more-change-staff-img2 {
 .hideTask .MuiCheckbox-colorSecondary {
   padding: 0px 8px;
 }
-.hideTask {
-  border-radius: 4px;
-  background-color: #f2f2f2;
-  padding: 9px 12px;
-}
 .hideTask .MuiFormControlLabel-label {
   font-family: "Mulish", sans-serif;
   color: #404646;
@@ -11338,7 +11359,6 @@ p.more-change-staff-img2 {
   border-radius: 50%;
   margin-right: 2px;
 }
-
 ul.patientHint {
   z-index: 9;
   position: relative;
@@ -11373,7 +11393,6 @@ ul.patientHint li {
   border-radius: 7px;
 }
 .sevicessection {
-  /* width: 97%; */
   width: 100%;
   margin-bottom: 20px;
   font-weight: bold;
@@ -11536,6 +11555,23 @@ ul.patientHint li {
     width: 100% !important;
     max-width: 100% !important;
     flex-basis: 100% !important;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container label {
+    display: none;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container .label1 {
+    color: #404646;
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 7px;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container .label2 {
+    color: #404646;
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 7px;
   }
   .roomName .MuiGrid-root.MuiGrid-container input {
     margin-bottom: 0px !important;
@@ -12179,6 +12215,10 @@ ul.patientHint li {
   box-shadow: initial !important;
   outline: none !important;
 }
+.darkTheme input[type="submit"]:disabled {
+  background-color: #1aabae !important;
+  color: #fff !important;
+}
 .darkTheme .fltrClear {
   background: #404646;
 }
@@ -12635,7 +12675,7 @@ ul.patientHint li {
 .darkTheme .bilingTabUpr {
   background-color: #404646;
 }
-.da rkTheme .billTabs button {
+.darkTheme .billTabs button {
   color: #fafafa !important;
 }
 .darkTheme .billtabIner.Mui-selected {
@@ -13597,7 +13637,7 @@ input:-moz-autofill:active{
   .topLeftSpc {
     padding-left: 10px !important;
     padding-right: 10px !important;
-    margin-top: 50px !important;
+    margin-top: 40px !important;
   }
   .viewTaskfilter {
     display: block;
@@ -14068,7 +14108,6 @@ input:-webkit-autofill:active{
   color: #404646;
   font-weight: 600;
 }
-
 .assignHos {
   font-size: 18px !important;
   font-weight: 700 !important;
@@ -14914,7 +14953,7 @@ input:-webkit-autofill:active {
   font-weight: 600;
   letter-spacing: 0;
   line-height: 18px;
-}
+} 
 .browsInput2 a {
   color: #00abaf !important;
   margin: 0px 4px;
@@ -14993,7 +15032,7 @@ input:-webkit-autofill:active {
 }
 .workUntil {
   margin-top: 5px !important;
-}
+} 
 /* @media (max-width: 600px) {
   .setArbtSign {
     margin-top:100% !important;
@@ -15199,7 +15238,6 @@ a.joinmeetingtab {
   margin-left: 10px;
   text-transform: capitalize;
 }
-
 .certificatePrice button:hover {
   /* background: transparent; */
   background-color: #00abaf;
@@ -15213,11 +15251,9 @@ a.joinmeetingtab {
 .darkTheme .certificatePrice input {
   background: #192020 !important;
 }
-
 .darkTheme input[type="date"] {
   background-color: #192020 !important;
 }
-
 .euroamount {
   position: absolute;
   top: 8px;
@@ -15237,7 +15273,6 @@ a.joinmeetingtab {
 .infoShwSave3 input {
   width: 100%;
 }
-
 @media screen and (min-width: 1425px) and (max-width: 1470px) {
   .revwFiles {
     margin-right: 30px;
@@ -15362,19 +15397,16 @@ a.joinmeetingtab {
 .darkTheme .dobCertSec1 input:first-child {
   border: 1px solid #00b0de;
 }
-
 @media screen and (min-width: 600px) and (max-width: 768px) {
   .stampDoctor {
     padding: 30px 15px;
   }
 }
-
 .allDrList3 {
   height: 680px;
   overflow-y: scroll;
   padding: 10px 0px;
 }
-
 .nwDiaCntnt2 {
   max-width: 480px !important;
   padding: 1px;
@@ -15397,8 +15429,7 @@ a.joinmeetingtab {
   margin-left: 10px;
   margin-bottom: 10px;
 }
-.allCreInfSec,
-.allCreInfSec2 {
+.allCreInfSec, .allCreInfSec2 {
   margin-top: 10px;
 }
 .creatInfoTwo input {
@@ -15409,7 +15440,6 @@ a.joinmeetingtab {
   width: 100%;
   padding: 8px 8px;
 }
-
 .allCertSec {
   display: flex;
   align-items: center;
@@ -15782,7 +15812,6 @@ width: 90px!important;
 .selectOptionCmn {
   margin-top: 20px;
 }
-
 .selectOptionCmn label span {
   font-weight: 500;
   line-height: 21px;
@@ -16026,21 +16055,15 @@ width: 90px!important;
     .homeBgDrk .bp_graph.FullInfoSet a {
         color: #00B0DB !important;
     }
-
-    /* added by ankita */
-
     .nurse-filter-sec {
       width: 203px;
       background-color: #01abaf;
-      padding: 6px 4px;
+      padding: 8px 4px;
       text-align: center;
       color: #ffffff;
       margin-right: 5px;
       cursor: pointer;
   }
-
-
-  
   .totalamount label{
     color: #000808;
     font-size: 28px;
@@ -16106,7 +16129,7 @@ width: 90px!important;
   .infoCourse .shPatientProfile .userDetail {
     margin-top: 0px;
   }
-  .infoBoxCntnt .infoCourse .userAdresInfo {
+  .infoBoxCntnt .infoCourse .userAdresInfo { 
     margin-top: 12px;
   }
   .nwPresCntnt .nwPresCntntIner .infoShwHidBrdr2 {
@@ -16182,7 +16205,6 @@ width: 90px!important;
   .darkTheme .MainclassQues1 h1{
     color: #00abaf!important;
   }
-
   .darkTheme .recaddDocUpr {
     background-color: #303737 !important;
   }
@@ -16250,31 +16272,26 @@ width: 90px!important;
   .extraSrvcUpr .actvMain {
     margin-bottom: 32px !important;
   }
-
-
-  .homeiconcolor{
-    color:#00abaf
-  }
-
-
-.checkHelth2{
-  overflow-y: scroll;
-    height: 362px !important;
+.homeiconcolor{
+  color:#00abaf
 }
-
+.checkHelth2{
+  overflow-y: auto;
+  height: 362px !important;
+}
 .creatTaskModel3{
-width: 580px;
-background: #fff;
-margin: 0 auto;
-border: none;
-outline: none;
-background-color: #ffffff;
-box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
-margin-top: 20px;
-padding-right: 2px;
-padding-top: 18px;
-padding-bottom: 16px;
-border-radius: 12px;
+  width: 580px;
+  background: #fff;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+  margin-top: 20px;
+  padding-right: 2px;
+  padding-top: 18px;
+  padding-bottom: 16px;
+  border-radius: 12px;
 }
 .darkTheme .creatTaskModel3 {
   background-color: #404646 !important;
@@ -16289,30 +16306,24 @@ border-radius: 12px;
   color:grey;
 }
 /* .uuu label{
-  color: black
+     color: black
 } */
  .selectdcolchange label{
   color:#00abaf!important
 }
-
 .homeBgDrk .valuecolor label{
   color: white!important;
 }
 .darkTheme .yearSecBg:hover {
   background-color: #404646;
 }
-
 .scrollvalue {
   height: 537px;
   overflow-y: scroll;
 }
-
 .getAllCalSec .rbc-calendar{
   min-height: 1055px!important;
-  }
-
-
-
+}
 .profileIdRghtSec{
   margin-bottom: 0px;
   display: flex;
@@ -16841,7 +16852,6 @@ overflow: auto
   margin-bottom: 0px !important;
   margin-top: 40px;
 }
-
 .addSpeclClose {
   text-align: right;
 }
@@ -16850,7 +16860,6 @@ overflow: auto
     margin-bottom: 10px;
   }
 }
-
 .collap{
   border: 1px #00ABAF solid;
   background: #e2e4e6;
@@ -16858,7 +16867,6 @@ overflow: auto
   padding: 10px;
   margin-bottom: 20px;
 }
-
 .darkTheme .collap{
 background: #647484 !important;
 }
@@ -16871,26 +16879,23 @@ background: #647484 !important;
   cursor: pointer;
   color: #00ABAF !important;
 }
-
 .innerAuthority{
   margin-left: 35px;
 }
-
 .authoirty :hover {
   background: linear-gradient(33deg, aqua, transparent);
 }
-
 .authoirty .MuiTypography-body1{
   font-size: 0.9rem !important;
   font-weight: 600;
 }
-
 .sel{
-background: #04a5a9;
-margin-bottom: 10px;
+  background: #04a5a9;
+  margin-top: 0px;
+  margin-bottom: 10px;
   font-size: 1rem;
   padding-left: 8px;
-
+  padding-right: 0px;
 }
 .formscrool {
   height: 537px;
@@ -16900,41 +16905,35 @@ margin-bottom: 10px;
   font-size: 15px;
   font-family: muli;
   margin-bottom: 20px;
- 
 }
-
 .darkTheme .headsize2{
-background-color: #192020!important;
-color:#FFFFFF
+  background-color: #192020!important;
+  color:#FFFFFF
 }
 .darkTheme .valuesuggest2{ 
   background-color: #404646!important;
   color:#FFFFFF
-  }
-
-  .authorityvalue { 
-   font-size: 20px;
-  }
-
-  
-.AddEntrynwSec a:first-child {
-  margin-right: 0px;
 }
-
+.authorityvalue { 
+  font-size: 20px;
+}
 .allNewReqInfo{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0px;
 }
 .authority{
-  font-size: 20px;
+  font-size: 18px;
   font-family: muli;
-  color:red;
+  color: red;
   text-align: center;
+  line-height: normal;
+  margin-bottom: 8px;
 }
-
 .archvOpinLblSec{
-  justify-content: flex-start!important;
+  justify-content: flex-start !important;
+  margin-left: 0px;
 }
 .enterSpclMainSec{
   padding-top: 20px;
@@ -16955,21 +16954,21 @@ color:#FFFFFF
   padding: 0px;
 }
 .assignSection{
-  margin-top: 5px!important;
+  margin-top: 5px !important;
 }
 .checkboxquesSec{
-  margin-top:0px!important;
-  margin-bottom:15px!important;
+  margin-top:0px !important;
+  margin-bottom:15px !important;
 }
 .infoSubBtn{
   margin-top: 35px;
 }
 .allCheckboxQue{
   margin-top:15px!important;
-}
+} 
 .stndQuesPart label{
   font-size: 15px;
-  font-weight: bold;
+  font-weight: bold; 
   color:#00abaf;
   letter-spacing: 0;
   font-family: Muli;
@@ -17002,7 +17001,6 @@ color:#FFFFFF
 .allEnterSpclSec{
   padding-top: 12px;
 }
-
 .enterSpclSec input{
   min-height: 38px;
 }
@@ -17057,7 +17055,7 @@ color:#FFFFFF
 .specbutton1 label{
   font-size: 16px;
   font-weight: 500;
-  color: #00abaf;
+  color: #00abaf
 }
 .darkTheme .specbutton1 label{   
   font-size: 16px!important;
@@ -17092,64 +17090,65 @@ color:#FFFFFF
 .srvcTable3656 th, .srvcTable3656 td{
   padding: 30px 24px;
 }
-
 .darkTheme .srvcTable365
 {background: #192020}
 
 .srvcTable365{
   overflow: auto;
 }
-
 .creatLbl22 label{
-  font-size: 17px!important;
-    font-weight: 500!important;
-    letter-spacing: 0!important;
-    /* line-height: 32px!important; */
-    font-family: "Mulish", sans-serif!important;
-    margin-top: 10px!important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  /* line-height: 32px!important; */
+  font-family: "Mulish", sans-serif !important;
+  margin-top: 10px !important;
 }
-
 .tasklistName1{
   margin-top: 12px;
 }
-
 .tasklistName1 img{
   margin-right: 3px;
 }
-
 .allStaffRghtSec{
   margin-left: 10px;
 }
 .addStaffPart{
   min-height:537px;
-}
+} 
 
-
-.tskSrvsPart{
+.tskSrvsPart {
   display: inline-flex;
+  margin-bottom: 10px;
 }
-.allCreatInfo{
-  margin:15px 0px!important;
+
+.allCreatInfo {
+  margin: 15px 0px !important;
 }
+
 .allCustomService p {
   color: #000808;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0;
-  /* line-height: 12px; */
   font-family: Muli;
   display: block;
 }
 .allCustomService p:nth-child(2){
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .allCustomService label{
-  margin-top:5px;
+  /* margin-top:5px; */
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom:0px;
 }
-.allThrapySec{
+
+.allThrapySec {
   text-align: right;
 }
-.allThrapySec label{
+
+.allThrapySec label {
   font-weight: bold;
   color: #00abaf;
 }
@@ -17160,60 +17159,101 @@ color:#FFFFFF
   font-weight: 700;
 }
 
-.noNameType{
-  width: 40%; 
+.noNameType {
+  width: 40%;
   text-align: left;
 }
 
-.noNameType1{
-  width: 20%; 
+.noNameType1 {
+  width: 20%;
   text-align: left;
 }
 
 
-.imgEditDelPer
-{ padding: 7px;
-   cursor: pointer}
+.imgEditDelPer {
+  padding: 7px;
+  cursor: pointer
+}
 
 
-   .noNameTypeEditDel1{width: 20%;
-     text-align: left}
+.noNameTypeEditDel1 {
+  width: 20%;
+  text-align: left
+}
 
-     .noNameTypeEditDel2{width: 30%;
-      text-align: left}
+.noNameTypeEditDel2 {
+  width: 30%;
+  text-align: left
+}
 
-      .noNameTypeEditDel3{width: 40%;
-        text-align: left}
+.noNameTypeEditDel3 {
+  width: 40%;
+  text-align: left
+}
 
-        .noNameTypeEditDel4{width: 10%;
-          text-align: left}
-
-
-
-          .noNameTypeEditDel5{
-            max-width: 30px 
-          }
-
-            .noNameTypeEditDel6{
-              max-width: 50px 
-            }
-
-              .noNameTypeEditDel7{
-                max-width: 100px 
-              }
-
-                .noNameTypeEditDel8{
-                  max-width: 40px 
-                }
+.noNameTypeEditDel4 {
+  width: 10%;
+  text-align: left
+}
 
 
-               .headService11 { padding: 30px; padding-Top: 0px}
+
+.noNameTypeEditDel5 {
+  max-width: 30px
+}
+
+.noNameTypeEditDel6 {
+  max-width: 50px
+}
+
+.noNameTypeEditDel7 {
+  max-width: 100px
+}
+
+.noNameTypeEditDel8 {
+  max-width: 40px
+}
 
 
-              .roomsNum3345 {
-                padding-Left: 30px;
-                 padding-Right: 30px}
+.headService11 {
+  padding: 30px;
+  padding-Top: 0px
+}
 
+.roomsNum3345 {
+  padding-Left: 30px;
+  padding-Right: 30px
+}
+
+
+
+.allEnterSpclPart label {
+  font-size: 15px;
+  margin-bottom: 5px;
+  color: #00abaf;
+  font-weight: bold;
+}
+
+.specbuttonPart {
+  margin-top: 30px;
+}
+
+.darkTheme .allEnterSpclPart label {
+  color: #00abaf !important;
+  font-weight: bold !important;
+}
+
+.darkTheme .addCssTherNamDes {
+  color: #fafafa;
+}
+
+
+@media only screen and (min-width: 960px) and (max-width: 1000px) {
+  .addCssForTherapy {
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
 
 .allEnterSpclPart label{
   font-size: 15px;
@@ -17231,14 +17271,203 @@ color:#FFFFFF
 .darkTheme .addCssTherNamDes{
   color: #fafafa;
 }
-     
+.serAmntQunty{
+  margin-top: 20px;
+}
+.allCustomService p span {
+  color: #00abaf;
+  font-size: 15px;
+  line-height: 25px;
+}
+.tskSrvsPart p{
+  color: #00abaf;
+}
+ @media only screen and (min-width: 960px) and (max-width: 1000px){
+  .addCssForTherapy{
+    padding: 8px;
+    margin-right: 5px;
+  }
+}
 
-                 @media only screen and (min-width: 960px) and (max-width: 1000px){
-                  .addCssForTherapy{
-                    padding: 8px;
-                    margin-right: 5px;
-                  }
-                }
+.enterSpclSec1 label{
+  margin-bottom: 0px;
+}
+@media screen and (max-width:600px) {
+  .addTimeTaskSec button{
+    width:100%;
+  }
+}
+.selectapprove {
+  width: 50%;
+  margin: auto;
+}
 
                 
+.edtdelservice img {
+  width: 20px;
+}
+.edtdelservice img:first-child{
+  margin-right: 5px;
+}
+.editDelSerBtn{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.clearFilterRghtSec a {
+  height: 32px;
+}
+.clearFilterRghtSec img{
+  height: 20px;
+}
 
+@media (max-width: 623px){ 
+  .changeLang a.dropdown-toggle.nav-link {
+    padding: 0.5rem 1rem !important;
+    width: initial !important;
+  }
+  .changeLang li.dropdown.nav-item:last-child {
+    margin-right: 0px !important;
+  }
+  .changeLang .react-toggle-track {
+    width: 34px !important;
+    height: 18px !important;
+  }
+  .changeLang .react-toggle-thumb {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+
+.allInfoRght2 label {
+  color:#000;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: Muli;
+}
+/* .margindatright{
+margin-left: 30px;
+} */
+.spcaetime{
+  margin-top: 20px;
+}
+
+
+.setPointer {
+  cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+  .tooltip-container {
+    width: 0px !important;
+  }
+}
+@media screen and (max-width: 640px) {
+  .scndOptionIner ul {
+    margin-top: 14px !important;
+    /* right: auto !important; */
+}
+}
+
+@media(max-width:960px){
+  .academy_ul.stepTdotupper ul{
+    height: 250px;
+  }
+}
+.setAssignedPart span{
+  top:-84px;
+  left: -30px;
+}
+
+@media(max-width:384px){
+  .fatiqueQuesSec .MuiGrid-grid-md-4{
+    text-align: left;
+  }
+  .fatiqueQuesSec a{
+    margin-top: 5px;
+  }
+}
+
+.enterPartprice{
+  position: absolute;
+  top: 14px;
+  right: 30px;
+  color: #404646;
+  font-weight: 600; 
+}
+
+.billingHeadSec p{
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 12px;
+  font-family: Muli;
+  color: #000808;
+  font-weight: bold;
+}
+.darkTheme .billingHeadSec p{
+  color: #fafafa;
+}
+.billLbl label {
+  color: #00b0db;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  text-transform: capitalize;
+}
+.darkTheme .billLbl label{
+  color: #00abaf!important;
+}
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+  .billingHeadSec{
+    display: none;
+  }
+}
+
+.NeuroBtn123{
+  margin-top: 2px!important;
+}
+
+a.dtlCountEmail{
+  display: flex;
+}
+
+.dtlCount123 a{
+ line-break: anywhere!important;
+}
+
+ .setstaffleft div{
+  display: flex!important;
+  justify-content: left!important;
+}
+
+.forSameLineIcon{
+  display :flex;
+}
+
+.forSameLineIcon img{
+  padding: 10px 2px;
+}
+@media screen and (min-width:960px) and (max-width:1200px){
+  .attchNotePart{
+    display: block;
+  }
+  .attchOpen, .attchDone{
+    margin:5px 0px;
+    padding: 0px;
+  }
+}
+
+.setAssignedToA span{
+top: -60px !important;
+}
+
+.setAssignedToB span{
+top: -18px!important;
+left: -75px!important;
+}
+
+.setAssignedToC span{
+top: -35px!important;
+left: -38px!important;
+}

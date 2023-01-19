@@ -336,11 +336,11 @@ class FilterSec extends Component {
                   // className="clear_filter"
                 >
                   <Grid className="clear_filterUpr ">
-                    <Grid className="clear_filterLft ">
+                    <Grid className="clear_filterLft">
                       <a onClick={this.ClearData}>{clear_filter}</a>
                     </Grid>
                     <Grid
-                      className="clear_filterRght "
+                      className="clear_filterRght clearFilterRghtSec"
                       onClick={() => {
                         this.setState({ isTest: true });
                       }}
@@ -436,14 +436,11 @@ class FilterSec extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { Overview } = state.overView;
   const { settings } = state.Settings;
   return {
     stateLanguageType,
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     Overview,

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { Doctorarrays } from "Screens/Login/doctorarray";
 import { Redirect, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import CometChat from "../../Components/CometChat";
+// import CometChat from "../../Components/CometChat";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
@@ -104,14 +104,14 @@ class index extends React.Component {
                   justify="left"
                   alignItems="center"
                 >
-                  <CometChat
+                  {/* <CometChat
                     lan={this.props.stateLanguageType}
                     Uid={this.props.stateLoginValueAim.user.profile_id}
                     Userlist={
                       this.props.doctorarrays &&
                       this.props.doctorarrays.doctorarray
                     }
-                  />
+                  /> */}
                 </Grid>
               </Grid>
             </Grid>

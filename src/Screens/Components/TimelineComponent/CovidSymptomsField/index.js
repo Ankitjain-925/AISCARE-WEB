@@ -5,7 +5,7 @@ import NotesEditor from "Screens/Components/Editor/index";
 import FatiqueQuestion from "./FatiqueQuestions";
 import DateFormat from "Screens/Components/DateFormat/index";
 import SymptomQuestions from "./SymptomQuestions";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import PainPoint from "Screens/Components/PointPain/index";
 import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -84,7 +84,7 @@ class Index extends Component {
                   <label>{energy_lavel_determine}</label>
                 </Grid>
                 <Grid>
-                  <a className={this.state.updateTrack?.energy_lavel == 0 && "activeButton"} onClick={()=>{this.updateEntryState1(0, 'energy_lavel')}}>
+                  <a className={this.state.updateTrack?.energy_lavel === 0 && "activeButton"} onClick={()=>{this.updateEntryState1(0, 'energy_lavel')}}>
                     <img
                       src={require("assets/images/battery1.png")}
                       alt=""
@@ -98,7 +98,7 @@ class Index extends Component {
                       className="enrgyWht"
                     />
                   </a>
-                  <a className={this.state.updateTrack?.energy_lavel == 1 && "activeButton"} onClick={()=>{this.updateEntryState1(1, 'energy_lavel')}}> 
+                  <a className={this.state.updateTrack?.energy_lavel === 1 && "activeButton"} onClick={()=>{this.updateEntryState1(1, 'energy_lavel')}}> 
                     <img
                       src={require("assets/images/battery2.png")}
                       alt=""
@@ -112,7 +112,7 @@ class Index extends Component {
                       className="enrgyWht"
                     />
                   </a>
-                  <a className={this.state.updateTrack?.energy_lavel == 2 && "activeButton"} onClick={()=>{this.updateEntryState1(2, 'energy_lavel')}}>
+                  <a className={this.state.updateTrack?.energy_lavel === 2 && "activeButton"} onClick={()=>{this.updateEntryState1(2, 'energy_lavel')}}>
                     <img
                       src={require("assets/images/battery3.png")}
                       alt=""
@@ -126,7 +126,7 @@ class Index extends Component {
                       className="enrgyWht"
                     />
                   </a>
-                  <a className={this.state.updateTrack?.energy_lavel == 3 && "activeButton"} onClick={()=>{this.updateEntryState1(3, 'energy_lavel')}}>
+                  <a className={this.state.updateTrack?.energy_lavel === 3 && "activeButton"} onClick={()=>{this.updateEntryState1(3, 'energy_lavel')}}>
                     <img
                       src={require("assets/images/battery4.png")}
                       alt=""
@@ -140,7 +140,7 @@ class Index extends Component {
                       className="enrgyWht"
                     />
                   </a>
-                  <a className={this.state.updateTrack?.energy_lavel == 4 && "activeButton"} onClick={()=>{this.updateEntryState1(4, 'energy_lavel')}}>
+                  <a className={this.state.updateTrack?.energy_lavel === 4 && "activeButton"} onClick={()=>{this.updateEntryState1(4, 'energy_lavel')}}>
                     <img
                       src={require("assets/images/battery5.png")}
                       alt=""

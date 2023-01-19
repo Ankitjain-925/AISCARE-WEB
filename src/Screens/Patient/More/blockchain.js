@@ -28,7 +28,7 @@ import {
   GetLanguageDropdown
 } from "Screens/Components/GetMetaData/index.js";
 import {organDonorLang, KeyLang} from 'Screens/Components/BlockchainEntry/manageLanguage';
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -222,7 +222,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="more" />
                 <LeftMenuMobile isNotShow={true} currentPage="more" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 {/* Website Mid Content */}

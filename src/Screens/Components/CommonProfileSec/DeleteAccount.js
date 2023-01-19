@@ -70,17 +70,17 @@ class Index extends Component {
 
         else {
           this.setState({ loaderImage: false });
-          var data = JSON.stringify({ "permanent": true });
-          var config = {
-            method: 'delete',
-            url: 'https://api-eu.cometchat.io/v2.0/users/' + profile_id.toLowerCase(),
-            headers: commonCometDelHeader(),
-            data: data
-          };
+          // var data = JSON.stringify({ "permanent": true });
+          // var config = {
+          //   method: 'delete',
+          //   url: 'https://api-eu.cometchat.io/v2.0/users/' + profile_id.toLowerCase(),
+          //   headers: commonCometDelHeader(),
+          //   data: data
+          // };
 
-          axios(config)
-            .then(function (response) { })
-            .catch(function (error) { });
+          // axios(config)
+          //   .then(function (response) { })
+          //   .catch(function (error) { });
           this.props.history.push('/');
         }
       }).catch((error) => { });

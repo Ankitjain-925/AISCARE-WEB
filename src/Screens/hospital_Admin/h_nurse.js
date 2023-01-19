@@ -34,10 +34,11 @@ import {
 import Pagination from 'Screens/Components/Pagination/index';
 import Loader from 'Screens/Components/Loader/index';
 import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
-import io from 'socket.io-client';
-import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
-const SOCKET_URL = GetSocketUrl();
-var socket
+// import io from 'socket.io-client';
+// import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+// const SOCKET_URL = GetSocketUrl();
+import {SocketIo, clearScoket} from "socket";
+// var socket = SocketIo();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -74,7 +75,7 @@ class Index extends Component {
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
-    socket = io(SOCKET_URL);
+    // socket = io(SOCKET_URL);
   }
   getallGroups = () => {
     var institute_id =
@@ -341,20 +342,20 @@ class Index extends Component {
       )
       .then((response) => {
         this.setState({ loaderImage: false });
-        var data = JSON.stringify({ permanent: true });
+        // var data = JSON.stringify({ permanent: true });
 
-        var config = {
-          method: 'delete',
-          url:
-            'https://api-eu.cometchat.io/v2.0/users/' +
-            profile_id.toLowerCase(),
-          headers: commonCometDelHeader(),
-          data: data,
-        };
+        // var config = {
+        //   method: 'delete',
+        //   url:
+        //     'https://api-eu.cometchat.io/v2.0/users/' +
+        //     profile_id.toLowerCase(),
+        //   headers: commonCometDelHeader(),
+        //   data: data,
+        // };
 
-        axios(config)
-          .then(function (response) {})
-          .catch(function (error) {});
+        // axios(config)
+        //   .then(function (response) {})
+        //   .catch(function (error) {});
         this.getNurses();
         //   this.MessageUser();
       })
@@ -403,8 +404,9 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-              console.log('UpdateN', responce.data.data)
               var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+              var socket = SocketIo();
+              console.log('sendSec-n', sendSec)
               socket.emit("UpdateN",sendSec)
                 if (responce.data.hassuccessed) {
                     this.setState({ assignedhouse: true, blankerror: false, house: {} })
@@ -453,6 +455,8 @@ class Index extends Component {
       )
       .then((responce) => {
         var sendSec = { _id: responce.data.data?._id, houses: responce.data.data?.houses};
+        var socket =SocketIo();
+        console.log('socket122221111', sendSec)
         socket.emit("deleteN",sendSec)
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true  });
@@ -769,8 +773,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;

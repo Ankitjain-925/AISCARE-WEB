@@ -7,7 +7,7 @@ import { getLanguage } from 'translations/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Settings } from 'Screens/Login/setting';
-import ShowStaffData from "../../../VirtualHospital/AssignTherapy/ShowStaffData";
+import ShowStaffData from "Screens/VirtualHospital/AssignTherapy/ShowStaffData";
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
@@ -155,11 +155,15 @@ class Index extends React.Component {
                                     <a onClick={() => this.GetStaffListing(data, data?.team_name)} >
                                       <Grid className="allInfo allInfo2 tasklistName tasklistName1">
                                         <Grid>
-                                          <img src={this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode === "dark" ?
+                                          <img src={
+                                            // this.props.settings.setting &&
+                                            //   this.props.settings.setting.mode &&
+                                            //   this.props.settings.setting.mode === "dark" ?
                                             require("assets/virtual_images/groupicon-black.jpg")
-                                            : require("assets/virtual_images/groupicon.jpg")}></img>
+                                            // : require("assets/virtual_images/groupicon.jpg")
+                                          }>
+
+                                          </img>
                                         </Grid>
                                         <Grid className="allInfoRght">
                                           <Grid>
@@ -204,14 +208,21 @@ class Index extends React.Component {
                     <span>
                       {data?.first_name} {data?.last_name} - ({data?.profile_id})
                     </span> :
+                    <Grid className="setAssignedPart">
                     <span>
                       {data?.team_name} {" "} {"(Staff)"}
-                    </span>}
-                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark" ?
+                    </span></Grid>}
+                  {data?.first_name ? <S3Image imgUrl={data.image} /> : <a onClick={() => this.GetStaffListing(data, data?.team_name)} > <img src={
+
+                    // this.props.settings.setting &&
+                    //   this.props.settings.setting.mode &&
+                    //   this.props.settings.setting.mode === "dark" ?
                     require("assets/virtual_images/groupicon-black.jpg")
-                    : require("assets/virtual_images/groupicon.jpg")}></img></a>}
+                    // : require("assets/virtual_images/groupicon.jpg")
+                  }>
+
+                  </img>
+                  </a>}
                 </div>
               ))}
             {count > 0 && <a onClick={() => this.ViewPopup()}>+{count}</a>}
@@ -229,7 +240,7 @@ class Index extends React.Component {
 }
 const mapStateToProps = (state) => {
   const { settings } = state.Settings;
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   return {
     settings,

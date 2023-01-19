@@ -5,14 +5,12 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
-import Timer from "Screens/Components/TimeLogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+// import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getSetting } from "../api";
 import sitedata from "sitedata";
@@ -20,12 +18,13 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { commonHeader } from "component/CommonHeader/index";
 import Loader from "Screens/Components/Loader/index";
-import io from "socket.io-client";
+import {SocketIo} from "socket";
+// import io from "socket.io-client";
 import { currentAvaliable } from "./current.js";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl();
+// import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+// const SOCKET_URL = GetSocketUrl();
 
-var socket;
+// var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -46,21 +45,21 @@ class Index extends Component {
       mode: "normal",
       update: false,
     };
-    new Timer(this.logOutClick.bind(this));
-    socket = io(SOCKET_URL);
+    // new Timer(this.logOutClick.bind(this));
+    // socket = io(SOCKET_URL);
   }
   //For loggedout if logged in user is deleted
   componentDidMount() {
     // socket.on("connection", () => { });
 
-    new LogOut(
-      this.props.stateLoginValueAim.token,
-      this.props.stateLoginValueAim.user._id,
-      this.logOutClick.bind(this)
-    );
+    // new LogOut(
+    //   this.props.stateLoginValueAim.token,
+    //   this.props.stateLoginValueAim.user._id,
+    //   this.logOutClick.bind(this)
+    // );
     getSetting(this);
     this.getavailableUpdate();
-    this.availableUpdate();
+    // this.availableUpdate();
   }
 
   // componentDidUpdate(PrevProps, PrevState) {
@@ -71,11 +70,11 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(
-      this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
-      { lastActiveAt: Date.now() }
-    );
-    if (data) {
+    // var data = await update_CometUser(
+    //   this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+    //   { lastActiveAt: Date.now() }
+    // );
+    // if (data) {
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -87,7 +86,7 @@ class Index extends Component {
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
       this.props.currentAvaliable({ current_available: false });
-    }
+    // }
   };
 
   handleOpenInvt = () => {
@@ -210,12 +209,14 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
+       var socket = SocketIo(); 
         socket.emit("update", responce);
         let value = responce?.data?.data?.current_available;
         this.setState({
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
+        console.log('value', value)
         this.props.currentAvaliable({ current_available: value });
       })
       .catch((error) => {
@@ -839,8 +840,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { House } = state.houseSelect;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;

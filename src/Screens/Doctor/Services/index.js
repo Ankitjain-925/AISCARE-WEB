@@ -34,10 +34,10 @@ import {
 } from "Screens/Components/BasicMethod/index";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Doctorset } from "Screens/Doctor/actions";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
-import { updateCometUser } from "Screens/Components/CommonApi/index";
+// import { updateCometUser } from "Screens/Components/CommonApi/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -349,28 +349,28 @@ class Index extends Component {
                   this.setState({ loaderImage: false });
                   if (responce.data.hassuccessed === true) {
                     this.setState({ openNew: false, recaptcha: false });
-                    axios
-                      .post(
-                        "https://api-eu.cometchat.io/v2.0/users",
-                        {
-                          uid: responce.data.data.profile_id,
-                          name:
-                            userDetails.first_name +
-                            " " +
-                            userDetails.last_name,
-                        },
-                        commonCometHeader()
-                      )
-                      .then((res) => {
-                        updateCometUser({
-                          uid: responce.data.data.profile_id.toLowerCase(),
-                          name:
-                            userDetails.first_name +
-                            " " +
-                            userDetails.last_name,
-                          role: "default",
-                        });
-                      });
+                    // axios
+                    //   .post(
+                    //     "https://api-eu.cometchat.io/v2.0/users",
+                    //     {
+                    //       uid: responce.data.data.profile_id,
+                    //       name:
+                    //         userDetails.first_name +
+                    //         " " +
+                    //         userDetails.last_name,
+                    //     },
+                    //     commonCometHeader()
+                    //   )
+                    //   .then((res) => {
+                    //     // updateCometUser({
+                    //     //   uid: responce.data.data.profile_id.toLowerCase(),
+                    //     //   name:
+                    //     //     userDetails.first_name +
+                    //     //     " " +
+                    //     //     userDetails.last_name,
+                    //     //   role: "default",
+                    //     // });
+                    //   });
                     AddFavDoc2(
                       this.props.stateLoginValueAim.user.profile_id,
                       this.props.stateLoginValueAim.user.profile_id,
@@ -789,6 +789,7 @@ class Index extends Component {
       find_patient,
       Patient,
       add_new_patient_in_list,
+      no_data_avlbl
     } = translate;
     const enter_patient_id = enter + " " + patient_id;
     if (
@@ -820,22 +821,16 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="patient" />
                 <LeftMenuMobile isNotShow={true} currentPage="patient" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
-                <Grid item xs={12} md={11} lg={9}>
+                <Grid item xs={12} md={10} lg={9}>
                   <Grid className="docOpinion">
                     <Grid container direction="row" className="docAddUpr">
                       <Grid item xs={12} sm={6} md={6} className="docOpinLbl">
                         <label>{capab_Patients}</label>
                       </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={6}
-                        className="docAddPatient"
-                      >
+                      <Grid item xs={12} sm={6} md={6} className="docAddPatient">
                         <a onClick={this.handleOpenNewPatient}>
                           + {add_new_patient}
                         </a>
@@ -886,7 +881,7 @@ class Index extends Component {
                                     }
                                     alt=""
                                     title=""
-                                  />
+                                  /> 
                                   {data.first_name
                                     ? data.first_name + " " + data.last_name
                                     : not_mentioned}
@@ -964,28 +959,15 @@ class Index extends Component {
                       </Table>
                       {/*Start of Patient detail Modal*/}
                       <Modal
-                        className={
-                          this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
-                            ? "darkTheme"
-                            : ""
-                        }
+                        className={ this.props.settings && this.props.settings.setting && this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark" ? "darkTheme" : ""}
                         open={this.state.showPatient}
-                        onClose={this.handleCloseShowPatient}
-                      >
+                        onClose={this.handleCloseShowPatient}>
                         <Grid className="infoBoxCntnt">
                           <Grid className="infoCourse">
                             <Grid className="shPatientProfile">
                               <Grid className="infoCloseBtn">
-                                <a onClick={this.handleCloseShowPatient}>
-                                  <img
-                                    src={require("assets/images/close-search.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
+                                <a onClick={this.handleCloseShowPatient}><img src={require("assets/images/close-search.svg")} alt="" title="" /></a>
                               </Grid>
                               <Grid className="userDetail">
                                 <Grid className="userDetailLft">
@@ -1297,18 +1279,12 @@ class Index extends Component {
                       </Modal>
                       {/* End of Private Doctor Request */}
                       {/* Modal for New Patient Enter */}
-                      <Modal
-                        open={this.state.openNew}
-                        onClose={this.handleCloseNewPatient}
+                      <Modal open={this.state.openNew} onClose={this.handleCloseNewPatient}
                         className={
                           this.props.settings &&
                           this.props.settings.setting &&
                           this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
-                            ? "darkTheme nwPresModel"
-                            : "nwPresModel"
-                        }
-                      >
+                          this.props.settings.setting.mode === "dark" ? "darkTheme nwPresModel" : "nwPresModel" }>
                         <Grid className="dataBoxCntnt">
                           <Grid className="dataCourse">
                             <Grid container direction="row" justify="center">
@@ -1320,49 +1296,22 @@ class Index extends Component {
                                 <Grid>
                                   <Grid className="entryCloseBtn">
                                     <a onClick={this.handleCloseNewPatient}>
-                                      <img
-                                        src={require("assets/images/close-search.svg")}
-                                        alt=""
-                                        title=""
-                                      />
+                                      <img src={require("assets/images/close-search.svg")} alt="" title="" />
                                     </a>
                                   </Grid>
                                 </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
-
                           <Grid className="dataBoxUpr patietnRegister patientRegSec">
                             <Grid className="registerRow">
-                              <Grid>
-                                <label>
-                                  {first} {name}
-                                </label>
-                              </Grid>
-                              <Grid>
-                                <input
-                                  type="text"
-                                  name="first_name"
-                                  onChange={this.handleChange}
-                                />
-                              </Grid>
+                              <Grid><label>{first} {name}</label></Grid>
+                              <Grid><input type="text" name="first_name" onChange={this.handleChange} /></Grid>
                             </Grid>
-
                             <Grid className="registerRow">
-                              <Grid>
-                                <label>
-                                  {last} {name}
-                                </label>
-                              </Grid>
-                              <Grid>
-                                <input
-                                  type="text"
-                                  name="last_name"
-                                  onChange={this.handleChange}
-                                />
-                              </Grid>
+                              <Grid><label>{last} {name}</label></Grid>
+                              <Grid><input type="text" name="last_name" onChange={this.handleChange} /></Grid>
                             </Grid>
-
                             <Grid className="registerRow">
                               <Grid>
                                 <label>{Register_email}</label>
@@ -1650,10 +1599,12 @@ class Index extends Component {
                         <Grid container direction="row">
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
+                            {(this.state.currentPage && this.state.totalPage) ?(
                               <a>
                                 {this.state.currentPage} of{" "}
                                 {this.state.totalPage}
-                              </a>
+                              </a>)  :(<div className="err_message">{no_data_avlbl}</div>)
+                            }
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
@@ -1724,8 +1675,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { Doctorsetget } = state.Doctorset;
