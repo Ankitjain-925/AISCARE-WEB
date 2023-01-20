@@ -277,18 +277,18 @@ class Index extends Component {
               } else {
                 this.setState({
                   loaderImage: false,
-                  error_message_1: responce.data.msg
-                    ? responce.data.msg
-                    : responce.data.message,
+                  error_message_1: responce.data.message
+                    ? responce.data.message
+                    : responce.data.msg,
                 });
               }
             });
         } else {
           this.setState({
             loaderImage: false,
-            error_message_1: responce.data.msg
-              ? responce.data.msg
-              : responce.data.message,
+            error_message_1: responce.data.message
+              ? responce.data.message
+              : responce.data.msg,
           });
         }
       });
