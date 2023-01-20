@@ -291,7 +291,7 @@ class Index extends Component {
                     } else {
                       this.setState({
                         loaderImage: false,
-                        regisError0: response.data.msg,
+                        regisError0: response.data.message,
                       });
                     }
                   });

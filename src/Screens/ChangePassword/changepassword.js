@@ -95,7 +95,7 @@ class Index extends Component {
             {},
             commonHeader(user_token))
           .then((response) => {
-            if (response.data.msg === "Password is updated") {
+            if (response.data.message === "Password is updated") {
               this.setState({
                 successMsg: true,
                 successMsgText: "Password has been changed.",
