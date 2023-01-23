@@ -2010,7 +2010,7 @@ a.profilMenu {
     .infoBoxCntnt, .dataBoxCntnt, .prespBoxCntnt, .presBoxCntnt, 
     .paraBoxCntnt, .fancyBoxCntnt, .fancyBoxCncl, .qrBoxCntnt, .trstBoxCntnt,
     .invtBoxCntnt, .apontBoxCntnt, .apontBoxCntnt, .keyBoxCntnt, .dashBoxCntnt,
-    .fltrModelCntnt, .slotBoxMain, .nwEntrCntnt, .nwEntrMsg, .phrmBoxCntnt,
+    .fltrModelCntnt, .nwEntrCntnt, .nwEntrMsg, .phrmBoxCntnt,
     .editBoxCntnt {
         width: 96% !important;
     }

@@ -744,7 +744,7 @@ class Index extends Component {
         .post(sitedata.data.path + "/User/appointment", {
           patient: this.state.personalinfo?._id,
           doctor_id:
-            this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
+            this.state.selectedDoc?.data && this.state.selectedDoc?.data?._id,
           insurance:
             this.state.personalinfo &&
             this.state.personalinfo?.insurance &&
@@ -753,9 +753,9 @@ class Index extends Component {
             this.state.personalinfo?.insurance[0]?.insurance_number &&
             this.state.personalinfo?.insurance[0]?.insurance_number,
           date: this.state.selectedDate,
-          start_time: this.state.mypoint?.start || null,
-          end_time: this.state.mypoint?.end || null,
-          appointment_type: this.state.mypoint?.type || null,
+          start_time: this.state.mypoint?.start,
+          end_time: this.state.mypoint?.end,
+          appointment_type: this.state.mypoint?.type,
           insurance_number: insurance_no,
           annotations: this.state.UpDataDetails.annotations,
           status: "free",
@@ -773,28 +773,28 @@ class Index extends Component {
           docProfile: {
             patient_id:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.profile_id,
+              this.state.selectedDoc?.data?.profile_id,
             first_name:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.first_name,
+              this.state.selectedDoc?.data?.first_name,
             last_name:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.last_name,
+              this.state.selectedDoc?.data?.last_name,
             email:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.email,
+              this.state.selectedDoc.data && this.state.selectedDoc?.data?.email,
             birthday:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.birthday,
+              this.state.selectedDoc?.data?.birthday,
             profile_image:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+              this.state.selectedDoc.data && this.state.selectedDoc?.data?.image,
             speciality:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.speciality,
+              this.state.selectedDoc?.data?.speciality,
             subspeciality:
               this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.subspeciality,
+              this.state.selectedDoc?.data?.subspeciality,
             phone:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
+              this.state.selectedDoc.data && this.state.selectedDoc?.data?.phone,
           },
         })
         .then((responce) => {

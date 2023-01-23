@@ -17484,3 +17484,8 @@ left: -75px!important;
 top: -35px!important;
 left: -38px!important;
 }
+@media (max-width: 710px){
+ .slotBoxMain {
+    width: 96%!important;
+}
+}
