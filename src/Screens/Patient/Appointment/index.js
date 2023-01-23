@@ -1264,7 +1264,7 @@ class Index extends Component {
                             ></textarea>
                           </Grid>
                           <Grid className="delQuesBook">
-                            <button disabled = {this.state.disablebt} onClick={this.bookAppointment}>{book}</button>
+                            <a disabled = {this.state.disablebt} onClick={this.bookAppointment}>{book}</a>
                             <a
                               onClick={this.handleCloseFancyVdo}>
                               {cancel}
