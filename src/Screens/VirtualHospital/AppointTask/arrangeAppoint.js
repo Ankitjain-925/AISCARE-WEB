@@ -10,7 +10,7 @@ import "react-popper-tooltip/dist/styles.css";
 import Modal from "@material-ui/core/Modal";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Speciality } from "Screens/Login/speciality.js";
-import { getLanguage } from "translations/index"
+import { getLanguage } from "translations/index";
 import Select from "react-select";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -28,10 +28,10 @@ import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
 import { Button } from "@material-ui/core";
-import { getProfessionalData } from '../PatientFlow/data'
+import { getProfessionalData } from "../PatientFlow/data";
 import { getSpec } from "Screens/Components/BasicMethod/index";
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from "@material-ui/core/Radio";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -70,17 +70,17 @@ class Index extends Component {
       wardList: [],
       roomList: [],
       setFilter: "All",
-      userFilter: '',
-      selectSpec2: '',
-      selectWard: '',
-      selectRoom: '',
+      userFilter: "",
+      selectSpec2: "",
+      selectWard: "",
+      selectRoom: "",
       openAllowAccess: this.props.openAllowAccess,
       searchDetails: {},
       openAllowLoc: false,
       openApoint: false,
       cancelappoint: {},
       UpDataDetails: [],
-      TasksCss: '',
+      TasksCss: "",
       selectDocData: {},
       selectNurData: {},
       selectedPatient: {},
@@ -90,9 +90,9 @@ class Index extends Component {
       dlistfilter: false,
       filterUser: [],
       filterDocs: [],
-      selectSpec3: '',
-      selectPatDoc: '',
-      errorMsg: ''
+      selectSpec3: "",
+      selectPatDoc: "",
+      errorMsg: "",
     };
   }
 
@@ -101,29 +101,54 @@ class Index extends Component {
     this.getDoctorData();
     this.specailityList();
     this.getSpecialities();
-    this.onChange(new Date())
+    this.onChange(new Date());
   }
 
   //Set the Radio button value
   handleChange(changeEvent) {
-    this.setState({ selectPatDoc: changeEvent.target.value, selectDocData: {}, selectNurData: {} });
+    this.setState({
+      selectPatDoc: changeEvent.target.value,
+      selectDocData: {},
+      selectNurData: {},
+    });
   }
 
   getDoctorData = async () => {
-    const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token, 'appoint')
-    const doctorsData = [], doctorsData1 = [], nurseData = [], nurseData1 = [];
+    const professionals = await getProfessionalData(
+      this.props.House.value,
+      this.props.stateLoginValueAim.token,
+      "appoint"
+    );
+    const doctorsData = [],
+      doctorsData1 = [],
+      nurseData = [],
+      nurseData1 = [];
     // eslint-disable-next-line no-unused-expressions
-    professionals?.professionalArray?.length > 0 && professionals?.professionalArray.map(function (data) {
-      if (data.type === 'doctor') {
-        doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
-        doctorsData1.push(data);
-      } if (data.type === 'nurse') {
-        nurseData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
-        nurseData1.push(data);
-      }
-    })
-    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData, nurseData: nurseData1, filterNurse: nurseData });
-  }
+    professionals?.professionalArray?.length > 0 &&
+      professionals?.professionalArray.map(function (data) {
+        if (data.type === "doctor") {
+          doctorsData.push({
+            label: `${data.first_name} ${data.last_name}`,
+            value: `${data._id}`,
+          });
+          doctorsData1.push(data);
+        }
+        if (data.type === "nurse") {
+          nurseData.push({
+            label: `${data.first_name} ${data.last_name}`,
+            value: `${data._id}`,
+          });
+          nurseData1.push(data);
+        }
+      });
+    this.setState({
+      doctorsData1: doctorsData1,
+      doctorsData: doctorsData,
+      filterDocs: doctorsData,
+      nurseData: nurseData1,
+      filterNurse: nurseData,
+    });
+  };
 
   //on adding new data
   componentDidUpdate = (prevProps) => {
@@ -137,8 +162,7 @@ class Index extends Component {
     let da1 = new Date();
     if (start_time) {
       var t1 = start_time.split(":");
-    }
-    else {
+    } else {
       var t1 = this.state.startTime.split(":");
     }
     if (t1 && t1.length > 0) {
@@ -162,32 +186,40 @@ class Index extends Component {
 
   //open fiter modal
   handleCloseFil = () => {
-    this.setState({ openFil: false })
-  }
+    this.setState({ openFil: false });
+  };
 
   // Get the Patient data
   getPatientData = async () => {
     this.setState({ loaderImage: true });
-    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'arrangeappoint')
+    let response = await getPatientData(
+      this.props.stateLoginValueAim.token,
+      this.props?.House?.value,
+      "arrangeappoint"
+    );
     if (response.isdata) {
+      this.setState(
+        {
+          users1: response.PatientList1,
+          filterUser: response.PatientList1,
+          users: response.patientArray,
+        },
+        () => {
+          if (this.props?.match?.params?.id) {
+            let user =
+              this.state.users1.length > 0 &&
+              this.state.users1.filter(
+                (user) => user.value === this.props?.match?.params?.id
+              );
 
-      this.setState({ users1: response.PatientList1, filterUser: response.PatientList1, users: response.patientArray }, () => {
-        if (this.props?.match?.params?.id) {
-          let user =
-            this.state.users1.length > 0 &&
-            this.state.users1.filter(
-              (user) =>
-                user.value === this.props?.match?.params?.id
-            );
-
-          if (user?.length > 0) {
-            this.selectPatient(user[0])
+            if (user?.length > 0) {
+              this.selectPatient(user[0]);
+            }
           }
+          this.setState({ loaderImage: false });
         }
-        this.setState({ loaderImage: false });
-      });
-    }
-    else {
+      );
+    } else {
       this.setState({ loaderImage: false });
     }
   };
@@ -205,99 +237,145 @@ class Index extends Component {
 
   getSpecialities() {
     this.setState({
-      specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
-      subspecialityData: GetLanguageDropdown(subspeciality.english, this.props.stateLanguageType),
+      specialityData: GetLanguageDropdown(
+        SPECIALITY.speciality.english,
+        this.props.stateLanguageType
+      ),
+      subspecialityData: GetLanguageDropdown(
+        subspeciality.english,
+        this.props.stateLanguageType
+      ),
     });
   }
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' })
-    let specialityList = this.props.speciality?.SPECIALITY && this.props.speciality?.SPECIALITY.length > 0 && this.props.speciality?.SPECIALITY.filter((item) => {
-      return item && item._id == e.value;
-    })
-    let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
-    let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
-      return { label: item.ward_name, value: item._id }
-    })
-    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
-  }
+    this.setState({ selectRoom: "", selectWard: "" });
+    let specialityList =
+      this.props.speciality?.SPECIALITY &&
+      this.props.speciality?.SPECIALITY.length > 0 &&
+      this.props.speciality?.SPECIALITY.filter((item) => {
+        return item && item._id == e.value;
+      });
+    let wardsFullData =
+      specialityList && specialityList.length > 0 && specialityList[0].wards;
+    let wards_data =
+      wardsFullData &&
+      wardsFullData.length > 0 &&
+      wardsFullData.map((item) => {
+        return { label: item.ward_name, value: item._id };
+      });
+    this.setState({
+      selectSpec2: e,
+      wardList: wards_data,
+      allWards: wardsFullData,
+    });
+  };
 
   //On Changing the specialty id
   onFieldChange3 = (e) => {
-    this.setState({ selectSpec3: e })
-  }
+    this.setState({ selectSpec3: e });
+  };
 
   UpdateDocList = () => {
     if (this.state.selectSpec3?.value) {
       var filterDocs = this.state.doctorsData1.map((item) => {
-        var exstingOrnot = item?.speciality.some((iy) => iy.value === this.state.selectSpec3.value)
+        var exstingOrnot = item?.speciality.some(
+          (iy) => iy.value === this.state.selectSpec3.value
+        );
         if (exstingOrnot) {
           return item._id;
         }
       });
-      var doctorsData = this.state.doctorsData.filter((item) => filterDocs.includes(item.value))
-      this.setState({ filterDocs: doctorsData, dlistfilter: false })
+      var doctorsData = this.state.doctorsData.filter((item) =>
+        filterDocs.includes(item.value)
+      );
+      this.setState({ filterDocs: doctorsData, dlistfilter: false });
+    } else {
+      this.setState({ dlistfilter: false, filterDocs: this.state.doctorsData });
     }
-    else {
-      this.setState({ dlistfilter: false, filterDocs: this.state.doctorsData })
-    }
-  }
+  };
 
   ClearDocList = () => {
-    this.setState({ selectSpec3: '', dlistfilter: false, filterDocs: this.state.doctorsData })
-  }
-
+    this.setState({
+      selectSpec3: "",
+      dlistfilter: false,
+      filterDocs: this.state.doctorsData,
+    });
+  };
 
   // ward Change
   onWardChange = (e) => {
-    this.setState({ selectRoom: '' })
-    let { allWards } = this.state
-    let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
-      return item && item._id == e.value;
-    })
-    let roomsData = wardDetails && wardDetails.length > 0 && wardDetails[0].rooms
-    let rooms = roomsData && roomsData.length > 0 && roomsData.map((item) => {
-      return { label: item.room_name, value: item._id }
-    })
-    this.setState({ selectWard: e })
-  }
+    this.setState({ selectRoom: "" });
+    let { allWards } = this.state;
+    let wardDetails =
+      allWards &&
+      allWards.length > 0 &&
+      allWards.filter((item) => {
+        return item && item._id == e.value;
+      });
+    let roomsData =
+      wardDetails && wardDetails.length > 0 && wardDetails[0].rooms;
+    let rooms =
+      roomsData &&
+      roomsData.length > 0 &&
+      roomsData.map((item) => {
+        return { label: item.room_name, value: item._id };
+      });
+    this.setState({ selectWard: e });
+  };
 
   UpdatePatientList = () => {
     if (this.state.selectSpec2?.value && this.state.selectWard?.value) {
-      var filterUser1 = this.state.users.map((item) => {
-        if (item.speciality?._id === this.state.selectSpec2.value && item.wards?._id === this.state.selectWard.value) {
-          return item.patient_id;
-        }
-      }).filter((item) => item !== 'undefined')
-      var filterUser = this.state.users1.filter((item) => filterUser1.includes(item?.value))
-      this.setState({ filterUser: filterUser, plistfilter: false })
+      var filterUser1 = this.state.users
+        .map((item) => {
+          if (
+            item.speciality?._id === this.state.selectSpec2.value &&
+            item.wards?._id === this.state.selectWard.value
+          ) {
+            return item.patient_id;
+          }
+        })
+        .filter((item) => item !== "undefined");
+      var filterUser = this.state.users1.filter((item) =>
+        filterUser1.includes(item?.value)
+      );
+      this.setState({ filterUser: filterUser, plistfilter: false });
+    } else {
+      this.setState({ filterUser: this.state.users1, plistfilter: false });
     }
-    else {
-      this.setState({ filterUser: this.state.users1, plistfilter: false })
-    }
-  }
+  };
 
   ClearPatientList = () => {
-    this.setState({ filterUser: this.state.users1, plistfilter: false, wardList: [], selectSpec2: '', selectWard: '' })
-  }
+    this.setState({
+      filterUser: this.state.users1,
+      plistfilter: false,
+      wardList: [],
+      selectSpec2: "",
+      selectWard: "",
+    });
+  };
 
   //room cahnge
   onRoomChange = (e) => {
-    this.setState({ selectRoom: e })
-  }
+    this.setState({ selectRoom: e });
+  };
 
   moveTask = () => {
     this.props.history.push({
-      pathname: '/virtualHospital/tasks',
-      state: { data: true }
-    })
-  }
-
+      pathname: "/virtualHospital/tasks",
+      state: { data: true },
+    });
+  };
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} , selectPatDoc: '',
-    errorMsg: ''});
+    this.setState({
+      openAllowAccess: false,
+      selectDocData: {},
+      selectedPatient: {},
+      selectPatDoc: "",
+      errorMsg: "",
+    });
     this.props.handleCloseAllowAccess();
   };
 
@@ -305,7 +383,6 @@ class Index extends Component {
   getlocation() {
     let radius, Latitude, longitude;
     if (this.state.searchDetails && this.state.searchDetails.radius) {
-
       radius = this.state.searchDetails.radius + "000";
     } else {
       radius = 20 + "000";
@@ -325,8 +402,9 @@ class Index extends Component {
           // speciality: this.state.searchDetails.specialty,
           // longitude: longitude,
           // Latitude: Latitude,
-          doctor_id: this.state.selectDocData && this.state.selectDocData?.value
-            || this.state.selectNurData && this.state.selectNurData?.value
+          doctor_id:
+            (this.state.selectDocData && this.state.selectDocData?.value) ||
+            (this.state.selectNurData && this.state.selectNurData?.value),
         },
       })
       .then((responce) => {
@@ -350,7 +428,11 @@ class Index extends Component {
                   });
               }
             }
-            var datas = item?.data?.houses?.length > 0 && item.data.houses.filter((item) => item.value === this.props.House?.value)
+            var datas =
+              item?.data?.houses?.length > 0 &&
+              item.data.houses.filter(
+                (item) => item.value === this.props.House?.value
+              );
             if (datas && datas.length > 0) {
               NewArray.push(item);
             }
@@ -369,7 +451,7 @@ class Index extends Component {
       doc_select: i,
       appointType: type,
     });
-    setTimeout(() => this.onChange(new Date()), 200)
+    setTimeout(() => this.onChange(new Date()), 200);
     // this.onChange()
   };
 
@@ -380,11 +462,11 @@ class Index extends Component {
       appointmentData: {},
       currentSelected: null,
     });
-    Object.keys(this.state.allDocData).map((index, i) => { });
+    Object.keys(this.state.allDocData).map((index, i) => {});
   };
 
   handleOpenApoint = (apoint) => {
-    this.setState({ openApoint: true, cancelappoint: apoint, });
+    this.setState({ openApoint: true, cancelappoint: apoint });
   };
 
   handleCloseApoint = () => {
@@ -392,12 +474,12 @@ class Index extends Component {
   };
 
   handleDocSelect = (data) => {
-    this.setState({ selectDocData: data })
-  }
+    this.setState({ selectDocData: data });
+  };
 
   handleNurSelect = (data) => {
-    this.setState({ selectNurData: data })
-  }
+    this.setState({ selectNurData: data });
+  };
 
   handleChangeSelect = (selectedOption) => {
     let searchDetails = this.state.searchDetails;
@@ -410,18 +492,25 @@ class Index extends Component {
 
   getNurseAppoint = () => {
     axios
-      .post(sitedata.data.path + "vc/nurseapp",
+      .post(
+        sitedata.data.path + "vc/nurseapp",
         { nurse_id: this.props.stateLoginValueAim?.user?._id },
         commonHeader(this.props.stateLoginValueAim.token)
-      ).then((response) => {
-      })
-  }
+      )
+      .then((response) => {});
+  };
 
   handleAllowLoc = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { please_select, first, Please_select_doctor_nurse, Please_select_patient_first } = translate;
+    let {
+      please_select,
+      first,
+      Please_select_doctor_nurse,
+      Please_select_patient_first,
+    } = translate;
     this.setState({ errorMsg: "" });
-    const { selectedPatient, selectPatDoc, selectDocData, selectNurData } = this.state;
+    const { selectedPatient, selectPatDoc, selectDocData, selectNurData } =
+      this.state;
     if (Object.keys(selectedPatient).length !== 0) {
       if (selectPatDoc === "yes" || selectPatDoc === "no") {
         if (selectPatDoc === "yes" && Object.keys(selectDocData).length !== 0) {
@@ -435,7 +524,10 @@ class Index extends Component {
             }
           );
           this.props.handleCloseAllowAccess();
-        } else if (selectPatDoc === "no" && Object.keys(selectNurData).length !== 0) {
+        } else if (
+          selectPatDoc === "no" &&
+          Object.keys(selectNurData).length !== 0
+        ) {
           this.getlocation();
           this.getNurseAppoint();
           this.setState(
@@ -454,12 +546,15 @@ class Index extends Component {
       } else {
         this.setState({ errorMsg: Please_select_doctor_nurse });
       }
-    } else
-      this.setState({ errorMsg: Please_select_patient_first });
+    } else this.setState({ errorMsg: Please_select_patient_first });
   };
 
   handleCloseAllowLoc = () => {
-    this.setState({ openAllowLoc: false, selectPatDoc: '', selectedPatient: {} });
+    this.setState({
+      openAllowLoc: false,
+      selectPatDoc: "",
+      selectedPatient: {},
+    });
   };
 
   onChange = (date) => {
@@ -512,36 +607,42 @@ class Index extends Component {
           let DoctorSlot = [];
           appointDate.map((item, i) => {
             if (i < appointDate?.length - 1) {
-              DoctorSlot.push(appointDate[i] + "-" + appointDate[i + 1])
+              DoctorSlot.push(appointDate[i] + "-" + appointDate[i + 1]);
             }
-          })
+          });
 
-          var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
-          var id =  this.state.selectDocData?.value ||  this.state.selectNurData?.value;
+          var localDateTime = new Date(
+            new Date().setDate(new Date(date).getDate())
+          );
+          var id =
+            this.state.selectDocData?.value || this.state.selectNurData?.value;
           this.setState({ loaderImage: true });
 
           axios
             .post(
-              sitedata.data.path + '/vchat/getSlotTime',
+              sitedata.data.path + "/vchat/getSlotTime",
               {
                 date: localDateTime,
-                doctor_id: id
+                doctor_id: id,
               },
               commonHeader(this.props.stateLoginValueAim?.token)
             )
             .then((responce) => {
               if (responce.data.hassuccessed) {
                 let bookedSlot = [];
-                responce && responce.data && responce.data.data && responce.data.data.map((item) => {
-                  bookedSlot.push(item?.starttime + "-" + item?.endtime)
-                })
+                responce &&
+                  responce.data &&
+                  responce.data.data &&
+                  responce.data.data.map((item) => {
+                    bookedSlot.push(item?.starttime + "-" + item?.endtime);
+                  });
                 this.calBookedSlot(DoctorSlot, bookedSlot);
-                this.setState({ loaderImage: false })
+                this.setState({ loaderImage: false });
               }
-              this.setState({ loaderImage: false })
+              this.setState({ loaderImage: false });
             })
             .catch(function (error) {
-              this.setState({ loaderImage: false })
+              this.setState({ loaderImage: false });
             });
         }
       });
@@ -549,34 +650,38 @@ class Index extends Component {
     this.setState({ apointDay: days, selectedDate: date1 });
   };
 
-  // Find booked slots 
+  // Find booked slots
   calBookedSlot = (ts, booked) => {
     var slot;
     var isBooked;
     let isAlreadyExist;
     var allSlotes = [];
-    var curTime = moment().add(30, 'minutes').format("HH:mm");
+    var curTime = moment().add(30, "minutes").format("HH:mm");
     var curDate = moment();
-    ts.map(item => {
-      const [start, end] = item.split('-')
-      if (moment(this.state.date).isSame(curDate, 'date', 'month', 'year')) {
+    ts.map((item) => {
+      const [start, end] = item.split("-");
+      if (moment(this.state.date).isSame(curDate, "date", "month", "year")) {
         isAlreadyExist = !(curTime <= start) ? true : false;
       } else {
         isAlreadyExist = false;
       }
       // isAlreadyExist = !(curTime <= start)
       isBooked = !booked
-        .map(item => item.split('-'))
-        .every(([bookedStart, bookedEnd]) =>
-          (bookedStart >= end || bookedEnd <= start)
-        )
-      slot = `${start}-${end}`
+        .map((item) => item.split("-"))
+        .every(
+          ([bookedStart, bookedEnd]) => bookedStart >= end || bookedEnd <= start
+        );
+      slot = `${start}-${end}`;
       if (!isBooked && !isAlreadyExist) {
-        allSlotes.push({ slot: slot, isBooked: isBooked, isAlreadyExist: isAlreadyExist })
+        allSlotes.push({
+          slot: slot,
+          isBooked: isBooked,
+          isAlreadyExist: isAlreadyExist,
+        });
       }
-    })
-    this.setState({ allSlotes: allSlotes })
-  }
+    });
+    this.setState({ allSlotes: allSlotes });
+  };
 
   // findAppointment
   findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
@@ -615,7 +720,10 @@ class Index extends Component {
   patientinfo(user_id) {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+      .get(
+        sitedata.data.path + "/UserProfile/Users/" + user_id,
+        commonHeader(user_token)
+      )
       .then((response) => {
         this.setState({ personalinfo: response.data.data, loaderImage: false });
       });
@@ -624,15 +732,14 @@ class Index extends Component {
   bookAppointment = () => {
     var insurance_no =
       this.state.personalinfo?.insurance &&
-        this.state.personalinfo?.insurance.length > 0 &&
-        this.state.personalinfo?.insurance[0] &&
-        this.state.personalinfo?.insurance[0].insurance_number
+      this.state.personalinfo?.insurance.length > 0 &&
+      this.state.personalinfo?.insurance[0] &&
+      this.state.personalinfo?.insurance[0].insurance_number
         ? this.state.personalinfo?.insurance[0].insurance_number
         : "";
     this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
-    if (this.state.personalinfo &&
-      this.state.personalinfo?.first_name !== "") {
+    if (this.state.personalinfo && this.state.personalinfo?.first_name !== "") {
       axios
         .post(sitedata.data.path + "/User/appointment", {
           patient: this.state.personalinfo?._id,
@@ -676,7 +783,8 @@ class Index extends Component {
             email:
               this.state.selectedDoc.data && this.state.selectedDoc.data.email,
             birthday:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.birthday,
             profile_image:
               this.state.selectedDoc.data && this.state.selectedDoc.data.image,
             speciality:
@@ -710,9 +818,9 @@ class Index extends Component {
           }
         });
     } else if (!this.state.personalinfo) {
-      this.setState({ patNotSelected: true })
+      this.setState({ patNotSelected: true });
       setTimeout(() => {
-        this.setState({ patNotSelected: false })
+        this.setState({ patNotSelected: false });
       }, 3000);
     }
   };
@@ -735,7 +843,6 @@ class Index extends Component {
       parseInt(this._getHourMinut(currentTime)[1]);
     smint = parseInt(this._getHourMinut(currentTime)[1]);
 
-
     if (current_time >= b_start_time && current_time < b_end_time) {
       return true;
     } else {
@@ -748,13 +855,15 @@ class Index extends Component {
     let Newdate = new Date();
     if (date && days_upto) {
       current_date = new Date(current_date).setHours(0, 0, 0, 0);
-      Newdate = Newdate.setDate(Newdate.getDate() + parseInt(days_upto))
-      return (new Date(Date.parse(date.replace(/-/gm, '/'))) < current_date || new Date(Date.parse(date.replace(/-/gm, '/'))) >= Newdate);
-    }
-    else {
+      Newdate = Newdate.setDate(Newdate.getDate() + parseInt(days_upto));
+      return (
+        new Date(Date.parse(date.replace(/-/gm, "/"))) < current_date ||
+        new Date(Date.parse(date.replace(/-/gm, "/"))) >= Newdate
+      );
+    } else {
       return false;
     }
-  }
+  };
 
   ExitinHoliday = (date, h_start, h_end) => {
     if (h_start && h_end && date) {
@@ -763,32 +872,49 @@ class Index extends Component {
       start_date = start_date.setHours(0, 0, 0, 0);
       end_date = end_date.setDate(end_date.getDate() + 1);
       end_date = new Date(end_date).setHours(0, 0, 0, 0);
-      return (new Date(Date.parse(date.replace(/-/gm, '/'))) >= start_date && new Date(Date.parse(date.replace(/-/gm, '/'))) < end_date);
+      return (
+        new Date(Date.parse(date.replace(/-/gm, "/"))) >= start_date &&
+        new Date(Date.parse(date.replace(/-/gm, "/"))) < end_date
+      );
     } else {
       return false;
     }
   };
 
-
   onFieldChange1 = (e) => {
     let { users } = this.state;
-    let UserList = users && users.length > 0 && users.filter((item) => {
-      return item && item?.patient_id == e.value;
-    })
-    this.setState({ PatientData: UserList })
-  }
+    let UserList =
+      users &&
+      users.length > 0 &&
+      users.filter((item) => {
+        return item && item?.patient_id == e.value;
+      });
+    this.setState({ PatientData: UserList });
+  };
 
   selectPatient = (e) => {
     this.patientinfo(e?.value);
-    this.setState({ selectedPatient: e })
-  }
+    this.setState({ selectedPatient: e });
+  };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Appointmentiscanceled, add_task, AddAppointment,
-      select_spec, Taskstatus, clear_all_filters, applyFilters, capab_Doctors, select,
-      Patient, speciality, Ward, Room,
-      slct_time_slot, Iamhere,
+    let {
+      Appointmentiscanceled,
+      add_task,
+      AddAppointment,
+      select_spec,
+      Taskstatus,
+      clear_all_filters,
+      applyFilters,
+      capab_Doctors,
+      select,
+      Patient,
+      speciality,
+      Ward,
+      Room,
+      slct_time_slot,
+      Iamhere,
       holiday,
       Filterbypatient,
       NotAvailable,
@@ -815,17 +941,30 @@ class Index extends Component {
       Services,
       latest_info,
       see_avlbl_date,
-      location_of_srvc, Tasks,
+      location_of_srvc,
+      Tasks,
       this_way_can_instntly_list_of_specility,
-      find_apointment, Appointments, filters,
+      find_apointment,
+      Appointments,
+      filters,
       consultancy_cstm_calnder,
-      vdo_call, All, Open, done,
+      vdo_call,
+      All,
+      Open,
+      done,
       capab_Doctors1,
       Nurse,
-      allow_location_access, FilterbySpeciality, plz_select_patient, Home_visit, Ok, Cancel } =
-      translate;
+      allow_location_access,
+      FilterbySpeciality,
+      plz_select_patient,
+      Home_visit,
+      Ok,
+      Cancel,
+    } = translate;
 
-    const { tabvalue, patNotSelected,
+    const {
+      tabvalue,
+      patNotSelected,
       pastappointment,
       selectedOption,
       specialityData,
@@ -835,8 +974,12 @@ class Index extends Component {
       date,
       doc_select,
       appointType,
-      apointDay, doctorsData,
-      selectDocData, selectedPatient, selectNurData } = this.state;
+      apointDay,
+      doctorsData,
+      selectDocData,
+      selectedPatient,
+      selectNurData,
+    } = this.state;
 
     return (
       <>
@@ -848,8 +991,8 @@ class Index extends Component {
           onClose={this.handleCloseAllowAccess}
           className={
             this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
               ? "darkTheme editBoxModel"
               : "editBoxModel"
           }
@@ -859,11 +1002,20 @@ class Index extends Component {
               <div className="accessCourse">
                 <div className="handleAccessBtn">
                   <a onClick={this.handleCloseAllowAccess}>
-                    <img src={require("assets/images/close-search.svg")} alt="" title="" />
+                    <img
+                      src={require("assets/images/close-search.svg")}
+                      alt=""
+                      title=""
+                    />
                   </a>
                 </div>
                 <Grid className="err_message">{this.state.errorMsg}</Grid>
-                <Grid container direction="row" spacing={2} className="srchAccessLoc">
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  className="srchAccessLoc"
+                >
                   <Grid item xs={12} md={4} className="filterPatlist">
                     {this.state.plistfilter && (
                       <div className="filterPatlistInner">
@@ -878,30 +1030,48 @@ class Index extends Component {
                               placeholder={FilterbySpeciality}
                               className="addStafSelect"
                               isMulti={false}
-                              isSearchable={true} />
+                              isSearchable={true}
+                            />
                           </Grid>
                         </Grid>
-                        {this.state.wardList && this.state.wardList.length > 0 &&
-                          <Grid>
-                            <label>{Ward}</label>
-                            <Grid className="addInput">
-                              <Select
-                                onChange={(e) => this.onWardChange(e)}
-                                options={this.state.wardList}
-                                name="ward_name"
-                                value={this.state.selectWard}
-                                placeholder={FilterbyWard}
-                                isMulti={false}
-                                className="addStafSelect"
-                                isSearchable={true} />
+                        {this.state.wardList &&
+                          this.state.wardList.length > 0 && (
+                            <Grid>
+                              <label>{Ward}</label>
+                              <Grid className="addInput">
+                                <Select
+                                  onChange={(e) => this.onWardChange(e)}
+                                  options={this.state.wardList}
+                                  name="ward_name"
+                                  value={this.state.selectWard}
+                                  placeholder={FilterbyWard}
+                                  isMulti={false}
+                                  className="addStafSelect"
+                                  isSearchable={true}
+                                />
+                              </Grid>
                             </Grid>
-                          </Grid>
-                        }
+                          )}
                         <Button onClick={this.UpdatePatientList}>{Ok}</Button>
-                        <Button onClick={this.ClearPatientList}>{Cancel}</Button>
-                      </div>)}
-                    <label>{Patient}
-                      <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ plistfilter: true }) }} />
+                        <Button onClick={this.ClearPatientList}>
+                          {Cancel}
+                        </Button>
+                      </div>
+                    )}
+                    <label>
+                      {Patient}
+                      <img
+                        src={
+                          this.state.selectSpec2 && this.state.selectWard
+                            ? require("assets/virtual_images/sort-active.png")
+                            : require("assets/virtual_images/sort.png")
+                        }
+                        alt=""
+                        title=""
+                        onClick={() => {
+                          this.setState({ plistfilter: true });
+                        }}
+                      />
                     </label>
                     <Grid>
                       <Select
@@ -909,10 +1079,11 @@ class Index extends Component {
                         options={this.state.filterUser}
                         placeholder={Search_Select}
                         onChange={(e) => this.selectPatient(e)}
-                        value={selectedPatient || ''}
+                        value={selectedPatient || ""}
                         className="addStafSelect"
                         isMulti={false}
-                        isSearchable={true} />
+                        isSearchable={true}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist">
@@ -929,12 +1100,14 @@ class Index extends Component {
                               placeholder={FilterbySpeciality}
                               className="addStafSelect"
                               isMulti={false}
-                              isSearchable={true} />
+                              isSearchable={true}
+                            />
                           </Grid>
                         </Grid>
                         <Button onClick={this.UpdateDocList}>{Ok}</Button>
                         <Button onClick={this.ClearDocList}>{Cancel}</Button>
-                      </div>)}
+                      </div>
+                    )}
                     {/* <label>{capab_Doctors}
                       <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
                     </label>
@@ -952,51 +1125,67 @@ class Index extends Component {
                       <FormControlLabel
                         value="yes"
                         name="selectPatDoc"
-                        checked={this.state.selectPatDoc === 'yes'}
+                        checked={this.state.selectPatDoc === "yes"}
                         onChange={(e) => this.handleChange(e)}
-                        control={
-                          <Radio className="radioPat" />
-                        }
+                        control={<Radio className="radioPat" />}
                         label={capab_Doctors1}
                       />
                       <FormControlLabel
                         value="no"
                         name="selectPatDoc"
-                        checked={this.state.selectPatDoc === 'no'}
+                        checked={this.state.selectPatDoc === "no"}
                         onChange={(e) => this.handleChange(e)}
-                        control={
-                          <Radio className="radioPat" />
-                        }
-                        label={Nurse} />
+                        control={<Radio className="radioPat" />}
+                        label={Nurse}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} className="filterPatlist radioPat2">
-                    {this.state.selectPatDoc === 'yes' && <>
-                      <label>{capab_Doctors}
-                        <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} />
-                      </label>
-                      <Grid>
-                        <Select
-                          value={selectDocData || ''}
-                          onChange={this.handleDocSelect}
-                          options={this.state.filterDocs}
-                          placeholder={`${select} ${capab_Doctors}`}
-                          className="sel_specialty"
-                        />
-                      </Grid></>}
-                    {this.state.selectPatDoc === 'no' && <>
-                      <label>{Nurse}
-                        {/* <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} /> */}
-                      </label>
-                      <Grid>
-                        <Select
-                          value={selectNurData || ''}
-                          onChange={this.handleNurSelect}
-                          options={this.state.filterNurse}
-                          placeholder={`${select} Nurse`}
-                          className="sel_specialty"
-                        />
-                      </Grid></>}
+                    {this.state.selectPatDoc === "yes" && (
+                      <>
+                        <label>
+                          {capab_Doctors}
+                          <img
+                            src={
+                              this.state.selectSpec3
+                                ? require("assets/virtual_images/sort-active.png")
+                                : require("assets/virtual_images/sort.png")
+                            }
+                            alt=""
+                            title=""
+                            onClick={() => {
+                              this.setState({ dlistfilter: true });
+                            }}
+                          />
+                        </label>
+                        <Grid>
+                          <Select
+                            value={selectDocData || ""}
+                            onChange={this.handleDocSelect}
+                            options={this.state.filterDocs}
+                            placeholder={`${select} ${capab_Doctors}`}
+                            className="sel_specialty"
+                          />
+                        </Grid>
+                      </>
+                    )}
+                    {this.state.selectPatDoc === "no" && (
+                      <>
+                        <label>
+                          {Nurse}
+                          {/* <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={() => { this.setState({ dlistfilter: true }) }} /> */}
+                        </label>
+                        <Grid>
+                          <Select
+                            value={selectNurData || ""}
+                            onChange={this.handleNurSelect}
+                            options={this.state.filterNurse}
+                            placeholder={`${select} Nurse`}
+                            className="sel_specialty"
+                          />
+                        </Grid>
+                      </>
+                    )}
                   </Grid>
                   {/* <Grid item xs={12} md={3} className="apointType">
                           <Grid>
@@ -1042,12 +1231,8 @@ class Index extends Component {
                 </Grid>
               </div>
 
-
-              <div
-                style={{ textAlign: "center" }}
-                className="arng_addEntrynw">
-                <a onClick={this.handleAllowLoc}>
-                  {find_apointment}</a>
+              <div style={{ textAlign: "center" }} className="arng_addEntrynw">
+                <a onClick={this.handleAllowLoc}>{find_apointment}</a>
               </div>
             </div>
           </div>
@@ -1060,8 +1245,8 @@ class Index extends Component {
           onClose={this.handleCloseAllowLoc}
           className={
             this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
               ? "darkTheme editBoxModel"
               : "editBoxModel"
           }
@@ -1074,12 +1259,15 @@ class Index extends Component {
                     <Grid
                       className="backFlow backFlow34"
                       onClick={() => {
-                        this.setState({ openAllowLoc: false, openAllowAccess: true });
+                        this.setState({
+                          openAllowLoc: false,
+                          openAllowAccess: true,
+                        });
                       }}
                     >
                       <a>
                         <img
-                          src={require('assets/virtual_images/rightArrow.png')}
+                          src={require("assets/virtual_images/rightArrow.png")}
                           alt=""
                           title=""
                         />
@@ -1139,39 +1327,46 @@ class Index extends Component {
                         options={this.state.users1}
                         placeholder=""
                         onChange={(e) => this.onFieldChange1(e, "patient")}
-                        value={selectedPatient || ''}
+                        value={selectedPatient || ""}
                         className="addStafSelect"
                         isMulti={false}
                         // isSearchable={true}
                         isDisabled={true}
                       />
-
                     </Grid>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    {this.state.selectPatDoc === 'yes' && <>
-                      <Grid><label>{capab_Doctors}</label></Grid>
-                      <Select
-                        value={selectDocData || ''}
-                        onChange={this.handleDocSelect}
-                        options={doctorsData}
-                        placeholder={`${select} ${capab_Doctors}`}
-                        className="sel_specialty"
-                        isDisabled={true}
-                      />
-                    </>}
-                    {this.state.selectPatDoc === 'no' && <>
-                      <Grid><label>{Nurse}</label></Grid>
-                      <Select
-                        value={selectNurData || ''}
-                        onChange={this.handleNurSelect}
-                        options={this.state.filterNurse}
-                        placeholder={`${select} Nurse`}
-                        className="sel_specialty"
-                        isDisabled={true}
-                      />
-                    </>}
+                    {this.state.selectPatDoc === "yes" && (
+                      <>
+                        <Grid>
+                          <label>{capab_Doctors}</label>
+                        </Grid>
+                        <Select
+                          value={selectDocData || ""}
+                          onChange={this.handleDocSelect}
+                          options={doctorsData}
+                          placeholder={`${select} ${capab_Doctors}`}
+                          className="sel_specialty"
+                          isDisabled={true}
+                        />
+                      </>
+                    )}
+                    {this.state.selectPatDoc === "no" && (
+                      <>
+                        <Grid>
+                          <label>{Nurse}</label>
+                        </Grid>
+                        <Select
+                          value={selectNurData || ""}
+                          onChange={this.handleNurSelect}
+                          options={this.state.filterNurse}
+                          placeholder={`${select} Nurse`}
+                          className="sel_specialty"
+                          isDisabled={true}
+                        />
+                      </>
+                    )}
                   </Grid>
 
                   {/* <Grid item xs={12} md={4} className="apointType">
@@ -1232,50 +1427,48 @@ class Index extends Component {
                   </p>
                 </div>
               </div>
-              <div
-                style={{ textAlign: "center" }}
-                className="arng_addEntrynw"
-              >
+              <div style={{ textAlign: "center" }} className="arng_addEntrynw">
                 <a onClick={this.handleAllowLoc}>{find_apointment}</a>
               </div>
               {/* New Design */}
               <div className="allowAvailList">
-                {this.state.personalinfo &&
-                  // allDocData.length > 0 &&
-                  // allDocData.map((doc, i) => (
-                  <div className="allowAvailListIner">
-                    <Grid container direction="row" spacing={1}>
-                      <Grid item xs={12} md={3}>
-                        <Grid className="spclistDr">
-                          {this.state.personalinfo?.new_image ? (
-                            <img
-                              className="doctor_pic"
-                              src={this.state.personalinfo?.new_image}
-                              alt=""
-                              title=""
-                            />
-                          ) : (
-                            <img
-                              className="doctor_pic"
-                              src={require("assets/images/avatar.png")}
-                              alt=""
-                              title=""
-                            />
-                          )}
-                          <a>
-                            {/* <img src={doc.data.image} alt="" title="" /> */}
-                            {this.state.personalinfo?.first_name &&
-                              this.state.personalinfo?.first_name}{" "}
-                            {this.state.personalinfo?.last_name &&
-                              this.state.personalinfo?.last_name}{" "}
-                            {/* (
+                {
+                  this.state.personalinfo && (
+                    // allDocData.length > 0 &&
+                    // allDocData.map((doc, i) => (
+                    <div className="allowAvailListIner">
+                      <Grid container direction="row" spacing={1}>
+                        <Grid item xs={12} md={3}>
+                          <Grid className="spclistDr">
+                            {this.state.personalinfo?.new_image ? (
+                              <img
+                                className="doctor_pic"
+                                src={this.state.personalinfo?.new_image}
+                                alt=""
+                                title=""
+                              />
+                            ) : (
+                              <img
+                                className="doctor_pic"
+                                src={require("assets/images/avatar.png")}
+                                alt=""
+                                title=""
+                              />
+                            )}
+                            <a>
+                              {/* <img src={doc.data.image} alt="" title="" /> */}
+                              {this.state.personalinfo?.first_name &&
+                                this.state.personalinfo?.first_name}{" "}
+                              {this.state.personalinfo?.last_name &&
+                                this.state.personalinfo?.last_name}{" "}
+                              {/* (
                               {doc.data &&
                                 doc.data.title &&
                                 doc.data.title}
                               ) */}
-                          </a>
-                        </Grid>
-                        {/* <Grid className="nuroDr">
+                            </a>
+                          </Grid>
+                          {/* <Grid className="nuroDr">
                             <label>
                               {doc.data &&
                                 doc.data.speciality &&
@@ -1295,22 +1488,22 @@ class Index extends Component {
                                 )}
                             </p>
                           </Grid> */}
-                      </Grid>
-                      <Grid item xs={12} md={5}>
-                        <Grid className="srvcTagsCntnt">
-                          <Grid className="srvcTags">
-                            <a
-                              className={
-                                this.state.show_type === "contact" &&
-                                "currentTab"
-                              }
-                              onClick={() => {
-                                this.setState({ show_type: "contact" });
-                              }}
-                            >
-                              {Contact}
-                            </a>
-                            {/* <a
+                        </Grid>
+                        <Grid item xs={12} md={5}>
+                          <Grid className="srvcTagsCntnt">
+                            <Grid className="srvcTags">
+                              <a
+                                className={
+                                  this.state.show_type === "contact" &&
+                                  "currentTab"
+                                }
+                                onClick={() => {
+                                  this.setState({ show_type: "contact" });
+                                }}
+                              >
+                                {Contact}
+                              </a>
+                              {/* <a
                                 className={
                                   this.state.show_type === "service" &&
                                   "currentTab"
@@ -1334,53 +1527,56 @@ class Index extends Component {
                               >
                                 {latest_info}
                               </a> */}
-                          </Grid>
-                          {this.state.show_type === "contact" && (
-                            <Grid className="srvcTagsLoc">
-                              <a>
-                                <img
-                                  src={require("assets/images/location-pin.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {this.state.personalinfo &&
-                                  this.state.personalinfo?.city &&
-                                  this.state.personalinfo?.city}
-                              </a>
-                              <a>
-                                <img
-                                  src={require("assets/images/phone.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {this.state.personalinfo &&
-                                  this.state.personalinfo?.mobile &&
-                                  this.state.personalinfo?.mobile}
-                              </a>
-                              <a>
-                                <img
-                                  src={require("assets/images/email.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {this.state.personalinfo &&
-                                  this.state.personalinfo?.email &&
-                                  this.state.personalinfo?.email}
-                              </a>
-                              <a>
-                                <img
-                                  src={require("assets/images/language.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {this.state.personalinfo &&
-                                  this.state.personalinfo?.language &&
-                                  this.state.personalinfo?.language.length > 0 &&
-                                  this.state.personalinfo?.language.join(", ")}
-                              </a>
                             </Grid>
-                          )}
-                          {/* {this.state.show_type === "service" && (
+                            {this.state.show_type === "contact" && (
+                              <Grid className="srvcTagsLoc">
+                                <a>
+                                  <img
+                                    src={require("assets/images/location-pin.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.city &&
+                                    this.state.personalinfo?.city}
+                                </a>
+                                <a>
+                                  <img
+                                    src={require("assets/images/phone.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.mobile &&
+                                    this.state.personalinfo?.mobile}
+                                </a>
+                                <a>
+                                  <img
+                                    src={require("assets/images/email.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.email &&
+                                    this.state.personalinfo?.email}
+                                </a>
+                                <a>
+                                  <img
+                                    src={require("assets/images/language.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {this.state.personalinfo &&
+                                    this.state.personalinfo?.language &&
+                                    this.state.personalinfo?.language.length >
+                                      0 &&
+                                    this.state.personalinfo?.language.join(
+                                      ", "
+                                    )}
+                                </a>
+                              </Grid>
+                            )}
+                            {/* {this.state.show_type === "service" && (
                               <Grid className="srvcTagsLoc">
                                 <a>
                                   {doc.data &&
@@ -1402,16 +1598,16 @@ class Index extends Component {
                                 </a>
                               </Grid>
                             )} */}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        {allDocData?.length > 0 &&
-                          allDocData.map((doc, i) => (
-                            <Grid className="avlablDates">
-                              <h3>{see_avlbl_date}:</h3>
-                              <Grid>
-                                {/* {this.state.video_call && ( */}
-                                {/* <a
+                        <Grid item xs={12} md={4}>
+                          {allDocData?.length > 0 &&
+                            allDocData.map((doc, i) => (
+                              <Grid className="avlablDates">
+                                <h3>{see_avlbl_date}:</h3>
+                                <Grid>
+                                  {/* {this.state.video_call && ( */}
+                                  {/* <a
                                         onClick={() =>
                                           this.handleOpenFancyVdo(
                                             i,
@@ -1427,49 +1623,47 @@ class Index extends Component {
                                         />
                                         {vdo_call}
                                       </a> */}
-                                {/* )} */}
-                                {/* {this.state.office_visit && ( */}
-                                <a
-                                  onClick={() =>
-                                    this.handleOpenFancyVdo(
-                                      i,
-                                      "appointments",
-                                      doc.appointments[0]
-                                    )
-                                  }
-                                >
-                                  <img
-                                    src={require("assets/images/ShapeCopy2.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                  {doc.appointments &&
+                                  {/* )} */}
+                                  {/* {this.state.office_visit && ( */}
+                                  <a
+                                    onClick={() =>
+                                      this.handleOpenFancyVdo(
+                                        i,
+                                        "appointments",
+                                        doc.appointments[0]
+                                      )
+                                    }
+                                  >
+                                    <img
+                                      src={require("assets/images/ShapeCopy2.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {doc.appointments &&
                                     doc.appointments.length > 0 &&
                                     doc.appointments[0].custom_text
-                                    ? doc.appointments[0].custom_text
-                                    : office_visit}
-                                </a>
+                                      ? doc.appointments[0].custom_text
+                                      : office_visit}
+                                  </a>
 
-                                <a
-                                  onClick={() => {
-                                    this.handleOpenFancyVdo(
-                                      i,
-                                      "homevisit_appointment",
-                                      doc.homevisit_appointment[0]
-                                    )
-                                  }
-                                    
-                                  }
-                                >
-                                  <img
-                                    src={require("assets/images/ShapeCopy2.svg")}
-                                    alt=""
-                                    title=""
-                                  />
+                                  <a
+                                    onClick={() => {
+                                      this.handleOpenFancyVdo(
+                                        i,
+                                        "homevisit_appointment",
+                                        doc.homevisit_appointment[0]
+                                      );
+                                    }}
+                                  >
+                                    <img
+                                      src={require("assets/images/ShapeCopy2.svg")}
+                                      alt=""
+                                      title=""
+                                    />
 
-                                  {Home_visit}
-                                </a>
-                                {/* )}
+                                    {Home_visit}
+                                  </a>
+                                  {/* )}
                                     <a
                                       onClick={() =>
                                         this.handleOpenFancyVdo(
@@ -1487,12 +1681,13 @@ class Index extends Component {
                                       />
                                       {consultancy_cstm_calnder}
                                     </a> */}
+                                </Grid>
                               </Grid>
-                            </Grid>
-                          ))}
+                            ))}
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </div>
+                    </div>
+                  )
                   // ))}
                 }
               </div>
@@ -1507,19 +1702,18 @@ class Index extends Component {
           onClose={this.handleCloseFancyVdo}
           className={
             this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
               ? "darkTheme editBoxModel"
               : "editBoxModel"
           }
         >
           <Grid className="slotBoxMain">
             <Grid className="slotBoxCourse">
-              {patNotSelected && <p className="err_message">{plz_select_patient}</p>}
-              <a
-                onClick={this.handleCloseFancyVdo}
-                className="timSlotClose"
-              >
+              {patNotSelected && (
+                <p className="err_message">{plz_select_patient}</p>
+              )}
+              <a onClick={this.handleCloseFancyVdo} className="timSlotClose">
                 <img
                   src={require("assets/images/close-search.svg")}
                   alt=""
@@ -1533,97 +1727,97 @@ class Index extends Component {
                     value={this.state.date}
                   />
                 </Grid>
-                <Grid className="selTimeSlot">
-                  <Grid>
-                    <label>{slct_time_slot}</label>
-                  </Grid>
+                <Grid className="selTimeSlot allTimeSlotSec">
+                  <Grid className="midTimeSlotSec">
+                    <Grid>
+                      <label>{slct_time_slot}</label>
+                    </Grid>
 
-                  <Grid className="selTimeAM">
-                    {this.state.appointDate &&
-                      this.state.appointDate.length > 0 ?
-                      (
-                        this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
-                          ?
+                    <Grid className="selTimeAM">
+                      {this.state.appointDate &&
+                      this.state.appointDate.length > 0 ? (
+                        this.Availabledays(
+                          this.state.selectedDate,
+                          this.state.appointmentData.appointment_days
+                        ) ? (
                           <Grid>
                             <span>{NotAvailable}!</span>
                           </Grid>
-
-                          : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
-                            this.state.appointmentData.holidays_end)
-                            ?
-                            <Grid>
-                              <span>{holiday}!</span>
-                            </Grid> :
-                            (
-                              this.state.allSlotes && this.state.allSlotes.map((data, iA) => {
-                                if (
-                                  this.Isintime(
-                                    this.state.appointDate[iA],
-                                    this.state.appointmentData.breakslot_start,
-                                    this.state.appointmentData.breakslot_end,
-                                    this.state.appointmentData.holidays_start,
-                                    this.state.appointmentData.holidays_end,
-                                  )
-                                )
-                                  return;
-
-                                return (
-                                  <Grid>
-                                    {this.state.appointDate[iA + 1] &&
-                                      this.state.appointDate[iA + 1] !==
-                                      "undefined" &&
-                                      iA === 0 ? (
-                                      <a
-                                        className={
-                                          this.state.currentSelected === 0 &&
-                                          "current_selected"
-                                        }
-                                        onClick={() => {
-                                          this.findAppointment(
-                                            "tab3",
-                                            doc_select,
-                                            appointType,
-                                            apointDay,
-                                            iA
-                                          );
-                                        }}
-                                      >
-                                        {data?.slot}
-                                      </a>
-                                    ) : (
-                                      this.state.appointDate[iA + 1] &&
-                                      this.state.appointDate[iA + 1] !==
-                                      "undefined" && (
-                                        <a
-                                          className={
-                                            this.state.currentSelected &&
-                                              this.state.currentSelected === iA
-                                              ? "current_selected"
-                                              : ""
-                                          }
-                                          onClick={() => {
-                                            this.findAppointment(
-                                              "tab3",
-                                              doc_select,
-                                              appointType,
-                                              apointDay,
-                                              iA
-                                            );
-                                          }}
-                                        >
-                                          {data?.slot}
-                                        </a>
-                                      )
-                                    )}
-                                  </Grid>
-                                );
-                              })
+                        ) : this.ExitinHoliday(
+                            this.state.selectedDate,
+                            this.state.appointmentData.holidays_start,
+                            this.state.appointmentData.holidays_end
+                          ) ? (
+                          <Grid>
+                            <span>{holiday}!</span>
+                          </Grid>
+                        ) : (
+                          this.state.allSlotes &&
+                          this.state.allSlotes.map((data, iA) => {
+                            if (
+                              this.Isintime(
+                                this.state.appointDate[iA],
+                                this.state.appointmentData.breakslot_start,
+                                this.state.appointmentData.breakslot_end,
+                                this.state.appointmentData.holidays_start,
+                                this.state.appointmentData.holidays_end
+                              )
                             )
+                              return;
 
-
-                      )
-                      :
-                      this.state.appointDate !== undefined ? (
+                            return (
+                              <Grid>
+                                {this.state.appointDate[iA + 1] &&
+                                this.state.appointDate[iA + 1] !==
+                                  "undefined" &&
+                                iA === 0 ? (
+                                  <a
+                                    className={
+                                      this.state.currentSelected === 0 &&
+                                      "current_selected"
+                                    }
+                                    onClick={() => {
+                                      this.findAppointment(
+                                        "tab3",
+                                        doc_select,
+                                        appointType,
+                                        apointDay,
+                                        iA
+                                      );
+                                    }}
+                                  >
+                                    {data?.slot}
+                                  </a>
+                                ) : (
+                                  this.state.appointDate[iA + 1] &&
+                                  this.state.appointDate[iA + 1] !==
+                                    "undefined" && (
+                                    <a
+                                      className={
+                                        this.state.currentSelected &&
+                                        this.state.currentSelected === iA
+                                          ? "current_selected"
+                                          : ""
+                                      }
+                                      onClick={() => {
+                                        this.findAppointment(
+                                          "tab3",
+                                          doc_select,
+                                          appointType,
+                                          apointDay,
+                                          iA
+                                        );
+                                      }}
+                                    >
+                                      {data?.slot}
+                                    </a>
+                                  )
+                                )}
+                              </Grid>
+                            );
+                          })
+                        )
+                      ) : this.state.appointDate !== undefined ? (
                         <Grid>
                           <span>{NotAvailable}!</span>
                         </Grid>
@@ -1632,6 +1826,7 @@ class Index extends Component {
                           <span>{NotAvailable}!</span>
                         </Grid>
                       )}
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid>{this.state.allSlotes?.slot}</Grid>
@@ -1651,10 +1846,7 @@ class Index extends Component {
                   </Grid>
                   <Grid className="delQuesBook">
                     <a onClick={this.bookAppointment}>{book}</a>
-                    <a
-                      onClick={this.handleCloseFancyVdo}>
-                      {cancel}
-                    </a>
+                    <a onClick={this.handleCloseFancyVdo}>{cancel}</a>
                   </Grid>
                 </Grid>
               </Grid>
@@ -1680,7 +1872,7 @@ const mapStateToProps = (state) => {
     House,
     settings,
     verifyCode,
-    speciality
+    speciality,
   };
 };
 export default withRouter(
@@ -1691,6 +1883,5 @@ export default withRouter(
     authy,
     houseSelect,
     Speciality,
-  })((Index)
-  )
+  })(Index)
 );

@@ -80,7 +80,7 @@ export const handleSubmit = (current) => {
     current.setState({ errorMsg: Plz_enter_a_valid_price })
   }
   else {
-    data['price'] = data?.price ? Number(data?.price) : 0
+    data['price'] = data?.price ? Number(data?.price) : 0;
     if (current.state.updateTrack._id) {
       current.setState({
         isButtonDisabled: true
