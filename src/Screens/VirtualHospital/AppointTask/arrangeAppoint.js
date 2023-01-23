@@ -753,9 +753,9 @@ class Index extends Component {
             this.state.personalinfo?.insurance[0]?.insurance_number &&
             this.state.personalinfo?.insurance[0]?.insurance_number,
           date: this.state.selectedDate,
-          start_time: this.state.mypoint.start,
-          end_time: this.state.mypoint.end,
-          appointment_type: this.state.mypoint.type,
+          start_time: this.state.mypoint?.start || null,
+          end_time: this.state.mypoint?.end || null,
+          appointment_type: this.state.mypoint?.type || null,
           insurance_number: insurance_no,
           annotations: this.state.UpDataDetails.annotations,
           status: "free",
