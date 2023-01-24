@@ -27,7 +27,7 @@ import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import Timezone from "timezon.json";
 import { authy } from "Screens/Login/authy.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index";
 import { commonHeader } from "component/CommonHeader/index";
 import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
@@ -260,8 +260,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;

@@ -20,7 +20,7 @@ import ProfileSection from "Screens/Components/CommonProfileSec/profileUpdate";
 import SecuritySection from "Screens/Components/CommonProfileSec/security";
 import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import { OptionList } from "Screens/Login/metadataaction";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index"
 import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount"; 
 import {GetLanguageMetadata, getUserData } from "Screens/Components/CommonProfileSec/api";
@@ -111,7 +111,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="profile" />
                 <LeftMenuMobile isNotShow={true} currentPage="profile" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* Website Mid Content */}
                 <Grid item xs={12} md={8}>
                   <Grid className="profilePkg ">

@@ -17458,6 +17458,19 @@ a.dtlCountEmail{
   }
 }
 
+
+@media(max-width:960px){
+.allTimeSlotSec{
+  border:none;
+  width:100%!important;
+  display:inline-block;
+}
+.midTimeSlotSec{
+  border:1px solid #BFC1C1;
+  border-radius: 4px;
+  margin: 8px;
+}
+}
 .setAssignedToA span{
 top: -60px !important;
 }
@@ -17470,4 +17483,9 @@ left: -75px!important;
 .setAssignedToC span{
 top: -35px!important;
 left: -38px!important;
+}
+@media (max-width: 710px){
+ .slotBoxMain {
+    width: 96%!important;
+}
 }

@@ -291,7 +291,7 @@ class Index extends Component {
                     } else {
                       this.setState({
                         loaderImage: false,
-                        regisError0: response.data.msg,
+                        regisError0: response.data.message,
                       });
                     }
                   });
@@ -777,8 +777,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim ? state.LoginReducerAim : {};
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   return {

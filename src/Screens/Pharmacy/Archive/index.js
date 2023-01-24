@@ -24,7 +24,7 @@ import {
 } from "Screens/Components/BasicMethod/index";
 import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
 import { getLanguage } from "translations/index"
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { delete_click_track } from "Screens/Components/CommonApi/index.js";
 import { commonHeader } from "component/CommonHeader/index.js";
 class Index extends Component {
@@ -331,7 +331,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="more" />
                 <LeftMenuMobile isNotShow={true} currentPage="more" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10}>

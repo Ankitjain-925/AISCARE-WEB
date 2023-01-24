@@ -18,7 +18,7 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { commonHeader } from "component/CommonHeader/index";
 import Loader from "Screens/Components/Loader/index";
-import {SocketIo, clearScoket} from "socket";
+import {SocketIo} from "socket";
 // import io from "socket.io-client";
 import { currentAvaliable } from "./current.js";
 // import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
@@ -840,8 +840,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim,loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { House } = state.houseSelect;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;

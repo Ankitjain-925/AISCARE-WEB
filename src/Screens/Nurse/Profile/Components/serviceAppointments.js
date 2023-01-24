@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
-import sitedata, { data } from "sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
@@ -121,7 +121,7 @@ class Index extends Component {
           }
 
           keysArray.map((key) => {
-            if (privateAppointments[key] == undefined) {
+            if (privateAppointments[key] === undefined) {
               privateAppointments[key] = apoinmentdata[key];
             }
           });

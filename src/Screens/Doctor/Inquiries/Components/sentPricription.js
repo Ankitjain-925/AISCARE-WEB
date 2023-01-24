@@ -205,20 +205,20 @@ class Index extends Component {
     };
 
     render() {
-        const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (
-                <img
-                    style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }}
-                    src={imagePreviewUrl}
-                />
-            );
-        }
+        const { MypatientsData } = this.state;
+        // let $imagePreview = null;
+        // if (imagePreviewUrl) {
+        //     $imagePreview = (
+        //         <img
+        //             style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }}
+        //             src={imagePreviewUrl}
+        //         />
+        //     );
+        // }
         let translate = getLanguage(this.props.stateLanguageType)
         let {
-            previous,
-            next,
+            // previous,
+            // next,
             status,
             recved_on,
             Patient,

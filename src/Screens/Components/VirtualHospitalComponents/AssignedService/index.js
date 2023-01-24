@@ -7,8 +7,8 @@ import TimeFormat from 'Screens/Components/TimeFormat/index';
 import Button from "@material-ui/core/Button";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import TextField from '@material-ui/core/TextField';
+// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+// import TextField from '@material-ui/core/TextField';
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -188,11 +188,11 @@ class Index extends Component {
         this.setState({ assignedTo: e }, () => {
             var data =
                 e?.length > 0 &&
-                e.reduce((last, current, index) => {
+                e.reduce((last, current) => {
                     let isProf =
                         this.state.professionalArray?.length > 0 &&
                         this.state.professionalArray.filter(
-                            (data, index) => data.user_id === current.value || data._id === current.value
+                            (data) => data.user_id === current.value || data._id === current.value
                         );
                     if (isProf && isProf.length > 0) {
                         last.push(isProf[0]);
@@ -642,8 +642,8 @@ class Index extends Component {
         let { Searchserviceoraddcustominput,
             Addservice,
             For_Hospital,
-            Customservicedescription,
-            Customservicetitle,
+            // Customservicedescription,
+            // Customservicetitle,
             ForPatient,
             Search_Select,
             Entertitle,
@@ -654,17 +654,17 @@ class Index extends Component {
             Archive,
             Delete,
             Enterserviceprice,
-            FilterbySpeciality,
+            // FilterbySpeciality,
             Duplicate,
             Dueon,
             Addtime,
             save_and_close,
             remove_time,
-            assignService,
-            Addnewservice,
+            // assignService,
+            // Addnewservice,
             Services,
-            srvc,
-            qty,
+            // srvc,
+            // qty,
             Add,
             Markasdone,
             ServiceAmount,
@@ -1251,8 +1251,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect;
     const { settings } = state.Settings;

@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import {
   getDate,
   newdate,
-  getImage,
+  // getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -69,7 +69,7 @@ class Index extends Component {
       Delete,
       always,
       VeiwGraph,
-      img_files,
+      // img_files,
       details,
       show,
       Change,
@@ -207,7 +207,7 @@ class Index extends Component {
 
                           this.props.stateLoginValueAim.user.houses.map((newmember) => (
 
-                            this.props.Doctorsetget?.byhospital == newmember.value ? (
+                            this.props.Doctorsetget?.byhospital === newmember.value ? (
                               newmember.roles.includes("edit_respiration") ? (
                                 this.props.comesfrom !== "patient" && (
 
@@ -231,7 +231,7 @@ class Index extends Component {
                                 )
                             ) : (" ")
                           )))
-                          :  (this.props.comesfrom == "adminstaff" ? (
+                          :  (this.props.comesfrom === "adminstaff" ? (
 
                             this.props.House.roles.includes("edit_respiration") ? (
                               this.props.comesfrom !== "patient" && (
@@ -453,7 +453,7 @@ const mapStateToProps = (state) => {
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
 
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   return {
     stateLanguageType,

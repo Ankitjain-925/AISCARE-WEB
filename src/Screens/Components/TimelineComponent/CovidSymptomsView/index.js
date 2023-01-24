@@ -7,12 +7,12 @@ import SymptomQuestions from "../CovidSymptomsField/SymptomQuestions";
 import {
   getDate,
   newdate,
-  getImage,
+  // getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+// import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -80,7 +80,7 @@ class Index extends Component {
       Delete,
       always,
       Change,
-      Location,
+      // Location,
       visibility,
       de_archive,
       not_mentioned,
@@ -792,7 +792,7 @@ const mapStateToProps = (state) => {
   const { Doctorsetget } = state.Doctorset;
   const { House } = state.houseSelect;
 
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
   return {
     stateLanguageType,

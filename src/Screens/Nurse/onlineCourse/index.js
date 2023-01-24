@@ -6,12 +6,12 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from "Screens/Login/authy.js";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Loader from "Screens/Components/Loader/index";
 import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
 import CourseSection from "Screens/Components/OnlineCourses/index.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+// import Notification  from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
   constructor(props) {
@@ -37,8 +37,7 @@ class Index extends Component {
   componentDidMount() {}
 
   render() {
-    const { specialistOption } = this.state;
-    const { stateLoginValueAim, Doctorsetget } = this.props;
+    const { stateLoginValueAim } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -77,7 +76,7 @@ class Index extends Component {
                 {/* Website Menu */}
                 <LeftMenu isNotShow={true} currentPage="course" />
                 <LeftMenuMobile isNotShow={true} currentPage="course" />
-                <Notification />
+                {/* <Notification /> */}
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
                   <CourseSection />

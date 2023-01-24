@@ -1375,7 +1375,7 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { Doctorsetget } = state.Doctorset;
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+  const { stateLoginValueAim } =
     state.LoginReducerAim;
 
   return {

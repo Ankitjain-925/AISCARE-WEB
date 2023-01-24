@@ -6,7 +6,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from 'Screens/actions';
-import { getDate, getImage, GetUrlImage } from '../BasicMethod/index'
+import { GetUrlImage } from '../BasicMethod/index'
 import sitedata from 'sitedata';
 import axios from "axios"
 import { getLanguage } from "Screens/hospital_Admin/translations/index";
@@ -175,7 +175,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
+    const { stateLoginValueAim } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     // const {Doctorsetget} = state.Doctorset;
@@ -183,7 +183,6 @@ const mapStateToProps = (state) => {
     return {
         stateLanguageType,
         stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
         settings,
         //   Doctorsetget,
         //   catfil
