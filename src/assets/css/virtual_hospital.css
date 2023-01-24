@@ -16273,8 +16273,11 @@ width: 90px!important;
     margin-bottom: 32px !important;
   }
 .homeiconcolor{
-  color:#00abaf
+  color:#7F8383;
+  margin-bottom: 5px!important;
+  font-size: 17px!important;
 }
+
 .checkHelth2{
   overflow-y: auto;
   height: 362px !important;
