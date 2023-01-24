@@ -213,7 +213,7 @@ class Index extends Component {
       ProfessionalTask,
       Nurse_view,
       VHS_view,
-      ProfessionalActivity,
+      professional_activity,
       EarlierActivity,
       appointments,
       Care_Questionnary
@@ -461,7 +461,7 @@ class Index extends Component {
                         title=""
                       />
                     )}
-                  <span>{ProfessionalActivity}</span>
+                  <span>{professional_activity}</span>
                 </a>
               </li>
 
