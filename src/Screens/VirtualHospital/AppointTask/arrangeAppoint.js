@@ -296,8 +296,10 @@ class Index extends Component {
 
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false, selectDocData: {}, selectedPatient: {} , selectPatDoc: '',
-    errorMsg: ''});
+    this.setState({
+      openAllowAccess: false, selectDocData: {}, selectedPatient: {}, selectPatDoc: '',
+      errorMsg: ''
+    });
     this.props.handleCloseAllowAccess();
   };
 
@@ -368,6 +370,7 @@ class Index extends Component {
       appointmentData: data,
       doc_select: i,
       appointType: type,
+      errMsg: ""
     });
     setTimeout(() => this.onChange(new Date()), 200)
     // this.onChange()
@@ -379,6 +382,7 @@ class Index extends Component {
       appointDate: [],
       appointmentData: {},
       currentSelected: null,
+      errMsg: ""
     });
     Object.keys(this.state.allDocData).map((index, i) => { });
   };
@@ -517,7 +521,7 @@ class Index extends Component {
           })
 
           var localDateTime = new Date(new Date().setDate(new Date(date).getDate()));
-          var id =  this.state.selectDocData?.value ||  this.state.selectNurData?.value;
+          var id = this.state.selectDocData?.value || this.state.selectNurData?.value;
           this.setState({ loaderImage: true });
 
           axios
@@ -622,6 +626,8 @@ class Index extends Component {
   }
 
   bookAppointment = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { please_select_slots } = translate;
     var insurance_no =
       this.state.personalinfo?.insurance &&
         this.state.personalinfo?.insurance.length > 0 &&
@@ -633,82 +639,87 @@ class Index extends Component {
     const user_token = this.props.stateLoginValueAim.token;
     if (this.state.personalinfo &&
       this.state.personalinfo?.first_name !== "") {
-      axios
-        .post(sitedata.data.path + "/User/appointment", {
-          patient: this.state.personalinfo?._id,
-          doctor_id:
-            this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
-          insurance:
-            this.state.personalinfo &&
-            this.state.personalinfo?.insurance &&
-            this.state.personalinfo?.insurance?.length > 0 &&
-            this.state.personalinfo?.insurance[0] &&
-            this.state.personalinfo?.insurance[0]?.insurance_number &&
-            this.state.personalinfo?.insurance[0]?.insurance_number,
-          date: this.state.selectedDate,
-          start_time: this.state.mypoint.start,
-          end_time: this.state.mypoint.end,
-          appointment_type: this.state.mypoint.type,
-          insurance_number: insurance_no,
-          annotations: this.state.UpDataDetails.annotations,
-          status: "free",
-          house_id: this.props?.House?.value,
-          patient_info: {
-            patient_id: this.state.personalinfo?.profile_id,
-            first_name: this.state.personalinfo?.first_name,
-            last_name: this.state.personalinfo?.last_name,
-            email: this.state.personalinfo?.email,
-            birthday: this.state.personalinfo?.birthday,
-            profile_image: this.state.personalinfo?.image,
-            bucket: this.state.personalinfo?.bucket,
-          },
-          lan: this.props.stateLanguageType,
-          docProfile: {
-            patient_id:
-              this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.profile_id,
-            first_name:
-              this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.first_name,
-            last_name:
-              this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.last_name,
-            email:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.email,
-            birthday:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
-            profile_image:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.image,
-            speciality:
-              this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.speciality,
-            subspeciality:
-              this.state.selectedDoc.data &&
-              this.state.selectedDoc.data.subspeciality,
-            phone:
-              this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
-          },
-        })
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed === true) {
-            this.setState({
-              successfull: true,
-              openAllowLoc: false,
-              openFancyVdo: false,
-              currentSelected: {},
-            });
-            this.props.handleCloseAllowAccess();
-            this.props.getTaskData();
-            this.getPatientData();
-            setTimeout(
-              function () {
-                this.setState({ successfull: false });
-              }.bind(this),
-              5000
-            );
-          }
-        });
+      if (this.state.mypoint?.start && this.state.mypoint?.end) {
+        axios
+          .post(sitedata.data.path + "/User/appointment", {
+            patient: this.state.personalinfo?._id,
+            doctor_id:
+              this.state.selectedDoc?.data && this.state.selectedDoc?.data?._id,
+            insurance:
+              this.state.personalinfo &&
+              this.state.personalinfo?.insurance &&
+              this.state.personalinfo?.insurance?.length > 0 &&
+              this.state.personalinfo?.insurance[0] &&
+              this.state.personalinfo?.insurance[0]?.insurance_number &&
+              this.state.personalinfo?.insurance[0]?.insurance_number,
+            date: this.state.selectedDate,
+            start_time: this.state.mypoint?.start,
+            end_time: this.state.mypoint?.end,
+            appointment_type: this.state.mypoint?.type,
+            insurance_number: insurance_no,
+            annotations: this.state.UpDataDetails?.annotations,
+            status: "free",
+            house_id: this.props?.House?.value,
+            patient_info: {
+              patient_id: this.state.personalinfo?.profile_id,
+              first_name: this.state.personalinfo?.first_name,
+              last_name: this.state.personalinfo?.last_name,
+              email: this.state.personalinfo?.email,
+              birthday: this.state.personalinfo?.birthday,
+              profile_image: this.state.personalinfo?.image,
+              bucket: this.state.personalinfo?.bucket,
+            },
+            lan: this.props.stateLanguageType,
+            docProfile: {
+              patient_id:
+                this.state.selectedDoc.data &&
+                this.state.selectedDoc.data.profile_id,
+              first_name:
+                this.state.selectedDoc.data &&
+                this.state.selectedDoc.data.first_name,
+              last_name:
+                this.state.selectedDoc.data &&
+                this.state.selectedDoc.data.last_name,
+              email:
+                this.state.selectedDoc.data && this.state.selectedDoc.data.email,
+              birthday:
+                this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
+              profile_image:
+                this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+              speciality:
+                this.state.selectedDoc.data &&
+                this.state.selectedDoc.data.speciality,
+              subspeciality:
+                this.state.selectedDoc.data &&
+                this.state.selectedDoc.data.subspeciality,
+              phone:
+                this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
+            },
+          })
+          .then((responce) => {
+            this.setState({ loaderImage: false });
+            if (responce.data.hassuccessed === true) {
+              this.setState({
+                successfull: true,
+                openAllowLoc: false,
+                openFancyVdo: false,
+                currentSelected: {},
+                mypoint: {}
+              });
+              this.props.handleCloseAllowAccess();
+              this.props.getTaskData();
+              this.getPatientData();
+              setTimeout(
+                function () {
+                  this.setState({ successfull: false });
+                }.bind(this),
+                5000
+              );
+            }
+          });
+      } else {
+        this.setState({ errMsg: please_select_slots })
+      }
     } else if (!this.state.personalinfo) {
       this.setState({ patNotSelected: true })
       setTimeout(() => {
@@ -1458,7 +1469,7 @@ class Index extends Component {
                                       doc.homevisit_appointment[0]
                                     )
                                   }
-                                    
+
                                   }
                                 >
                                   <img
@@ -1649,6 +1660,7 @@ class Index extends Component {
                       }}
                     ></textarea>
                   </Grid>
+                  <div className="err_message">{this.state.errMsg}</div>
                   <Grid className="delQuesBook">
                     <a onClick={this.bookAppointment}>{book}</a>
                     <a
