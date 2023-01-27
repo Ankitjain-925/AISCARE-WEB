@@ -2180,7 +2180,9 @@
     "Services_name":"Service Name",
     "taskname":"Task Name",
     "task_Description":"Task Description",
-    "please_select_slots":"Please select time slot first"
+    "please_select_slots":"Please select time slot first",
+    "please_fill_the_citizenship":"Please fill the citizenship country",
+    "first_name_cant_empt":"First name can't be empty"
     }
     }
 

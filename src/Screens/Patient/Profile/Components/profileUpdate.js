@@ -112,6 +112,7 @@ class Index extends Component {
       updateIns: -1,
       error3: false,
       error4: false,
+      error5: false,
       succUpdate: false,
       copied: false,
       value: 0,
@@ -383,6 +384,8 @@ class Index extends Component {
       profile_not_updated,
       mobile_number_not_valid,
       insurance_added,
+      first_name_cant_empt,
+      please_fill_the_citizenship
     } = translate;
 
     return (
@@ -401,7 +404,12 @@ class Index extends Component {
             )}
             {this.state.error4 && (
               <div className="err_message">
-                {'Please fill the citizenship country'}
+                {please_fill_the_citizenship}
+              </div>
+            )}
+            {this.state.error5 && (
+              <div className="err_message">
+                {first_name_cant_empt}
               </div>
             )}
             {this.state.phonevalidate && (

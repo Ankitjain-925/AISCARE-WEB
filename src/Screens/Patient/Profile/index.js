@@ -81,13 +81,13 @@ class Index extends Component {
       this.GetLanguageMetadata();
     });
   }
-  
+
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.tissue &&
-        this.state.allMetadata.tissue.length > 0 &&
-        this.state.allMetadata.tissue,
+      this.state.allMetadata.tissue &&
+      this.state.allMetadata.tissue.length > 0 &&
+      this.state.allMetadata.tissue,
       this.props.stateLanguageType
     );
     var zones = GetLanguageDropdown(
@@ -157,9 +157,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme homeBgDrk"
             : "homeBg"
         } >
@@ -239,7 +239,7 @@ class Index extends Component {
                       {/* Start of KYC */}
                       {value === 5 && (
                         <TabContainer>
-                          <KycSection comesFrom="pateint"/>
+                          <KycSection comesFrom="pateint" />
                         </TabContainer>
                       )}
                       {/* End of KYC */}
