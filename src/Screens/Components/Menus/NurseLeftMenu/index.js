@@ -123,7 +123,7 @@ class Index extends Component {
       Nurse_view,
       VHS_view,
       appointments,
-      ProfessionalActivity,
+      professional_activity,
       EarlierActivity,
       Care_Questionnary
     } = translate;
@@ -371,7 +371,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{ProfessionalActivity}</span>
+                <span>{professional_activity}</span>
               </a>
             </li>
 

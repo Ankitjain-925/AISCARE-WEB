@@ -1681,12 +1681,11 @@
 
 		"cardiac_heart_failure":"Heart failure",
 
-		"ProfessionalActivity":"النشاط المهني",
+		"professional_activity":"النشاط المهني",
 		"EarlierActivity":"نشاط سابق",
 		"edit_assigned_services":"تحرير الخدمات المخصصة",
 		"delete_assigned_services":"حذف الخدمات المعينة",
 		"Care_Questionnary":"استبيان العناية",
-		
 		"For_Hospital":"إلى عن على مستشفى ",
 		"Every_2_Day":"Every 2 Day",
 		"Quarter":"Quarter",
@@ -1707,7 +1706,6 @@
 		"timed_up_and_go ":"timed up and go ",
 		"Bladder":"Bladder",
 	
-		"Care_Questionnary":"Care Questionnary",
 		"Can_you_use_your_tools":"Can you use your tools",
 		"Ask_for_Food ":"Ask for Food ",
 		"Have_you_eaten":"Have you eaten",
