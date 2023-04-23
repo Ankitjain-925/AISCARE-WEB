@@ -59,77 +59,80 @@ class Index extends Component {
                 {openQues &&
                     <Grid className="allFormSection allFormSection1">
                         <h2>{Last_Filled_Information}</h2>
-                        {this.state.prevData && this.state.prevData?.length > 0 && this.state.prevData.map((item) => (
-                            < Grid className="nurseImagrProf" >
-                                <Grid className="nurseImagrProf1">
-                                    <Grid><label>{date}: </label>
-                                        <p>{getDate(
-                                            item?.submitDate,
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.date_format
-                                        )}</p>
-                                    </Grid>
-                                    <Grid>
-                                        <label>{type}:  </label>
-                                        <p>{item?.questionnaire_type === "daily" ?
-                                            "Daily" : item?.questionnaire_type === "two_days" ?
-                                                "Two Days" : item?.questionnaire_type === "two_weeks" ?
-                                                    "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}</p>
-
-                                    </Grid>
-                                    <Grid>
-                                        <label>{Checked_by}: </label>
-                                        <div className="showAllAssignedInner">
-                                            <Grid className="allInfo allInfo2 tasklistName">
-                                                <Grid>
-                                                    <S3Image imgUrl={item?.nurse_info?.image} />
-                                                </Grid>
-                                                <Grid className="allInfoRght">
-                                                    <Grid>
-                                                        <label>
-                                                            {item?.nurse_info?.first_name} {item?.nurse_info?.last_name}
-                                                        </label>
-                                                    </Grid>
-                                                    <p>{item?.nurse_info?.alies_id}</p>
-                                                </Grid>
-                                            </Grid>
-                                        </div>
-                                    </Grid>
-                                    <Grid>
-                                        <label>{Patient}: </label>
-                                        <div className="showAllAssignedInner">
-                                            <Grid className="allInfo allInfo2 tasklistName">
-                                                <Grid>
-                                                    <S3Image imgUrl={item?.patient_info?.image} />
-                                                </Grid>
-                                                <Grid className="allInfoRght">
-                                                    <Grid>
-                                                        <label>
-                                                            {item?.patient_info?.first_name} {item?.patient_info?.last_name}
-                                                        </label>
-                                                    </Grid>
-                                                    <p>{item?.patient_info?.profile_id}</p>
-                                                </Grid>
-                                            </Grid>
-                                        </div>
-
-                                    </Grid>
-                                    <Grid>
-                                        <label>{hospital}:</label>
-                                        <p> {this.props.showHouseValue(item?.house_id)}</p>
-                                    </Grid>
-                                    <Grid className="bp_graph FullInfoSet">
-
-                                        <Grid>
-                                            <a onClick={() => openFullQues(this, item)}>
-                                                {full_information}
-                                            </a>
+                        {console.log("this.state.prevData", this.state.prevData)}
+                        {this.state.prevData &&
+                            this.state.prevData.length > 0 &&
+                            this.state.prevData.map((item) => (
+                                < Grid className="nurseImagrProf" >
+                                    <Grid className="nurseImagrProf1">
+                                        <Grid><label>{date}: </label>
+                                            <p>{getDate(
+                                                item?.submitDate,
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting.date_format
+                                            )}</p>
                                         </Grid>
-                                    </Grid>
+                                        <Grid>
+                                            <label>{type}:  </label>
+                                            <p>{item?.questionnaire_type === "daily" ?
+                                                "Daily" : item?.questionnaire_type === "two_days" ?
+                                                    "Two Days" : item?.questionnaire_type === "two_weeks" ?
+                                                        "Two weeks" : item?.questionnaire_type === "quarter" ? "Quarter" : "Full Questionnaire"}</p>
 
+                                        </Grid>
+                                        <Grid>
+                                            <label>{Checked_by}: </label>
+                                            <div className="showAllAssignedInner">
+                                                <Grid className="allInfo allInfo2 tasklistName">
+                                                    <Grid>
+                                                        <S3Image imgUrl={item?.nurse_info?.image} />
+                                                    </Grid>
+                                                    <Grid className="allInfoRght">
+                                                        <Grid>
+                                                            <label>
+                                                                {item?.nurse_info?.first_name} {item?.nurse_info?.last_name}
+                                                            </label>
+                                                        </Grid>
+                                                        <p>{item?.nurse_info?.alies_id}</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
+                                        </Grid>
+                                        <Grid>
+                                            <label>{Patient}: </label>
+                                            <div className="showAllAssignedInner">
+                                                <Grid className="allInfo allInfo2 tasklistName">
+                                                    <Grid>
+                                                        <S3Image imgUrl={item?.patient_info?.image} />
+                                                    </Grid>
+                                                    <Grid className="allInfoRght">
+                                                        <Grid>
+                                                            <label>
+                                                                {item?.patient_info?.first_name} {item?.patient_info?.last_name}
+                                                            </label>
+                                                        </Grid>
+                                                        <p>{item?.patient_info?.profile_id}</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
+
+                                        </Grid>
+                                        <Grid>
+                                            <label>{hospital}:</label>
+                                            <p> {this.props.showHouseValue(item?.house_id)}</p>
+                                        </Grid>
+                                        <Grid className="bp_graph FullInfoSet">
+
+                                            <Grid>
+                                                <a onClick={() => openFullQues(this, item)}>
+                                                    {full_information}
+                                                </a>
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        ))}
+                            ))}
                         <ShowPrevQues
                             closeFullQues={() => closeFullQues(this)}
                             openModal={this.state.openModal}

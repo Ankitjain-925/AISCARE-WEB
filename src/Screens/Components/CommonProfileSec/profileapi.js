@@ -123,8 +123,8 @@ export const getUserData = (current, datas) => {
             datas = current.state.UpDataDetails.insurance;
             var find =
                 response.data && response.data.data && response.data.data.image;
-                var forUpdate = {value: true, token: user_token, user: response.data.data}
-            current.props.LoginReducerAim(response.data.data?.email, '', user_token, () => {}, forUpdate);
+            var forUpdate = { value: true, token: user_token, user: response.data.data }
+            current.props.LoginReducerAim(response.data.data?.email, '', user_token, () => { }, forUpdate);
             SettingImage(find, current);
             current.setState({ loaderImage: false });
         })
@@ -195,7 +195,7 @@ export const onChange = (date, current) => {
 
 //Save the User profile
 export const saveUserData = (current, datas) => {
-    if(current.state.UpDataDetails?.citizen_country?.value){
+    if (current.state.UpDataDetails?.citizen_country?.value) {
         if (
             current.state.insuranceDetails.insurance !== "" &&
             current.state.insuranceDetails.insurance_number !== "" &&
@@ -253,45 +253,45 @@ export const saveUserData = (current, datas) => {
         var parent_id = current.state.UpDataDetails.parent_id
             ? current.state.UpDataDetails.parent_id
             : "0";
-            var tocheckWith = current.state.UpDataDetails?.citizen_country || current?.state?.flag_mobile;
-            var getBucket = contry && contry.length > 0 && contry.filter((value, key) => value.code === tocheckWith?.value.toUpperCase());
-            axios.put(
-                sitedata.data.path + "/UserProfile/Users/update",
-                {
-                    pin: current.state.UpDataDetails.pin,
-                    first_name: current.state.UpDataDetails.first_name,
-                    last_name: current.state.UpDataDetails.last_name,
-                    nick_name: current.state.UpDataDetails.nick_name,
-                    title: current.state.UpDataDetails.title,
-                    birthday: current.state.UpDataDetails.birthday,
-                    language: current.state.UpDataDetails.language,
-                    speciality: current.state.speciality_multi,
-                    phone: current.state.UpDataDetails.phone,
-                    mobile: current.state.UpDataDetails.mobile,
-                    fax: current.state.UpDataDetails.fax,
-                    website: current.state.UpDataDetails.website,
-                    email: current.state.UpDataDetails.email,
-                    password: current.state.UpDataDetails.password,
-                    sex: current.state.UpDataDetails.sex,
-                    street: current.state.UpDataDetails.street,
-                    city: current.state.city,
-                    area: current.state.area,
-                    address: current.state.UpDataDetails.address,
-                    emergency_contact_name: current.state.UpDataDetails
-                        .emergency_contact_name,
-                    emergency_email: current.state.UpDataDetails.emergency_email,
-                    emergency_number: current.state.UpDataDetails.emergency_number,
-                    family_doc: current.state.UpDataDetails.family_doc,
-                    insurance: datas,
-                    is2fa: current.state.UpDataDetails.is2fa,
-                    country: current.state.UpDataDetails.country,
-                    citizen_country: current.state.UpDataDetails.citizen_country,
-                    pastal_code: current.state.UpDataDetails.pastal_code,
-                    bucket: getBucket[0].bucket,
-                    country_code: current.state.UpDataDetails?.citizen_country?.value || current?.state?.flag_mobile
-                },
-                commonHeader(user_token)
-            )
+        var tocheckWith = current.state.UpDataDetails?.citizen_country || current?.state?.flag_mobile;
+        var getBucket = contry && contry.length > 0 && contry.filter((value, key) => value.code === tocheckWith?.value.toUpperCase());
+        axios.put(
+            sitedata.data.path + "/UserProfile/Users/update",
+            {
+                pin: current.state.UpDataDetails.pin,
+                first_name: current.state.UpDataDetails.first_name,
+                last_name: current.state.UpDataDetails.last_name,
+                nick_name: current.state.UpDataDetails.nick_name,
+                title: current.state.UpDataDetails.title,
+                birthday: current.state.UpDataDetails.birthday,
+                language: current.state.UpDataDetails.language,
+                speciality: current.state.speciality_multi,
+                phone: current.state.UpDataDetails.phone,
+                mobile: current.state.UpDataDetails.mobile,
+                fax: current.state.UpDataDetails.fax,
+                website: current.state.UpDataDetails.website,
+                email: current.state.UpDataDetails.email,
+                password: current.state.UpDataDetails.password,
+                sex: current.state.UpDataDetails.sex,
+                street: current.state.UpDataDetails.street,
+                city: current.state.city,
+                area: current.state.area,
+                address: current.state.UpDataDetails.address,
+                emergency_contact_name: current.state.UpDataDetails
+                    .emergency_contact_name,
+                emergency_email: current.state.UpDataDetails.emergency_email,
+                emergency_number: current.state.UpDataDetails.emergency_number,
+                family_doc: current.state.UpDataDetails.family_doc,
+                insurance: datas,
+                is2fa: current.state.UpDataDetails.is2fa,
+                country: current.state.UpDataDetails.country,
+                citizen_country: current.state.UpDataDetails.citizen_country,
+                pastal_code: current.state.UpDataDetails.pastal_code,
+                bucket: getBucket[0].bucket,
+                country_code: current.state.UpDataDetails?.citizen_country?.value || current?.state?.flag_mobile
+            },
+            commonHeader(user_token)
+        )
             .then((responce) => {
                 if (responce.data.hassuccessed) {
                     current.setState({ loaderImage: false });
@@ -337,10 +337,10 @@ export const saveUserData = (current, datas) => {
                 }
             });
     }
-    else{
-        current.setState({error4: true});
+    else {
+        current.setState({ error4: true });
     }
-  
+
 };
 
 //For change the language and the Speciality
@@ -445,88 +445,88 @@ export const changeAlies = (e, current) => {
 //Chnage Id Pin by here
 export const ChangeIDPIN = (current) => {
     if (
-      !current.state.DuplicateAlies &&
-      !current.state.toSmall &&
-      !current.state.toSmall1
+        !current.state.DuplicateAlies &&
+        !current.state.toSmall &&
+        !current.state.toSmall1
     ) {
-      current.setState({ loaderImage: true });
-      const user_token = current.props.stateLoginValueAim.token;
-      axios
-        .put(
-          sitedata.data.path + "/UserProfile/Users/update",
-          {
-            pin: current.state.UpDataDetails1.pin,
-            alies_id: current.state.UpDataDetails1.alies_id,
-          },
-          commonHeader(user_token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            current.setState({ ChangedPIN: true ,  UpDataDetails1: {}});
-            setTimeout(() => {
-              current.setState({ ChangedPIN: false });
-            }, 5000);
-          }
-          current.setState({ loaderImage: false });
-          getUserData(current);
-          current.handlePinClose("chngPinOpen");
-        });
+        current.setState({ loaderImage: true });
+        const user_token = current.props.stateLoginValueAim.token;
+        axios
+            .put(
+                sitedata.data.path + "/UserProfile/Users/update",
+                {
+                    pin: current.state.UpDataDetails1.pin,
+                    alies_id: current.state.UpDataDetails1.alies_id,
+                },
+                commonHeader(user_token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    current.setState({ ChangedPIN: true, UpDataDetails1: {} });
+                    setTimeout(() => {
+                        current.setState({ ChangedPIN: false });
+                    }, 5000);
+                }
+                current.setState({ loaderImage: false });
+                getUserData(current);
+                current.handlePinClose("chngPinOpen");
+            });
     }
-  };
+};
 
-  //For upload the Profile pic
-  export const fileUpload = async (event, current) => {
-      current.setState({ loaderImage: true });
-      // let reader = new FileReader();
-      let file = event[0];
-      current.setState({
+//For upload the Profile pic
+export const fileUpload = async (event, current) => {
+    current.setState({ loaderImage: true });
+    // let reader = new FileReader();
+    let file = event[0];
+    current.setState({
         loaderImage: true,
         imagePreviewUrl1: URL.createObjectURL(file),
-      });
-      let fileParts = event[0].name.split(".");
-      let fileName = fileParts[0];
-      let fileType = fileParts[1];
-      const compressedFile = await resizeFile(file);
+    });
+    let fileParts = event[0].name.split(".");
+    let fileName = fileParts[0];
+    let fileType = fileParts[1];
+    const compressedFile = await resizeFile(file);
 
-      var data = blobToFile(compressedFile, file.name)
-      axios
+    var data = blobToFile(compressedFile, file.name)
+    axios
         .post(sitedata.data.path + "/aws/sign_s3", {
-          fileName: data.name,
-          fileType: fileType,
-          folders: current.props.stateLoginValueAim.user.profile_id + "/",
-          bucket: current.props.stateLoginValueAim.user.bucket,
+            fileName: data.name,
+            fileType: fileType,
+            folders: current.props.stateLoginValueAim.user.profile_id + "/",
+            bucket: current.props.stateLoginValueAim.user.bucket,
         })
         .then((response) => {
-          var returnData = response.data.data.returnData;
-          var signedRequest = returnData.signedRequest;
-          var url = returnData.url;
-          if (fileType === "pdf") {
-            fileType = "application/pdf";
-          }
-          // Put the fileType in the headers for the upload
-          var options = {
-            headers: {
-              "Content-Type": fileType,
-            },
-          };
-          axios
-            .put(signedRequest, data, options)
-            .then((result) => {
-              current.setState(
-                {
-                  uploadedimage:
-                    response.data.data.returnData.url +
-                    "&bucket=" +
-                    current.props.stateLoginValueAim.user.bucket,
-                  loaderImage: false,
+            var returnData = response.data.data.returnData;
+            var signedRequest = returnData.signedRequest;
+            var url = returnData.url;
+            if (fileType === "pdf") {
+                fileType = "application/pdf";
+            }
+            // Put the fileType in the headers for the upload
+            var options = {
+                headers: {
+                    "Content-Type": fileType,
                 },
-                () => {
-                  saveUserData1(current);
-                }
-              );
-            })
-            .catch((error) => { });
+            };
+            axios
+                .put(signedRequest, data, options)
+                .then((result) => {
+                    current.setState(
+                        {
+                            uploadedimage:
+                                response.data.data.returnData.url +
+                                "&bucket=" +
+                                current.props.stateLoginValueAim.user.bucket,
+                            loaderImage: false,
+                        },
+                        () => {
+                            saveUserData1(current);
+                        }
+                    );
+                })
+                .catch((error) => { });
         })
         .catch((error) => { });
-    
-  };
+
+};

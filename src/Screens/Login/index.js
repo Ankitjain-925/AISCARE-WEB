@@ -11,7 +11,7 @@ import { authy } from "./authy.js";
 // import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
 import { Invoices } from "./invoices";
-import {clearScoket} from "socket";
+import { clearScoket } from "socket";
 
 import {
   NavLink,
